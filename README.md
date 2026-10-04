@@ -118,8 +118,11 @@ Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **
 
 ```json
 {"titre": "…", "description": "une ou deux phrases",
- "repliques": [{"v": "A", "t": "…"}, {"v": "B", "t": "…"}]}
+ "repliques": [{"sujet": "Ouverture"}, {"v": "A", "t": "…"}, {"v": "B", "t": "…"},
+               {"sujet": "CRA : déclarer les failles"}, {"v": "A", "t": "…"}, …]}
 ```
+
+Les marqueurs `{"sujet": "…"}` (non lus) annoncent chaque changement de sujet : la synthèse vocale est faite par requêtes de 1 700 caractères au plus, et les coupures entre requêtes tombent sur ces marqueurs (une courte pause les sépare). Un sujet de plus de 1 700 caractères se scinde en deux sujets (« CRA : déclarer les failles », « CRA : et les produits de défense ? ») ; `--check` le signale.
 
 Règles d'écriture :
 - **Fond** : uniquement des faits publiés dans l'édition (puces et synthèses) ; aucun chiffre, aucune date, aucun nom qui n'y figure pas. Mêmes règles de neutralité (§ 4).

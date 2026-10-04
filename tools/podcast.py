@@ -27,10 +27,12 @@ LEXIQUE = os.path.join(ROOT, 'tools', 'prononciation.json')
 API = 'https://api.elevenlabs.io'
 ENDPOINT = API + '/v1/text-to-dialogue'
 DICT_NOM = 'Software Compliance'
+# Modèles qui refusent previous_request_ids (erreur 400) : chaque requête est alors indépendante.
+SANS_CONTINUITE = {'eleven_v3'}
 MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
 RATE = 24000                     # Hz, mono, 16 bits : sortie demandée (output_format=pcm_24000)
 CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
-PAUSE = 0.35                     # secondes de silence entre deux requêtes
+PAUSE = 0.6                      # secondes de silence entre deux requêtes (= entre deux sujets)
 
 # Voix : identifiants ElevenLabs lus dans l'environnement ; un podcast.json peut les remplacer
 # par une clé "voix" ({"A": {"voice": "…"}}).
@@ -72,7 +74,16 @@ def charger(d):
     p = os.path.join(CONTENT, d, 'podcast.json')
     if not os.path.isfile(p): return None, None
     raw = open(p, 'rb').read()
-    return json.loads(raw.decode('utf-8')), hashlib.sha256(raw).hexdigest()
+    pod = json.loads(raw.decode('utf-8'))
+    # {"sujet": "…"} : marque de changement de sujet (non lue). Chaque réplique reçoit le numéro de son sujet.
+    reps, n, noms = [], 0, []
+    for r in pod.get('repliques') or []:
+        if 'sujet' in r and 't' not in r:
+            if reps or noms: n += 1
+            noms.append(r['sujet']); continue
+        reps.append({**r, '_s': n})
+    pod['repliques'], pod['_sujets'] = reps, noms
+    return pod, hashlib.sha256(raw).hexdigest()
 
 
 def controler(pod):
@@ -89,6 +100,11 @@ def controler(pod):
         if i and r.get('v') == reps[i - 1].get('v'): warn.append(f'réplique {i + 1} : même voix que la précédente')
         if re.search(r'[\[\]{}<>*_#]|https?://', r.get('t') or ''): err.append(f'réplique {i + 1} : balise, lien ou mise en forme à retirer (texte lu à voix haute)')
     mots = sum(len((r.get('t') or '').split()) for r in reps)
+    noms = pod.get('_sujets') or []
+    if not noms: warn.append('aucun marqueur {"sujet": …} : les coupures entre requêtes ne suivront pas les sujets')
+    for k, nom in enumerate(noms):
+        t = sum(len(r['t']) for r in reps if r.get('_s') == k)
+        if t > CHUNK_MAX: warn.append(f'sujet « {nom} » : {t} caractères, au-delà de {CHUNK_MAX} ; il sera coupé avant une question (mieux : le scinder en deux sujets)')
     if not MOTS_MIN <= mots <= MOTS_MAX: warn.append(f'{mots} mots : hors de la plage visée ({MOTS_MIN}-{MOTS_MAX})')
     return err, warn, mots
 
@@ -136,14 +152,31 @@ def dire(t, lex):
     return t
 
 
+def taille(rs): return sum(len(r['t']) for r in rs)
+
+
+def scinder(rs):
+    """Sujet trop long pour une requête : coupe en parts égales, juste avant une question de Julie (voix A)."""
+    parts = -(-taille(rs) // CHUNK_MAX)
+    cible, out, cur = taille(rs) / parts, [], []
+    for r in rs:
+        if cur and r['v'] == 'A' and len(out) < parts - 1 and taille(cur) >= cible * 0.8:
+            out.append(cur); cur = []
+        cur.append(r)
+    out.append(cur)
+    return out
+
+
 def decouper(reps):
-    """Regroupe les répliques en requêtes de taille raisonnable, sans couper une réplique."""
-    out, cur, n = [], [], 0
-    for r in reps:
-        if cur and n + len(r['t']) > CHUNK_MAX:
-            out.append(cur); cur, n = [], 0
-        cur.append(r); n += len(r['t'])
-    if cur: out.append(cur)
+    """Une requête par sujet ({"sujet": …} dans le script) : les coupures tombent sur les changements de sujet.
+    Des sujets courts consécutifs partagent une requête ; un sujet trop long est scindé avant une question."""
+    sujets = {}
+    for r in reps: sujets.setdefault(r.get('_s', 0), []).append(r)
+    blocs = [b for rs in sujets.values() for b in (scinder(rs) if taille(rs) > CHUNK_MAX else [rs])]
+    out = []
+    for b in blocs:
+        if out and taille(out[-1]) + taille(b) <= CHUNK_MAX: out[-1] = out[-1] + b
+        else: out.append(b)
     return out
 
 
@@ -154,7 +187,7 @@ def requete(chunk, voix, lex, cle, precedents, loc=None):
     n = sum(len(x['text']) for x in inputs)
     if n > 2000: raise SystemExit(f'Requête de {n} caractères : au-delà de la limite de 2 000 (réduire CHUNK_MAX)')
     body = {'inputs': inputs, 'model_id': MODELE, 'language_code': 'fr'}
-    if precedents: body['previous_request_ids'] = precedents[-3:]
+    if precedents and MODELE not in SANS_CONTINUITE: body['previous_request_ids'] = precedents[-3:]
     if loc: body['pronunciation_dictionary_locators'] = [loc]
     data = json.dumps(body).encode('utf-8')
     for essai in range(1, 6):

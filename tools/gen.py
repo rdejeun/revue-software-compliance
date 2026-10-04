@@ -101,7 +101,7 @@ var h=w.querySelector('.pod-h'),b=w.querySelector('.pod-b'),a=w.querySelector('a
 var PLAY=pl.innerHTML,PAUSE='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
 function fmt(t){t=Math.floor(t||0);return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
 function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px'}
-h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o&&a.paused)a.play()});
+h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o){if(a.paused)a.play()}else a.pause()});
 var m=w.querySelector('.pod-m'),v=w.querySelector('.pod-v');
 function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0);m.setAttribute('aria-label',x==0?'Rétablir le son':'Couper le son')}
 v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vol()});
