@@ -25,12 +25,15 @@ CONFIG = {
     'eq': {'f_min': 100, 'f_max': 10000, 'max_db': 6, 'coefs': 2049, 'cible_ecart_db': 3, 'passes': 3},
     'sibilantes_ecart_db': 3,
     'compresseur': {'ratio': 3, 'attaque_ms': 10, 'relache_ms': 100, 'reduction_db': 4},
-    'pan': 0.15,                       # −1 gauche … +1 droite ; A à gauche, B à droite
-    'reverb': {'room_size': 0.15, 'damping': 0.6, 'wet': 0.07, 'width': 0.6},
-    'room_tone_dbfs': -60,
+    # Sortie mono : pas de panoramique (évite les artefacts de centrage à l'écoute au casque).
+    # Réverbération partagée et fond d'ambiance désactivés (None) : jugés trop présents à l'écoute.
+    'mono': True,
+    'pan': 0.15,                       # stéréo seulement : −1 gauche … +1 droite ; A à gauche, B à droite
+    'reverb': None,                    # ex. {'room_size': 0.15, 'damping': 0.6, 'wet': 0.07, 'width': 0.6}
+    'room_tone_dbfs': None,            # ex. -60
     'bus': {'ratio': 2, 'reduction_db': 1.5},
-    'lufs': -16, 'true_peak': -1.0, 'lra': 11,
-    'mp3_kbps': 128,
+    'lufs': -19, 'true_peak': -1.0, 'lra': 11,   # −19 LUFS en mono (équivalent de −16 en stéréo)
+    'mp3_kbps': 96,
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -287,16 +290,19 @@ def produire(blocs, voix, mp3_sortie, dossier, meta):
     M['apres'] = {'timbre_ecart_db': float(np.abs(ltas(st['A'], masque['A']) - ltas(st['B'], masque['B']))[(TIERS >= 150) & (TIERS <= 8000)].max()),
                   'decroissance_ms': {k: decroissance_ms(st[k]) for k in st},
                   'lufs': {k: lufs(st[k], masque[k]) for k in st}}
-    bus = panoramique(st['A'], -CONFIG['pan']) + panoramique(st['B'], CONFIG['pan'])
     from pedalboard import Reverb, Compressor
+    if CONFIG['mono']: bus = (st['A'] + st['B'])[None, :]
+    else: bus = panoramique(st['A'], -CONFIG['pan']) + panoramique(st['B'], CONFIG['pan'])
     rv = CONFIG['reverb']
-    wet = Reverb(room_size=rv['room_size'], damping=rv['damping'], wet_level=1.0, dry_level=0.0, width=rv['width'])(bus.astype(np.float32), SR).astype(np.float64)
-    bus = bus + wet * rv['wet']
-    rng = np.random.default_rng(7)
-    for ch in range(2):
-        n = bruit_rose(bus.shape[1], rng)
-        n *= 10 ** (CONFIG['room_tone_dbfs'] / 20) / (np.sqrt((n ** 2).mean()) + 1e-12)
-        bus[ch] += n
+    if rv:
+        wet = Reverb(room_size=rv['room_size'], damping=rv['damping'], wet_level=1.0, dry_level=0.0, width=rv['width'])(bus.astype(np.float32), SR).astype(np.float64)
+        bus = bus + wet * rv['wet']
+    if CONFIG['room_tone_dbfs'] is not None:
+        rng = np.random.default_rng(7)
+        for ch in range(bus.shape[0]):
+            n = bruit_rose(bus.shape[1], rng)
+            n *= 10 ** (CONFIG['room_tone_dbfs'] / 20) / (np.sqrt((n ** 2).mean()) + 1e-12)
+            bus[ch] += n
     # étape 6
     b = CONFIG['bus']; ref = np.percentile(niveau_court(bus.mean(0), 10), 95)
     bus = Compressor(threshold_db=float(ref - b['reduction_db'] * b['ratio'] / (b['ratio'] - 1)), ratio=b['ratio'], attack_ms=20, release_ms=200)(bus.astype(np.float32), SR).astype(np.float64)
@@ -304,7 +310,7 @@ def produire(blocs, voix, mp3_sortie, dossier, meta):
     sf.write(pre, (bus.T / max(1.0, np.abs(bus).max())).astype(np.float32), SR, subtype='FLOAT')
     loudnorm_2_passes(pre, master)
     tmp = mp3_sortie + '.tmp.mp3'
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', master, '-c:a', 'libmp3lame', '-b:a', f'{CONFIG["mp3_kbps"]}k', '-ar', str(SR), '-ac', '2',
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', master, '-c:a', 'libmp3lame', '-b:a', f'{CONFIG["mp3_kbps"]}k', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
                     '-metadata', f'title={meta["titre"]}', '-metadata', 'artist=Software Compliance', '-metadata', 'album=Software Compliance',
                     '-metadata', f'track={meta.get("n", "")}', '-metadata', f'date={meta["date"][:4]}', '-id3v2_version', '3', tmp], check=True)
     os.replace(tmp, mp3_sortie)
@@ -357,7 +363,7 @@ def qc(M, mp3, texte_script, dossier):
     info = _sf.info(M['master']); d = info.frames / info.samplerate
     L.append(('Durée', f'{d:.1f} s (blocs : {M["duree_blocs_s"]:.1f} s)', f'écart < {S["duree_s"]} s', abs(d - M['duree_blocs_s']) < S['duree_s'], True))
     # clics : saut d'un échantillon à l'autre, comparé à la distribution
-    x = _sf.read(M['master'])[0].mean(1); dd = np.abs(np.diff(x)); seuil = np.percentile(dd, 99.99) * 3
+    x = _sf.read(M['master'])[0]; x = x.mean(1) if x.ndim > 1 else x; dd = np.abs(np.diff(x)); seuil = np.percentile(dd, 99.99) * 3
     clics = int((dd > max(seuil, 0.2)).sum())
     L.append(('Clics', f'{clics} saut(s) anormal(aux)', 'aucun', clics == 0, False))
     try:
