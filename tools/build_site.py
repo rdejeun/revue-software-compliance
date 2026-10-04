@@ -284,6 +284,9 @@ def main():
     L += ['', '## Dossiers thématiques', ''] + [f'- [{v["nom"]}]({URL}/dossiers/{k}/): {TY(v.get("reference", ""))}' for k, v in themes.items() if by[k]]
     write(os.path.join(SITE, 'llms.txt'), '\n'.join(L) + '\n')
 
+    for x in ('webp', 'png', 'jpg'):   # image d'en-tête facultative (tools/en-tete.*)
+        f = os.path.join(TOOLS, f'en-tete.{x}')
+        if os.path.isfile(f): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(f, os.path.join(SITE, 'assets', f'en-tete.{x}'))
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
     write(os.path.join(SITE, '.nojekyll'), '')
     print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s) -> {SITE}')

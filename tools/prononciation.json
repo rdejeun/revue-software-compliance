@@ -1,6 +1,7 @@
 {
- "_note": "Lexique de prononciation du podcast. Clé : expression régulière appliquée au mot entier ; valeur : forme lue par la synthèse vocale. La transcription publiée garde l'écriture d'origine. N'ajouter une entrée qu'après avoir entendu une mauvaise prononciation.",
- "SBOMs?": "esse-bomme",
+ "_note": "Lexique de prononciation du podcast, source de vérité. À chaque production, tools/podcast.py le recopie dans le dictionnaire de prononciation ElevenLabs « Software Compliance » (règles de type alias) et l'applique aux requêtes. Clé : mot tel qu'écrit dans le script (correspondance exacte, mot entier) ; valeur : forme à lire. Les modifications faites directement dans ElevenLabs sont écrasées : modifier ce fichier. N'ajouter une entrée qu'après avoir entendu une mauvaise prononciation.",
+ "SBOM": "esse-bomme",
+ "SBOMs": "esse-bommes",
  "NIS2": "nisse deux",
  "ENISA": "Énisa",
  "CISA": "Cissa",

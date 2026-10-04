@@ -49,8 +49,8 @@ jobs:
         timeout-minutes: 20
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          ELEVENLABS_VOICE_A: ${{ vars.ELEVENLABS_VOICE_A }}
-          ELEVENLABS_VOICE_B: ${{ vars.ELEVENLABS_VOICE_B }}
+          ELEVENLABS_VOICE_FEMALE: ${{ vars.ELEVENLABS_VOICE_FEMALE }}
+          ELEVENLABS_VOICE_MALE: ${{ vars.ELEVENLABS_VOICE_MALE }}
           ELEVENLABS_MODEL: ${{ vars.ELEVENLABS_MODEL }}
           PODCAST_MAX_CHARS: ${{ vars.PODCAST_MAX_CHARS }}
         run: python3 tools/podcast.py

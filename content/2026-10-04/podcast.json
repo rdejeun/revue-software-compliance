@@ -1,9 +1,9 @@
 {
  "titre": "Le CRA entre en action, et les dates à ne pas manquer cet automne",
- "description": "Claire pose les questions, Thomas explique : déclaration des failles avec le CRA, inventaires de logiciels, attaques sur les dépôts de code, règle américaine des affiliés, loi Résilience et licence GPL.",
+ "description": "Julie pose les questions, Guillaume explique : déclaration des failles avec le CRA, inventaires de logiciels, attaques sur les dépôts de code, règle américaine des affiliés, loi Résilience et licence GPL.",
  "repliques": [
-  {"v": "A", "t": "Bonjour et bienvenue dans Software Compliance, la version audio de la revue de presse de la semaine. Je suis Claire, et je vais poser les questions que tout le monde se pose."},
-  {"v": "B", "t": "Et moi, c'est Thomas. J'essaie d'y répondre simplement. Toutes les sources sont sur le site de la revue, à l'édition du 4 octobre."},
+  {"v": "A", "t": "Bonjour et bienvenue dans Software Compliance, la version audio de la revue de presse de la semaine. Je suis Julie, et je vais poser les questions que tout le monde se pose."},
+  {"v": "B", "t": "Et moi, c'est Guillaume. J'essaie d'y répondre simplement. Toutes les sources sont sur le site de la revue, à l'édition du 4 octobre."},
   {"v": "A", "t": "Alors on commence par le gros sujet : le Cyber Resilience Act, le CRA. On en parle depuis des mois. Qu'est-ce qui a changé concrètement ?"},
   {"v": "B", "t": "Depuis le 11 septembre, il y a une première obligation qui s'applique pour de vrai. Si vous fabriquez un produit qui contient du logiciel, et qu'une faille de ce produit est activement exploitée par des attaquants, vous devez le déclarer. Pareil pour un incident grave."},
   {"v": "A", "t": "Le déclarer à qui, et en combien de temps ?"},
@@ -48,7 +48,7 @@
   {"v": "B", "t": "Alors les utilisateurs finaux pourraient peut-être agir eux-mêmes pour obtenir ce code. Pour un industriel de la défense, il faudrait concilier ça avec le contrôle des exportations et la protection des informations sensibles."},
   {"v": "A", "t": "Pour finir, les dates à noter ?"},
   {"v": "B", "t": "Le 7 octobre, la loi Résilience à l'Assemblée. Le 10 novembre, le retour possible de la règle américaine des affiliés. En novembre, la publication attendue de la nouvelle liste européenne des biens à double usage. Le 9 décembre, la date limite de transposition de la directive sur la responsabilité du fait des produits, qui inclut désormais le logiciel. Et le 11 décembre 2027, l'application complète du CRA."},
-  {"v": "A", "t": "Merci Thomas. Toutes les sources, les synthèses détaillées et le glossaire des sigles sont sur le site de la revue. À la semaine prochaine !"},
+  {"v": "A", "t": "Merci Guillaume. Toutes les sources, les synthèses détaillées et le glossaire des sigles sont sur le site de la revue. À la semaine prochaine !"},
   {"v": "B", "t": "À la semaine prochaine."}
  ]
 }

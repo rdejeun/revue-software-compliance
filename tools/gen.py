@@ -60,25 +60,65 @@ var h=location.hash.slice(1);if(/^syn\d+$/.test(h))open(h,false);
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
 SYN_LABELS=[('essentiel','L’essentiel'),('contexte','Contexte')]
-def ecoute(web,ed_url):
-    """Lien « Écouter » dans l'en-tête : vers le lecteur de la page web (e-mail) ou l'ancre locale (web)."""
-    if not EP: return ''
-    m=(f"{EP['duree_s']}&nbsp;s" if EP['duree_s']<60 else f"{round(EP['duree_s']/60)}&nbsp;min"); href='#ecouter' if web else (ed_url+'#ecouter' if ed_url else '')
-    if not href: return ''
-    return f' &nbsp;·&nbsp; <a href="{href}" style="color:{ACC};font-weight:600;text-decoration:none;">Écouter l’épisode ({m})&nbsp;▶</a>'
-def lecteur(diso):
-    """Lecteur audio et transcription, en tête de la version web."""
+REDACTION_DEFAUT='Anthropic Claude Opus 5.5'   # meta.json « redaction » : <éditeur> <modèle> <version>
+# Image d'en-tête facultative (version web) : tools/en-tete.(webp|png|jpg), publiée sous /assets/
+_TOOLS=os.path.dirname(os.path.abspath(__file__))
+EN_TETE=next((f'/assets/en-tete.{x}' for x in ('webp','png','jpg') if os.path.isfile(os.path.join(_TOOLS,f'en-tete.{x}'))),None)
+def duree_ep():
+    d=EP['duree_s']
+    return f'{d}&nbsp;s' if d<60 else f'{round(d/60)}&nbsp;min'
+ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
+def bloc_podcast(web,diso,ed_url):
+    """Barre « Écouter l'épisode » (80 %, centrée) entre l'en-tête et la Une.
+    Web : se déplie au clic (lecteur aux couleurs de la page). E-mail : lien vers la page web."""
     if not EP or not diso: return ''
-    m=(f"{EP['duree_s']}&nbsp;s" if EP['duree_s']<60 else f"{round(EP['duree_s']/60)}&nbsp;min")
-    noms={k:v['nom'] for k,v in (EP.get('voix') or {}).items()}
-    tr=''.join(f'<p style="margin:0 0 8px;"><b style="font:600 13px {SANS};color:{NAVY};">{esc(noms.get(r["v"],r["v"]))}</b> — {esc(typo(r["t"]))}</p>' for r in (POD or {}).get('repliques',[])[:EP.get('repliques') or None])
-    trans=f'<details style="margin-top:10px;"><summary style="cursor:pointer;font:600 13px/20px {SANS};color:#4b5563;">Lire la transcription</summary><div style="margin-top:10px;font:15px/22px {SERIF};color:#1f2937;">{tr}</div></details>' if tr else ''
-    return (f'<div id="ecouter" style="margin:0 0 26px;padding:16px 18px;background:#f7f4ee;border-left:4px solid {ACC};">'
-            f'<div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC};">{'Extrait d’essai' if EP.get('extrait') else 'L’épisode audio'} · {m}</div>'
-            f'<div style="margin:4px 0 10px;font:600 17px/24px {SANS};color:{NAVY};">{esc(typo((POD or {}).get("titre","")))}</div>'
-            f'<audio controls preload="none" src="/{diso}/episode.mp3" style="width:100%;"></audio>'
-            f'<div style="margin-top:6px;font:12px/18px {SANS};color:#6b7280;">Dialogue à deux voix de synthèse, écrit à partir de cette édition · <a href="/{diso}/episode.mp3" download style="color:#6b7280;">Télécharger le MP3</a> · <a href="/podcast.xml" style="color:#6b7280;">S’abonner (RSS)</a></div>'
-            f'{trans}</div>')
+    m=duree_ep()
+    if not web:
+        if not ed_url: return ''
+        return (f'<table role="presentation" width="80%" align="center" cellpadding="0" cellspacing="0" style="width:80%;margin:0 auto 26px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
+                f'<tr><td style="padding:10px 18px;"><a href="{ed_url}#ecouter" style="display:block;text-decoration:none;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+                f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;Écouter l’épisode</td>'
+                f'<td align="right" style="font:13px/22px {SANS};color:#6b7280;white-space:nowrap;">{m}</td></tr></table></a></td></tr></table>')
+    titre=esc(typo((POD or {}).get('titre','')))
+    return (f'<div class="pod" id="ecouter">'
+            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">Écouter l’épisode</span><span class="pod-d">{m}</span></button>'
+            f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
+            f'<div class="pod-eb">Podcast</div>'
+            + (f'<div class="pod-t">{titre}</div>' if titre else '') +
+            f'<audio preload="none" src="/{diso}/episode.mp3"></audio>'
+            f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
+            f'<input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode">'
+            f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span></div>'
+            f'<p class="pod-n">Ce dialogue a été produit par une intelligence artificielle.</p>'
+            f'</div></div></div>')
+POD_JS=r"""<script>
+(function(){
+var w=document.getElementById('ecouter');if(!w)return;
+var h=w.querySelector('.pod-h'),b=w.querySelector('.pod-b'),a=w.querySelector('audio'),pl=w.querySelector('.pod-pl'),r=w.querySelector('.pod-r'),c=w.querySelector('.pod-c');
+var PLAY=pl.innerHTML,PAUSE='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
+function fmt(t){t=Math.floor(t||0);return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
+function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px'}
+h.addEventListener('click',function(){set(!w.classList.contains('on'))});
+pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
+a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause')});
+a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture')});
+a.addEventListener('loadedmetadata',function(){if(isFinite(a.duration))r.max=a.duration});
+a.addEventListener('timeupdate',function(){if(!r.matches(':active'))r.value=a.currentTime;c.textContent=fmt(a.currentTime);r.style.setProperty('--p',(100*a.currentTime/(r.max||1))+'%')});
+r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);r.style.setProperty('--p',(100*r.value/(r.max||1))+'%')});
+if(location.hash==='#ecouter')set(true);
+})();
+</script>"""
+PILL_JS=r"""<script>
+(function(){
+/* Pastille « En savoir plus » : se déploie vers la droite ; si elle dépasse la marge droite du texte, elle se décale d'autant vers la gauche. */
+function grow(e){var b=e.target.closest&&e.target.closest('.sy-b');if(!b)return;var p=b.querySelector('.sy-p'),l=b.querySelector('.sy-l');if(!p||!l)return;
+ var col=b.closest('td,p,.sy-ev')||b.parentNode,lim=col.getBoundingClientRect().right,cs=getComputedStyle(col),pr=parseFloat(cs.paddingRight)||0;
+ var W=b.offsetWidth+l.scrollWidth+10,L=b.getBoundingClientRect().left;p.style.left=(-Math.max(0,L+W-(lim-pr)))+'px'}
+function shrink(e){var b=e.target.closest&&e.target.closest('.sy-b');if(!b||b.contains(e.relatedTarget))return;var p=b.querySelector('.sy-p');if(p)p.style.left='0px'}
+document.addEventListener('mouseover',grow);document.addEventListener('focusin',grow);
+document.addEventListener('mouseout',shrink);document.addEventListener('focusout',shrink);
+})();
+</script>"""
 def render(web):
     seen.clear();used.clear()
     if web: ITEMS.clear()
@@ -113,7 +153,7 @@ def render(web):
         syns.append(f'<div class="sy-d" id="d-{sid}" hidden>{"".join(h)}</div>')
         return sid
     def srcs_of(items): return [(x['t'],x['href']) for x in items if x.get('href')]
-    SYNB='<button type="button" class="sy-b" data-syn="{0}" aria-haspopup="dialog" title="Afficher la synthèse"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 4.6v6.8M4.6 8h6.8" stroke="currentColor" stroke-width="1.4"/></svg>En savoir plus</button>'
+    SYNB='<button type="button" class="sy-b" data-syn="{0}" aria-haspopup="dialog" aria-label="En savoir plus"><span class="sy-p"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sy-l">En savoir plus</span></span></button>'
 
     LS="color:#6b7280;font:13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
     LSO="color:#454e5c;font:600 13px/1 %s;text-decoration:none;border-bottom:1px solid #9aa1ab;white-space:nowrap;"%SANS
@@ -272,10 +312,7 @@ def render(web):
     SEC=META['toc']
     toc=' <span style="color:#c3cad5;">·</span> '.join(f'<a href="#s{i}" style="color:#4b5563;text-decoration:none;border-bottom:1px solid #d5dbe5;">{E(s)}</a>' for i,s in enumerate(SEC))
     tocb=f'<p style="margin:0 0 4px;font:13px/24px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Dans ce numéro</b>&nbsp; {toc}</p>'
-    ESS=[(a,b,'#s%d'%k) for a,b,k in META['ess']]
-    rows=''.join(f'<tr><td width="104" align="center" valign="top" style="padding:11px 0;border-top:1px solid #e3ddd0;font:400 26px/30px {SERIF};color:{ACC};white-space:nowrap;">{a}</td><td valign="top" style="padding:13px 0 11px 8px;border-top:1px solid #e3ddd0;font:15px/23px {SERIF};color:#1f2937;"><a href="{h}" style="color:#1f2937;text-decoration:none;">{b}</a></td></tr>' for a,b,h in ESS)
-    ess=f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:26px 0 20px;background:#f7f4ee;background-image:linear-gradient(45deg,#f4efe4 0%,#faf8f3 100%);border:3px dotted #c4b28a;"><tr><td style="padding:18px 22px 10px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td colspan="2" style="padding:0 0 8px;font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC};">L’essentiel en 60 secondes</td></tr>{rows}</table></td></tr></table>'
-    out=B._post(''.join(body).replace('@@TOC@@',ess+tocb))
+    out=B._post(''.join(body).replace('@@TOC@@',tocb))
     import re as _re
     mins=max(1,round(len(_re.sub(r'<[^>]+>',' ',out).split())/220))
     css=''
@@ -287,9 +324,34 @@ a.s.so{{color:#454e5c;font-weight:600;border-bottom:1px solid #9aa1ab}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .sy-it{{cursor:pointer;transition:background .15s}}
 .sy-it:hover{{background:#faf7f0}}
-.sy-b{{display:inline-block;box-sizing:border-box;height:20px;margin:0 0 0 4px;padding:0 9px 0 6px;border:1px solid #e1c6b4;border-radius:10px;background:#fff;color:{ACC};font:600 11px/18px {SANS};letter-spacing:.02em;vertical-align:1px;cursor:pointer;white-space:nowrap}}
-.sy-b svg{{display:inline-block;vertical-align:-2px;margin-right:4px}}
-.sy-b:hover,.sy-b:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
+.sy-b{{display:inline-block;position:relative;width:20px;height:20px;margin:0 0 0 5px;padding:0;border:0;background:none;vertical-align:-4px;cursor:pointer}}
+.sy-p{{position:absolute;left:0;top:0;z-index:1;display:flex;align-items:center;box-sizing:border-box;height:20px;min-width:20px;padding:0 3px;border:1px solid #e1c6b4;border-radius:10px;background:#fff;color:{ACC};white-space:nowrap;transition:left .18s ease,background .15s,color .15s,border-color .15s}}
+.sy-p svg{{flex:none;display:block}}
+.sy-l{{display:inline-block;max-width:0;overflow:hidden;opacity:0;font:600 11px/18px {SANS};letter-spacing:.02em;transition:max-width .18s ease,opacity .15s,margin .18s,padding .18s}}
+.sy-b:hover .sy-p,.sy-b:focus-visible .sy-p{{z-index:5;background:{ACC};border-color:{ACC};color:#fff;box-shadow:0 2px 8px rgba(15,42,74,.18)}}
+.sy-b:hover .sy-l,.sy-b:focus-visible .sy-l{{max-width:9em;opacity:1;margin-left:4px;padding-right:6px}}
+.sy-b:focus-visible{{outline:none}}
+.pod{{width:80%;margin:0 auto 28px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
+.pod-h{{display:flex;align-items:center;gap:10px;width:100%;padding:10px 18px;border:0;background:none;color:{NAVY};font:600 14px/22px {SANS};text-align:left;cursor:pointer}}
+.pod-h:hover,.pod-h:focus-visible{{background:#f1ebdf;outline:none}}
+.pod-i{{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:{ACC};color:#fff;flex:none}}
+.pod-i svg{{margin-left:2px}}
+.pod-l{{flex:1}}
+.pod-d{{font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
+.pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
+.pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
+.pod-eb{{margin:12px 0 2px;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
+.pod-t{{margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};text-wrap:balance}}
+.pod-p{{display:flex;align-items:center;gap:12px}}
+.pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
+.pod-pl:hover,.pod-pl:focus-visible{{background:{ACC};outline:none}}
+.pod-pl svg{{width:14px;height:14px}}
+.pod-r{{--p:0%;flex:1;min-width:0;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{ACC} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
+.pod-r::-webkit-slider-thumb{{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:{ACC};border:2px solid #fff;box-shadow:0 0 0 1px {ACC}}}
+.pod-r::-moz-range-thumb{{width:12px;height:12px;border-radius:50%;background:{ACC};border:2px solid #fff}}
+.pod-tm{{font:12px/16px {SANS};color:#6b7280;white-space:nowrap;font-variant-numeric:tabular-nums}}
+.pod-n{{margin:12px 0 0;font:italic 13px/19px {SERIF};color:#6b7280}}
+@media(max-width:660px){{.pod{{width:100%}}td.hd{{background-size:100% auto!important}}}}
 dialog.sy{{width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 .sy-w{{padding:26px 34px 28px;overflow:auto;max-height:calc(min(86vh,900px) - 6px);box-sizing:border-box}}
@@ -313,14 +375,14 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title><style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
-<body style="margin:0;background:#ecebe6;">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">Les points clés de la semaine en 60 secondes, puis le détail.</span>
+<body style="margin:0;background:#ecebe6;">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ecebe6;"><tr><td align="center" style="padding:24px 8px;">
 <table role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;">
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
-<tr><td class="w" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><div style="font:13px/20px {SANS};color:#6b7280;padding-bottom:14px;border-bottom:2px solid {NAVY};">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; Lecture ≈&nbsp;{mins}&nbsp;min{ecoute(web,ED_URL)}{(' &nbsp;·&nbsp; <a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a>' if web else (f' &nbsp;·&nbsp; <a href="{ED_URL}" style="color:{ACC};font-weight:600;text-decoration:none;">Lire la version enrichie&nbsp;↗</a>' if ED_URL else ''))}</div></td></tr>
-<tr><td class="w" style="padding:30px 52px 40px;">{lecteur(DISO) if web else ''}{out}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:12px/19px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Comment lire cette revue.</b> Chaque nom ou sigle est expliqué à sa première occurrence (survol, avec lien vers la page officielle). Les informations qui n’ont pas pu être recoupées sont écartées. Dernière mise à jour : {META['date'].replace(' ','&nbsp;')}.</td></tr></table>
-</td></tr></table></td></tr></table>{''.join(syns)+JS if web and syns else ''}</body></html>''',len(used)
+<tr><td class="w hd" style="padding:38px 52px 0;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right top;background-size:cover;') if (web and EN_TETE) else ''}"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; <a href="{SITE if not web else ''}/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="{SITE if not web else ''}/dossiers/" style="color:#6b7280;">Dossiers</a></td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;">Lecture ≈&nbsp;{mins}&nbsp;min</td></tr></table></td></tr>
+<tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:12px/19px {SANS};color:#6b7280;">Ce document a été rédigé par une intelligence artificielle ({esc(META.get('redaction') or REDACTION_DEFAUT)}). Des erreurs sont possibles.</td></tr></table>
+</td></tr></table></td></tr></table>{''.join(syns)+JS+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}</body></html>''',len(used)
 def compact_email(h):
     """Allège l'e-mail : chaque style répété (4 fois ou plus) passe dans une classe déclarée dans <head>.
     Couleur et marges restent en ligne, pour les clients qui ignorent les styles de <head>."""
