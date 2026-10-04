@@ -98,7 +98,8 @@ def preparer(pod):
 
 # Balises audio d'Eleven v3 autorisées (jouées, pas lues). Toute autre balise est refusée.
 BALISES = {'curious', 'thoughtful', 'surprised', 'chuckles', 'sighs', 'exhales'}
-BALISES_PAR_REPLIQUE = 0.25        # au plus une balise pour quatre répliques (avertissement au-delà)
+# Quota : chaque type de balise au plus une fois par épisode, et seulement à dessein pédagogique
+# (par exemple, une respiration au milieu d'une longue explication).
 HESITATIONS_MAX = 3                # « euh », « hum »… écrits dans le texte (avertissement au-delà)
 RX_HESITATION = re.compile(r"(?<![\w-])(?:euh|heu|hum|hmm)(?![\w-])", re.I)
 
@@ -119,8 +120,9 @@ def controler(pod):
         for b in re.findall(r'\[([^\]]*)\]', t):
             if b not in BALISES: err.append(f'réplique {i + 1} : balise [{b}] non autorisée (autorisées : {", ".join(sorted(BALISES))})')
         if re.search(r'[{}<>*_#]|https?://', re.sub(r'\[[^\]]*\]', '', t)) or t.count('[') != t.count(']'): err.append(f'réplique {i + 1} : lien ou mise en forme à retirer (texte lu à voix haute)')
-    nb = sum(len(re.findall(r'\[[^\]]*\]', r.get('t') or '')) for r in reps)
-    if reps and nb > max(1, len(reps) * BALISES_PAR_REPLIQUE): warn.append(f'{nb} balises audio pour {len(reps)} répliques : au-delà d’une pour quatre, le rendu devient instable')
+    from collections import Counter
+    for b, n in Counter(x for r in reps for x in re.findall(r'\[([^\]]*)\]', r.get('t') or '')).items():
+        if n > 1: err.append(f'balise [{b}] utilisée {n} fois : une seule fois par épisode, à dessein pédagogique')
     hes = sum(len(RX_HESITATION.findall(r.get('t') or '')) for r in reps)
     if hes > HESITATIONS_MAX: warn.append(f'{hes} hésitations écrites (« euh », « hum ») : {HESITATIONS_MAX} au plus par épisode')
     mots = sum(len(re.sub(r'\[[^\]]*\]', '', r.get('t') or '').split()) for r in reps)
