@@ -1,0 +1,86 @@
+name: Publier la revue
+
+# Construit le site à partir de content/, contrôle la dernière édition, la met en ligne sur
+# https://revue.dejeun.es/ puis envoie l'e-mail par Resend.
+# Déclenché par chaque push sur main (édition déposée par la tâche du vendredi) ou à la main.
+# Mots-clés dans le message de commit : [brouillon] envoie seulement à DRAFT_TO ; [sans-envoi] n'envoie rien.
+
+on:
+  push:
+    branches: [main]
+    paths: ['content/**', 'tools/**', '.github/workflows/publier.yml']
+  workflow_dispatch:
+    inputs:
+      envoi:
+        description: 'Envoi de l’e-mail'
+        type: choice
+        options: [auto, brouillon, aucun]
+        default: brouillon
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publier
+  cancel-in-progress: false
+
+jobs:
+  publier:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploiement.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Construire le site et les e-mails
+        run: python3 tools/build_site.py
+
+      - name: Contrôler la dernière édition (bloquant)
+        run: python3 tools/validate.py
+
+      - name: Préparer GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+      - name: Mettre en ligne
+        id: deploiement
+        uses: actions/deploy-pages@v4
+
+      - name: Choisir le mode d’envoi
+        id: mode
+        env:
+          MESSAGE: ${{ github.event.head_commit.message }}
+          SAISIE: ${{ github.event.inputs.envoi }}
+        run: |
+          if [ -n "$SAISIE" ]; then m="$SAISIE"
+          elif printf '%s' "$MESSAGE" | grep -qi '\[sans-envoi\]'; then m=aucun
+          elif printf '%s' "$MESSAGE" | grep -qi '\[brouillon\]'; then m=brouillon
+          else m=auto; fi
+          echo "mode=$m" >> "$GITHUB_OUTPUT"; echo "Mode d’envoi : $m"
+
+      - name: Envoyer l’e-mail
+        id: envoi
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          MAIL_TO: ${{ vars.MAIL_TO }}
+          DRAFT_TO: ${{ vars.DRAFT_TO }}
+        run: python3 tools/send.py --mode "${{ steps.mode.outputs.mode }}" --wait
+
+      - name: Enregistrer l’envoi
+        if: steps.envoi.outputs.sent == '1'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/*/envoi.json
+          git commit -m "Envoi enregistré [skip ci]"
+          git pull --rebase origin main && git push origin HEAD:main

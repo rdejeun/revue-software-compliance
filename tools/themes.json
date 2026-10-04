@@ -1,0 +1,181 @@
+{
+ "cra": {
+  "nom": "Cyber Resilience Act",
+  "court": "CRA",
+  "reference": "Règlement (UE) 2024/2847",
+  "statut": "Déclaration des vulnérabilités activement exploitées et des incidents graves en vigueur depuis le 11 septembre 2026 ; application complète le 11 décembre 2027",
+  "fonctions": "PSIRT et ingénierie produit, juridique, qualité et certification, achats",
+  "defense": "Produits développés ou modifiés exclusivement à des fins de défense ou de sécurité nationale exclus (article 2) ; produits à double usage et versions civiles dans le champ",
+  "chronologie": [
+   {
+    "date": "2024-12-10",
+    "texte": "Entrée en vigueur du règlement"
+   },
+   {
+    "date": "2026-06-11",
+    "texte": "Application des règles sur les organismes d’évaluation de la conformité"
+   },
+   {
+    "date": "2026-07-27",
+    "texte": "Guidance de la Commission (non contraignante)"
+   },
+   {
+    "date": "2026-09-11",
+    "texte": "Déclaration des vulnérabilités activement exploitées et des incidents graves"
+   },
+   {
+    "date": "2026-12",
+    "libelle": "déc. 2026",
+    "texte": "Acte délégué attendu sur la présomption de conformité EUCC"
+   },
+   {
+    "date": "2027-12-11",
+    "texte": "Application complète : exigences essentielles, documentation technique, marquage CE"
+   }
+  ]
+ },
+ "sbom": {
+  "nom": "SBOM et nomenclatures logicielles",
+  "court": "SBOM",
+  "reference": "CycloneDX (ECMA-424), SPDX (ISO/IEC 5962), éléments minimaux de la CISA",
+  "chronologie": [
+   {
+    "date": "2025-12",
+    "libelle": "déc. 2025",
+    "texte": "CycloneDX 1.7 adopté comme ECMA-424, 2e édition"
+   },
+   {
+    "date": "2026-07-29",
+    "texte": "La CISA publie les « 2026 Minimum Elements » du SBOM"
+   }
+  ]
+ },
+ "sca": {
+  "nom": "Analyse de composition logicielle (SCA)",
+  "court": "SCA",
+  "reference": "Outils d’inventaire des composants, de détection des vulnérabilités et d’analyse des licences"
+ },
+ "chaine": {
+  "nom": "Sécurité de la chaîne d’approvisionnement logicielle",
+  "court": "Chaîne d’approvisionnement",
+  "reference": "Registres de paquets, intégrité des builds (SLSA), attaques de référence"
+ },
+ "export-ue": {
+  "nom": "Contrôle des exportations (UE et France)",
+  "court": "Export UE",
+  "reference": "Règlement (UE) 2021/821, matériels de guerre (CIEEMG), directive des transferts intra-UE",
+  "chronologie": [
+   {
+    "date": "2026-09-14",
+    "texte": "Adoption du règlement délégué C(2026)6323 mettant à jour l’annexe I"
+   },
+   {
+    "date": "2026-11",
+    "libelle": "nov. 2026",
+    "texte": "Publication au JO attendue de la nouvelle liste dual-use"
+   }
+  ]
+ },
+ "export-us": {
+  "nom": "Contrôle des exportations américain (EAR, ITAR)",
+  "court": "Export États-Unis",
+  "reference": "EAR (BIS, département du Commerce) et ITAR (DDTC, département d’État)",
+  "chronologie": [
+   {
+    "date": "2026-11-10",
+    "texte": "Réimposition automatique de la règle des affiliés du BIS, sauf action du BIS"
+   }
+  ]
+ },
+ "sanctions": {
+  "nom": "Sanctions",
+  "court": "Sanctions",
+  "reference": "Sanctions de l’UE, des États-Unis (OFAC) et du Royaume-Uni",
+  "chronologie": [
+   {
+    "date": "2026-04-23",
+    "texte": "20e paquet de sanctions de l’UE contre la Russie"
+   },
+   {
+    "date": "2026-07-23",
+    "texte": "21e paquet de sanctions de l’UE contre la Russie"
+   },
+   {
+    "date": "2026-10-25",
+    "texte": "Fin de la période transitoire pour certains contrats conclus avant le 24 juillet (21e paquet)"
+   }
+  ]
+ },
+ "nis2": {
+  "nom": "NIS2 et loi Résilience",
+  "court": "NIS2",
+  "reference": "Directive (UE) 2022/2555 ; projet de loi Résilience (NIS2, DORA, REC)",
+  "chronologie": [
+   {
+    "date": "2026-10-07",
+    "texte": "Début de l’examen de la loi Résilience à l’Assemblée nationale"
+   }
+  ]
+ },
+ "ai-act": {
+  "nom": "AI Act",
+  "court": "AI Act",
+  "reference": "Règlement (UE) 2024/1689, modifié par le règlement (UE) 2026/1744",
+  "chronologie": [
+   {
+    "date": "2026-07-27",
+    "texte": "Entrée en vigueur du règlement (UE) 2026/1744 « Digital Omnibus on AI »"
+   },
+   {
+    "date": "2026-12-02",
+    "texte": "Marquage des contenus générés par IA (article 50, paragraphe 2)"
+   },
+   {
+    "date": "2027-12-02",
+    "texte": "Règles sur les systèmes d’IA à haut risque"
+   }
+  ]
+ },
+ "pld": {
+  "nom": "Responsabilité du fait des produits",
+  "court": "Responsabilité produit",
+  "reference": "Directive (UE) 2024/2853",
+  "chronologie": [
+   {
+    "date": "2026-12-09",
+    "texte": "Date limite de transposition de la directive"
+   }
+  ]
+ },
+ "licences": {
+  "nom": "Licences open source",
+  "court": "Licences",
+  "reference": "GPL, AGPL, licences à source disponible ; contentieux"
+ },
+ "cmmc": {
+  "nom": "CMMC",
+  "court": "CMMC",
+  "reference": "Cybersecurity Maturity Model Certification (département de la Défense des États-Unis)",
+  "chronologie": [
+   {
+    "date": "2026-07-13",
+    "texte": "Suspension de la phase 2 pour une revue de 60 jours"
+   }
+  ]
+ },
+ "financement": {
+  "nom": "SAFE, EDIP et financements européens de défense",
+  "court": "SAFE / EDIP",
+  "reference": "Instruments européens de financement de l’industrie de défense",
+  "chronologie": [
+   {
+    "date": "2026-10-13",
+    "texte": "Échéance de plusieurs appels EDIP"
+   },
+   {
+    "date": "2027-02-16",
+    "texte": "Échéance d’autres appels EDIP"
+   }
+  ]
+ }
+}

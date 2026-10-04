@@ -1,0 +1,60 @@
+{
+ "n": 1,
+ "date_long": "Dimanche 4 octobre 2026",
+ "date": "4 octobre 2026",
+ "toc": [
+  "À la une",
+  "SBOM et standards",
+  "Outils",
+  "Chaîne d’approvisionnement",
+  "Commerce international",
+  "France et UE",
+  "Licences",
+  "Agenda"
+ ],
+ "ess": [
+  [
+   "11 sept.",
+   "CRA : les fabricants doivent déclarer les vulnérabilités activement exploitées",
+   0
+  ],
+  [
+   "78 %",
+   "des organisations ont commencé à générer des SBOM (ENISA, juin 2026)",
+   1
+  ],
+  [
+   "3 ans",
+   "reconduction des sanctions ciblées de l’UE (plus de 3 000 inscriptions)",
+   4
+  ],
+  [
+   "35 %",
+   "plafond du coût des composants de pays tiers non associés dans SAFE",
+   5
+  ],
+  [
+   "7 oct.",
+   "la loi Résilience (NIS2, DORA, REC) arrive à l’Assemblée nationale",
+   5
+  ]
+ ],
+ "agenda_refs": [
+  "https://events.linuxfoundation.org/openssf-community-day-europe/",
+  "https://next.ink/brief-article/alleluia-la-transposition-de-nis2-est-enfin-a-lordre-du-jour-de-lassemblee-nationale/",
+  "https://www.consilium.europa.eu/en/policies/defence-industry-programme/",
+  "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal",
+  "https://www.wolftheiss.com/insights/cmmc-phase-ii-suspended-what-changes-and-what-does-not-for-european-suppliers-to-the-us-defence-industrial-base/",
+  "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "https://www.euaiact.com/digital-omnibus-ai",
+  "https://www.wolftheiss.com/insights/software-digital-products-and-ai-stricter-safety-requirements-on-the-horizon/",
+  "https://complycra.eu/what-are-the-cra-obligations-starting-september-11-2026/",
+  "https://www.consilium.europa.eu/en/policies/defence-industry-programme/",
+  "https://www.euaiact.com/digital-omnibus-ai",
+  "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+ ],
+ "site": "https://revue.dejeun.es/",
+ "date_iso": "2026-10-04",
+ "demo": true
+}
