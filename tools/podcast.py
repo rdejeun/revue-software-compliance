@@ -56,6 +56,12 @@ def editions():
 def log(*a): print(*a, flush=True)
 
 
+def bilan(niveau, msg):
+    """Message affiché aussi en annotation dans GitHub Actions (visible sans ouvrir le journal)."""
+    log(msg)
+    if os.environ.get('GITHUB_ACTIONS'): print(f'::{niveau} title=Épisode audio::{msg}', flush=True)
+
+
 # ------------------------------------------------------------------ contrôle
 def charger(d):
     p = os.path.join(CONTENT, d, 'podcast.json')
@@ -164,7 +170,7 @@ def assembler(morceaux, mp3, meta):
 
 def produire(d, dry=False, force=False):
     pod, sha = charger(d)
-    if pod is None: log(f'{d} : pas de podcast.json, rien à faire.'); return False
+    if pod is None: bilan('notice', f'{d} : pas de podcast.json, rien à faire.'); return False
     err, warn, mots = controler(pod)
     if MAX_CHARS: sha += f':essai-{MAX_CHARS}'   # un extrait n'est jamais pris pour l'épisode complet
     for w in warn: log(f'{d} : avertissement : {w}')
@@ -173,13 +179,13 @@ def produire(d, dry=False, force=False):
     mp3, info = os.path.join(dossier, 'episode.mp3'), os.path.join(dossier, 'episode.json')
     if not force and not dry and os.path.isfile(mp3) and os.path.isfile(info):
         if json.load(open(info, encoding='utf-8')).get('sha_script') == sha:
-            log(f'{d} : épisode déjà à jour.'); return False
+            bilan('notice', f'{d} : épisode déjà à jour, rien à refaire.'); return False
     cle = os.environ.get('ELEVENLABS_API_KEY', '').strip()
-    if not dry and not cle: log(f'{d} : ELEVENLABS_API_KEY absente, épisode non produit.'); return False
+    if not dry and not cle: bilan('warning', f'{d} : secret ELEVENLABS_API_KEY absent, épisode non produit.'); return False
     if not shutil.which('ffmpeg'): raise SystemExit('ffmpeg introuvable')
     voix = {k: {**VOIX.get(k, {}), **v} for k, v in {**VOIX, **(pod.get('voix') or {})}.items()}
     manque = [v['nom'] for v in voix.values() if not v.get('voice')]
-    if manque and not dry: log(f'{d} : identifiant de voix manquant pour {", ".join(manque)} (ELEVENLABS_VOICE_A / _B), épisode non produit.'); return False
+    if manque and not dry: bilan('warning', f'{d} : identifiant de voix manquant pour {", ".join(manque)} (ELEVENLABS_VOICE_A / _B), épisode non produit.'); return False
     lex = lexique()
     reps = extrait(pod['repliques'])
     if MAX_CHARS:
@@ -203,7 +209,7 @@ def produire(d, dry=False, force=False):
         log(f'{d} : essai à blanc réussi : {sortie} ({meta["octets"]} octets, {duree / 60:.1f} min). Aucun fichier écrit dans content/.')
         return False
     json.dump(meta, open(info, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    log(f'{d} : épisode produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
+    bilan('notice', f'{d} : {"extrait d’essai" if MAX_CHARS else "épisode"} produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
     return True
 
 
@@ -230,4 +236,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try: main()
+    except SystemExit as e:
+        if e.code not in (None, 0) and not isinstance(e.code, int): bilan('error', str(e))
+        raise
