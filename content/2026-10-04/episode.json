@@ -1,8 +1,9 @@
 {
- "duree_s": 133,
- "octets": 1061739,
+ "duree_s": 136,
+ "octets": 1130284,
  "mots": 411,
  "modele": "eleven_v3",
+ "seed": 20261004,
  "voix": {
   "A": {
    "nom": "Julie",
@@ -13,9 +14,21 @@
    "voice": "cTNP6ZM2mLTKj2BFhxEh"
   }
  },
- "genere_le": "2026-10-04T22:04:12Z",
+ "genere_le": "2026-10-04T22:58:50Z",
  "sha_script": "7eba9d7273084c17468d7f3ed21752980e2fb306fb24d424c67e181bc1da3e78:essai-2500",
  "extrait": true,
  "repliques": 13,
- "prononciation": "dictionnaire ElevenLabs L3077amrGSNmKpc4wD8m"
+ "prononciation": "dictionnaire ElevenLabs aXa1STIcpecrPSzbXU3X",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "7.9 → 2.6 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 66 → 27 ms, B 24 → 20 ms",
+  "Durée": "136.0 s (blocs : 136.1 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "non vérifiée (TypeError)"
+ },
+ "requetes": 2,
+ "fichier": "episode.m4a"
 }
