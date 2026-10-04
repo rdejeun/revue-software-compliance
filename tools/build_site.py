@@ -44,8 +44,9 @@ def fdate_long(iso):
 def episode(d):
     """Métadonnées de l'épisode audio de l'édition d (tools/podcast.py), ou None."""
     c = os.path.join(CONTENT, d)
-    if os.path.isfile(os.path.join(c, 'episode.mp3')) and os.path.isfile(os.path.join(c, 'episode.json')):
-        return json.load(open(os.path.join(c, 'episode.json'), encoding='utf-8'))
+    f = next((x for x in ('episode.m4a', 'episode.mp3') if os.path.isfile(os.path.join(c, x))), None)   # M4A ; MP3 (anciens épisodes)
+    if f and os.path.isfile(os.path.join(c, 'episode.json')):
+        return {**json.load(open(os.path.join(c, 'episode.json'), encoding='utf-8')), 'fichier': f, 'octets': os.path.getsize(os.path.join(c, f))}
     return None
 
 
@@ -216,7 +217,8 @@ def main():
         write(os.path.join(SITE, d, 'index.html'), open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read())
         md = to_md(blocks, meta)
         write(os.path.join(SITE, d, 'index.md'), md)
-        if episode(d): shutil.copyfile(os.path.join(CONTENT, d, 'episode.mp3'), os.path.join(SITE, d, 'episode.mp3'))
+        ep = episode(d)
+        if ep: shutil.copyfile(os.path.join(CONTENT, d, ep['fichier']), os.path.join(SITE, d, ep['fichier']))
         write(os.path.join(out, 'revue-email.txt'), to_md(blocks, meta, text=True))
         lede = next((TY(''.join(x['t'] for x in b['i']).strip(' ·')) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         infos.append({'d': d, 'meta': meta, 'lede': lede, 'items': json.load(open(os.path.join(out, 'items.json'), encoding='utf-8')), 'md': md})
@@ -287,7 +289,7 @@ def main():
     def pod(i):
         p = json.load(open(os.path.join(CONTENT, i['d'], 'podcast.json'), encoding='utf-8'))
         return p['titre'], p['description']
-    pitems = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {TY(pod(i)[0])}")}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode.mp3</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/episode.mp3" length="{ep['octets']}" type="audio/mpeg"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
+    pitems = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {TY(pod(i)[0])}")}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/{ep['fichier']}" length="{ep['octets']}" type="{'audio/mp4' if ep['fichier'].endswith('.m4a') else 'audio/mpeg'}"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
     write(os.path.join(SITE, 'podcast.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>Software Compliance, l’épisode</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>La revue de presse Software Compliance racontée à deux voix de synthèse : une question, une explication, une relance. Conformité logicielle des produits pour l’industrie de défense.</description><language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
 ''')
