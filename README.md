@@ -138,5 +138,6 @@ Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrô
 
 - **En-tête** : sous le titre, à gauche « N° · date · Archives · Dossiers », à droite « Lecture ≈ n min ». Image de fond facultative `tools/en-tete.webp` (ou .png, .jpg), version web seulement, calée en haut à droite sur 67,5 % de la largeur (60 % sur mobile), réglée pour que le graphe ne touche pas le titre et que le document s'arrête juste au-dessus de « Lecture » ; prompt de génération dans `tools/en-tete-prompt.md`.
 - **Fond de page** : tuile répétée `tools/fond.webp` (1024 px affichés à 512 px, teinte moyenne #ECEBE6), version web seulement ; l'e-mail garde le fond uni.
+- **Titres des dossiers** : champ `titre` de `tools/themes.json`, « partie en italique|suite », coupé entre deux blocs de sens (« Cyber Resilience|Act ») ; sans ce champ, tout le titre est en sans-serif.
 - **Pied de page** : « Ce document a été rédigé par une intelligence artificielle (<éditeur> <modèle> <version>). Des erreurs sont possibles. », valeur prise dans `meta.json` (`redaction`), à défaut « Anthropic Claude Opus 5.5 ».
 

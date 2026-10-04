@@ -1,6 +1,7 @@
 {
  "cra": {
   "nom": "Cyber Resilience Act",
+  "titre": "Cyber Resilience|Act",
   "court": "CRA",
   "reference": "Règlement (UE) 2024/2847",
   "statut": "Déclaration des vulnérabilités activement exploitées et des incidents graves en vigueur depuis le 11 septembre 2026 ; application complète le 11 décembre 2027",
@@ -40,6 +41,7 @@
  },
  "sbom": {
   "nom": "SBOM et nomenclatures logicielles",
+  "titre": "SBOM|et nomenclatures logicielles",
   "court": "SBOM",
   "reference": "CycloneDX (ECMA-424), SPDX (ISO/IEC 5962), éléments minimaux de la CISA",
   "chronologie": [
@@ -60,16 +62,19 @@
  },
  "sca": {
   "nom": "Analyse de composition logicielle (SCA)",
+  "titre": "Analyse de composition logicielle|(SCA)",
   "court": "SCA",
   "reference": "Outils d’inventaire des composants, de détection des vulnérabilités et d’analyse des licences"
  },
  "chaine": {
   "nom": "Sécurité de la chaîne d’approvisionnement logicielle",
+  "titre": "Sécurité|de la chaîne d’approvisionnement logicielle",
   "court": "Chaîne d’approvisionnement",
   "reference": "Registres de paquets, intégrité des builds (SLSA), attaques de référence"
  },
  "export-ue": {
   "nom": "Contrôle des exportations (UE et France)",
+  "titre": "Contrôle des exportations|(UE et France)",
   "court": "Export UE",
   "reference": "Règlement (UE) 2021/821, matériels de guerre (CIEEMG), directive des transferts intra-UE",
   "chronologie": [
@@ -86,6 +91,7 @@
  },
  "export-us": {
   "nom": "Contrôle des exportations américain (EAR, ITAR)",
+  "titre": "Contrôle des exportations américain|(EAR, ITAR)",
   "court": "Export États-Unis",
   "reference": "EAR (BIS, département du Commerce) et ITAR (DDTC, département d’État)",
   "chronologie": [
@@ -116,6 +122,7 @@
  },
  "nis2": {
   "nom": "NIS2 et loi Résilience",
+  "titre": "NIS2|et loi Résilience",
   "court": "NIS2",
   "reference": "Directive (UE) 2022/2555 ; projet de loi Résilience (NIS2, DORA, REC)",
   "chronologie": [
@@ -173,6 +180,7 @@
  },
  "financement": {
   "nom": "SAFE, EDIP et financements européens de défense",
+  "titre": "SAFE, EDIP|et financements européens de défense",
   "court": "SAFE / EDIP",
   "reference": "Instruments européens de financement de l’industrie de défense",
   "chronologie": [

@@ -185,10 +185,13 @@ a.more{{color:#c2410c;font:600 13px {SANS};text-decoration:none;white-space:nowr
 REDACTION = 'Anthropic Claude Opus 5.5'   # remplacé par la valeur « redaction » de la dernière édition
 
 
-def titre(nom):
-    """Titre façon page principale : premier mot en italique orange (serif), la suite en sans-serif."""
-    m = nom.split(' ', 1)
-    return f'<i>{E(m[0])}</i> <span>{E(m[1])}</span>' if len(m) == 2 else f'<span>{E(nom)}</span>'
+def titre(nom, spec=None):
+    """Titre façon page principale. spec (« titre » dans themes.json) : « partie en italique|suite »,
+    coupé entre deux blocs de sens ; sans spec, tout le nom en sans-serif."""
+    if spec and '|' in spec:
+        a, b = spec.split('|', 1)
+        return f'<i>{E(a)}</i> <span>{E(b)}</span>'
+    return f'<span>{E(nom)}</span>'
 
 
 def page(title, eyebrow, h1, sub, body):
@@ -265,7 +268,7 @@ def main():
                 more = f' <a class="more" href="/{i["d"]}/#{it["sid"]}">En savoir plus ↗</a>' if it.get('sid') else ''
                 body += f'<li><span class="sec">{E(lab)}</span>{it["html"]}{more}</li>'
             body += '</ul>'
-        write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} · Dossiers · Software Compliance', 'Dossier', titre(v['nom']),
+        write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} · Dossiers · Software Compliance', 'Dossier', titre(v['nom'], v.get('titre')),
               f'{E(TY(v.get("reference", "")))} · {len(its)} information{"s" if len(its) > 1 else ""} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body))
     write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
           'Tout ce que la revue a publié, thème par thème · <a href="/">Dernière édition</a> · <a href="/archives/">Archives</a>', f'<ul class="l">{"".join(idx)}</ul>'))

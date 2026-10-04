@@ -85,7 +85,7 @@ def bloc_podcast(web,diso,ed_url):
     return (f'<div class="pod" id="ecouter">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">Écouter l’épisode</span><span class="pod-d">{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
-            f'<div class="pod-eb">Podcast</div>'
+            f'<div class="pod-hd"><span class="pod-eb">Podcast</span><span class="pod-n">Ce dialogue a été produit par une intelligence artificielle.</span></div>'
             +
             f'<audio preload="none" src="/{diso}/episode.mp3"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
@@ -93,7 +93,6 @@ def bloc_podcast(web,diso,ed_url):
             f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
             f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
             f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
-            f'<p class="pod-n">Ce dialogue a été produit par une intelligence artificielle.</p>'
             f'</div></div></div>')
 POD_JS=r"""<script>
 (function(){
@@ -355,7 +354,8 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-d{{font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
-.pod-eb{{margin:12px 0 10px;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
+.pod-hd{{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
+.pod-eb{{margin:0;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
 .pod-t{{margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};text-wrap:balance}}
 .pod-p{{display:flex;align-items:center;gap:12px}}
 .pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
@@ -371,7 +371,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-v{{--p:100%;flex:none;width:72px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
 .pod-v::-webkit-slider-thumb{{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:{NAVY};border:2px solid #fff;box-shadow:0 0 0 1px {NAVY}}}
 .pod-v::-moz-range-thumb{{width:10px;height:10px;border-radius:50%;background:{NAVY};border:2px solid #fff}}
-.pod-n{{margin:12px 0 0;font:italic 13px/19px {SERIF};color:#6b7280}}
+.pod-n{{margin:0;font:italic 13px/19px {SERIF};color:#6b7280;text-align:right}}
 @media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
 dialog.sy{{width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
