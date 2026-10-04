@@ -67,8 +67,12 @@ _TOOLS=os.path.dirname(os.path.abspath(__file__))
 FOND='/assets/fond.webp' if os.path.isfile(os.path.join(_TOOLS,'fond.webp')) else None   # fond de page répété (version web)
 EN_TETE=next((f'/assets/en-tete.{x}' for x in ('webp','png','jpg') if os.path.isfile(os.path.join(_TOOLS,f'en-tete.{x}'))),None)
 def duree_ep():
-    d=EP['duree_s']
-    return f'{d}&nbsp;s' if d<60 else f'{round(d/60)}&nbsp;min'
+    return f"{max(1,round(EP['duree_s']/60))}&nbsp;min"
+def libelle_ep(diso):
+    """« Écouter l'épisode du 4 oct. 2026 »"""
+    a,m,j=diso.split('-')
+    return f"Écouter l’épisode du {'1er' if j=='01' else int(j)}&nbsp;{MOIS[int(m)-1]}&nbsp;{a}"
+ICO_RSS='<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="3.2" cy="12.8" r="1.7" fill="currentColor"/><path d="M2 7.2a6.8 6.8 0 0 1 6.8 6.8M2 2.6A11.4 11.4 0 0 1 13.4 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
 ICO_VOL='<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z" fill="currentColor"/><path class="w" d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
 ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
 def bloc_podcast(web,diso,ed_url):
@@ -80,13 +84,13 @@ def bloc_podcast(web,diso,ed_url):
         if not ed_url: return ''
         return (f'<table role="presentation" width="75%" align="center" cellpadding="0" cellspacing="0" style="width:75%;margin:0 auto 26px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
                 f'<tr><td style="padding:10px 18px;"><a href="{ed_url}#ecouter" style="display:block;text-decoration:none;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-                f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;Écouter l’épisode</td>'
+                f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}</td>'
                 f'<td align="right" style="font:13px/22px {SANS};color:#6b7280;white-space:nowrap;">{m}</td></tr></table></a></td></tr></table>')
     titre=esc(typo((POD or {}).get('titre','')))
     return (f'<div class="pod" id="ecouter">'
-            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">Écouter l’épisode</span><span class="pod-d">{m}</span></button>'
+            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
-            f'<div class="pod-hd"><span class="pod-eb">Podcast</span><span class="pod-n">Ce dialogue a été produit par une intelligence artificielle.</span></div>'
+            f'<div class="pod-hd"><span class="pod-eb">Podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner au podcast</span></a></div>'
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
@@ -355,7 +359,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-d{{font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
-.pod-hd{{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
+.pod-hd{{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
 .pod-eb{{margin:0;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
 .pod-t{{margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};text-wrap:balance}}
 .pod-p{{display:flex;align-items:center;gap:12px}}
@@ -372,7 +376,9 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-v{{--p:100%;flex:none;width:72px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
 .pod-v::-webkit-slider-thumb{{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:{NAVY};border:2px solid #fff;box-shadow:0 0 0 1px {NAVY}}}
 .pod-v::-moz-range-thumb{{width:10px;height:10px;border-radius:50%;background:{NAVY};border:2px solid #fff}}
-.pod-n{{margin:0;font:italic 13px/19px {SERIF};color:#6b7280;text-align:right}}
+.pod-rss{{display:inline-flex;align-items:center;gap:6px;color:#6b7280;font:600 12px/16px {SANS};text-decoration:none}}
+.pod-rss svg{{color:{ACC}}}
+.pod-rss:hover span,.pod-rss:focus-visible span{{color:{ACC};text-decoration:underline}}
 @media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
 dialog.sy{{width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
@@ -397,7 +403,7 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title><style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
