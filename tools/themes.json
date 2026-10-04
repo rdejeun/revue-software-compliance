@@ -41,7 +41,7 @@
  },
  "sbom": {
   "nom": "SBOM et nomenclatures logicielles",
-  "titre": "SBOM|et nomenclatures logicielles",
+  "titre": "SBOM et|nomenclatures",
   "court": "SBOM",
   "reference": "CycloneDX (ECMA-424), SPDX (ISO/IEC 5962), éléments minimaux de la CISA",
   "chronologie": [
@@ -62,19 +62,19 @@
  },
  "sca": {
   "nom": "Analyse de composition logicielle (SCA)",
-  "titre": "Analyse de composition logicielle|(SCA)",
+  "titre": "Analyse de composition|(SCA)",
   "court": "SCA",
   "reference": "Outils d’inventaire des composants, de détection des vulnérabilités et d’analyse des licences"
  },
  "chaine": {
   "nom": "Sécurité de la chaîne d’approvisionnement logicielle",
-  "titre": "Sécurité|de la chaîne d’approvisionnement logicielle",
+  "titre": "Sécurité de la|supply chain",
   "court": "Chaîne d’approvisionnement",
   "reference": "Registres de paquets, intégrité des builds (SLSA), attaques de référence"
  },
  "export-ue": {
   "nom": "Contrôle des exportations (UE et France)",
-  "titre": "Contrôle des exportations|(UE et France)",
+  "titre": "Export Control|UE & France",
   "court": "Export UE",
   "reference": "Règlement (UE) 2021/821, matériels de guerre (CIEEMG), directive des transferts intra-UE",
   "chronologie": [
@@ -91,7 +91,7 @@
  },
  "export-us": {
   "nom": "Contrôle des exportations américain (EAR, ITAR)",
-  "titre": "Contrôle des exportations américain|(EAR, ITAR)",
+  "titre": "Export Control|USA",
   "court": "Export États-Unis",
   "reference": "EAR (BIS, département du Commerce) et ITAR (DDTC, département d’État)",
   "chronologie": [
@@ -103,6 +103,7 @@
  },
  "sanctions": {
   "nom": "Sanctions",
+  "titre": "Sanctions",
   "court": "Sanctions",
   "reference": "Sanctions de l’UE, des États-Unis (OFAC) et du Royaume-Uni",
   "chronologie": [
@@ -134,6 +135,7 @@
  },
  "ai-act": {
   "nom": "AI Act",
+  "titre": "AI|Act",
   "court": "AI Act",
   "reference": "Règlement (UE) 2024/1689, modifié par le règlement (UE) 2026/1744",
   "chronologie": [
@@ -153,6 +155,7 @@
  },
  "pld": {
   "nom": "Responsabilité du fait des produits",
+  "titre": "Responsabilité|Produit",
   "court": "Responsabilité produit",
   "reference": "Directive (UE) 2024/2853",
   "chronologie": [
@@ -164,11 +167,13 @@
  },
  "licences": {
   "nom": "Licences open source",
+  "titre": "Licences|open source",
   "court": "Licences",
   "reference": "GPL, AGPL, licences à source disponible ; contentieux"
  },
  "cmmc": {
   "nom": "CMMC",
+  "titre": "Cybersecurity|Maturity Model",
   "court": "CMMC",
   "reference": "Cybersecurity Maturity Model Certification (département de la Défense des États-Unis)",
   "chronologie": [
@@ -180,7 +185,7 @@
  },
  "financement": {
   "nom": "SAFE, EDIP et financements européens de défense",
-  "titre": "SAFE, EDIP|et financements européens de défense",
+  "titre": "SAFE/EDIP|et financements européens de défense",
   "court": "SAFE / EDIP",
   "reference": "Instruments européens de financement de l’industrie de défense",
   "chronologie": [
