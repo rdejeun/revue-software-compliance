@@ -52,6 +52,7 @@ jobs:
           ELEVENLABS_VOICE_A: ${{ vars.ELEVENLABS_VOICE_A }}
           ELEVENLABS_VOICE_B: ${{ vars.ELEVENLABS_VOICE_B }}
           ELEVENLABS_MODEL: ${{ vars.ELEVENLABS_MODEL }}
+          PODCAST_MAX_CHARS: ${{ vars.PODCAST_MAX_CHARS }}
         run: python3 tools/podcast.py
 
       - name: Construire le site et les e-mails

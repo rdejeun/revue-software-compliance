@@ -63,18 +63,18 @@ SYN_LABELS=[('essentiel','L’essentiel'),('contexte','Contexte')]
 def ecoute(web,ed_url):
     """Lien « Écouter » dans l'en-tête : vers le lecteur de la page web (e-mail) ou l'ancre locale (web)."""
     if not EP: return ''
-    m=max(1,round(EP['duree_s']/60)); href='#ecouter' if web else (ed_url+'#ecouter' if ed_url else '')
+    m=(f"{EP['duree_s']}&nbsp;s" if EP['duree_s']<60 else f"{round(EP['duree_s']/60)}&nbsp;min"); href='#ecouter' if web else (ed_url+'#ecouter' if ed_url else '')
     if not href: return ''
-    return f' &nbsp;·&nbsp; <a href="{href}" style="color:{ACC};font-weight:600;text-decoration:none;">Écouter l’épisode ({m}&nbsp;min)&nbsp;▶</a>'
+    return f' &nbsp;·&nbsp; <a href="{href}" style="color:{ACC};font-weight:600;text-decoration:none;">Écouter l’épisode ({m})&nbsp;▶</a>'
 def lecteur(diso):
     """Lecteur audio et transcription, en tête de la version web."""
     if not EP or not diso: return ''
-    m=max(1,round(EP['duree_s']/60))
+    m=(f"{EP['duree_s']}&nbsp;s" if EP['duree_s']<60 else f"{round(EP['duree_s']/60)}&nbsp;min")
     noms={k:v['nom'] for k,v in (EP.get('voix') or {}).items()}
-    tr=''.join(f'<p style="margin:0 0 8px;"><b style="font:600 13px {SANS};color:{NAVY};">{esc(noms.get(r["v"],r["v"]))}</b> — {esc(typo(r["t"]))}</p>' for r in (POD or {}).get('repliques',[]))
+    tr=''.join(f'<p style="margin:0 0 8px;"><b style="font:600 13px {SANS};color:{NAVY};">{esc(noms.get(r["v"],r["v"]))}</b> — {esc(typo(r["t"]))}</p>' for r in (POD or {}).get('repliques',[])[:EP.get('repliques') or None])
     trans=f'<details style="margin-top:10px;"><summary style="cursor:pointer;font:600 13px/20px {SANS};color:#4b5563;">Lire la transcription</summary><div style="margin-top:10px;font:15px/22px {SERIF};color:#1f2937;">{tr}</div></details>' if tr else ''
     return (f'<div id="ecouter" style="margin:0 0 26px;padding:16px 18px;background:#f7f4ee;border-left:4px solid {ACC};">'
-            f'<div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC};">L’épisode audio · {m}&nbsp;min</div>'
+            f'<div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC};">{'Extrait d’essai' if EP.get('extrait') else 'L’épisode audio'} · {m}</div>'
             f'<div style="margin:4px 0 10px;font:600 17px/24px {SANS};color:{NAVY};">{esc(typo((POD or {}).get("titre","")))}</div>'
             f'<audio controls preload="none" src="/{diso}/episode.mp3" style="width:100%;"></audio>'
             f'<div style="margin-top:6px;font:12px/18px {SANS};color:#6b7280;">Dialogue à deux voix de synthèse, écrit à partir de cette édition · <a href="/{diso}/episode.mp3" download style="color:#6b7280;">Télécharger le MP3</a> · <a href="/podcast.xml" style="color:#6b7280;">S’abonner (RSS)</a></div>'

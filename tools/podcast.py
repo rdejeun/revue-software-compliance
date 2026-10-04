@@ -34,6 +34,19 @@ VOIX = {
     'B': {'nom': 'Thomas', 'voice': os.environ.get('ELEVENLABS_VOICE_B', '').strip()},
 }
 MOTS_MIN, MOTS_MAX = 900, 1800   # ≈ 6 à 12 minutes
+# Mode essai (variable PODCAST_MAX_CHARS, ex. 450 ≈ 30 s) : seules les premières répliques, jusqu'à
+# ce nombre de caractères, sont synthétisées. Pour limiter le coût pendant la mise au point.
+MAX_CHARS = int(os.environ.get('PODCAST_MAX_CHARS') or 0)
+
+
+def extrait(reps):
+    """Premières répliques tenant dans MAX_CHARS (au moins une) ; toutes si MAX_CHARS vaut 0."""
+    if not MAX_CHARS: return reps
+    out, n = [], 0
+    for r in reps:
+        if out and n + len(r['t']) > MAX_CHARS: break
+        out.append(r); n += len(r['t'])
+    return out
 
 
 def editions():
@@ -155,6 +168,7 @@ def produire(d, dry=False, force=False):
     pod, sha = charger(d)
     if pod is None: log(f'{d} : pas de podcast.json, rien à faire.'); return False
     err, warn, mots = controler(pod)
+    if MAX_CHARS: sha += f':essai-{MAX_CHARS}'   # un extrait n'est jamais pris pour l'épisode complet
     for w in warn: log(f'{d} : avertissement : {w}')
     if err: raise SystemExit(f'{d} : script invalide :\n- ' + '\n- '.join(err))
     dossier = os.path.join(CONTENT, d)
@@ -169,8 +183,12 @@ def produire(d, dry=False, force=False):
     manque = [v['nom'] for v in voix.values() if not v.get('voice')]
     if manque and not dry: log(f'{d} : identifiant de voix manquant pour {", ".join(manque)} (ELEVENLABS_VOICE_A / _B), épisode non produit.'); return False
     lex = lexique()
-    chunks = decouper(pod['repliques'])
-    log(f'{d} : {len(pod["repliques"])} répliques, {mots} mots, {len(chunks)} requête(s) {"(essai à blanc)" if dry else "à " + MODELE}')
+    reps = extrait(pod['repliques'])
+    if MAX_CHARS:
+        mots = sum(len(r['t'].split()) for r in reps)
+        log(f'{d} : MODE ESSAI (PODCAST_MAX_CHARS={MAX_CHARS}) : {len(reps)} réplique(s) sur {len(pod["repliques"])}, {sum(len(r["t"]) for r in reps)} caractères')
+    chunks = decouper(reps)
+    log(f'{d} : {len(reps)} répliques, {mots} mots, {len(chunks)} requête(s) {"(essai à blanc)" if dry else "à " + MODELE}')
     morceaux, ids = [], []
     for i, c in enumerate(chunks, 1):
         log(f'  requête {i}/{len(chunks)} ({sum(len(r["t"]) for r in c)} caractères)')
@@ -182,7 +200,7 @@ def produire(d, dry=False, force=False):
     duree = assembler(morceaux, sortie, {'titre': pod['titre'], 'date': d})
     meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE,
             'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
-            'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha}
+            'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': bool(MAX_CHARS), 'repliques': len(reps)}
     if dry:
         log(f'{d} : essai à blanc réussi : {sortie} ({meta["octets"]} octets, {duree / 60:.1f} min). Aucun fichier écrit dans content/.')
         return False

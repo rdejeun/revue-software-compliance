@@ -101,7 +101,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 
 Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
 
-Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_A` et `ELEVENLABS_VOICE_B` (identifiants des voix de Claire et de Thomas) et, facultative, `ELEVENLABS_MODEL` (défaut `eleven_v3`) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
+Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_A` et `ELEVENLABS_VOICE_B` (identifiants des voix de Claire et de Thomas) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v3`) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
 
 ## 10. Construire en local
 
