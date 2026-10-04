@@ -4,7 +4,7 @@
 Usage :
   python3 tools/podcast.py --check [AAAA-MM-JJ]   contrôle le script (sans appel réseau)
   python3 tools/podcast.py [AAAA-MM-JJ]           produit l'épisode (par défaut : dernière édition)
-  python3 tools/podcast.py --dry-run [...]        chaîne complète sans appel à ElevenLabs (audio muet)
+  python3 tools/podcast.py --dry-run [...]        chaîne complète sans appel à ElevenLabs (voix synthétiques)
   python3 tools/podcast.py --force [...]          régénère même si l'épisode est à jour
 
 Synthèse vocale : API ElevenLabs « Text to Dialogue » (plusieurs voix dans une même requête).
@@ -13,24 +13,29 @@ des voix de Julie, voix A, et de Guillaume, voix B), ELEVENLABS_MODEL (facultati
 Prononciation : tools/prononciation.json est recopié à chaque production dans le dictionnaire de
 prononciation ElevenLabs « Software Compliance » (règles alias), passé ensuite à chaque requête.
 Si le dictionnaire est inaccessible (droits de la clé), les remplacements sont faits localement.
-Assemblage et encodage MP3 : ffmpeg.
+Post-production (tools/mixage.py) : une piste par voix, timbres appariés, réverbération propre à une voix
+atténuée, espace commun, master −16 LUFS ; contrôle qualité bloquant (loudness, true peak, durée, fidélité au
+script par faster-whisper). Budget : pas d'épisode si le solde ElevenLabs ne couvre pas le script + 20 %.
+Fichiers de travail : build/podcast/AAAA-MM-JJ/ (raw/, stems/, out/, qc_report.md), publiés en artefact par Actions.
 L'épisode n'est régénéré que si podcast.json a changé (empreinte dans episode.json) : pas de
 double facturation quand le workflow est relancé.
 Ne bloque jamais la revue : sans clé ou sans podcast.json, le script s'arrête proprement (code 0).
 """
-import datetime, hashlib, io, json, os, re, shutil, subprocess, sys, tempfile, time, wave
+import base64, datetime, hashlib, io, json, os, re, shutil, subprocess, sys, tempfile, time, wave
 import urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, 'content')
 LEXIQUE = os.path.join(ROOT, 'tools', 'prononciation.json')
 API = 'https://api.elevenlabs.io'
-ENDPOINT = API + '/v1/text-to-dialogue'
+ENDPOINT = API + '/v1/text-to-dialogue/with-timestamps'   # audio + voice_segments (une piste par voix)
+FORMAT = 'mp3_44100_128'         # seul format 44,1 kHz inclus dans l'abonnement Starter
+SEED = int(os.environ.get('PODCAST_SEED') or 20261004)   # même tirage pour tous les blocs : voix homogènes
+MARGE = 1.2                      # solde exigé : caractères du script + 20 %
 DICT_NOM = 'Software Compliance'
 # Modèles qui refusent previous_request_ids (erreur 400) : chaque requête est alors indépendante.
 SANS_CONTINUITE = {'eleven_v3'}
 MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
-RATE = 24000                     # Hz, mono, 16 bits : sortie demandée (output_format=pcm_24000)
 CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
 PAUSE = 0.6                      # secondes de silence entre deux requêtes (= entre deux sujets)
 
@@ -181,60 +186,63 @@ def decouper(reps):
 
 
 # ------------------------------------------------------------------ ElevenLabs
-def requete(chunk, voix, lex, cle, precedents, loc=None):
-    """Une requête Text to Dialogue ; renvoie (audio PCM 16 bits mono 24 kHz, identifiant de requête)."""
+def requete(chunk, voix, lex, cle, precedents, loc, base):
+    """Une requête Text to Dialogue « with-timestamps ». Écrit base.mp3 (audio reçu) et base.json (réponse sans
+    l'audio). Renvoie (segments de voix, identifiant de requête)."""
     inputs = [{'text': dire(r['t'], lex), 'voice_id': voix[r['v']]['voice']} for r in chunk]
     n = sum(len(x['text']) for x in inputs)
     if n > 2000: raise SystemExit(f'Requête de {n} caractères : au-delà de la limite de 2 000 (réduire CHUNK_MAX)')
-    body = {'inputs': inputs, 'model_id': MODELE, 'language_code': 'fr'}
+    body = {'inputs': inputs, 'model_id': MODELE, 'language_code': 'fr', 'seed': SEED}
     if precedents and MODELE not in SANS_CONTINUITE: body['previous_request_ids'] = precedents[-3:]
     if loc: body['pronunciation_dictionary_locators'] = [loc]
     data = json.dumps(body).encode('utf-8')
     for essai in range(1, 6):
-        req = urllib.request.Request(ENDPOINT + '?output_format=pcm_24000', data=data, method='POST',
-                                     headers={'xi-api-key': cle, 'Content-Type': 'application/json', 'Accept': 'audio/*'})
+        req = urllib.request.Request(f'{ENDPOINT}?output_format={FORMAT}', data=data, method='POST',
+                                     headers={'xi-api-key': cle, 'Content-Type': 'application/json', 'Accept': 'application/json'})
         try:
             with urllib.request.urlopen(req, timeout=300) as r:
-                pcm = r.read()
-                if (r.headers.get('Content-Type') or '').startswith('application/json'):
-                    raise SystemExit('Réponse d\'ElevenLabs sans audio : ' + pcm[:600].decode('utf-8', 'replace'))
-                if pcm[:4] == b'RIFF':
-                    with wave.open(io.BytesIO(pcm)) as w: pcm = w.readframes(w.getnframes())
-                if len(pcm) % 2: pcm = pcm[:-1]
-                return pcm, r.headers.get('request-id') or r.headers.get('x-request-id')
+                rep_ = json.load(r); rid = r.headers.get('request-id') or r.headers.get('x-request-id')
+            if not rep_.get('audio_base64'): raise SystemExit('Réponse d\'ElevenLabs sans audio : ' + json.dumps(rep_)[:600])
+            open(base + '.mp3', 'wb').write(base64.b64decode(rep_.pop('audio_base64')))
+            json.dump({**rep_, 'request_id': rid, 'inputs': inputs}, open(base + '.json', 'w', encoding='utf-8'), ensure_ascii=False)
+            return rep_.get('voice_segments') or [], rid
         except urllib.error.HTTPError as e:
             detail = e.read().decode('utf-8', 'replace')[:600]
-            if e.code in (429, 500, 502, 503, 504) and essai < 5:
+            if e.code in (429, 500, 502, 503, 504) and essai < 3:
                 log(f'  HTTP {e.code}, nouvel essai dans {10 * essai} s'); time.sleep(10 * essai); continue
             raise SystemExit(f'ElevenLabs a refusé la requête (HTTP {e.code}) : {detail}')
         except (urllib.error.URLError, TimeoutError) as e:
-            if essai < 5: log(f'  {e}, nouvel essai dans {10 * essai} s'); time.sleep(10 * essai); continue
+            if essai < 3: log(f'  {e}, nouvel essai dans {10 * essai} s'); time.sleep(10 * essai); continue
             raise SystemExit(f'ElevenLabs injoignable : {e}')
 
 
-def muet(chunk):
-    """--dry-run : silence de durée réaliste (≈ 15 caractères lus par seconde), aucun appel réseau."""
-    n = sum(len(r['t']) for r in chunk)
-    return b"\x00\x00" * int(RATE * n / 15)
+def solde(cle):
+    """Caractères restants sur la période d'abonnement en cours, et date de remise à zéro."""
+    a = appel('GET', '/v1/user/subscription', cle)
+    reste = int(a['character_limit']) - int(a['character_count'])
+    raz = a.get('next_character_count_reset_unix')
+    return reste, (datetime.datetime.fromtimestamp(raz, datetime.timezone.utc).strftime('%d/%m/%Y') if raz else 'inconnue')
 
 
-# ------------------------------------------------------------------ assemblage
-def assembler(morceaux, mp3, meta):
-    silence = b'\x00\x00' * int(RATE * PAUSE)
-    pcm = silence.join(morceaux)
-    with tempfile.TemporaryDirectory() as t:
-        wav = os.path.join(t, 'episode.wav')
-        with wave.open(wav, 'wb') as w:
-            w.setnchannels(1); w.setsampwidth(2); w.setframerate(RATE); w.writeframes(pcm)
-        tmp = mp3 + '.tmp.mp3'
-        cmd = ['ffmpeg', '-hide_banner', '-loglevel', 'error', '-y', '-i', wav,
-               '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11', '-ar', '44100', '-ac', '1', '-c:a', 'libmp3lame', '-b:a', '64k',
-               '-metadata', f'title={meta["titre"]}', '-metadata', 'artist=Software Compliance',
-               '-metadata', f'album=Software Compliance', '-metadata', f'date={meta["date"][:4]}',
-               '-metadata', 'comment=Voix de synthèse', '-id3v2_version', '3', tmp]
-        subprocess.run(cmd, check=True)
-        os.replace(tmp, mp3)
-    return len(pcm) / 2 / RATE
+def synthetique(chunk, voix, base):
+    """--dry-run : « voix » de synthèse (bruit filtré modulé), A plus brillante et réverbérée, B sèche,
+    au format de l'API (MP3 + voice_segments). Exerce toute la post-production sans appel réseau."""
+    import numpy as np
+    from scipy import signal as sg
+    sr, rng, x, segs, t = 44100, np.random.default_rng(len(chunk)), [], [], 0.0
+    for r in chunk:
+        d = max(0.6, len(r['t']) / 15); n = int(sr * d)
+        bas, haut = (300, 6000) if r['v'] == 'A' else (120, 3500)
+        y = sg.sosfilt(sg.butter(4, [bas, haut], 'bandpass', fs=sr, output='sos'), rng.standard_normal(n))
+        env = (np.sin(np.arange(n) / sr * 2 * np.pi * 4) > -0.2).astype(float)
+        y *= np.convolve(env, np.ones(200) / 200, 'same')
+        if r['v'] == 'A': y = y + 0.3 * sg.lfilter([1], [1, -0.995], y) / 30
+        y *= 0.1 / (np.sqrt((y ** 2).mean()) + 1e-9)
+        segs.append({'voice_id': voix[r['v']]['voice'] or r['v'], 'start_time_seconds': t, 'end_time_seconds': t + d})
+        x += [y, np.zeros(int(sr * 0.3))]; t += d + 0.3
+    a = np.concatenate(x).astype('<f4')
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(sr), '-ac', '1', '-i', '-', '-b:a', '128k', base + '.mp3'], input=a.tobytes(), check=True)
+    return segs
 
 
 def produire(d, dry=False, force=False):
@@ -256,30 +264,52 @@ def produire(d, dry=False, force=False):
     voix = {k: {**VOIX.get(k, {}), **v} for k, v in {**VOIX, **(pod.get('voix') or {})}.items()}
     manque = [v['nom'] for v in voix.values() if not v.get('voice')]
     if manque and not dry: bilan('warning', f'{d} : identifiant de voix manquant pour {", ".join(manque)} (variables ELEVENLABS_VOICE_FEMALE / ELEVENLABS_VOICE_MALE), épisode non produit.'); return False
+    reps = extrait(pod['repliques'])
+    if not dry:   # règle de budget : une semaine où le solde ne couvre pas le script (+20 %) ne produit pas de podcast
+        besoin = int(sum(len(dire(r['t'], lexique())) for r in reps) * MARGE)
+        try: reste, raz = solde(cle)
+        except (urllib.error.URLError, KeyError, ValueError) as e:
+            bilan('warning', f'{d} : solde ElevenLabs illisible ({getattr(e, "code", "")} {type(e).__name__}) : épisode non produit par prudence. Vérifier que la clé a le droit « User » en lecture.'); return False
+        if reste < besoin:
+            bilan('warning', f'{d} : solde ElevenLabs insuffisant ({reste} caractères restants, {besoin} nécessaires avec la marge) : pas d’épisode cette semaine. Remise à zéro le {raz}.'); return False
+        log(f'{d} : solde ElevenLabs {reste} caractères, besoin {besoin} (marge comprise) : ok')
     loc = None if dry else dictionnaire(cle)
     lex = [] if loc else lexique()
-    reps = extrait(pod['repliques'])
     if MAX_CHARS:
         mots = sum(len(r['t'].split()) for r in reps)
         log(f'{d} : MODE ESSAI (PODCAST_MAX_CHARS={MAX_CHARS}) : {len(reps)} réplique(s) sur {len(pod["repliques"])}, {sum(len(r["t"]) for r in reps)} caractères')
     chunks = decouper(reps)
     log(f'{d} : {len(reps)} répliques, {mots} mots, {len(chunks)} requête(s) {"(essai à blanc)" if dry else "à " + MODELE}')
-    morceaux, ids = [], []
+    travail = os.path.join(ROOT, 'build', 'podcast', d); shutil.rmtree(travail, ignore_errors=True); os.makedirs(os.path.join(travail, 'raw'))
+    blocs, ids = [], []
     for i, c in enumerate(chunks, 1):
-        log(f'  requête {i}/{len(chunks)} ({sum(len(r["t"]) for r in c)} caractères)')
-        if dry: morceaux.append(muet(c)); continue
-        pcm, rid = requete(c, voix, lex, cle, ids, loc)
-        morceaux.append(pcm)
-        if rid: ids.append(rid)
-    sortie = os.path.join(tempfile.gettempdir(), f'episode-{d}.mp3') if dry else mp3
-    duree = assembler(morceaux, sortie, {'titre': pod['titre'], 'date': d})
-    meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE,
+        sujets = ', '.join(dict.fromkeys(pod['_sujets'][r['_s']] for r in c if pod['_sujets']))
+        log(f'  requête {i}/{len(chunks)} ({sum(len(r["t"]) for r in c)} caractères){" : " + sujets if sujets else ""}')
+        base = os.path.join(travail, 'raw', f'chunk_{i:02d}')
+        if dry: segs = synthetique(c, voix, base)
+        else:
+            segs, rid = requete(c, voix, lex, cle, ids, loc, base)
+            if rid: ids.append(rid)
+        blocs.append({'mp3': base + '.mp3', 'segments': segs})
+    import mixage
+    ids_voix = {k: (v.get('voice') or k) for k, v in voix.items()}
+    sortie = os.path.join(travail, 'out', 'episode.mp3')
+    M = mixage.produire(blocs, ids_voix, sortie, travail, {'titre': pod['titre'], 'date': d, 'n': ''})
+    ok, ecarts, resume = mixage.qc(M, sortie, ' '.join(r['t'] for r in reps), travail)
+    duree = M['duree_blocs_s']
+    meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE, 'seed': SEED,
             'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
             'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': bool(MAX_CHARS), 'repliques': len(reps),
-            'prononciation': 'aucune (essai à blanc)' if dry else ('dictionnaire ElevenLabs ' + loc['version_id'] if loc else 'remplacements locaux')}
+            'prononciation': 'aucune (essai à blanc)' if dry else ('dictionnaire ElevenLabs ' + loc['version_id'] if loc else 'remplacements locaux'),
+            'qc': resume, 'requetes': len(chunks)}
     if dry:
-        log(f'{d} : essai à blanc réussi : {sortie} ({meta["octets"]} octets, {duree / 60:.1f} min). Aucun fichier écrit dans content/.')
+        log(f'{d} : essai à blanc terminé : {sortie} ({duree / 60:.1f} min), contrôle {"réussi" if ok else "en écart"} ; rapport : {travail}/qc_report.md. Aucun fichier écrit dans content/.')
         return False
+    if not ok:
+        bilan('error', f'{d} : épisode produit mais non publié, contrôle qualité en écart : ' + ' ; '.join(ecarts) + '. Détail dans l’artefact « podcast » de l’exécution.')
+        return False
+    for e in ecarts: bilan('warning', f'{d} : contrôle qualité, écart non bloquant : {e}')
+    shutil.copyfile(sortie, mp3); meta['octets'] = os.path.getsize(mp3)
     json.dump(meta, open(info, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     bilan('notice', f'{d} : {"extrait d’essai" if MAX_CHARS else "épisode"} produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
     return True

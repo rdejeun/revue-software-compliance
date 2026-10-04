@@ -135,7 +135,13 @@ Règles d'écriture :
 
 Prononciation : si un sigle est mal lu, ajouter sa forme orale dans `tools/prononciation.json` (mot exact → forme à lire). Ce fichier est recopié à chaque production dans le dictionnaire de prononciation ElevenLabs « Software Compliance » (règles alias), utilisé par toutes les requêtes ; modifier le fichier, pas le dictionnaire, qui est écrasé.
 
-Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrôle le script, `--dry-run` teste la chaîne sans appel à l'API, `--force` régénère. L'épisode n'est produit qu'une fois par version du script (empreinte dans `episode.json`) ; il est enregistré dans `content/AAAA-MM-JJ/` (`episode.mp3`, `episode.json`) par GitHub Actions. Sans clé ou en cas d'échec, la revue est publiée et envoyée sans épisode.
+**Budget** : avant toute génération, le solde ElevenLabs est lu (`/v1/user/subscription`). S'il ne couvre pas le script plus 20 %, la semaine passe sans podcast (annotation avec la date de remise à zéro). La clé doit avoir le droit « User » en lecture.
+
+**Post-production** (`tools/mixage.py`, d'après le brief « Podcast IA à deux voix ») : génération par l'API « with-timestamps » en MP3 44,1 kHz avec une graine fixe ; une piste par voix ; passe-haut 80 Hz ; expandeur sur la voix dont les fins de mots traînent (réverbération d'origine) jusqu'à rejoindre l'autre ; EQ match des deux voix vers leur courbe moyenne (±6 dB, 100 Hz–10 kHz) ; de-esser si besoin ; même compresseur ; loudness égalisé ; panoramique ±15 % ; réverbération de petite pièce partagée ; fond d'ambiance à −60 dBFS ; master −16 LUFS, −1 dBTP ; MP3 stéréo 128 kbps.
+
+**Contrôle qualité** : loudness, true peak, durée et fidélité au script (transcription locale faster-whisper, 15 % de mots différents au plus) sont bloquants : en cas d'écart, l'épisode n'est pas publié. Écart de loudness et de timbre entre les voix, réverbération et clics sont signalés sans bloquer. Le rapport `qc_report.md`, les pistes et l'audio reçu sont conservés 30 jours dans l'artefact « podcast » de l'exécution GitHub Actions.
+
+Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrôle le script, `--dry-run` teste toute la chaîne avec des voix synthétiques, sans appel à l'API, `--force` régénère. L'épisode n'est produit qu'une fois par version du script (empreinte dans `episode.json`) ; il est enregistré dans `content/AAAA-MM-JJ/` (`episode.mp3`, `episode.json`) par GitHub Actions. Sans clé ou en cas d'échec, la revue est publiée et envoyée sans épisode.
 
 ## 12. Mise en page : éléments fixes
 
