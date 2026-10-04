@@ -1,7 +1,8 @@
 name: Publier la revue
 
-# Construit le site à partir de content/, contrôle la dernière édition, la met en ligne sur
-# https://revue.dejeun.es/ puis envoie l'e-mail par Resend.
+# Produit l'épisode audio (si content/AAAA-MM-JJ/podcast.json existe), construit le site à partir
+# de content/, contrôle la dernière édition, la met en ligne sur https://revue.dejeun.es/ puis
+# envoie l'e-mail par Resend. L'épisode n'est jamais bloquant : s'il échoue, la revue part sans.
 # Déclenché par chaque push sur main (édition déposée par la tâche du vendredi) ou à la main.
 # Mots-clés dans le message de commit : [brouillon] envoie seulement à DRAFT_TO ; [sans-envoi] n'envoie rien.
 
@@ -38,6 +39,18 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: '3.12'
+
+      - name: Installer ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+
+      - name: Produire l’épisode audio (non bloquant)
+        id: audio
+        continue-on-error: true
+        timeout-minutes: 20
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_TTS_MODEL: ${{ vars.GEMINI_TTS_MODEL }}
+        run: python3 tools/podcast.py
 
       - name: Construire le site et les e-mails
         run: python3 tools/build_site.py
@@ -76,11 +89,14 @@ jobs:
           DRAFT_TO: ${{ vars.DRAFT_TO }}
         run: python3 tools/send.py --mode "${{ steps.mode.outputs.mode }}" --wait
 
-      - name: Enregistrer l’envoi
-        if: steps.envoi.outputs.sent == '1'
+      - name: Enregistrer l’envoi et l’épisode
+        if: steps.envoi.outputs.sent == '1' || steps.audio.outputs.new == '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add content/*/envoi.json
-          git commit -m "Envoi enregistré [skip ci]"
+          git add -A content
+          git diff --cached --quiet && exit 0
+          msg="Envoi enregistré [skip ci]"
+          [ "${{ steps.envoi.outputs.sent }}" != '1' ] && msg="Épisode audio enregistré [skip ci]"
+          git commit -m "$msg"
           git pull --rebase origin main && git push origin HEAD:main

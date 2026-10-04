@@ -41,6 +41,14 @@ def fdate_long(iso):
     d = int(p[2]); return f'{"1er" if d == 1 else d} {m} {p[0]}'
 
 
+def episode(d):
+    """Métadonnées de l'épisode audio de l'édition d (tools/podcast.py), ou None."""
+    c = os.path.join(CONTENT, d)
+    if os.path.isfile(os.path.join(c, 'episode.mp3')) and os.path.isfile(os.path.join(c, 'episode.json')):
+        return json.load(open(os.path.join(c, 'episode.json'), encoding='utf-8'))
+    return None
+
+
 def editions():
     return sorted(d for d in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', d) and os.path.isfile(os.path.join(CONTENT, d, 'blocks.json')))
 
@@ -92,7 +100,9 @@ def to_md(blocks, meta, text=False):
     S = seg_txt if text else seg_md
     L = [f'# Software Compliance — N° {meta["n"]} — {meta["date"]}', '']
     if text:
-        L += [f'Version enrichie (synthèses) : {URL}/{meta["date_iso"]}/', '']
+        L += [f'Version enrichie (synthèses) : {URL}/{meta["date_iso"]}/']
+        if episode(meta['date_iso']): L += [f'Écouter l’épisode audio : {URL}/{meta["date_iso"]}/#ecouter']
+        L += ['']
     sec, rap, first = '', [], True
 
     def line(segs, a, sm):
@@ -193,6 +203,7 @@ def main():
         write(os.path.join(SITE, d, 'index.html'), open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read())
         md = to_md(blocks, meta)
         write(os.path.join(SITE, d, 'index.md'), md)
+        if episode(d): shutil.copyfile(os.path.join(CONTENT, d, 'episode.mp3'), os.path.join(SITE, d, 'episode.mp3'))
         write(os.path.join(out, 'revue-email.txt'), to_md(blocks, meta, text=True))
         lede = next((TY(''.join(x['t'] for x in b['i']).strip(' ·')) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         infos.append({'d': d, 'meta': meta, 'lede': lede, 'items': json.load(open(os.path.join(out, 'items.json'), encoding='utf-8')), 'md': md})
@@ -253,6 +264,17 @@ def main():
     items = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description></item>''' for i in reversed(pub))
     write(os.path.join(SITE, 'feed.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{items}</channel></rss>
+''')
+
+    # flux du podcast (hors démonstration)
+    eps = [(i, episode(i['d'])) for i in pub if episode(i['d'])]
+    def duree(s): return f'{s // 3600:02d}:{s % 3600 // 60:02d}:{s % 60:02d}'
+    def pod(i):
+        p = json.load(open(os.path.join(CONTENT, i['d'], 'podcast.json'), encoding='utf-8'))
+        return p['titre'], p['description']
+    pitems = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {TY(pod(i)[0])}")}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode.mp3</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/episode.mp3" length="{ep['octets']}" type="audio/mpeg"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
+    write(os.path.join(SITE, 'podcast.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>Software Compliance, l’épisode</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>La revue de presse Software Compliance racontée à deux voix de synthèse : une question, une explication, une relance. Conformité logicielle des produits pour l’industrie de défense.</description><language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
 ''')
 
     # llms.txt (hors démonstration)
