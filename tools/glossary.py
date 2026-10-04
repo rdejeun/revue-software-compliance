@@ -88,4 +88,7 @@ G = [
 (r"RGPD", "RGPD", "Règlement général sur la protection des données, règlement (UE) 2016/679.", "https://eur-lex.europa.eu/eli/reg/2016/679/oj"),
 (r"THUNDART", "THUNDART", "Système de frappe terrestre longue portée de Safran et MBDA, présenté comme ITAR-free.", "https://www.safran-group.com/products-services/thundart-long-range-land-strike-system"),
 (r"SREN", "Loi SREN", "Loi française n° 2024-449 du 21 mai 2024 visant à sécuriser et à réguler l'espace numérique.", None),
+(r"ETSI", "ETSI", "Institut européen des normes de télécommunications : organisme européen de normalisation, chargé avec le CEN et le CENELEC des normes harmonisées du CRA.", "https://www.etsi.org/"),
+(r"EN", "Norme européenne (EN)", "Norme adoptée par un organisme européen de normalisation (CEN, CENELEC ou ETSI) ; une norme harmonisée citée au JO donne présomption de conformité.", "https://single-market-economy.ec.europa.eu/single-market/european-standards_en"),
+(r"IBM", "IBM", "Entreprise informatique américaine, membre fondateur de nombreuses fondations open source.", None),
 ]

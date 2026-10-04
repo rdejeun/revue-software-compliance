@@ -20,13 +20,17 @@
     "texte": "Guidance de la Commission (non contraignante)"
    },
    {
+    "date": "2026-08-13",
+    "texte": "L’ETSI lance l’approbation de 17 projets de normes verticales du CRA (enquête publique jusqu’à mi-novembre)"
+   },
+   {
     "date": "2026-09-11",
     "texte": "Déclaration des vulnérabilités activement exploitées et des incidents graves"
    },
    {
     "date": "2026-12",
-    "libelle": "déc. 2026",
-    "texte": "Acte délégué attendu sur la présomption de conformité EUCC"
+    "libelle": "T4 2026",
+    "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC"
    },
    {
     "date": "2027-12-11",
@@ -47,6 +51,10 @@
    {
     "date": "2026-07-29",
     "texte": "La CISA publie les « 2026 Minimum Elements » du SBOM"
+   },
+   {
+    "date": "2026-08-05",
+    "texte": "Annonce de CycloneDX 2.0 (version attendue à l’automne, ratification Ecma en décembre)"
    }
   ]
  },
