@@ -45,7 +45,7 @@ jobs:
 
       - name: Bibliothèques audio (post-production et contrôle qualité)
         continue-on-error: true
-        run: pip install -q numpy scipy soundfile pyloudnorm pedalboard faster-whisper
+        run: pip install -q numpy scipy soundfile pyloudnorm pedalboard faster-whisper==1.2.1
 
       - name: Modèle de transcription en cache
         uses: actions/cache@v4

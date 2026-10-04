@@ -1,0 +1,22 @@
+{
+ "titre": "Balises audio : sans / avec",
+ "_note": "Même extrait (CRA et produits de défense), sans puis avec balises audio et hésitations. Produit par .github/workflows/essai-audio.yml.",
+ "versions": {
+  "sans": [
+   {"v": "A", "t": "Mais attendez, nos auditeurs travaillent dans la défense. Le CRA ne s'applique pas aux produits militaires, non ?"},
+   {"v": "B", "t": "Pas tout à fait. L'article 2 du règlement exclut les produits développés ou modifiés exclusivement pour la défense ou la sécurité nationale, et ceux conçus pour traiter des informations classifiées. Le mot clé, c'est « exclusivement ». Ce qui compte, c'est l'usage prévu par le fabricant. Un produit à double usage, ou qui a une version civile, reste concerné pour sa partie civile, même s'il finit chez un client militaire."},
+   {"v": "A", "t": "Donc il faut regarder produit par produit."},
+   {"v": "B", "t": "Oui, et garder une trace écrite de cette analyse. Et même pour un produit vraiment exclu, rien n'empêche un client public ou un maître d'œuvre de demander par contrat la même rapidité de réaction. Ça, ce n'est pas encore une obligation, c'est une possibilité à garder en tête."},
+   {"v": "A", "t": "Et le CRA, c'est fini après cette étape ?"},
+   {"v": "B", "t": "Non, ce n'est que le début. Le règlement s'appliquera entièrement le 11 décembre 2027. D'ici là, d'autres textes d'application sont attendus d'ici la fin de l'année, dont un sur la certification européenne."}
+  ],
+  "avec": [
+   {"v": "A", "t": "[curious] Mais attendez, nos auditeurs travaillent dans la défense. Le CRA ne s'applique pas aux produits militaires, non ?"},
+   {"v": "B", "t": "[thoughtful] Alors… pas tout à fait. L'article 2 du règlement exclut les produits développés ou modifiés exclusivement pour la défense ou la sécurité nationale, et ceux conçus pour traiter des informations classifiées. Le mot clé, c'est « exclusivement ». Ce qui compte, c'est l'usage prévu par le fabricant. Un produit à double usage, ou qui a une version civile, reste concerné pour sa partie civile, même s'il finit chez un client militaire."},
+   {"v": "A", "t": "[surprised] Ah. Donc il faut regarder produit par produit."},
+   {"v": "B", "t": "Oui, et garder une trace écrite de cette analyse. Et même pour un produit vraiment exclu, rien n'empêche un client public ou un maître d'œuvre de demander par contrat la même rapidité de réaction. [exhales] Ça, euh, ce n'est pas encore une obligation, c'est une possibilité à garder en tête."},
+   {"v": "A", "t": "Et le CRA, c'est fini après cette étape ?"},
+   {"v": "B", "t": "[chuckles] Non, ce n'est que le début. Le règlement s'appliquera entièrement le 11 décembre 2027. D'ici là, d'autres textes d'application sont attendus d'ici la fin de l'année, dont un sur la certification européenne."}
+  ]
+ }
+}

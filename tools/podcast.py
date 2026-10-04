@@ -75,11 +75,16 @@ def bilan(niveau, msg):
 
 
 # ------------------------------------------------------------------ contrôle
-def charger(d):
-    p = os.path.join(CONTENT, d, 'podcast.json')
+def charger(d, chemin=None):
+    p = chemin or os.path.join(CONTENT, d, 'podcast.json')
     if not os.path.isfile(p): return None, None
     raw = open(p, 'rb').read()
     pod = json.loads(raw.decode('utf-8'))
+    pod = preparer(pod)
+    return pod, hashlib.sha256(raw).hexdigest()
+
+
+def preparer(pod):
     # {"sujet": "…"} : marque de changement de sujet (non lue). Chaque réplique reçoit le numéro de son sujet.
     reps, n, noms = [], 0, []
     for r in pod.get('repliques') or []:
@@ -88,7 +93,14 @@ def charger(d):
             noms.append(r['sujet']); continue
         reps.append({**r, '_s': n})
     pod['repliques'], pod['_sujets'] = reps, noms
-    return pod, hashlib.sha256(raw).hexdigest()
+    return pod
+
+
+# Balises audio d'Eleven v3 autorisées (jouées, pas lues). Toute autre balise est refusée.
+BALISES = {'curious', 'thoughtful', 'surprised', 'chuckles', 'sighs', 'exhales'}
+BALISES_PAR_REPLIQUE = 0.25        # au plus une balise pour quatre répliques (avertissement au-delà)
+HESITATIONS_MAX = 3                # « euh », « hum »… écrits dans le texte (avertissement au-delà)
+RX_HESITATION = re.compile(r"(?<![\w-])(?:euh|heu|hum|hmm)(?![\w-])", re.I)
 
 
 def controler(pod):
@@ -103,8 +115,15 @@ def controler(pod):
         if not str(r.get('t') or '').strip(): err.append(f'réplique {i + 1} : texte vide')
         if len(r.get('t') or '') > 900: warn.append(f'réplique {i + 1} : très longue ({len(r["t"])} caractères), à couper')
         if i and r.get('v') == reps[i - 1].get('v'): warn.append(f'réplique {i + 1} : même voix que la précédente')
-        if re.search(r'[\[\]{}<>*_#]|https?://', r.get('t') or ''): err.append(f'réplique {i + 1} : balise, lien ou mise en forme à retirer (texte lu à voix haute)')
-    mots = sum(len((r.get('t') or '').split()) for r in reps)
+        t = r.get('t') or ''
+        for b in re.findall(r'\[([^\]]*)\]', t):
+            if b not in BALISES: err.append(f'réplique {i + 1} : balise [{b}] non autorisée (autorisées : {", ".join(sorted(BALISES))})')
+        if re.search(r'[{}<>*_#]|https?://', re.sub(r'\[[^\]]*\]', '', t)) or t.count('[') != t.count(']'): err.append(f'réplique {i + 1} : lien ou mise en forme à retirer (texte lu à voix haute)')
+    nb = sum(len(re.findall(r'\[[^\]]*\]', r.get('t') or '')) for r in reps)
+    if reps and nb > max(1, len(reps) * BALISES_PAR_REPLIQUE): warn.append(f'{nb} balises audio pour {len(reps)} répliques : au-delà d’une pour quatre, le rendu devient instable')
+    hes = sum(len(RX_HESITATION.findall(r.get('t') or '')) for r in reps)
+    if hes > HESITATIONS_MAX: warn.append(f'{hes} hésitations écrites (« euh », « hum ») : {HESITATIONS_MAX} au plus par épisode')
+    mots = sum(len(re.sub(r'\[[^\]]*\]', '', r.get('t') or '').split()) for r in reps)
     noms = pod.get('_sujets') or []
     if not noms: warn.append('aucun marqueur {"sujet": …} : les coupures entre requêtes ne suivront pas les sujets')
     for k, nom in enumerate(noms):
@@ -317,9 +336,48 @@ def produire(d, dry=False, force=False):
     return True
 
 
+def essai(chemin):
+    """Essai d'écoute : plusieurs versions d'un même court dialogue (ex. sans / avec balises audio), produites par
+    la chaîne complète dans essais/sorties/<nom>-<version>.m4a (+ rapport). Ne touche à aucune édition."""
+    E = json.load(open(chemin, encoding='utf-8')); nom = os.path.splitext(os.path.basename(chemin))[0]
+    cle = os.environ.get('ELEVENLABS_API_KEY', '').strip()
+    if not cle: raise SystemExit('ELEVENLABS_API_KEY absente')
+    voix = dict(VOIX)
+    if any(not v.get('voice') for v in voix.values()): raise SystemExit('identifiants de voix manquants')
+    versions = {k: preparer({'titre': E.get('titre', nom), 'description': 'essai', 'repliques': v}) for k, v in E['versions'].items()}
+    for k, pod in versions.items():
+        err, warn, _ = controler(pod)
+        for w in warn: log(f'essai {k} : avertissement : {w}')
+        if err: raise SystemExit(f'essai {k} : ' + ' ; '.join(err))
+    lexl = lexique()
+    besoin = int(sum(len(dire(r['t'], lexl)) for p in versions.values() for r in p['repliques']) * MARGE)
+    reste, raz = solde(cle)
+    if reste < besoin: bilan('warning', f'essai : solde insuffisant ({reste} restants, {besoin} nécessaires)'); return
+    log(f'essai : solde {reste} caractères, besoin {besoin} : ok')
+    loc = dictionnaire(cle); lex = [] if loc else lexl
+    import mixage
+    sorties = os.path.join(ROOT, 'essais', 'sorties'); os.makedirs(sorties, exist_ok=True)
+    for k, pod in versions.items():
+        travail = os.path.join(ROOT, 'build', 'essais', nom, k); shutil.rmtree(travail, ignore_errors=True); os.makedirs(os.path.join(travail, 'raw'))
+        blocs, ids = [], []
+        for i, c in enumerate(decouper(pod['repliques']), 1):
+            base = os.path.join(travail, 'raw', f'chunk_{i:02d}')
+            segs, rid = requete(c, voix, lex, cle, ids, loc, base)
+            if rid: ids.append(rid)
+            blocs.append({'mp3': base + '.mp3', 'segments': segs})
+        out = os.path.join(sorties, f'{nom}-{k}.m4a')
+        M = mixage.produire(blocs, {kk: vv['voice'] for kk, vv in voix.items()}, out, travail, {'titre': f'Essai {nom} ({k})', 'date': '2026', 'n': ''})
+        ok, ecarts, resume = mixage.qc(M, out, ' '.join(r['t'] for r in pod['repliques']), travail)
+        shutil.copyfile(os.path.join(travail, 'qc_report.md'), os.path.join(sorties, f'{nom}-{k}-qc.md'))
+        bilan('notice', f'essai {nom} ({k}) : {M["duree_blocs_s"]:.0f} s ; contrôle {"ok" if ok else "en écart : " + " ; ".join(ecarts)}')
+
+
 def main():
     a = sys.argv[1:]
     flags = {x for x in a if x.startswith('--')}
+    if '--essai' in flags:
+        for f in [x for x in a if not x.startswith('--')]: essai(f)
+        return
     eds = [x for x in a if not x.startswith('--')] or editions()[-1:]
     if '--check' in flags:
         ko = False

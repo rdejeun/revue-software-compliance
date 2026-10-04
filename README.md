@@ -130,6 +130,7 @@ Règles d'écriture :
 - **Langage courant** : phrases courtes, vocabulaire de tous les jours ; chaque sigle est développé ou expliqué la première fois (« l'ENISA, l'agence européenne de cybersécurité ») ; une image concrète par notion difficile (« le SBOM, c'est la liste des ingrédients d'un logiciel »).
 - **Rythme** : question → explication → relance ; répliques de Guillaume de 2 à 4 phrases ; Julie reformule, s'étonne, demande « et pour nous, concrètement ? ».
 - **Contenu** : ouverture brève (une phrase par voix), 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), les dates à retenir, clôture. 1 200 à 1 500 mots.
+- **Balises audio** (jouées, pas lues) : seulement `[curious]`, `[surprised]` (plutôt Julie), `[thoughtful]`, `[chuckles]`, `[sighs]`, `[exhales]` (plutôt Guillaume), au plus une pour quatre répliques ; jamais de rire franc. Hésitations écrites (« euh », « hum », « alors… ») : trois au plus par épisode. `--check` refuse toute autre balise et signale les excès.
 - **Oral** : pas de liens, de parenthèses, de listes ni de mise en forme ; « 24 heures » et non « 24 h » ; nombres et dates écrits comme on les dit.
 - **Pas d'annonce des voix de synthèse** dans le dialogue (usage personnel) : la mention figure seulement, en texte, sous le lecteur de la page web.
 
@@ -149,4 +150,8 @@ Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrô
 - **Fond de page** : tuile répétée `tools/fond.webp` (1024 px affichés à 512 px, teinte moyenne #ECEBE6), version web seulement ; l'e-mail garde le fond uni.
 - **Titres des dossiers** : champ `titre` de `tools/themes.json`, « partie en italique|suite », coupé entre deux blocs de sens (« Cyber Resilience|Act ») ; sans ce champ, tout le titre est en sans-serif.
 - **Pied de page** : « Ce document a été rédigé par une intelligence artificielle (<éditeur> <modèle> <version>). Des erreurs sont possibles. », valeur prise dans `meta.json` (`redaction`), à défaut « Anthropic Claude Opus 5.5 ».
+
+## 13. Essais d'écoute
+
+Pour comparer des variantes (balises, voix, réglages) sans toucher aux éditions : décrire les versions dans `tools/essais/<nom>.json` (`{"titre", "versions": {"sans": [répliques], "avec": [répliques]}}`) et pousser sur une branche `essai-…`. Le workflow « Essai audio » produit chaque version avec la chaîne complète (solde vérifié avant) et enregistre `essais/sorties/<nom>-<version>.m4a` et son rapport sur la branche. Ne pas fusionner `essais/sorties/` dans `main`.
 

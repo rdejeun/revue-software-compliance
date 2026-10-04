@@ -323,6 +323,7 @@ def produire(blocs, voix, sortie_audio, dossier, meta):
 def mots(t):
     t = t.lower().replace('’', "'").replace('-', ' ')
     t = re.sub(r"\[[^\]]*\]", ' ', t)                  # balises d'expression v3
+    t = re.sub(r"(?<![\w-])(?:euh|heu|hum|hmm|mmh)(?![\w-])", ' ', t)   # hésitations : transcrites de façon variable
     t = re.sub(r"[^\w' ]", ' ', t).replace("'", ' ')
     return t.split()
 
@@ -340,7 +341,7 @@ def wer(ref, hyp):
 def transcrire(path):
     from faster_whisper import WhisperModel
     m = WhisperModel(os.environ.get('PODCAST_WHISPER_MODEL') or 'small', device='cpu', compute_type='int8')
-    segs, _ = m.transcribe(path, language='fr', beam_size=1, vad_filter=True)
+    segs, _ = m.transcribe(path, language='fr', beam_size=1)
     return ' '.join(s.text for s in segs)
 
 
@@ -371,7 +372,7 @@ def qc(M, mp3, texte_script, dossier):
         open(os.path.join(dossier, 'transcription.txt'), 'w', encoding='utf-8').write(hyp + '\n')
         L.append(('Fidélité au script (faster-whisper)', f'{w * 100:.1f} % de mots différents sur {n}', f'≤ {S["wer"] * 100:.0f} %', w <= S['wer'], True))
     except Exception as e:
-        L.append(('Fidélité au script (faster-whisper)', f'non vérifiée ({type(e).__name__})', '—', True, False))
+        L.append(('Fidélité au script (faster-whisper)', f'non vérifiée ({type(e).__name__} : {str(e)[:160]})', '—', True, False))
     ok = all(r[3] for r in L if r[4])
     rep = ['# Contrôle qualité de l\'épisode', '', f'Résultat : {"**publiable**" if ok else "**non publié**"}', '',
            '| Critère | Mesure | Seuil | Résultat |', '|---|---|---|---|']
