@@ -2,7 +2,7 @@
  "titre": "Le CRA entre en action, et les dates à ne pas manquer cet automne",
  "description": "Claire pose les questions, Thomas explique : déclaration des failles avec le CRA, inventaires de logiciels, attaques sur les dépôts de code, règle américaine des affiliés, loi Résilience et licence GPL.",
  "repliques": [
-  {"v": "A", "t": "Bonjour et bienvenue dans Software Compliance, la version audio de la revue de presse de la semaine. Petite précision avant de commencer : nos deux voix sont des voix de synthèse, et le texte a été écrit à partir de la revue publiée sur le site. Je suis Claire, et je vais poser les questions que tout le monde se pose."},
+  {"v": "A", "t": "Bonjour et bienvenue dans Software Compliance, la version audio de la revue de presse de la semaine. Je suis Claire, et je vais poser les questions que tout le monde se pose."},
   {"v": "B", "t": "Et moi, c'est Thomas. J'essaie d'y répondre simplement. Toutes les sources sont sur le site de la revue, à l'édition du 4 octobre."},
   {"v": "A", "t": "Alors on commence par le gros sujet : le Cyber Resilience Act, le CRA. On en parle depuis des mois. Qu'est-ce qui a changé concrètement ?"},
   {"v": "B", "t": "Depuis le 11 septembre, il y a une première obligation qui s'applique pour de vrai. Si vous fabriquez un produit qui contient du logiciel, et qu'une faille de ce produit est activement exploitée par des attaquants, vous devez le déclarer. Pareil pour un incident grave."},

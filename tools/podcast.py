@@ -77,8 +77,6 @@ def controler(pod):
         if len(r.get('t') or '') > 900: warn.append(f'réplique {i + 1} : très longue ({len(r["t"])} caractères), à couper')
         if i and r.get('v') == reps[i - 1].get('v'): warn.append(f'réplique {i + 1} : même voix que la précédente')
         if re.search(r'[\[\]{}<>*_#]|https?://', r.get('t') or ''): err.append(f'réplique {i + 1} : balise, lien ou mise en forme à retirer (texte lu à voix haute)')
-    if reps and 'synthèse' not in (reps[0].get('t') or '').lower():
-        err.append('la première réplique doit annoncer des voix de synthèse')
     mots = sum(len((r.get('t') or '').split()) for r in reps)
     if not MOTS_MIN <= mots <= MOTS_MAX: warn.append(f'{mots} mots : hors de la plage visée ({MOTS_MIN}-{MOTS_MAX})')
     return err, warn, mots

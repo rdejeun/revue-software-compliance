@@ -126,9 +126,9 @@ Règles d'écriture :
 - **Avéré et potentiel** : l'avéré à l'indicatif (« c'est déjà obligatoire »), le potentiel au conditionnel (« ça pourrait… », « si… alors… »), comme dans les synthèses.
 - **Langage courant** : phrases courtes, vocabulaire de tous les jours ; chaque sigle est développé ou expliqué la première fois (« l'ENISA, l'agence européenne de cybersécurité ») ; une image concrète par notion difficile (« le SBOM, c'est la liste des ingrédients d'un logiciel »).
 - **Rythme** : question → explication → relance ; répliques de Thomas de 2 à 4 phrases ; Claire reformule, s'étonne, demande « et pour nous, concrètement ? ».
-- **Contenu** : ouverture, 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), les dates à retenir, clôture. 1 200 à 1 500 mots.
+- **Contenu** : ouverture brève (une phrase par voix), 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), les dates à retenir, clôture. 1 200 à 1 500 mots.
 - **Oral** : pas de liens, de parenthèses, de listes ni de mise en forme ; « 24 heures » et non « 24 h » ; nombres et dates écrits comme on les dit.
-- **Transparence** : la première réplique annonce des voix de synthèse (obligatoire, contrôlé).
+- **Pas d'annonce des voix de synthèse** dans le dialogue (usage personnel) : la mention figure seulement, en texte, sous le lecteur de la page web.
 
 Prononciation : si un sigle est mal lu, ajouter sa forme orale dans `tools/prononciation.json` (la transcription publiée garde l'écriture d'origine).
 
