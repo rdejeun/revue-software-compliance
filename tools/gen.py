@@ -7,7 +7,8 @@ from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
 # Épisode audio (tools/podcast.py) : présent seulement s'il a été produit pour cette édition
-EP=json.load(open('episode.json')) if os.path.isfile('episode.json') and os.path.isfile('episode.mp3') else None
+EP_FICHIER=next((f for f in ('episode.m4a','episode.mp3') if os.path.isfile(f)),None)   # M4A (AAC) ; MP3 pour les anciens épisodes
+EP=json.load(open('episode.json')) if os.path.isfile('episode.json') and EP_FICHIER else None
 POD=json.load(open('podcast.json')) if EP and os.path.isfile('podcast.json') else None
 PHR={"Une déclaration CRA ne remplace pas":None,"Chainguard":None,"déclarer les vulnérabilités activement exploitées et les incidents graves":None}
 NAVY='#0f2a4a'
@@ -87,7 +88,7 @@ def bloc_podcast(web,diso,ed_url):
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-hd"><span class="pod-eb">Podcast</span><span class="pod-n">Ce dialogue a été produit par une intelligence artificielle.</span></div>'
             +
-            f'<audio preload="none" src="/{diso}/episode.mp3"></audio>'
+            f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
             f'<input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode">'
             f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'

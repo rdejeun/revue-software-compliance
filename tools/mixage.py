@@ -7,7 +7,7 @@ Entrée : les blocs reçus de l'API Text to Dialogue « with-timestamps » (MP3 
   4. passe-haut 80 Hz, expandeur doux (raccourcit les queues de réverbération propres à une voix),
      EQ match vers la courbe moyenne des deux voix (FIR à phase linéaire, ±6 dB, 100 Hz–10 kHz), de-esser si besoin ;
   5. même compresseur sur les deux pistes, loudness égalisé, panoramique léger, réverbération partagée, fond d'ambiance ;
-  6. mixage, compression de bus légère, loudnorm en deux passes (−16 LUFS, −1 dBTP), export MP3 stéréo.
+  6. mixage, compression de bus légère, loudnorm en deux passes (−16 LUFS, −1 dBTP), export M4A (AAC) mono.
 Le contrôle qualité (qc) mesure le résultat ; podcast.py décide de publier ou non.
 Tout est mesuré, rien n'est réglé « à l'oreille » : les valeurs de départ sont dans CONFIG.
 """
@@ -33,7 +33,7 @@ CONFIG = {
     'room_tone_dbfs': -60,             # bruit rose filtré sous 8 kHz, continu sous tout l'épisode ; None pour l'ôter
     'bus': {'ratio': 2, 'reduction_db': 1.5},
     'lufs': -19, 'true_peak': -1.0, 'lra': 11,   # −19 LUFS en mono (équivalent de −16 en stéréo)
-    'mp3_kbps': 96,
+    'aac_kbps': 64,                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -254,8 +254,8 @@ def loudnorm_2_passes(wav_in, wav_out):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav_in, '-af', filt + f',aresample={SR}', '-c:a', 'pcm_s24le', wav_out], check=True)
 
 
-def produire(blocs, voix, mp3_sortie, dossier, meta):
-    """Chaîne complète. Écrit stems/ et out/ dans `dossier`, puis mp3_sortie. Renvoie le dictionnaire de mesures."""
+def produire(blocs, voix, sortie_audio, dossier, meta):
+    """Chaîne complète. Écrit stems/ et out/ dans `dossier`, puis sortie_audio. Renvoie le dictionnaire de mesures."""
     os.makedirs(os.path.join(dossier, 'stems'), exist_ok=True); os.makedirs(os.path.join(dossier, 'out'), exist_ok=True)
     M = {'journal': []}
     mix, st, masque, j = pistes(blocs, voix); M['journal'] += j
@@ -309,11 +309,11 @@ def produire(blocs, voix, mp3_sortie, dossier, meta):
     pre = os.path.join(dossier, 'out', 'premaster.wav'); master = os.path.join(dossier, 'out', 'episode_master.wav')
     sf.write(pre, (bus.T / max(1.0, np.abs(bus).max())).astype(np.float32), SR, subtype='FLOAT')
     loudnorm_2_passes(pre, master)
-    tmp = mp3_sortie + '.tmp.mp3'
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', master, '-c:a', 'libmp3lame', '-b:a', f'{CONFIG["mp3_kbps"]}k', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
+    tmp = sortie_audio + '.tmp.m4a'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', master, '-c:a', 'aac', '-b:a', f'{CONFIG["aac_kbps"]}k', '-movflags', '+faststart', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
                     '-metadata', f'title={meta["titre"]}', '-metadata', 'artist=Software Compliance', '-metadata', 'album=Software Compliance',
-                    '-metadata', f'track={meta.get("n", "")}', '-metadata', f'date={meta["date"][:4]}', '-id3v2_version', '3', tmp], check=True)
-    os.replace(tmp, mp3_sortie)
+                    '-metadata', f'track={meta.get("n", "")}', '-metadata', f'date={meta["date"][:4]}', tmp], check=True)
+    os.replace(tmp, sortie_audio)
     M['duree_blocs_s'] = sum(len(decoder(b['mp3'])) for b in blocs) / SR + CONFIG['pause_s'] * (len(blocs) - 1)
     M['master'] = master; M['masques'] = masque; M['stems'] = st
     return M

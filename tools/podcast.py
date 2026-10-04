@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Épisode audio de la revue : content/AAAA-MM-JJ/podcast.json -> episode.mp3 (+ episode.json).
+"""Épisode audio de la revue : content/AAAA-MM-JJ/podcast.json -> episode.m4a (+ episode.json).
 
 Usage :
   python3 tools/podcast.py --check [AAAA-MM-JJ]   contrôle le script (sans appel réseau)
@@ -254,7 +254,7 @@ def produire(d, dry=False, force=False):
     for w in warn: log(f'{d} : avertissement : {w}')
     if err: raise SystemExit(f'{d} : script invalide :\n- ' + '\n- '.join(err))
     dossier = os.path.join(CONTENT, d)
-    mp3, info = os.path.join(dossier, 'episode.mp3'), os.path.join(dossier, 'episode.json')
+    mp3, info = os.path.join(dossier, 'episode.m4a'), os.path.join(dossier, 'episode.json')
     if not force and not dry and os.path.isfile(mp3) and os.path.isfile(info):
         if json.load(open(info, encoding='utf-8')).get('sha_script') == sha:
             bilan('notice', f'{d} : épisode déjà à jour, rien à refaire.'); return False
@@ -293,7 +293,7 @@ def produire(d, dry=False, force=False):
         blocs.append({'mp3': base + '.mp3', 'segments': segs})
     import mixage
     ids_voix = {k: (v.get('voice') or k) for k, v in voix.items()}
-    sortie = os.path.join(travail, 'out', 'episode.mp3')
+    sortie = os.path.join(travail, 'out', 'episode.m4a')
     M = mixage.produire(blocs, ids_voix, sortie, travail, {'titre': pod['titre'], 'date': d, 'n': ''})
     ok, ecarts, resume = mixage.qc(M, sortie, ' '.join(r['t'] for r in reps), travail)
     duree = M['duree_blocs_s']
@@ -309,7 +309,9 @@ def produire(d, dry=False, force=False):
         bilan('error', f'{d} : épisode produit mais non publié, contrôle qualité en écart : ' + ' ; '.join(ecarts) + '. Détail dans l’artefact « podcast » de l’exécution.')
         return False
     for e in ecarts: bilan('warning', f'{d} : contrôle qualité, écart non bloquant : {e}')
-    shutil.copyfile(sortie, mp3); meta['octets'] = os.path.getsize(mp3)
+    shutil.copyfile(sortie, mp3); meta['octets'] = os.path.getsize(mp3); meta['fichier'] = 'episode.m4a'
+    ancien = os.path.join(dossier, 'episode.mp3')
+    if os.path.isfile(ancien): os.remove(ancien)   # ancien format, remplacé
     json.dump(meta, open(info, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     bilan('notice', f'{d} : {"extrait d’essai" if MAX_CHARS else "épisode"} produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
     return True
