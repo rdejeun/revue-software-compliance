@@ -1,7 +1,7 @@
 {
- "duree_s": 63,
- "octets": 501883,
- "mots": 207,
+ "duree_s": 133,
+ "octets": 1061739,
+ "mots": 411,
  "modele": "eleven_v3",
  "voix": {
   "A": {
@@ -13,9 +13,9 @@
    "voice": "cTNP6ZM2mLTKj2BFhxEh"
   }
  },
- "genere_le": "2026-10-04T20:33:38Z",
- "sha_script": "7c40180b6c954a57f8715c19414eeeee07d8493b2437b45682a185b8bbfe9372:essai-1440",
+ "genere_le": "2026-10-04T22:04:12Z",
+ "sha_script": "7eba9d7273084c17468d7f3ed21752980e2fb306fb24d424c67e181bc1da3e78:essai-2500",
  "extrait": true,
- "repliques": 7,
- "prononciation": "dictionnaire ElevenLabs gr33XHIhPmCKGigakgOf"
+ "repliques": 13,
+ "prononciation": "dictionnaire ElevenLabs L3077amrGSNmKpc4wD8m"
 }
