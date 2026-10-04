@@ -1,20 +1,21 @@
 {
- "duree_s": 40,
- "octets": 319025,
- "mots": 126,
+ "duree_s": 63,
+ "octets": 501883,
+ "mots": 207,
  "modele": "eleven_v3",
  "voix": {
   "A": {
-   "nom": "Claire",
+   "nom": "Julie",
    "voice": "d3AXX0BlgJHYFCuH9X88"
   },
   "B": {
-   "nom": "Thomas",
-   "voice": "gP52hjM48hyNoVCbizxO"
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
   }
  },
- "genere_le": "2026-10-04T18:00:49Z",
- "sha_script": "4909d79c28e99348f9fe42c148cb90789ad81fcb22521b0b000bb8f60568838f:essai-720",
+ "genere_le": "2026-10-04T20:33:38Z",
+ "sha_script": "7c40180b6c954a57f8715c19414eeeee07d8493b2437b45682a185b8bbfe9372:essai-1440",
  "extrait": true,
- "repliques": 4
+ "repliques": 7,
+ "prononciation": "dictionnaire ElevenLabs gr33XHIhPmCKGigakgOf"
 }
