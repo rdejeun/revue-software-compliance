@@ -341,7 +341,9 @@ def wer(ref, hyp):
 def transcrire(path):
     from faster_whisper import WhisperModel
     m = WhisperModel(os.environ.get('PODCAST_WHISPER_MODEL') or 'small', device='cpu', compute_type='int8')
-    segs, _ = m.transcribe(path, language='fr', beam_size=1)
+    # décodage par ffmpeg (16 kHz mono) : évite PyAV, dont les versions récentes cassent faster-whisper
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'], capture_output=True, check=True)
+    segs, _ = m.transcribe(np.frombuffer(r.stdout, dtype='<f4').copy(), language='fr', beam_size=1)
     return ' '.join(s.text for s in segs)
 
 

@@ -34,7 +34,7 @@ SEED = int(os.environ.get('PODCAST_SEED') or 20261004)   # même tirage pour tou
 MARGE = 1.2                      # solde exigé : caractères du script + 20 %
 DICT_NOM = 'Software Compliance'
 # Modèles qui refusent previous_request_ids (erreur 400) : chaque requête est alors indépendante.
-SANS_CONTINUITE = {'eleven_v3'}
+SANS_CONTINUITE = {'eleven_v3', 'eleven_v4'}   # v4 : par prudence, non documenté pour le dialogue
 MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
 CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
 PAUSE = 0.6                      # secondes de silence entre deux requêtes (= entre deux sujets)
@@ -344,7 +344,10 @@ def essai(chemin):
     if not cle: raise SystemExit('ELEVENLABS_API_KEY absente')
     voix = dict(VOIX)
     if any(not v.get('voice') for v in voix.values()): raise SystemExit('identifiants de voix manquants')
-    versions = {k: preparer({'titre': E.get('titre', nom), 'description': 'essai', 'repliques': v}) for k, v in E['versions'].items()}
+    sorties = os.path.join(ROOT, 'essais', 'sorties')
+    versions = {k: preparer({'titre': E.get('titre', nom), 'description': 'essai', 'repliques': v}) for k, v in E['versions'].items()
+                if not os.path.isfile(os.path.join(sorties, f'{nom}-{k}.m4a'))}   # déjà produite : pas refacturée
+    if not versions: log(f'essai {nom} : toutes les versions existent déjà'); return
     for k, pod in versions.items():
         err, warn, _ = controler(pod)
         for w in warn: log(f'essai {k} : avertissement : {w}')
@@ -356,8 +359,12 @@ def essai(chemin):
     log(f'essai : solde {reste} caractères, besoin {besoin} : ok')
     loc = dictionnaire(cle); lex = [] if loc else lexl
     import mixage
-    sorties = os.path.join(ROOT, 'essais', 'sorties'); os.makedirs(sorties, exist_ok=True)
+    os.makedirs(sorties, exist_ok=True)
+    global MODELE
+    defaut = MODELE
     for k, pod in versions.items():
+        MODELE = (E.get('modeles') or {}).get(k) or defaut      # modèle propre à une version (ex. eleven_v4)
+        log(f'essai {nom} ({k}) : modèle {MODELE}')
         travail = os.path.join(ROOT, 'build', 'essais', nom, k); shutil.rmtree(travail, ignore_errors=True); os.makedirs(os.path.join(travail, 'raw'))
         blocs, ids = [], []
         for i, c in enumerate(decouper(pod['repliques']), 1):
@@ -369,7 +376,7 @@ def essai(chemin):
         M = mixage.produire(blocs, {kk: vv['voice'] for kk, vv in voix.items()}, out, travail, {'titre': f'Essai {nom} ({k})', 'date': '2026', 'n': ''})
         ok, ecarts, resume = mixage.qc(M, out, ' '.join(r['t'] for r in pod['repliques']), travail)
         shutil.copyfile(os.path.join(travail, 'qc_report.md'), os.path.join(sorties, f'{nom}-{k}-qc.md'))
-        bilan('notice', f'essai {nom} ({k}) : {M["duree_blocs_s"]:.0f} s ; contrôle {"ok" if ok else "en écart : " + " ; ".join(ecarts)}')
+        bilan('notice', f'essai {nom} ({k}, {MODELE}) : {M["duree_blocs_s"]:.0f} s ; contrôle {"ok" if ok else "en écart : " + " ; ".join(ecarts)}')
 
 
 def main():

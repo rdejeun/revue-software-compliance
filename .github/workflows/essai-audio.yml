@@ -45,7 +45,7 @@ jobs:
           ELEVENLABS_VOICE_MALE: ${{ vars.ELEVENLABS_VOICE_MALE }}
           ELEVENLABS_MODEL: ${{ vars.ELEVENLABS_MODEL }}
         run: |
-          git diff --name-only HEAD~1 HEAD -- tools/essais/ 2>/dev/null | grep '\.json$' > /tmp/essais.txt || ls tools/essais/*.json > /tmp/essais.txt
+          ls tools/essais/*.json > /tmp/essais.txt
           cat /tmp/essais.txt
           python3 tools/podcast.py --essai $(cat /tmp/essais.txt)
 
