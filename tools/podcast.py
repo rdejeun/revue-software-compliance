@@ -27,6 +27,8 @@ LEXIQUE = os.path.join(ROOT, 'tools', 'prononciation.json')
 API = 'https://api.elevenlabs.io'
 ENDPOINT = API + '/v1/text-to-dialogue'
 DICT_NOM = 'Software Compliance'
+# Modèles qui refusent previous_request_ids (erreur 400) : chaque requête est alors indépendante.
+SANS_CONTINUITE = {'eleven_v3'}
 MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
 RATE = 24000                     # Hz, mono, 16 bits : sortie demandée (output_format=pcm_24000)
 CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
@@ -154,7 +156,7 @@ def requete(chunk, voix, lex, cle, precedents, loc=None):
     n = sum(len(x['text']) for x in inputs)
     if n > 2000: raise SystemExit(f'Requête de {n} caractères : au-delà de la limite de 2 000 (réduire CHUNK_MAX)')
     body = {'inputs': inputs, 'model_id': MODELE, 'language_code': 'fr'}
-    if precedents: body['previous_request_ids'] = precedents[-3:]
+    if precedents and MODELE not in SANS_CONTINUITE: body['previous_request_ids'] = precedents[-3:]
     if loc: body['pronunciation_dictionary_locators'] = [loc]
     data = json.dumps(body).encode('utf-8')
     for essai in range(1, 6):
