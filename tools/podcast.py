@@ -268,7 +268,7 @@ def produire(d, dry=False, force=False):
     pod, sha = charger(d)
     if pod is None: bilan('notice', f'{d} : pas de podcast.json, rien à faire.'); return False
     err, warn, mots = controler(pod)
-    sha = hashlib.sha256((sha + json.dumps(regles(), sort_keys=True, ensure_ascii=False)).encode('utf-8')).hexdigest()  # le lexique compte aussi
+    sha = hashlib.sha256((sha + json.dumps(regles(), sort_keys=True, ensure_ascii=False) + MODELE).encode('utf-8')).hexdigest()  # lexique et modèle comptent aussi
     if MAX_CHARS: sha += f':essai-{MAX_CHARS}'   # un extrait n'est jamais pris pour l'épisode complet
     for w in warn: log(f'{d} : avertissement : {w}')
     if err: raise SystemExit(f'{d} : script invalide :\n- ' + '\n- '.join(err))
