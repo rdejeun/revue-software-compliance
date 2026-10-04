@@ -136,6 +136,6 @@ Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrô
 
 ## 12. Mise en page : éléments fixes
 
-- **En-tête** : sous le titre, à gauche « N° · date · Archives · Dossiers », à droite « Lecture ≈ n min ». Image de fond facultative `tools/en-tete.webp` (ou .png, .jpg), version web seulement ; prompt de génération dans `tools/en-tete-prompt.md`.
+- **En-tête** : sous le titre, à gauche « N° · date · Archives · Dossiers », à droite « Lecture ≈ n min ». Image de fond facultative `tools/en-tete.webp` (ou .png, .jpg), version web seulement, étirée en pleine largeur depuis le haut de la page (elle peut déborder sous l'en-tête) ; prompt de génération dans `tools/en-tete-prompt.md`.
 - **Pied de page** : « Ce document a été rédigé par une intelligence artificielle (<éditeur> <modèle> <version>). Des erreurs sont possibles. », valeur prise dans `meta.json` (`redaction`), à défaut « Anthropic Claude Opus 5.5 ».
 
