@@ -38,7 +38,7 @@ def lead(items):
     m=re.match(r'^([^:]{1,90}?)(\s:)',t)
     if m: return [{'t':m.group(1),'b':1},{'t':t[m.end(1):]}]+items[1:]
     return items
-JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer">×</button><div class="sy-w" id="sy-c"></div></dialog>
+JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sy-w" id="sy-c"></div></dialog>
 <script>
 (function(){
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
@@ -68,6 +68,7 @@ EN_TETE=next((f'/assets/en-tete.{x}' for x in ('webp','png','jpg') if os.path.is
 def duree_ep():
     d=EP['duree_s']
     return f'{d}&nbsp;s' if d<60 else f'{round(d/60)}&nbsp;min'
+ICO_VOL='<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z" fill="currentColor"/><path class="w" d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
 ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
 def bloc_podcast(web,diso,ed_url):
     """Barre « Écouter l'épisode » (80 %, centrée) entre l'en-tête et la Une.
@@ -76,7 +77,7 @@ def bloc_podcast(web,diso,ed_url):
     m=duree_ep()
     if not web:
         if not ed_url: return ''
-        return (f'<table role="presentation" width="80%" align="center" cellpadding="0" cellspacing="0" style="width:80%;margin:0 auto 26px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
+        return (f'<table role="presentation" width="75%" align="center" cellpadding="0" cellspacing="0" style="width:75%;margin:0 auto 26px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
                 f'<tr><td style="padding:10px 18px;"><a href="{ed_url}#ecouter" style="display:block;text-decoration:none;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
                 f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;Écouter l’épisode</td>'
                 f'<td align="right" style="font:13px/22px {SANS};color:#6b7280;white-space:nowrap;">{m}</td></tr></table></a></td></tr></table>')
@@ -85,11 +86,13 @@ def bloc_podcast(web,diso,ed_url):
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">Écouter l’épisode</span><span class="pod-d">{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-eb">Podcast</div>'
-            + (f'<div class="pod-t">{titre}</div>' if titre else '') +
+            +
             f'<audio preload="none" src="/{diso}/episode.mp3"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
             f'<input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode">'
-            f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span></div>'
+            f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
+            f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
+            f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
             f'<p class="pod-n">Ce dialogue a été produit par une intelligence artificielle.</p>'
             f'</div></div></div>')
 POD_JS=r"""<script>
@@ -99,7 +102,12 @@ var h=w.querySelector('.pod-h'),b=w.querySelector('.pod-b'),a=w.querySelector('a
 var PLAY=pl.innerHTML,PAUSE='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
 function fmt(t){t=Math.floor(t||0);return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
 function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px'}
-h.addEventListener('click',function(){set(!w.classList.contains('on'))});
+h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o&&a.paused)a.play()});
+var m=w.querySelector('.pod-m'),v=w.querySelector('.pod-v');
+function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0);m.setAttribute('aria-label',x==0?'Rétablir le son':'Couper le son')}
+v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vol()});
+m.addEventListener('click',function(){if(a.muted||a.volume==0){a.muted=false;if(a.volume==0)a.volume=.8}else a.muted=true;vol()});
+a.addEventListener('volumechange',vol);vol();
 pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
 a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause')});
 a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture')});
@@ -157,7 +165,7 @@ def render(web):
     SYNB='<button type="button" class="sy-b" data-syn="{0}" aria-haspopup="dialog" aria-label="En savoir plus"><span class="sy-p"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sy-l">En savoir plus</span></span></button>'
 
     LS="color:#6b7280;font:13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
-    LSO="color:#454e5c;font:600 13px/1 %s;text-decoration:none;border-bottom:1px solid #9aa1ab;white-space:nowrap;"%SANS
+    LSO="color:#6b7280;font:600 13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
     def srcfix(items):
         o=[];n=len(items)
         for k,x in enumerate(items):
@@ -207,9 +215,9 @@ def render(web):
         return sid,inner
     def syattr(sid): return f' class="sy-it" data-syn="{sid}"' if (web and sid) else ''
     def row(sid,inner):
-        return f'<tr{syattr(sid)}><td width="20" valign="top" style="padding:8px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;">&#9632;</td><td style="padding:0 0 12px;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
+        return f'<tr{syattr(sid)}><td width="20" valign="top" style="padding:14px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;">&#9632;</td><td style="padding:6px 8px 6px 0;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
     def rcell(sid,inner):
-        return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="padding:7px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;">&#9632;</td><td style="padding:0 0 10px;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
+        return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="padding:12px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;">&#9632;</td><td style="padding:5px 6px 5px 0;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
     rap=[]   # rappels de la section courante, affichés en fin de section sur deux colonnes
     def flush():
         if not rap: return
@@ -321,18 +329,24 @@ def render(web):
         css=f'''a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;position:relative;cursor:help}}
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:290px;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
-a.s.so{{color:#454e5c;font-weight:600;border-bottom:1px solid #9aa1ab}}
+a.s.so{{font-weight:600}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .sy-it{{cursor:pointer;transition:background .15s}}
 .sy-it:hover{{background:#faf7f0}}
+p.sy-it,div.sy-it{{border-radius:6px}}
+tr.sy-it:hover{{background:none}}
+tr.sy-it>td{{transition:background .15s}}
+tr.sy-it:hover>td{{background:#faf7f0}}
+tr.sy-it>td:first-child{{border-radius:6px 0 0 6px}}
+tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .sy-b{{display:inline-block;position:relative;width:20px;height:20px;margin:0 0 0 5px;padding:0;border:0;background:none;vertical-align:-4px;cursor:pointer}}
 .sy-p{{position:absolute;left:0;top:0;z-index:1;display:flex;align-items:center;box-sizing:border-box;height:20px;min-width:20px;padding:0 3px;border:1px solid #e1c6b4;border-radius:10px;background:#fff;color:{ACC};white-space:nowrap;transition:left .18s ease,background .15s,color .15s,border-color .15s}}
 .sy-p svg{{flex:none;display:block}}
-.sy-l{{display:inline-block;max-width:0;overflow:hidden;opacity:0;font:600 11px/18px {SANS};letter-spacing:.02em;transition:max-width .18s ease,opacity .15s,margin .18s,padding .18s}}
+.sy-l{{display:inline-block;max-width:0;overflow:hidden;opacity:0;font:600 11px/1 {SANS};letter-spacing:.02em;transition:max-width .18s ease,opacity .15s,margin .18s,padding .18s}}
 .sy-b:hover .sy-p,.sy-b:focus-visible .sy-p{{z-index:5;background:{ACC};border-color:{ACC};color:#fff;box-shadow:0 2px 8px rgba(15,42,74,.18)}}
 .sy-b:hover .sy-l,.sy-b:focus-visible .sy-l{{max-width:9em;opacity:1;margin-left:4px;padding-right:6px}}
 .sy-b:focus-visible{{outline:none}}
-.pod{{width:80%;margin:0 auto 28px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
+.pod{{width:75%;margin:0 auto 28px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
 .pod-h{{display:flex;align-items:center;gap:10px;width:100%;padding:10px 18px;border:0;background:none;color:{NAVY};font:600 14px/22px {SANS};text-align:left;cursor:pointer}}
 .pod-h:hover,.pod-h:focus-visible{{background:#f1ebdf;outline:none}}
 .pod-i{{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:{ACC};color:#fff;flex:none}}
@@ -341,7 +355,7 @@ td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .pod-d{{font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
-.pod-eb{{margin:12px 0 2px;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
+.pod-eb{{margin:12px 0 10px;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
 .pod-t{{margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};text-wrap:balance}}
 .pod-p{{display:flex;align-items:center;gap:12px}}
 .pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
@@ -351,16 +365,23 @@ td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .pod-r::-webkit-slider-thumb{{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:{ACC};border:2px solid #fff;box-shadow:0 0 0 1px {ACC}}}
 .pod-r::-moz-range-thumb{{width:12px;height:12px;border-radius:50%;background:{ACC};border:2px solid #fff}}
 .pod-tm{{font:12px/16px {SANS};color:#6b7280;white-space:nowrap;font-variant-numeric:tabular-nums}}
+.pod-m{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:{NAVY};cursor:pointer}}
+.pod-m:hover,.pod-m:focus-visible{{color:{ACC};outline:none}}
+.pod.mu .pod-m .w{{display:none}}
+.pod-v{{--p:100%;flex:none;width:72px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
+.pod-v::-webkit-slider-thumb{{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:{NAVY};border:2px solid #fff;box-shadow:0 0 0 1px {NAVY}}}
+.pod-v::-moz-range-thumb{{width:10px;height:10px;border-radius:50%;background:{NAVY};border:2px solid #fff}}
 .pod-n{{margin:12px 0 0;font:italic 13px/19px {SERIF};color:#6b7280}}
-@media(max-width:660px){{.pod{{width:100%}}table.cv{{background-size:60% auto!important}}}}
+@media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
 dialog.sy{{width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 .sy-w{{padding:26px 34px 28px;overflow:auto;max-height:calc(min(86vh,900px) - 6px);box-sizing:border-box}}
-.sy-x{{position:absolute;top:12px;right:14px;width:32px;height:32px;border:0;background:transparent;color:#6b7280;font:22px/32px {SANS};cursor:pointer}}
+.sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
+.sy-x svg{{display:block}}
 .sy-x:hover,.sy-x:focus-visible{{color:{NAVY};outline:2px solid #d5dbe5}}
 .sy-w p.sy-eb{{margin:0 0 6px;font:600 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC}}}
 .sy-t{{margin:0 36px 14px 0;font:600 21px/28px {SANS};color:{NAVY};text-wrap:balance}}
-.sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;font:13px/19px {SANS};color:#374151}}
+.sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;border-radius:6px;font:13px/19px {SANS};color:#374151}}
 .sy-m dt{{color:#7d6c47;font-weight:600}}
 .sy-m dd{{margin:0;min-width:0}}
 .sy-w h4{{margin:16px 0 5px;font:700 11.5px/16px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47}}
@@ -378,7 +399,7 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title><style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
-<table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:79% auto;') if (web and EN_TETE) else ''}">
+<table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
 <tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; <a href="{SITE if not web else ''}/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="{SITE if not web else ''}/dossiers/" style="color:#6b7280;">Dossiers</a></td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
