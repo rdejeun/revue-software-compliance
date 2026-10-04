@@ -183,6 +183,9 @@ def main():
     txt = '\n'.join(rep) + '\n'
     print(txt)
     if os.environ.get('GITHUB_STEP_SUMMARY'): open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8').write(txt)
+    if os.environ.get('GITHUB_ACTIONS'):   # annotations visibles dans l'interface et par l'API
+        for e in ERR: print(f'::error title=Contrôle de l’édition {d}::{e}')
+        for w in WARN[:20]: print(f'::warning title=Contrôle de l’édition {d}::{w}')
     open(os.path.join(BUILD, d, 'controle.md'), 'w', encoding='utf-8').write(txt)
     sys.exit(1 if ERR else 0)
 
