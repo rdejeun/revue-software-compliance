@@ -1,8 +1,8 @@
 {
- "duree_s": 136,
- "octets": 1130284,
- "mots": 411,
- "modele": "eleven_v3",
+ "duree_s": 459,
+ "octets": 3814490,
+ "mots": 1436,
+ "modele": "eleven_v4",
  "seed": 20261004,
  "voix": {
   "A": {
@@ -14,21 +14,21 @@
    "voice": "cTNP6ZM2mLTKj2BFhxEh"
   }
  },
- "genere_le": "2026-10-04T22:58:50Z",
- "sha_script": "7eba9d7273084c17468d7f3ed21752980e2fb306fb24d424c67e181bc1da3e78:essai-2500",
+ "genere_le": "2026-10-04T23:26:11Z",
+ "sha_script": "c619ab2985f9868aee57e3364b6315b4afaad015231303b10793146e6b308291:essai-9000",
  "extrait": true,
- "repliques": 13,
- "prononciation": "dictionnaire ElevenLabs aXa1STIcpecrPSzbXU3X",
+ "repliques": 48,
+ "prononciation": "dictionnaire ElevenLabs dZA7u4o2Y0pwX4vv0RJX",
  "qc": {
   "Loudness intégré du master": "-19.0 LUFS",
   "True peak": "-1.0 dBTP",
   "Écart de loudness A/B": "0.00 LU",
-  "Écart de timbre A/B (150 Hz–8 kHz)": "7.9 → 2.6 dB",
-  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 66 → 27 ms, B 24 → 20 ms",
-  "Durée": "136.0 s (blocs : 136.1 s)",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.8 → 1.2 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 79 → 29 ms, B 23 → 22 ms",
+  "Durée": "459.0 s (blocs : 459.4 s)",
   "Clics": "0 saut(s) anormal(aux)",
-  "Fidélité au script (faster-whisper)": "non vérifiée (TypeError)"
+  "Fidélité au script (faster-whisper)": "3.7 % de mots différents sur 1495"
  },
- "requetes": 2,
+ "requetes": 7,
  "fichier": "episode.m4a"
 }
