@@ -9,7 +9,7 @@ Usage :
 
 Synthèse vocale : API ElevenLabs « Text to Dialogue » (plusieurs voix dans une même requête).
 Variables : ELEVENLABS_API_KEY (clé), ELEVENLABS_VOICE_FEMALE et ELEVENLABS_VOICE_MALE (identifiants
-des voix de Julie, voix A, et de Guillaume, voix B), ELEVENLABS_MODEL (facultatif, défaut ci-dessous).
+des voix de Julie, voix A, et de Guillaume, voix B), ELEVENLABS_MODEL (facultatif, défaut eleven_v4 ; « eleven_v3 » pour revenir en arrière).
 Prononciation : tools/prononciation.json est recopié à chaque production dans le dictionnaire de
 prononciation ElevenLabs « Software Compliance » (règles alias), passé ensuite à chaque requête.
 Si le dictionnaire est inaccessible (droits de la clé), les remplacements sont faits localement.
@@ -35,7 +35,7 @@ MARGE = 1.2                      # solde exigé : caractères du script + 20 %
 DICT_NOM = 'Software Compliance'
 # Modèles qui refusent previous_request_ids (erreur 400) : chaque requête est alors indépendante.
 SANS_CONTINUITE = {'eleven_v3', 'eleven_v4'}   # v4 : par prudence, non documenté pour le dialogue
-MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
+MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v4'   # v4 : essai du 5 octobre 2026 concluant (dialogue en français)
 CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
 PAUSE = 0.6                      # secondes de silence entre deux requêtes (= entre deux sujets)
 
