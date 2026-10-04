@@ -1,0 +1,20 @@
+{
+ "duree_s": 40,
+ "octets": 319025,
+ "mots": 126,
+ "modele": "eleven_v3",
+ "voix": {
+  "A": {
+   "nom": "Claire",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Thomas",
+   "voice": "gP52hjM48hyNoVCbizxO"
+  }
+ },
+ "genere_le": "2026-10-04T18:00:49Z",
+ "sha_script": "4909d79c28e99348f9fe42c148cb90789ad81fcb22521b0b000bb8f60568838f:essai-720",
+ "extrait": true,
+ "repliques": 4
+}
