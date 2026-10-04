@@ -315,7 +315,7 @@ def produire(d, dry=False, force=False):
     import mixage
     ids_voix = {k: (v.get('voice') or k) for k, v in voix.items()}
     sortie = os.path.join(travail, 'out', 'episode.m4a')
-    M = mixage.produire(blocs, ids_voix, sortie, travail, {'titre': pod['titre'], 'date': d, 'n': ''})
+    M = mixage.produire(blocs, ids_voix, sortie, travail, {'titre': pod['titre'], 'date': d, 'n': ''}, sortie_brute=os.path.join(travail, 'out', 'episode_sans_traitement.m4a'))
     ok, ecarts, resume = mixage.qc(M, sortie, ' '.join(r['t'] for r in reps), travail)
     duree = M['duree_blocs_s']
     meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE, 'seed': SEED,
@@ -375,7 +375,8 @@ def essai(chemin):
             if rid: ids.append(rid)
             blocs.append({'mp3': base + '.mp3', 'segments': segs})
         out = os.path.join(sorties, f'{nom}-{k}.m4a')
-        M = mixage.produire(blocs, {kk: vv['voice'] for kk, vv in voix.items()}, out, travail, {'titre': f'Essai {nom} ({k})', 'date': '2026', 'n': ''})
+        M = mixage.produire(blocs, {kk: vv['voice'] for kk, vv in voix.items()}, out, travail, {'titre': f'Essai {nom} ({k})', 'date': '2026', 'n': ''},
+                            sortie_brute=os.path.join(sorties, f'{nom}-{k}-sans-traitement.m4a') if E.get('sans_traitement') else None)
         ok, ecarts, resume = mixage.qc(M, out, ' '.join(r['t'] for r in pod['repliques']), travail)
         shutil.copyfile(os.path.join(travail, 'qc_report.md'), os.path.join(sorties, f'{nom}-{k}-qc.md'))
         bilan('notice', f'essai {nom} ({k}, {MODELE}) : {M["duree_blocs_s"]:.0f} s ; contrôle {"ok" if ok else "en écart : " + " ; ".join(ecarts)}')

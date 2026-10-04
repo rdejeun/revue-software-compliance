@@ -1,0 +1,26 @@
+{
+ "titre": "Eleven v4 : sans / avec traitement audio",
+ "_note": "Les 13 premières répliques de l'édition du 4 octobre (extrait en ligne), en v4 ; produit la version traitée et la même sans traitement (seulement mise au volume).",
+ "sans_traitement": true,
+ "modeles": {"episode": "eleven_v4"},
+ "versions": {
+  "episode": [
+   {"sujet": "Ouverture"},
+   {"v": "A", "t": "Bonjour et bienvenue dans Software Compliance, la version audio de la revue de presse de la semaine. Je suis Julie, et je vais poser les questions que tout le monde se pose."},
+   {"v": "B", "t": "Et moi, c'est Guillaume. J'essaie d'y répondre simplement. Toutes les sources sont sur le site de la revue, à l'édition du 4 octobre."},
+   {"sujet": "CRA : déclarer les failles"},
+   {"v": "A", "t": "Alors on commence par le gros sujet : le Cyber Resilience Act, le CRA. On en parle depuis des mois. Qu'est-ce qui a changé concrètement ?"},
+   {"v": "B", "t": "Depuis le 11 septembre, il y a une première obligation qui s'applique pour de vrai. Si vous fabriquez un produit qui contient du logiciel, et qu'une faille de ce produit est activement exploitée par des attaquants, vous devez le déclarer. Pareil pour un incident grave."},
+   {"v": "A", "t": "Le déclarer à qui, et en combien de temps ?"},
+   {"v": "B", "t": "À l'ENISA, l'agence européenne de cybersécurité, sur une plateforme unique. Et les délais sont courts : une première alerte sous 24 heures, une notification plus complète sous 72 heures, puis un rapport final dans les 14 jours qui suivent la mise à disposition d'un correctif."},
+   {"v": "A", "t": "24 heures, c'est vraiment court. Et si la faille n'est pas dans mon propre code, mais dans un morceau de logiciel libre que j'ai intégré ?"},
+   {"v": "B", "t": "C'est justement le point important. Pour un produit civil ou à double usage vendu dans l'Union européenne, c'est le fabricant du produit final qui porte l'obligation, même si la faille vient d'un composant tiers. Donc, pour tenir les 24 heures, il faut savoir à l'avance quels composants on a dans chaque produit."},
+   {"sujet": "CRA : et les produits de défense ?"},
+   {"v": "A", "t": "Mais attendez, nos auditeurs travaillent dans la défense. Le CRA ne s'applique pas aux produits militaires, non ?"},
+   {"v": "B", "t": "Pas tout à fait. L'article 2 du règlement exclut les produits développés ou modifiés exclusivement pour la défense ou la sécurité nationale, et ceux conçus pour traiter des informations classifiées. Le mot clé, c'est « exclusivement ». Ce qui compte, c'est l'usage prévu par le fabricant. Un produit à double usage, ou qui a une version civile, reste concerné pour sa partie civile, même s'il finit chez un client militaire."},
+   {"v": "A", "t": "Donc il faut regarder produit par produit."},
+   {"v": "B", "t": "Oui, et garder une trace écrite de cette analyse. Et même pour un produit vraiment exclu, rien n'empêche un client public ou un maître d'œuvre de demander par contrat la même rapidité de réaction. Ça, ce n'est pas encore une obligation, c'est une possibilité à garder en tête."},
+   {"v": "A", "t": "Et le CRA, c'est fini après cette étape ?"}
+  ]
+ }
+}

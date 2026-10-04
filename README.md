@@ -153,5 +153,5 @@ Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrô
 
 ## 13. Essais d'écoute
 
-Pour comparer des variantes (balises, voix, réglages) sans toucher aux éditions : décrire les versions dans `tools/essais/<nom>.json` (`{"titre", "versions": {"sans": [répliques], "avec": [répliques]}}`) et pousser sur une branche `essai-…`. Le workflow « Essai audio » produit chaque version avec la chaîne complète (solde vérifié avant) et enregistre `essais/sorties/<nom>-<version>.m4a` et son rapport sur la branche. Ne pas fusionner `essais/sorties/` dans `main`.
+Pour comparer des variantes (balises, voix, réglages) sans toucher aux éditions : décrire les versions dans `tools/essais/<nom>.json` (`{"titre", "versions": {"sans": [répliques], "avec": [répliques]}}`) et pousser sur une branche `essai-…`. Le workflow « Essai audio » produit chaque version avec la chaîne complète (solde vérifié avant) et enregistre `essais/sorties/<nom>-<version>.m4a` et son rapport sur la branche. Avec `"sans_traitement": true`, chaque version est aussi livrée sans post-production (audio ElevenLabs seulement mis au même volume), pour comparer. Un essai par branche : n'y laisser que son fichier dans `tools/essais/`. Ne pas fusionner `essais/sorties/` dans `main`.
 

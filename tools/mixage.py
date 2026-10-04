@@ -254,12 +254,23 @@ def loudnorm_2_passes(wav_in, wav_out):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav_in, '-af', filt + f',aresample={SR}', '-c:a', 'pcm_s24le', wav_out], check=True)
 
 
-def produire(blocs, voix, sortie_audio, dossier, meta):
+def encoder(wav, sortie, meta):
+    tmp = sortie + '.tmp.m4a'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav, '-c:a', 'aac', '-b:a', f'{CONFIG["aac_kbps"]}k', '-movflags', '+faststart', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
+                    '-metadata', f'title={meta["titre"]}', '-metadata', 'artist=Software Compliance', '-metadata', 'album=Software Compliance', tmp], check=True)
+    os.replace(tmp, sortie)
+
+
+def produire(blocs, voix, sortie_audio, dossier, meta, sortie_brute=None):
     """Chaîne complète. Écrit stems/ et out/ dans `dossier`, puis sortie_audio. Renvoie le dictionnaire de mesures."""
     os.makedirs(os.path.join(dossier, 'stems'), exist_ok=True); os.makedirs(os.path.join(dossier, 'out'), exist_ok=True)
     M = {'journal': []}
     mix, st, masque, j = pistes(blocs, voix); M['journal'] += j
     sf.write(os.path.join(dossier, 'raw_dialogue_full.wav'), mix.astype(np.float32), SR, subtype='FLOAT')
+    if sortie_brute:   # référence d'écoute : audio ElevenLabs tel quel, seulement mis au même volume et au même format
+        brut = os.path.join(dossier, 'out', 'brut_master.wav')
+        loudnorm_2_passes(os.path.join(dossier, 'raw_dialogue_full.wav'), brut)
+        encoder(brut, sortie_brute, {'titre': meta['titre'] + ' (sans traitement)'})
     M['avant'] = {'timbre_ecart_db': float(np.abs(ltas(st['A'], masque['A']) - ltas(st['B'], masque['B']))[(TIERS >= 150) & (TIERS <= 8000)].max()),
                   'decroissance_ms': {k: decroissance_ms(st[k]) for k in st},
                   'lufs': {k: lufs(st[k], masque[k]) for k in st}}
