@@ -159,7 +159,8 @@ def to_md(blocks, meta, text=False):
 CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;background-size:512px 512px;color:#1f2937;font:16px/24px {SERIF}}}
 .c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;padding:38px 52px 44px;box-sizing:border-box}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
-h1{{margin:8px 0 6px;font:700 40px/48px {SERIF};color:#0f2a4a;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 38px/48px {SANS};letter-spacing:-.025em}}
+h1{{margin:8px 0 14px;font:700 46px/52px {SERIF};color:#0f2a4a;letter-spacing:-.01em;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 44px/52px {SANS};letter-spacing:-.025em}}
+.pied{{margin:44px 0 0;padding:16px 0 0;border-top:2px solid #0f2a4a;font:12px/19px {SANS};color:#6b7280}}
 .sub{{margin:0 0 24px;padding-bottom:14px;border-bottom:2px solid #0f2a4a;font:13px/20px {SANS};color:#6b7280}} .sub a{{color:#6b7280}}
 h2{{margin:32px 0 12px;font:600 20px/28px {SANS};color:#0f2a4a}} .r{{width:30px;height:3px;background:#c2410c;margin:32px 0 10px}} .r+h2{{margin-top:0}}
 ul.l{{list-style:none;margin:0;padding:0}} ul.l>li{{border-bottom:1px solid #e5e1d8}}
@@ -167,23 +168,35 @@ ul.l a.b{{display:block;padding:14px 4px;color:#1f2937;text-decoration:none}} ul
 .m{{display:block;font:600 13px/20px {SANS};color:#c2410c}} .x{{display:block;margin-top:2px}} .n{{font:13px/20px {SANS};color:#6b7280}}
 nav.d{{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}} nav.d a{{font:600 12px/18px {SANS};color:#7d6c47;border:1px solid #d9cfb6;border-radius:11px;padding:1px 10px;text-decoration:none}} nav.d a.on,nav.d a:hover{{background:#c2410c;border-color:#c2410c;color:#fff}}
 dl.st{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0;padding:12px 16px;background:#f7f4ee;font:13px/19px {SANS};color:#374151}} dl.st dt{{color:#7d6c47;font-weight:600}} dl.st dd{{margin:0;min-width:0}}
-ul.tl{{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
+ul.tl{{list-style:none;margin:0 0 0 8px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
 ul.tl li::before{{content:"";position:absolute;left:-21px;top:7px;width:8px;height:8px;background:#c2410c;border:2px solid #fff}} ul.tl li.v::before{{background:#fff;border-color:#c2410c}}
 .dt{{display:inline-block;min-width:112px;font:600 13px/22px {SANS};color:#c2410c}}
 ul.it{{list-style:none;margin:0;padding:0}} ul.it li{{padding:10px 0 12px;border-bottom:1px solid #eee9de}}
 .sec{{display:block;font:600 11px/16px {SANS};letter-spacing:.1em;text-transform:uppercase;color:#8a8f98;margin:0 0 3px}}
 .ed{{font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#0f2a4a;margin:24px 0 4px}}
-a.s{{color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}} a.s.so{{color:#454e5c;font-weight:600;border-bottom:1px solid #9aa1ab}}
+a.s{{color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}} a.s.so{{font-weight:600}}
 a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;position:relative;cursor:help}}
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:min(290px,70vw);background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px}}
 a.more{{color:#c2410c;font:600 13px {SANS};text-decoration:none;white-space:nowrap}}
 .demo{{font:600 11px/16px {SANS};color:#8a8f98;letter-spacing:.06em;text-transform:uppercase}}
-@media(max-width:660px){{.c{{margin:0;padding:24px 18px 30px}} h1{{font-size:32px;line-height:40px}} h1 span{{font-size:30px}} dl.st{{grid-template-columns:1fr;gap:0}} dl.st dd{{margin-bottom:6px}}}}'''
+@media(max-width:660px){{.c{{margin:0;padding:24px 18px 30px}} h1{{font-size:36px;line-height:42px}} h1 span{{font-size:34px;line-height:42px}} dl.st{{grid-template-columns:1fr;gap:0}} dl.st dd{{margin-bottom:6px}}}}'''
+
+
+REDACTION = 'Anthropic Claude Opus 5.5'   # remplacé par la valeur « redaction » de la dernière édition
+
+
+def titre(nom, spec=None):
+    """Titre façon page principale. spec (« titre » dans themes.json) : « partie en italique|suite »,
+    coupé entre deux blocs de sens ; sans spec, tout le nom en sans-serif."""
+    if spec and '|' in spec:
+        a, b = spec.split('|', 1)
+        return f'<i>{E(a)}</i> <span>{E(b)}</span>'
+    return f'<span>{E(nom)}</span>'
 
 
 def page(title, eyebrow, h1, sub, body):
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{CSS}</style></head>
-<body><main class="c"><div class="e">{eyebrow}</div><h1>{h1}</h1><p class="sub">{sub}</p>{body}</main></body></html>'''
+<body><main class="c"><div class="e">{eyebrow}</div><h1>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">Ce document a été rédigé par une intelligence artificielle ({E(REDACTION)}). Des erreurs sont possibles.</p></main></body></html>'''
 
 
 def write(path, txt):
@@ -208,6 +221,8 @@ def main():
         lede = next((TY(''.join(x['t'] for x in b['i']).strip(' ·')) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         infos.append({'d': d, 'meta': meta, 'lede': lede, 'items': json.load(open(os.path.join(out, 'items.json'), encoding='utf-8')), 'md': md})
     last = infos[-1]
+    global REDACTION
+    REDACTION = last['meta'].get('redaction') or REDACTION
     web = open(os.path.join(SITE, last['d'], 'index.html'), encoding='utf-8').read()
     write(os.path.join(SITE, 'index.html'), web.replace('<meta charset="utf-8">', f'<meta charset="utf-8"><link rel="canonical" href="/{last["d"]}/">', 1))
     write(os.path.join(SITE, 'index.md'), last['md'])
@@ -253,9 +268,9 @@ def main():
                 more = f' <a class="more" href="/{i["d"]}/#{it["sid"]}">En savoir plus ↗</a>' if it.get('sid') else ''
                 body += f'<li><span class="sec">{E(lab)}</span>{it["html"]}{more}</li>'
             body += '</ul>'
-        write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} · Dossiers · Software Compliance', 'Dossier', E(v['nom']),
+        write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} · Dossiers · Software Compliance', 'Dossier', titre(v['nom'], v.get('titre')),
               f'{E(TY(v.get("reference", "")))} · {len(its)} information{"s" if len(its) > 1 else ""} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body))
-    write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers',
+    write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
           'Tout ce que la revue a publié, thème par thème · <a href="/">Dernière édition</a> · <a href="/archives/">Archives</a>', f'<ul class="l">{"".join(idx)}</ul>'))
 
     # RSS (hors démonstration)
