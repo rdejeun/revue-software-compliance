@@ -26,11 +26,11 @@ CONFIG = {
     'sibilantes_ecart_db': 3,
     'compresseur': {'ratio': 3, 'attaque_ms': 10, 'relache_ms': 100, 'reduction_db': 4},
     # Sortie mono : pas de panoramique (évite les artefacts de centrage à l'écoute au casque).
-    # Réverbération partagée et fond d'ambiance désactivés (None) : jugés trop présents à l'écoute.
+    # Réverbération partagée désactivée (None) : jugée trop présente à l'écoute. Fond d'ambiance conservé.
     'mono': True,
     'pan': 0.15,                       # stéréo seulement : −1 gauche … +1 droite ; A à gauche, B à droite
     'reverb': None,                    # ex. {'room_size': 0.15, 'damping': 0.6, 'wet': 0.07, 'width': 0.6}
-    'room_tone_dbfs': None,            # ex. -60
+    'room_tone_dbfs': -60,             # bruit rose filtré sous 8 kHz, continu sous tout l'épisode ; None pour l'ôter
     'bus': {'ratio': 2, 'reduction_db': 1.5},
     'lufs': -19, 'true_peak': -1.0, 'lra': 11,   # −19 LUFS en mono (équivalent de −16 en stéréo)
     'mp3_kbps': 96,
