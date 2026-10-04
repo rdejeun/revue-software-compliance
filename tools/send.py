@@ -8,7 +8,7 @@ Usage : python3 tools/send.py --mode auto|brouillon|aucun [AAAA-MM-JJ] [--wait]
   aucun     : pas d'envoi
   --wait    : attend que la page web de l'édition soit en ligne (6 minutes au plus)
 Variables d'environnement : RESEND_API_KEY (secret), MAIL_TO, DRAFT_TO, MAIL_FROM (facultatif).
-Écrit sent=1 dans GITHUB_OUTPUT quand un envoi définitif a eu lieu.
+Écrit sent=1 dans GITHUB_OUTPUT quand un envoi définitif a eu lieu (jamais en mode brouillon).
 """
 import datetime, json, os, re, sys, time, urllib.error, urllib.request
 
