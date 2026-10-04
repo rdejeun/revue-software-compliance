@@ -156,7 +156,7 @@ def to_md(blocks, meta, text=False):
 
 
 # ---------------------------------------------------------------- pages annexes
-CSS = f'''body{{margin:0;background:#ecebe6;color:#1f2937;font:16px/24px {SERIF}}}
+CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;background-size:512px 512px;color:#1f2937;font:16px/24px {SERIF}}}
 .c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;padding:38px 52px 44px;box-sizing:border-box}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
 h1{{margin:8px 0 6px;font:700 40px/48px {SERIF};color:#0f2a4a;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 38px/48px {SANS};letter-spacing:-.025em}}
@@ -284,6 +284,11 @@ def main():
     L += ['', '## Dossiers thématiques', ''] + [f'- [{v["nom"]}]({URL}/dossiers/{k}/): {TY(v.get("reference", ""))}' for k, v in themes.items() if by[k]]
     write(os.path.join(SITE, 'llms.txt'), '\n'.join(L) + '\n')
 
+    if os.path.isfile(os.path.join(TOOLS, 'fond.webp')):   # fond de page répété
+        os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, 'fond.webp'), os.path.join(SITE, 'assets', 'fond.webp'))
+    for x in ('webp', 'png', 'jpg'):   # image d'en-tête facultative (tools/en-tete.*)
+        f = os.path.join(TOOLS, f'en-tete.{x}')
+        if os.path.isfile(f): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(f, os.path.join(SITE, 'assets', f'en-tete.{x}'))
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
     write(os.path.join(SITE, '.nojekyll'), '')
     print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s) -> {SITE}')

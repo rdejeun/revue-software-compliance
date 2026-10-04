@@ -55,7 +55,7 @@ def check_attrs(a, where, themes, need_date=True):
 
 
 def check_content(d, blocks, meta, themes):
-    for k in ('n', 'date_iso', 'date_long', 'date', 'toc', 'ess', 'site'):
+    for k in ('n', 'date_iso', 'date_long', 'date', 'toc', 'site'):
         if k not in meta: ERR.append(f'meta.json : clé « {k} » manquante')
     if meta.get('date_iso') != d: ERR.append(f'meta.json : date_iso « {meta.get("date_iso")} » différente du dossier « {d} »')
     try:

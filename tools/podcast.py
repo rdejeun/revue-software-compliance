@@ -8,8 +8,11 @@ Usage :
   python3 tools/podcast.py --force [...]          régénère même si l'épisode est à jour
 
 Synthèse vocale : API ElevenLabs « Text to Dialogue » (plusieurs voix dans une même requête).
-Variables : ELEVENLABS_API_KEY (clé), ELEVENLABS_VOICE_A et ELEVENLABS_VOICE_B (identifiants des
-voix de Claire et de Thomas), ELEVENLABS_MODEL (facultatif, défaut ci-dessous).
+Variables : ELEVENLABS_API_KEY (clé), ELEVENLABS_VOICE_FEMALE et ELEVENLABS_VOICE_MALE (identifiants
+des voix de Julie, voix A, et de Guillaume, voix B), ELEVENLABS_MODEL (facultatif, défaut ci-dessous).
+Prononciation : tools/prononciation.json est recopié à chaque production dans le dictionnaire de
+prononciation ElevenLabs « Software Compliance » (règles alias), passé ensuite à chaque requête.
+Si le dictionnaire est inaccessible (droits de la clé), les remplacements sont faits localement.
 Assemblage et encodage MP3 : ffmpeg.
 L'épisode n'est régénéré que si podcast.json a changé (empreinte dans episode.json) : pas de
 double facturation quand le workflow est relancé.
@@ -21,7 +24,9 @@ import urllib.request, urllib.error
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, 'content')
 LEXIQUE = os.path.join(ROOT, 'tools', 'prononciation.json')
-ENDPOINT = 'https://api.elevenlabs.io/v1/text-to-dialogue'
+API = 'https://api.elevenlabs.io'
+ENDPOINT = API + '/v1/text-to-dialogue'
+DICT_NOM = 'Software Compliance'
 MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
 RATE = 24000                     # Hz, mono, 16 bits : sortie demandée (output_format=pcm_24000)
 CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
@@ -30,8 +35,8 @@ PAUSE = 0.35                     # secondes de silence entre deux requêtes
 # Voix : identifiants ElevenLabs lus dans l'environnement ; un podcast.json peut les remplacer
 # par une clé "voix" ({"A": {"voice": "…"}}).
 VOIX = {
-    'A': {'nom': 'Claire', 'voice': os.environ.get('ELEVENLABS_VOICE_A', '').strip()},
-    'B': {'nom': 'Thomas', 'voice': os.environ.get('ELEVENLABS_VOICE_B', '').strip()},
+    'A': {'nom': 'Julie', 'voice': os.environ.get('ELEVENLABS_VOICE_FEMALE', '').strip()},
+    'B': {'nom': 'Guillaume', 'voice': os.environ.get('ELEVENLABS_VOICE_MALE', '').strip()},
 }
 MOTS_MIN, MOTS_MAX = 900, 1800   # ≈ 6 à 12 minutes
 # Mode essai (variable PODCAST_MAX_CHARS, ex. 450 ≈ 30 s) : seules les premières répliques, jusqu'à
@@ -89,10 +94,40 @@ def controler(pod):
 
 
 # ------------------------------------------------------------------ texte lu
-def lexique():
+def regles():
     try: L = json.load(open(LEXIQUE, encoding='utf-8'))
-    except FileNotFoundError: return []
-    return [(re.compile(r'(?<![\w-])' + k + r'(?![\w-])'), v) for k, v in L.items() if not k.startswith('_')]
+    except FileNotFoundError: return {}
+    return {k: v for k, v in L.items() if not k.startswith('_')}
+
+
+def lexique():
+    """Remplacements locaux (repli quand le dictionnaire ElevenLabs n'est pas utilisable)."""
+    return [(re.compile(r'(?<![\w-])' + re.escape(k) + r'(?![\w-])'), v) for k, v in regles().items()]
+
+
+def appel(methode, chemin, cle, corps=None):
+    req = urllib.request.Request(API + chemin, method=methode, data=json.dumps(corps).encode('utf-8') if corps is not None else None,
+                                 headers={'xi-api-key': cle, 'Content-Type': 'application/json', 'Accept': 'application/json'})
+    with urllib.request.urlopen(req, timeout=60) as r: return json.load(r)
+
+
+def dictionnaire(cle):
+    """Recopie le lexique dans le dictionnaire ElevenLabs ; renvoie son localisateur, ou None (repli local)."""
+    R = [{'string_to_replace': k, 'type': 'alias', 'alias': v} for k, v in regles().items()]
+    if not R: return None
+    try:
+        liste = appel('GET', '/v1/pronunciation-dictionaries?page_size=100', cle).get('pronunciation_dictionaries') or []
+        d = next((x for x in liste if x.get('name') == DICT_NOM), None)
+        if d: rep_ = appel('POST', f'/v1/pronunciation-dictionaries/{d["id"]}/set-rules', cle, {'rules': R})
+        else: rep_ = appel('POST', '/v1/pronunciation-dictionaries/add-from-rules', cle,
+                           {'name': DICT_NOM, 'description': 'Podcast Software Compliance : copie de tools/prononciation.json (dépôt revue-software-compliance)', 'rules': R})
+        log(f'  dictionnaire « {DICT_NOM} » : {len(R)} règle(s), version {rep_["version_id"]}')
+        return {'pronunciation_dictionary_id': rep_['id'], 'version_id': rep_['version_id']}
+    except (urllib.error.URLError, KeyError, ValueError) as e:
+        code = getattr(e, 'code', '')
+        detail = e.read().decode('utf-8', 'replace')[:200] if hasattr(e, 'read') else str(e)
+        bilan('warning', f'Dictionnaire de prononciation ElevenLabs inaccessible ({code} {detail}) : remplacements faits localement. Vérifier que la clé a le droit « Pronunciation Dictionaries » en écriture.')
+        return None
 
 
 def dire(t, lex):
@@ -113,13 +148,14 @@ def decouper(reps):
 
 
 # ------------------------------------------------------------------ ElevenLabs
-def requete(chunk, voix, lex, cle, precedents):
+def requete(chunk, voix, lex, cle, precedents, loc=None):
     """Une requête Text to Dialogue ; renvoie (audio PCM 16 bits mono 24 kHz, identifiant de requête)."""
     inputs = [{'text': dire(r['t'], lex), 'voice_id': voix[r['v']]['voice']} for r in chunk]
     n = sum(len(x['text']) for x in inputs)
     if n > 2000: raise SystemExit(f'Requête de {n} caractères : au-delà de la limite de 2 000 (réduire CHUNK_MAX)')
     body = {'inputs': inputs, 'model_id': MODELE, 'language_code': 'fr'}
     if precedents: body['previous_request_ids'] = precedents[-3:]
+    if loc: body['pronunciation_dictionary_locators'] = [loc]
     data = json.dumps(body).encode('utf-8')
     for essai in range(1, 6):
         req = urllib.request.Request(ENDPOINT + '?output_format=pcm_24000', data=data, method='POST',
@@ -172,6 +208,7 @@ def produire(d, dry=False, force=False):
     pod, sha = charger(d)
     if pod is None: bilan('notice', f'{d} : pas de podcast.json, rien à faire.'); return False
     err, warn, mots = controler(pod)
+    sha = hashlib.sha256((sha + json.dumps(regles(), sort_keys=True, ensure_ascii=False)).encode('utf-8')).hexdigest()  # le lexique compte aussi
     if MAX_CHARS: sha += f':essai-{MAX_CHARS}'   # un extrait n'est jamais pris pour l'épisode complet
     for w in warn: log(f'{d} : avertissement : {w}')
     if err: raise SystemExit(f'{d} : script invalide :\n- ' + '\n- '.join(err))
@@ -185,8 +222,9 @@ def produire(d, dry=False, force=False):
     if not shutil.which('ffmpeg'): raise SystemExit('ffmpeg introuvable')
     voix = {k: {**VOIX.get(k, {}), **v} for k, v in {**VOIX, **(pod.get('voix') or {})}.items()}
     manque = [v['nom'] for v in voix.values() if not v.get('voice')]
-    if manque and not dry: bilan('warning', f'{d} : identifiant de voix manquant pour {", ".join(manque)} (ELEVENLABS_VOICE_A / _B), épisode non produit.'); return False
-    lex = lexique()
+    if manque and not dry: bilan('warning', f'{d} : identifiant de voix manquant pour {", ".join(manque)} (variables ELEVENLABS_VOICE_FEMALE / ELEVENLABS_VOICE_MALE), épisode non produit.'); return False
+    loc = None if dry else dictionnaire(cle)
+    lex = [] if loc else lexique()
     reps = extrait(pod['repliques'])
     if MAX_CHARS:
         mots = sum(len(r['t'].split()) for r in reps)
@@ -197,14 +235,15 @@ def produire(d, dry=False, force=False):
     for i, c in enumerate(chunks, 1):
         log(f'  requête {i}/{len(chunks)} ({sum(len(r["t"]) for r in c)} caractères)')
         if dry: morceaux.append(muet(c)); continue
-        pcm, rid = requete(c, voix, lex, cle, ids)
+        pcm, rid = requete(c, voix, lex, cle, ids, loc)
         morceaux.append(pcm)
         if rid: ids.append(rid)
     sortie = os.path.join(tempfile.gettempdir(), f'episode-{d}.mp3') if dry else mp3
     duree = assembler(morceaux, sortie, {'titre': pod['titre'], 'date': d})
     meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE,
             'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
-            'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': bool(MAX_CHARS), 'repliques': len(reps)}
+            'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': bool(MAX_CHARS), 'repliques': len(reps),
+            'prononciation': 'aucune (essai à blanc)' if dry else ('dictionnaire ElevenLabs ' + loc['version_id'] if loc else 'remplacements locaux')}
     if dry:
         log(f'{d} : essai à blanc réussi : {sortie} ({meta["octets"]} octets, {duree / 60:.1f} min). Aucun fichier écrit dans content/.')
         return False

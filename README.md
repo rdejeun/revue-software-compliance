@@ -88,7 +88,7 @@ Segment : `{"t":"texte"}` ou `{"t":"libellé","href":"https://…"}` (lien sourc
 Attributs : `{"date":"2026-10-01","rappel":false,"themes":["cra","sbom"]}`.
 Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere","impact_potentiel","a_verifier":[…]}`.
 
-`meta.json` : `n`, `date_iso`, `date_long`, `date`, `site` (« https://revue.dejeun.es/ »), `toc` (libellés courts des sections), `ess` (5 chiffres clés : `[chiffre, texte, index de section]`), `agenda_refs` (page de référence de chaque événement sans lien), `demo` (édition de démonstration, jamais envoyée).
+`meta.json` : `n`, `date_iso`, `date_long`, `date`, `site` (« https://revue.dejeun.es/ »), `toc` (libellés courts des sections), `redaction` (IA qui a rédigé l'édition, sous la forme « <éditeur> <modèle> <version> », ex. « Anthropic Claude Opus 5.5 », affichée en pied de page), `agenda_refs` (page de référence de chaque événement sans lien), `demo` (édition de démonstration, jamais envoyée).
 
 ## 9. Chaîne de publication (GitHub Actions)
 
@@ -101,7 +101,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 
 Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
 
-Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_A` et `ELEVENLABS_VOICE_B` (identifiants des voix de Claire et de Thomas) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v3`) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
+Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_FEMALE` et `ELEVENLABS_VOICE_MALE` (identifiants des voix de Julie et de Guillaume) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v3`) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
 
 ## 10. Construire en local
 
@@ -112,7 +112,7 @@ python3 tools/validate.py --no-links   # contrôle de la dernière édition
 
 ## 11. Épisode audio
 
-Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Claire** (voix A), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Thomas** (voix B), qui explique. Il est produit par GitHub Actions avec la synthèse vocale ElevenLabs (dialogue à deux voix, modèle `eleven_v3`), publié sur la page de l'édition (lecteur, transcription, MP3) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
+Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Julie** (voix A, féminine), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Guillaume** (voix B, masculine), qui explique. Il est produit par GitHub Actions avec la synthèse vocale ElevenLabs (dialogue à deux voix, modèle `eleven_v3`), publié sur la page de l'édition (barre « Écouter l'épisode » dépliable entre l'en-tête et la Une, lecteur aux couleurs de la revue) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
 
 **Script** `content/AAAA-MM-JJ/podcast.json` :
 
@@ -125,12 +125,18 @@ Règles d'écriture :
 - **Fond** : uniquement des faits publiés dans l'édition (puces et synthèses) ; aucun chiffre, aucune date, aucun nom qui n'y figure pas. Mêmes règles de neutralité (§ 4).
 - **Avéré et potentiel** : l'avéré à l'indicatif (« c'est déjà obligatoire »), le potentiel au conditionnel (« ça pourrait… », « si… alors… »), comme dans les synthèses.
 - **Langage courant** : phrases courtes, vocabulaire de tous les jours ; chaque sigle est développé ou expliqué la première fois (« l'ENISA, l'agence européenne de cybersécurité ») ; une image concrète par notion difficile (« le SBOM, c'est la liste des ingrédients d'un logiciel »).
-- **Rythme** : question → explication → relance ; répliques de Thomas de 2 à 4 phrases ; Claire reformule, s'étonne, demande « et pour nous, concrètement ? ».
+- **Rythme** : question → explication → relance ; répliques de Guillaume de 2 à 4 phrases ; Julie reformule, s'étonne, demande « et pour nous, concrètement ? ».
 - **Contenu** : ouverture brève (une phrase par voix), 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), les dates à retenir, clôture. 1 200 à 1 500 mots.
 - **Oral** : pas de liens, de parenthèses, de listes ni de mise en forme ; « 24 heures » et non « 24 h » ; nombres et dates écrits comme on les dit.
 - **Pas d'annonce des voix de synthèse** dans le dialogue (usage personnel) : la mention figure seulement, en texte, sous le lecteur de la page web.
 
-Prononciation : si un sigle est mal lu, ajouter sa forme orale dans `tools/prononciation.json` (la transcription publiée garde l'écriture d'origine).
+Prononciation : si un sigle est mal lu, ajouter sa forme orale dans `tools/prononciation.json` (mot exact → forme à lire). Ce fichier est recopié à chaque production dans le dictionnaire de prononciation ElevenLabs « Software Compliance » (règles alias), utilisé par toutes les requêtes ; modifier le fichier, pas le dictionnaire, qui est écrasé.
 
 Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrôle le script, `--dry-run` teste la chaîne sans appel à l'API, `--force` régénère. L'épisode n'est produit qu'une fois par version du script (empreinte dans `episode.json`) ; il est enregistré dans `content/AAAA-MM-JJ/` (`episode.mp3`, `episode.json`) par GitHub Actions. Sans clé ou en cas d'échec, la revue est publiée et envoyée sans épisode.
+
+## 12. Mise en page : éléments fixes
+
+- **En-tête** : sous le titre, à gauche « N° · date · Archives · Dossiers », à droite « Lecture ≈ n min ». Image de fond facultative `tools/en-tete.webp` (ou .png, .jpg), version web seulement, calée en haut à droite sur 79 % de la largeur (60 % sur mobile), réglée pour que le graphe ne touche pas le titre et que le document reste au-dessus du filet ; prompt de génération dans `tools/en-tete-prompt.md`.
+- **Fond de page** : tuile répétée `tools/fond.webp` (1024 px affichés à 512 px, teinte moyenne #ECEBE6), version web seulement ; l'e-mail garde le fond uni.
+- **Pied de page** : « Ce document a été rédigé par une intelligence artificielle (<éditeur> <modèle> <version>). Des erreurs sont possibles. », valeur prise dans `meta.json` (`redaction`), à défaut « Anthropic Claude Opus 5.5 ».
 
