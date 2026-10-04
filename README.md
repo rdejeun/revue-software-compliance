@@ -101,7 +101,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 
 Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
 
-Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `GEMINI_API_KEY` (épisode audio) ; variable facultative `GEMINI_TTS_MODEL` (modèle de synthèse vocale) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
+Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_A` et `ELEVENLABS_VOICE_B` (identifiants des voix de Claire et de Thomas) et, facultative, `ELEVENLABS_MODEL` (défaut `eleven_v3`) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
 
 ## 10. Construire en local
 
@@ -112,7 +112,7 @@ python3 tools/validate.py --no-links   # contrôle de la dernière édition
 
 ## 11. Épisode audio
 
-Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Claire** (voix A), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Thomas** (voix B), qui explique. Il est produit par GitHub Actions avec la synthèse vocale Gemini, publié sur la page de l'édition (lecteur, transcription, MP3) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
+Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Claire** (voix A), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Thomas** (voix B), qui explique. Il est produit par GitHub Actions avec la synthèse vocale ElevenLabs (dialogue à deux voix, modèle `eleven_v3`), publié sur la page de l'édition (lecteur, transcription, MP3) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
 
 **Script** `content/AAAA-MM-JJ/podcast.json` :
 

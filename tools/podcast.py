@@ -4,31 +4,34 @@
 Usage :
   python3 tools/podcast.py --check [AAAA-MM-JJ]   contrôle le script (sans appel réseau)
   python3 tools/podcast.py [AAAA-MM-JJ]           produit l'épisode (par défaut : dernière édition)
-  python3 tools/podcast.py --dry-run [...]        chaîne complète sans appel à Gemini (audio muet)
+  python3 tools/podcast.py --dry-run [...]        chaîne complète sans appel à ElevenLabs (audio muet)
   python3 tools/podcast.py --force [...]          régénère même si l'épisode est à jour
 
-Synthèse vocale : API Gemini (deux voix dans une même requête). Clé : variable GEMINI_API_KEY.
-Modèle : variable GEMINI_TTS_MODEL (défaut ci-dessous). Assemblage et encodage MP3 : ffmpeg.
+Synthèse vocale : API ElevenLabs « Text to Dialogue » (plusieurs voix dans une même requête).
+Variables : ELEVENLABS_API_KEY (clé), ELEVENLABS_VOICE_A et ELEVENLABS_VOICE_B (identifiants des
+voix de Claire et de Thomas), ELEVENLABS_MODEL (facultatif, défaut ci-dessous).
+Assemblage et encodage MP3 : ffmpeg.
 L'épisode n'est régénéré que si podcast.json a changé (empreinte dans episode.json) : pas de
 double facturation quand le workflow est relancé.
 Ne bloque jamais la revue : sans clé ou sans podcast.json, le script s'arrête proprement (code 0).
 """
-import base64, datetime, hashlib, io, json, os, re, shutil, subprocess, sys, tempfile, time, wave
+import datetime, hashlib, io, json, os, re, shutil, subprocess, sys, tempfile, time, wave
 import urllib.request, urllib.error
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT = os.path.join(ROOT, 'content')
 LEXIQUE = os.path.join(ROOT, 'tools', 'prononciation.json')
-ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/interactions'
-MODELE = os.environ.get('GEMINI_TTS_MODEL') or 'gemini-3.8-flash-tts'
-RATE = 24000                     # Hz, mono, 16 bits : format de sortie de Gemini TTS
-CHUNK_MAX = 1800                 # caractères par requête (≈ 1 min 30 d'audio)
-PAUSE = 0.45                     # secondes de silence entre deux requêtes
+ENDPOINT = 'https://api.elevenlabs.io/v1/text-to-dialogue'
+MODELE = os.environ.get('ELEVENLABS_MODEL') or 'eleven_v3'
+RATE = 24000                     # Hz, mono, 16 bits : sortie demandée (output_format=pcm_24000)
+CHUNK_MAX = 1700                 # caractères par requête (limite de l'API : 2 000)
+PAUSE = 0.35                     # secondes de silence entre deux requêtes
 
-# Voix par défaut ; un podcast.json peut les remplacer par une clé "voix".
+# Voix : identifiants ElevenLabs lus dans l'environnement ; un podcast.json peut les remplacer
+# par une clé "voix" ({"A": {"voice": "…"}}).
 VOIX = {
-    'A': {'nom': 'Claire', 'voice': 'Aoede', 'style': 'en français de France, curieuse et détendue, ton de conversation naturel'},
-    'B': {'nom': 'Thomas', 'voice': 'Charon', 'style': 'en français de France, posé et pédagogue, chaleureux, sans emphase'},
+    'A': {'nom': 'Claire', 'voice': os.environ.get('ELEVENLABS_VOICE_A', '').strip()},
+    'B': {'nom': 'Thomas', 'voice': os.environ.get('ELEVENLABS_VOICE_B', '').strip()},
 }
 MOTS_MIN, MOTS_MAX = 900, 1800   # ≈ 6 à 12 minutes
 
@@ -50,7 +53,7 @@ def charger(d):
 
 def controler(pod):
     err, warn = [], []
-    voix = {**VOIX, **(pod.get('voix') or {})}
+    voix = {k: {**VOIX.get(k, {}), **v} for k, v in {**VOIX, **(pod.get('voix') or {})}.items()}
     for k in ('titre', 'description'):
         if not str(pod.get(k) or '').strip(): err.append(f'champ « {k} » manquant')
     reps = pod.get('repliques') or []
@@ -92,53 +95,35 @@ def decouper(reps):
     return out
 
 
-# ------------------------------------------------------------------ Gemini
-def requete(chunk, voix, lex, cle):
-    body = {
-        'model': MODELE,
-        'input': [{'type': 'user_input', 'content': [
-            {'type': 'text', 'text': dire(r['t'], lex),
-             'annotations': [{'type': 'speech_metadata', 'speaker': voix[r['v']]['nom'], 'style': voix[r['v']]['style']}]}
-            for r in chunk]}],
-        'response_format': {'type': 'audio'},
-        'generation_config': {'speech_config': {'mode': 'conversational', 'speakers': [
-            {'speaker': v['nom'], 'voice': v['voice']} for v in voix.values()]}},
-    }
+# ------------------------------------------------------------------ ElevenLabs
+def requete(chunk, voix, lex, cle, precedents):
+    """Une requête Text to Dialogue ; renvoie (audio PCM 16 bits mono 24 kHz, identifiant de requête)."""
+    inputs = [{'text': dire(r['t'], lex), 'voice_id': voix[r['v']]['voice']} for r in chunk]
+    n = sum(len(x['text']) for x in inputs)
+    if n > 2000: raise SystemExit(f'Requête de {n} caractères : au-delà de la limite de 2 000 (réduire CHUNK_MAX)')
+    body = {'inputs': inputs, 'model_id': MODELE, 'language_code': 'fr'}
+    if precedents: body['previous_request_ids'] = precedents[-3:]
     data = json.dumps(body).encode('utf-8')
     for essai in range(1, 6):
-        req = urllib.request.Request(ENDPOINT, data=data, method='POST',
-                                     headers={'x-goog-api-key': cle, 'Content-Type': 'application/json'})
+        req = urllib.request.Request(ENDPOINT + '?output_format=pcm_24000', data=data, method='POST',
+                                     headers={'xi-api-key': cle, 'Content-Type': 'application/json', 'Accept': 'audio/*'})
         try:
             with urllib.request.urlopen(req, timeout=300) as r:
-                return extraire(json.load(r))
+                pcm = r.read()
+                if (r.headers.get('Content-Type') or '').startswith('application/json'):
+                    raise SystemExit('Réponse d\'ElevenLabs sans audio : ' + pcm[:600].decode('utf-8', 'replace'))
+                if pcm[:4] == b'RIFF':
+                    with wave.open(io.BytesIO(pcm)) as w: pcm = w.readframes(w.getnframes())
+                if len(pcm) % 2: pcm = pcm[:-1]
+                return pcm, r.headers.get('request-id') or r.headers.get('x-request-id')
         except urllib.error.HTTPError as e:
             detail = e.read().decode('utf-8', 'replace')[:600]
             if e.code in (429, 500, 502, 503, 504) and essai < 5:
                 log(f'  HTTP {e.code}, nouvel essai dans {10 * essai} s'); time.sleep(10 * essai); continue
-            raise SystemExit(f'Gemini a refusé la requête (HTTP {e.code}) : {detail}')
+            raise SystemExit(f'ElevenLabs a refusé la requête (HTTP {e.code}) : {detail}')
         except (urllib.error.URLError, TimeoutError) as e:
             if essai < 5: log(f'  {e}, nouvel essai dans {10 * essai} s'); time.sleep(10 * essai); continue
-            raise SystemExit(f'Gemini injoignable : {e}')
-
-
-def extraire(rep):
-    """Renvoie l'audio (octets PCM 16 bits mono) de la dernière sortie audio de la réponse."""
-    trouves = []
-    def parcourir(x):
-        if isinstance(x, dict):
-            if x.get('type') == 'audio' and isinstance(x.get('data'), str): trouves.append(x)
-            for v in x.values(): parcourir(v)
-        elif isinstance(x, list):
-            for v in x: parcourir(v)
-    parcourir(rep)
-    if not trouves: raise SystemExit('Réponse de Gemini sans audio : ' + json.dumps(rep)[:600])
-    brut = base64.b64decode(trouves[-1]['data'])
-    if brut[:4] == b'RIFF':
-        with wave.open(io.BytesIO(brut)) as w:
-            if w.getnchannels() != 1 or w.getsampwidth() != 2: raise SystemExit('Format WAV inattendu')
-            if w.getframerate() != RATE: raise SystemExit(f'Fréquence inattendue : {w.getframerate()} Hz')
-            return w.readframes(w.getnframes())
-    return brut  # L16 brut, 24 kHz mono
+            raise SystemExit(f'ElevenLabs injoignable : {e}')
 
 
 def muet(chunk):
@@ -177,21 +162,26 @@ def produire(d, dry=False, force=False):
     if not force and not dry and os.path.isfile(mp3) and os.path.isfile(info):
         if json.load(open(info, encoding='utf-8')).get('sha_script') == sha:
             log(f'{d} : épisode déjà à jour.'); return False
-    cle = os.environ.get('GEMINI_API_KEY', '').strip()
-    if not dry and not cle: log(f'{d} : GEMINI_API_KEY absente, épisode non produit.'); return False
+    cle = os.environ.get('ELEVENLABS_API_KEY', '').strip()
+    if not dry and not cle: log(f'{d} : ELEVENLABS_API_KEY absente, épisode non produit.'); return False
     if not shutil.which('ffmpeg'): raise SystemExit('ffmpeg introuvable')
-    voix = {**VOIX, **(pod.get('voix') or {})}
+    voix = {k: {**VOIX.get(k, {}), **v} for k, v in {**VOIX, **(pod.get('voix') or {})}.items()}
+    manque = [v['nom'] for v in voix.values() if not v.get('voice')]
+    if manque and not dry: log(f'{d} : identifiant de voix manquant pour {", ".join(manque)} (ELEVENLABS_VOICE_A / _B), épisode non produit.'); return False
     lex = lexique()
     chunks = decouper(pod['repliques'])
     log(f'{d} : {len(pod["repliques"])} répliques, {mots} mots, {len(chunks)} requête(s) {"(essai à blanc)" if dry else "à " + MODELE}')
-    morceaux = []
+    morceaux, ids = [], []
     for i, c in enumerate(chunks, 1):
         log(f'  requête {i}/{len(chunks)} ({sum(len(r["t"]) for r in c)} caractères)')
-        morceaux.append(muet(c) if dry else requete(c, voix, lex, cle))
+        if dry: morceaux.append(muet(c)); continue
+        pcm, rid = requete(c, voix, lex, cle, ids)
+        morceaux.append(pcm)
+        if rid: ids.append(rid)
     sortie = os.path.join(tempfile.gettempdir(), f'episode-{d}.mp3') if dry else mp3
     duree = assembler(morceaux, sortie, {'titre': pod['titre'], 'date': d})
     meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE,
-            'voix': {k: {'nom': v['nom'], 'voice': v['voice']} for k, v in voix.items()},
+            'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
             'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha}
     if dry:
         log(f'{d} : essai à blanc réussi : {sortie} ({meta["octets"]} octets, {duree / 60:.1f} min). Aucun fichier écrit dans content/.')
