@@ -254,12 +254,23 @@ def loudnorm_2_passes(wav_in, wav_out):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav_in, '-af', filt + f',aresample={SR}', '-c:a', 'pcm_s24le', wav_out], check=True)
 
 
-def produire(blocs, voix, sortie_audio, dossier, meta):
+def encoder(wav, sortie, meta):
+    tmp = sortie + '.tmp.m4a'
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav, '-c:a', 'aac', '-b:a', f'{CONFIG["aac_kbps"]}k', '-movflags', '+faststart', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
+                    '-metadata', f'title={meta["titre"]}', '-metadata', 'artist=Software Compliance', '-metadata', 'album=Software Compliance', tmp], check=True)
+    os.replace(tmp, sortie)
+
+
+def produire(blocs, voix, sortie_audio, dossier, meta, sortie_brute=None):
     """Chaîne complète. Écrit stems/ et out/ dans `dossier`, puis sortie_audio. Renvoie le dictionnaire de mesures."""
     os.makedirs(os.path.join(dossier, 'stems'), exist_ok=True); os.makedirs(os.path.join(dossier, 'out'), exist_ok=True)
     M = {'journal': []}
     mix, st, masque, j = pistes(blocs, voix); M['journal'] += j
     sf.write(os.path.join(dossier, 'raw_dialogue_full.wav'), mix.astype(np.float32), SR, subtype='FLOAT')
+    if sortie_brute:   # référence d'écoute : audio ElevenLabs tel quel, seulement mis au même volume et au même format
+        brut = os.path.join(dossier, 'out', 'brut_master.wav')
+        loudnorm_2_passes(os.path.join(dossier, 'raw_dialogue_full.wav'), brut)
+        encoder(brut, sortie_brute, {'titre': meta['titre'] + ' (sans traitement)'})
     M['avant'] = {'timbre_ecart_db': float(np.abs(ltas(st['A'], masque['A']) - ltas(st['B'], masque['B']))[(TIERS >= 150) & (TIERS <= 8000)].max()),
                   'decroissance_ms': {k: decroissance_ms(st[k]) for k in st},
                   'lufs': {k: lufs(st[k], masque[k]) for k in st}}
@@ -323,6 +334,7 @@ def produire(blocs, voix, sortie_audio, dossier, meta):
 def mots(t):
     t = t.lower().replace('’', "'").replace('-', ' ')
     t = re.sub(r"\[[^\]]*\]", ' ', t)                  # balises d'expression v3
+    t = re.sub(r"(?<![\w-])(?:euh|heu|hum|hmm|mmh)(?![\w-])", ' ', t)   # hésitations : transcrites de façon variable
     t = re.sub(r"[^\w' ]", ' ', t).replace("'", ' ')
     return t.split()
 
@@ -340,7 +352,9 @@ def wer(ref, hyp):
 def transcrire(path):
     from faster_whisper import WhisperModel
     m = WhisperModel(os.environ.get('PODCAST_WHISPER_MODEL') or 'small', device='cpu', compute_type='int8')
-    segs, _ = m.transcribe(path, language='fr', beam_size=1, vad_filter=True)
+    # décodage par ffmpeg (16 kHz mono) : évite PyAV, dont les versions récentes cassent faster-whisper
+    r = subprocess.run(['ffmpeg', '-v', 'error', '-i', path, '-ac', '1', '-ar', '16000', '-f', 'f32le', '-'], capture_output=True, check=True)
+    segs, _ = m.transcribe(np.frombuffer(r.stdout, dtype='<f4').copy(), language='fr', beam_size=1)
     return ' '.join(s.text for s in segs)
 
 
@@ -371,7 +385,7 @@ def qc(M, mp3, texte_script, dossier):
         open(os.path.join(dossier, 'transcription.txt'), 'w', encoding='utf-8').write(hyp + '\n')
         L.append(('Fidélité au script (faster-whisper)', f'{w * 100:.1f} % de mots différents sur {n}', f'≤ {S["wer"] * 100:.0f} %', w <= S['wer'], True))
     except Exception as e:
-        L.append(('Fidélité au script (faster-whisper)', f'non vérifiée ({type(e).__name__})', '—', True, False))
+        L.append(('Fidélité au script (faster-whisper)', f'non vérifiée ({type(e).__name__} : {str(e)[:160]})', '—', True, False))
     ok = all(r[3] for r in L if r[4])
     rep = ['# Contrôle qualité de l\'épisode', '', f'Résultat : {"**publiable**" if ok else "**non publié**"}', '',
            '| Critère | Mesure | Seuil | Résultat |', '|---|---|---|---|']

@@ -101,7 +101,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 
 Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
 
-Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_FEMALE` et `ELEVENLABS_VOICE_MALE` (identifiants des voix de Julie et de Guillaume) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v3`) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
+Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_FEMALE` et `ELEVENLABS_VOICE_MALE` (identifiants des voix de Julie et de Guillaume) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v4` ; `eleven_v3` pour revenir en arrière) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
 
 ## 10. Construire en local
 
@@ -112,7 +112,7 @@ python3 tools/validate.py --no-links   # contrôle de la dernière édition
 
 ## 11. Épisode audio
 
-Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Julie** (voix A, féminine), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Guillaume** (voix B, masculine), qui explique. Il est produit par GitHub Actions avec la synthèse vocale ElevenLabs (dialogue à deux voix, modèle `eleven_v3`), publié sur la page de l'édition (barre « Écouter l'épisode » dépliable entre l'en-tête et la Une, lecteur aux couleurs de la revue) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
+Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Julie** (voix A, féminine), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Guillaume** (voix B, masculine), qui explique. Il est produit par GitHub Actions avec la synthèse vocale ElevenLabs (dialogue à deux voix, modèle `eleven_v4`), publié sur la page de l'édition (barre « Écouter l'épisode » dépliable entre l'en-tête et la Une, lecteur aux couleurs de la revue) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
 
 **Script** `content/AAAA-MM-JJ/podcast.json` :
 
@@ -130,6 +130,7 @@ Règles d'écriture :
 - **Langage courant** : phrases courtes, vocabulaire de tous les jours ; chaque sigle est développé ou expliqué la première fois (« l'ENISA, l'agence européenne de cybersécurité ») ; une image concrète par notion difficile (« le SBOM, c'est la liste des ingrédients d'un logiciel »).
 - **Rythme** : question → explication → relance ; répliques de Guillaume de 2 à 4 phrases ; Julie reformule, s'étonne, demande « et pour nous, concrètement ? ».
 - **Contenu** : ouverture brève (une phrase par voix), 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), les dates à retenir, clôture. 1 200 à 1 500 mots.
+- **Balises audio** d'Eleven v3/v4 (jouées, pas lues) : à n'utiliser qu'à dessein pédagogique, par exemple pour créer une respiration au milieu d'une longue explication, jamais pour « faire vivant ». Seulement `[curious]`, `[surprised]` (plutôt Julie), `[thoughtful]`, `[chuckles]`, `[sighs]`, `[exhales]` (plutôt Guillaume), **chaque type au plus une fois par épisode** ; aucune n'est obligatoire. Jamais de rire franc. Hésitations écrites (« euh », « hum », « alors… ») : trois au plus par épisode, aux mêmes conditions. `--check` refuse toute autre balise et tout type employé plus d'une fois.
 - **Oral** : pas de liens, de parenthèses, de listes ni de mise en forme ; « 24 heures » et non « 24 h » ; nombres et dates écrits comme on les dit.
 - **Pas d'annonce des voix de synthèse** dans le dialogue (usage personnel) : la mention figure seulement, en texte, sous le lecteur de la page web.
 
@@ -149,4 +150,8 @@ Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrô
 - **Fond de page** : tuile répétée `tools/fond.webp` (1024 px affichés à 512 px, teinte moyenne #ECEBE6), version web seulement ; l'e-mail garde le fond uni.
 - **Titres des dossiers** : champ `titre` de `tools/themes.json`, « partie en italique|suite », coupé entre deux blocs de sens (« Cyber Resilience|Act ») ; sans ce champ, tout le titre est en sans-serif.
 - **Pied de page** : « Ce document a été rédigé par une intelligence artificielle (<éditeur> <modèle> <version>). Des erreurs sont possibles. », valeur prise dans `meta.json` (`redaction`), à défaut « Anthropic Claude Opus 5.5 ».
+
+## 13. Essais d'écoute
+
+Pour comparer des variantes (balises, voix, réglages) sans toucher aux éditions : décrire les versions dans `tools/essais/<nom>.json` (`{"titre", "versions": {"sans": [répliques], "avec": [répliques]}}`) et pousser sur une branche `essai-…`. Le workflow « Essai audio » produit chaque version avec la chaîne complète (solde vérifié avant) et enregistre `essais/sorties/<nom>-<version>.m4a` et son rapport sur la branche. Avec `"sans_traitement": true`, chaque version est aussi livrée sans post-production (audio ElevenLabs seulement mis au même volume), pour comparer. Un essai par branche : n'y laisser que son fichier dans `tools/essais/`. Ne pas fusionner `essais/sorties/` dans `main`.
 
