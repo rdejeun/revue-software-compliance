@@ -6,6 +6,9 @@ import commun as B
 from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
+# Épisode audio (tools/podcast.py) : présent seulement s'il a été produit pour cette édition
+EP=json.load(open('episode.json')) if os.path.isfile('episode.json') and os.path.isfile('episode.mp3') else None
+POD=json.load(open('podcast.json')) if EP and os.path.isfile('podcast.json') else None
 PHR={"Une déclaration CRA ne remplace pas":None,"Chainguard":None,"déclarer les vulnérabilités activement exploitées et les incidents graves":None}
 NAVY='#0f2a4a'
 ACC='#c2410c'
@@ -57,6 +60,25 @@ var h=location.hash.slice(1);if(/^syn\d+$/.test(h))open(h,false);
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
 SYN_LABELS=[('essentiel','L’essentiel'),('contexte','Contexte')]
+def ecoute(web,ed_url):
+    """Lien « Écouter » dans l'en-tête : vers le lecteur de la page web (e-mail) ou l'ancre locale (web)."""
+    if not EP: return ''
+    m=(f"{EP['duree_s']}&nbsp;s" if EP['duree_s']<60 else f"{round(EP['duree_s']/60)}&nbsp;min"); href='#ecouter' if web else (ed_url+'#ecouter' if ed_url else '')
+    if not href: return ''
+    return f' &nbsp;·&nbsp; <a href="{href}" style="color:{ACC};font-weight:600;text-decoration:none;">Écouter l’épisode ({m})&nbsp;▶</a>'
+def lecteur(diso):
+    """Lecteur audio et transcription, en tête de la version web."""
+    if not EP or not diso: return ''
+    m=(f"{EP['duree_s']}&nbsp;s" if EP['duree_s']<60 else f"{round(EP['duree_s']/60)}&nbsp;min")
+    noms={k:v['nom'] for k,v in (EP.get('voix') or {}).items()}
+    tr=''.join(f'<p style="margin:0 0 8px;"><b style="font:600 13px {SANS};color:{NAVY};">{esc(noms.get(r["v"],r["v"]))}</b> — {esc(typo(r["t"]))}</p>' for r in (POD or {}).get('repliques',[])[:EP.get('repliques') or None])
+    trans=f'<details style="margin-top:10px;"><summary style="cursor:pointer;font:600 13px/20px {SANS};color:#4b5563;">Lire la transcription</summary><div style="margin-top:10px;font:15px/22px {SERIF};color:#1f2937;">{tr}</div></details>' if tr else ''
+    return (f'<div id="ecouter" style="margin:0 0 26px;padding:16px 18px;background:#f7f4ee;border-left:4px solid {ACC};">'
+            f'<div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC};">{'Extrait d’essai' if EP.get('extrait') else 'L’épisode audio'} · {m}</div>'
+            f'<div style="margin:4px 0 10px;font:600 17px/24px {SANS};color:{NAVY};">{esc(typo((POD or {}).get("titre","")))}</div>'
+            f'<audio controls preload="none" src="/{diso}/episode.mp3" style="width:100%;"></audio>'
+            f'<div style="margin-top:6px;font:12px/18px {SANS};color:#6b7280;">Dialogue à deux voix de synthèse, écrit à partir de cette édition · <a href="/{diso}/episode.mp3" download style="color:#6b7280;">Télécharger le MP3</a> · <a href="/podcast.xml" style="color:#6b7280;">S’abonner (RSS)</a></div>'
+            f'{trans}</div>')
 def render(web):
     seen.clear();used.clear()
     if web: ITEMS.clear()
@@ -295,8 +317,8 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ecebe6;"><tr><td align="center" style="padding:24px 8px;">
 <table role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;">
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
-<tr><td class="w" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><div style="font:13px/20px {SANS};color:#6b7280;padding-bottom:14px;border-bottom:2px solid {NAVY};">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; Lecture ≈&nbsp;{mins}&nbsp;min{(' &nbsp;·&nbsp; <a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a>' if web else (f' &nbsp;·&nbsp; <a href="{ED_URL}" style="color:{ACC};font-weight:600;text-decoration:none;">Lire la version enrichie&nbsp;↗</a>' if ED_URL else ''))}</div></td></tr>
-<tr><td class="w" style="padding:30px 52px 40px;">{out}
+<tr><td class="w" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><div style="font:13px/20px {SANS};color:#6b7280;padding-bottom:14px;border-bottom:2px solid {NAVY};">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; Lecture ≈&nbsp;{mins}&nbsp;min{ecoute(web,ED_URL)}{(' &nbsp;·&nbsp; <a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a>' if web else (f' &nbsp;·&nbsp; <a href="{ED_URL}" style="color:{ACC};font-weight:600;text-decoration:none;">Lire la version enrichie&nbsp;↗</a>' if ED_URL else ''))}</div></td></tr>
+<tr><td class="w" style="padding:30px 52px 40px;">{lecteur(DISO) if web else ''}{out}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:12px/19px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Comment lire cette revue.</b> Chaque nom ou sigle est expliqué à sa première occurrence (survol, avec lien vers la page officielle). Les informations qui n’ont pas pu être recoupées sont écartées. Dernière mise à jour : {META['date'].replace(' ','&nbsp;')}.</td></tr></table>
 </td></tr></table></td></tr></table>{''.join(syns)+JS if web and syns else ''}</body></html>''',len(used)
 def compact_email(h):

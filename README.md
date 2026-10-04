@@ -65,6 +65,7 @@ Règles : faits uniquement tirés des sources vérifiées ; tenir compte des exc
 3. Classer chaque information (§ 5) et appliquer la règle d'or.
 4. Rédiger `content/AAAA-MM-JJ/blocks.json` et `meta.json` (schéma § 8), avec la date d'envoi. Numéro : n = partie entière de ((date − 28 septembre 2026) en jours ÷ 7) + 1 (9 octobre 2026 → 2). `date_long` : « Vendredi 9 octobre 2026 ». Ne jamais modifier une édition déjà envoyée (présence de `envoi.json`).
 5. Rédiger les synthèses (§ 6).
+5 bis. Écrire le script de l'épisode audio `content/AAAA-MM-JJ/podcast.json` (§ 11), puis le contrôler : `python3 tools/podcast.py --check`.
 6. Mettre à jour `tools/glossary.py` (nouveaux sigles et noms propres : `(regex, libellé, définition ≤ 30 mots, URL officielle ou None)`) et `tools/themes.json`.
 7. **Vérification par un second agent** : lancer un sous-agent (outil Agent) qui n'a pas participé à la rédaction, en lui donnant uniquement la liste des affirmations factuelles (une par ligne : affirmation, URL de la source). Il lit chaque source et répond pour chacune « confirmé » ou « non confirmé » avec la raison. Corriger ou retirer toute affirmation non confirmée. À défaut d'outil Agent, faire cette relecture soi-même, source par source, après la rédaction.
 8. Contrôler localement : `python3 tools/build_site.py` puis `python3 tools/validate.py --no-links` (les liens sont vérifiés par GitHub Actions). Corriger toute erreur bloquante ; traiter les avertissements quand c'est possible.
@@ -92,6 +93,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 ## 9. Chaîne de publication (GitHub Actions)
 
 À chaque push sur `main` qui touche `content/` ou `tools/` :
+0. `tools/podcast.py` : produit l'épisode audio de la dernière édition (non bloquant ; voir § 11).
 1. `tools/build_site.py` : génère toutes les éditions, le site (`_site/`) et les e-mails (`build/`).
 2. `tools/validate.py` : contrôle bloquant de la dernière édition (schéma, numéro et dates, sigles sans définition, taille de l'e-mail, texte parasite, liens morts).
 3. Mise en ligne sur GitHub Pages.
@@ -99,7 +101,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 
 Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
 
-Configuration du dépôt : Pages, source « GitHub Actions » ; secret `RESEND_API_KEY` ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
+Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_A` et `ELEVENLABS_VOICE_B` (identifiants des voix de Claire et de Thomas) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v3`) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules) et `DRAFT_TO` (relecture).
 
 ## 10. Construire en local
 
@@ -107,3 +109,28 @@ Configuration du dépôt : Pages, source « GitHub Actions » ; secret `RESEND_A
 python3 tools/build_site.py            # _site/ et build/
 python3 tools/validate.py --no-links   # contrôle de la dernière édition
 ```
+
+## 11. Épisode audio
+
+Chaque édition peut avoir un épisode de 8 à 10 minutes : un dialogue entre **Claire** (voix A), qui pose les questions qu'un lecteur non spécialiste se pose et relance, et **Thomas** (voix B), qui explique. Il est produit par GitHub Actions avec la synthèse vocale ElevenLabs (dialogue à deux voix, modèle `eleven_v3`), publié sur la page de l'édition (lecteur, transcription, MP3) et dans le flux `https://revue.dejeun.es/podcast.xml` ; l'e-mail porte un lien « Écouter l'épisode ».
+
+**Script** `content/AAAA-MM-JJ/podcast.json` :
+
+```json
+{"titre": "…", "description": "une ou deux phrases",
+ "repliques": [{"v": "A", "t": "…"}, {"v": "B", "t": "…"}]}
+```
+
+Règles d'écriture :
+- **Fond** : uniquement des faits publiés dans l'édition (puces et synthèses) ; aucun chiffre, aucune date, aucun nom qui n'y figure pas. Mêmes règles de neutralité (§ 4).
+- **Avéré et potentiel** : l'avéré à l'indicatif (« c'est déjà obligatoire »), le potentiel au conditionnel (« ça pourrait… », « si… alors… »), comme dans les synthèses.
+- **Langage courant** : phrases courtes, vocabulaire de tous les jours ; chaque sigle est développé ou expliqué la première fois (« l'ENISA, l'agence européenne de cybersécurité ») ; une image concrète par notion difficile (« le SBOM, c'est la liste des ingrédients d'un logiciel »).
+- **Rythme** : question → explication → relance ; répliques de Thomas de 2 à 4 phrases ; Claire reformule, s'étonne, demande « et pour nous, concrètement ? ».
+- **Contenu** : ouverture brève (une phrase par voix), 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), les dates à retenir, clôture. 1 200 à 1 500 mots.
+- **Oral** : pas de liens, de parenthèses, de listes ni de mise en forme ; « 24 heures » et non « 24 h » ; nombres et dates écrits comme on les dit.
+- **Pas d'annonce des voix de synthèse** dans le dialogue (usage personnel) : la mention figure seulement, en texte, sous le lecteur de la page web.
+
+Prononciation : si un sigle est mal lu, ajouter sa forme orale dans `tools/prononciation.json` (la transcription publiée garde l'écriture d'origine).
+
+Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrôle le script, `--dry-run` teste la chaîne sans appel à l'API, `--force` régénère. L'épisode n'est produit qu'une fois par version du script (empreinte dans `episode.json`) ; il est enregistré dans `content/AAAA-MM-JJ/` (`episode.mp3`, `episode.json`) par GitHub Actions. Sans clé ou en cas d'échec, la revue est publiée et envoyée sans épisode.
+
