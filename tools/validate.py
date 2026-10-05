@@ -15,6 +15,7 @@ JOURS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 ORIGINE = datetime.date(2026, 10, 5)   # lundi de la semaine du N° 1 (remise à zéro du 5 octobre 2026)
 ERR, WARN = [], []
+AGENDA_MAX = 8   # dates présentées dans l'agenda
 
 
 def words(s): return len(re.findall(r"\w+(?:[’'-]\w+)*", s or ''))
@@ -98,6 +99,7 @@ def check_content(d, blocks, meta, themes):
             rows = b.get('rows') or []
             if not rows or len(rows[0]) != 3: ERR.append(f'{w} : l’agenda doit avoir 3 colonnes (Date, Échéance, Thème)'); continue
             n = len(rows) - 1
+            if n > AGENDA_MAX: ERR.append(f'Agenda : {n} dates, {AGENDA_MAX} au plus (ne garder que les plus importantes)')
             for name in ('sum', 'attrs', 'detail'):
                 if name in b and len(b[name]) != n: ERR.append(f'{w} : « {name} » contient {len(b[name])} entrées pour {n} lignes')
             refs = meta.get('agenda_refs') or []

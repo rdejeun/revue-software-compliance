@@ -28,6 +28,8 @@ def fdate(iso):
     if len(p)>2: d=int(p[2]); s_=('1er' if d==1 else str(d))+'\u00a0'+s_
     if y!=str(META.get('date_iso',''))[:4] or len(p)==2: s_+='\u00a0'+y
     return s_
+SYNH={}    # contenu des fenêtres « En savoir plus », par sid (version web)
+SYN_ASSETS={}   # styles, script et pastille de la fenêtre, pour les pages Dossiers
 ITEMS=[]   # éléments rendus (version web), exportés dans items.json pour le site (dossiers, Markdown)
 def lead(items):
     """découpe le 1er segment texte en [pré, GRAS, reste]"""
@@ -64,7 +66,7 @@ document.addEventListener('click',function(e){
  e.preventDefault();open(b.getAttribute('data-syn'));
 });
 document.addEventListener('keydown',function(e){var it=e.target.closest&&e.target.closest('.sy-it');if(it&&(e.key==='Enter'||e.key===' ')&&e.target===it){e.preventDefault();open(it.getAttribute('data-syn'))}});
-var h=location.hash.slice(1);if(/^syn\d+$/.test(h))open(h,false);
+var h=location.hash.slice(1);if(/^(\d{4}-\d{2}-\d{2}-)?syn\d+$/.test(h))open(h,false);
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
@@ -192,6 +194,7 @@ def render(web):
         seen.clear(); seen.update(sv_seen); used[:]=sv_used
         sid=f'syn{len(syns)+1}'
         syns.append(f'<div class="sy-d" id="d-{sid}" hidden>{"".join(h)}</div>')
+        SYNH[sid]="".join(h)   # repris dans les pages Dossiers (items.json)
         return sid
     def srcs_of(items): return [(x['t'],x['href']) for x in items if x.get('href')]
     SYNB='<button type="button" class="sy-b" data-syn="{0}" aria-haspopup="dialog" aria-label="En savoir plus"><span class="sy-p"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sy-l">En savoir plus</span></span></button>'
@@ -441,6 +444,7 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
+    if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
     return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{'' if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
@@ -500,4 +504,6 @@ if __name__=='__main__':
             NO_EL=True; h,n=render(web); h=compact_email(h); NO_EL=False
             print('Note : e-mail trop lourd, liens « En savoir plus » par élément retirés (lien général conservé)',file=sys.stderr)
         open(os.path.join(OUT,name),'w').write(h);print(name,len(h.encode()),n,'octets/termes')
+    for it in ITEMS: it['syn']=SYNH.get(it.get('sid'))
     json.dump(ITEMS,open(os.path.join(OUT,'items.json'),'w'),ensure_ascii=False)
+    json.dump(SYN_ASSETS,open(os.path.join(OUT,'syn.json'),'w'),ensure_ascii=False)

@@ -180,9 +180,11 @@ ul.l a.b{{display:block;padding:14px 4px;color:#1f2937;text-decoration:none}} ul
 .m{{display:block;font:600 13px/20px {SANS};color:#c2410c}} .x{{display:block;margin-top:2px}} .n{{font:13px/20px {SANS};color:#6b7280}}
 nav.d{{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 8px}} nav.d a{{font:600 12px/18px {SANS};color:#7d6c47;border:1px solid #d9cfb6;border-radius:11px;padding:1px 10px;text-decoration:none}} nav.d a.on,nav.d a:hover{{background:#c2410c;border-color:#c2410c;color:#fff}}
 dl.st{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0;padding:12px 16px;background:#f7f4ee;font:13px/19px {SANS};color:#374151}} dl.st dt{{color:#7d6c47;font-weight:600}} dl.st dd{{margin:0;min-width:0}}
-ul.tl{{list-style:none;margin:0 0 0 16px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
+ul.tl{{list-style:none;margin:0 0 0 16px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;display:grid;grid-template-columns:112px 1fr;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
+ul.tl li.sy-it{{margin-left:-6px;padding:2px 6px 2px 22px;border-radius:6px}} ul.tl li.sy-it::before{{left:-15px;top:9px}}
+ul.it li.sy-it{{margin:0 -8px;padding:10px 8px 12px;border-radius:6px}} ul.it li.sy-it:hover{{border-bottom-color:transparent}}
 ul.tl li::before{{content:"";position:absolute;left:-21px;top:7px;width:8px;height:8px;background:#c2410c;border:2px solid #fff}} ul.tl li.v::before{{background:#fff;border-color:#c2410c}}
-.dt{{display:inline-block;min-width:112px;font:600 13px/22px {SANS};color:#c2410c}}
+.dt{{display:block;font:600 13px/22px {SANS};color:#c2410c}}
 ul.it{{list-style:none;margin:0;padding:0}} ul.it li{{padding:10px 0 12px;border-bottom:1px solid #eee9de}}
 .sec{{display:block;font:600 11px/16px {SANS};letter-spacing:.1em;text-transform:uppercase;color:#8a8f98;margin:0 0 3px}}
 .ed{{font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#0f2a4a;margin:24px 0 4px}}
@@ -206,9 +208,15 @@ def titre(nom, spec=None):
     return f'<span>{E(spec or nom)}</span>'
 
 
-def page(title, eyebrow, h1, sub, body, cls=''):
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{CSS}</style></head>
-<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">Ce document a été rédigé par une intelligence artificielle ({E(REDACTION)}). Des erreurs sont possibles.</p></main></body></html>'''
+SYN = {}   # styles, script et pastille de la fenêtre « En savoir plus » (gen.py, syn.json de la dernière édition)
+
+
+def page(title, eyebrow, h1, sub, body, cls='', syn=''):
+    """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
+    css = CSS + ('\n' + SYN.get('css', '') if syn else '')
+    fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style></head>
+<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">Ce document a été rédigé par une intelligence artificielle ({E(REDACTION)}). Des erreurs sont possibles.</p></main>{fin}</body></html>'''
 
 
 def write(path, txt):
@@ -243,6 +251,7 @@ def main():
         write(os.path.join(out, 'revue-email.txt'), to_md(blocks, meta, text=True))
         lede = next((TY(''.join(x['t'] for x in b['i']).strip(' ·')) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         infos.append({'d': d, 'meta': meta, 'lede': lede, 'items': json.load(open(os.path.join(out, 'items.json'), encoding='utf-8')), 'md': md})
+        if os.path.isfile(os.path.join(out, 'syn.json')): SYN.update(json.load(open(os.path.join(out, 'syn.json'), encoding='utf-8')))
     last = infos[-1]
     global REDACTION
     REDACTION = last['meta'].get('redaction') or REDACTION
@@ -276,9 +285,22 @@ def main():
         st = [(lab, v.get(f)) for f, lab in (('statut', 'Statut'), ('fonctions', 'Fonctions concernées'), ('defense', 'Défense')) if v.get(f)]
         if st:
             body += '<div class="r"></div><h2>État du dossier</h2><dl class="st">' + ''.join(f'<dt>{lab}</dt><dd>{E(TY(x))}</dd>' for lab, x in st) + '</dl>'
+        syn = {}   # fenêtres « En savoir plus » de la page : identifiant unique (date de l'édition + sid) -> contenu
+        def sid_de(i, it):
+            if not (it.get('sid') and it.get('syn')): return None
+            u = f'{i["d"]}-{it["sid"]}'; syn[u] = it['syn']; return u
+        par_date = {}   # événement de chronologie couvert par une synthèse : même date qu'un élément publié du dossier
+        for i, it in sorted(its, key=lambda x: x[0]['d'], reverse=True):
+            if it.get('date') and it.get('syn'): par_date.setdefault(it['date'], (i, it))
         if v.get('chronologie'):
-            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(
-                f'<li class="{"v" if c["date"] > today else ""}"><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span>{E(TY(c["texte"]))}</li>' for c in sorted(v['chronologie'], key=lambda c: c['date'])) + '</ul>'
+            li = []
+            for c in sorted(v['chronologie'], key=lambda c: c['date']):
+                u = sid_de(*par_date[c['date']]) if c['date'] in par_date else None
+                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '') if x)
+                att = f' class="{cl}"' if cl else ''
+                if u: att += f' data-syn="{u}"'
+                li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
+            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(li) + '</ul>'
         if its:
             body += '<div class="r"></div><h2>Informations publiées</h2>'
             cur = None
@@ -288,11 +310,15 @@ def main():
                     cur = i['d']
                     body += f'<p class="ed">N° {i["meta"]["n"]} · {E(i["meta"]["date"])}{" <span class=demo>· démonstration</span>" if i["meta"].get("demo") else ""}</p><ul class="it">'
                 lab = 'Agenda · ' + it.get('label', '') if it['kind'] == 'agenda' else it['sec'].split(' : ')[0] + (' · rappel' if it.get('rappel') else '')
-                more = f' <a class="more" href="/{i["d"]}/#{it["sid"]}">En savoir plus ↗</a>' if it.get('sid') else ''
-                body += f'<li><span class="sec">{E(lab)}</span>{it["html"]}{more}</li>'
+                u = sid_de(i, it)
+                if u and SYN.get('synb'): body += f'<li class="sy-it" data-syn="{u}"><span class="sec">{E(lab)}</span>{it["html"]} {SYN["synb"].format(u)}</li>'
+                else:
+                    more = f' <a class="more" href="/{i["d"]}/#{it["sid"]}">En savoir plus ↗</a>' if it.get('sid') else ''
+                    body += f'<li><span class="sec">{E(lab)}</span>{it["html"]}{more}</li>'
             body += '</ul>'
         write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} · Dossiers · Software Compliance', 'Dossier', titre(v['nom'], v.get('titre')),
-              f'{E(TY(v.get("reference", "")))}<br>{len(its)} information{"s" if len(its) > 1 else ""} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body, cls='dos'))
+              f'{E(TY(v.get("reference", "")))}<br>{len(its)} information{"s" if len(its) > 1 else ""} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body, cls='dos',
+              syn=''.join(f'<div class="sy-d" id="d-{u}" hidden>{h}</div>' for u, h in syn.items())))
     write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
           'Tout ce que la revue a publié, thème par thème · <a href="/">Dernière édition</a> · <a href="/archives/">Archives</a>', f'<ul class="l">{"".join(idx)}</ul>'))
 

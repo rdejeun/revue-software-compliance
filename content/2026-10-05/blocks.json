@@ -2057,7 +2057,7 @@
   "k": "p",
   "i": [
    {
-    "t": "Les échéances d’automne se concentrent entre le 7 octobre et le 11 décembre 2026."
+    "t": "Les échéances se concentrent entre le 7 octobre et le 11 décembre 2026, puis en décembre 2027."
    }
   ]
  },
@@ -2078,23 +2078,6 @@
     [
      {
       "t": "Thème"
-     }
-    ]
-   ],
-   [
-    [
-     {
-      "t": "6 au 9 octobre 2026"
-     }
-    ],
-    [
-     {
-      "t": "OpenSSF Community Day Europe (6 octobre) et Open Source Summit Europe (7 au 9 octobre), Prague"
-     }
-    ],
-    [
-     {
-      "t": "Open source"
      }
     ]
    ],
@@ -2135,23 +2118,6 @@
    [
     [
      {
-      "t": "31 octobre 2026"
-     }
-    ],
-    [
-     {
-      "t": "Date proposée des normes CRA de types A et B (projet non adopté)"
-     }
-    ],
-    [
-     {
-      "t": "CRA"
-     }
-    ]
-   ],
-   [
-    [
-     {
       "t": "10 novembre 2026"
      }
     ],
@@ -2169,23 +2135,6 @@
    [
     [
      {
-      "t": "10 novembre 2026"
-     }
-    ],
-    [
-     {
-      "t": "Ancienne date de la phase 2 CMMC, suspendue sans date de reprise"
-     }
-    ],
-    [
-     {
-      "t": "Défense"
-     }
-    ]
-   ],
-   [
-    [
-     {
       "t": "Novembre 2026"
      }
     ],
@@ -2197,23 +2146,6 @@
     [
      {
       "t": "Export UE"
-     }
-    ]
-   ],
-   [
-    [
-     {
-      "t": "2 décembre 2026"
-     }
-    ],
-    [
-     {
-      "t": "Marquage des contenus générés par IA (article 50(2)), systèmes déjà sur le marché"
-     }
-    ],
-    [
-     {
-      "t": "AI Act"
      }
     ]
    ],
@@ -2288,20 +2220,6 @@
   ],
   "sum": [
    {
-    "titre": "OpenSSF Community Day Europe et Open Source Summit Europe",
-    "statut": "Événements du 6 au 9 octobre 2026, à Prague",
-    "fonctions": "Ingénierie logicielle, PSIRT, qualité, achats",
-    "essentiel": "L'OpenSSF (Open Source Security Foundation) Community Day Europe se tient le 6 octobre 2026 et l'Open Source Summit Europe du 7 au 9 octobre 2026, à Prague. Ces rendez-vous sont classés dans la rubrique open source de l'agenda de la revue.",
-    "contexte": "Ces événements sont organisés par la Linux Foundation et rassemblent la communauté open source. L'OpenSSF travaille sur la sécurité des logiciels open source.",
-    "impact_avere": "Les dates sont fixées. Aucune obligation réglementaire ne s'y attache : il s'agit d'occasions de suivre les travaux de la communauté open source, sans effet juridique direct sur les équipements ou sur les composants logiciels qu'ils intègrent.",
-    "impact_potentiel": "Les échanges pourraient éclairer les pratiques open source en matière de sécurité, de SBOM et de gestion des vulnérabilités. Ils pourraient aussi permettre de mieux connaître les attentes des mainteneurs face au Cyber Resilience Act. Les contenus précis des sessions ne sont pas présentés dans la source citée, et les thèmes abordés restent à confirmer au programme.",
-    "a_verifier": [
-     "Quelles sessions sont utiles aux équipes concernées ?",
-     "L'entreprise est-elle représentée à ces événements ?",
-     "Un suivi à distance des présentations est-il possible ?"
-    ]
-   },
-   {
     "titre": "Examen de la loi Résilience à l'Assemblée nationale",
     "statut": "Échéance du 7 octobre 2026 : début de l'examen en séance, selon Next.",
     "fonctions": "Juridique, qualité, achats, PSIRT",
@@ -2329,20 +2247,6 @@
     ]
    },
    {
-    "titre": "Normes CRA de types A et B : échéance proposée au 31 octobre 2026",
-    "statut": "Projet de modification de la demande M/606, non adopté au 8 septembre 2026",
-    "fonctions": "Juridique, ingénierie logicielle, qualité, contrôle des exportations",
-    "essentiel": "Un projet de modification de la demande de normalisation M/606 propose le 31 octobre 2026 pour les normes CRA de types A et B, et le 31 décembre 2026 pour le type C. Il n'était pas adopté au 8 septembre.",
-    "contexte": "La demande M/606 charge les organismes européens de normalisation d'élaborer les normes harmonisées liées au Cyber Resilience Act. Le site cyberresilienceact.eu rapporte un report de ces échéances de deux mois.",
-    "impact_avere": "La date du 31 octobre 2026 n'est pas définitive, faute d'adoption à la date indiquée. Elle ne crée aucune obligation pour l'industriel et pourrait encore évoluer.",
-    "impact_potentiel": "Les normes harmonisées, une fois publiées, pourraient offrir une présomption de conformité au CRA pour les produits qui y sont soumis. Un nouveau retard pourrait décaler leur disponibilité. Des clients pourraient aussi s'y référer dans leurs exigences, y compris pour des produits à usage mixte.",
-    "a_verifier": [
-     "Le projet de modification a-t-il été adopté depuis le 8 septembre ?",
-     "Quels produits de l'entreprise relèveraient du CRA, y compris en version civile ?",
-     "Les équipes participent-elles aux travaux de normalisation ?"
-    ]
-   },
-   {
     "titre": "EAR : réimposition de la règle des affiliés du BIS",
     "statut": "Suspendue jusqu'au 9 novembre 2026 ; réimposition automatique le 10 novembre 2026, sauf action du BIS",
     "fonctions": "Contrôle des exportations, juridique, administration des ventes",
@@ -2357,20 +2261,6 @@
     ]
    },
    {
-    "titre": "CMMC phase 2 : ancienne date du 10 novembre 2026, suspendue",
-    "statut": "Date suspendue ; class deviation révision 3 du 3 septembre 2026, sans date de reprise",
-    "fonctions": "Juridique, achats, qualité, contrôle des exportations",
-    "essentiel": "La phase 2 du CMMC (Cybersecurity Maturity Model Certification, dispositif américain de certification de cybersécurité des fournisseurs de la défense) devait débuter le 10 novembre 2026. Elle est suspendue depuis le 13 juillet 2026 ; la class deviation révision 3, signée le 3 septembre 2026, maintient la suspension sans fixer de date de reprise.",
-    "contexte": "Le cabinet Wolf Theiss consacre une analyse à cette suspension et à ce qui change ou non pour les fournisseurs européens de la base industrielle de défense américaine. Le dispositif relève du ministère américain de la Défense.",
-    "impact_avere": "La date du 10 novembre 2026 ne sert plus de repère. Pour un industriel français, seuls les contrats comportant expressément des clauses américaines sont concernés. La suspension de cette phase ne vaut pas, d'après les sources, abrogation du dispositif dans son ensemble.",
-    "impact_potentiel": "Une nouvelle date pourrait être annoncée sans préavis long, et des clauses contractuelles pourraient continuer à exiger des pratiques de sécurité équivalentes. Les sous-traitants européens de donneurs d'ordre américains pourraient en subir des effets en cascade.",
-    "a_verifier": [
-     "Des contrats comportent-ils des clauses CMMC ou équivalentes ?",
-     "Des données américaines sensibles sont-elles manipulées ?",
-     "Quelle source suivre pour la nouvelle date ?"
-    ]
-   },
-   {
     "titre": "Liste dual-use 2026 : fin de l'examen et publication au JO",
     "statut": "Règlement délégué adopté le 14 septembre 2026 ; publication au JO après deux mois d'examen sans objection",
     "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
@@ -2382,19 +2272,6 @@
      "Quels produits et logiciels de l'entreprise relèvent des rubriques modifiées ?",
      "Les classifications seront-elles réexaminées avant la publication ?",
      "Des licences en cours seraient-elles concernées ?"
-    ]
-   },
-   {
-    "titre": "2 décembre 2026 : marquage des contenus générés par IA",
-    "statut": "Échéance fixée au 2 décembre 2026 par le règlement (UE) 2026/1744 (Digital Omnibus on AI)",
-    "fonctions": "Juridique, ingénierie logicielle, qualité",
-    "essentiel": "Le 2 décembre 2026 est la date retenue, pour les systèmes génératifs déjà sur le marché, pour le marquage des contenus générés par IA prévu à l'article 50(2) du règlement sur l'intelligence artificielle (AI Act). Cette date est fixée par le règlement (UE) 2026/1744 « Digital Omnibus on AI ».",
-    "contexte": "L'article 50(2) impose aux fournisseurs de systèmes d'IA générant des contenus de les marquer. Le Digital Omnibus ajuste le calendrier de l'AI Act. L'AI Act est le règlement européen sur l'intelligence artificielle ; le texte omnibus en modifie le calendrier d'application.",
-    "impact_avere": "La date est fixée par le règlement. Un industriel qui fournit des systèmes d'IA produisant des contenus synthétiques, y compris intégrés à un logiciel, doit prévoir ce marquage. Les équipes juridiques et d'ingénierie doivent identifier les fonctions concernées avant cette date.",
-    "impact_potentiel": "L'AI Act exclut les systèmes utilisés exclusivement à des fins militaires, de défense ou de sécurité nationale, mais des usages civils, à double usage ou imposés par contrat pourraient rester concernés. Les modalités techniques de marquage pourraient être précisées par des lignes directrices ou des normes.",
-    "a_verifier": [
-     "Des fonctions d'IA générative sont-elles intégrées aux produits ?",
-     "Quel usage, civil ou militaire, est prévu ?"
     ]
    },
    {
@@ -2458,22 +2335,13 @@
    null,
    null,
    null,
-   "Projet de modification de la demande de normalisation M/606 : normes de types A et B au 31 octobre, type C au 31 décembre 2026. Non adopté au 8 septembre.",
    null,
-   null,
-   null,
-   "Marquage des contenus générés par IA (article 50(2)) pour les systèmes génératifs déjà sur le marché, date fixée par le règlement (UE) 2026/1744",
    "Transposition de la directive (UE) 2024/2853, qui inclut le logiciel ; elle s'applique aux produits mis sur le marché après cette date",
    null,
    "Règles sur les systèmes d'IA à haut risque, reportées à cette date par le règlement (UE) 2026/1744",
    "Application complète du CRA ; les « stewards » open source deviennent soumis à l'obligation de déclaration à la même date"
   ],
   "attrs": [
-   {
-    "themes": [
-     "licences"
-    ]
-   },
    {
     "themes": [
      "nis2"
@@ -2486,27 +2354,12 @@
    },
    {
     "themes": [
-     "cra"
-    ]
-   },
-   {
-    "themes": [
      "export-us"
     ]
    },
    {
     "themes": [
-     "cmmc"
-    ]
-   },
-   {
-    "themes": [
      "export-ue"
-    ]
-   },
-   {
-    "themes": [
-     "ai-act"
     ]
    },
    {
