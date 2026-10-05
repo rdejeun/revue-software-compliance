@@ -29,6 +29,7 @@ E = lambda s: html.escape(str(s), quote=True)
 TY = lambda s: str(s).replace("'", '’')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
+from pied import pied, mentions, CSS_COURRIEL
 POD_TITRE = 'Software Compliance, le podcast'
 # Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
 IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'podcast.jpg')
@@ -172,7 +173,9 @@ CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;backgr
 .c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;padding:38px 52px 44px;box-sizing:border-box}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
 h1{{margin:8px 0 14px;font:700 46px/52px {SERIF};color:#0f2a4a;letter-spacing:-.01em;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 44px/52px {SANS};letter-spacing:-.025em}} h1.dos{{font-size:44px;line-height:50px}} h1.dos span{{font-size:42px;line-height:50px}}
-.pied{{margin:44px 0 0;padding:16px 0 0;border-top:2px solid #0f2a4a;font:12px/19px {SANS};color:#6b7280}}
+.pied{{margin:44px 0 0;padding:16px 0 0;border-top:2px solid #0f2a4a;font:11px/17px {SANS};color:#6b7280}}
+{CSS_COURRIEL}
+.c>p a{{color:#1f4e8c}}
 .sub{{margin:0 0 24px;padding-bottom:14px;border-bottom:2px solid #0f2a4a;font:13px/20px {SANS};color:#6b7280}} .sub a{{color:#6b7280}}
 h2{{margin:32px 0 12px;font:600 20px/28px {SANS};color:#0f2a4a}} .r{{width:30px;height:3px;background:#c2410c;margin:32px 0 10px}} .r+h2{{margin-top:0}}
 ul.l{{list-style:none;margin:0;padding:0}} ul.l>li{{border-bottom:1px solid #e5e1d8}}
@@ -216,7 +219,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style></head>
-<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">Ce document a été rédigé par une intelligence artificielle ({E(REDACTION)}). Des erreurs sont possibles.</p></main>{fin}</body></html>'''
+<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">{pied(REDACTION, datetime.date.today().year)}</p></main>{fin}</body></html>'''
 
 
 def write(path, txt):
@@ -225,6 +228,7 @@ def write(path, txt):
 
 
 def main():
+    global REDACTION
     if os.path.isdir(SITE): shutil.rmtree(SITE)
     os.makedirs(SITE)
     eds = editions()
@@ -237,6 +241,7 @@ def main():
         write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.'))
         write(os.path.join(SITE, 'podcast.xml'), vide(E(POD_TITRE), E(POD_DESC), ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
         write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire sur la conformité logicielle des produits pour l’industrie de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
+        write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales · Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>', '<a href="/">Accueil</a>', mentions(REDACTION, datetime.date.today().year)))
         write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
         print('Aucune édition : site d’attente construit'); return
     infos = []
@@ -253,7 +258,6 @@ def main():
         infos.append({'d': d, 'meta': meta, 'lede': lede, 'items': json.load(open(os.path.join(out, 'items.json'), encoding='utf-8')), 'md': md})
         if os.path.isfile(os.path.join(out, 'syn.json')): SYN.update(json.load(open(os.path.join(out, 'syn.json'), encoding='utf-8')))
     last = infos[-1]
-    global REDACTION
     REDACTION = last['meta'].get('redaction') or REDACTION
     web = open(os.path.join(SITE, last['d'], 'index.html'), encoding='utf-8').read()
     write(os.path.join(SITE, 'index.html'), web.replace('<meta charset="utf-8">', f'<meta charset="utf-8"><link rel="canonical" href="/{last["d"]}/">', 1))
@@ -321,6 +325,10 @@ def main():
               syn=''.join(f'<div class="sy-d" id="d-{u}" hidden>{h}</div>' for u, h in syn.items())))
     write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
           'Tout ce que la revue a publié, thème par thème · <a href="/">Dernière édition</a> · <a href="/archives/">Archives</a>', f'<ul class="l">{"".join(idx)}</ul>'))
+
+    # mentions légales
+    write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales · Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>',
+          '<a href="/">Dernière édition</a> · <a href="/archives/">Archives</a> · <a href="/dossiers/">Dossiers</a>', mentions(REDACTION, datetime.date.today().year)))
 
     # RSS (hors démonstration)
     pub = [i for i in infos if not i['meta'].get('demo')]

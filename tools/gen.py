@@ -4,6 +4,7 @@ import re,json,html
 from urllib.parse import urlparse
 import commun as B
 from podcast import titre_episode
+from pied import pied
 from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
@@ -494,7 +495,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
 <tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:12px/19px {SANS};color:#6b7280;">Ce document a été rédigé par une intelligence artificielle ({esc(META.get('redaction') or REDACTION_DEFAUT)}). Des erreurs sont possibles.</td></tr></table>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:11px/17px {SANS};color:#6b7280;">{pied(META.get("redaction") or REDACTION_DEFAUT,(META.get("date_iso") or "2026")[:4],absolu=not web)}</td></tr></table>
 </td></tr></table></td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}</body></html>''',len(used)
 def compact_email(h):
     """Allège l'e-mail : chaque style répété (4 fois ou plus) passe dans une classe déclarée dans <head>.
