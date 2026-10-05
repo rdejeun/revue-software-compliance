@@ -1,7 +1,7 @@
 {
- "duree_s": 459,
- "octets": 3814490,
- "mots": 1436,
+ "duree_s": 461,
+ "octets": 3840611,
+ "mots": 1414,
  "modele": "eleven_v4",
  "seed": 20261004,
  "voix": {
@@ -14,20 +14,20 @@
    "voice": "cTNP6ZM2mLTKj2BFhxEh"
   }
  },
- "genere_le": "2026-10-04T23:26:11Z",
- "sha_script": "c619ab2985f9868aee57e3364b6315b4afaad015231303b10793146e6b308291:essai-9000",
+ "genere_le": "2026-10-05T00:54:19Z",
+ "sha_script": "5d1f94efdb7c626c90315bf389d9f9c0fd9c1e4e047e22cf1cfc687555d9da1e:essai-9000",
  "extrait": true,
  "repliques": 48,
- "prononciation": "dictionnaire ElevenLabs dZA7u4o2Y0pwX4vv0RJX",
+ "prononciation": "dictionnaire ElevenLabs 7YomPPvx1nOjWstf6Nkj",
  "qc": {
   "Loudness intégré du master": "-19.0 LUFS",
   "True peak": "-1.0 dBTP",
   "Écart de loudness A/B": "0.00 LU",
-  "Écart de timbre A/B (150 Hz–8 kHz)": "10.8 → 1.2 dB",
-  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 79 → 29 ms, B 23 → 22 ms",
-  "Durée": "459.0 s (blocs : 459.4 s)",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.2 → 1.1 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 72 → 31 ms, B 23 → 21 ms",
+  "Durée": "446.2 s (blocs : 446.6 s)",
   "Clics": "0 saut(s) anormal(aux)",
-  "Fidélité au script (faster-whisper)": "3.7 % de mots différents sur 1495"
+  "Fidélité au script (faster-whisper)": "3.9 % de mots différents sur 1475"
  },
  "requetes": 7,
  "fichier": "episode.m4a"
