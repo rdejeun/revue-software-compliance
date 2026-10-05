@@ -317,7 +317,7 @@ def produire(d, dry=False, force=False):
     sortie = os.path.join(travail, 'out', 'episode.m4a')
     M = mixage.produire(blocs, ids_voix, sortie, travail, {'titre': pod['titre'], 'date': d, 'n': ''}, sortie_brute=os.path.join(travail, 'out', 'episode_sans_traitement.m4a'))
     ok, ecarts, resume = mixage.qc(M, sortie, ' '.join(r['t'] for r in reps), travail)
-    duree = M['duree_blocs_s']
+    duree = M['duree_blocs_s'] + M.get('habillage_s', 0)
     meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE, 'seed': SEED,
             'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
             'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': bool(MAX_CHARS), 'repliques': len(reps),

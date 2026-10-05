@@ -71,7 +71,8 @@ def duree_ep():
 def libelle_ep(diso):
     """« Écouter l'épisode du 4 oct. 2026 »"""
     a,m,j=diso.split('-')
-    return f"Écouter l’épisode du {'1er' if j=='01' else int(j)}&nbsp;{MOIS[int(m)-1]}&nbsp;{a}"
+    mois=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']
+    return f"Écouter l’épisode du {'1er' if j=='01' else int(j)}&nbsp;{mois[int(m)-1]}&nbsp;{a}"
 ICO_RSS='<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="3.2" cy="12.8" r="1.7" fill="currentColor"/><path d="M2 7.2a6.8 6.8 0 0 1 6.8 6.8M2 2.6A11.4 11.4 0 0 1 13.4 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
 ICO_VOL='<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z" fill="currentColor"/><path class="w" d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
 ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
@@ -90,7 +91,7 @@ def bloc_podcast(web,diso,ed_url):
     return (f'<div class="pod" id="ecouter">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
-            f'<div class="pod-hd"><span class="pod-eb">Podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner au podcast</span></a></div>'
+            f'<div class="pod-hd"><span class="pod-eb">Podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
@@ -376,9 +377,9 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-v{{--p:100%;flex:none;width:72px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
 .pod-v::-webkit-slider-thumb{{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:{NAVY};border:2px solid #fff;box-shadow:0 0 0 1px {NAVY}}}
 .pod-v::-moz-range-thumb{{width:10px;height:10px;border-radius:50%;background:{NAVY};border:2px solid #fff}}
-.pod-rss{{display:inline-flex;align-items:center;gap:6px;color:#6b7280;font:600 12px/16px {SANS};text-decoration:none}}
-.pod-rss svg{{color:{ACC}}}
-.pod-rss:hover span,.pod-rss:focus-visible span{{color:{ACC};text-decoration:underline}}
+.pod-rss{{display:inline-flex;align-items:center;gap:5px;height:24px;box-sizing:border-box;padding:0 11px 0 8px;border:1px solid #e1c6b4;border-radius:12px;background:#fff;color:{ACC};font:600 12px/1 {SANS};text-decoration:none;transition:background .15s,color .15s,border-color .15s}}
+.pod-rss svg{{flex:none}}
+.pod-rss:hover,.pod-rss:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 @media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
 dialog.sy{{width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
