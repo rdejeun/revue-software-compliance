@@ -54,6 +54,27 @@
 | Software Freedom Conservancy | https://sfconservancy.org/news/ | Contentieux GPL |
 | OSV et GitHub Advisory Database | https://osv.dev/ · https://github.com/advisories | Bases de vulnérabilités des composants |
 
+## Outils et services de conformité (installables ou en ligne)
+
+| Source | Adresse | À surveiller |
+|---|---|---|
+| Versions des outils open source | https://github.com/anchore/syft/releases · https://github.com/anchore/grype/releases · https://github.com/aquasecurity/trivy/releases · https://github.com/google/osv-scanner/releases · https://github.com/DependencyTrack/dependency-track/releases · https://github.com/oss-review-toolkit/ort/releases · https://github.com/aboutcode-org/scancode-toolkit/releases | Versions, formats SBOM pris en charge, bases de données |
+| BIS, chiffrement | https://www.bis.gov/ | Autoclassement et rapports annuels du chiffrement (5A002, 5D002, 740.17), outils SNAP-R |
+| ANSSI, cryptologie | https://cyber.gouv.fr/ | Déclarations et autorisations de moyens de cryptologie (démarches en ligne) |
+| Commission, biens à double usage | https://policy.trade.ec.europa.eu/help-exporters-and-importers/exporting-dual-use-items_en | Outils d'aide au classement, lignes directrices (logiciel, IA, cybersurveillance) |
+| Office européen des brevets (OEB) | https://www.epo.org/ | Espacenet, services en ligne, brevets logiciels et IA |
+| EUIPO et OMPI | https://www.euipo.europa.eu/ · https://www.wipo.int/ | Outils en ligne de propriété intellectuelle |
+| INPI | https://www.inpi.fr/ | Services en ligne, brevets et logiciels |
+
+## Requêtes de veille (chaque semaine, en français et en anglais)
+
+- « Software Composition Analysis », « SBOM tool », « open source license compliance tool » ;
+- « export control classification software », « ECCN classification tool », « classement export logiciel », « dual-use classification AI » ;
+- « encryption classification 5D002 », « mass market encryption », « moyens de cryptologie déclaration » ;
+- « AI model export control », « geospatial imagery deep learning export control », « 0D521 » ;
+- « patent search AI tool », « freedom to operate software », « code provenance copyright tool », « snippet matching open source » ;
+- un audit des sujets connexes est fait une fois par mois (README, § 14).
+
 ## Presse et analyses (interprétation, jamais seule source d'un fait juridique)
 
 LWN.net, The Record, Industrial Cyber, BleepingComputer (attaques de la chaîne d'approvisionnement), Next (France), lettres d'information des cabinets d'avocats spécialisés (contrôle des exportations, sanctions, CRA).

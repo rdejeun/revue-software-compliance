@@ -1,5 +1,5 @@
 {
- "titre": "Revue Software Compliance, numéro 2 : le CRA en France, CVE, Grype et AGPL",
+ "titre": "Revue Software Compliance, numéro 1 : le CRA en France, CVE, Grype et AGPL",
  "description": "En France, l'ANSSI notifie les organismes du CRA et l'ANFR surveille le marché ; l'ENISA étend le programme CVE ; Grype 0.120.0 ; l'affaire Bambu Lab et l'AGPL.",
  "repliques": [
   {
@@ -7,7 +7,7 @@
   },
   {
    "v": "A",
-   "t": "Bonjour, bienvenue dans la revue de presse Software Compliance, numéro deux, du cinq octobre deux mille vingt-six."
+   "t": "Bonjour, bienvenue dans la revue de presse Software Compliance, numéro un, du cinq octobre deux mille vingt-six."
   },
   {
    "v": "B",

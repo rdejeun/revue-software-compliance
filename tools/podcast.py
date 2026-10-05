@@ -75,6 +75,12 @@ def bilan(niveau, msg):
 
 
 # ------------------------------------------------------------------ contrôle
+def numero(d):
+    """numéro de l'édition (meta.json), ou None"""
+    try: return json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8')).get('n')
+    except (OSError, ValueError): return None
+
+
 def charger(d, chemin=None):
     p = chemin or os.path.join(CONTENT, d, 'podcast.json')
     if not os.path.isfile(p): return None, None
@@ -104,8 +110,39 @@ HESITATIONS_MAX = 3                # « euh », « hum »… écrits dans le tex
 RX_HESITATION = re.compile(r"(?<![\w-])(?:euh|heu|hum|hmm)(?![\w-])", re.I)
 
 
-def controler(pod):
+_UNITES = ['zéro', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix', 'onze', 'douze', 'treize',
+           'quatorze', 'quinze', 'seize', 'dix-sept', 'dix-huit', 'dix-neuf']
+_DIZAINES = {2: 'vingt', 3: 'trente', 4: 'quarante', 5: 'cinquante', 6: 'soixante', 8: 'quatre-vingt'}
+
+
+def en_lettres(n):
+    """1 -> « un », 21 -> « vingt-et-un », 80 -> « quatre-vingts » (de 0 à 999, pour le numéro d'édition)"""
+    if n < 20: return _UNITES[n]
+    if n < 100:
+        d, u = divmod(n, 10)
+        if d in (7, 9): d, u = d - 1, u + 10
+        base = _DIZAINES[d]
+        if u == 0: return base + ('s' if d == 8 else '')
+        return base + ('-et-' if u in (1, 11) and d != 8 else '-') + _UNITES[u]
+    c, r = divmod(n, 100)
+    tete = 'cent' if c == 1 else _UNITES[c] + '-cent' + ('s' if r == 0 else '')
+    return tete + ('' if r == 0 else '-' + en_lettres(r))
+
+
+RX_NUMERO = re.compile(r"\b(?:numéro|N°)\s*(\d+|[a-zé-]+)", re.I)
+
+
+def controler(pod, n=None):
     err, warn = [], []
+    if n is not None:   # le numéro annoncé doit être celui de l'édition (meta.json)
+        for ou, t in [('titre', pod.get('titre') or ''), ('description', pod.get('description') or '')] + \
+                     [(f'réplique {i + 1}', r.get('t') or '') for i, r in enumerate(pod.get('repliques') or [])]:
+            for m in RX_NUMERO.finditer(t):
+                v = m.group(1).lower()
+                if v.isdigit(): ok = int(v) == n
+                elif v.replace('-', '') in {en_lettres(k).replace('-', '') for k in range(1000)}: ok = v.replace('-', '') == en_lettres(n).replace('-', '')
+                else: continue   # « numéro de plaque », « un nouveau numéro »…
+                if not ok: err.append(f'{ou} : « {m.group(0)} » ne correspond pas au numéro de l’édition ({n})')
     voix = {k: {**VOIX.get(k, {}), **v} for k, v in {**VOIX, **(pod.get('voix') or {})}.items()}
     for k in ('titre', 'description'):
         if not str(pod.get(k) or '').strip(): err.append(f'champ « {k} » manquant')
@@ -271,7 +308,7 @@ def synthetique(chunk, voix, base):
 def produire(d, dry=False, force=False):
     pod, sha = charger(d)
     if pod is None: bilan('notice', f'{d} : pas de podcast.json, rien à faire.'); return False
-    err, warn, mots = controler(pod)
+    err, warn, mots = controler(pod, numero(d))
     sha = hashlib.sha256((sha + json.dumps(regles(), sort_keys=True, ensure_ascii=False) + MODELE).encode('utf-8')).hexdigest()  # lexique et modèle comptent aussi
     if MAX_CHARS: sha += f':essai-{MAX_CHARS}'   # un extrait n'est jamais pris pour l'épisode complet
     for w in warn: log(f'{d} : avertissement : {w}')
@@ -396,7 +433,7 @@ def main():
         for d in eds:
             pod, _ = charger(d)
             if pod is None: print(f'{d} : pas de podcast.json'); continue
-            err, warn, mots = controler(pod)
+            err, warn, mots = controler(pod, numero(d))
             print(f'{d} : {len(pod.get("repliques") or [])} répliques, {mots} mots (≈ {mots / 150:.0f} min)')
             for w in warn: print('  avertissement :', w)
             for e in err: print('  ERREUR :', e)

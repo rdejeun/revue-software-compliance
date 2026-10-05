@@ -83,10 +83,20 @@ def bloc_podcast(web,diso,ed_url):
     m=duree_ep()
     if not web:
         if not ed_url: return ''
-        return (f'<table role="presentation" width="75%" align="center" cellpadding="0" cellspacing="0" style="width:75%;margin:0 auto 26px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
-                f'<tr><td style="padding:10px 18px;"><a href="{ed_url}#ecouter" style="display:block;text-decoration:none;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
-                f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}</td>'
-                f'<td align="right" style="font:13px/22px {SANS};color:#6b7280;white-space:nowrap;">{m}</td></tr></table></a></td></tr></table>')
+        # le clic lance directement la lecture du fichier audio (navigateur ou lecteur du système)
+        u=f'{ed_url}{EP_FICHIER}'
+        # Outlook pour Windows (moteur Word) ignore border-radius et ne rend cliquable que le texte d'un lien :
+        # bouton VML arrondi, entièrement cliquable ; les autres clients reçoivent la boîte HTML
+        vml=(f'<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">'
+             f'<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{u}" style="height:44px;v-text-anchor:middle;width:462px;" arcsize="50%" strokecolor="#e3d6c3" fillcolor="#f7f4ee">'
+             f'<w:anchorlock/><center style="color:{NAVY};font-family:Segoe UI,Arial,sans-serif;font-size:14px;font-weight:600;"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}&nbsp;&nbsp;<span style="color:#6b7280;font-weight:400;">{m}</span></center>'
+             f'</v:roundrect></td></tr></table><![endif]-->')
+        html_=(f'<!--[if !mso]><!-- --><table role="presentation" width="75%" align="center" cellpadding="0" cellspacing="0" style="width:75%;margin:0 auto;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
+               f'<tr><td style="padding:0;"><a href="{u}" style="display:block;padding:10px 18px;text-decoration:none;border-radius:22px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
+               f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}</td>'
+               f'<td align="right" style="font:13px/22px {SANS};color:#6b7280;white-space:nowrap;">{m}</td></tr></table></a></td></tr></table><!--<![endif]-->')
+        esp='<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="26" style="height:26px;font-size:0;line-height:26px;">&nbsp;</td></tr></table>'
+        return vml+html_+esp
     titre=esc(typo((POD or {}).get('titre','')))
     return (f'<div class="pod" id="ecouter">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{m}</span></button>'
@@ -170,6 +180,7 @@ def render(web):
     SYNB='<button type="button" class="sy-b" data-syn="{0}" aria-haspopup="dialog" aria-label="En savoir plus"><span class="sy-p"><svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span class="sy-l">En savoir plus</span></span></button>'
 
     LS="color:#6b7280;font:13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
+    FLECHE="font-weight:400;font-family:'Segoe UI Symbol','Segoe UI',Arial,sans-serif;"
     LSO="color:#6b7280;font:600 13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
     def srcfix(items):
         o=[];n=len(items)
@@ -195,7 +206,10 @@ def render(web):
             if x.get('href'):
                 a=esc(x['href'],True)
                 o_=officiel(x['href'])
-                r.append(f'<a class="s{" so" if o_ else ""}" href="{a}" target="_blank" rel="noopener">{E(typo(t))}</a>' if web else f'<a href="{a}" style="{LSO if o_ else LS}{"font-size:12px;" if fs<16 else ""}">{E(typo(t))}</a>')
+                if web: r.append(f'<a class="s{" so" if o_ else ""}" href="{a}" target="_blank" rel="noopener">{E(typo(t))}</a>')
+                elif o_ and t.startswith('↗\u00a0'):   # Outlook : pas de glyphe ↗ dans la police en semi-gras -> flèche en graisse normale
+                    r.append(f'<a href="{a}" style="{LSO}{"font-size:12px;" if fs<16 else ""}"><span style="{FLECHE}">↗&nbsp;</span>{E(typo(t[2:]))}</a>')
+                else: r.append(f'<a href="{a}" style="{LSO if o_ else LS}{"font-size:12px;" if fs<16 else ""}">{E(typo(t))}</a>')
             elif x.get('b'):
                 r.append(f'<b style="font:600 {fs}px/1 {SANS};color:{NAVY};">{mark(t,web)}</b>')
             else: r.append(mark(t,web))
@@ -303,12 +317,13 @@ def render(web):
                         if colcost(short)>colcost(tall): e['long']=False
             hmax=max(colcost(L),colcost(R))
             if hmax>CAP: print(f'ATTENTION agenda trop haut : {hmax:.1f} lignes estimées > {CAP} ; raccourcir ou retirer des événements', file=sys.stderr)
+            BG=' bgcolor="#f7f4ee"'
             def agt(t):
                 h=inl(t,False) if isinstance(t,list) else mark(t,web)
                 return re.sub(r'<a [^>]*?(?:title|data-tip)="([^"]*)"[^>]*>(.*?)</a>',lambda m:f'<abbr title="{m.group(1)}" style="text-decoration:none;">{m.group(2)}</abbr>',h)
             def ev(e):
                 txt=agt(e['det'] if e['long'] else e['t'])
-                head=f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td style="font:600 13px/20px {SANS};color:{ACC};">{e["lab"]}</td><td align="right" style="font:400 10px/14px {SANS};"><span style="background:transparent;border:1px solid #b5a37c;color:#7d6c47;font-weight:400;padding:1px 9px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">{e["th"]}</span></td></tr></table>'
+                head=f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"{"" if web else BG}><tr><td{"" if web else BG} style="font:600 13px/20px {SANS};color:{ACC};">{e["lab"]}</td><td{"" if web else BG} align="right" style="font:400 10px/14px {SANS};"><span style="background:transparent;border:1px solid #b5a37c;color:#7d6c47;font-weight:400;padding:1px 9px;border-radius:10px;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;">{e["th"]}</span></td></tr></table>'
                 sid=None
                 if e['sum']:
                     sid=syn_html(e['sum'],[('Page de référence',e['u'])],'Agenda')
@@ -318,6 +333,8 @@ def render(web):
                 return f'<div style="margin:0 0 13px;">{head}<a href="{e["u"]}" target="_blank" rel="noopener" style="display:block;font:14px/21px {SERIF};color:#1f2937;text-decoration:none;">{txt}</a></div>'
             cards=[]
             for (yr,mo),its in groups.items():
+                if not web:
+                    cards.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f4ee" style="background:#f7f4ee;"><tr><td bgcolor="#f7f4ee" style="background:#f7f4ee;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</td></tr></table>'); continue
                 cards.append(f'<div style="background:#f7f4ee;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</div>')
             sp='<div style="height:14px;font-size:0;line-height:14px;">&nbsp;</div>'
             rows=f'<tr><td class="c" width="50%" valign="top" style="padding:0 7px 0 0;">{sp.join(cards[:cut])}</td><td class="c" width="50%" valign="top" style="padding:0 0 0 7px;">{sp.join(cards[cut:])}</td></tr>'
@@ -409,7 +426,7 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
-<tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; <a href="{SITE if not web else ''}/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="{SITE if not web else ''}/dossiers/" style="color:#6b7280;">Dossiers</a></td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
+<tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:12px/19px {SANS};color:#6b7280;">Ce document a été rédigé par une intelligence artificielle ({esc(META.get('redaction') or REDACTION_DEFAUT)}). Des erreurs sont possibles.</td></tr></table>
 </td></tr></table></td></tr></table>{''.join(syns)+JS+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}</body></html>''',len(used)

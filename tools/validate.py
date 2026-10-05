@@ -66,19 +66,19 @@ def check_content(d, blocks, meta, themes):
         if meta.get('date_long') != attendu: ERR.append(f'meta.json : date_long « {meta.get("date_long")} », attendu « {attendu} »')
     except ValueError:
         ERR.append(f'Nom de dossier « {d} » invalide')
-    nsec = 0; sec = ''; nitems = nsum = 0; rap = {}
+    nsec = 0; sec = ''; nitems = nsum = 0; rap = {}; nb = {}   # nb : éléments par rubrique
     for i, b in enumerate(blocks):
         k = b.get('k'); w = f'bloc {i} ({k})'
         if k not in ('h1', 'h2', 'p', 'ul', 'table'): ERR.append(f'{w} : type inconnu'); continue
         if k in ('h1', 'h2', 'p'):
             if not segs_ok(b.get('i'), w): continue
         if k == 'h2':
-            sec = ''.join(x['t'] for x in b['i']).strip(); nsec += 1; rap.setdefault(sec, 0)
+            sec = ''.join(x['t'] for x in b['i']).strip(); nsec += 1; rap.setdefault(sec, 0); nb.setdefault(sec, 0)
             if sec.startswith(('Audit', 'Sources')): ERR.append(f'{w} : la section « {sec} » est interne et ne doit pas figurer dans le dépôt public')
         elif k == 'p' and b.get('attrs') is not None:
             check_attrs(b['attrs'], w, themes, need_date=False); check_sum(b.get('sum'), w)
             if (b['attrs'] or {}).get('rappel'): rap[sec] = rap.get(sec, 0) + 1
-            nitems += 1; nsum += bool(b.get('sum'))
+            nitems += 1; nsum += bool(b.get('sum')); nb[sec] = nb.get(sec, 0) + 1
         elif k == 'ul':
             its = b.get('items') or []
             if not its: ERR.append(f'{w} : liste vide')
@@ -90,7 +90,7 @@ def check_content(d, blocks, meta, themes):
                 a = (b.get('attrs') or [None] * len(its))[j] if j < len(b.get('attrs') or []) else None
                 sm = (b.get('sum') or [None] * len(its))[j] if j < len(b.get('sum') or []) else None
                 check_attrs(a or {}, ww, themes); check_sum(sm, ww)
-                nitems += 1; nsum += bool(sm)
+                nitems += 1; nsum += bool(sm); nb[sec] = nb.get(sec, 0) + 1
                 if a and a.get('rappel'): rap[sec] = rap.get(sec, 0) + 1
                 if a and a.get('rappel') and words(''.join(x['t'] for x in it if not x.get('href'))) > 30:
                     WARN.append(f'{ww} : rappel de plus de 30 mots (deux colonnes : rester court)')
@@ -111,8 +111,12 @@ def check_content(d, blocks, meta, themes):
                 check_sum(sm, ww); nitems += 1; nsum += bool(sm)
                 check_attrs((b.get('attrs') or [{}] * n)[j] or {}, ww, themes, need_date=False)
     if nsec < 4: ERR.append(f'Édition incomplète : {nsec} section(s)')
-    for s_, n_ in rap.items():   # au moins 2 rappels par rubrique (hors Agenda)
-        if not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ < 2:
+    if len(meta.get('toc') or []) != nsec: ERR.append(f'meta.json : « toc » compte {len(meta.get("toc") or [])} libellé(s) pour {nsec} section(s)')
+    vides = [s_ for s_, n_ in nb.items() if n_ == 0 and not s_.startswith(('Agenda', 'Audit', 'Sources'))]
+    for s_ in vides:   # ni nouveauté ni rappel encore ouvert : la rubrique n'est pas affichée (README, § 5)
+        ERR.append(f'Rubrique « {s_.split(" : ")[0]} » sans aucun élément : la retirer (titre, chapô et libellé de « toc »)')
+    for s_, n_ in rap.items():   # au moins 2 rappels par rubrique affichée (hors Agenda)
+        if s_ not in vides and not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ < 2:
             ERR.append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappel(s), au moins 2 attendus')
     if nitems and nsum < nitems: WARN.append(f'{nitems - nsum} élément(s) sans synthèse sur {nitems}')
     return nitems
@@ -180,6 +184,11 @@ def main():
     meta = json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8'))
     themes = json.load(open(os.path.join(TOOLS, 'themes.json'), encoding='utf-8'))
     nitems = check_content(d, blocks, meta, themes)
+    if os.path.isfile(os.path.join(CONTENT, d, 'podcast.json')):
+        sys.path.insert(0, TOOLS); import podcast
+        pod, _ = podcast.charger(d)
+        perr, _, _ = podcast.controler(pod, meta.get('n'))
+        ERR.extend(f'podcast.json : {e}' for e in perr)
     size, em, web = check_outputs(d)
     nl = check_links(web) if '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',
