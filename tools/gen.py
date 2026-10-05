@@ -43,9 +43,14 @@ JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" c
 <script>
 (function(){
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
-function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';box.scrollTop=0;if(!dlg.open)dlg.showModal();if(push!==false)try{history.replaceState(null,'','#'+id)}catch(e){}}
+/* chaque ouverture ajoute une entrée d'historique : le bouton Précédent (y compris celui de la souris) ferme la fenêtre */
+var pushed=false,byPop=false;
+function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';box.scrollTop=0;
+ if(push!==false)try{if(pushed)history.replaceState({syn:id},'','#'+id);else{history.pushState({syn:id},'','#'+id);pushed=true}}catch(e){}
+ if(!dlg.open)dlg.showModal()}
 function close(){if(dlg.open)dlg.close()}
-dlg.addEventListener('close',function(){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
+dlg.addEventListener('close',function(){if(byPop)return;if(pushed){pushed=false;try{history.back()}catch(e){}}else try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
+window.addEventListener('popstate',function(e){var s=e.state&&e.state.syn;if(s){pushed=true;open(s,false);return}pushed=false;if(dlg.open){byPop=true;dlg.close();byPop=false}});
 dlg.querySelector('.sy-x').addEventListener('click',close);
 box.addEventListener('mouseover',function(e){var t=e.target.closest&&e.target.closest('a.t');if(!t)return;var r=t.getBoundingClientRect(),c=box.getBoundingClientRect();t.classList.toggle('r',r.left-c.left>c.width/2)});
 dlg.addEventListener('click',function(e){if(e.target===dlg)close()});
@@ -76,6 +81,8 @@ def libelle_ep(diso):
 ICO_RSS='<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="3.2" cy="12.8" r="1.7" fill="currentColor"/><path d="M2 7.2a6.8 6.8 0 0 1 6.8 6.8M2 2.6A11.4 11.4 0 0 1 13.4 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
 ICO_VOL='<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z" fill="currentColor"/><path class="w" d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
 ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
+# Outlook pour Windows : sans PixelsPerInch=96, les formes VML sont mises à l'échelle à 120 ppp et le texte du bouton est coupé
+MSO_HEAD='<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->'
 def bloc_podcast(web,diso,ed_url):
     """Barre « Écouter l'épisode » (80 %, centrée) entre l'en-tête et la Une.
     Web : se déplie au clic (lecteur aux couleurs de la page). E-mail : lien vers la page web."""
@@ -88,8 +95,8 @@ def bloc_podcast(web,diso,ed_url):
         # Outlook pour Windows (moteur Word) ignore border-radius et ne rend cliquable que le texte d'un lien :
         # bouton VML arrondi, entièrement cliquable ; les autres clients reçoivent la boîte HTML
         vml=(f'<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">'
-             f'<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{u}" style="height:44px;v-text-anchor:middle;width:462px;" arcsize="50%" strokecolor="#e3d6c3" fillcolor="#f7f4ee">'
-             f'<w:anchorlock/><center style="color:{NAVY};font-family:Segoe UI,Arial,sans-serif;font-size:14px;font-weight:600;"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}&nbsp;&nbsp;<span style="color:#6b7280;font-weight:400;">{m}</span></center>'
+             f'<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{u}" style="height:46px;v-text-anchor:middle;width:462px;" arcsize="50%" strokecolor="#e3d6c3" fillcolor="#f7f4ee">'
+             f'<w:anchorlock/><v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:false;"><center style="color:{NAVY};font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:22px;mso-line-height-rule:exactly;font-weight:600;"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}&nbsp;&nbsp;<span style="color:#6b7280;font-weight:400;">{m}</span></center></v:textbox>'
              f'</v:roundrect></td></tr></table><![endif]-->')
         html_=(f'<!--[if !mso]><!-- --><table role="presentation" width="75%" align="center" cellpadding="0" cellspacing="0" style="width:75%;margin:0 auto;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
                f'<tr><td style="padding:0;"><a href="{u}" style="display:block;padding:10px 18px;text-decoration:none;border-radius:22px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
@@ -414,14 +421,15 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w a.t.r:hover::after,.sy-w a.t.r:focus::after{{left:auto;right:0}}
 .sy-w p,.sy-v li{{margin:0 0 8px;font:15px/21px {SERIF}}}
-.sy-v{{margin:0;padding-left:18px}}
+.sy-v{{margin:0;padding-left:32px}}
+.sy-w h4~p:not(.sy-s){{padding-left:14px}}
 .sy-v li{{margin:0 0 2px;padding-left:2px;line-height:20px}}
 .sy-v li::marker{{color:#dba98f;content:'■  ';font-size:9px}}
 .sy-w p.sy-s{{margin-top:18px!important;padding-top:12px;border-top:1px solid #e5e7eb}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
+    return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{'' if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">

@@ -1179,18 +1179,6 @@
     {
      "t": ")."
     }
-   ],
-   [
-    {
-     "t": "Corée du Sud : feuille de route sur la sécurité de la chaîne d'approvisionnement logicielle publiée le 24 juin 2026 ("
-    },
-    {
-     "t": "Digital Policy Alert",
-     "href": "https://digitalpolicyalert.org/event/40944-ministry-of-science-and-information-and-communications-technology-issued-roadmap-for-software-supply-chain-security"
-    },
-    {
-     "t": ")."
-    }
    ]
   ],
   "attrs": [
@@ -1226,13 +1214,6 @@
     "themes": [
      "chaine"
     ],
-    "rappel": true
-   },
-   {
-    "themes": [
-     "chaine"
-    ],
-    "date": "2026-06-24",
     "rappel": true
    }
   ],
@@ -1303,20 +1284,6 @@
     "a_verifier": [
      "Un SBOM à jour permettrait-il de répondre en quelques heures ?",
      "Nos fichiers de verrouillage figent-ils les versions ?"
-    ]
-   },
-   {
-    "titre": "Corée du Sud : feuille de route sur la sécurité de la chaîne d'approvisionnement logicielle",
-    "statut": "Publiée le 24 juin 2026 (rappel)",
-    "fonctions": "Juridique, achats, ingénierie logicielle, contrôle des exportations",
-    "essentiel": "Le ministère sud-coréen de la Science et des TIC a publié le 24 juin 2026 une feuille de route sur la sécurité de la chaîne d'approvisionnement logicielle, d'après Digital Policy Alert.",
-    "contexte": "La sécurité de la chaîne d'approvisionnement logicielle fait l'objet d'initiatives dans plusieurs juridictions. Le texte de la feuille de route n'a pas été détaillé dans la source citée ici.",
-    "impact_avere": "Une feuille de route est un document d'orientation. Aucune obligation directe pour un industriel français ne ressort de la source.",
-    "impact_potentiel": "Si la Corée du Sud est un marché d'exportation ou un lieu d'approvisionnement, des attentes de transparence sur les composants logiciels pourraient apparaître, par exemple dans des appels d'offres. Des exigences comparables à celles d'autres juridictions pourraient aussi se développer. Les effets précis dépendraient du contenu de la feuille de route et de sa mise en œuvre.",
-    "a_verifier": [
-     "L'entreprise exporte-t-elle ou achète-t-elle des logiciels en Corée du Sud ?",
-     "La feuille de route prévoit-elle des mesures applicables aux fournisseurs étrangers ?",
-     "Ses exigences recoupent-elles celles déjà suivies en matière de SBOM ?"
     ]
    }
   ]
@@ -1510,18 +1477,6 @@
    ],
    [
     {
-     "t": "Règle des affiliés du BIS : suspendue jusqu’au 9 novembre 2026, elle se réimpose automatiquement le 10 novembre sauf action du BIS ("
-    },
-    {
-     "t": "Skadden",
-     "href": "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
      "t": "ECCN 0D521 n° 1 (IA d’analyse d’images géospatiales) : la table de l’EAR indique un passage en EAR99 au 6 janvier 2023, sauf reclassement ("
     },
     {
@@ -1583,13 +1538,6 @@
      "sanctions"
     ],
     "date": "2026-07-23"
-   },
-   {
-    "themes": [
-     "export-us"
-    ],
-    "date": "2026-07-14",
-    "rappel": true
    },
    {
     "date": "2022-01-06",
@@ -1687,20 +1635,6 @@
      "Les listes de criblage intègrent-elles les inscriptions du 21e paquet ?",
      "Des mises à jour ou services logiciels sont-ils fournis à des tiers liés à la Russie ?",
      "Quels contrats relèvent de la période transitoire ?"
-    ]
-   },
-   {
-    "titre": "EAR : réimposition de la règle des affiliés du BIS",
-    "statut": "Suspendue jusqu'au 9 novembre 2026 ; réimposition automatique le 10 novembre 2026, sauf action du BIS",
-    "fonctions": "Contrôle des exportations, juridique, administration des ventes",
-    "essentiel": "La « règle des affiliés » étend les restrictions de l'Entity List américaine aux entités détenues à 50 % ou plus par des entités inscrites, même si elles ne figurent pas nommément sur la liste. Suspendue pour un an, elle se réimposera automatiquement le 10 novembre 2026, sauf action du BIS.",
-    "contexte": "La suspension a été décidée en novembre 2025 dans le cadre d'un accord commercial entre les États-Unis et la Chine. Aucun ajout à l'Entity List daté de 2026 n'a été relevé.",
-    "impact_avere": "Un industriel français est concerné dès qu'un produit, un logiciel ou une mise à jour relève de l'EAR, par exemple par son contenu d'origine américaine au-delà des seuils de minimis. Le filtrage des contreparties doit alors couvrir la chaîne de détention.",
-    "impact_potentiel": "Des clients aujourd'hui autorisés pourraient devenir soumis à licence le 10 novembre, y compris pour les mises à jour logicielles et l'assistance technique en cours.",
-    "a_verifier": [
-     "Quels produits et logiciels relèvent de l'EAR ?",
-     "Nos outils de filtrage intègrent-ils les données de détention à 50 % ?",
-     "Quelles livraisons ou mises à jour sont prévues après le 10 novembre ?"
     ]
    },
    {
@@ -1848,25 +1782,6 @@
    ],
    [
     {
-     "t": "Défense, IA : l’AI Act exclut les systèmes exclusivement militaires ; les systèmes à usage mixte relèvent en principe du règlement ("
-    },
-    {
-     "t": "Lutz Abel",
-     "href": "https://www.lutzabel.com/en/article/it-related-legal-challenges-for-defense-companies-with-dual-use-products/"
-    },
-    {
-     "t": ", "
-    },
-    {
-     "t": "Futurium",
-     "href": "https://futurium.ec.europa.eu/en/european-ai-alliance/blog/challenges-governing-ai-military-purposes-and-spill-over-effects-ai-act"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
      "t": "Cloud souverain : le décret n° 2026-272 du 14 avril 2026 encadre le recours de l’État aux offres qualifiées SecNumCloud ("
     },
     {
@@ -1909,13 +1824,6 @@
      "pld"
     ],
     "date": "2024-11",
-    "rappel": true
-   },
-   {
-    "themes": [
-     "ai-act"
-    ],
-    "date": "2026-07",
     "rappel": true
    },
    {
@@ -1992,20 +1900,6 @@
      "Les produits de défense sont-ils exclus par la transposition française ?",
      "Les clauses de garantie des fournisseurs de logiciels sont-elles adaptées ?",
      "Quelles versions civiles seraient concernées ?"
-    ]
-   },
-   {
-    "titre": "Défense : exclusion de l'AI Act et systèmes à usage mixte",
-    "statut": "Règle en vigueur ; analyse de cabinets et de la Commission",
-    "fonctions": "Juridique, ingénierie logicielle, qualité, achats",
-    "essentiel": "L'AI Act exclut les systèmes d'IA utilisés exclusivement à des fins militaires, de défense ou de sécurité nationale. Les systèmes à usage mixte relèvent en principe du règlement, et les obligations du fournisseur restent applicables à l'usage civil.",
-    "contexte": "Le cabinet Lutz Abel et un blog hébergé par la Commission européenne analysent les difficultés juridiques des entreprises de défense dont les produits sont à double usage.",
-    "impact_avere": "Un système conçu exclusivement pour un usage militaire est exclu. Un système qui sert aussi à des usages civils n'est pas exclu pour cette part d'usage, et son fournisseur reste soumis aux obligations correspondantes.",
-    "impact_potentiel": "Un industriel de défense pourrait être qualifié de fournisseur pour une version civile ou duale d'un produit incluant de l'IA, ou pour un composant d'IA tiers réutilisé. Des clients pourraient aussi imposer contractuellement des exigences voisines. La qualification dépendrait de la finalité exclusive effectivement documentée.",
-    "a_verifier": [
-     "La finalité exclusivement militaire est-elle documentée pour chaque système d'IA ?",
-     "Des composants d'IA sont-ils réutilisés dans des produits civils ?",
-     "Quelles exigences contractuelles de clients mentionnent l'IA ?"
     ]
    },
    {

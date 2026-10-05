@@ -118,6 +118,8 @@ def check_content(d, blocks, meta, themes):
     for s_, n_ in rap.items():   # au moins 2 rappels par rubrique affichée (hors Agenda)
         if s_ not in vides and not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ < 2:
             ERR.append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappel(s), au moins 2 attendus')
+        elif s_ not in vides and not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ % 2:
+            WARN.append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappels ; un nombre pair équilibre les deux colonnes')
     if nitems and nsum < nitems: WARN.append(f'{nitems - nsum} élément(s) sans synthèse sur {nitems}')
     return nitems
 
