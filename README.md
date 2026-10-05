@@ -29,7 +29,7 @@ Lecteur : le référent Software Compliance d'une entreprise française de défe
 
 ## 4. Neutralité éditoriale
 
-Titres et chapôs reflètent ce que disent les sources, sans interprétation ni qualification commerciale (jamais « marché à prospecter »). Pas de formule du type « Je n'ai pas trouvé… » : écrire « Aucun … n'a été relevé dans les sources consultées. ». Les synthèses (§ 6) sont le seul endroit où l'impact est analysé.
+Titres et chapôs reflètent ce que disent les sources, sans interprétation ni qualification commerciale (jamais « marché à prospecter »). Terminologie : « chaîne d'approvisionnement logicielle » (on peut préciser *software supply chain* à la première occurrence) et « nomenclature logicielle (SBOM) » ; pour l'attaque, « attaque de la chaîne d'approvisionnement » (vocabulaire de l'UE et de l'ENISA), une seule forme par édition ; jamais « chaîne logistique logicielle ». Pas de formule du type « Je n'ai pas trouvé… » : écrire « Aucun … n'a été relevé dans les sources consultées. ». Les synthèses (§ 6) sont le seul endroit où l'impact est analysé.
 
 ## 5. Continuité d'une édition à l'autre
 

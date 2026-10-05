@@ -23,6 +23,7 @@
 |---|---|---|
 | Légifrance (JORF) | https://www.legifrance.gouv.fr/ | Lois, décrets, arrêtés (NIS2, export, SREN) |
 | ANSSI | https://cyber.gouv.fr/actualites | Référentiels, qualifications (SecNumCloud), transposition NIS2 |
+| CERT-FR (ANSSI) | https://www.cert.ssi.gouv.fr/ | Panoramas de la cybermenace (annuels), alertes et rapports sur les attaques par la chaîne d'approvisionnement |
 | SGDSN | https://www.sgdsn.gouv.fr/ | Contrôle des exportations de matériels de guerre (CIEEMG) |
 | Ministère des Armées, DGA | https://www.defense.gouv.fr/dga | Contrôle des exportations, SIGALE |
 | DG Trésor, sanctions économiques | https://www.tresor.economie.gouv.fr/services-aux-entreprises/sanctions-economiques | Gels d'avoirs, mesures nationales |
@@ -69,6 +70,7 @@
 ## Requêtes de veille (chaque semaine, en français et en anglais)
 
 - « Software Composition Analysis », « SBOM tool », « open source license compliance tool » ;
+- en français, toutes les formes en usage, car la presse titre souvent avec l'une et rédige avec l'autre : « chaîne d'approvisionnement logicielle », « supply chain logicielle », « attaque supply chain », « attaque de la chaîne d'approvisionnement » (UE, ENISA, éditeurs) et « attaque par la chaîne d'approvisionnement » (ANSSI) ; pour le SBOM : « nomenclature logicielle » (ANSSI, presse) et « nomenclature des logiciels » (version française du CRA) ; « chaîne d'approvisionnement numérique » pour les textes européens ;
 - « export control classification software », « ECCN classification tool », « classement export logiciel », « dual-use classification AI » ;
 - « encryption classification 5D002 », « mass market encryption », « moyens de cryptologie déclaration » ;
 - « AI model export control », « geospatial imagery deep learning export control », « 0D521 » ;
@@ -77,4 +79,6 @@
 
 ## Presse et analyses (interprétation, jamais seule source d'un fait juridique)
 
-LWN.net, The Record, Industrial Cyber, BleepingComputer (attaques de la chaîne d'approvisionnement), Next (France), lettres d'information des cabinets d'avocats spécialisés (contrôle des exportations, sanctions, CRA).
+LWN.net, The Record, Industrial Cyber, BleepingComputer (attaques de la chaîne d'approvisionnement), lettres d'information des cabinets d'avocats spécialisés (contrôle des exportations, sanctions, CRA).
+
+Presse française : Next, LeMagIT, Le Monde Informatique, Silicon.fr, JDN, CIO-Online, L'Usine Digitale, Solutions Numériques, IT Social, Global Security Mag. Elles relaient surtout les annonces d'éditeurs et les attaques : utiles pour repérer un sujet, jamais seule source d'un fait.
