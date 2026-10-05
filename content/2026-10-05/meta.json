@@ -1,0 +1,59 @@
+{
+ "n": 2,
+ "date_long": "Lundi 5 octobre 2026",
+ "date": "5 octobre 2026",
+ "toc": [
+  "À la une",
+  "SBOM et standards",
+  "Outils",
+  "Chaîne d’approvisionnement",
+  "Commerce international",
+  "France et UE",
+  "Licences",
+  "Agenda"
+ ],
+ "ess": [
+  [
+   "23 sept.",
+   "CRA : l’ANSSI notifie les organismes, l’ANFR surveille le marché",
+   0
+  ],
+  [
+   "20",
+   "autorités de numérotation CVE sous la racine ENISA",
+   1
+  ],
+  [
+   "2 oct.",
+   "Grype 0.120.0 : points de décision SSVC dans la base v6",
+   2
+  ],
+  [
+   "7 oct.",
+   "la loi Résilience (NIS2, DORA, REC) arrive à l’Assemblée nationale",
+   5
+  ],
+  [
+   "10 nov.",
+   "réimposition automatique de la règle des affiliés du BIS",
+   4
+  ]
+ ],
+ "agenda_refs": [
+  "https://events.linuxfoundation.org/openssf-community-day-europe/",
+  "https://next.ink/brief-article/alleluia-la-transposition-de-nis2-est-enfin-a-lordre-du-jour-de-lassemblee-nationale/",
+  "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "https://www.cyberresilienceact.eu/news/cra-standardisation-deadlines-pushed-back-two-months.html",
+  "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal",
+  "https://www.wolftheiss.com/insights/cmmc-phase-ii-suspended-what-changes-and-what-does-not-for-european-suppliers-to-the-us-defence-industrial-base/",
+  "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "https://www.euaiact.com/digital-omnibus-ai",
+  "https://www.wolftheiss.com/insights/software-digital-products-and-ai-stricter-safety-requirements-on-the-horizon/",
+  "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "https://www.euaiact.com/digital-omnibus-ai",
+  "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+ ],
+ "site": "https://revue.dejeun.es/",
+ "date_iso": "2026-10-05",
+ "redaction": "Anthropic Claude Sonnet 5.5"
+}

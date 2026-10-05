@@ -1,6 +1,16 @@
 # terme (regex) : (libellé, définition ≤30 mots, URL officielle vérifiée ou None)
 G = [
 (r"CRA", "Cyber Resilience Act", "Règlement européen 2024/2847 imposant des exigences de cybersécurité aux produits comportant des éléments numériques, avec déclaration des vulnérabilités exploitées depuis le 11 septembre 2026.", "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"),
+(r"ANFR", "ANFR", "Agence nationale des fréquences ; désignée par l'ANSSI comme autorité de surveillance des produits numériques mis sur le marché dans le cadre du CRA.", "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/"),
+(r"DGE", "DGE", "Direction générale des entreprises : service du ministère de l'Économie qui accompagne les entreprises, ici pour la mise en conformité au CRA.", None),
+(r"CNA", "CNA", "CVE Numbering Authority : organisation autorisée à attribuer des identifiants CVE aux vulnérabilités de son périmètre, sous une racine comme celle de l'ENISA.", "https://www.cve.org/ProgramOrganization/CNAs"),
+(r"NCIA", "NCIA", "Agence de communication et d'information de l'OTAN, devenue autorité de numérotation CVE sous la racine ENISA le 6 août 2026.", None),
+(r"AISLE", "AISLE", "Entreprise d'IA et de cybersécurité, devenue autorité de numérotation CVE sous la racine ENISA le 6 août 2026.", None),
+(r"MITRE", "MITRE", "Organisation à but non lucratif qui exploite historiquement la racine principale du programme CVE.", "https://www.cve.org/"),
+(r"OTAN", "OTAN", "Organisation du traité de l'Atlantique Nord : alliance militaire de pays européens et nord-américains.", None),
+(r"SSVC", "SSVC", "Stakeholder-Specific Vulnerability Categorization : méthode d'aide à la décision qui classe les vulnérabilités selon leur exploitation et leur impact pour choisir le traitement.", None),
+(r"sigstore", "sigstore", "Projet open source de signature et de vérification des artefacts logiciels (versions, images, sommes de contrôle).", "https://www.sigstore.dev/"),
+(r"HTML", "HTML", "HyperText Markup Language : langage de description des pages web, aussi utilisé pour des rapports lisibles dans un navigateur.", None),
 (r"ENISA", "ENISA", "Agence de l'Union européenne pour la cybersécurité. Elle exploite la plateforme unique de déclaration prévue par le CRA.", "https://www.enisa.europa.eu/"),
 (r"CMMC", "CMMC", "Cybersecurity Maturity Model Certification : programme du département américain de la Défense qui impose des niveaux de cybersécurité vérifiés à ses fournisseurs.", "https://dodcio.defense.gov/CMMC/"),
 (r"ITAR", "ITAR", "International Traffic in Arms Regulations : réglementation américaine contrôlant l'exportation et la réexportation de matériels de défense, de données techniques et de logiciels associés.", "https://www.ecfr.gov/current/title-22/chapter-I/subchapter-M"),
