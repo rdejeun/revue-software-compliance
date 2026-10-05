@@ -310,13 +310,18 @@ def produire(d, dry=False, force=False):
     if pod is None: bilan('notice', f'{d} : pas de podcast.json, rien à faire.'); return False
     err, warn, mots = controler(pod, numero(d))
     sha = hashlib.sha256((sha + json.dumps(regles(), sort_keys=True, ensure_ascii=False) + MODELE).encode('utf-8')).hexdigest()  # lexique et modèle comptent aussi
-    if MAX_CHARS: sha += f':essai-{MAX_CHARS}'   # un extrait n'est jamais pris pour l'épisode complet
+    # un extrait n'est jamais pris pour l'épisode complet ; un plafond qui ne coupe rien ne compte pas
+    # (changer PODCAST_MAX_CHARS ne refait pas un épisode déjà complet)
+    coupe = len(extrait(pod['repliques'])) < len(pod['repliques'])
+    if coupe: sha += f':essai-{MAX_CHARS}'
     for w in warn: log(f'{d} : avertissement : {w}')
     if err: raise SystemExit(f'{d} : script invalide :\n- ' + '\n- '.join(err))
     dossier = os.path.join(CONTENT, d)
     mp3, info = os.path.join(dossier, 'episode.m4a'), os.path.join(dossier, 'episode.json')
     if not force and not dry and os.path.isfile(mp3) and os.path.isfile(info):
-        if json.load(open(info, encoding='utf-8')).get('sha_script') == sha:
+        avant = json.load(open(info, encoding='utf-8'))
+        complet = avant.get('repliques') == len(pod['repliques'])   # l'épisode existant contient toutes les répliques
+        if avant.get('sha_script') == sha or (not coupe and complet and str(avant.get('sha_script', '')).split(':essai-')[0] == sha):
             bilan('notice', f'{d} : épisode déjà à jour, rien à refaire.'); return False
     cle = os.environ.get('ELEVENLABS_API_KEY', '').strip()
     if not dry and not cle: bilan('warning', f'{d} : secret ELEVENLABS_API_KEY absent, épisode non produit.'); return False
@@ -335,7 +340,7 @@ def produire(d, dry=False, force=False):
         log(f'{d} : solde ElevenLabs {reste} caractères, besoin {besoin} (marge comprise) : ok')
     loc = None if dry else dictionnaire(cle)
     lex = [] if loc else lexique()
-    if MAX_CHARS:
+    if coupe:
         mots = sum(len(r['t'].split()) for r in reps)
         log(f'{d} : MODE ESSAI (PODCAST_MAX_CHARS={MAX_CHARS}) : {len(reps)} réplique(s) sur {len(pod["repliques"])}, {sum(len(r["t"]) for r in reps)} caractères')
     chunks = decouper(reps)
@@ -359,7 +364,7 @@ def produire(d, dry=False, force=False):
     duree = M['duree_blocs_s'] + M.get('habillage_s', 0)
     meta = {'duree_s': round(duree), 'octets': os.path.getsize(sortie), 'mots': mots, 'modele': 'essai à blanc' if dry else MODELE, 'seed': SEED,
             'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
-            'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': bool(MAX_CHARS), 'repliques': len(reps),
+            'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': coupe, 'repliques': len(reps),
             'prononciation': 'aucune (essai à blanc)' if dry else ('dictionnaire ElevenLabs ' + loc['version_id'] if loc else 'remplacements locaux'),
             'qc': resume, 'requetes': len(chunks)}
     if dry:
@@ -373,7 +378,7 @@ def produire(d, dry=False, force=False):
     ancien = os.path.join(dossier, 'episode.mp3')
     if os.path.isfile(ancien): os.remove(ancien)   # ancien format, remplacé
     json.dump(meta, open(info, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    bilan('notice', f'{d} : {"extrait d’essai" if MAX_CHARS else "épisode"} produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
+    bilan('notice', f'{d} : {"extrait d’essai" if coupe else "épisode"} produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
     return True
 
 
