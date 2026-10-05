@@ -46,9 +46,11 @@ JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" c
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
 /* chaque ouverture ajoute une entrée d'historique : le bouton Précédent (y compris celui de la souris) ferme la fenêtre */
 var pushed=false,byPop=false;
-function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';box.scrollTop=0;
+function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
  if(push!==false)try{if(pushed)history.replaceState({syn:id},'','#'+id);else{history.pushState({syn:id},'','#'+id);pushed=true}}catch(e){}
- if(!dlg.open)dlg.showModal()}
+ if(!dlg.open)dlg.showModal();
+ /* remise en haut après l'affichage : fenêtre fermée, le navigateur ignore scrollTop et garde la position précédente (mobile) */
+ box.scrollTop=0;dlg.scrollTop=0;requestAnimationFrame(function(){box.scrollTop=0;dlg.scrollTop=0})}
 function close(){if(dlg.open)dlg.close()}
 dlg.addEventListener('close',function(){if(byPop)return;if(pushed){pushed=false;try{history.back()}catch(e){}}else try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
 window.addEventListener('popstate',function(e){var s=e.state&&e.state.syn;if(s){pushed=true;open(s,false);return}pushed=false;if(dlg.open){byPop=true;dlg.close();byPop=false}});
