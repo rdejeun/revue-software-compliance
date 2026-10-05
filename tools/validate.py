@@ -41,7 +41,8 @@ def check_sum(sm, where):
     av = sm.get('a_verifier') or []
     if not 2 <= len(av) <= 3: WARN.append(f'{where} : « À vérifier » contient {len(av)} question(s) (2 ou 3 attendues)')
     n = sum(words(sm.get(k)) for k in ('essentiel', 'contexte', 'impact_avere', 'impact_potentiel')) + sum(words(q) for q in av)
-    if not 140 <= n <= 215: WARN.append(f'{where} : synthèse de {n} mots (170 à 185 visés)')
+    if words(sm.get('essentiel')) > 120: WARN.append(f'{where} : résumé de {words(sm.get("essentiel"))} mots (120 au plus)')
+    if not 140 <= n <= 275: WARN.append(f'{where} : synthèse de {n} mots (170 à 245 visés)')
 
 
 def check_attrs(a, where, themes, need_date=True):

@@ -42,14 +42,20 @@ def lead(items):
     m=re.match(r'^([^:]{1,90}?)(\s:)',t)
     if m: return [{'t':m.group(1),'b':1},{'t':t[m.end(1):]}]+items[1:]
     return items
-JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sy-w" id="sy-c"></div></dialog>
+JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sy-w" id="sy-c"></div><div class="sy-f"><a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a></div></dialog>
 <script>
 (function(){
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
+/* Partager : lien mailto, objet = titre, corps = titre + lien vers la fenêtre dans la page datée de l'édition */
+function partage(id){var a=document.getElementById('sy-sh');if(!a)return;var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
+ var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
+ var u=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
+ a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+u)}
 /* chaque ouverture ajoute une entrée d'historique : le bouton Précédent (y compris celui de la souris) ferme la fenêtre */
 var pushed=false,byPop=false;
 function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
  if(push!==false)try{if(pushed)history.replaceState({syn:id},'','#'+id);else{history.pushState({syn:id},'','#'+id);pushed=true}}catch(e){}
+ partage(id);
  if(!dlg.open)dlg.showModal();
  /* remise en haut après l'affichage : fenêtre fermée, le navigateur ignore scrollTop et garde la position précédente (mobile) */
  box.scrollTop=0;dlg.scrollTop=0;requestAnimationFrame(function(){box.scrollTop=0;dlg.scrollTop=0})}
@@ -70,7 +76,7 @@ var h=location.hash.slice(1);if(/^(\d{4}-\d{2}-\d{2}-)?syn\d+$/.test(h))open(h,f
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
-SYN_LABELS=[('essentiel','L’essentiel'),('contexte','Contexte')]
+SYN_LABELS=[('contexte','Contexte'),('essentiel','Résumé')]
 REDACTION_DEFAUT='Anthropic Claude Opus 5.5'   # meta.json « redaction » : <éditeur> <modèle> <version>
 # Image d'en-tête facultative (version web) : tools/en-tete.(webp|png|jpg), publiée sous /assets/
 _TOOLS=os.path.dirname(os.path.abspath(__file__))
@@ -421,9 +427,13 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-rss svg{{flex:none}}
 .pod-rss:hover,.pod-rss:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 @media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
-dialog.sy{{width:min(640px,calc(100vw - 32px));max-height:min(86vh,900px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
+dialog.sy{{width:min(860px,calc(100vw - 32px));max-height:min(92vh,1200px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
-.sy-w{{padding:26px 34px 28px;overflow:auto;max-height:calc(min(86vh,900px) - 6px);box-sizing:border-box}}
+dialog.sy[open]{{display:flex;flex-direction:column}}
+.sy-w{{flex:1 1 auto;min-height:0;padding:28px 40px 24px;overflow:auto;box-sizing:border-box}}
+.sy-f{{flex:none;display:flex;justify-content:flex-end;padding:8px 16px 10px;border-top:1px solid #eee9de;background:#fff}}
+.sy-sh{{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #e1c6b4;border-radius:14px;color:{ACC};font:600 12px/18px {SANS};text-decoration:none}}
+.sy-sh:hover,.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 .sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
 .sy-x svg{{display:block}}
 .sy-x:hover,.sy-x:focus-visible{{color:{NAVY};outline:2px solid #d5dbe5}}
@@ -436,10 +446,10 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w a.t.r:hover::after,.sy-w a.t.r:focus::after{{left:auto;right:0}}
-.sy-w p,.sy-v li{{margin:0 0 8px;font:15px/21px {SERIF}}}
+.sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF}}}
 .sy-v{{margin:0;padding-left:32px}}
 .sy-w h4~p:not(.sy-s){{padding-left:14px}}
-.sy-v li{{margin:0 0 2px;padding-left:2px;line-height:20px}}
+.sy-v li{{margin:0 0 4px;padding-left:2px;line-height:24px}}
 .sy-v li::marker{{color:#dba98f;content:'■  ';font-size:9px}}
 .sy-w p.sy-s{{margin-top:18px!important;padding-top:12px;border-top:1px solid #e5e7eb}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
@@ -454,7 +464,7 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 <tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid {NAVY};"><tr><td style="padding:16px 0 0;font:12px/19px {SANS};color:#6b7280;">Ce document a été rédigé par une intelligence artificielle ({esc(META.get('redaction') or REDACTION_DEFAUT)}). Des erreurs sont possibles.</td></tr></table>
-</td></tr></table></td></tr></table>{''.join(syns)+JS+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}</body></html>''',len(used)
+</td></tr></table></td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}</body></html>''',len(used)
 def compact_email(h):
     """Allège l'e-mail : chaque style répété (4 fois ou plus) passe dans une classe déclarée dans <head>.
     Couleur et marges restent en ligne, pour les clients qui ignorent les styles de <head>."""
