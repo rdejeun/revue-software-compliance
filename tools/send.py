@@ -65,7 +65,7 @@ def main():
     if not to or not key: sys.exit('Destinataires (MAIL_TO / DRAFT_TO) ou clé RESEND_API_KEY manquants : envoi impossible.')
     if '--wait' in a: wait_online(f'https://revue.dejeun.es/{d}/', meta['n'])
     b = os.path.join(BUILD, d)
-    subject = f'Software Compliance – N° {meta["n"]} – {meta["date"]}'
+    subject = f'📰 Revue de presse – {meta["date"]}'   # meta « date » : « 9 octobre 2026 »
     if mode == 'brouillon': subject = '[Brouillon] ' + subject
     if mode == 'auto' and len(to) > BCC_MAX: sys.exit(f'{len(to)} destinataires : au-delà de {BCC_MAX}, Resend refuse la copie cachée (passer à un envoi par lots)')
     dest = {'to': [VISIBLE], 'bcc': to} if mode == 'auto' else {'to': to}
