@@ -315,8 +315,11 @@ def produire(blocs, voix, sortie_audio, dossier, meta, sortie_brute=None):
     # étape 5
     c = CONFIG['compresseur']
     for k in st: st[k] = compresseur(st[k], masque[k], c['ratio'], c['reduction_db'], c['attaque_ms'], c['relache_ms'])
-    L = {k: lufs(st[k], masque[k]) for k in st}; cible = np.nanmean(list(L.values()))
-    for k in st: st[k] *= 10 ** ((cible - L[k]) / 20)
+    L = {k: lufs(st[k], masque[k]) for k in st}
+    ok = [v for v in L.values() if np.isfinite(v)]   # une voix muette (extrait d'essai à une seule voix) n'a pas de loudness
+    cible = float(np.mean(ok)) if ok else None
+    for k in st:
+        if cible is not None and np.isfinite(L[k]): st[k] *= 10 ** ((cible - L[k]) / 20)
     for k in st: sf.write(os.path.join(dossier, 'stems', f'voix_{k}_traitee.wav'), st[k].astype(np.float32), SR, subtype='FLOAT')
     M['apres'] = {'timbre_ecart_db': float(np.abs(ltas(st['A'], masque['A']) - ltas(st['B'], masque['B']))[(TIERS >= 150) & (TIERS <= 8000)].max()),
                   'decroissance_ms': {k: decroissance_ms(st[k]) for k in st},
