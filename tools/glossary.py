@@ -101,4 +101,9 @@ G = [
 (r"ETSI", "ETSI", "Institut européen des normes de télécommunications : organisme européen de normalisation, chargé avec le CEN et le CENELEC des normes harmonisées du CRA.", "https://www.etsi.org/"),
 (r"EN", "Norme européenne (EN)", "Norme adoptée par un organisme européen de normalisation (CEN, CENELEC ou ETSI) ; une norme harmonisée citée au JO donne présomption de conformité.", "https://single-market-economy.ec.europa.eu/single-market/european-standards_en"),
 (r"IBM", "IBM", "Entreprise informatique américaine, membre fondateur de nombreuses fondations open source.", None),
+(r"FBI", "FBI", "Police fédérale américaine ; coauteur, avec la CISA et la NSA, des éléments minimaux du SBOM 2026.", None),
+(r"NSA", "NSA", "Agence américaine du renseignement d'origine électromagnétique et de la cybersécurité ; coautrice des éléments minimaux du SBOM 2026.", None),
+(r"NTIA", "NTIA", "Administration américaine des télécommunications et de l'information, qui avait publié en 2021 les premiers éléments minimaux du SBOM.", None),
+(r"SDK", "SDK", "Software Development Kit : trousse d'outils et de bibliothèques fournie par un éditeur pour développer des logiciels qui utilisent son service.", None),
+(r"UTC", "UTC", "Temps universel coordonné : référence horaire internationale, décalée de une ou deux heures par rapport à l'heure de Paris.", None),
 ]
