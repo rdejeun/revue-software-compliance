@@ -120,6 +120,8 @@ def controler(pod):
         for b in re.findall(r'\[([^\]]*)\]', t):
             if b not in BALISES: err.append(f'réplique {i + 1} : balise [{b}] non autorisée (autorisées : {", ".join(sorted(BALISES))})')
         if re.search(r'[{}<>*_#]|https?://', re.sub(r'\[[^\]]*\]', '', t)) or t.count('[') != t.count(']'): err.append(f'réplique {i + 1} : lien ou mise en forme à retirer (texte lu à voix haute)')
+        m_ = re.search(r'\b(avérée?s?|potentiel(?:le)?s?)\b', t, re.I)
+        if m_: err.append(f'réplique {i + 1} : « {m_.group(1)} » à éviter : dire l’impact naturellement (indicatif pour ce qui est déjà acquis, conditionnel pour ce qui pourrait arriver), sans l’étiqueter')
     from collections import Counter
     for b, n in Counter(x for r in reps for x in re.findall(r'\[([^\]]*)\]', r.get('t') or '')).items():
         if n > 1: err.append(f'balise [{b}] utilisée {n} fois : une seule fois par épisode, à dessein pédagogique')

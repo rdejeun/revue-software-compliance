@@ -40,6 +40,7 @@ def main():
     mode = a[a.index('--mode') + 1] if '--mode' in a else 'auto'
     pos = [x for i, x in enumerate(a) if not x.startswith('--') and (i == 0 or a[i - 1] != '--mode')]
     eds = sorted(x for x in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', x))
+    if not pos and not eds: print('Aucune édition : pas d’envoi.'); out('sent', '0'); return
     d = pos[0] if pos else eds[-1]
     meta = json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8'))
     rec = os.path.join(CONTENT, d, 'envoi.json')

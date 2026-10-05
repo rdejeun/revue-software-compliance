@@ -36,7 +36,7 @@ Titres et chapôs reflètent ce que disent les sources, sans interprétation ni 
 Les éditions précédentes (`content/*/blocks.json`) forment le registre de ce qui a été publié. Avant de rédiger, lire au moins les quatre dernières.
 
 - **Nouveauté** : fait publié ou survenu depuis l'édition précédente. Affiché en tête de section.
-- **Rappel** (`"rappel": true`) : fait déjà publié, repris parce qu'il reste important ou qu'une échéance approche. Texte de 25 mots au plus, affiché en fin de section, en plus petit, sur deux colonnes, sous le filet « Rappels ». Ne pas reprendre un fait sans raison.
+- **Rappel** (`"rappel": true`) : fait antérieur à la période couverte, déjà publié dans la revue ou non, qui reste d'actualité (texte en cours de transposition, contentieux pendant, échéance qui approche, relicenciement récent…). Texte de 25 mots au plus, affiché en fin de section, en plus petit, sur deux colonnes, sous le filet « Rappels ». **Au moins 2 rappels par rubrique** (toutes sauf l'Agenda) ; le contrôle bloque sinon. Les rappels figurent dans la version écrite seulement, jamais dans le podcast.
 - **Mise à jour** : fait déjà publié qui a évolué. C'est une nouveauté ; l'accroche le dit (« Mise à jour : … »).
 - **Fin de sujet** : quand un dossier se clôt (jugement rendu, texte publié au JO, procédure abandonnée), le dire dans une dernière puce, au lieu de cesser d'en parler.
 - **Date** : chaque puce porte la date de l'information (`date`, AAAA-MM-JJ ou AAAA-MM), affichée après les sources.
@@ -63,7 +63,7 @@ Règles : faits uniquement tirés des sources vérifiées ; tenir compte des exc
 1. Lire ce README, `sources-reference.md`, `tools/themes.json` et les quatre dernières éditions de `content/`.
 2. Rechercher l'actualité depuis l'édition précédente (§ 2 et § 3).
 3. Classer chaque information (§ 5) et appliquer la règle d'or.
-4. Rédiger `content/AAAA-MM-JJ/blocks.json` et `meta.json` (schéma § 8), avec la date d'envoi. Numéro : n = partie entière de ((date − 28 septembre 2026) en jours ÷ 7) + 1 (9 octobre 2026 → 2). `date_long` : « Vendredi 9 octobre 2026 ». Ne jamais modifier une édition déjà envoyée (présence de `envoi.json`).
+4. Rédiger `content/AAAA-MM-JJ/blocks.json` et `meta.json` (schéma § 8), avec la date d'envoi. Numéro : n = partie entière de ((date − 5 octobre 2026) en jours ÷ 7) + 1 (9 octobre 2026 → 1, 16 octobre 2026 → 2) ; la numérotation a été remise à zéro le 5 octobre 2026. `date_long` : « Vendredi 9 octobre 2026 ». Ne jamais modifier une édition déjà envoyée (présence de `envoi.json`).
 5. Rédiger les synthèses (§ 6).
 5 bis. Écrire le script de l'épisode audio `content/AAAA-MM-JJ/podcast.json` (§ 11), puis le contrôler : `python3 tools/podcast.py --check`.
 6. Mettre à jour `tools/glossary.py` (nouveaux sigles et noms propres : `(regex, libellé, définition ≤ 30 mots, URL officielle ou None)`) et `tools/themes.json`.
@@ -126,7 +126,8 @@ Les marqueurs `{"sujet": "…"}` (non lus) annoncent chaque changement de sujet 
 
 Règles d'écriture :
 - **Fond** : uniquement des faits publiés dans l'édition (puces et synthèses) ; aucun chiffre, aucune date, aucun nom qui n'y figure pas. Mêmes règles de neutralité (§ 4).
-- **Avéré et potentiel** : l'avéré à l'indicatif (« c'est déjà obligatoire »), le potentiel au conditionnel (« ça pourrait… », « si… alors… »), comme dans les synthèses.
+- **Impacts** : les dire naturellement, dans le fil du dialogue : ce qui est déjà acquis à l'indicatif (« c'est déjà obligatoire »), ce qui pourrait arriver au conditionnel (« ça pourrait… », « si… alors… »). Ne jamais employer les mots « avéré » ni « potentiel » pour les étiqueter (`--check` les refuse).
+- **Rappels** : jamais dans le podcast ; seulement les nouveautés de l'édition.
 - **Langage courant** : phrases courtes, vocabulaire de tous les jours ; chaque sigle est développé ou expliqué la première fois (« l'ENISA, l'agence européenne de cybersécurité ») ; une image concrète par notion difficile (« le SBOM, c'est la liste des ingrédients d'un logiciel »).
 - **Rythme** : question → explication → relance ; répliques de Guillaume de 2 à 4 phrases ; Julie reformule, s'étonne, demande « et pour nous, concrètement ? ».
 - **Contenu** : ouverture brève (une phrase par voix), 4 à 6 sujets parmi les plus importants de l'édition (toujours la Une), clôture. **Pas de rubrique agenda** (une liste de dates est ennuyeuse à l'oreille) : au plus **une** date, la plus importante pour le lecteur, expliquée en deux phrases juste avant la clôture (« Et si on ne devait retenir qu'une date ? »). 1 200 à 1 500 mots.

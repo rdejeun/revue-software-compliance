@@ -209,7 +209,17 @@ def main():
     if os.path.isdir(SITE): shutil.rmtree(SITE)
     os.makedirs(SITE)
     eds = editions()
-    if not eds: sys.exit('Aucune édition dans content/')
+    if not eds:   # aucune édition (remise à zéro) : site d'attente, archives et flux vides
+        attente = 'La première édition paraîtra un vendredi matin. Les archives, les dossiers et les flux se rempliront à partir de là.'
+        write(os.path.join(SITE, 'index.html'), page('Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Première édition à paraître', f'<p>{attente}</p>'))
+        write(os.path.join(SITE, 'archives', 'index.html'), page('Archives · Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Archives · aucune édition · <a href="/">Accueil</a>', '<ul class="l"></ul>'))
+        write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers', 'Aucun dossier pour l’instant · <a href="/">Accueil</a>', ''))
+        vide = lambda t, d, x='': f'<?xml version="1.0" encoding="utf-8"?>\n<rss version="2.0"{x}><channel><title>{t}</title><link>{URL}/</link><description>{d}</description><language>fr</language></channel></rss>\n'
+        write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.'))
+        write(os.path.join(SITE, 'podcast.xml'), vide('Software Compliance, l’épisode', 'La revue de presse Software Compliance racontée à deux voix de synthèse.', ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
+        write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire sur la conformité logicielle des produits pour l’industrie de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
+        write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
+        print('Aucune édition : site d’attente construit'); return
     infos = []
     for d in eds:
         blocks, meta = load(d)

@@ -1,0 +1,1 @@
+Une édition par dossier AAAA-MM-JJ (voir README, § 8). Ce fichier garde le dossier dans le dépôt quand il est vide.

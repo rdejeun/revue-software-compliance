@@ -13,7 +13,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT, BUILD, TOOLS = (os.path.join(ROOT, x) for x in ('content', 'build', 'tools'))
 JOURS = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
-ORIGINE = datetime.date(2026, 9, 28)   # lundi de la semaine du N° 1
+ORIGINE = datetime.date(2026, 10, 5)   # lundi de la semaine du N° 1 (remise à zéro du 5 octobre 2026)
 ERR, WARN = [], []
 
 
@@ -66,17 +66,18 @@ def check_content(d, blocks, meta, themes):
         if meta.get('date_long') != attendu: ERR.append(f'meta.json : date_long « {meta.get("date_long")} », attendu « {attendu} »')
     except ValueError:
         ERR.append(f'Nom de dossier « {d} » invalide')
-    nsec = 0; sec = ''; nitems = nsum = 0
+    nsec = 0; sec = ''; nitems = nsum = 0; rap = {}
     for i, b in enumerate(blocks):
         k = b.get('k'); w = f'bloc {i} ({k})'
         if k not in ('h1', 'h2', 'p', 'ul', 'table'): ERR.append(f'{w} : type inconnu'); continue
         if k in ('h1', 'h2', 'p'):
             if not segs_ok(b.get('i'), w): continue
         if k == 'h2':
-            sec = ''.join(x['t'] for x in b['i']).strip(); nsec += 1
+            sec = ''.join(x['t'] for x in b['i']).strip(); nsec += 1; rap.setdefault(sec, 0)
             if sec.startswith(('Audit', 'Sources')): ERR.append(f'{w} : la section « {sec} » est interne et ne doit pas figurer dans le dépôt public')
         elif k == 'p' and b.get('attrs') is not None:
             check_attrs(b['attrs'], w, themes, need_date=False); check_sum(b.get('sum'), w)
+            if (b['attrs'] or {}).get('rappel'): rap[sec] = rap.get(sec, 0) + 1
             nitems += 1; nsum += bool(b.get('sum'))
         elif k == 'ul':
             its = b.get('items') or []
@@ -90,6 +91,7 @@ def check_content(d, blocks, meta, themes):
                 sm = (b.get('sum') or [None] * len(its))[j] if j < len(b.get('sum') or []) else None
                 check_attrs(a or {}, ww, themes); check_sum(sm, ww)
                 nitems += 1; nsum += bool(sm)
+                if a and a.get('rappel'): rap[sec] = rap.get(sec, 0) + 1
                 if a and a.get('rappel') and words(''.join(x['t'] for x in it if not x.get('href'))) > 30:
                     WARN.append(f'{ww} : rappel de plus de 30 mots (deux colonnes : rester court)')
         elif k == 'table':
@@ -109,6 +111,9 @@ def check_content(d, blocks, meta, themes):
                 check_sum(sm, ww); nitems += 1; nsum += bool(sm)
                 check_attrs((b.get('attrs') or [{}] * n)[j] or {}, ww, themes, need_date=False)
     if nsec < 4: ERR.append(f'Édition incomplète : {nsec} section(s)')
+    for s_, n_ in rap.items():   # au moins 2 rappels par rubrique (hors Agenda)
+        if not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ < 2:
+            ERR.append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappel(s), au moins 2 attendus')
     if nitems and nsum < nitems: WARN.append(f'{nitems - nsum} élément(s) sans synthèse sur {nitems}')
     return nitems
 
@@ -169,6 +174,7 @@ def check_links(web):
 def main():
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     eds = sorted(x for x in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', x))
+    if not args and not eds: print('Aucune édition à contrôler.'); sys.exit(0)
     d = args[0] if args else eds[-1]
     blocks = json.load(open(os.path.join(CONTENT, d, 'blocks.json'), encoding='utf-8'))
     meta = json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8'))
