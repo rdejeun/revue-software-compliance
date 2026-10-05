@@ -106,7 +106,7 @@ Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere"
 3. Mise en ligne sur GitHub Pages.
 4. `tools/send.py` : envoi par l'API Resend, une seule fois par édition (enregistré dans `content/AAAA-MM-JJ/envoi.json`), jamais pour une démonstration ni pour une édition de plus de 3 jours.
 
-Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
+Message de commit : `[brouillon]` envoie seulement l'e-mail de relecture (`DRAFT_TO`) ; `[sans-envoi]` n'envoie rien. `[sans-podcast]` ne produit ni ne régénère l'épisode audio (l'épisode existant est conservé). Lancement manuel possible (onglet Actions, « Publier la revue ») avec le mode `auto`, `brouillon` ou `aucun`.
 
 Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_API_KEY` et `ELEVENLABS_API_KEY` (épisode audio) ; variables `ELEVENLABS_VOICE_FEMALE` et `ELEVENLABS_VOICE_MALE` (identifiants des voix de Julie et de Guillaume) et, facultatives, `ELEVENLABS_MODEL` (défaut `eleven_v4` ; `eleven_v3` pour revenir en arrière) et `PODCAST_MAX_CHARS` (mode essai : n'enregistre que les premières répliques, jusqu'à ce nombre de caractères ; 450 ≈ 30 secondes ; supprimer la variable pour produire l'épisode complet) ; variables `MAIL_TO` (destinataires, séparés par des virgules, servis en copie cachée : 50 au plus), `MAIL_VISIBLE` (facultative : adresse affichée dans le champ « À », par défaut celle de l'expéditeur) et `DRAFT_TO` (relecture).
 

@@ -5,6 +5,7 @@ name: Publier la revue
 # envoie l'e-mail par Resend. L'épisode n'est jamais bloquant : s'il échoue, la revue part sans.
 # Déclenché par chaque push sur main (édition déposée par la tâche du vendredi) ou à la main.
 # Mots-clés dans le message de commit : [brouillon] envoie seulement à DRAFT_TO ; [sans-envoi] n'envoie rien.
+# [sans-podcast] : l'épisode audio n'est ni produit ni régénéré (l'épisode existant est conservé).
 # [skip ci] (n'importe où dans le message, y compris en citation) : aucune exécution (rien n'est reconstruit ni mis en ligne ; utile quand une modification ne doit pas
 # relancer l'épisode audio, dont l'empreinte inclut le lexique de prononciation).
 
@@ -57,6 +58,7 @@ jobs:
 
       - name: Produire l’épisode audio (non bloquant)
         id: audio
+        if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') }}
         continue-on-error: true
         timeout-minutes: 45
         env:
