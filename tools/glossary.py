@@ -106,4 +106,13 @@ G = [
 (r"NTIA", "NTIA", "Administration américaine des télécommunications et de l'information, qui avait publié en 2021 les premiers éléments minimaux du SBOM.", None),
 (r"SDK", "SDK", "Software Development Kit : trousse d'outils et de bibliothèques fournie par un éditeur pour développer des logiciels qui utilisent son service.", None),
 (r"UTC", "UTC", "Temps universel coordonné : référence horaire internationale, décalée de une ou deux heures par rapport à l'heure de Paris.", None),
+(r"CBOM", "CBOM", "Cryptographic Bill of Materials : inventaire des fonctions cryptographiques (algorithmes, clés, protocoles) d'un matériel ou d'un logiciel.", None),
+(r"EAR99", "EAR99", "Catégorie de l'EAR pour les biens soumis à la réglementation américaine mais absents de la liste de contrôle ; licence requise seulement pour certaines destinations ou utilisateurs.", "https://www.bis.gov/"),
+(r"ECCN", "ECCN", "Export Control Classification Number : numéro de classement d'un bien, logiciel ou technologie dans la liste de contrôle américaine (EAR).", "https://www.bis.gov/"),
+(r"HTS", "HTS", "Harmonized Tariff Schedule : nomenclature douanière des États-Unis, utilisée pour les droits de douane à l'importation.", None),
+(r"NIST SP 800-171", "NIST SP 800-171", "Publication du NIST qui fixe les exigences de sécurité pour protéger les informations non classifiées contrôlées chez les fournisseurs du gouvernement américain.", None),
+(r"NIST", "NIST", "Institut national américain des normes et de la technologie ; il publie notamment les normes FIPS et gère la base NVD.", "https://www.nist.gov/"),
+(r"QAD", "QAD", "Éditeur américain de logiciels de gestion industrielle.", None),
+(r"SCA", "SCA", "Software Composition Analysis : analyse des composants tiers d'un logiciel (inventaire, vulnérabilités, licences).", None),
+(r"SOC 2(?: Type II)?", "SOC 2", "Rapport d'audit américain sur les contrôles de sécurité d'un prestataire de services ; le Type II teste leur fonctionnement sur une période.", None),
 ]

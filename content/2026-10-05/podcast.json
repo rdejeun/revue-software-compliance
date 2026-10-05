@@ -1,6 +1,6 @@
 {
- "titre": "Revue Software Compliance, numéro 1 : le CRA en France, CVE, Grype et AGPL",
- "description": "En France, l'ANSSI notifie les organismes du CRA et l'ANFR surveille le marché ; l'ENISA étend le programme CVE ; Grype 0.120.0 ; l'affaire Bambu Lab et l'AGPL.",
+ "titre": "Revue Software Compliance, numéro 1 : le CRA en marche, normes, outils, export et défense européenne",
+ "description": "Premier numéro : le CRA opérationnel et ses autorités françaises, les normes et nomenclatures, de nouveaux outils de scan et de classement export, la chaîne d'approvisionnement, la liste dual-use, CMMC, l'Omnibus défense, SAFE et EDIP.",
  "repliques": [
   {
    "sujet": "Ouverture"
@@ -11,188 +11,161 @@
   },
   {
    "v": "B",
-   "t": "Bonjour. Cette semaine, on regarde qui contrôle quoi en France pour le règlement européen sur la cyber-résilience, un nouveau chapitre du programme des identifiants de vulnérabilités, un outil de scan, et une affaire de licence open source."
+   "t": "Bonjour. Pour ce premier numéro, on fait le tour complet : le règlement européen sur la cyber-résilience, les normes, les outils, les attaques contre la chaîne logicielle, l'export et les programmes européens de défense."
   },
   {
-   "sujet": "CRA : qui fait quoi en France"
-  },
-  {
-   "v": "A",
-   "t": "Commençons par la une. Le règlement européen sur la cyber-résilience, on dit le CRA, est entré dans le concret le onze septembre dernier. Mais qui, en France, va vérifier que les industriels font bien leur travail ?"
-  },
-  {
-   "v": "B",
-   "t": "L'ANSSI a publié le vingt-trois septembre une page qui répond à cette question. L'ANSSI, c'est l'agence nationale de la sécurité des systèmes d'information. Elle a deux casquettes : autorité notifiante, et équipe nationale de réponse aux incidents, ce qu'on appelle le CSIRT national."
+   "sujet": "CRA : le règlement est entré dans le concret"
   },
   {
    "v": "A",
-   "t": "Autorité notifiante, ça veut dire quoi, concrètement ?"
+   "t": "On commence par la une. Le règlement européen sur la cyber-résilience, qu'on appelle le CRA, est entré dans le concret le onze septembre. Qu'est-ce qui a changé ce jour-là ?"
   },
   {
    "v": "B",
-   "t": "Imagine des laboratoires qui testent la conformité des produits. Avant de pouvoir travailler, ils doivent être reconnus. C'est l'ANSSI qui les évalue, les contrôle et les notifie. Ce sont les organismes d'évaluation de la conformité."
+   "t": "Depuis le onze septembre, un fabricant doit déclarer toute faille activement exploitée dans un de ses produits, et tout incident grave. Il a vingt-quatre heures pour une première alerte, soixante-douze heures pour une notification, et quatorze jours après la mise à disposition d'un correctif pour le rapport final."
   },
   {
    "v": "A",
-   "t": "Et le gendarme du marché, c'est qui ?"
+   "t": "Vingt-quatre heures, c'est très court. Et qui contrôle tout ça en France ?"
   },
   {
    "v": "B",
-   "t": "C'est l'ANFR, l'agence nationale des fréquences. Elle est désignée comme autorité de surveillance des produits numériques mis sur le marché. Elle analyse des produits et elle peut prendre des mesures de police administrative, et même infliger des sanctions financières."
+   "t": "L'ANSSI, l'agence nationale de la sécurité des systèmes d'information, l'a précisé le vingt-trois septembre. Elle reconnaît les laboratoires qui évalueront la conformité des produits, et elle joue le rôle d'équipe nationale de réponse aux incidents. L'ANFR, l'agence nationale des fréquences, surveille les produits sur le marché. Elle peut prendre des mesures de police et infliger des sanctions financières."
   },
   {
    "v": "A",
-   "t": "Donc ça devient vraiment réel pour les fabricants."
+   "t": "Et pour nous, concrètement ? On fabrique des équipements de défense."
   },
   {
    "v": "B",
-   "t": "Oui. Et l'ANSSI, l'ANFR et la direction générale des entreprises accompagnent les fabricants. Le directeur général de l'ANSSI compare le CRA aux gestes barrières de la santé. Deux dates à retenir : le onze septembre deux mille vingt-six pour la déclaration des vulnérabilités déjà exploitées, et le onze décembre deux mille vingt-sept pour la conformité complète."
+   "t": "Le règlement exclut les produits développés exclusivement pour la défense ou la sécurité nationale. Mais le critère, c'est l'usage prévu par le fabricant. Un produit à double usage, ou décliné en version civile, reste dans le champ. Pour ces produits-là, il faut déjà savoir déclarer une faille en vingt-quatre heures, y compris quand elle vient d'un composant acheté à un tiers."
   },
   {
-   "sujet": "CRA : et les produits de défense ?"
+   "sujet": "Normes et SBOM"
   },
   {
    "v": "A",
-   "t": "Question que se pose tout industriel de la défense : est-ce que ça me concerne ?"
+   "t": "Pour se mettre en conformité, il faut des normes. Où en est-on ?"
   },
   {
    "v": "B",
-   "t": "L'article deux du règlement exclut les produits développés ou modifiés exclusivement à des fins de défense ou de sécurité nationale. Le critère, c'est l'usage prévu par le fabricant."
+   "t": "Le treize août, l'ETSI, l'un des organismes européens de normalisation, a lancé l'approbation de dix-sept projets de normes. Chacune précise les exigences du règlement pour un type de produit. L'enquête publique court jusqu'à la mi-novembre. Pour l'instant, aucune norme du CRA n'est encore citée au Journal officiel."
   },
   {
    "v": "A",
-   "t": "Donc si mon produit est militaire, je suis tranquille ?"
+   "t": "Et le SBOM, on en entend parler partout. C'est quoi, exactement ?"
   },
   {
    "v": "B",
-   "t": "Pas si vite. Dès qu'un produit est à double usage, ou qu'il existe en version civile, la partie civile entre dans le champ. Et dans ce cas, c'est bien l'ANFR qui surveille le marché."
+   "t": "Le SBOM, c'est la liste des ingrédients d'un logiciel : chaque composant, sa version, son origine. Le vingt-neuf juillet, l'agence américaine de cybersécurité, la CISA, a publié avec la NSA et le FBI une nouvelle version des éléments minimaux de cette liste. Elle remplace celle de deux mille vingt-et-un et prévoit des éléments en plus pour l'intelligence artificielle."
   },
   {
    "v": "A",
-   "t": "Et pour nous, concrètement ?"
+   "t": "[curious] Et il paraît qu'une liste des ingrédients cryptographiques arrive aussi ?"
   },
   {
    "v": "B",
-   "t": "Ce qui est sûr, c'est qu'il faut documenter, produit par produit, pourquoi on est dans l'exclusion. Et une plateforme logicielle partagée entre gamme militaire et gamme civile pourrait être contrôlée pour ses briques civiles, avec leurs composants tiers. Donc la question à se poser : quelles briques sont communes aux deux gammes ?"
+   "t": "Oui. Un décret présidentiel américain du vingt-deux juin charge la CISA de définir, sous deux cent soixante-dix jours, une nomenclature cryptographique. Elle décrirait les algorithmes, les clés et les protocoles d'un produit. Ce n'est pas encore une obligation pour nous. Mais un tel inventaire pourrait aider à classer le chiffrement à l'export, et des clients américains pourraient l'exiger."
   },
   {
-   "sujet": "Les identifiants de vulnérabilités"
+   "sujet": "Outils : du scan au classement export"
   },
   {
    "v": "A",
-   "t": "Passons au programme CVE. Je crois que beaucoup d'auditeurs voient ces lettres sans savoir ce qu'elles veulent dire."
+   "t": "Passons aux outils. Qu'est-ce qui est sorti ?"
   },
   {
    "v": "B",
-   "t": "CVE, c'est le numéro de plaque d'immatriculation d'une faille connue. Chaque vulnérabilité publique reçoit un identifiant unique, et les outils de scan s'en servent pour savoir si un composant est touché."
+   "t": "Deux outils open source très utilisés ont publié une version début octobre : Syft, qui fabrique la liste des ingrédients, et Grype, qui la compare aux bases de failles connues. Grype enregistre maintenant des critères qui aident à décider quelles failles traiter en premier."
   },
   {
    "v": "A",
-   "t": "Et il se passe quoi côté européen ?"
+   "t": "Et au-delà du scan de code ?"
   },
   {
    "v": "B",
-   "t": "Le six août, l'ENISA, l'agence européenne de cybersécurité, a annoncé que deux nouveaux acteurs deviennent des autorités de numérotation sous sa racine : le NCIA, l'agence de communication et d'information de l'OTAN, et une entreprise d'intelligence artificielle et de cybersécurité, AISLE. L'ENISA en compte désormais vingt : douze intégrées directement et huit transférées de la racine historique, celle de MITRE."
+   "t": "Le vingt-deux septembre, l'éditeur QAD a lancé des agents d'intelligence artificielle qui proposent un classement export américain, avec un score de confiance et une justification. Une personne relit chaque proposition. L'éditeur parle de moins d'une minute par article, contre près de deux heures. Ce sont ses chiffres, et l'outil vise la liste américaine, pas la liste européenne."
   },
   {
    "v": "A",
-   "t": "Une autorité de numérotation, c'est donc celui qui peut attribuer ces numéros ?"
+   "t": "Donc la responsabilité reste à l'exportateur."
   },
   {
    "v": "B",
-   "t": "Exactement, dans son périmètre. L'ENISA est racine du programme depuis novembre deux mille vingt-cinq : elle recrute, forme et encadre ces autorités. Le communiqué ne parle pas du CRA, donc on s'en tient aux faits. Mais un industriel qui a une équipe de gestion des vulnérabilités pourrait se demander s'il lui serait utile de devenir lui-même autorité pour ses produits."
+   "t": "Exactement. Autre outil : FossID a annoncé en avril une analyse du code produit par les assistants d'intelligence artificielle. Elle repère le code repris de projets open source, en entier ou par extraits, avec sa licence. C'est encore en phase pilote. L'enjeu est simple : un assistant peut recopier du code sous licence libre contraignante sans que personne ne le voie."
   },
   {
-   "sujet": "Grype et l'inventaire logiciel"
+   "sujet": "Chaîne d'approvisionnement"
   },
   {
    "v": "A",
-   "t": "Côté outils, une nouvelle version de Grype."
+   "t": "On parle beaucoup d'attaques contre la chaîne logicielle. Qu'en dit l'agence européenne de cybersécurité ?"
   },
   {
    "v": "B",
-   "t": "Oui, la version zéro point cent vingt, sortie le deux octobre. Grype est un scanneur de vulnérabilités open source d'Anchore. On lui donne l'inventaire des composants d'un logiciel, la fameuse liste d'ingrédients, et il vérifie si un ingrédient est connu comme défaillant."
+   "t": "L'ENISA a publié le vingt-deux septembre son panorama des menaces. Les attaques qui passent par les dépendances, c'est-à-dire par les fournisseurs et les composants tiers, provoquent en général des incidents de grande ampleur. Et soixante-treize pour cent des organisations visées en deux mille vingt-cinq étaient des entités régulées par la directive NIS2."
   },
   {
    "v": "A",
-   "t": "Qu'est-ce qui change ?"
+   "t": "Et les grandes plateformes réagissent ?"
   },
   {
    "v": "B",
-   "t": "La base stocke maintenant des points de décision issus de la méthode SSVC, une façon de classer les vulnérabilités pour choisir quoi traiter en premier. Les rapports en format HTML gagnent une colonne d'emplacements pour faciliter le tri. Et les sommes de contrôle des versions sont signées avec sigstore."
+   "t": "Oui, avec un principe simple : laisser passer quelques jours. Depuis fin juillet, l'outil de mise à jour de GitHub attend trois jours avant de proposer une nouvelle version, sauf pour les correctifs de sécurité. Et PyPI, le dépôt de paquets Python, a annoncé qu'on ne pourra plus ajouter de fichiers à une version publiée depuis plus de quatorze jours."
   },
   {
    "v": "A",
-   "t": "Pourquoi un industriel s'y intéresserait ?"
+   "t": "Pourquoi attendre trois jours ?"
   },
   {
    "v": "B",
-   "t": "Parce que les résultats peuvent différer d'une version à l'autre. Il vaut mieux conserver la version de l'outil avec chaque rapport de scan. Et la priorisation pourrait aller plus vite."
+   "t": "Parce qu'une version piégée est le plus souvent repérée et retirée en quelques jours. Attendre, c'est éviter de l'intégrer pendant ce laps de temps."
   },
   {
-   "sujet": "La loi Résilience arrive à l'Assemblée"
+   "sujet": "Export : liste dual-use et CMMC"
   },
   {
    "v": "A",
-   "t": "Un mot sur la loi Résilience, qui revient souvent dans l'actualité."
+   "t": "Côté export, il y a du nouveau sur les biens à double usage."
   },
   {
    "v": "B",
-   "t": "C'est le projet de loi français qui transpose trois textes européens : NIS2, sur la cybersécurité des entités importantes, DORA, sur la résilience numérique des acteurs financiers, et REC, sur la résilience des entités critiques. Son examen commence à l'Assemblée nationale mercredi, le sept octobre."
+   "t": "Le quatorze septembre, la Commission a adopté la mise à jour de la liste européenne des biens à double usage. Côté logiciel, elle crée une nouvelle entrée sur certaines bibliothèques et étend un contrôle sur des logiciels de développement. Le texte n'est pas encore applicable. Le Parlement européen et le Conseil ont deux mois pour objecter, ensuite il sera publié au Journal officiel."
   },
   {
    "v": "A",
-   "t": "Pourquoi est-ce que ça traîne autant ?"
+   "t": "Donc il faudra revoir certains classements ?"
   },
   {
    "v": "B",
-   "t": "Parce qu'un point reste source de désaccord politique, l'article seize bis, qui concerne le chiffrement. On verra mercredi comment le débat se déroule. Pour l'instant, rien n'est voté."
+   "t": "C'est ça. Il faut repérer les logiciels qui touchent aux entrées modifiées, avant l'entrée en vigueur. Et côté américain, pour ceux qui fournissent les grands maîtres d'œuvre de la défense, la phase deux de CMMC, la certification de cybersécurité des fournisseurs, reste suspendue. Un texte signé le trois septembre maintient la suspension sans date de reprise. Mais les exigences de sécurité, elles, restent en place, comme la déclaration d'incident en soixante-douze heures."
   },
   {
-   "sujet": "Export : deux échéances qui approchent"
+   "sujet": "Défense européenne : Omnibus, SAFE et EDIP"
   },
   {
    "v": "A",
-   "t": "Et côté exportations, rien de neuf cette semaine ?"
+   "t": "Et au niveau européen, la défense avance aussi ?"
   },
   {
    "v": "B",
-   "t": "Aucune nouvelle mesure visant le logiciel n'a été relevée dans nos sources. Mais deux échéances approchent. D'abord, avec le vingt-et-unième paquet de sanctions de l'Union contre la Russie, les contrats conclus avant le vingt-quatre juillet sur certains biens nouvellement listés peuvent être exécutés jusqu'au vingt-cinq octobre."
+   "t": "Le seize septembre, le Parlement européen a adopté l'Omnibus défense, une directive qui simplifie les transferts de produits de défense entre pays de l'Union. Elle crée de nouvelles licences générales de transfert. Le Conseil devrait l'approuver, puisque le texte avait déjà été négocié."
   },
   {
    "v": "A",
-   "t": "Et la seconde ?"
+   "t": "Et les financements ?"
   },
   {
    "v": "B",
-   "t": "La règle américaine dite des affiliés. Elle étend certaines restrictions aux entités détenues à cinquante pour cent ou plus par des entités listées. Elle est suspendue jusqu'au neuf novembre, et elle se réimpose automatiquement le dix novembre, sauf action du BIS, l'administration américaine qui contrôle les exportations."
+   "t": "SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts aux États. Mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. EDIP, le programme industriel, dispose d'un milliard et demi d'euros, avec des appels qui se clôturent en octobre. Pour un industriel, l'origine des composants, logiciels compris, devient un critère d'éligibilité."
   },
   {
    "v": "A",
-   "t": "Donc à surveiller pour les chaînes de livraison qui touchent des composants américains."
+   "t": "[surprised] Donc la liste des ingrédients sert aussi à décrocher des financements !"
   },
   {
    "v": "B",
-   "t": "C'est un point d'attention. Un fournisseur ou un client pourrait changer de statut du jour au lendemain si la règle revient, d'où l'intérêt de savoir qui détient qui dans sa chaîne."
-  },
-  {
-   "sujet": "AGPL : l'affaire Bambu Lab"
-  },
-  {
-   "v": "A",
-   "t": "Dernier sujet, les licences. Une affaire autour d'une imprimante trois D."
-  },
-  {
-   "v": "B",
-   "t": "Le dix-huit mai, la Software Freedom Conservancy a publié sa réponse aux violations qu'elle reproche à Bambu Lab. Selon elle, le logiciel Bambu Studio associe des bibliothèques propriétaires à du code sous licence AGPL version trois, sans fournir tout le code source correspondant. L'issue n'est pas publiée."
-  },
-  {
-   "v": "A",
-   "t": "L'AGPL, c'est une licence qui oblige à partager ?"
-  },
-  {
-   "v": "B",
-   "t": "C'est une licence dite copyleft : si tu distribues le logiciel, tu dois fournir le code source correspondant. Pour un équipement vendu à l'export qui embarque un composant de ce type, il pourrait y avoir une obligation de publier le code lié. D'où l'intérêt de savoir quels composants sont sous AGPL dans ses inventaires."
+   "t": "Oui, elle sert à prouver d'où viennent les composants. On retrouve le même outil, au service de deux sujets différents."
   },
   {
    "sujet": "La date à retenir"
@@ -203,7 +176,7 @@
   },
   {
    "v": "B",
-   "t": "Le onze décembre deux mille vingt-sept, application complète du CRA. Ce jour-là, les exigences essentielles s'appliquent à tous les produits concernés. Avec les rôles de l'ANSSI et de l'ANFR désormais clairs, il reste un peu plus d'un an pour préparer la documentation."
+   "t": "Le onze décembre deux mille vingt-sept, application complète du CRA. Ce jour-là, toutes les exigences du règlement s'appliquent aux produits concernés, avec la documentation technique et le marquage CE."
   },
   {
    "sujet": "Clôture"
