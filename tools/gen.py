@@ -53,7 +53,7 @@ function partage(id){SEL.m='';SEL.fin=0;var l=box.querySelector('p.sy-s');if(!l)
  var base=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
  function lien(q){a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+base+q)}
  lien('');
- /* passage sélectionné : le lien porte les numéros du premier et du dernier mot (#syn3.12-18), surlignés à l'ouverture.
+ /* passage sélectionné : le lien porte les numéros du premier et du dernier mot (#syn3.c-12, en hexadécimal), surlignés à l'ouverture.
     Le clic sur le bouton efface la sélection avant l'événement « click » : on la retient avant (mousedown sans
     effet par défaut ; mémoire de la dernière sélection pour les écrans tactiles). */
  a.addEventListener('mousedown',function(e){e.preventDefault()});
@@ -70,11 +70,11 @@ function pos(M,nd,off){if(nd.nodeType!==3){var c=nd.childNodes[off],w=document.c
 function selMots(){var z=window.getSelection();if(!z||z.isCollapsed||!box.contains(z.anchorNode)||!box.contains(z.focusNode))return '';
  var r=z.getRangeAt(0),M=mots(),p=pos(M,r.startContainer,r.startOffset),q=pos(M,r.endContainer,r.endOffset),W=M.W,i,a=-1,b=-1;
  for(i=0;i<W.length;i++){if(a<0&&W[i][1]>p)a=i;if(W[i][0]<q)b=i}
- if(a<0||b<a)return '';return a===b?String(a+1):(a+1)+'-'+(b+1)}
+ if(a<0||b<a)return '';return a===b?(a+1).toString(16):(a+1).toString(16)+'-'+(b+1).toString(16)}   /* numéros en hexadécimal */
 var SEL={m:'',fin:0};
 document.addEventListener('selectionchange',function(){var x=selMots();if(x){SEL.m=x;SEL.fin=Infinity}else if(SEL.fin===Infinity)SEL.fin=Date.now()});
 /* surligne les mots a à b (numérotés à partir de 1) */
-function surligne(a,b){var M=mots(),W=M.W;a=+a;b=+(b||a);if(!(a>=1&&b>=a&&b<=W.length))return;var d=W[a-1][0],f=W[b-1][1],g=[];
+function surligne(a,b){var M=mots(),W=M.W;a=parseInt(a,16);b=parseInt(b||a.toString(16),16);if(!(a>=1&&b>=a&&b<=W.length))return;var d=W[a-1][0],f=W[b-1][1],g=[];
  for(var k=0;k<M.N.length;k++){var n=M.N[k][0],o=M.N[k][1],e=o+n.nodeValue.length,s0=Math.max(d,o),s1=Math.min(f,e);if(s1>s0)g.push([n,s0-o,s1-o])}
  for(var j=g.length-1;j>=0;j--){var r=document.createRange();r.setStart(g[j][0],g[j][1]);r.setEnd(g[j][0],g[j][2]);var mk=document.createElement('mark');mk.className='sy-hl';r.surroundContents(mk)}
  var h=box.querySelector('mark.sy-hl');if(h)requestAnimationFrame(function(){requestAnimationFrame(function(){h.scrollIntoView({block:'center'})})})}
@@ -99,7 +99,7 @@ document.addEventListener('click',function(e){
  e.preventDefault();open(b.getAttribute('data-syn'));
 });
 document.addEventListener('keydown',function(e){var it=e.target.closest&&e.target.closest('.sy-it');if(it&&(e.key==='Enter'||e.key===' ')&&e.target===it){e.preventDefault();open(it.getAttribute('data-syn'))}});
-var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.(\d+)(?:-(\d+))?)?$/.exec(location.hash.slice(1));if(h){open(h[1],false);if(h[2])surligne(h[2],h[3])}
+var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.([0-9a-f]+)(?:-([0-9a-f]+))?)?$/.exec(location.hash.slice(1));if(h){open(h[1],false);if(h[2])surligne(h[2],h[3])}
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
