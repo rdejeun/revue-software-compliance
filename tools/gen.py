@@ -47,11 +47,25 @@ JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" c
 (function(){
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
 /* Partager : lien mailto, objet = titre, corps = titre + lien vers la fenêtre dans la page datée de l'édition */
-var SH='<a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
+var SH='<a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail (sélectionner d’abord un passage pour le signaler)"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
 function partage(id){var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
  var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
- var u=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
- a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+u)}
+ var base=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
+ function lien(q){a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+base+q)}
+ lien('');
+ /* passage sélectionné dans la fenêtre : le lien en porte le début et la fin (du, au), surlignés à l'ouverture */
+ a.addEventListener('click',function(){var q='',z=window.getSelection();
+  if(z&&!z.isCollapsed&&box.contains(z.anchorNode)&&box.contains(z.focusNode)){var x=z.toString().replace(/\s+/g,' ').trim();
+   if(x)q=x.length<=80?'&du='+encodeURIComponent(x):'&du='+encodeURIComponent(x.slice(0,40))+'&au='+encodeURIComponent(x.slice(-40))}
+  lien(q)})}
+/* surligne le passage qui va de « du » à « au » (comparaison sans espaces ni casse — les intertitres sont en capitales à l'écran —, le passage peut couvrir plusieurs paragraphes) */
+function surligne(du,au){var nu=function(x){return (x||'').replace(/\s+/g,'').toLowerCase()},S='',M=[],w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),n;
+ while((n=w.nextNode())){var v=n.nodeValue;for(var i=0;i<v.length;i++)if(!/\s/.test(v[i])){S+=v[i].toLowerCase().charAt(0);M.push([n,i])}}
+ var a=S.indexOf(nu(du));if(a<0||!nu(du))return;var e=a+nu(du).length;
+ if(au){var b=S.indexOf(nu(au),Math.max(a,e-nu(au).length));if(b<0)return;e=Math.max(e,b+nu(au).length)}
+ var g=[];for(var k=a;k<e;k++){var l=g[g.length-1];if(l&&l.n===M[k][0])l.e=M[k][1]+1;else g.push({n:M[k][0],s:M[k][1],e:M[k][1]+1})}
+ for(var j=g.length-1;j>=0;j--){var r=document.createRange();r.setStart(g[j].n,g[j].s);r.setEnd(g[j].n,g[j].e);var mk=document.createElement('mark');mk.className='sy-hl';r.surroundContents(mk)}
+ var f=box.querySelector('mark.sy-hl');if(f)requestAnimationFrame(function(){requestAnimationFrame(function(){f.scrollIntoView({block:'center'})})})}
 /* chaque ouverture ajoute une entrée d'historique : le bouton Précédent (y compris celui de la souris) ferme la fenêtre */
 var pushed=false,byPop=false;
 function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
@@ -73,7 +87,7 @@ document.addEventListener('click',function(e){
  e.preventDefault();open(b.getAttribute('data-syn'));
 });
 document.addEventListener('keydown',function(e){var it=e.target.closest&&e.target.closest('.sy-it');if(it&&(e.key==='Enter'||e.key===' ')&&e.target===it){e.preventDefault();open(it.getAttribute('data-syn'))}});
-var h=location.hash.slice(1);if(/^(\d{4}-\d{2}-\d{2}-)?syn\d+$/.test(h))open(h,false);
+var h=location.hash.slice(1).split('&'),q=new URLSearchParams(h.slice(1).join('&'));if(/^(\d{4}-\d{2}-\d{2}-)?syn\d+$/.test(h[0])){open(h[0],false);if(q.get('du'))surligne(q.get('du'),q.get('au'))}
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
@@ -433,7 +447,9 @@ dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w{{flex:1 1 auto;min-height:0;padding:28px 40px 24px;overflow:auto;box-sizing:border-box}}
 .sy-w p.sy-s{{display:flex;flex-wrap:wrap;align-items:center;row-gap:6px}}
-.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #e1c6b4;border-radius:14px;color:{ACC};font:600 12px/18px {SANS};text-decoration:none}}
+.sy-w p.sy-s a:not(.sy-sh){{line-height:20px}}
+mark.sy-hl{{background:#fde4c8;color:inherit;padding:0;border-radius:2px}}
+.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center}}
 .sy-w a.sy-sh:hover,.sy-w a.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 .sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
 .sy-x svg{{display:block}}
