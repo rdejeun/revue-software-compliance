@@ -173,7 +173,7 @@ CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;backgr
 .c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;padding:38px 52px 44px;box-sizing:border-box}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
 h1{{margin:8px 0 14px;font:700 46px/52px {SERIF};color:#0f2a4a;letter-spacing:-.01em;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 44px/52px {SANS};letter-spacing:-.025em}} h1.dos{{font-size:44px;line-height:50px}} h1.dos span{{font-size:42px;line-height:50px}}
-.pied{{margin:44px 0 0;padding:16px 0 0;border-top:2px solid #0f2a4a;font:11px/15px {SANS};color:#7a808d}}
+.pied{{margin:44px 0 0;padding:16px 0 0;border-top:2px solid #7a808d;font:11px/15px {SANS};color:#7a808d}}
 {CSS_COURRIEL}
 .c>p a{{color:#1f4e8c}}
 .sub{{margin:0 0 24px;padding-bottom:14px;border-bottom:2px solid #0f2a4a;font:13px/20px {SANS};color:#6b7280}} .sub a{{color:#6b7280}}
