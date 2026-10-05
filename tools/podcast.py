@@ -75,6 +75,12 @@ def bilan(niveau, msg):
 
 
 # ------------------------------------------------------------------ contrôle
+def titre_episode(n,titre):
+    """« Épisode 1 : le CRA en marche… » à partir du titre de podcast.json, sans « N° 1 – » ni « Revue Software Compliance, numéro 1 : »"""
+    t=re.sub(r'^\s*(?:N°\s*\d+\s*[-–—:]\s*)?(?:Revue\s+(?:de\s+presse\s+)?Software\s+Compliance\s*,?\s*(?:numéro|n°)\s*[\w-]+\s*[:–—-]\s*)?','',titre or '',flags=re.I)
+    return f'Épisode {n} : {t.strip()}'
+
+
 def numero(d):
     """numéro de l'édition (meta.json), ou None"""
     try: return json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8')).get('n')

@@ -27,6 +27,10 @@ URL = 'https://revue.dejeun.es'
 SANS = "'Segoe UI',Arial,sans-serif"; SERIF = "Georgia,serif"
 E = lambda s: html.escape(str(s), quote=True)
 TY = lambda s: str(s).replace("'", '’')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from podcast import titre_episode   # « Épisode n : … »
+POD_TITRE = 'Software Compliance, le podcast'
+POD_DESC = 'Chaque semaine, Julie et Guillaume passent en revue l’essentiel de l’actualité sur la conformité logicielle des produits pour l’industrie de la défense.'
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 def fdate_court(iso):
     p = iso.split('-'); m = MOISC[int(p[1]) - 1]
@@ -216,7 +220,7 @@ def main():
         write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers', 'Aucun dossier pour l’instant · <a href="/">Accueil</a>', ''))
         vide = lambda t, d, x='': f'<?xml version="1.0" encoding="utf-8"?>\n<rss version="2.0"{x}><channel><title>{t}</title><link>{URL}/</link><description>{d}</description><language>fr</language></channel></rss>\n'
         write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.'))
-        write(os.path.join(SITE, 'podcast.xml'), vide('Software Compliance, l’épisode', 'La revue de presse Software Compliance racontée à deux voix de synthèse.', ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
+        write(os.path.join(SITE, 'podcast.xml'), vide(E(POD_TITRE), E(POD_DESC), ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
         write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire sur la conformité logicielle des produits pour l’industrie de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
         write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
         print('Aucune édition : site d’attente construit'); return
@@ -299,9 +303,9 @@ def main():
     def pod(i):
         p = json.load(open(os.path.join(CONTENT, i['d'], 'podcast.json'), encoding='utf-8'))
         return p['titre'], p['description']
-    pitems = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {TY(pod(i)[0])}")}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/{ep['fichier']}" length="{ep['octets']}" type="{'audio/mp4' if ep['fichier'].endswith('.m4a') else 'audio/mpeg'}"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
+    pitems = ''.join(f'''<item><title>{E(TY(titre_episode(i['meta']['n'], pod(i)[0])))}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/{ep['fichier']}" length="{ep['octets']}" type="{'audio/mp4' if ep['fichier'].endswith('.m4a') else 'audio/mpeg'}"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
     write(os.path.join(SITE, 'podcast.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>Software Compliance, l’épisode</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>La revue de presse Software Compliance racontée à deux voix de synthèse : une question, une explication, une relance. Conformité logicielle des produits pour l’industrie de défense.</description><language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>{E(POD_TITRE)}</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>{E(POD_DESC)}</description><language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
 ''')
 
     # llms.txt (hors démonstration)

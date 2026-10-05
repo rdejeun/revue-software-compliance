@@ -3,6 +3,7 @@ Usage : python3 gen.py DOSSIER_SORTIE   (écrit revue-email.html, revue-web.html
 import re,json,html
 from urllib.parse import urlparse
 import commun as B
+from podcast import titre_episode
 from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
@@ -109,6 +110,7 @@ def bloc_podcast(web,diso,ed_url):
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-hd"><span class="pod-eb">Podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
+            f'<div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
@@ -123,7 +125,13 @@ var w=document.getElementById('ecouter');if(!w)return;
 var h=w.querySelector('.pod-h'),b=w.querySelector('.pod-b'),a=w.querySelector('audio'),pl=w.querySelector('.pod-pl'),r=w.querySelector('.pod-r'),c=w.querySelector('.pod-c');
 var PLAY=pl.innerHTML,PAUSE='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
 function fmt(t){t=Math.floor(t||0);return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
-function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px'}
+function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px';if(o)defile()}
+/* titre de l'épisode sur une ligne : s'il est trop long, il défile lentement une fois, puis s'affiche coupé par « … » */
+function defile(){var t=w.querySelector('.pod-t'),x=t&&t.querySelector('.pod-tx');if(!x||t.getAttribute('data-vu'))return;t.setAttribute('data-vu','1');
+ if(!x.animate||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ t.classList.add('run');var d=x.scrollWidth-t.clientWidth;if(d<=0){t.classList.remove('run');return}
+ var a=x.animate([{transform:'translateX(0)'},{transform:'translateX(0)',offset:.15},{transform:'translateX('+(-d)+'px)',offset:.85},{transform:'translateX('+(-d)+'px)'}],{duration:Math.max(5000,d*45+2500),easing:'linear'});
+ a.onfinish=function(){t.classList.remove('run')}}
 h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o){if(a.paused)a.play()}else a.pause()});
 var m=w.querySelector('.pod-m'),v=w.querySelector('.pod-v');
 function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0);m.setAttribute('aria-label',x==0?'Rétablir le son':'Couper le son')}
@@ -386,7 +394,9 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
 .pod-hd{{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
 .pod-eb{{margin:0;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
-.pod-t{{margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};text-wrap:balance}}
+.pod-t{{width:0;min-width:100%;margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.pod-t.run{{text-overflow:clip}}
+.pod-t.run .pod-tx{{display:inline-block}}
 .pod-p{{display:flex;align-items:center;gap:12px}}
 .pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
 .pod-pl:hover,.pod-pl:focus-visible{{background:{ACC};outline:none}}
