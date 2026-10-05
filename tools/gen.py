@@ -447,10 +447,11 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w a.t.r:hover::after,.sy-w a.t.r:focus::after{{left:auto;right:0}}
 .sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF}}}
-.sy-v{{margin:0;padding-left:32px}}
+.sy-v{{margin:0;padding-left:14px;list-style:none}}
 .sy-w h4~p:not(.sy-s){{padding-left:14px}}
 .sy-v li{{margin:0 0 4px;padding-left:2px;line-height:24px}}
-.sy-v li::marker{{color:#dba98f;content:'■  ';font-size:9px}}
+.sy-v li{{position:relative;padding-left:16px}}
+.sy-v li::before{{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;background:#dba98f}}
 .sy-w p.sy-s{{margin-top:18px!important;padding-top:12px;border-top:1px solid #e5e7eb}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
