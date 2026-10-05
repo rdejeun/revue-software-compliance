@@ -461,7 +461,7 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w p.sy-s{{display:flex;flex-wrap:wrap;align-items:center;row-gap:6px}}
 .sy-w p.sy-s a:not(.sy-sh){{line-height:20px}}
 mark.sy-hl{{background:#fde4c8;color:inherit;padding:0;border-radius:2px}}
-.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center}}
+.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center;position:relative;top:2px}}
 .sy-w a.sy-sh:hover,.sy-w a.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 .sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
 .sy-x svg{{display:block}}
