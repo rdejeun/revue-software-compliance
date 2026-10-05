@@ -54,9 +54,9 @@
   {"v": "B", "t": "Le procès est annoncé pour la fin de l'année, et son issue n'est pas publiée dans les sources consultées. Ce qui est déjà certain, en revanche, c'est la règle elle-même : un équipement qui embarque par exemple un noyau Linux doit fournir le code source à ceux à qui il est livré, client étatique compris."},
   {"v": "A", "t": "Et si l'association gagne ?"},
   {"v": "B", "t": "Alors les utilisateurs finaux pourraient peut-être agir eux-mêmes pour obtenir ce code. Pour un industriel de la défense, il faudrait concilier ça avec le contrôle des exportations et la protection des informations sensibles."},
-  {"sujet": "Dates à retenir et clôture"},
-  {"v": "A", "t": "Pour finir, les dates à noter ?"},
-  {"v": "B", "t": "Le 7 octobre, la loi Résilience à l'Assemblée. Le 10 novembre, le retour possible de la règle américaine des affiliés. En novembre, la publication attendue de la nouvelle liste européenne des biens à double usage. Le 9 décembre, la date limite de transposition de la directive sur la responsabilité du fait des produits, qui inclut désormais le logiciel. Et le 11 décembre 2027, l'application complète du CRA."},
+  {"sujet": "Une date à retenir et clôture"},
+  {"v": "A", "t": "Et si on ne devait retenir qu'une date ?"},
+  {"v": "B", "t": "Le 10 novembre. Sauf décision contraire de l'administration américaine, la règle des affiliés reviendra ce jour-là. Si vos produits ou vos mises à jour contiennent des éléments d'origine américaine, il faudra vérifier non seulement qui sont vos clients, mais aussi qui les possède."},
   {"v": "A", "t": "Merci Guillaume. Toutes les sources, les synthèses détaillées et le glossaire des sigles sont sur le site de la revue. À la semaine prochaine !"},
   {"v": "B", "t": "À la semaine prochaine."}
  ]

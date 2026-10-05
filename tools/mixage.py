@@ -33,7 +33,10 @@ CONFIG = {
     'room_tone_dbfs': -60,             # bruit rose filtré sous 8 kHz, continu sous tout l'épisode ; None pour l'ôter
     'bus': {'ratio': 2, 'reduction_db': 1.5},
     'lufs': -19, 'true_peak': -1.0, 'lra': 11,   # −19 LUFS en mono (équivalent de −16 en stéréo)
-    'aac_kbps': 64,                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    'aac_kbps': 64,
+    # Habillage sonore : même son en ouverture et en clôture (tools/habillage.mp3, « Tech Logo Intro »,
+    # sergequadrado, Pixabay), ramené 2 LU sous la voix, enchaîné directement sur la parole en ouverture, après un court blanc en clôture.
+    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -254,6 +257,23 @@ def loudnorm_2_passes(wav_in, wav_out):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav_in, '-af', filt + f',aresample={SR}', '-c:a', 'pcm_s24le', wav_out], check=True)
 
 
+def habiller(master, sortie_wav):
+    """Ajoute l'habillage en début et en fin. Renvoie la durée ajoutée (s) ; 0 sans fichier d'habillage."""
+    h = CONFIG.get('habillage') or {}
+    if not h.get('fichier') or not os.path.isfile(h['fichier']):
+        import shutil; shutil.copyfile(master, sortie_wav); return 0.0
+    d = os.path.dirname(sortie_wav); brut = os.path.join(d, 'habillage_mono.wav'); norm = os.path.join(d, 'habillage_norm.wav')
+    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', h['fichier'], '-ac', '1' if CONFIG['mono'] else '2', '-ar', str(SR), '-c:a', 'pcm_f32le', brut], check=True)
+    sauve = CONFIG['lufs']; CONFIG['lufs'] = h['lufs']
+    try: loudnorm_2_passes(brut, norm)
+    finally: CONFIG['lufs'] = sauve
+    j = sf.read(norm, always_2d=True)[0]; v = sf.read(master, always_2d=True)[0]
+    if j.shape[1] != v.shape[1]: j = np.repeat(j.mean(1, keepdims=True), v.shape[1], axis=1)
+    b1 = np.zeros((int(SR * h['blanc_debut_s']), v.shape[1])); b2 = np.zeros((int(SR * h['blanc_fin_s']), v.shape[1]))
+    sf.write(sortie_wav, np.concatenate([j, b1, v, b2, j]), SR, subtype='PCM_24')
+    return (2 * len(j) + len(b1) + len(b2)) / SR
+
+
 def encoder(wav, sortie, meta):
     tmp = sortie + '.tmp.m4a'
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav, '-c:a', 'aac', '-b:a', f'{CONFIG["aac_kbps"]}k', '-movflags', '+faststart', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
@@ -320,11 +340,9 @@ def produire(blocs, voix, sortie_audio, dossier, meta, sortie_brute=None):
     pre = os.path.join(dossier, 'out', 'premaster.wav'); master = os.path.join(dossier, 'out', 'episode_master.wav')
     sf.write(pre, (bus.T / max(1.0, np.abs(bus).max())).astype(np.float32), SR, subtype='FLOAT')
     loudnorm_2_passes(pre, master)
-    tmp = sortie_audio + '.tmp.m4a'
-    subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', master, '-c:a', 'aac', '-b:a', f'{CONFIG["aac_kbps"]}k', '-movflags', '+faststart', '-ar', str(SR), '-ac', '1' if CONFIG['mono'] else '2',
-                    '-metadata', f'title={meta["titre"]}', '-metadata', 'artist=Software Compliance', '-metadata', 'album=Software Compliance',
-                    '-metadata', f'track={meta.get("n", "")}', '-metadata', f'date={meta["date"][:4]}', tmp], check=True)
-    os.replace(tmp, sortie_audio)
+    final = os.path.join(dossier, 'out', 'episode_final.wav')
+    M['habillage_s'] = habiller(master, final)          # le contrôle qualité porte sur la voix (master) ; l'habillage s'y ajoute
+    encoder(final, sortie_audio, meta)
     M['duree_blocs_s'] = sum(len(decoder(b['mp3'])) for b in blocs) / SR + CONFIG['pause_s'] * (len(blocs) - 1)
     M['master'] = master; M['masques'] = masque; M['stems'] = st
     return M
