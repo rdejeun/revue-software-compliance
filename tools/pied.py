@@ -7,7 +7,7 @@ LICENCE_URL = 'https://creativecommons.org/licenses/by/4.0/deed.fr'
 SITE = 'https://revue.dejeun.es'
 
 
-def pied(redaction, annee, absolu=False, lien='color:#6b7280;'):
+def pied(redaction, annee, absolu=False, lien='color:#7a808d;'):
     """Version courte : IA, droits, licence CC BY 4.0, contenus tiers, lien vers les mentions légales.
     absolu=True pour l'e-mail (liens complets)."""
     ml = (SITE if absolu else '') + '/mentions-legales/'
