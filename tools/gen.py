@@ -48,16 +48,21 @@ JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" c
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
 /* Partager : lien mailto, objet = titre, corps = titre + lien vers la fenêtre dans la page datée de l'édition */
 var SH='<a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail (sélectionner d’abord un passage pour le signaler)"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
-function partage(id){var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
+function partage(id){SEL.t='';SEL.fin=0;var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
  var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
  var base=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
  function lien(q){a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+base+q)}
  lien('');
  /* passage sélectionné dans la fenêtre : le lien en porte le début et la fin (du, au), surlignés à l'ouverture */
- a.addEventListener('click',function(){var q='',z=window.getSelection();
-  if(z&&!z.isCollapsed&&box.contains(z.anchorNode)&&box.contains(z.focusNode)){var x=z.toString().replace(/\s+/g,' ').trim();
-   if(x)q=x.length<=80?'&du='+encodeURIComponent(x):'&du='+encodeURIComponent(x.slice(0,40))+'&au='+encodeURIComponent(x.slice(-40))}
+ /* le clic sur le bouton efface la sélection avant l'événement « click » : on la retient avant
+    (mousedown sans effet par défaut, et mémoire de la dernière sélection pour les écrans tactiles) */
+ a.addEventListener('mousedown',function(e){e.preventDefault()});
+ a.addEventListener('click',function(){var x=selTexte()||(Date.now()-SEL.fin<1500?SEL.t:''),q='';
+  if(x)q=x.length<=80?'&du='+encodeURIComponent(x):'&du='+encodeURIComponent(x.slice(0,40))+'&au='+encodeURIComponent(x.slice(-40));
   lien(q)})}
+function selTexte(){var z=window.getSelection();if(z&&!z.isCollapsed&&box.contains(z.anchorNode)&&box.contains(z.focusNode))return z.toString().replace(/\s+/g,' ').trim();return ''}
+var SEL={t:'',fin:0};
+document.addEventListener('selectionchange',function(){var x=selTexte();if(x){SEL.t=x;SEL.fin=Infinity}else if(SEL.fin===Infinity)SEL.fin=Date.now()});
 /* surligne le passage qui va de « du » à « au » (comparaison sans espaces ni casse — les intertitres sont en capitales à l'écran —, le passage peut couvrir plusieurs paragraphes) */
 function surligne(du,au){var nu=function(x){return (x||'').replace(/\s+/g,'').toLowerCase()},S='',M=[],w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),n;
  while((n=w.nextNode())){var v=n.nodeValue;for(var i=0;i<v.length;i++)if(!/\s/.test(v[i])){S+=v[i].toLowerCase().charAt(0);M.push([n,i])}}
