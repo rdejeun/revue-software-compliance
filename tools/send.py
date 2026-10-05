@@ -67,7 +67,7 @@ def main():
                'html': open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read(),
                'text': open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read(),
                'headers': {'List-Unsubscribe': UNSUB}}
-    idem = f'revue-{d}' if mode == 'auto' else f'brouillon-{d}-{os.environ.get("GITHUB_RUN_ID", int(time.time()))}'
+    idem = f'revue-{d}-n{meta["n"]}' if mode == 'auto' else f'brouillon-{d}-{os.environ.get("GITHUB_RUN_ID", int(time.time()))}'
     req = urllib.request.Request('https://api.resend.com/emails', data=json.dumps(payload).encode(), method='POST',
                                  headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'Idempotency-Key': idem, 'User-Agent': 'revue-sc'})
     try:
