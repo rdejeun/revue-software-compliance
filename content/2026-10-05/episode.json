@@ -1,0 +1,34 @@
+{
+ "duree_s": 415,
+ "octets": 3448383,
+ "mots": 1188,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-10-05T07:51:55Z",
+ "sha_script": "5591d1f83ae1c8d6ab8cc166a09e295f02a5c45aad29985c04e2bdfa1400b61b:essai-9000",
+ "extrait": true,
+ "repliques": 46,
+ "prononciation": "dictionnaire ElevenLabs paZlYdOnxKV2fv6Uot6p",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.8 → 0.8 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 66 → 26 ms, B 23 → 22 ms",
+  "Durée": "399.5 s (blocs : 399.8 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "9.9 % de mots différents sur 1267"
+ },
+ "requetes": 7,
+ "fichier": "episode.m4a"
+}
