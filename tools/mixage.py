@@ -35,8 +35,8 @@ CONFIG = {
     'lufs': -19, 'true_peak': -1.0, 'lra': 11,   # −19 LUFS en mono (équivalent de −16 en stéréo)
     'aac_kbps': 64,
     # Habillage sonore : même son en ouverture et en clôture (tools/habillage.mp3, « Tech Logo Intro »,
-    # sergequadrado, Pixabay), ramené 2 LU sous la voix, séparé de la parole par un court blanc.
-    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_s': 0.6},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    # sergequadrado, Pixabay), ramené 2 LU sous la voix, enchaîné directement sur la parole en ouverture, après un court blanc en clôture.
+    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -269,9 +269,9 @@ def habiller(master, sortie_wav):
     finally: CONFIG['lufs'] = sauve
     j = sf.read(norm, always_2d=True)[0]; v = sf.read(master, always_2d=True)[0]
     if j.shape[1] != v.shape[1]: j = np.repeat(j.mean(1, keepdims=True), v.shape[1], axis=1)
-    blanc = np.zeros((int(SR * h['blanc_s']), v.shape[1]))
-    sf.write(sortie_wav, np.concatenate([j, blanc, v, blanc, j]), SR, subtype='PCM_24')
-    return 2 * (len(j) + len(blanc)) / SR
+    b1 = np.zeros((int(SR * h['blanc_debut_s']), v.shape[1])); b2 = np.zeros((int(SR * h['blanc_fin_s']), v.shape[1]))
+    sf.write(sortie_wav, np.concatenate([j, b1, v, b2, j]), SR, subtype='PCM_24')
+    return (2 * len(j) + len(b1) + len(b2)) / SR
 
 
 def encoder(wav, sortie, meta):
