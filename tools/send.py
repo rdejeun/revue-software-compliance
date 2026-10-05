@@ -16,6 +16,10 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT, BUILD = os.path.join(ROOT, 'content'), os.path.join(ROOT, 'build')
 FROM = os.environ.get('MAIL_FROM') or 'Software Compliance <no-reply@s2c2.dejeun.es>'
 UNSUB = '<mailto:unsubscribe@dejeun.es>'
+# Envoi aux abonnés : destinataires en copie cachée (aucun ne voit les autres) ; le champ « À » porte l'adresse
+# MAIL_VISIBLE, à défaut celle de l'expéditeur. Le brouillon (DRAFT_TO) reste adressé directement.
+VISIBLE = os.environ.get('MAIL_VISIBLE') or FROM
+BCC_MAX = 50   # limite de Resend par message
 
 
 def out(k, v):
@@ -63,7 +67,9 @@ def main():
     b = os.path.join(BUILD, d)
     subject = f'Software Compliance – N° {meta["n"]} – {meta["date"]}'
     if mode == 'brouillon': subject = '[Brouillon] ' + subject
-    payload = {'from': FROM, 'to': to, 'subject': subject,
+    if mode == 'auto' and len(to) > BCC_MAX: sys.exit(f'{len(to)} destinataires : au-delà de {BCC_MAX}, Resend refuse la copie cachée (passer à un envoi par lots)')
+    dest = {'to': [VISIBLE], 'bcc': to} if mode == 'auto' else {'to': to}
+    payload = {'from': FROM, **dest, 'subject': subject,
                'html': open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read(),
                'text': open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read(),
                'headers': {'List-Unsubscribe': UNSUB}}
