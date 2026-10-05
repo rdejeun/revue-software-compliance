@@ -10,7 +10,7 @@ Usage : python3 tools/send.py --mode auto|brouillon|aucun [AAAA-MM-JJ] [--wait]
 Variables d'environnement : RESEND_API_KEY (secret), MAIL_TO, DRAFT_TO, MAIL_FROM (facultatif).
 Écrit sent=1 dans GITHUB_OUTPUT quand un envoi définitif a eu lieu (jamais en mode brouillon).
 """
-import datetime, json, os, re, sys, time, urllib.error, urllib.request
+import datetime, hashlib, json, os, re, sys, time, urllib.error, urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT, BUILD = os.path.join(ROOT, 'content'), os.path.join(ROOT, 'build')
@@ -67,7 +67,9 @@ def main():
                'html': open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read(),
                'text': open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read(),
                'headers': {'List-Unsubscribe': UNSUB}}
-    idem = f'revue-{d}-n{meta["n"]}' if mode == 'auto' else f'brouillon-{d}-{os.environ.get("GITHUB_RUN_ID", int(time.time()))}'
+    # empreinte du contenu : un nouvel essai identique est dédoublonné par Resend, un contenu corrigé repart
+    emp = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()[:12]
+    idem = f'revue-{d}-n{meta["n"]}-{emp}' if mode == 'auto' else f'brouillon-{d}-{os.environ.get("GITHUB_RUN_ID", int(time.time()))}'
     req = urllib.request.Request('https://api.resend.com/emails', data=json.dumps(payload).encode(), method='POST',
                                  headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'Idempotency-Key': idem, 'User-Agent': 'revue-sc'})
     try:
