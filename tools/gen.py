@@ -47,7 +47,7 @@ JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" c
 (function(){
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
 /* Partager : lien mailto, objet = titre, corps = titre + lien vers la fenêtre dans la page datée de l'édition */
-var SH='<a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail (sélectionner d’abord un passage pour le signaler)"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
+var SH='<a class="sy-sh" id="sy-sh" href="#" aria-label="Partager par e-mail"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
 function partage(id){SEL.m='';SEL.fin=0;var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
  var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
  var base=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
@@ -461,7 +461,7 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w p.sy-s{{display:flex;flex-wrap:wrap;align-items:center;row-gap:6px}}
 .sy-w p.sy-s a:not(.sy-sh){{line-height:20px}}
 mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
-.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center;position:relative;top:2px}}
+.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center;position:relative;top:4px}}
 .sy-w a.sy-sh:hover,.sy-w a.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 .sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
 .sy-x svg{{display:block}}
