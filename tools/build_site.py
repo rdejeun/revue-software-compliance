@@ -30,6 +30,13 @@ TY = lambda s: str(s).replace("'", '’')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
 POD_TITRE = 'Software Compliance, le podcast'
+# Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
+IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'podcast.jpg')
+_T = os.path.dirname(os.path.abspath(__file__))
+IMG_FLUX = ('<image><url>https://revue.dejeun.es/assets/flux-144.png</url><title>Software Compliance</title><link>https://revue.dejeun.es/</link><width>144</width><height>144</height></image>'
+            if os.path.isfile(os.path.join(_T, 'flux-144.png')) else '')
+IMG_POD = ('<image><url>https://revue.dejeun.es/assets/podcast.jpg</url><title>Software Compliance, le podcast</title><link>https://revue.dejeun.es/</link></image><itunes:image href="https://revue.dejeun.es/assets/podcast.jpg"/>'
+           if os.path.isfile(os.path.join(_T, 'podcast.jpg')) else '')
 POD_DESC = 'Chaque semaine, Julie et Guillaume passent en revue l’essentiel de l’actualité sur la conformité logicielle des produits pour l’industrie de la défense.'
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 def fdate_court(iso):
@@ -294,7 +301,7 @@ def main():
     def rfc(d): return datetime.datetime.strptime(d, '%Y-%m-%d').replace(hour=5, minute=30).strftime('%a, %d %b %Y %H:%M:%S +0000')
     items = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description></item>''' for i in reversed(pub))
     write(os.path.join(SITE, 'feed.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{items}</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{IMG_FLUX}{items}</channel></rss>
 ''')
 
     # flux du podcast (hors démonstration)
@@ -305,7 +312,7 @@ def main():
         return p['titre'], p['description']
     pitems = ''.join(f'''<item><title>{E(TY(titre_episode(i['meta']['n'], pod(i)[0])))}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/{ep['fichier']}" length="{ep['octets']}" type="{'audio/mp4' if ep['fichier'].endswith('.m4a') else 'audio/mpeg'}"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
     write(os.path.join(SITE, 'podcast.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>{E(POD_TITRE)}</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>{E(POD_DESC)}</description><language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>{E(POD_TITRE)}</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>{E(POD_DESC)}</description>{IMG_POD}<language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
 ''')
 
     # llms.txt (hors démonstration)
@@ -320,6 +327,8 @@ def main():
     for x in ('webp', 'png', 'jpg'):   # image d'en-tête facultative (tools/en-tete.*)
         f = os.path.join(TOOLS, f'en-tete.{x}')
         if os.path.isfile(f): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(f, os.path.join(SITE, 'assets', f'en-tete.{x}'))
+    for f in IMAGES_FLUX:   # visuels des flux RSS (tools/flux.jpg, flux-144.png, podcast.jpg)
+        if os.path.isfile(os.path.join(TOOLS, f)): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, f), os.path.join(SITE, 'assets', f))
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
     write(os.path.join(SITE, '.nojekyll'), '')
     print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s) -> {SITE}')

@@ -160,6 +160,7 @@ Production : `python3 tools/podcast.py` (dernière édition) ; `--check` contrô
 - **Fond de page** : tuile répétée `tools/fond.webp` (1024 px affichés à 512 px, teinte moyenne #ECEBE6), version web seulement ; l'e-mail garde le fond uni.
 - **Titres des dossiers** : champ `titre` de `tools/themes.json`, « partie en italique|suite », coupé entre deux blocs de sens (« Cyber Resilience|Act ») ; sans ce champ, tout le titre est en sans-serif.
 - **Fenêtre « En savoir plus »** (site) : chaque ouverture ajoute une entrée d'historique, si bien que le bouton Précédent du navigateur, de la souris ou du geste la ferme, comme Échap, la croix ou un clic hors de la fenêtre ; les paragraphes sont en retrait sous les intertitres.
+- **Visuels des flux RSS** : `tools/flux.jpg` (1400 px) et `tools/flux-144.png` (balise `<image>` de `feed.xml`, 144 px au plus selon RSS 2.0) ; `tools/podcast.jpg` (couverture carrée de `podcast.xml`, `<image>` et `itunes:image`, 1400 px au moins pour Apple Podcasts). Monogramme « SC » aux couleurs de la revue, généré avec ChatGPT ; publiés sous `/assets/`.
 - **Pied de page** : « Ce document a été rédigé par une intelligence artificielle (<éditeur> <modèle> <version>). Des erreurs sont possibles. », valeur prise dans `meta.json` (`redaction`), à défaut « Anthropic Claude Opus 5.5 ».
 
 ## 13. Essais d'écoute
