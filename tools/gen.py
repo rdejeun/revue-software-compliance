@@ -48,29 +48,36 @@ JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" c
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
 /* Partager : lien mailto, objet = titre, corps = titre + lien vers la fenêtre dans la page datée de l'édition */
 var SH='<a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail (sélectionner d’abord un passage pour le signaler)"><svg viewBox="0 0 16 16" width="17" height="17" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
-function partage(id){SEL.t='';SEL.fin=0;var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
+function partage(id){SEL.m='';SEL.fin=0;var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
  var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
  var base=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
  function lien(q){a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+base+q)}
  lien('');
- /* passage sélectionné dans la fenêtre : le lien en porte le début et la fin (du, au), surlignés à l'ouverture */
- /* le clic sur le bouton efface la sélection avant l'événement « click » : on la retient avant
-    (mousedown sans effet par défaut, et mémoire de la dernière sélection pour les écrans tactiles) */
+ /* passage sélectionné : le lien porte les numéros du premier et du dernier mot (#syn3.12-18), surlignés à l'ouverture.
+    Le clic sur le bouton efface la sélection avant l'événement « click » : on la retient avant (mousedown sans
+    effet par défaut ; mémoire de la dernière sélection pour les écrans tactiles). */
  a.addEventListener('mousedown',function(e){e.preventDefault()});
- a.addEventListener('click',function(){var x=selTexte()||(Date.now()-SEL.fin<1500?SEL.t:''),q='';
-  if(x)q=x.length<=80?'&du='+encodeURIComponent(x):'&du='+encodeURIComponent(x.slice(0,40))+'&au='+encodeURIComponent(x.slice(-40));
-  lien(q)})}
-function selTexte(){var z=window.getSelection();if(z&&!z.isCollapsed&&box.contains(z.anchorNode)&&box.contains(z.focusNode))return z.toString().replace(/\s+/g,' ').trim();return ''}
-var SEL={t:'',fin:0};
-document.addEventListener('selectionchange',function(){var x=selTexte();if(x){SEL.t=x;SEL.fin=Infinity}else if(SEL.fin===Infinity)SEL.fin=Date.now()});
-/* surligne le passage qui va de « du » à « au » (comparaison sans espaces ni casse — les intertitres sont en capitales à l'écran —, le passage peut couvrir plusieurs paragraphes) */
-function surligne(du,au){var nu=function(x){return (x||'').replace(/\s+/g,'').toLowerCase()},S='',M=[],w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),n;
- while((n=w.nextNode())){var v=n.nodeValue;for(var i=0;i<v.length;i++)if(!/\s/.test(v[i])){S+=v[i].toLowerCase().charAt(0);M.push([n,i])}}
- var a=S.indexOf(nu(du));if(a<0||!nu(du))return;var e=a+nu(du).length;
- if(au){var b=S.indexOf(nu(au),Math.max(a,e-nu(au).length));if(b<0)return;e=Math.max(e,b+nu(au).length)}
- var g=[];for(var k=a;k<e;k++){var l=g[g.length-1];if(l&&l.n===M[k][0])l.e=M[k][1]+1;else g.push({n:M[k][0],s:M[k][1],e:M[k][1]+1})}
- for(var j=g.length-1;j>=0;j--){var r=document.createRange();r.setStart(g[j].n,g[j].s);r.setEnd(g[j].n,g[j].e);var mk=document.createElement('mark');mk.className='sy-hl';r.surroundContents(mk)}
- var f=box.querySelector('mark.sy-hl');if(f)requestAnimationFrame(function(){requestAnimationFrame(function(){f.scrollIntoView({block:'center'})})})}
+ a.addEventListener('click',function(){var x=selMots()||(Date.now()-SEL.fin<1500?SEL.m:'');lien(x?'.'+x:'')})}
+/* mots de la fenêtre : suites de caractères sans espace dans le texte de la fenêtre (balises ignorées) */
+function mots(){var S='',w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),n,N=[],B=null;
+ while((n=w.nextNode())){var bl=n.parentNode.closest('p,h3,h4,li,dt,dd,div');if(B&&bl!==B)S+=' ';B=bl;N.push([n,S.length]);S+=n.nodeValue}   /* espace entre deux blocs */
+ var W=[],re=/\S+/g,x;while((x=re.exec(S)))W.push([x.index,x.index+x[0].length]);return {S:S,N:N,W:W}}
+/* position d'une borne de sélection dans le texte de mots() */
+function pos(M,nd,off){if(nd.nodeType!==3){var c=nd.childNodes[off],w=document.createTreeWalker(box,NodeFilter.SHOW_TEXT),t,prev=null;
+  while((t=w.nextNode())){if(c&&(c===t||c.contains(t)||(c.compareDocumentPosition(t)&4)))return pos(M,t,0);prev=t}
+  return prev?pos(M,prev,prev.nodeValue.length):0}
+ for(var k=0;k<M.N.length;k++)if(M.N[k][0]===nd)return M.N[k][1]+off;return 0}
+function selMots(){var z=window.getSelection();if(!z||z.isCollapsed||!box.contains(z.anchorNode)||!box.contains(z.focusNode))return '';
+ var r=z.getRangeAt(0),M=mots(),p=pos(M,r.startContainer,r.startOffset),q=pos(M,r.endContainer,r.endOffset),W=M.W,i,a=-1,b=-1;
+ for(i=0;i<W.length;i++){if(a<0&&W[i][1]>p)a=i;if(W[i][0]<q)b=i}
+ if(a<0||b<a)return '';return a===b?String(a+1):(a+1)+'-'+(b+1)}
+var SEL={m:'',fin:0};
+document.addEventListener('selectionchange',function(){var x=selMots();if(x){SEL.m=x;SEL.fin=Infinity}else if(SEL.fin===Infinity)SEL.fin=Date.now()});
+/* surligne les mots a à b (numérotés à partir de 1) */
+function surligne(a,b){var M=mots(),W=M.W;a=+a;b=+(b||a);if(!(a>=1&&b>=a&&b<=W.length))return;var d=W[a-1][0],f=W[b-1][1],g=[];
+ for(var k=0;k<M.N.length;k++){var n=M.N[k][0],o=M.N[k][1],e=o+n.nodeValue.length,s0=Math.max(d,o),s1=Math.min(f,e);if(s1>s0)g.push([n,s0-o,s1-o])}
+ for(var j=g.length-1;j>=0;j--){var r=document.createRange();r.setStart(g[j][0],g[j][1]);r.setEnd(g[j][0],g[j][2]);var mk=document.createElement('mark');mk.className='sy-hl';r.surroundContents(mk)}
+ var h=box.querySelector('mark.sy-hl');if(h)requestAnimationFrame(function(){requestAnimationFrame(function(){h.scrollIntoView({block:'center'})})})}
 /* chaque ouverture ajoute une entrée d'historique : le bouton Précédent (y compris celui de la souris) ferme la fenêtre */
 var pushed=false,byPop=false;
 function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
@@ -92,7 +99,7 @@ document.addEventListener('click',function(e){
  e.preventDefault();open(b.getAttribute('data-syn'));
 });
 document.addEventListener('keydown',function(e){var it=e.target.closest&&e.target.closest('.sy-it');if(it&&(e.key==='Enter'||e.key===' ')&&e.target===it){e.preventDefault();open(it.getAttribute('data-syn'))}});
-var h=location.hash.slice(1).split('&'),q=new URLSearchParams(h.slice(1).join('&'));if(/^(\d{4}-\d{2}-\d{2}-)?syn\d+$/.test(h[0])){open(h[0],false);if(q.get('du'))surligne(q.get('du'),q.get('au'))}
+var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.(\d+)(?:-(\d+))?)?$/.exec(location.hash.slice(1));if(h){open(h[1],false);if(h[2])surligne(h[2],h[3])}
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
