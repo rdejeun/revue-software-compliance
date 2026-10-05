@@ -42,12 +42,13 @@ def lead(items):
     m=re.match(r'^([^:]{1,90}?)(\s:)',t)
     if m: return [{'t':m.group(1),'b':1},{'t':t[m.end(1):]}]+items[1:]
     return items
-JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sy-w" id="sy-c"></div><div class="sy-f"><a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a></div></dialog>
+JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sy-w" id="sy-c"></div></dialog>
 <script>
 (function(){
 var dlg=document.getElementById('sy'),box=document.getElementById('sy-c');
 /* Partager : lien mailto, objet = titre, corps = titre + lien vers la fenêtre dans la page datée de l'édition */
-function partage(id){var a=document.getElementById('sy-sh');if(!a)return;var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
+var SH='<a class="sy-sh" id="sy-sh" href="#" title="Partager par e-mail"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><circle cx="12" cy="3.5" r="2" fill="currentColor"/><circle cx="4" cy="8" r="2" fill="currentColor"/><circle cx="12" cy="12.5" r="2" fill="currentColor"/><path d="M5.8 7l4.4-2.5M5.8 9l4.4 2.5" stroke="currentColor" stroke-width="1.4"/></svg>Partager</a>';
+function partage(id){var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
  var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
  var u=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
  a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+u)}
@@ -431,9 +432,9 @@ dialog.sy{{width:min(860px,calc(100vw - 32px));max-height:min(92vh,1200px);paddi
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w{{flex:1 1 auto;min-height:0;padding:28px 40px 24px;overflow:auto;box-sizing:border-box}}
-.sy-f{{flex:none;display:flex;justify-content:flex-end;padding:8px 16px 10px;border-top:1px solid #eee9de;background:#fff}}
-.sy-sh{{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #e1c6b4;border-radius:14px;color:{ACC};font:600 12px/18px {SANS};text-decoration:none}}
-.sy-sh:hover,.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
+.sy-w p.sy-s{{display:flex;flex-wrap:wrap;align-items:center;row-gap:6px}}
+.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border:1px solid #e1c6b4;border-radius:14px;color:{ACC};font:600 12px/18px {SANS};text-decoration:none}}
+.sy-w a.sy-sh:hover,.sy-w a.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 .sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
 .sy-x svg{{display:block}}
 .sy-x:hover,.sy-x:focus-visible{{color:{NAVY};outline:2px solid #d5dbe5}}
@@ -442,7 +443,7 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;border-radius:6px;font:13px/19px {SANS};color:#374151}}
 .sy-m dt{{color:#7d6c47;font-weight:600}}
 .sy-m dd{{margin:0;min-width:0}}
-.sy-w h4{{margin:16px 0 5px;font:700 11.5px/16px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47}}
+.sy-w h4{{margin:18px 0 6px;font:700 13px/18px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w a.t.r:hover::after,.sy-w a.t.r:focus::after{{left:auto;right:0}}
@@ -455,6 +456,7 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w p.sy-s{{margin-top:18px!important;padding-top:12px;border-top:1px solid #e5e7eb}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
+@media(min-width:661px){{.sy-m{{column-gap:36px;padding:12px 20px}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
     if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
     return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{'' if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
