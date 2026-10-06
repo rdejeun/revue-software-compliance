@@ -361,7 +361,7 @@ def render(web):
         return sid,inner
     def syattr(sid): return f' class="sy-it" data-syn="{sid}"' if (web and sid) else ''
     def row(sid,inner):
-        return f'<tr{syattr(sid)}><td width="20" valign="top" style="width:20px;min-width:20px;padding:15px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;"><div style="width:20px;">&#9632;</div></td><td style="padding:7px 8px 7px 0;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
+        return f'<tr{syattr(sid)}><td width="20" valign="top" style="width:20px;min-width:20px;padding:16px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;"><div style="width:20px;">&#9632;</div></td><td style="padding:8px 8px 8px 0;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
     def rcell(sid,inner):
         return f'<table class="rp" role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="width:16px;min-width:16px;padding:12px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;"><div style="width:16px;">&#9632;</div></td><td style="padding:5px 6px 5px 0;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
     rap=[]   # rappels de la section courante, affichés en fin de section sur deux colonnes
