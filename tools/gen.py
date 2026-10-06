@@ -173,20 +173,22 @@ def bloc_podcast(web,diso,ed_url):
     fm=lambda t:f'{int(t)//60}:{int(t)%60:02d}'
     signets=('<div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
         f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div>') if ch else ''
-    def rk(c):
-        x=f'calc(7px + (100% - 14px) * {c["debut_s"]/max(1,EP["duree_s"]):.4f})'
-        return f'linear-gradient(to right,transparent calc({x} - 1px),#fff calc({x} - 1px),#fff calc({x} + 1px),transparent calc({x} + 1px))'
-    reperes=(' style="--rk:'+','.join(rk(c) for c in ch)+'"') if ch else ''
+    # repères des sujets sous la barre, à leur position (la course du curseur va de 7 px à largeur − 7 px)
+    frac=lambda c:f'{c["debut_s"]/max(1,EP["duree_s"]):.4f}'
+    temps=('<div class="pod-tl" role="group" aria-label="Sujets de l’épisode">'+''.join(
+        f'<button type="button" data-t="{c["debut_s"]}" style="left:calc(7px + (100% - 14px) * {frac(c)})" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}"><span>{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</span></button>' for c in ch)+'</div>') if ch else ''
+    reperes=''
     return (f'<div class="pod" id="ecouter">'
-            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-k">Podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
+            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}<span class="pod-eq" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="pod-k">Le podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
-            f'<div class="pod-hd"><span class="pod-eb">Le podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
-            f'<div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
+            f'<div class="pod-hd"><div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
+            f'<a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
+            f'<div class="pod-tw"><span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
             f'<span class="pod-rw"><input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode"{reperes}><span class="pod-th" aria-hidden="true"></span></span>'
-            f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
+            +temps+'</div>'+
             f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
             f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
             +signets+
@@ -211,8 +213,8 @@ v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vo
 m.addEventListener('click',function(){if(a.muted||a.volume==0){a.muted=false;if(a.volume==0)a.volume=.8}else a.muted=true;vol()});
 a.addEventListener('volumechange',vol);vol();
 pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
-a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause')});
-a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture')});
+a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause');w.classList.add('joue')});   /* joue : égaliseur dans la barre repliée */
+a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture');w.classList.remove('joue')});
 a.addEventListener('loadedmetadata',function(){if(isFinite(a.duration))r.max=a.duration});
 /* curseur dessiné : position en pixels fractionnaires (transform), mise à jour à chaque image pendant la lecture */
 var th=w.querySelector('.pod-th');
@@ -223,11 +225,13 @@ a.addEventListener('timeupdate',function(){if(!r.matches(':active')){r.value=a.c
 r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);pos(r.value/(r.max||1))});
 r.addEventListener('change',function(){if(!a.paused)requestAnimationFrame(boucle)});
 addEventListener('resize',function(){pos(+r.value/(r.max||1))});h.addEventListener('click',function(){setTimeout(function(){pos(+r.value/(r.max||1))},60)});
-var S=[].slice.call(w.querySelectorAll('.pod-ch button'));
+/* sujets : ligne de mots sous les commandes et repères cliquables sous la barre */
+var S=[].slice.call(w.querySelectorAll('.pod-ch button')),TL=[].slice.call(w.querySelectorAll('.pod-tl button'));
 var CH=w.querySelector('.pod-ch');function deb(){if(CH)CH.classList.toggle('deb',CH.scrollWidth>CH.clientWidth+1)}addEventListener('resize',deb);h.addEventListener('click',function(){setTimeout(deb,50)});deb();
-S.forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
-function chap(){var k=-1;S.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
- S.forEach(function(s,i){var on=i===k;if(on&&!s.classList.contains('on')&&s.parentNode.scrollWidth>s.parentNode.clientWidth)s.parentNode.scrollTo({left:s.offsetLeft-24,behavior:'smooth'});s.classList.toggle('on',on)})}
+S.concat(TL).forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
+function chap(){[S,TL].forEach(function(L){var k=-1;L.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
+ L.forEach(function(s,i){var on=i===k;if(L===S&&on&&!s.classList.contains('on')&&s.parentNode.scrollWidth>s.parentNode.clientWidth)s.parentNode.scrollTo({left:s.offsetLeft-24,behavior:'smooth'});
+  s.classList.toggle('on',on)})})}
 a.addEventListener('timeupdate',chap);a.addEventListener('seeked',function(){chap();pos(a.currentTime/(r.max||1))});
 if(location.hash==='#ecouter')set(true);
 })();
@@ -554,23 +558,24 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-l{{flex:1}}
 .pod-d{{display:inline-flex;align-items:center;gap:6px;font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-d svg{{flex:none;color:#8a8f98}}
-.pod-ch{{display:flex;gap:5px;width:0;min-width:100%;margin:12px 0 2px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
+.pod-ch{{display:flex;justify-content:space-between;gap:4px;width:0;min-width:100%;margin:12px 0 0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
 .pod-ch.deb{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}}
 .pod-ch::-webkit-scrollbar{{display:none}}
-.pod-ch button{{flex:1 0 auto;padding:2px 6px;border:1px solid #e8dfd0;border-radius:11px;background:rgba(255,255,255,.55);color:#6b7280;font:12px/18px {SANS};cursor:pointer}}
-.pod-ch button:hover,.pod-ch button:focus-visible{{border-color:#e3d6c3;background:#fff;color:{NAVY};outline:none}}
-.pod-ch button.on{{border-color:{ACC};background:#fff;color:{ACC}}}
+.pod-ch button{{flex:none;padding:2px 8px;border:0;border-radius:11px;background:none;color:#8a8f98;font:12px/18px {SANS};cursor:pointer}}
+.pod-ch button:hover,.pod-ch button:focus-visible{{color:{NAVY};outline:none}}
+.pod-ch button.on{{background:#fff;color:{ACC}}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
-.pod-hd{{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
+.pod-hd{{display:flex;align-items:center;gap:14px;margin:12px 0 10px}}
+.pod-hd .pod-rss{{flex:none}}
 .pod-k{{flex:none;padding-right:10px;border-right:1px solid #e3d6c3;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
-@media(max-width:560px){{.pod-k{{display:none}}}}
+@media(max-width:560px){{.pod-k{{display:none}}.pod-hd .pod-rss{{width:28px;height:28px;padding:0;justify-content:center;border-radius:50%}}.pod-hd .pod-rss span{{display:none}}}}
 .pod-eb{{margin:0;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
-.pod-t{{width:0;min-width:100%;margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.pod-t{{flex:1;width:0;min-width:0;margin:0;font:600 16px/23px {SANS};color:{NAVY};white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .pod-t.run{{text-overflow:clip}}
 .pod-t.run .pod-tx{{display:inline-block}}
 .pod-p{{display:flex;align-items:center;gap:12px}}
-.pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
+.pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:40px;height:40px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
 .pod-pl:hover,.pod-pl:focus-visible{{background:{ACC};outline:none}}
 .pod-pl svg{{width:14px;height:14px}}
 .pod-r{{--p:0%;flex:1;width:0;min-width:0;height:4px;margin:0;border-radius:2px;background:var(--rk,none),linear-gradient(to right,{ACC} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
@@ -580,7 +585,23 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-r:focus-visible{{outline:none}}
 .pod-r:focus-visible+.pod-th{{box-shadow:0 0 0 2px #fff,0 0 0 3px {ACC},0 0 0 6px rgba(194,65,12,.25)}}
 .pod-r::-moz-range-thumb{{width:14px;height:14px;border:0;border-radius:50%;opacity:0}}
-.pod-tm{{font:12px/16px {SANS};color:#6b7280;white-space:nowrap;font-variant-numeric:tabular-nums}}
+.pod-tw{{flex:1;min-width:0;display:flex;flex-direction:column}}
+.pod-tm{{align-self:flex-end;margin:0 0 3px;font:11px/14px {SANS};color:#8a8f98;white-space:nowrap;font-variant-numeric:tabular-nums}}
+.pod-tw .pod-rw{{flex:none;width:100%;height:14px}}
+.pod-tl{{position:relative;height:9px;margin-top:3px}}
+.pod-tl button{{position:absolute;top:0;width:9px;height:9px;margin-left:-4px;padding:0;border:0;background:linear-gradient(#c9bba3,#c9bba3) center/1px 6px no-repeat;color:transparent;font-size:0;cursor:pointer}}
+.pod-tl button span{{display:none}}
+.pod-tl button:hover,.pod-tl button:focus-visible,.pod-tl button.on{{background-image:linear-gradient({ACC},{ACC});background-size:2px 7px;outline:none}}
+.pod-p{{align-items:flex-start}}
+.pod-p .pod-pl{{margin-top:4px}}
+.pod-p .pod-m{{margin-top:10px}}
+.pod-v{{display:none!important}}
+.pod-eq{{display:none;align-items:flex-end;gap:2px;height:11px}}
+.pod-eq i{{display:block;width:3px;height:100%;border-radius:1px;background:#fff;transform-origin:bottom}}
+.pod.joue .pod-i svg{{display:none}}
+.pod.joue .pod-eq{{display:inline-flex}}
+@media (prefers-reduced-motion:no-preference){{.pod.joue .pod-eq i{{animation:eq .9s ease-in-out infinite alternate}}.pod.joue .pod-eq i:nth-child(2){{animation-delay:-.45s;animation-duration:.7s}}.pod.joue .pod-eq i:nth-child(3){{animation-delay:-.2s;animation-duration:1.1s}}}}
+@keyframes eq{{from{{transform:scaleY(.35)}}to{{transform:scaleY(1)}}}}
 .pod-m{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:{NAVY};cursor:pointer}}
 .pod-m:hover,.pod-m:focus-visible{{color:{ACC};outline:none}}
 .pod.mu .pod-m .w{{display:none}}
