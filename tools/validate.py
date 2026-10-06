@@ -32,6 +32,18 @@ def segs_ok(segs, where):
     return True
 
 
+RESEAU_DEPUIS = '2026-10-09'   # « Mode réseau » obligatoire pour les outils et services à partir de cette édition
+RESEAU_VALEURS = ('Déconnecté', 'Connecté', 'Non documenté')
+
+
+def check_reseau(sm, where, d):
+    """Outils et services : la synthèse porte « reseau » (README, § 6)."""
+    if not sm or d < RESEAU_DEPUIS: return
+    r = sm.get('reseau') or ''
+    if not r: ERR.append(f'{where} : synthèse sans « reseau » (mode réseau de l’outil ou du service, README § 6)')
+    elif not r.startswith(RESEAU_VALEURS): WARN.append(f'{where} : « reseau » doit commencer par « Déconnecté », « Connecté » ou « Non documenté »')
+
+
 def check_sum(sm, where):
     if sm is None: return
     if not isinstance(sm, dict): ERR.append(f'{where} : synthèse invalide'); return
@@ -92,6 +104,7 @@ def check_content(d, blocks, meta, themes):
                 a = (b.get('attrs') or [None] * len(its))[j] if j < len(b.get('attrs') or []) else None
                 sm = (b.get('sum') or [None] * len(its))[j] if j < len(b.get('sum') or []) else None
                 check_attrs(a or {}, ww, themes); check_sum(sm, ww)
+                if sec.startswith('Outils'): check_reseau(sm, ww, d)
                 nitems += 1; nsum += bool(sm); nb[sec] = nb.get(sec, 0) + 1
                 if a and a.get('rappel'): rap[sec] = rap.get(sec, 0) + 1
                 if a and a.get('rappel') and words(''.join(x['t'] for x in it if not x.get('href'))) > 30:

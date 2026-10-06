@@ -52,6 +52,12 @@ Chaque puce, chaque paragraphe « Défense : … » et chaque événement de l'a
 - `titre` : intitulé neutre.
 - `statut` : statut juridique ou factuel et date d'effet (« En vigueur depuis… », « Projet, publication au JO attendue en… », « Contentieux en cours ; issue non publiée »).
 - `fonctions` : fonctions concernées (contrôle des exportations, juridique, PSIRT, ingénierie logicielle, achats, qualité…).
+- `reseau` (affiché « Mode réseau » sous Statut et Fonctions ; **obligatoire pour chaque élément de la rubrique Outils**, à partir de l'édition du 9 octobre 2026, le contrôle bloque sinon) : résultat de l'analyse réseau de l'outil ou du service, en une phrase qui commence par l'une de ces formes :
+  - « Déconnecté (air-gapped) : fonctionnement complet sans Internet » — si l'outil propose un mode déconnecté et que ce mode reste pleinement fonctionnel ; préciser au besoin comment les données (bases de vulnérabilités, de licences) sont mises à jour (import manuel, miroir local) ;
+  - « Déconnecté (air-gapped) : fonctionnement partiel » — suivi des fonctions perdues hors connexion ;
+  - « Connecté : services hébergés en/aux <pays> » — si l'outil ne fonctionne pas sans connexion ; donner le ou les pays de chaque service requis (éditeur, base de données, IA) et, le cas échéant, l'option de région d'hébergement proposée ;
+  - « Non documenté » — si les sources consultées ne permettent pas de conclure (« dans les sources consultées »).
+  Chaque affirmation repose sur une source lue (documentation officielle de l'éditeur : guides d'installation hors ligne ou air-gap, pages d'hébergement et de résidence des données, sous-traitants ultérieurs) ; elle est soumise à la vérification du second agent. Le Résumé n'apporte des précisions que si la ligne ne suffit pas (par exemple : mises à jour hors ligne possibles mais manuelles).
 - `essentiel` (affiché « Résumé ») : les faits, tels que rapportés par les sources ; 120 mots au plus.
 - `contexte` : ce qui précède ou entoure l'information.
 - `impact_avere` : 1er paragraphe de « Impact », à l'indicatif : effet déjà certain pour un industriel français qui fabrique des équipements de défense contenant des logiciels, y compris des composants tiers.
@@ -67,7 +73,7 @@ Règles : faits uniquement tirés des sources vérifiées ; tenir compte des exc
 2. Rechercher l'actualité depuis l'édition précédente (§ 2 et § 3). **Audit de couverture** : passer en revue chaque dossier de `tools/themes.json` (dont `safe-edip`, `cmmc`, `export-ue`, `export-us`, `sanctions`) et noter pour chacun : nouveauté, rappel d'un dossier ouvert, ou rien (et pourquoi).
 3. Classer chaque information (§ 5) et appliquer la règle d'or.
 4. Rédiger `content/AAAA-MM-JJ/blocks.json` et `meta.json` (schéma § 8), avec la date d'envoi. Numéro : n = partie entière de ((date − 5 octobre 2026) en jours ÷ 7) + 1 (9 octobre 2026 → 1, 16 octobre 2026 → 2) ; la numérotation a été remise à zéro le 5 octobre 2026. `date_long` : « Vendredi 9 octobre 2026 ». Ne jamais modifier une édition déjà envoyée (présence de `envoi.json`).
-5. Rédiger les synthèses (§ 6).
+5. Rédiger les synthèses (§ 6). Pour chaque outil ou service de la rubrique Outils, analyser son mode réseau (champ `reseau`, § 6) : mode déconnecté (air-gapped) proposé ? pleinement fonctionnel sans Internet ? sinon, pays des services auxquels il se connecte.
 5 bis. Écrire le script de l'épisode audio `content/AAAA-MM-JJ/podcast.json` (§ 11), puis le contrôler : `python3 tools/podcast.py --check`.
 6. Mettre à jour `tools/glossary.py` (nouveaux sigles et noms propres : `(regex, libellé, définition ≤ 30 mots, URL officielle ou None)`) et `tools/themes.json`.
 7. **Vérification par un second agent** : lancer un sous-agent (outil Agent) qui n'a pas participé à la rédaction, en lui donnant uniquement la liste des affirmations factuelles (une par ligne : affirmation, URL de la source). Il lit chaque source et répond pour chacune « confirmé » ou « non confirmé » avec la raison. Corriger ou retirer toute affirmation non confirmée. À défaut d'outil Agent, faire cette relecture soi-même, source par source, après la rédaction.
@@ -93,7 +99,7 @@ Liste de blocs :
 
 Segment : `{"t":"texte"}` ou `{"t":"libellé","href":"https://…"}` (lien source), avec `"type":"editeur"` pour une source commerciale. Chaque puce s'écrit « Accroche : texte (Source1, Source2). » : l'accroche est mise en semi-gras, les sources deviennent des pastilles.
 Attributs : `{"date":"2026-10-01","rappel":false,"themes":["cra","sbom"]}`.
-Synthèse : `{"titre","statut","fonctions","essentiel","contexte","impact_avere","impact_potentiel","a_verifier":[…]}`.
+Synthèse : `{"titre","statut","fonctions","reseau" (Outils),"essentiel","contexte","impact_avere","impact_potentiel","a_verifier":[…]}`.
 
 `meta.json` : `n`, `date_iso`, `date_long`, `date`, `site` (« https://revue.dejeun.es/ »), `toc` (libellés courts des sections), `redaction` (IA qui a rédigé l'édition, sous la forme « <éditeur> <modèle> <version> », ex. « Anthropic Claude Opus 5.5 », affichée en pied de page), `agenda_refs` (page de référence de chaque événement sans lien), `demo` (édition de démonstration, jamais envoyée).
 
