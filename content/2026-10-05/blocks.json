@@ -374,7 +374,7 @@
    ],
    [
     {
-     "t": "CISA : publication le 29 juillet 2026 des « 2026 Minimum Elements » du SBOM, avec la NSA, le FBI et des partenaires internationaux ; ils remplacent ceux du NTIA de 2021 et prévoient des éléments supplémentaires pour l’IA et le SaaS ("
+     "t": "CISA : publication le 29 juillet 2026 des *{en}2026 Minimum Elements* du SBOM, avec la NSA, le FBI et des partenaires internationaux ; ils remplacent ceux du NTIA de 2021 et prévoient des éléments supplémentaires pour l’IA et le SaaS ("
     },
     {
      "t": "CISA",
@@ -608,10 +608,10 @@
     ]
    },
    {
-    "titre": "CISA : « 2026 Minimum Elements » du SBOM",
+    "titre": "CISA : *{en}2026 Minimum Elements* du SBOM",
     "statut": "Publié le 29 juillet 2026",
     "fonctions": "Ingénierie logicielle, achats, contrôle des exportations, qualité",
-    "essentiel": "L'agence américaine de cybersécurité CISA a publié le 29 juillet 2026 les « 2026 Minimum Elements » du SBOM (nomenclature logicielle, inventaire des composants d'un logiciel). Rédigé avec la NSA, le FBI et des partenaires internationaux, il remplace les éléments minimaux publiés par le NTIA en 2021 ; il précise que les logiciels d'IA et le SaaS peuvent exiger des éléments supplémentaires.",
+    "essentiel": "L'agence américaine de cybersécurité CISA a publié le 29 juillet 2026 les *{en}2026 Minimum Elements* du SBOM (nomenclature logicielle, inventaire des composants d'un logiciel). Rédigé avec la NSA, le FBI et des partenaires internationaux, il remplace les éléments minimaux publiés par le NTIA en 2021 ; il précise que les logiciels d'IA et le SaaS peuvent exiger des éléments supplémentaires.",
     "contexte": "Ce texte met à jour les éléments minimaux de nomenclature logicielle publiés antérieurement par les autorités américaines, qui servent de référence à de nombreux clients et donneurs d'ordre.",
     "impact_avere": "La publication est un document américain de référence, sans force juridique propre en France. Pour un industriel exportant vers les États-Unis ou fournissant des clients américains, il constitue un repère sur le contenu attendu d'une nomenclature logicielle, y compris pour les composants tiers.",
     "impact_potentiel": "Des clients ou des programmes pourraient reprendre ces éléments dans leurs exigences contractuelles. Le volet sur l'intelligence artificielle pourrait conduire à documenter les modèles et jeux de données embarqués. Cette nomenclature pourrait aussi être comparée aux attentes du CRA.",
@@ -680,7 +680,7 @@
     "statut": "Protocole d'accord signé le 30 juillet 2026",
     "fonctions": "Ingénierie logicielle, achats, juridique, PSIRT",
     "essentiel": "L'Eclipse Foundation et l'OWASP ont signé le 30 juillet 2026 un protocole d'accord pour la préparation au CRA. Il prévoit des guides pour les *{en}stewards*, des ressources sur les SBOM et un soutien aux mainteneurs.",
-    "contexte": "Le Cyber Resilience Act (CRA) introduit un rôle de *{en}steward* pour les organisations qui soutiennent de façon durable des logiciels open source destinés à un usage commercial. L'OWASP (Open Worldwide Application Security Project) et l'Eclipse Foundation sont deux acteurs majeurs de l'écosystème open source.",
+    "contexte": "Le Cyber Resilience Act (CRA) introduit un rôle de *{en}steward* pour les organisations qui soutiennent de façon durable des logiciels open source destinés à un usage commercial. L'OWASP (*{en}Open Worldwide Application Security Project*) et l'Eclipse Foundation sont deux acteurs majeurs de l'écosystème open source.",
     "impact_avere": "Il s'agit d'un accord de coopération entre deux organisations, sans valeur réglementaire. Les composants open source intégrés aux équipements restent soumis aux obligations de l'industriel qui les utilise.",
     "impact_potentiel": "Les guides et ressources annoncés pourraient faciliter l'obtention d'informations de sécurité et de SBOM sur des composants open source. Ils pourraient aussi servir de référence pour dialoguer avec les mainteneurs. Leur contenu et leur calendrier de publication ne sont pas précisés dans la source.",
     "a_verifier": [
@@ -1064,7 +1064,7 @@
     "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — la plateforme interroge des API externes ; la source OSV peut être alimentée par un miroir hors ligne.",
     "licence": "Open source : Apache-2.0 (OWASP Foundation).",
     "essentiel": "Dependency-Track est une plateforme open source de suivi des composants. Elle ingère des SBOM au format CycloneDX, suit les composants, croise les vulnérabilités (NVD, OSV, GitHub Advisories) et applique des politiques. La version 5.0, publiée le 9 juin 2026, apporte montée en charge horizontale, tolérance aux pannes et vérification de l'intégrité de la chaîne ; la version 5.1.0 est sortie le 31 août 2026.",
-    "contexte": "L'outil est un projet de l'OWASP (Open Worldwide Application Security Project). Il s'inscrit dans l'outillage de suivi des composants logiciels, utile à la gestion des vulnérabilités.",
+    "contexte": "L'outil est un projet de l'OWASP (*{en}Open Worldwide Application Security Project*). Il s'inscrit dans l'outillage de suivi des composants logiciels, utile à la gestion des vulnérabilités.",
     "impact_avere": "Le suivi continu des composants tiers et des vulnérabilités connues est une activité courante de la gestion de la chaîne logicielle. Cet outil en offre une réalisation libre, sans lien automatique avec une obligation réglementaire.",
     "impact_potentiel": "Un déploiement sur des réseaux de développement sensibles pourrait imposer des choix d'hébergement et de bases de vulnérabilités accessibles. La montée en charge annoncée pourrait convenir à de grands portefeuilles de produits, sous réserve d'une évaluation interne.",
     "a_verifier": [
@@ -1109,7 +1109,7 @@
     "fonctions": "Achats, ingénierie logicielle, PSIRT, qualité",
     "reseau": "Connecté : images récupérées depuis le registre cgr.dev (stockage Cloudflare R2, pays non documenté) ; un proxy local est recommandé pour limiter la dépendance au registre.",
     "licence": "Mixte : images :latest et :latest-dev gratuites sans compte, ou cinq images au choix (Catalog Starter, sans engagement de correction des CVE) ; autres versions sur abonnement.",
-    "essentiel": "Chainguard met en avant des images durcies livrées avec une SBOM signée et une provenance, des mises à jour quotidiennes et un délai de 7 jours pour les CVE (Common Vulnerabilities and Exposures) critiques. Ce délai est une promesse de l'éditeur.",
+    "essentiel": "Chainguard met en avant des images durcies livrées avec une SBOM signée et une provenance, des mises à jour quotidiennes et un délai de 7 jours pour les CVE (*{en}Common Vulnerabilities and Exposures*) critiques. Ce délai est une promesse de l'éditeur.",
     "contexte": "Ces arguments sont présentés par l'éditeur dans un contenu consacré au Cyber Resilience Act (CRA). Le règlement impose aux fabricants de gérer les vulnérabilités et de documenter les composants de leurs produits.",
     "impact_avere": "Il s'agit d'une communication commerciale. Elle n'établit aucune conformité et ne modifie pas les obligations de l'industriel.",
     "impact_potentiel": "Recourir à de telles images pourrait faciliter l'inventaire des composants et le traitement des vulnérabilités, mais la responsabilité du produit final resterait au fabricant. Une dépendance à un fournisseur extérieur pourrait aussi apparaître, avec des exigences de sécurité de la chaîne d'approvisionnement et des contraintes de souveraineté à examiner.",
@@ -1256,7 +1256,7 @@
     "titre": "Engagement OpenSSF sur le financement des registres de paquets",
     "statut": "Engagement volontaire signé le 16 septembre 2026, sans valeur juridique contraignante.",
     "fonctions": "Ingénierie logicielle, achats, juridique",
-    "essentiel": "Le 16 septembre 2026, des organisations dont Arm, Datadog, Dell Technologies, Ericsson, GitHub, Google, IBM, Kusari, Microsoft, Red Hat, la Rust Foundation et Sonatype ont signé un engagement de l'OpenSSF (Open Source Security Foundation) sur le financement durable des registres publics. Celles qui consomment, miroitent ou redistribuent à grande échelle devraient financer proportionnellement l'infrastructure.",
+    "essentiel": "Le 16 septembre 2026, des organisations dont Arm, Datadog, Dell Technologies, Ericsson, GitHub, Google, IBM, Kusari, Microsoft, Red Hat, la Rust Foundation et Sonatype ont signé un engagement de l'OpenSSF (*{en}Open Source Security Foundation*) sur le financement durable des registres publics. Celles qui consomment, miroitent ou redistribuent à grande échelle devraient financer proportionnellement l'infrastructure.",
     "contexte": "Les registres publics de paquets hébergent les composants que de nombreux logiciels utilisent comme dépendances. Leur infrastructure repose largement sur des acteurs non commerciaux.",
     "impact_avere": "L'engagement ne crée aucune obligation pour un industriel de défense. Il éclaire toutefois la dépendance des chaînes logicielles à des registres publics dont la pérennité repose sur un financement volontaire, d'après le texte de l'engagement.",
     "impact_potentiel": "Selon l'usage de ces registres, notamment la redistribution ou le miroir interne, l'entreprise pourrait être concernée par cet engagement et par les attentes du secteur. La disponibilité future des registres pourrait aussi influencer les choix d'approvisionnement de composants.",
@@ -1620,8 +1620,8 @@
     "titre": "Défense : demande de systèmes sans composants ITAR",
     "statut": "Tendance de marché ; réglementation américaine ITAR en vigueur",
     "fonctions": "Contrôle des exportations, achats, juridique, ingénierie logicielle",
-    "essentiel": "La demande européenne de systèmes sans composants soumis à l'ITAR (International Traffic in Arms Regulations) augmente, par crainte d'un blocage américain des réexportations. Honeywell a affecté 1 000 ingénieurs en Pologne et en Tchéquie à des technologies non-ITAR. Le 15 juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free.",
-    "contexte": "L'ITAR impose une autorisation du DDTC (Directorate of Defense Trade Controls) pour réexporter ou retransférer des articles fabriqués à l'étranger à partir de composants, de données techniques ou de logiciels ITAR.",
+    "essentiel": "La demande européenne de systèmes sans composants soumis à l'ITAR (*{en}International Traffic in Arms Regulations*) augmente, par crainte d'un blocage américain des réexportations. Honeywell a affecté 1 000 ingénieurs en Pologne et en Tchéquie à des technologies non-ITAR. Le 15 juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free.",
+    "contexte": "L'ITAR impose une autorisation du DDTC (*{en}Directorate of Defense Trade Controls*) pour réexporter ou retransférer des articles fabriqués à l'étranger à partir de composants, de données techniques ou de logiciels ITAR.",
     "impact_avere": "Pour un industriel de défense, tout logiciel, donnée technique ou composant d'origine ITAR intégré à un équipement rend la réexportation soumise à autorisation américaine.",
     "impact_potentiel": "Les clients pourraient exiger une attestation ITAR-free, y compris pour les bibliothèques et outils logiciels tiers. Cela pourrait pousser à cartographier l'origine des composants et à remplacer certains éléments. Ces exigences pourraient figurer dans des appels d'offres.",
     "a_verifier": [
@@ -1764,7 +1764,7 @@
    ],
    [
     {
-     "t": "AI Act : le règlement (UE) 2026/1744 (« Digital Omnibus on AI »), publié au JO le 24 juillet et en vigueur le 27 juillet 2026, reporte les règles sur les systèmes à haut risque au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché ; la plupart des obligations de transparence restent inchangées et le Bureau de l'IA voit son rôle renforcé ("
+     "t": "AI Act : le règlement (UE) 2026/1744 (*{en}Digital Omnibus on AI*), publié au JO le 24 juillet et en vigueur le 27 juillet 2026, reporte les règles sur les systèmes à haut risque au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché ; la plupart des obligations de transparence restent inchangées et le Bureau de l'IA voit son rôle renforcé ("
     },
     {
      "t": "K&L Gates",
@@ -1895,10 +1895,10 @@
     ]
    },
    {
-    "titre": "AI Act : règlement (UE) 2026/1744 « Digital Omnibus on AI »",
+    "titre": "AI Act : règlement (UE) 2026/1744 *{en}Digital Omnibus on AI*",
     "statut": "En vigueur depuis le 27 juillet 2026 (publié au JO le 24 juillet)",
     "fonctions": "Juridique, ingénierie logicielle, qualité, achats",
-    "essentiel": "Le règlement (UE) 2026/1744, dit « Digital Omnibus on AI », a été publié au JO le 24 juillet et est en vigueur depuis le 27 juillet 2026. Il reporte les règles sur les systèmes à haut risque au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché. La plupart des obligations de transparence restent inchangées, et le Bureau de l'IA voit son rôle renforcé.",
+    "essentiel": "Le règlement (UE) 2026/1744, dit *{en}Digital Omnibus on AI*, a été publié au JO le 24 juillet et est en vigueur depuis le 27 juillet 2026. Il reporte les règles sur les systèmes à haut risque au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché. La plupart des obligations de transparence restent inchangées, et le Bureau de l'IA voit son rôle renforcé.",
     "contexte": "Le règlement sur l'intelligence artificielle (AI Act) exclut les systèmes d'IA utilisés exclusivement à des fins militaires, de défense ou de sécurité nationale.",
     "impact_avere": "Les nouveaux délais s'appliquent depuis le 27 juillet 2026. Les règles sur les systèmes à haut risque sont reportées au 2 décembre 2027.",
     "impact_potentiel": "Un produit à usage mixte, ou une version civile d'un équipement embarquant de l'IA, pourrait relever du règlement. Des composants d'IA tiers pourraient entraîner des obligations de transparence dès le 2 décembre 2026.",
@@ -2054,7 +2054,7 @@
     "titre": "Relicenciements Elastic et Redis, licences BSL et SSPL",
     "statut": "Constat de marché relevé par RedMonk ; en vigueur",
     "fonctions": "Juridique, ingénierie logicielle, achats",
-    "essentiel": "Selon RedMonk, Elastic et Redis sont revenus à une licence approuvée par l'OSI (Open Source Initiative), l'AGPL (GNU Affero General Public License), tandis que les licences BSL (Business Source License) et SSPL (Server Side Public License) restent en circulation.",
+    "essentiel": "Selon RedMonk, Elastic et Redis sont revenus à une licence approuvée par l'OSI (*{en}Open Source Initiative*), l'AGPL (*{en}GNU Affero General Public License*), tandis que les licences BSL (*{en}Business Source License*) et SSPL (*{en}Server Side Public License*) restent en circulation.",
     "contexte": "Plusieurs éditeurs avaient quitté des licences libres pour des licences à restrictions. Ces licences ne sont pas approuvées par l'OSI. Les conditions d'usage changent selon la version du composant. Ce point est présenté comme un rappel de situation.",
     "impact_avere": "Les conditions applicables dépendent de la version du composant utilisé. L'AGPL comporte des obligations spécifiques, et les licences BSL et SSPL limitent certains usages. Un logiciel embarqué incorporant ces composants doit être analysé selon la licence de la version effectivement intégrée.",
     "impact_potentiel": "Le retour à l'AGPL pourrait faciliter certains usages mais imposer des obligations de mise à disposition du code dans certaines configurations. Les versions sous BSL ou SSPL déjà intégrées pourraient poser des questions de conformité lors d'une mise à jour.",
@@ -2327,7 +2327,7 @@
     "statut": "Report applicable ; règlement (UE) 2026/1744 en vigueur depuis le 27 juillet 2026",
     "fonctions": "Juridique, ingénierie logicielle, qualité, achats",
     "essentiel": "Les règles de l'AI Act (règlement européen sur l'intelligence artificielle) relatives aux systèmes d'IA à haut risque sont reportées au 2 décembre 2027 par le règlement (UE) 2026/1744, entré en vigueur le 27 juillet 2026. Selon euaiact.com, ce report vise les cas d'usage de l'annexe III ; les systèmes de l'annexe I (produits réglementés) sont reportés au 2 août 2028.",
-    "contexte": "Ce « Digital Omnibus » justifie les reports par l'absence de normes harmonisées et d'infrastructure d'organismes notifiés. Deux nouvelles interdictions s'appliquent à compter du 2 décembre 2026.",
+    "contexte": "Ce Digital Omnibus justifie les reports par l'absence de normes harmonisées et d'infrastructure d'organismes notifiés. Deux nouvelles interdictions s'appliquent à compter du 2 décembre 2026.",
     "impact_avere": "Le report est acquis. L'AI Act exclut les systèmes utilisés exclusivement à des fins militaires, de défense ou de sécurité nationale ; un industriel de défense reste concerné pour ses produits civils ou à double usage.",
     "impact_potentiel": "Un produit à double usage intégrant de l'IA pourrait relever de la catégorie à haut risque. Les fournisseurs de composants d'IA pourraient aussi transmettre des exigences par contrat. La documentation et la gouvernance des données pourraient devoir être préparées avant la nouvelle échéance.",
     "a_verifier": [
