@@ -172,14 +172,14 @@ def bloc_podcast(web,diso,ed_url):
         return f'linear-gradient(to right,transparent calc({x} - 1px),#fff calc({x} - 1px),#fff calc({x} + 1px),transparent calc({x} + 1px))'
     reperes=(' style="--rk:'+','.join(rk(c) for c in ch)+'"') if ch else ''
     return (f'<div class="pod" id="ecouter">'
-            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
+            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-k">Podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
-            f'<div class="pod-hd"><span class="pod-eb">Podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
+            f'<div class="pod-hd"><span class="pod-eb">Le podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
             f'<div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
-            f'<input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode"{reperes}>'
+            f'<span class="pod-rw"><input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode"{reperes}><span class="pod-th" aria-hidden="true"></span></span>'
             f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
             f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
             f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
@@ -208,14 +208,21 @@ pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
 a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause')});
 a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture')});
 a.addEventListener('loadedmetadata',function(){if(isFinite(a.duration))r.max=a.duration});
-a.addEventListener('timeupdate',function(){if(!r.matches(':active'))r.value=a.currentTime;c.textContent=fmt(a.currentTime);r.style.setProperty('--p','calc(7px + (100% - 14px) * '+(a.currentTime/(r.max||1))+')')});
-r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);r.style.setProperty('--p','calc(7px + (100% - 14px) * '+(r.value/(r.max||1))+')')});
+/* curseur dessiné : position en pixels fractionnaires (transform), mise à jour à chaque image pendant la lecture */
+var th=w.querySelector('.pod-th');
+function pos(f){f=Math.max(0,Math.min(1,f||0));var x=7+(r.clientWidth-14)*f;th.style.transform='translate3d('+(x-5)+'px,0,0)';r.style.setProperty('--p',x+'px')}
+function boucle(){if(a.paused||r.matches(':active'))return;pos(a.currentTime/(r.max||1));requestAnimationFrame(boucle)}
+a.addEventListener('play',function(){requestAnimationFrame(boucle)});
+a.addEventListener('timeupdate',function(){if(!r.matches(':active')){r.value=a.currentTime;if(a.paused)pos(a.currentTime/(r.max||1))}c.textContent=fmt(a.currentTime)});
+r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);pos(r.value/(r.max||1))});
+r.addEventListener('change',function(){if(!a.paused)requestAnimationFrame(boucle)});
+addEventListener('resize',function(){pos(+r.value/(r.max||1))});h.addEventListener('click',function(){setTimeout(function(){pos(+r.value/(r.max||1))},60)});
 var S=[].slice.call(w.querySelectorAll('.pod-ch button'));
 var CH=w.querySelector('.pod-ch');function deb(){if(CH)CH.classList.toggle('deb',CH.scrollWidth>CH.clientWidth+1)}addEventListener('resize',deb);h.addEventListener('click',function(){setTimeout(deb,50)});deb();
-S.forEach(function(s){s.addEventListener('click',function(){a.currentTime=+s.getAttribute('data-t');if(a.paused)a.play()})});
+S.forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
 function chap(){var k=-1;S.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
  S.forEach(function(s,i){var on=i===k;if(on&&!s.classList.contains('on')&&s.parentNode.scrollWidth>s.parentNode.clientWidth)s.parentNode.scrollTo({left:s.offsetLeft-24,behavior:'smooth'});s.classList.toggle('on',on)})}
-a.addEventListener('timeupdate',chap);a.addEventListener('seeked',chap);
+a.addEventListener('timeupdate',chap);a.addEventListener('seeked',function(){chap();pos(a.currentTime/(r.max||1))});
 if(location.hash==='#ecouter')set(true);
 })();
 </script>"""
@@ -463,9 +470,10 @@ def render(web):
         li=''.join(f'<li><a href="#s{i}">{E(s)}</a></li>' for i,s in enumerate(SEC))
         ab=lambda x:ABREV.get(x.replace('’',"'"),x)
         lic=''.join(f'<li><a href="#s{i}" title="{E(s)}">{E(ab(s))}</a></li>' for i,s in enumerate(SEC))   # colonne étroite : libellés abrégés
-        TOCBAR=('<nav class="toc-b" id="sommaire" aria-label="Sommaire"><button type="button" class="toc-bt" aria-expanded="false" aria-controls="toc-ls">'
+        TOCBAR=('<style>@media(max-width:660px){.w.hd{padding-bottom:0!important}.toc-b{margin-top:-16px!important}}</style>'   # petit écran : pas de marge basse sous l'en-tête
+                '<nav class="toc-b" id="sommaire" aria-label="Sommaire"><button type="button" class="toc-bt" aria-expanded="false" aria-controls="toc-ls">'
                 '<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5 4h8M5 8h8M5 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2.5" cy="4" r="1" fill="currentColor"/><circle cx="2.5" cy="8" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/></svg>'
-                f'<span class="toc-t">Sommaire</span><span class="toc-c">{len(SEC)} rubriques</span><svg class="toc-v" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+                f'<span class="toc-x"><span class="toc-t">Sommaire</span><span class="toc-c">{len(SEC)} rubriques</span></span><svg class="toc-v" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
                 f'<ol class="toc-ls" id="toc-ls" hidden>{li}</ol></nav>')
         TOCNAV=f'<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>{lic}</ol></nav>'+TOC_JS
     else:
@@ -491,6 +499,8 @@ h2[id^='s']{{scroll-margin-top:56px}}
 .toc-b{{position:sticky;top:0;z-index:30;margin:-24px 0 18px;background:#fff;border-bottom:1px solid #ece7dc}}
 .toc-b.colle{{box-shadow:0 6px 10px -8px rgba(15,42,74,.25)}}
 .toc-bt{{display:flex;align-items:center;gap:8px;width:100%;height:40px;padding:0 2px;border:0;background:none;color:{NAVY};font:13px/1 {SANS};text-align:left;cursor:pointer}}
+.toc-x{{display:flex;align-items:baseline;gap:8px;flex:1;min-width:0}}
+.toc-bt svg{{flex:none}}
 .toc-bt .toc-t{{font:400 11px/1 {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
 .toc-c{{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#9ca3af}}
 .toc-c.en{{color:#4b5563}}
@@ -545,6 +555,8 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
 .pod-hd{{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
+.pod-k{{flex:none;padding-right:10px;border-right:1px solid #e3d6c3;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
+@media(max-width:560px){{.pod-k{{display:none}}}}
 .pod-eb{{margin:0;font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC}}}
 .pod-t{{width:0;min-width:100%;margin:0 0 12px;font:600 16px/23px {SANS};color:{NAVY};white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
 .pod-t.run{{text-overflow:clip}}
@@ -554,8 +566,12 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-pl:hover,.pod-pl:focus-visible{{background:{ACC};outline:none}}
 .pod-pl svg{{width:14px;height:14px}}
 .pod-r{{--p:0%;flex:1;width:0;min-width:0;height:4px;margin:0;border-radius:2px;background:var(--rk,none),linear-gradient(to right,{ACC} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
-.pod-r::-webkit-slider-thumb{{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:{ACC};border:2px solid #fff;box-shadow:0 0 0 1px {ACC}}}
-.pod-r::-moz-range-thumb{{width:12px;height:12px;border-radius:50%;background:{ACC};border:2px solid #fff}}
+.pod-r::-webkit-slider-thumb{{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;opacity:0}}
+.pod-rw{{position:relative;flex:1;width:0;min-width:0;display:flex;align-items:center}}
+.pod-th{{position:absolute;left:0;top:50%;width:10px;height:10px;margin-top:-5px;border-radius:50%;background:{ACC};box-shadow:0 0 0 2px #fff,0 0 0 3px {ACC};pointer-events:none;will-change:transform;transform:translate3d(2px,0,0)}}
+.pod-r:focus-visible{{outline:none}}
+.pod-r:focus-visible+.pod-th{{box-shadow:0 0 0 2px #fff,0 0 0 3px {ACC},0 0 0 6px rgba(194,65,12,.25)}}
+.pod-r::-moz-range-thumb{{width:14px;height:14px;border:0;border-radius:50%;opacity:0}}
 .pod-tm{{font:12px/16px {SANS};color:#6b7280;white-space:nowrap;font-variant-numeric:tabular-nums}}
 .pod-m{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:{NAVY};cursor:pointer}}
 .pod-m:hover,.pod-m:focus-visible{{color:{ACC};outline:none}}
@@ -574,7 +590,7 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w p.sy-s{{display:flex;flex-wrap:wrap;align-items:center;row-gap:6px}}
 .sy-w p.sy-s a:not(.sy-sh){{line-height:20px}}
 mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
-.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center;position:relative;top:4px}}
+.sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:400 12px/18px {SANS};text-decoration:none;align-self:center;position:relative;top:4px}}
 .sy-w a.sy-sh:hover,.sy-w a.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 .sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:#6b7280;cursor:pointer;z-index:2}}
 .sy-x svg{{display:block}}
@@ -591,6 +607,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 @supports (text-box:trim-both cap alphabetic){{.sy-k{{display:inline-block;height:auto;line-height:1;padding:4px 7px;text-box:trim-both cap alphabetic}}}}
 .sy-m dd{{margin:0;min-width:0}}
 .sy-w h4{{margin:18px 0 6px;font:400 13px/18px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#6f675a}}
+.sy-w h4::before{{content:'';display:inline-block;width:12px;height:2px;margin:0 8px 0 0;background:{ACC};vertical-align:.32em}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
 .sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
