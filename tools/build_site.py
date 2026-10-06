@@ -32,7 +32,7 @@ NI = lambda s: ITAL.sub(r'\2', s)          # texte brut
 MI = lambda s: ITAL.sub(r'*\2*', s)        # Markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
-from pied import pied, mentions, CSS_COURRIEL
+from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED
 POD_TITRE = 'Software Compliance, le podcast'
 # Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
 IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'podcast.jpg')
@@ -179,7 +179,7 @@ CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;backgr
 .c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;padding:38px 52px 44px;box-sizing:border-box}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
 h1{{margin:8px 0 14px;font:700 46px/52px {SERIF};color:#0f2a4a;letter-spacing:-.01em;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 44px/52px {SANS};letter-spacing:-.025em}} h1.dos{{font-size:44px;line-height:50px}} h1.dos span{{font-size:42px;line-height:50px}}
-.pied{{margin:44px 0 0;padding:16px 0 0;border-top:2px solid #7a808d;font:11px/15px {SANS};color:#7a808d}}
+{CSS_PIED}
 {CSS_COURRIEL}
 .c>p a{{color:#1f4e8c}}
 .sub{{margin:0 0 24px;padding-bottom:14px;border-bottom:2px solid #0f2a4a;font:13px/20px {SANS};color:#6b7280}} .sub a{{color:#6b7280}}
@@ -225,7 +225,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style></head>
-<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">{pied(REDACTION, datetime.date.today().year)}</p></main>{fin}</body></html>'''
+<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
 
 
 def write(path, txt):

@@ -17,6 +17,35 @@ def pied(redaction, annee, absolu=False, lien='color:#7a808d;'):
             f'<a href="{ml}" style="{lien}">Mentions légales</a>')
 
 
+SANS_ = "'Segoe UI',Arial,sans-serif"
+CSS_PIED = ('@media(max-width:660px){td.pd-c{display:block!important;width:100%!important;text-align:left!important;padding:0 0 10px!important}'
+            'td.pd-c.pd-n{padding-bottom:4px!important}}')
+
+
+def pied_bloc(redaction, annee, absolu=False):
+    """Pied de page (variante A) : monogramme et « Revue de presse hebdomadaire », navigation à droite ; filet fin ;
+    une ligne de mentions (©, licence, rédaction par IA) et le lien vers les mentions légales. Tableaux et styles en
+    ligne, pour l'e-mail (Outlook compris) ; petit écran : les cellules s'empilent (CSS_PIED). absolu=True : liens complets."""
+    b = SITE if absolu else ''
+    lk = 'color:#4b5563;text-decoration:none;border-bottom:1px dotted #9ca3af;'
+    nav = ' &nbsp;&nbsp; '.join(f'<a href="{b}{u}" style="{lk}">{t}</a>' for t, u in (
+        ('Archives', '/archives/'), ('Dossiers', '/dossiers/'), ('Fil RSS', '/feed.xml'), ('Podcast', '/#ecouter')))
+    fin = 'color:#8a8f98;text-decoration:none;border-bottom:1px dotted #b8bcc4;'
+    T = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"'
+    return (f'{T} style="margin:44px 0 0;border-top:2px solid #0f2a4a;"><tr><td style="padding:0;">'
+            # ligne 1 : identité, navigation
+            f'{T}><tr><td class="pd-c pd-n" valign="middle" style="padding:16px 0 12px;font:13px/20px {SANS_};color:#4b5563;white-space:nowrap;">'
+            f'<img src="{b}/apple-touch-icon.png" width="28" height="28" alt="SC" style="display:inline-block;vertical-align:middle;width:28px;height:28px;border:0;border-radius:5px;margin:0 10px 0 0;">'
+            f'<span style="vertical-align:middle;">Revue de presse hebdomadaire</span></td>'
+            f'<td class="pd-c" align="right" valign="middle" style="padding:16px 0 12px 12px;font:13px/20px {SANS_};text-align:right;white-space:nowrap;">{nav}</td></tr></table>'
+            # filet fin, puis ligne 2 : mentions et lien vers les mentions légales
+            f'{T} style="border-top:1px solid #e5e1d8;"><tr><td class="pd-c" valign="top" style="padding:10px 0 0;font:350 12px/18px {SANS_};color:#8a8f98;">'
+            f'©\u00a0{annee} {EDITEUR} · <a href="{LICENCE_URL}" style="{fin}">CC\u00a0BY\u00a04.0</a> · Rédigé par IA à partir des sources citées</td>'
+            f'<td class="pd-c" align="right" valign="top" style="padding:10px 0 0 12px;font:350 12px/18px {SANS_};text-align:right;white-space:nowrap;">'
+            f'<a href="{b}/mentions-legales/" style="{fin}">Mentions légales</a></td></tr></table>'
+            '</td></tr></table>')
+
+
 def courriel():
     """Adresse lisible à l'écran mais pas dans le code de la page : caractères écrits à l'envers et remis
     à l'endroit par le sens d'écriture CSS, avec un leurre invisible ; pas de lien mailto."""
