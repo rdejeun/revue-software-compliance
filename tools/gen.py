@@ -279,7 +279,7 @@ def render(web):
             h.append('<h4>À vérifier</h4><ul class="sy-v">'+''.join(f'<li>{M(q)}</li>' for q in sm['a_verifier'])+'</ul>')
         h.append('</div></div>')
         if srcs:
-            h.append('<p class="sy-s">'+' '.join(f'<a href="{esc(u,True)}" target="_blank" rel="noopener">↗&nbsp;{T(l)}</a>' for l,u in srcs)+'</p>')
+            h.append('<p class="sy-s"><span class="sy-sl">'+('Sources' if len(srcs)>1 else 'Source')+'&nbsp;:</span>'+' '.join(f'<a href="{esc(u,True)}" target="_blank" rel="noopener">↗&nbsp;{T(l)}</a>' for l,u in srcs)+'</p>')
         seen.clear(); seen.update(sv_seen); used[:]=sv_used
         sid=f'syn{len(syns)+1}'
         syns.append(f'<div class="sy-d" id="d-{sid}" hidden>{"".join(h)}</div>')
@@ -630,6 +630,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-v li{{position:relative;padding-left:16px}}
 .sy-v li::before{{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;background:#c9bfae}}
 .sy-w p.sy-s{{margin-top:18px!important;padding-top:12px;border-top:1px solid #e5e7eb}}
+.sy-s .sy-sl{{margin-right:8px;font:13px/20px {SANS};color:#8a8f98}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(min-width:661px){{.sy-m{{column-gap:36px;padding:12px 20px}}}}
