@@ -504,7 +504,7 @@ h2[id^='s']{{scroll-margin-top:56px}}
 @media(min-width:912px){{
 .toc-b{{display:none}}
 table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right:auto!important}}
-.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
+.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fcfbf8;border-radius:8px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
 .toc-l .toc-t{{display:block;margin:0 0 8px;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
 .toc-l ol{{margin:0;padding:0;list-style:none;border-left:2px solid #ece7dc}}
 .toc-l a{{display:block;margin-left:-2px;padding:4px 0 4px 12px;border-left:2px solid transparent;color:#6b7280;text-decoration:none}}
