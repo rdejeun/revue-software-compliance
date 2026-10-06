@@ -93,7 +93,12 @@ function close(){if(dlg.open)dlg.close()}
 dlg.addEventListener('close',function(){if(byPop)return;if(pushed){pushed=false;try{history.back()}catch(e){}}else try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
 window.addEventListener('popstate',function(e){var s=e.state&&e.state.syn;if(s){pushed=true;open(s,false);return}pushed=false;if(dlg.open){byPop=true;dlg.close();byPop=false}});
 dlg.querySelector('.sy-x').addEventListener('click',close);
-box.addEventListener('mouseover',function(e){var t=e.target.closest&&e.target.closest('a.t');if(!t)return;var r=t.getBoundingClientRect(),c=box.getBoundingClientRect();t.classList.toggle('tip-d',r.left-c.left>c.width/2)});
+/* infobulle d'un sigle : décalage horizontal qui la garde dans la fenêtre (ou la page). Elle s'accroche au début du
+   premier morceau du sigle (un sigle coupé en fin de ligne, « EEE- / AELE », a deux morceaux) : on mesure ce morceau. */
+function bulle(e){var t=e.target.closest&&e.target.closest('a.t');if(!t)return;var f=t.getClientRects()[0];if(!f)return;
+ var z=t.closest('.sy-w')||t.closest('table.cv')||document.body,c=z.getBoundingClientRect(),m=12,
+  w=Math.min(parseFloat(getComputedStyle(t,'::after').width)||290,c.width-2*m),dx=Math.min(0,c.right-m-(f.left+w));dx=Math.max(dx,c.left+m-f.left);t.style.setProperty('--dx',Math.round(dx)+'px')}
+document.addEventListener('mouseover',bulle);document.addEventListener('focusin',bulle);
 dlg.addEventListener('click',function(e){if(e.target===dlg)close()});
 document.addEventListener('click',function(e){
  var b=e.target.closest('[data-syn]');if(!b||dlg.contains(b))return;
@@ -489,7 +494,7 @@ def render(web):
         css=f'''body{{font-variant-numeric:lining-nums}}
 a.t{{border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none;position:relative;cursor:help}}
 a.t:hover,a.t:focus{{border-bottom-color:{NAVY}}}
-a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:290px;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
+a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:var(--dx,0px);top:1.7em;z-index:9;width:290px;max-width:calc(100vw - 24px);box-sizing:border-box;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.rss{{display:inline-flex;vertical-align:-2px;color:{ACC}}}a.rss:hover,a.rss:focus-visible{{color:{NAVY}}}
 a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap}}
 .nw,.nw2{{white-space:nowrap}}
@@ -584,7 +589,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-rss svg{{flex:none}}
 .pod-rss:hover,.pod-rss:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
 @media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
-dialog.sy{{width:min(860px,calc(100vw - 32px));max-height:min(92vh,1200px);padding:0;border:0;border-top:6px solid {ACC};background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
+dialog.sy{{width:min(860px,calc(100vw - 32px));max-height:min(92vh,1200px);padding:0;border:0;border-top:6px solid {ACC};border-radius:8px;overflow:hidden;background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 dialog.sy[open]{{display:flex;flex-direction:column}}
 .sy-w{{flex:1 1 auto;min-height:0;padding:28px 40px 24px;overflow:auto;box-sizing:border-box}}
@@ -613,7 +618,6 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
 .sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
-.sy-w a.t.tip-d:hover::after,.sy-w a.t.tip-d:focus::after{{left:auto;right:0}}
 .sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF};text-wrap:pretty}}
 .sy-w{{font-variant-numeric:lining-nums}}
 .sy-m dd{{text-wrap:pretty}}
