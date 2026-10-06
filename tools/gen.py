@@ -414,13 +414,13 @@ p.sy-it,div.sy-it{{border-radius:6px}}
 tr.sy-it:hover{{background:none}}
 tr.sy-it>td{{transition:background .15s}}
 tr.sy-it:hover>td{{background:#faf7f0}}
+tr.sy-it:hover>td:first-child{{color:transparent!important}}
 tr.sy-it>td:first-child{{border-radius:6px 0 0 6px}}
 tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .sy-b{{display:inline-block;position:relative;width:20px;height:20px;margin:0 0 0 5px;padding:0;border:0;background:none;vertical-align:-4px;cursor:pointer}}
 .sy-p{{position:absolute;left:0;top:0;z-index:1;display:flex;align-items:center;box-sizing:border-box;height:20px;min-width:20px;padding:0 3px;border:1px solid #e1c6b4;border-radius:10px;background:#fff;color:{ACC};white-space:nowrap;transition:left .18s ease,background .15s,color .15s,border-color .15s}}
 .sy-p svg{{flex:none;display:block}}
 .sy-l{{display:inline-block;max-width:0;overflow:hidden;opacity:0;font:600 11px/1 {SANS};letter-spacing:.02em;transition:max-width .18s ease,opacity .15s,margin .18s,padding .18s}}
-.sy-it:hover .sy-p{{background:transparent}}
 .sy-b:hover .sy-p,.sy-b:focus-visible .sy-p{{z-index:5;background:{ACC};border-color:{ACC};color:#fff;box-shadow:0 2px 8px rgba(15,42,74,.18)}}
 .sy-b:hover .sy-l,.sy-b:focus-visible .sy-l{{max-width:9em;opacity:1;margin-left:4px;padding-right:6px}}
 .sy-b:focus-visible{{outline:none}}
