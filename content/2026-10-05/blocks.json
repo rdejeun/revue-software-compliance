@@ -176,7 +176,7 @@
     "fonctions": "PSIRT et ingénierie produit, juridique, achats",
     "essentiel": "Depuis le 11 septembre 2026, le fabricant d'un produit comportant des éléments numériques doit déclarer toute vulnérabilité activement exploitée et tout incident grave : alerte précoce sous 24 heures, notification sous 72 heures, rapport final sous 14 jours après la mise à disposition d'une mesure corrective, via la plateforme unique de l'ENISA.",
     "contexte": "Ce sont les premières obligations du CRA à s'appliquer, quinze mois avant les exigences essentielles. Elles visent aussi les produits déjà sur le marché et ne remplacent pas les déclarations prévues par d'autres régimes.",
-    "impact_avere": "Pour les produits civils ou à double usage vendus dans l'UE, une faille activement exploitée dans un composant tiers embarqué, open source compris, déclenche l'obligation du fabricant du produit final. Le délai de 24 heures suppose un inventaire des composants à jour.",
+    "impact_avere": "Pour les produits civils ou à double usage vendus dans l'UE, une faille activement exploitée dans un composant tiers embarqué, open source compris, ==déclenche l'obligation du fabricant du produit final==. Le délai de 24 heures suppose un inventaire des composants à jour.",
     "impact_potentiel": "Les produits exclusivement militaires sont hors champ, mais clients publics et maîtres d'œuvre pourraient exiger contractuellement une réactivité équivalente.",
     "a_verifier": [
      "Nos SBOM couvrent-ils tous les composants tiers des produits concernés ?",
@@ -190,7 +190,7 @@
     "fonctions": "Juridique, ingénierie logicielle, achats, qualité, PSIRT",
     "essentiel": "La Commission européenne a publié le 27 juillet 2026 une *{en}guidance* non contraignante sur le Cyber Resilience Act (CRA). Elle couvre le périmètre, l'open source, les modifications substantielles et les périodes de support, selon SKW Schwarz.",
     "contexte": "Le CRA fixe des exigences de cybersécurité pour les produits comportant des éléments numériques. Son article 2 exclut notamment les produits conçus exclusivement à des fins de défense ou de sécurité nationale.",
-    "impact_avere": "Ce document ne crée pas d'obligation, mais il indique comment la Commission lit le texte, sur des points utiles aux fabricants intégrant des composants tiers, notamment open source.",
+    "impact_avere": "Ce document ==ne crée pas d'obligation==, mais il indique comment la Commission lit le texte, sur des points utiles aux fabricants intégrant des composants tiers, notamment open source.",
     "impact_potentiel": "Les versions civiles ou à double usage d'un équipement pourraient relever du CRA malgré l'exclusion de défense. La notion de modification substantielle pourrait influencer la gestion des mises à jour, et les périodes de support pourraient peser sur les engagements pris envers les clients.",
     "a_verifier": [
      "Quels produits de l'entreprise ne relèvent pas exclusivement de la défense ?",
@@ -218,7 +218,7 @@
     "fonctions": "Juridique, ingénierie logicielle, PSIRT (équipe de réponse aux incidents de sécurité produit), qualité, achats",
     "essentiel": "Selon le cabinet Kirkland, le périmètre couvre tous les produits comportant des éléments numériques entrant dans le champ du règlement, y compris ceux déjà mis sur le marché avant le 11 septembre. L'obligation se poursuit après la fin de la période de support.",
     "contexte": "Le règlement (UE) sur la cyber-résilience impose des exigences de cybersécurité aux produits comportant des éléments numériques. Son article 2 prévoit des exclusions pour certains produits de défense.",
-    "impact_avere": "Pour un industriel de défense, l'analyse du champ doit être faite produit par produit : les équipements relevant de l'exclusion défense échappent au texte, mais les composants logiciels tiers intégrés à des produits civils ou à double usage peuvent y entrer.",
+    "impact_avere": "Pour un industriel de défense, l'analyse du champ doit être faite ==produit par produit== : les équipements relevant de l'exclusion défense échappent au texte, mais les composants logiciels tiers intégrés à des produits civils ou à double usage peuvent y entrer.",
     "impact_potentiel": "Les versions civiles ou à double usage d'un équipement, ou des exigences contractuelles reprenant le CRA, pourraient rendre applicables des obligations de suivi des vulnérabilités sur des produits anciens, même après la fin du support, y compris pour les composants fournis par des tiers.",
     "a_verifier": [
      "Quels produits du catalogue relèvent de l'exclusion de l'article 2 ?",
@@ -232,7 +232,7 @@
     "fonctions": "PSIRT, juridique, contrôle des exportations, qualité",
     "essentiel": "Selon le cabinet Kirkland, une déclaration effectuée au titre du règlement européen sur la cyber-résilience (Cyber Resilience Act, CRA) ne remplace pas les déclarations prévues par d'autres régimes.",
     "contexte": "Le CRA impose aux fabricants de signaler certains incidents et vulnérabilités. D'autres textes prévoient leurs propres notifications, avec des autorités destinataires et des délais qui leur sont propres.",
-    "impact_avere": "Un industriel dont les produits relèvent du CRA ne peut pas considérer une déclaration unique comme libératoire. Les procédures de notification doivent rester distinctes, avec leurs destinataires, délais et contenus propres. La coordination entre équipes juridique, PSIRT et sécurité reste à organiser produit par produit.",
+    "impact_avere": "Un industriel dont les produits relèvent du CRA ==ne peut pas considérer une déclaration unique comme libératoire==. Les procédures de notification doivent rester distinctes, avec leurs destinataires, délais et contenus propres. La coordination entre équipes juridique, PSIRT et sécurité reste à organiser produit par produit.",
     "impact_potentiel": "Un même événement pourrait déclencher plusieurs notifications parallèles, auprès d'autorités différentes. Les produits de défense, exclus du CRA lorsqu'ils sont conçus exclusivement à cette fin, pourraient néanmoins y être soumis dans leurs versions civiles ou à double usage, ou par exigence contractuelle.",
     "a_verifier": [
      "Quels régimes de notification s'appliquent à chaque gamme de produits ?",
@@ -294,7 +294,7 @@
    "fonctions": "Juridique, direction produit, ingénierie système",
    "essentiel": "L'article 2 du CRA exclut les produits développés ou modifiés exclusivement à des fins de sécurité nationale ou de défense, ainsi que ceux conçus spécifiquement pour traiter des informations classifiées. Le critère est l'usage prévu par le fabricant : un usage militaire effectif ne suffit pas à écarter les obligations d'un produit à double usage.",
    "contexte": "L'AI Act suit la même logique. La *{en}guidance* de la Commission du 27 juillet 2026, non contraignante, ne lève pas toutes les zones grises.",
-   "impact_avere": "Un équipement qui a une version civile, ou un composant vendu à des clients militaires et civils, entre dans le champ pour sa part civile. La qualification doit être documentée produit par produit.",
+   "impact_avere": "Un équipement qui a une version civile, ou un composant vendu à des clients militaires et civils, ==entre dans le champ pour sa part civile==. La qualification doit être documentée produit par produit.",
    "impact_potentiel": "Une plateforme logicielle partagée entre gammes militaire et civile pourrait faire entrer dans le champ des briques que l'industriel pensait exclues, avec leurs composants tiers.",
    "a_verifier": [
     "L'usage prévu de chaque produit est-il formellement documenté ?",
@@ -613,7 +613,7 @@
     "fonctions": "Ingénierie logicielle, achats, contrôle des exportations, qualité",
     "essentiel": "L'agence américaine de cybersécurité CISA a publié le 29 juillet 2026 les *{en}2026 Minimum Elements* du SBOM (nomenclature logicielle, inventaire des composants d'un logiciel). Rédigé avec la NSA, le FBI et des partenaires internationaux, il remplace les éléments minimaux publiés par le NTIA en 2021 ; il précise que les logiciels d'IA et le SaaS peuvent exiger des éléments supplémentaires.",
     "contexte": "Ce texte met à jour les éléments minimaux de nomenclature logicielle publiés antérieurement par les autorités américaines, qui servent de référence à de nombreux clients et donneurs d'ordre.",
-    "impact_avere": "La publication est un document américain de référence, sans force juridique propre en France. Pour un industriel exportant vers les États-Unis ou fournissant des clients américains, il constitue un repère sur le contenu attendu d'une nomenclature logicielle, y compris pour les composants tiers.",
+    "impact_avere": "La publication est un document américain de référence, ==sans force juridique propre en France==. Pour un industriel exportant vers les États-Unis ou fournissant des clients américains, il constitue un repère sur le contenu attendu d'une nomenclature logicielle, y compris pour les composants tiers.",
     "impact_potentiel": "Des clients ou des programmes pourraient reprendre ces éléments dans leurs exigences contractuelles. Le volet sur l'intelligence artificielle pourrait conduire à documenter les modèles et jeux de données embarqués. Cette nomenclature pourrait aussi être comparée aux attentes du CRA.",
     "a_verifier": [
      "Les SBOM actuels couvrent-ils les éléments minimaux de 2026 ?",
@@ -668,7 +668,7 @@
     "fonctions": "Ingénierie logicielle, PSIRT, qualité",
     "essentiel": "L'Open Source Security Foundation (OpenSSF) a approuvé SLSA (*{en}Supply-chain Levels for Software Artifacts*) 1.2, avec des pistes Build et Source ; la version 1.1 est retirée. Sa lettre de juin 2026 relève un bilan de la campagne Mini Shai-Hulud : une attestation signée prouve ce que la plateforme de build a observé, pas que le build était fiable. Elle signale aussi un rapport 2026 sur la préparation au CRA.",
     "contexte": "SLSA est un cadre de niveaux d'assurance sur l'intégrité des artefacts logiciels. Mini Shai-Hulud figure parmi les attaques de la chaîne d'approvisionnement de 2026.",
-    "impact_avere": "La version 1.1 de SLSA étant retirée, les références à ce cadre doivent viser la version 1.2. Une attestation de provenance ne suffit pas à établir la fiabilité d'un build.",
+    "impact_avere": "La version 1.1 de SLSA étant retirée, les références à ce cadre doivent viser la version 1.2. Une attestation de provenance ==ne suffit pas à établir la fiabilité d'un build==.",
     "impact_potentiel": "Les clients ou autorités pourraient s'appuyer sur SLSA 1.2 pour évaluer les fournisseurs. Le rapport sur la préparation au CRA pourrait éclairer les pratiques attendues, y compris pour des variantes civiles ou à double usage de produits de défense.",
     "a_verifier": [
      "Quelles attestations de build les fournisseurs produisent-ils ?",
@@ -695,7 +695,7 @@
     "fonctions": "Ingénierie logicielle, achats, qualité",
     "essentiel": "CycloneDX 1.7, publié le 21 octobre 2025, a été adopté en décembre 2025 comme norme ECMA-424, 2e édition. SPDX est la norme ISO/IEC 5962:2021 et existe en version 3.0.1.",
     "contexte": "Les nomenclatures logicielles (SBOM, *{en}Software Bill of Materials*) décrivent les composants d'un logiciel. Deux formats dominent : CycloneDX et SPDX (*{en}Software Package Data Exchange*). Leur normalisation facilite l'échange entre fournisseurs et clients. Le point est présenté comme un rappel dans la rubrique SBOM.",
-    "impact_avere": "Ces deux formats disposent désormais d'un statut de norme reconnue. Un industriel qui reçoit ou produit des SBOM pour des logiciels embarqués, composants tiers inclus, peut s'appuyer sur ces références pour fixer les formats attendus de ses fournisseurs. Le statut de norme ne rend aucun format obligatoire par lui-même.",
+    "impact_avere": "Ces deux formats disposent désormais d'un statut de norme reconnue. Un industriel qui reçoit ou produit des SBOM pour des logiciels embarqués, composants tiers inclus, peut s'appuyer sur ces références pour fixer les formats attendus de ses fournisseurs. Le statut de norme ==ne rend aucun format obligatoire== par lui-même.",
     "impact_potentiel": "Le choix d'un format pourrait être exigé par un client, un État ou une réglementation, notamment pour les produits relevant du règlement sur la cyber-résilience ou de clauses contractuelles de défense. Des conversions entre formats pourraient entraîner des pertes d'information.",
     "a_verifier": [
      "Quel format les clients et fournisseurs demandent-ils ?",
@@ -973,7 +973,7 @@
     "licence": "Open source : Apache-2.0 pour le code ; la base de vulnérabilités est publiée gratuitement par Anchore, sans licence ni conditions d’utilisation publiées.",
     "essentiel": "Grype 0.120.0 stocke les points de décision SSVC du NVD dans une nouvelle table de décoration de la base v6, ajoute une colonne d’emplacements aux modèles de rapport HTML pour faciliter le tri et signe les sommes de contrôle des versions avec un bundle sigstore. Syft passe de la version 1.52.0 à la 1.54.0. Hors ligne, la base s’importe avec grype db import ; par défaut, Grype refuse de scanner si elle a plus de 5 jours (réglable).",
     "contexte": "Grype analyse des images, des systèmes de fichiers et des SBOM ; Syft, du même éditeur, génère ces SBOM. La version 1.54.0 de Syft est sortie le 1er octobre 2026. La version précédente de Grype, la 0.119.0, date du 17 septembre 2026.",
-    "impact_avere": "Les équipes qui scannent leurs inventaires avec Grype changent de version de base de données et de moteur ; les résultats peuvent différer d’une version à l’autre, ce qui compte pour la traçabilité des contrôles.",
+    "impact_avere": "Les équipes qui scannent leurs inventaires avec Grype changent de version de base de données et de moteur ; ==les résultats peuvent différer d’une version à l’autre==, ce qui compte pour la traçabilité des contrôles.",
     "impact_potentiel": "Les points de décision SSVC pourraient aider à classer les vulnérabilités par priorité de traitement, et les rapports avec emplacements pourraient accélérer le tri par les équipes produit.",
     "a_verifier": [
      "Quelle version de Grype et de sa base figure dans nos preuves de contrôle ?",
@@ -1004,7 +1004,7 @@
     "licence": "Commercial : abonnement au service en ligne ; l’IA Champion se consomme en crédits plafonnés par année d’abonnement ; aucun prix publié.",
     "essentiel": "QAD Redzone a lancé le 22 septembre 2026 des agents d'intelligence artificielle de classement de produits et d'automatisation documentaire. L'agent de classement propose un code douanier HTS et un numéro de classement export américain ECCN, avec un score de confiance et une justification. Chaque proposition est relue par une personne et conserve une piste d'audit.",
     "contexte": "Selon l'éditeur, le temps de classement passe d'environ 110 minutes par article à moins d'une minute. L'outil vise l'ECCN de la réglementation américaine (EAR) ; il n'est pas présenté comme couvrant les numéros de la liste européenne des biens à double usage.",
-    "impact_avere": "Le classement export d'un logiciel reste de la responsabilité de l'exportateur, quel que soit l'outil. Ces outils fournissent une proposition argumentée et une trace, utiles pour documenter la décision.",
+    "impact_avere": "Le classement export d'un logiciel ==reste de la responsabilité de l'exportateur==, quel que soit l'outil. Ces outils fournissent une proposition argumentée et une trace, utiles pour documenter la décision.",
     "impact_potentiel": "Un tel outil pourrait accélérer le classement de gammes nombreuses, mais une erreur reproduite à grande échelle pourrait multiplier les exportations non autorisées ; la correspondance avec la liste européenne resterait à établir.",
     "a_verifier": [
      "Qui valide aujourd'hui les classements ECCN et *{en}dual-use* des logiciels ?",
@@ -1019,7 +1019,7 @@
     "licence": "Commercial : abonnement annuel par siège ; IPRally n’acquiert pas les contenus des utilisateurs, et rien n’est utilisé pour entraîner un modèle.",
     "essentiel": "IPRally a lancé le 31 mars 2026 un agent qui part d'une déclaration d'invention (texte, PDF, images) et produit en quelques minutes un tableau de caractéristiques et un rapport de recherche, sur un corpus de 120 millions de brevets. Le 6 août 2026, l'éditeur a annoncé un rapport SOC 2 Type II couvrant la période du 4 mars au 4 juin 2026, sans réserve.",
     "contexte": "L'éditeur indique ne pas entraîner ses modèles sur les données des clients et ne pas laisser ses fournisseurs de modèles de langage conserver les données ; il est certifié ISO 27001:2022.",
-    "impact_avere": "Confier une déclaration d'invention à un service en ligne revient à transmettre une information sensible à un tiers. Pour un industriel de défense, la nature des données et leur éventuelle classification déterminent si un tel service est utilisable.",
+    "impact_avere": "Confier une déclaration d'invention à un service en ligne revient à ==transmettre une information sensible à un tiers==. Pour un industriel de défense, la nature des données et leur éventuelle classification déterminent si un tel service est utilisable.",
     "impact_potentiel": "Ces outils pourraient réduire le coût des recherches de liberté d'exploitation des logiciels embarqués, à condition que les engagements de confidentialité soient compatibles avec les règles de protection du secret.",
     "a_verifier": [
      "Quelles inventions peuvent être confiées à un service hébergé hors de l'entreprise ?",
@@ -1034,7 +1034,7 @@
     "licence": "Commercial : licence propriétaire, déployée en cloud, en hybride ou sur site ; aucun prix public ; conditions d’Agentic SCA non documentées.",
     "essentiel": "FossID a annoncé le 14 avril 2026 « Agentic SCA », une analyse de composition logicielle destinée au code produit avec des assistants d'IA. L'outil détecte les extraits de code open source, tiers ou propriétaire, entiers ou par extraits, et indique leur provenance, leur licence et le copyright. Il se branche sur les agents de codage par un serveur MCP et des garde-fous en temps réel.",
     "contexte": "L'éditeur cite des pilotes dans l'automobile, les semi-conducteurs et les télécommunications. La disponibilité générale était annoncée pour le second semestre 2026 ; la page du produit indique encore une phase pilote.",
-    "impact_avere": "Le code proposé par un assistant d'IA peut reproduire des extraits sous licence *{en}copyleft* ou protégés par le droit d'auteur ; l'inventaire classique par paquets ne les voit pas.",
+    "impact_avere": "Le code proposé par un assistant d'IA peut reproduire des extraits sous licence *{en}copyleft* ou protégés par le droit d'auteur ; ==l'inventaire classique par paquets ne les voit pas==.",
     "impact_potentiel": "Un extrait sous GPL intégré sans le savoir dans un logiciel embarqué pourrait imposer la publication du code lié ou exposer à une réclamation ; ce type d'outil pourrait le détecter avant la livraison.",
     "a_verifier": [
      "Les développeurs utilisent-ils des assistants de codage sur des produits livrés ?",
@@ -1049,7 +1049,7 @@
     "licence": "Open source : Apache-2.0 ; les données OSV.dev gardent la licence de chaque source (CC-BY-4.0, CC-BY-SA-4.0…), avec leurs obligations d’attribution.",
     "essentiel": "OSV-Scanner a été publié en version 2.6.0 le 14 septembre 2026. Avec Grype, il analyse les inventaires de composants logiciels face aux bases de vulnérabilités. Selon Dev Tool Lab, les deux outils divergent assez souvent pour que leur usage conjoint se justifie.",
     "contexte": "Ces outils comparent la liste des composants d'un produit, souvent issue d'un SBOM (nomenclature logicielle), avec des bases publiques de vulnérabilités. Les résultats varient selon les bases interrogées et la manière d'identifier les composants.",
-    "impact_avere": "Les deux outils existent et leurs résultats peuvent différer. Pour un industriel dont les équipements embarquent de nombreux composants tiers, un seul outil peut donc laisser passer des vulnérabilités connues, ce qui concerne le suivi de sécurité des produits.",
+    "impact_avere": "Les deux outils existent et leurs résultats peuvent différer. Pour un industriel dont les équipements embarquent de nombreux composants tiers, ==un seul outil peut donc laisser passer des vulnérabilités connues==, ce qui concerne le suivi de sécurité des produits.",
     "impact_potentiel": "L'usage conjoint pourrait augmenter le nombre d'alertes à traiter et nécessiter un tri par la fonction PSIRT. Il pourrait aussi aider à étayer, auprès de clients ou d'autorités, le suivi des vulnérabilités des composants tiers.",
     "a_verifier": [
      "Quel outil d'analyse l'entreprise utilise-t-elle actuellement ?",
@@ -1081,7 +1081,7 @@
     "licence": "Commercial : Anchore Enterprise sur devis, avec essai gratuit de 15 jours ; FOSSA (5 projets) et Snyk proposent une offre gratuite limitée.",
     "essentiel": "Selon Refonte Learning, Anchore Enterprise v6 (mai 2026) est présenté comme une solution de conformité fondée sur les SBOM et liée à l'échéance du 11 septembre. FOSSA propose une évaluation gratuite vis-à-vis du règlement sur la cyber-résilience (CRA), avec un plan de remédiation à 30, 60 et 90 jours ; Snyk est aussi cité, sans produit CRA dédié identifié.",
     "contexte": "Les SBOM (nomenclatures logicielles) et l'analyse de composition logicielle (SCA, *{en}Software Composition Analysis*) alimentent la préparation au CRA. Le marché propose des outils qui revendiquent un appui à cette conformité. Ces fonctions couvrent notamment la génération de nomenclatures et la surveillance des vulnérabilités.",
-    "impact_avere": "Ces offres existent et sont décrites par un blog de formation, source secondaire. Leur présentation n'établit pas qu'elles satisfassent les exigences du CRA ni celles de marchés de défense.",
+    "impact_avere": "Ces offres existent et sont décrites par un blog de formation, source secondaire. Leur présentation ==n'établit pas qu'elles satisfassent les exigences du CRA== ni celles de marchés de défense.",
     "impact_potentiel": "Un industriel pourrait comparer ces outils à ses chaînes existantes. Des enjeux d'hébergement des données, de confidentialité des nomenclatures de produits sensibles et de contrôle des exportations pourraient se poser lors de l'usage de services en ligne. Les offres pourraient évoluer rapidement.",
     "a_verifier": [
      "Les allégations de conformité sont-elles confirmées par les éditeurs ?",
@@ -1096,7 +1096,7 @@
     "licence": "Non documenté : service public sans tarif publié, accessible avec un compte EU Login ; les utilisateurs accordent à l’ENISA une licence gratuite sur leurs déclarations.",
     "essentiel": "L’ENISA exploite la plateforme unique de déclaration du CRA, ouverte le 11 septembre 2026. Les fabricants y déclarent les vulnérabilités activement exploitées et les incidents graves touchant leurs produits comportant des éléments numériques. Les gestionnaires de logiciels open source y sont soumis à partir du 11 décembre 2027.",
     "contexte": "Selon l’ENISA, une fois une déclaration déposée, le CSIRT désigné comme coordinateur qui la reçoit en premier la diffuse aux CSIRT concernés des autres États membres. Les délais de déclaration sont de 24 heures, 72 heures et 14 jours.",
-    "impact_avere": "Un fabricant concerné doit disposer d’un processus et de comptes capables de déposer une alerte précoce dans les 24 heures, y compris pour une vulnérabilité d’un composant tiers intégré à son produit.",
+    "impact_avere": "Un fabricant concerné doit disposer d’un processus et de comptes capables de déposer une alerte précoce ==dans les 24 heures==, y compris pour une vulnérabilité d’un composant tiers intégré à son produit.",
     "impact_potentiel": "Une vulnérabilité exploitée dans un composant open source d’un produit à double usage pourrait imposer une alerte sur la plateforme avant même la publication d’un correctif en amont.",
     "a_verifier": [
      "Qui détient les accès à la plateforme et la décision de déclarer ?",
@@ -1299,7 +1299,7 @@
     "fonctions": "Ingénierie logicielle, PSIRT, achats, qualité",
     "essentiel": "Le 11 mai 2026, plus de 170 paquets npm et 2 paquets PyPI, soit 404 versions malveillantes, ont été publiés, dont l’écosystème TanStack (42 paquets), des SDK de Mistral AI, 65 paquets UiPath et OpenSearch. Les versions déclenchaient un code volant des identifiants cloud, GitHub et npm.",
     "contexte": "Selon SafeDep, les versions npm s’exécutaient à l’installation et la version PyPI à l’import. Les mesures recommandées sont de retirer les versions des fichiers de verrouillage, de renouveler les identifiants volés et de rechercher les artefacts laissés sur les machines.",
-    "impact_avere": "Les produits qui embarquent ou construisent avec ces paquets sont concernés : l’inventaire des composants, y compris transitifs, détermine si une version malveillante a été intégrée.",
+    "impact_avere": "Les produits qui embarquent ou construisent avec ces paquets sont concernés : l’inventaire des composants, ==y compris transitifs==, détermine si une version malveillante a été intégrée.",
     "impact_potentiel": "Si un composant compromis a été intégré à un produit livré, le fabricant pourrait devoir traiter l’incident comme une vulnérabilité activement exploitée ou un incident grave à déclarer au titre du CRA.",
     "a_verifier": [
      "Un SBOM à jour permettrait-il de répondre en quelques heures ?",
@@ -1581,7 +1581,7 @@
     "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle",
     "essentiel": "La Commission a adopté le 14 septembre 2026 le règlement délégué C(2026)6323, qui met à jour l'annexe I du règlement *{en}dual-use* de l'UE. Il étend les contrôles sur les logiciels à de nouveaux équipements semi-conducteurs. Il n'est pas encore en vigueur : sauf objection du Parlement européen ou du Conseil pendant une période d'examen de deux mois, il sera publié au Journal officiel (JO).",
     "contexte": "L'annexe I liste les biens, logiciels et technologies à double usage soumis à autorisation d'exportation. Elle est mise à jour périodiquement par acte délégué.",
-    "impact_avere": "Aucune obligation nouvelle n'est applicable avant la publication et l'entrée en vigueur. La liste actuelle continue de s'appliquer.",
+    "impact_avere": "==Aucune obligation nouvelle n'est applicable== avant la publication et l'entrée en vigueur. La liste actuelle continue de s'appliquer.",
     "impact_potentiel": "Les logiciels liés aux équipements semi-conducteurs concernés pourraient devenir soumis à autorisation, y compris lors de transferts intracommunautaires ou de transferts de code vers des fournisseurs. Des classements existants pourraient devoir être revus, notamment pour des composants tiers. La date et le champ exacts dépendraient du texte publié.",
     "a_verifier": [
      "Les produits ou outils de l'entreprise touchent-ils aux équipements semi-conducteurs visés ?",
@@ -1595,7 +1595,7 @@
     "fonctions": "Contrôle des exportations, juridique, achats",
     "essentiel": "Le 22 septembre 2026, l'UE a prolongé de 36 mois, jusqu'au 22 septembre 2029, ses sanctions ciblées liées à la Russie. Usmanov, Fridman, Falaeev et Redbird Corporate Services Ltd n'ont pas été reconduits. Dans un arrêt du 3 septembre 2026, la CJUE juge que de simples liens avec une personne inscrite ne suffisent pas : il faut établir que les fonds d'une entité non inscrite sont détenus ou contrôlés par une personne inscrite.",
     "contexte": "La Cour ajoute qu'il n'existe pas de présomption de contrôle des entreprises d'État russes par le président russe. Ces décisions encadrent la manière dont les opérateurs apprécient la propriété et le contrôle de leurs contreparties.",
-    "impact_avere": "Les listes de criblage doivent intégrer la prolongation et les retraits. L'analyse de détention et de contrôle des clients, intermédiaires et fournisseurs de logiciels reste à documenter au cas par cas.",
+    "impact_avere": "Les listes de criblage doivent intégrer la prolongation et les retraits. L'analyse de détention et de contrôle des clients, intermédiaires et fournisseurs de logiciels reste à documenter ==au cas par cas==.",
     "impact_potentiel": "Une contrepartie non inscrite, mais contrôlée par une personne inscrite, pourrait voir ses fonds gelés ; une analyse insuffisante du contrôle pourrait exposer l'industriel à une infraction.",
     "a_verifier": [
      "Les bases de criblage intègrent-elles les retraits du 22 septembre ?",
@@ -1608,7 +1608,7 @@
     "fonctions": "Achats, juridique, contrôle des exportations, qualité, ingénierie logicielle",
     "essentiel": "La phase 2 du CMMC (Cybersecurity Maturity Model Certification, dispositif du ministère américain de la Défense), prévue le 10 novembre 2026, est suspendue depuis le 13 juillet 2026. La *{en}class deviation* révision 3, signée le 3 septembre 2026, demande aux acheteurs de retirer ou de réviser les exigences CMMC des appels d'offres et contrats, sans fixer de date de reprise.",
     "contexte": "Restent applicables : la base NIST SP 800-171 révision 2 au titre de DFARS 252.204-7012, la déclaration des incidents sous 72 heures, la notation SPRS et les contrôles de la DCMA. Selon Wolf Theiss, la phase 1 (auto-évaluation) reste en place et les primes répercutent ces exigences sur leurs fournisseurs.",
-    "impact_avere": "Un industriel français fournisseur, direct ou indirect, d'une prime américaine reste soumis aux exigences de DFARS 252.204-7012 si des informations contrôlées transitent par ses systèmes. La suspension retire une étape d'évaluation, pas les exigences de sécurité.",
+    "impact_avere": "Un industriel français fournisseur, direct ou indirect, d'une prime américaine reste soumis aux exigences de DFARS 252.204-7012 si des informations contrôlées transitent par ses systèmes. La suspension retire une étape d'évaluation, ==pas les exigences de sécurité==.",
     "impact_potentiel": "La phase 2 pourrait être reprise, modifiée ou abandonnée selon les conclusions de la revue engagée par le ministère ; les primes pourraient aussi durcir leurs clauses sans attendre.",
     "a_verifier": [
      "Quels contrats imposent DFARS 252.204-7012 ?",
@@ -1622,7 +1622,7 @@
     "fonctions": "Contrôle des exportations, achats, juridique, ingénierie logicielle",
     "essentiel": "La demande européenne de systèmes sans composants soumis à l'ITAR (*{en}International Traffic in Arms Regulations*) augmente, par crainte d'un blocage américain des réexportations. Honeywell a affecté 1 000 ingénieurs en Pologne et en Tchéquie à des technologies non-ITAR. Le 15 juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free.",
     "contexte": "L'ITAR impose une autorisation du DDTC (*{en}Directorate of Defense Trade Controls*) pour réexporter ou retransférer des articles fabriqués à l'étranger à partir de composants, de données techniques ou de logiciels ITAR.",
-    "impact_avere": "Pour un industriel de défense, tout logiciel, donnée technique ou composant d'origine ITAR intégré à un équipement rend la réexportation soumise à autorisation américaine.",
+    "impact_avere": "Pour un industriel de défense, tout logiciel, donnée technique ou composant d'origine ITAR intégré à un équipement rend la réexportation ==soumise à autorisation américaine==.",
     "impact_potentiel": "Les clients pourraient exiger une attestation ITAR-free, y compris pour les bibliothèques et outils logiciels tiers. Cela pourrait pousser à cartographier l'origine des composants et à remplacer certains éléments. Ces exigences pourraient figurer dans des appels d'offres.",
     "a_verifier": [
      "Quels logiciels ou données d'origine américaine figurent dans les produits exportés ?",
@@ -1649,7 +1649,7 @@
     "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
     "essentiel": "Le 20e paquet de sanctions de l'UE (23 avril 2026) interdit les services de cybersécurité gérés au gouvernement russe et aux entités établies en Russie. Le 21e paquet (23 juillet 2026) ajoute 216 inscriptions et 51 entités à l'annexe IV du règlement (restrictions *{en}dual-use* renforcées).",
     "contexte": "Parmi ces entités figurent des sociétés de Chine, de Turquie et d'Inde. Un délai court jusqu'au 25 octobre 2026 pour exécuter certains contrats antérieurs.",
-    "impact_avere": "Ces interdictions sont en vigueur. Pour un industriel de défense, fournir des mises à jour logicielles, de la maintenance ou des services gérés peut constituer une prestation interdite ; le criblage des clients doit inclure les nouvelles inscriptions.",
+    "impact_avere": "Ces interdictions sont en vigueur. Pour un industriel de défense, fournir des mises à jour logicielles, de la maintenance ou des services gérés ==peut constituer une prestation interdite== ; le criblage des clients doit inclure les nouvelles inscriptions.",
     "impact_potentiel": "Les restrictions de l'annexe IV pourraient affecter des chaînes de revente vers des pays tiers. La fin de la période de transition, le 25 octobre 2026, pourrait imposer de régler rapidement des contrats en cours sur les biens nouvellement listés.",
     "a_verifier": [
      "Les listes de criblage intègrent-elles les inscriptions du 21e paquet ?",
@@ -1663,7 +1663,7 @@
     "fonctions": "Contrôle des exportations, ingénierie logicielle",
     "essentiel": "Le supplément n° 5 à la partie 774 de l'EAR décrit toujours l'entrée 0D521 n° 1 : logiciel spécialement conçu pour entraîner un réseau de neurones convolutif profond à analyser des images géospatiales et des nuages de points. La table indique le 6 janvier 2023 comme date de passage en EAR99, sauf reclassement ou nouvelle publication. Sa dernière modification date du 6 janvier 2022.",
     "contexte": "Les entrées 0Y521 permettent au BIS de contrôler temporairement des biens émergents avant leur inscription dans une catégorie permanente.",
-    "impact_avere": "Une fiche de classement interne qui citerait encore 0D521 pour un logiciel d'analyse d'imagerie doit être revue : ce numéro ne s'applique plus en l'état de la table, sauf reclassement.",
+    "impact_avere": "Une fiche de classement interne qui citerait encore 0D521 pour un logiciel d'analyse d'imagerie ==doit être revue== : ce numéro ne s'applique plus en l'état de la table, sauf reclassement.",
     "impact_potentiel": "Un logiciel d'analyse d'imagerie par apprentissage profond pourrait relever d'un autre ECCN selon ses fonctions, ou de la liste des matériels de guerre s'il est spécialement conçu pour un usage militaire.",
     "a_verifier": [
      "Des fiches de classement citent-elles encore 0D521 ?",
@@ -1887,7 +1887,7 @@
     "fonctions": "Achats, juridique, contrôle des exportations, ingénierie logicielle",
     "essentiel": "SAFE ouvre jusqu'à 150 Md€ de prêts ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ (instrument de soutien à l'Ukraine) clos le 13 octobre 2026 et un premier appel d'achats conjoints de 240 M€ clos en octobre 2026. SAFE plafonne à 35 % le coût des composants de pays tiers non associés, exige des contractants établis dans l'UE, l'EEE-AELE ou l'Ukraine, et l'UE veut une autorité de conception sur les logiciels venus de l'étranger. EDIP reprend la règle des 65 % de composants européens. Le Fonds européen de défense 2026 a clos ses appels le 29 septembre.",
     "contexte": "L'éligibilité se joue sur dossier : propriété, contrôle, origine des composants, exposition aux contrôles à l'export, cybersécurité.",
-    "impact_avere": "L'origine des composants, logiciels tiers inclus, devient un critère d'éligibilité. Les nomenclatures logicielles et les informations de provenance servent à documenter ces seuils.",
+    "impact_avere": "L'origine des composants, logiciels tiers inclus, ==devient un critère d'éligibilité==. Les nomenclatures logicielles et les informations de provenance servent à documenter ces seuils.",
     "impact_potentiel": "Les logiciels de sociétés non européennes pourraient exiger une autorité de conception européenne ou une substitution. L'exposition à des contrôles extérieurs, comme ceux des États-Unis, pourrait peser sur l'évaluation des dossiers.",
     "a_verifier": [
      "Quelle part des composants et logiciels est d'origine tierce ?",
@@ -1914,7 +1914,7 @@
     "fonctions": "Juridique, qualité, ingénierie logicielle, achats",
     "essentiel": "La directive (UE) 2024/2853 inclut expressément le logiciel (autonome, embarqué ou IA) dans un régime de responsabilité sans faute. La transposition est prévue au plus tard le 9 décembre 2026, avec application aux produits mis sur le marché après cette date. Les logiciels libres développés hors cadre commercial sont exclus.",
     "contexte": "Le texte actualise le régime européen de responsabilité du fait des produits défectueux. Wolf Theiss et l'IBA relèvent que le logiciel, y compris embarqué, entre dans la notion de produit.",
-    "impact_avere": "Un fabricant d'équipements contenant des logiciels est visé en tant que fabricant du produit, composants logiciels tiers compris. La date du 9 décembre 2026 conditionne l'application aux produits mis sur le marché ensuite.",
+    "impact_avere": "Un fabricant d'équipements contenant des logiciels est visé en tant que fabricant du produit, ==composants logiciels tiers compris==. La date du 9 décembre 2026 conditionne l'application aux produits mis sur le marché ensuite.",
     "impact_potentiel": "Les régimes nationaux de transposition pourraient prévoir des spécificités, notamment pour les équipements militaires, que les sources lues ne précisent pas. Les contrats avec les fournisseurs de composants pourraient devoir répartir davantage les risques, et les polices d'assurance pourraient être revues.",
     "a_verifier": [
      "Les produits de défense sont-ils exclus par la transposition française ?",
@@ -2030,7 +2030,7 @@
     "fonctions": "Juridique, ingénierie logicielle, achats, qualité",
     "essentiel": "Software Freedom Conservancy (SFC) poursuit Vizio, fabricant de téléviseurs, devant la Cour supérieure de Californie (comté d'Orange). Le procès devant jury était annoncé à partir du 10 août 2026. La question centrale : un consommateur peut-il faire respecter les licences GPL et LGPL en tant que bénéficiaire, et obtenir le code source correspondant complet ?",
     "contexte": "Selon PPC Land, Vizio a fourni six versions du code source présentées comme complètes, et aucune ne se compilait entièrement d'après les rapports de SFC. Aucun tribunal américain n'a encore tranché la question du bénéficiaire. La page du dossier de SFC n'a pas été mise à jour depuis février 2026.",
-    "impact_avere": "Un industriel qui livre des équipements embarquant des composants sous GPL reste tenu de fournir le code source correspondant complet, scripts de compilation compris, quelle que soit l'issue de l'affaire.",
+    "impact_avere": "Un industriel qui livre des équipements embarquant des composants sous GPL reste tenu de fournir le code source correspondant complet, scripts de compilation compris, ==quelle que soit l'issue de l'affaire==.",
     "impact_potentiel": "Une décision favorable à SFC pourrait permettre aux utilisateurs finaux d'exiger eux-mêmes le code source, et inciter les fabricants à revoir leurs procédures de publication.",
     "a_verifier": [
      "Le code source livré se compile-t-il réellement ?",
@@ -2056,7 +2056,7 @@
     "fonctions": "Juridique, ingénierie logicielle, achats",
     "essentiel": "Selon RedMonk, Elastic et Redis sont revenus à une licence approuvée par l'OSI (*{en}Open Source Initiative*), l'AGPL (*{en}GNU Affero General Public License*), tandis que les licences BSL (*{en}Business Source License*) et SSPL (*{en}Server Side Public License*) restent en circulation.",
     "contexte": "Plusieurs éditeurs avaient quitté des licences libres pour des licences à restrictions. Ces licences ne sont pas approuvées par l'OSI. Les conditions d'usage changent selon la version du composant. Ce point est présenté comme un rappel de situation.",
-    "impact_avere": "Les conditions applicables dépendent de la version du composant utilisé. L'AGPL comporte des obligations spécifiques, et les licences BSL et SSPL limitent certains usages. Un logiciel embarqué incorporant ces composants doit être analysé selon la licence de la version effectivement intégrée.",
+    "impact_avere": "Les conditions applicables dépendent de la version du composant utilisé. L'AGPL comporte des obligations spécifiques, et les licences BSL et SSPL limitent certains usages. Un logiciel embarqué incorporant ces composants doit être analysé ==selon la licence de la version effectivement intégrée==.",
     "impact_potentiel": "Le retour à l'AGPL pourrait faciliter certains usages mais imposer des obligations de mise à disposition du code dans certaines configurations. Les versions sous BSL ou SSPL déjà intégrées pourraient poser des questions de conformité lors d'une mise à jour.",
     "a_verifier": [
      "Quelles versions d'Elastic et de Redis sont intégrées ?",
@@ -2272,7 +2272,7 @@
     "fonctions": "Contrôle des exportations, juridique, administration des ventes",
     "essentiel": "La « règle des affiliés » étend les restrictions de l'Entity List américaine aux entités détenues à 50 % ou plus par des entités inscrites, même si elles ne figurent pas nommément sur la liste. Suspendue pour un an, elle se réimposera automatiquement le 10 novembre 2026, sauf action du BIS.",
     "contexte": "La suspension a été décidée en novembre 2025 dans le cadre d'un accord commercial entre les États-Unis et la Chine. Aucun ajout à l'Entity List daté de 2026 n'a été relevé.",
-    "impact_avere": "Un industriel français est concerné dès qu'un produit, un logiciel ou une mise à jour relève de l'EAR, par exemple par son contenu d'origine américaine au-delà des seuils *{la}de minimis*. Le filtrage des contreparties doit alors couvrir la chaîne de détention.",
+    "impact_avere": "Un industriel français est concerné dès qu'un produit, un logiciel ou une mise à jour relève de l'EAR, par exemple par son contenu d'origine américaine au-delà des seuils *{la}de minimis*. Le filtrage des contreparties doit alors ==couvrir la chaîne de détention==.",
     "impact_potentiel": "Des clients aujourd'hui autorisés pourraient devenir soumis à licence le 10 novembre, y compris pour les mises à jour logicielles et l'assistance technique en cours.",
     "a_verifier": [
      "Quels produits et logiciels relèvent de l'EAR ?",
@@ -2342,7 +2342,7 @@
     "fonctions": "Ingénierie produit, qualité et certification, juridique, achats",
     "essentiel": "Le 11 décembre 2027, toutes les exigences du CRA deviennent applicables : exigences essentielles de cybersécurité, gestion des vulnérabilités, documentation technique, évaluation de la conformité et marquage CE. Les *{en}stewards* open source deviennent aussi soumis à l'obligation de déclaration.",
     "contexte": "La Commission prépare des actes d'exécution et délégués, dont une présomption de conformité liée au schéma EUCC attendue au T4 2026. Selon l'ENISA, 79 % des organisations comptent être prêtes sur les SBOM avant l'échéance.",
-    "impact_avere": "Les produits civils ou à double usage mis sur le marché après cette date doivent être conformes dès leur conception, ce qui concerne les développements en cours. Le règlement impose une diligence raisonnable sur les composants tiers, open source compris.",
+    "impact_avere": "Les produits civils ou à double usage mis sur le marché après cette date doivent être ==conformes dès leur conception==, ce qui concerne les développements en cours. Le règlement impose une diligence raisonnable sur les composants tiers, open source compris.",
     "impact_potentiel": "Les fournisseurs de composants logiciels pourraient devoir prouver leur propre conformité, ce qui ferait évoluer les clauses d'achat.",
     "a_verifier": [
      "Quels produits en développement seront mis sur le marché après le 11 décembre 2027 ?",

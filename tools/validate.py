@@ -73,15 +73,20 @@ def check_attrs(a, where, themes, need_date=True):
 
 
 def check_cles(blocks):
-    """Mots-clés de lecture rapide (==…==, README § 4) : au plus un par article, aucun dans les rappels, les synthèses
-    ni les débuts en gras ; dans une rubrique d'au moins trois articles, pas plus d'un article sur deux."""
+    """Mots-clés de lecture rapide (==…==, README § 4) : au plus un par article, aucun dans les rappels ni les débuts
+    en gras ; dans une rubrique d'au moins trois articles, pas plus d'un article sur deux ; au plus un par synthèse."""
     sec, n, m = '', 0, 0
     def bilan():
         if n >= 3 and m * 2 > n: WARN.append(f'Rubrique « {sec} » : {m} articles sur {n} ont un mot-clé (un sur deux au plus)')
     for x in blocks:
         if x['k'] == 'h2':
             bilan(); sec, n, m = ''.join(z['t'] for z in x['i']), 0, 0; continue
-        if '==' in json.dumps(x.get('sum') or [], ensure_ascii=False): WARN.append(f'Rubrique « {sec} » : mot-clé (==…==) dans une synthèse, à retirer')
+        for sm in (x.get('sum') if isinstance(x.get('sum'), list) else [x.get('sum')]):   # synthèses : un passage au plus, dans le texte
+            if not sm: continue
+            hors = [k for k in ('titre', 'statut', 'fonctions', 'reseau', 'licence') if '==' in str(sm.get(k) or '')] + (['a_verifier'] if '==' in json.dumps(sm.get('a_verifier') or [], ensure_ascii=False) else [])
+            if hors: WARN.append(f'Synthèse « {str(sm.get("titre"))[:50]} » : mot-clé hors du texte ({", ".join(hors)}), à retirer')
+            k = sum(str(sm.get(c) or '').count('==') // 2 for c in ('contexte', 'essentiel', 'impact_avere', 'impact_potentiel'))
+            if k > 1: WARN.append(f'Synthèse « {str(sm.get("titre"))[:50]} » : {k} mots-clés (un au plus)')
         if x['k'] == 'ul':
             at = x.get('attrs') or [{}] * len(x['items']); its = [(it, (at[i] or {}).get('rappel')) for i, it in enumerate(x['items'])]
         elif x['k'] == 'p' and x.get('attrs'): its = [(x['i'], x['attrs'].get('rappel'))]
