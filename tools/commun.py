@@ -16,6 +16,9 @@ def typo(t):
     t=re.sub(r'\b('+MONTHS+r') (?=\d{4}\b)',r'\1'+NB,t)
     t=re.sub(r'\b(article|articles|art\.|annexe|phase|décret|n°|version|règlement|directive|paquet|\(UE\)) (?=[\d(])',r'\1'+NB,t)
     t=re.sub(r'(?<![\w’])(à|y|de|du|la|le|en|un|ou|et|au|se|ne|ce|si|on|l|d) (?=\S)',r'\1'+NB,t)
+    # pas de chaîne de mots collés (« de la réglementation », « le 22 septembre 2026 ») : un petit mot ne se colle
+    # pas à un mot déjà collé au suivant, sinon le bloc insécable laisse des lignes très courtes
+    t=re.sub(r'(?<![\w’])(à|y|de|du|la|le|en|un|ou|et|au|se|ne|ce|si|on|l|d)'+NB+r'(?=[^\s'+NB+r']+'+NB+r')',r'\1 ',t)
     return t
 def esc(s,quote=False): return html.escape(s,quote=quote)
 def E(s): return re.sub(r'\b(\d+)(er|e)\b',r'\1<sup style="font-size:70%;line-height:0;">\2</sup>',esc(s))

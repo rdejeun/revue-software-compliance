@@ -214,8 +214,11 @@ def render(web):
         meta=[]
         if sm.get('statut'): meta.append(f'<dt>Statut</dt><dd>{T(sm["statut"])}</dd>')
         if sm.get('fonctions'): meta.append(f'<dt>Fonctions</dt><dd>{T(sm["fonctions"])}</dd>')
-        if sm.get('reseau'): meta.append(f'<dt>Réseau</dt><dd>{T(sm["reseau"])}</dd>')   # outils et services (README, § 6)
-        if sm.get('licence'): meta.append(f'<dt>Licence</dt><dd>{T(sm["licence"])}</dd>')
+        def etiq(v):   # « Connecté : détail » -> étiquette « Connecté » puis le détail (README, § 6)
+            m_=re.match(r'([^:;]{1,24}?)\s*:\s*(.+)$',v,re.S)
+            return (f'<span class="sy-k">{T(m_.group(1))}</span> <span class="sy-dt">{T(m_.group(2)[:1].upper()+m_.group(2)[1:])}</span>') if m_ else T(v)
+        if sm.get('reseau'): meta.append(f'<dt>Réseau</dt><dd>{etiq(sm["reseau"])}</dd>')   # outils et services (README, § 6)
+        if sm.get('licence'): meta.append(f'<dt>Licence</dt><dd>{etiq(sm["licence"])}</dd>')
         # encart à droite du texte sur grand écran (CSS), au-dessus sur petit écran ; ordre du DOM inchangé pour la numérotation des mots
         h.append('<div class="sy-g">'+('<dl class="sy-m">'+''.join(meta)+'</dl>' if meta else '')+'<div class="sy-c">')
         for k,lab in SYN_LABELS:
@@ -406,7 +409,8 @@ def render(web):
     mins=max(1,round(len(_re.sub(r'<[^>]+>',' ',out).split())/220))
     css=''
     if web:
-        css=f'''a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;position:relative;cursor:help}}
+        css=f'''body{{font-variant-numeric:lining-nums}}
+a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;position:relative;cursor:help}}
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:290px;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.rss{{display:inline-flex;vertical-align:-2px;color:{ACC}}}a.rss:hover,a.rss:focus-visible{{color:{NAVY}}}
 a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
@@ -469,29 +473,37 @@ dialog.sy[open]{{display:flex;flex-direction:column}}
 mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w a.sy-sh{{margin:0 0 0 auto;display:inline-flex;align-items:center;gap:6px;padding:3px 11px 3px 9px;border:1px solid #d6d3cc;border-radius:14px;color:#6b7280;font:600 12px/18px {SANS};text-decoration:none;align-self:center;position:relative;top:4px}}
 .sy-w a.sy-sh:hover,.sy-w a.sy-sh:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
-.sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:4px;background:transparent;color:#6b7280;cursor:pointer}}
+.sy-x{{position:absolute;top:12px;right:14px;display:flex;align-items:center;justify-content:center;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.94);color:#6b7280;cursor:pointer;z-index:2}}
 .sy-x svg{{display:block}}
 .sy-x:hover,.sy-x:focus-visible{{color:{NAVY};outline:2px solid #d5dbe5}}
+.sy-w{{scrollbar-width:thin;scrollbar-color:#cdd1d8 transparent}}
+.sy-w::-webkit-scrollbar{{width:8px}}.sy-w::-webkit-scrollbar-thumb{{background:#cdd1d8;border-radius:4px}}.sy-w::-webkit-scrollbar-track{{background:transparent}}
 .sy-w p.sy-eb{{margin:0 0 6px;font:600 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC}}}
 .sy-t{{margin:0 36px 14px 0;font:600 21px/28px {SANS};color:{NAVY};text-wrap:balance}}
 .sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;border-radius:6px;font:13px/19px {SANS};color:#374151}}
-.sy-m dt{{color:#7d6c47;font-weight:600}}
+.sy-m dt{{color:#6f675a;font:600 11px/16px {SANS};letter-spacing:.1em;text-transform:uppercase}}
+.sy-k{{display:inline-block;margin:2px 0 3px;padding:0 8px;border:1px solid #d9cfbd;border-radius:10px;background:#fff;font:600 12px/18px {SANS};color:#3f3a31}}
+.sy-dt{{display:block;color:#555b66}}
 .sy-m dd{{margin:0;min-width:0}}
-.sy-w h4{{margin:18px 0 6px;font:700 13px/18px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47}}
+.sy-w h4{{margin:18px 0 6px;font:700 13px/18px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#6f675a}}
 .sy-w{{overflow-x:hidden}}
+.sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
+.sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w a.t.tip-d:hover::after,.sy-w a.t.tip-d:focus::after{{left:auto;right:0}}
-.sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF}}}
-.sy-v{{margin:0;padding-left:14px;list-style:none}}
-.sy-w h4~p:not(.sy-s){{padding-left:14px}}
+.sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF};text-wrap:pretty}}
+.sy-w{{font-variant-numeric:lining-nums}}
+.sy-m dd{{text-wrap:pretty;-webkit-hyphens:auto;hyphens:auto}}
+.sy-v{{margin:0;padding-left:12px;list-style:none}}
+.sy-w h4~p:not(.sy-s){{padding-left:12px}}
 .sy-v li{{margin:0 0 4px;padding-left:2px;line-height:24px}}
 .sy-v li{{position:relative;padding-left:16px}}
-.sy-v li::before{{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;background:#dba98f}}
+.sy-v li::before{{content:'';position:absolute;left:0;top:10px;width:6px;height:6px;background:#c9bfae}}
 .sy-w p.sy-s{{margin-top:18px!important;padding-top:12px;border-top:1px solid #e5e7eb}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(min-width:661px){{.sy-m{{column-gap:36px;padding:12px 20px}}}}
-@media(min-width:860px){{.sy-g{{display:flow-root}}.sy-g>.sy-m{{float:right;width:236px;box-sizing:border-box;display:block;margin:6px 0 16px 28px;padding:14px 16px}}.sy-g>.sy-m dd{{margin:1px 0 12px}}.sy-g>.sy-m dd:last-child{{margin-bottom:0}}.sy-c>h4:first-child{{margin-top:4px}}}}
+@media(min-width:860px){{.sy-g{{display:flow-root}}.sy-g>.sy-m{{float:right;width:236px;box-sizing:border-box;display:block;margin:4px 0 16px 28px;padding:12px 16px 14px}}.sy-g>.sy-m dd{{margin:2px 0 12px}}.sy-g>.sy-m dd:last-child{{margin-bottom:0}}.sy-c>h4:first-child{{margin-top:4px}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
     if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
     return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{'' if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
