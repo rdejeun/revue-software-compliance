@@ -1414,7 +1414,7 @@
    ],
    [
     {
-     "t": "CMMC, fournisseurs de primes américains : la suspension de la phase 2, décidée le 13 juillet 2026, a été reprise dans une class deviation (révision 3) signée le 3 septembre, sans date de reprise ; NIST SP 800-171 et la déclaration d’incident sous 72 heures de DFARS 252.204-7012 restent applicables ("
+     "t": "CMMC, fournisseurs de primes américains : la suspension de la phase 2, décidée le 13 juillet 2026, a été reprise dans une *{en}class deviation* (révision 3) signée le 3 septembre, sans date de reprise ; NIST SP 800-171 et la déclaration d’incident sous 72 heures de DFARS 252.204-7012 restent applicables ("
     },
     {
      "t": "Serabrynn",
@@ -1604,9 +1604,9 @@
    },
    {
     "titre": "CMMC : phase 2 suspendue sans date de reprise",
-    "statut": "Suspension depuis le 13 juillet 2026, reprise dans la class deviation révision 3 du 3 septembre 2026 ; aucune date de reprise",
+    "statut": "Suspension depuis le 13 juillet 2026, reprise dans la *{en}class deviation* révision 3 du 3 septembre 2026 ; aucune date de reprise",
     "fonctions": "Achats, juridique, contrôle des exportations, qualité, ingénierie logicielle",
-    "essentiel": "La phase 2 du CMMC (Cybersecurity Maturity Model Certification, dispositif du ministère américain de la Défense), prévue le 10 novembre 2026, est suspendue depuis le 13 juillet 2026. La class deviation révision 3, signée le 3 septembre 2026, demande aux acheteurs de retirer ou de réviser les exigences CMMC des appels d'offres et contrats, sans fixer de date de reprise.",
+    "essentiel": "La phase 2 du CMMC (Cybersecurity Maturity Model Certification, dispositif du ministère américain de la Défense), prévue le 10 novembre 2026, est suspendue depuis le 13 juillet 2026. La *{en}class deviation* révision 3, signée le 3 septembre 2026, demande aux acheteurs de retirer ou de réviser les exigences CMMC des appels d'offres et contrats, sans fixer de date de reprise.",
     "contexte": "Restent applicables : la base NIST SP 800-171 révision 2 au titre de DFARS 252.204-7012, la déclaration des incidents sous 72 heures, la notation SPRS et les contrôles de la DCMA. Selon Wolf Theiss, la phase 1 (auto-évaluation) reste en place et les primes répercutent ces exigences sur leurs fournisseurs.",
     "impact_avere": "Un industriel français fournisseur, direct ou indirect, d'une prime américaine reste soumis aux exigences de DFARS 252.204-7012 si des informations contrôlées transitent par ses systèmes. La suspension retire une étape d'évaluation, pas les exigences de sécurité.",
     "impact_potentiel": "La phase 2 pourrait être reprise, modifiée ou abandonnée selon les conclusions de la revue engagée par le ministère ; les primes pourraient aussi durcir leurs clauses sans attendre.",
