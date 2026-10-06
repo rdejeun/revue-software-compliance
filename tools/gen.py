@@ -86,7 +86,13 @@ var pushed=false,byPop=false;
 /* mesure d'audience (Matomo, sans cookie) : catégorie « En savoir plus », nom = date de l'édition · titre de la synthèse */
 function nomSy(id){var m=/^(\d{4}-\d{2}-\d{2})-syn\d+$/.exec(id||''),t=box.querySelector('.sy-t');return (m?m[1]:(dlg.getAttribute('data-ed')||''))+' · '+(t?t.textContent.trim():id)}
 function evSy(act,nom){if(window._paq)window._paq.push(['trackEvent','En savoir plus',act,nom])}
-var SYID='';
+var SYID='',PAGE=null;
+/* ouverture d'une synthèse = consultation de page « /synthese/<nom-canonique> » (titre : celui de la synthèse) ;
+   à la fermeture, l'adresse et le titre de la page d'origine sont rétablis pour les mesures suivantes */
+function canon(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[’']/g,'-').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)}
+function vueSy(){if(!window._paq)return;var t=box.querySelector('.sy-t'),x=t?t.textContent.trim():SYID;if(!PAGE)PAGE=[location.href.split('#')[0],document.title];
+ window._paq.push(['setCustomUrl',location.origin+'/synthese/'+canon(x)]);window._paq.push(['setDocumentTitle',x+' – En savoir plus – Software Compliance']);window._paq.push(['trackPageView'])}
+dlg.addEventListener('close',function(){if(PAGE&&window._paq){window._paq.push(['setCustomUrl',PAGE[0]]);window._paq.push(['setDocumentTitle',PAGE[1]])}});
 /* liens de la fenêtre : insérés à chaque ouverture, Matomo ne les surveille pas (il pose ses écouteurs au chargement) ;
    les liens vers un autre site sont donc déclarés à la main comme liens sortants (rapport « Liens sortants ») */
 box.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('a[href]');if(!l)return;
@@ -94,7 +100,7 @@ box.addEventListener('click',function(e){var l=e.target.closest&&e.target.closes
  if(window._paq&&/^https?:/.test(l.href)&&l.hostname!==location.hostname)window._paq.push(['trackLink',l.href,'link'])});
 function open(id,push,src){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
  box.querySelectorAll('a[href]').forEach(function(x){x.classList.add('matomo_ignore')});   /* pas de double comptage si Matomo rescanne la page */
- SYID=id;if(src!=='hist')evSy(src==='lien'?'Lien partagé':'Ouverture',nomSy(id));
+ SYID=id;if(src!=='hist')vueSy();
  if(push!==false)try{if(pushed)history.replaceState({syn:id},'','#'+id);else{history.pushState({syn:id},'','#'+id);pushed=true}}catch(e){}
  partage(id);
  if(!dlg.open)dlg.showModal();
