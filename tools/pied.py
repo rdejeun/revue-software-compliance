@@ -1,5 +1,10 @@
 """Pied de page commun (édition web, e-mail, pages annexes) et page des mentions légales."""
 import html
+import os
+
+# mesure d'audience (Matomo, tools/matomo.html) : insérée juste avant </head> des pages du site, jamais dans l'e-mail
+_M = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'matomo.html')
+MATOMO = open(_M, encoding='utf-8').read().strip() if os.path.isfile(_M) else ''
 
 EDITEUR = 'Rodolphe Dejeunes'
 ATTRIBUTION = 'Software Compliance · revue.dejeun.es'
@@ -89,6 +94,7 @@ def mentions(redaction, annee):
         '<div class="r"></div><h2>Visuels</h2>',
         li('Monogramme « SC » (icône du site, flux RSS et couverture du podcast) : image générée avec ChatGPT (OpenAI). Illustration de l’en-tête : image générée avec Gemini (Google).'),
         '<div class="r"></div><h2>Données personnelles</h2>',
-        li('Le site ne dépose pas de cookie et ne mesure pas l’audience. Les adresses des destinataires de la lettre servent uniquement à son envoi, '
+        li('Le site mesure sa fréquentation avec Matomo, outil libre installé sur un serveur de l’éditeur (matomo.dejeunes.net) ; '
+           'les données de navigation ne sont pas transmises à des tiers. Cet outil peut déposer des cookies de mesure d’audience. Les adresses des destinataires de la lettre servent uniquement à son envoi, '
            'confié au prestataire Resend. Pour toute demande (accès, rectification, désinscription), écrire à l’adresse de contact ci-dessus.'),
     ])

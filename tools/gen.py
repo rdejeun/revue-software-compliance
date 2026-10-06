@@ -4,7 +4,7 @@ import re,json,html
 from urllib.parse import urlparse
 import commun as B
 from podcast import titre_episode
-from pied import pied, pied_bloc, CSS_PIED
+from pied import pied, pied_bloc, CSS_PIED, MATOMO
 from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
@@ -190,7 +190,7 @@ def bloc_podcast(web,diso,ed_url):
             f'<span class="pod-rw"><input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode"{reperes}><span class="pod-th" aria-hidden="true"></span></span>'
             +temps+'</div>'+
             f'<span class="pod-vw"><button type="button" class="pod-m" aria-label="Volume" aria-expanded="false">{ICO_VOL}</button>'
-            f'<span class="pod-vp"><input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></span></span></div>'
+            f'<span class="pod-vp"><button type="button" class="pod-mu" aria-label="Couper le son">{ICO_VOL}</button><input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></span></span></div>'
             +signets+
             f'</div></div></div>')
 POD_JS=r"""<script>
@@ -208,7 +208,9 @@ function defile(){var t=w.querySelector('.pod-t'),x=t&&t.querySelector('.pod-tx'
  a.onfinish=function(){t.classList.remove('run')}}
 h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o){if(a.paused)a.play()}else a.pause()});   /* ouverture : lecture ; fermeture : pause */
 var m=w.querySelector('.pod-m'),v=w.querySelector('.pod-v');
-function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0)}
+var mu=w.querySelector('.pod-mu');
+function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0);mu.setAttribute('aria-label',x==0?'Rétablir le son':'Couper le son')}
+mu.addEventListener('click',function(){if(a.muted||a.volume==0){a.muted=false;if(a.volume==0)a.volume=.8}else a.muted=true;vol()});   /* haut-parleur du curseur : couper / rétablir */
 v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vol()});
 /* haut-parleur : déplie le réglage du volume ; clic ailleurs ou Échap : replie */
 function vo(o){w.classList.toggle('volo',o);m.setAttribute('aria-expanded',o);if(o)v.focus()}
@@ -600,7 +602,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-p .pod-pl{{margin-top:4px}}
 .pod-p .pod-vw{{margin-top:10px}}
 .pod-vw{{position:relative;flex:none}}
-.pod-vp{{position:absolute;right:calc(100% + 2px);top:50%;display:flex;align-items:center;height:30px;padding:0 12px;box-sizing:border-box;border:1px solid #e3d6c3;border-radius:15px;background:#fff;box-shadow:0 4px 12px rgba(15,42,74,.12);opacity:0;visibility:hidden;transform:translate(6px,-50%);transition:opacity .15s,transform .15s,visibility .15s}}
+.pod-vp{{position:absolute;right:calc(100% + 2px);top:50%;display:flex;align-items:center;gap:6px;height:30px;padding:0 12px 0 4px;box-sizing:border-box;border:1px solid #e3d6c3;border-radius:15px;background:#fff;box-shadow:0 4px 12px rgba(15,42,74,.12);opacity:0;visibility:hidden;transform:translate(6px,-50%);transition:opacity .15s,transform .15s,visibility .15s}}
 .pod.volo .pod-vp{{opacity:1;visibility:visible;transform:translate(0,-50%)}}
 .pod.volo .pod-m{{color:{ACC}}}
 .pod-eq{{display:none;align-items:flex-end;gap:2px;height:11px}}
@@ -611,7 +613,9 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 @keyframes eq{{from{{transform:scaleY(.35)}}to{{transform:scaleY(1)}}}}
 .pod-m{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:{NAVY};cursor:pointer}}
 .pod-m:hover,.pod-m:focus-visible{{color:{ACC};outline:none}}
-.pod.mu .pod-m .w{{display:none}}
+.pod.mu .pod-m .w,.pod.mu .pod-mu .w{{display:none}}
+.pod-mu{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:24px;height:24px;padding:0;border:0;border-radius:50%;background:none;color:{NAVY};cursor:pointer}}
+.pod-mu:hover,.pod-mu:focus-visible{{color:{ACC};outline:none}}
 .pod-v{{--p:100%;flex:none;width:96px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
 .pod-v::-webkit-slider-thumb{{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:{NAVY};border:2px solid #fff;box-shadow:0 0 0 1px {NAVY}}}
 .pod-v::-moz-range-thumb{{width:10px;height:10px;border-radius:50%;background:{NAVY};border:2px solid #fff}}
@@ -665,7 +669,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 @media(min-width:860px){{.sy-g{{display:flow-root}}.sy-g>.sy-m{{float:right;width:236px;box-sizing:border-box;display:block;margin:4px 0 16px 28px;padding:12px 16px 14px}}.sy-g>.sy-m dd{{margin:2px 0 12px}}.sy-g>.sy-m dd:last-child{{margin-bottom:0}}.sy-c>h4:first-child{{margin-top:4px}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
     if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
-    return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{ICONES if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}{CSS_PIED}@media(max-width:660px){{.w{{padding:22px 18px 20px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
+    return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{ICONES if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}{CSS_PIED}@media(max-width:660px){{.w{{padding:22px 18px 20px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style>{MATOMO if web else ''}</head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;border-radius:8px;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
