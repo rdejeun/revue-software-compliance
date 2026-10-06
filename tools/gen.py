@@ -153,8 +153,8 @@ def bloc_podcast(web,diso,ed_url):
     m=duree_ep()
     if not web:
         if not ed_url: return ''
-        # le clic lance directement la lecture du fichier audio (navigateur ou lecteur du système)
-        u=f'{ed_url}{EP_FICHIER}'
+        # le clic ouvre la page de l'édition, lecteur déplié (#ecouter) : l'écoute y est mesurée (Matomo)
+        u=f'{ed_url}#ecouter'
         # Outlook pour Windows (moteur Word) ignore border-radius et ne rend cliquable que le texte d'un lien :
         # bouton VML arrondi, entièrement cliquable ; les autres clients reçoivent la boîte HTML
         vml=(f'<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">'
