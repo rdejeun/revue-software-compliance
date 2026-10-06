@@ -87,9 +87,13 @@ var pushed=false,byPop=false;
 function nomSy(id){var m=/^(\d{4}-\d{2}-\d{2})-syn\d+$/.exec(id||''),t=box.querySelector('.sy-t');return (m?m[1]:(dlg.getAttribute('data-ed')||''))+' · '+(t?t.textContent.trim():id)}
 function evSy(act,nom){if(window._paq)window._paq.push(['trackEvent','En savoir plus',act,nom])}
 var SYID='';
-box.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('p.sy-s a');if(!l)return;
- if(l.id==='sy-sh')evSy('Partager',nomSy(SYID));else evSy('Source',nomSy(SYID)+' · '+l.textContent.replace(/^\W+/,'').trim())});
+/* liens de la fenêtre : insérés à chaque ouverture, Matomo ne les surveille pas (il pose ses écouteurs au chargement) ;
+   les liens vers un autre site sont donc déclarés à la main comme liens sortants (rapport « Liens sortants ») */
+box.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('a[href]');if(!l)return;
+ if(l.id==='sy-sh'){evSy('Partager',nomSy(SYID));return}
+ if(window._paq&&/^https?:/.test(l.href)&&l.hostname!==location.hostname)window._paq.push(['trackLink',l.href,'link'])});
 function open(id,push,src){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
+ box.querySelectorAll('a[href]').forEach(function(x){x.classList.add('matomo_ignore')});   /* pas de double comptage si Matomo rescanne la page */
  SYID=id;if(src!=='hist')evSy(src==='lien'?'Lien partagé':'Ouverture',nomSy(id));
  if(push!==false)try{if(pushed)history.replaceState({syn:id},'','#'+id);else{history.pushState({syn:id},'','#'+id);pushed=true}}catch(e){}
  partage(id);
