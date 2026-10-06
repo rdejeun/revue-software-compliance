@@ -214,11 +214,12 @@ def render(web):
         meta=[]
         if sm.get('statut'): meta.append(f'<dt>Statut</dt><dd>{T(sm["statut"])}</dd>')
         if sm.get('fonctions'): meta.append(f'<dt>Fonctions</dt><dd>{T(sm["fonctions"])}</dd>')
-        def etiq(v):   # « Connecté : détail » -> étiquette « Connecté » puis le détail (README, § 6)
+        def etiq(lab,v):   # « Connecté : détail » -> intitulé et étiquette « Connecté » sur une ligne, détail dessous (README, § 6)
             m_=re.match(r'([^:;]{1,24}?)\s*:\s*(.+)$',v,re.S)
-            return (f'<span class="sy-k">{T(m_.group(1))}</span> <span class="sy-dt">{T(m_.group(2)[:1].upper()+m_.group(2)[1:])}</span>') if m_ else T(v)
-        if sm.get('reseau'): meta.append(f'<dt>Réseau</dt><dd>{etiq(sm["reseau"])}</dd>')   # outils et services (README, § 6)
-        if sm.get('licence'): meta.append(f'<dt>Licence</dt><dd>{etiq(sm["licence"])}</dd>')
+            if not m_: return f'<dt>{lab}</dt><dd>{T(v)}</dd>'
+            return f'<dt>{lab} <span class="sy-k">{T(m_.group(1))}</span></dt><dd>{T(m_.group(2)[:1].upper()+m_.group(2)[1:])}</dd>'
+        if sm.get('reseau'): meta.append(etiq('Réseau',sm['reseau']))   # outils et services (README, § 6)
+        if sm.get('licence'): meta.append(etiq('Licence',sm['licence']))
         # encart à droite du texte sur grand écran (CSS), au-dessus sur petit écran ; ordre du DOM inchangé pour la numérotation des mots
         h.append('<div class="sy-g">'+('<dl class="sy-m">'+''.join(meta)+'</dl>' if meta else '')+'<div class="sy-c">')
         for k,lab in SYN_LABELS:
@@ -482,8 +483,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-t{{margin:0 36px 14px 0;font:600 21px/28px {SANS};color:{NAVY};text-wrap:balance}}
 .sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;border-radius:6px;font:13px/19px {SANS};color:#374151}}
 .sy-m dt{{color:#6f675a;font:600 11px/16px {SANS};letter-spacing:.1em;text-transform:uppercase}}
-.sy-k{{display:inline-block;margin:2px 0 3px;padding:0 8px;border:1px solid #d9cfbd;border-radius:10px;background:#fff;font:600 12px/18px {SANS};color:#3f3a31}}
-.sy-dt{{display:block;color:#555b66}}
+.sy-k{{display:inline-block;margin-left:6px;padding:0 7px;border:1px solid #d9cfbd;border-radius:9px;background:#fff;font:600 11px/16px {SANS};letter-spacing:0;text-transform:none;color:#3f3a31;vertical-align:1px}}
 .sy-m dd{{margin:0;min-width:0}}
 .sy-w h4{{margin:18px 0 6px;font:700 13px/18px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#6f675a}}
 .sy-w{{overflow-x:hidden}}
@@ -493,7 +493,8 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w a.t.tip-d:hover::after,.sy-w a.t.tip-d:focus::after{{left:auto;right:0}}
 .sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF};text-wrap:pretty}}
 .sy-w{{font-variant-numeric:lining-nums}}
-.sy-m dd{{text-wrap:pretty;-webkit-hyphens:auto;hyphens:auto}}
+.sy-m dd{{text-wrap:pretty}}
+.sy-w p:not(.sy-s),.sy-v li,.sy-m dd{{-webkit-hyphens:auto;hyphens:auto;hyphenate-limit-chars:9 4 4;-webkit-hyphenate-limit-before:4;-webkit-hyphenate-limit-after:4}}
 .sy-v{{margin:0;padding-left:12px;list-style:none}}
 .sy-w h4~p:not(.sy-s){{padding-left:12px}}
 .sy-v li{{margin:0 0 4px;padding-left:2px;line-height:24px}}
