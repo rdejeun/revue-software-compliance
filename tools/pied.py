@@ -94,7 +94,7 @@ def mentions(redaction, annee):
         '<div class="r"></div><h2>Visuels</h2>',
         li('Monogramme « SC » (icône du site, flux RSS et couverture du podcast) : image générée avec ChatGPT (OpenAI). Illustration de l’en-tête : image générée avec Gemini (Google).'),
         '<div class="r"></div><h2>Données personnelles</h2>',
-        li('Le site mesure sa fréquentation avec Matomo, outil libre installé sur un serveur de l’éditeur (matomo.dejeunes.net) ; '
-           'les données de navigation ne sont pas transmises à des tiers. Cet outil peut déposer des cookies de mesure d’audience. Les adresses des destinataires de la lettre servent uniquement à son envoi, '
+        li('Le site ne dépose pas de cookie. Il mesure sa fréquentation avec Matomo, outil libre installé sur un serveur de l’éditeur (matomo.dejeunes.net), '
+           'sans cookie ; les données de navigation ne sont pas transmises à des tiers. Les adresses des destinataires de la lettre servent uniquement à son envoi, '
            'confié au prestataire Resend. Pour toute demande (accès, rectification, désinscription), écrire à l’adresse de contact ci-dessus.'),
     ])
