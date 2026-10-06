@@ -251,13 +251,13 @@ def main():
     if not eds:   # aucune édition (remise à zéro) : site d'attente, archives et flux vides
         attente = 'La première édition paraîtra un vendredi matin. Les archives, les dossiers et les flux se rempliront à partir de là.'
         write(os.path.join(SITE, 'index.html'), page('Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Première édition à paraître', f'<p>{attente}</p>'))
-        write(os.path.join(SITE, 'archives', 'index.html'), page('Archives · Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Archives · aucune édition · <a href="/">Accueil</a>', '<ul class="l"></ul>'))
-        write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers', 'Aucun dossier pour l’instant · <a href="/">Accueil</a>', ''))
+        write(os.path.join(SITE, 'archives', 'index.html'), page('Archives – Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Archives · aucune édition · <a href="/">Accueil</a>', '<ul class="l"></ul>'))
+        write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers – Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers', 'Aucun dossier pour l’instant · <a href="/">Accueil</a>', ''))
         vide = lambda t, d, x='': f'<?xml version="1.0" encoding="utf-8"?>\n<rss version="2.0"{x}><channel><title>{t}</title><link>{URL}/</link><description>{d}</description><language>fr</language></channel></rss>\n'
         write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.'))
         write(os.path.join(SITE, 'podcast.xml'), vide(E(POD_TITRE), E(POD_DESC), ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
         write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire sur la conformité logicielle des produits pour l’industrie de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
-        write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales · Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>', '<a href="/">Accueil</a>', mentions(REDACTION, datetime.date.today().year)))
+        write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales – Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>', '<a href="/">Accueil</a>', mentions(REDACTION, datetime.date.today().year)))
         write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
         print('Aucune édition : site d’attente construit'); return
     infos = []
@@ -282,7 +282,7 @@ def main():
     # archives
     rows = ''.join(f'<li><a class="b" href="/{i["d"]}/"><span class="m">N° {i["meta"]["n"]} · {E(i["meta"]["date_long"])}{" · démonstration" if i["meta"].get("demo") else ""}</span><span class="x">{E(i["lede"])}</span></a></li>' for i in reversed(infos))
     n = len(infos)
-    write(os.path.join(SITE, 'archives', 'index.html'), page('Archives · Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>',
+    write(os.path.join(SITE, 'archives', 'index.html'), page('Archives – Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>',
           f'Archives · {n} édition{"s" if n > 1 else ""} · <a href="/">Dernière édition</a> · <a href="/dossiers/">Dossiers</a> · <a href="/feed.xml">RSS</a>', f'<ul class="l">{rows}</ul>'))
 
     # dossiers
@@ -336,14 +336,14 @@ def main():
                     more = f' <a class="more" href="/{i["d"]}/#{it["sid"]}">En savoir plus ↗</a>' if it.get('sid') else ''
                     body += f'<li><span class="sec">{E(lab)}</span>{it["html"]}{more}</li>'
             body += '</ul>'
-        write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} · Dossiers · Software Compliance', 'Dossier', titre(v['nom'], v.get('titre')),
+        write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} – Dossier – Software Compliance', 'Dossier', titre(v['nom'], v.get('titre')),
               f'{E(TY(v.get("reference", "")))}<br>{len(its)} information{"s" if len(its) > 1 else ""} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body, cls='dos',
               syn=''.join(f'<div class="sy-d" id="d-{u}" hidden>{h}</div>' for u, h in syn.items())))
-    write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers · Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
+    write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers – Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
           'Tout ce que la revue a publié, thème par thème · <a href="/">Dernière édition</a> · <a href="/archives/">Archives</a>', f'<ul class="l">{"".join(idx)}</ul>'))
 
     # mentions légales
-    write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales · Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>',
+    write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales – Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>',
           '<a href="/">Dernière édition</a> · <a href="/archives/">Archives</a> · <a href="/dossiers/">Dossiers</a>', mentions(REDACTION, datetime.date.today().year)))
 
     # RSS (hors démonstration)

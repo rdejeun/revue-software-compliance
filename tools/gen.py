@@ -213,7 +213,10 @@ function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100
 mu.addEventListener('click',function(){if(a.muted||a.volume==0){a.muted=false;if(a.volume==0)a.volume=.8}else a.muted=true;vol()});   /* haut-parleur du curseur : couper / rétablir */
 v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vol()});
 /* haut-parleur : déplie le réglage du volume ; clic ailleurs ou Échap : replie */
-function vo(o){w.classList.toggle('volo',o);m.setAttribute('aria-expanded',o);if(o)v.focus()}
+/* repli automatique après 3 s sans action sur le curseur */
+var VT=null;function vt(){clearTimeout(VT);if(w.classList.contains('volo'))VT=setTimeout(function(){vo(false)},3000)}
+function vo(o){w.classList.toggle('volo',o);m.setAttribute('aria-expanded',o);if(o)v.focus();vt()}
+['input','pointerdown','pointermove','keydown','wheel'].forEach(function(t){w.querySelector('.pod-vp').addEventListener(t,vt)});
 m.addEventListener('click',function(e){e.stopPropagation();vo(!w.classList.contains('volo'))});
 document.addEventListener('click',function(e){if(!e.target.closest('.pod-vw'))vo(false)});
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&w.classList.contains('volo')){vo(false);m.focus()}});
@@ -537,7 +540,7 @@ table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right
 .toc-l ol{{margin:0;padding:0;list-style:none;border-left:2px solid #ece7dc}}
 .toc-l a{{display:block;margin-left:-2px;padding:4px 0 4px 12px;border-left:2px solid transparent;color:#6b7280;text-decoration:none}}
 .toc-l a:hover,.toc-l a:focus-visible{{color:{NAVY};outline:none}}
-.toc-l a.on{{border-left-color:{ACC};color:{NAVY}}}}}
+.toc-l a.on{{border-left-color:{ACC};color:{NAVY};font-weight:600}}}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .sy-it{{cursor:pointer;transition:background .15s}}
 .sy-it:hover{{background:#faf7f0}}
@@ -602,7 +605,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-p .pod-pl{{margin-top:4px}}
 .pod-p .pod-vw{{margin-top:10px}}
 .pod-vw{{position:relative;flex:none}}
-.pod-vp{{position:absolute;right:calc(100% + 2px);top:50%;display:flex;align-items:center;gap:6px;height:30px;padding:0 12px 0 4px;box-sizing:border-box;border:1px solid #e3d6c3;border-radius:15px;background:#fff;box-shadow:0 4px 12px rgba(15,42,74,.12);opacity:0;visibility:hidden;transform:translate(6px,-50%);transition:opacity .15s,transform .15s,visibility .15s}}
+.pod-vp{{position:absolute;right:0;top:50%;z-index:3;display:flex;align-items:center;gap:6px;height:30px;padding:0 12px 0 4px;box-sizing:border-box;border:1px solid #e3d6c3;border-radius:15px;background:#fff;box-shadow:0 4px 12px rgba(15,42,74,.12);opacity:0;visibility:hidden;transform:translate(6px,-50%);transition:opacity .15s,transform .15s,visibility .15s}}
 .pod.volo .pod-vp{{opacity:1;visibility:visible;transform:translate(0,-50%)}}
 .pod.volo .pod-m{{color:{ACC}}}
 .pod-eq{{display:none;align-items:flex-end;gap:2px;height:11px}}
@@ -669,7 +672,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 @media(min-width:860px){{.sy-g{{display:flow-root}}.sy-g>.sy-m{{float:right;width:236px;box-sizing:border-box;display:block;margin:4px 0 16px 28px;padding:12px 16px 14px}}.sy-g>.sy-m dd{{margin:2px 0 12px}}.sy-g>.sy-m dd:last-child{{margin-bottom:0}}.sy-c>h4:first-child{{margin-top:4px}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
     if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
-    return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{ICONES if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}{CSS_PIED}@media(max-width:660px){{.w{{padding:22px 18px 20px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style>{MATOMO if web else ''}</head>
+    return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{ICONES if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(('Revue de presse du '+META.get('date','')+' – Software Compliance') if web else title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}{CSS_PIED}@media(max-width:660px){{.w{{padding:22px 18px 20px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style>{MATOMO if web else ''}</head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;border-radius:8px;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
