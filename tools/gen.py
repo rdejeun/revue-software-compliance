@@ -83,7 +83,14 @@ function surligne(a,b){var M=mots(),W=M.W;a=parseInt(a,16);b=parseInt(b||a.toStr
  var h=box.querySelector('mark.sy-hl');if(h)requestAnimationFrame(function(){requestAnimationFrame(function(){h.scrollIntoView({block:'center'})})})}
 /* chaque ouverture ajoute une entrée d'historique : le bouton Précédent (y compris celui de la souris) ferme la fenêtre */
 var pushed=false,byPop=false;
-function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
+/* mesure d'audience (Matomo, sans cookie) : catégorie « En savoir plus », nom = date de l'édition · titre de la synthèse */
+function nomSy(id){var m=/^(\d{4}-\d{2}-\d{2})-syn\d+$/.exec(id||''),t=box.querySelector('.sy-t');return (m?m[1]:(dlg.getAttribute('data-ed')||''))+' · '+(t?t.textContent.trim():id)}
+function evSy(act,nom){if(window._paq)window._paq.push(['trackEvent','En savoir plus',act,nom])}
+var SYID='';
+box.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('p.sy-s a');if(!l)return;
+ if(l.id==='sy-sh')evSy('Partager',nomSy(SYID));else evSy('Source',nomSy(SYID)+' · '+l.textContent.replace(/^\W+/,'').trim())});
+function open(id,push,src){var d=document.getElementById('d-'+id);if(!d)return;box.innerHTML=d.innerHTML;var h=box.querySelector('.sy-t');if(h)h.id='sy-h';
+ SYID=id;if(src!=='hist')evSy(src==='lien'?'Lien partagé':'Ouverture',nomSy(id));
  if(push!==false)try{if(pushed)history.replaceState({syn:id},'','#'+id);else{history.pushState({syn:id},'','#'+id);pushed=true}}catch(e){}
  partage(id);
  if(!dlg.open)dlg.showModal();
@@ -91,7 +98,7 @@ function open(id,push){var d=document.getElementById('d-'+id);if(!d)return;box.i
  box.scrollTop=0;dlg.scrollTop=0;requestAnimationFrame(function(){box.scrollTop=0;dlg.scrollTop=0})}
 function close(){if(dlg.open)dlg.close()}
 dlg.addEventListener('close',function(){if(byPop)return;if(pushed){pushed=false;try{history.back()}catch(e){}}else try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
-window.addEventListener('popstate',function(e){var s=e.state&&e.state.syn;if(s){pushed=true;open(s,false);return}pushed=false;if(dlg.open){byPop=true;dlg.close();byPop=false}});
+window.addEventListener('popstate',function(e){var s=e.state&&e.state.syn;if(s){pushed=true;open(s,false,'hist');return}pushed=false;if(dlg.open){byPop=true;dlg.close();byPop=false}});
 dlg.querySelector('.sy-x').addEventListener('click',close);
 /* infobulle d'un sigle : décalage horizontal qui la garde dans la fenêtre (ou la page). Elle s'accroche au début du
    premier morceau du sigle (un sigle coupé en fin de ligne, « EEE- / AELE », a deux morceaux) : on mesure ce morceau. */
@@ -107,7 +114,7 @@ document.addEventListener('click',function(e){
  e.preventDefault();open(b.getAttribute('data-syn'));
 });
 document.addEventListener('keydown',function(e){var it=e.target.closest&&e.target.closest('.sy-it');if(it&&(e.key==='Enter'||e.key===' ')&&e.target===it){e.preventDefault();open(it.getAttribute('data-syn'))}});
-var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.([0-9a-f]+)(?:-([0-9a-f]+))?)?$/.exec(location.hash.slice(1));if(h){open(h[1],false);if(h[2])surligne(h[2],h[3])}
+var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.([0-9a-f]+)(?:-([0-9a-f]+))?)?$/.exec(location.hash.slice(1));if(h){open(h[1],false,'lien');if(h[2])surligne(h[2],h[3])}
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
