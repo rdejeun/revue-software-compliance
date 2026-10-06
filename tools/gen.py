@@ -483,6 +483,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-t{{margin:0 36px 14px 0;font:600 21px/28px {SANS};color:{NAVY};text-wrap:balance}}
 .sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;border-radius:6px;font:13px/17px {SANS};color:#374151}}
 .sy-m dt{{color:#6f675a;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase}}
+.sy-m dt,.sy-m dd{{align-self:first baseline}}
 .sy-m dt:has(.sy-k){{display:flex;align-items:center;gap:8px}}
 .sy-k{{display:inline-flex;align-items:center;box-sizing:border-box;height:17px;padding:0 7px;border:1px solid #d9cfbd;border-radius:9px;background:#fff;font:400 11.5px/1 {SANS};letter-spacing:0;text-transform:none;color:#6b6356;white-space:nowrap}}
 @supports (text-box:trim-both cap alphabetic){{.sy-k{{display:inline-block;height:auto;line-height:1;padding:4px 7px;text-box:trim-both cap alphabetic}}}}
