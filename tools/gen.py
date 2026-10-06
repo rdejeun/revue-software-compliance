@@ -126,11 +126,13 @@ ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><pa
 # Outlook pour Windows : sans PixelsPerInch=96, les formes VML sont mises à l'échelle à 120 ppp et le texte du bouton est coupé
 MSO_HEAD='<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->'
 # sommaire latéral : section courante (lecture au défilement) ; bouton de retour au sommaire sur petit écran
+# libellés abrégés là où la place manque (colonne du sommaire, signets du podcast)
+ABREV={"Chaîne d'approvisionnement":"Chaîne d’appro."}
 TOC_JS=r"""<script>(function(){var L=document.querySelector('.toc-l'),B=document.querySelector('.toc-b'),bt=B&&B.querySelector('.toc-bt'),ls=B&&B.querySelector('.toc-ls'),cur=B&&B.querySelector('.toc-c'),N=cur?cur.textContent:'';
 var H=[].slice.call(document.querySelectorAll('h2[id^="s"]')),AL=L?[].slice.call(L.querySelectorAll('a')):[],AB=ls?[].slice.call(ls.querySelectorAll('a')):[];
 function maj(){var y=innerHeight*0.3,k=-1;for(var i=0;i<H.length;i++)if(H[i].getBoundingClientRect().top<y)k=i;
  [AL,AB].forEach(function(A){A.forEach(function(a,i){a.classList.toggle('on',i===k);if(i===k)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})});
- if(cur)cur.textContent=k>=0&&AB[k]?AB[k].textContent:N;
+ if(cur){cur.textContent=k>=0&&AB[k]?AB[k].textContent:N;cur.classList.toggle('en',k>=0)}
  if(B)B.classList.toggle('colle',B.getBoundingClientRect().top<=0.5&&scrollY>0)}
 function ouvre(o){if(!B)return;ls.hidden=!o;bt.setAttribute('aria-expanded',o);B.classList.toggle('ouvert',o)}
 if(bt){bt.addEventListener('click',function(){ouvre(ls.hidden)});
@@ -165,7 +167,10 @@ def bloc_podcast(web,diso,ed_url):
     fm=lambda t:f'{int(t)//60}:{int(t)%60:02d}'
     signets=('<div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
         f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div>') if ch else ''
-    reperes=''.join(f'<i style="left:{100*c["debut_s"]/max(1,EP["duree_s"]):.2f}%"></i>' for c in ch)
+    def rk(c):
+        x=f'calc(7px + (100% - 14px) * {c["debut_s"]/max(1,EP["duree_s"]):.4f})'
+        return f'linear-gradient(to right,transparent calc({x} - 1px),#fff calc({x} - 1px),#fff calc({x} + 1px),transparent calc({x} + 1px))'
+    reperes=(' style="--rk:'+','.join(rk(c) for c in ch)+'"') if ch else ''
     return (f'<div class="pod" id="ecouter">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
@@ -174,7 +179,7 @@ def bloc_podcast(web,diso,ed_url):
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
-            f'<span class="pod-rw"><input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode">{reperes}</span>'
+            f'<input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode"{reperes}>'
             f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
             f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
             f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
@@ -203,8 +208,8 @@ pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
 a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause')});
 a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture')});
 a.addEventListener('loadedmetadata',function(){if(isFinite(a.duration))r.max=a.duration});
-a.addEventListener('timeupdate',function(){if(!r.matches(':active'))r.value=a.currentTime;c.textContent=fmt(a.currentTime);r.style.setProperty('--p',(100*a.currentTime/(r.max||1))+'%')});
-r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);r.style.setProperty('--p',(100*r.value/(r.max||1))+'%')});
+a.addEventListener('timeupdate',function(){if(!r.matches(':active'))r.value=a.currentTime;c.textContent=fmt(a.currentTime);r.style.setProperty('--p','calc(7px + (100% - 14px) * '+(a.currentTime/(r.max||1))+')')});
+r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);r.style.setProperty('--p','calc(7px + (100% - 14px) * '+(r.value/(r.max||1))+')')});
 var S=[].slice.call(w.querySelectorAll('.pod-ch button'));
 var CH=w.querySelector('.pod-ch');function deb(){if(CH)CH.classList.toggle('deb',CH.scrollWidth>CH.clientWidth+1)}addEventListener('resize',deb);h.addEventListener('click',function(){setTimeout(deb,50)});deb();
 S.forEach(function(s){s.addEventListener('click',function(){a.currentTime=+s.getAttribute('data-t');if(a.paused)a.play()})});
@@ -336,8 +341,9 @@ def render(web):
         if web:
             ITEMS.append({'sid':sid,'sec':cursec,'kind':kind,'rappel':bool((attrs or {}).get('rappel')),'date':(attrs or {}).get('date'),'themes':(attrs or {}).get('themes',[]),'segs':segs,'sum':sm,'html':B._post(inner)})
         if sid and web:
-            m_=re.search(r'((?:<a class="s[^"]*"[^>]*>(?:[^<]|<span[^>]*>[^<]*</span>)*</a>\s*)?<span style="color:#8a8f98;[^"]*">(?:[^<]|<sup[^>]*>[^<]*</sup>)*</span>\.?|[^\s<>]+)$',inner)
-            inner=(inner[:m_.start()]+'<span class="nw">'+m_.group(1)+' '+SYNB.format(sid)+'</span>') if m_ else inner+' '+SYNB.format(sid)
+            m_=re.search(r'((?:<a class="s[^"]*"[^>]*>(?:[^<]|<span[^>]*>[^<]*</span>)*</a>\s*)?)(<span style="color:#8a8f98;[^"]*">(?:[^<]|<sup[^>]*>[^<]*</sup>)*</span>\.?|[^\s<>]+)$',inner)
+            # dernière source, date et bouton sur une ligne ; sur petit écran, la source peut passer seule à la ligne (.nw2 : date + bouton)
+            inner=(inner[:m_.start()]+'<span class="nw">'+m_.group(1)+'<span class="nw2">'+m_.group(2)+' '+SYNB.format(sid)+'</span></span>') if m_ else inner+' '+SYNB.format(sid)
         elif sid: inner+=EL(sid)
         return sid,inner
     def syattr(sid): return f' class="sy-it" data-syn="{sid}"' if (web and sid) else ''
@@ -371,7 +377,7 @@ def render(web):
             if raw.startswith(('Cette section ne retient','Les échéances d')) or cursec.startswith('Agenda'): continue
             if first_p:
                 first_p=False
-                body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;"><tr><td style="border-left:4px solid {ACC};background:#f7f4ee;padding:16px 20px;font:17.7px/26px {SERIF};color:{NAVY};">{inl(b["i"],False)}</td></tr></table>')
+                body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;"><tr><td style="border-left:4px solid {ACC};border-radius:6px;background:#f7f4ee;padding:16px 20px;font:17.7px/26px {SERIF};color:{NAVY};">{inl(b["i"],False)}</td></tr></table>')
                 body.append('@@TOC@@');continue
             if prev_h2 and not b.get('attrs') and not b.get('sum') and not raw.startswith(('Depuis le','Défense','Lien avec')):
                 body.append(f'<p style="{CHAPO}">{inl(b["i"],False)}</p>')
@@ -455,11 +461,13 @@ def render(web):
         # vers la droite si la marge ne suffit pas (la colonne mord d'un tiers sur la marge intérieure de l'article).
         tocb=''
         li=''.join(f'<li><a href="#s{i}">{E(s)}</a></li>' for i,s in enumerate(SEC))
+        ab=lambda x:ABREV.get(x.replace('’',"'"),x)
+        lic=''.join(f'<li><a href="#s{i}" title="{E(s)}">{E(ab(s))}</a></li>' for i,s in enumerate(SEC))   # colonne étroite : libellés abrégés
         TOCBAR=('<nav class="toc-b" id="sommaire" aria-label="Sommaire"><button type="button" class="toc-bt" aria-expanded="false" aria-controls="toc-ls">'
                 '<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5 4h8M5 8h8M5 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2.5" cy="4" r="1" fill="currentColor"/><circle cx="2.5" cy="8" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/></svg>'
                 f'<span class="toc-t">Sommaire</span><span class="toc-c">{len(SEC)} rubriques</span><svg class="toc-v" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
                 f'<ol class="toc-ls" id="toc-ls" hidden>{li}</ol></nav>')
-        TOCNAV=f'<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>{li}</ol></nav>'+TOC_JS
+        TOCNAV=f'<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>{lic}</ol></nav>'+TOC_JS
     else:
         toc=' <span style="color:#c3cad5;">·</span> '.join(f'<a href="#s{i}" style="color:#4b5563;text-decoration:none;border-bottom:1px solid #d5dbe5;">{E(s)}</a>' for i,s in enumerate(SEC))
         tocb=f'<p style="margin:0 0 4px;font:13px/24px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Dans ce numéro</b>&nbsp; {toc}</p>'
@@ -475,15 +483,17 @@ a.t:hover,a.t:focus{{border-bottom-color:{NAVY}}}
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:290px;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.rss{{display:inline-flex;vertical-align:-2px;color:{ACC}}}a.rss:hover,a.rss:focus-visible{{color:{NAVY}}}
 a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap}}
-.nw{{white-space:nowrap}}
+.nw,.nw2{{white-space:nowrap}}
+@media(max-width:660px){{.nw{{white-space:normal}}}}
 a.s .ar{{color:#9ca3af}}
 a.s.so .ar{{color:{ACC}}}
 h2[id^='s']{{scroll-margin-top:56px}}
-.toc-b{{position:sticky;top:0;z-index:30;margin:0 0 18px;background:#fff;border-bottom:1px solid #ece7dc}}
+.toc-b{{position:sticky;top:0;z-index:30;margin:-24px 0 18px;background:#fff;border-bottom:1px solid #ece7dc}}
 .toc-b.colle{{box-shadow:0 6px 10px -8px rgba(15,42,74,.25)}}
 .toc-bt{{display:flex;align-items:center;gap:8px;width:100%;height:40px;padding:0 2px;border:0;background:none;color:{NAVY};font:13px/1 {SANS};text-align:left;cursor:pointer}}
 .toc-bt .toc-t{{font:400 11px/1 {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
-.toc-c{{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#4b5563}}
+.toc-c{{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#9ca3af}}
+.toc-c.en{{color:#4b5563}}
 .toc-v{{flex:none;color:#6f675a;transition:transform .15s}}
 .toc-b.ouvert .toc-v{{transform:rotate(180deg)}}
 .toc-ls{{position:absolute;left:0;right:0;top:100%;margin:0;padding:6px 0;list-style:none;background:#fff;border:1px solid #ece7dc;border-top:0;border-radius:0 0 6px 6px;box-shadow:0 10px 18px -10px rgba(15,42,74,.3)}}
@@ -494,7 +504,7 @@ h2[id^='s']{{scroll-margin-top:56px}}
 @media(min-width:912px){{
 .toc-b{{display:none}}
 table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right:auto!important}}
-.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
+.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fff;border-radius:8px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
 .toc-l .toc-t{{display:block;margin:0 0 8px;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
 .toc-l ol{{margin:0;padding:0;list-style:none;border-left:2px solid #ece7dc}}
 .toc-l a{{display:block;margin-left:-2px;padding:4px 0 4px 12px;border-left:2px solid transparent;color:#6b7280;text-decoration:none}}
@@ -518,7 +528,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .sy-b:hover .sy-p,.sy-b:focus-visible .sy-p{{z-index:5;background:{ACC};border-color:{ACC};color:#fff;box-shadow:0 2px 8px rgba(15,42,74,.18)}}
 .sy-b:hover .sy-l,.sy-b:focus-visible .sy-l{{max-width:9em;opacity:1;margin-left:4px;padding-right:6px}}
 .sy-b:focus-visible{{outline:none}}
-.pod{{width:100%;margin:0 0 24px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
+.pod{{width:100%;box-sizing:border-box;margin:0 0 24px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
 .pod-h{{display:flex;align-items:center;gap:10px;width:100%;padding:10px 18px;border:0;background:none;color:{NAVY};font:600 14px/22px {SANS};text-align:left;cursor:pointer}}
 .pod-h:hover,.pod-h:focus-visible{{background:#f1ebdf;outline:none}}
 .pod-i{{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:{ACC};color:#fff;flex:none}}
@@ -526,13 +536,10 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-l{{flex:1}}
 .pod-d{{display:inline-flex;align-items:center;gap:6px;font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-d svg{{flex:none;color:#8a8f98}}
-.pod-rw{{position:relative;flex:1;min-width:0;display:flex;align-items:center}}
-.pod-rw .pod-r{{flex:1}}
-.pod-rw i{{position:absolute;top:50%;width:2px;height:8px;margin:-4px 0 0 -1px;background:#fff;border-radius:1px;pointer-events:none}}
-.pod-ch{{display:flex;gap:4px;width:0;min-width:100%;margin:12px 0 2px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
+.pod-ch{{display:flex;gap:5px;width:0;min-width:100%;margin:12px 0 2px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
 .pod-ch.deb{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}}
 .pod-ch::-webkit-scrollbar{{display:none}}
-.pod-ch button{{flex:none;padding:2px 7px;border:1px solid transparent;border-radius:11px;background:none;color:#6b7280;font:12px/18px {SANS};cursor:pointer}}
+.pod-ch button{{flex:1 0 auto;padding:2px 6px;border:1px solid #e8dfd0;border-radius:11px;background:rgba(255,255,255,.55);color:#6b7280;font:12px/18px {SANS};cursor:pointer}}
 .pod-ch button:hover,.pod-ch button:focus-visible{{border-color:#e3d6c3;background:#fff;color:{NAVY};outline:none}}
 .pod-ch button.on{{border-color:{ACC};background:#fff;color:{ACC}}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
@@ -546,7 +553,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-pl{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;border:0;border-radius:50%;background:{NAVY};color:#fff;cursor:pointer}}
 .pod-pl:hover,.pod-pl:focus-visible{{background:{ACC};outline:none}}
 .pod-pl svg{{width:14px;height:14px}}
-.pod-r{{--p:0%;flex:1;min-width:0;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{ACC} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
+.pod-r{{--p:0%;flex:1;width:0;min-width:0;height:4px;margin:0;border-radius:2px;background:var(--rk,none),linear-gradient(to right,{ACC} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
 .pod-r::-webkit-slider-thumb{{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:{ACC};border:2px solid #fff;box-shadow:0 0 0 1px {ACC}}}
 .pod-r::-moz-range-thumb{{width:12px;height:12px;border-radius:50%;background:{ACC};border:2px solid #fff}}
 .pod-tm{{font:12px/16px {SANS};color:#6b7280;white-space:nowrap;font-variant-numeric:tabular-nums}}

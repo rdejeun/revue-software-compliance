@@ -1,6 +1,6 @@
 {
  "duree_s": 407,
- "octets": 3383281,
+ "octets": 3383232,
  "mots": 1168,
  "modele": "eleven_v4",
  "seed": 20261004,
@@ -54,7 +54,7 @@
   },
   {
    "titre": "Chaîne d'approvisionnement",
-   "court": "Approvisionnement",
+   "court": "Chaîne d'appro.",
    "debut_s": 230.8
   },
   {

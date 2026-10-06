@@ -36,7 +36,7 @@ CONFIG = {
     'aac_kbps': 64,
     # Habillage sonore : même son en ouverture et en clôture (tools/habillage.mp3, « Tech Logo Intro »,
     # sergequadrado, Pixabay), ramené 2 LU sous la voix, enchaîné directement sur la parole en ouverture, après un court blanc en clôture.
-    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -257,6 +257,18 @@ def loudnorm_2_passes(wav_in, wav_out):
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', wav_in, '-af', filt + f',aresample={SR}', '-c:a', 'pcm_s24le', wav_out], check=True)
 
 
+def adoucir_attaque(x, ms):
+    """Fondu d'entrée (demi-cosinus) de `ms` millisecondes à partir du premier son : l'habillage commence par un
+    transitoire très raide (0 à -4 dBFS en 1 ms), entendu comme un « cloc » au lancement de la lecture."""
+    if not ms: return x
+    y = x.copy(); env = np.abs(y if y.ndim == 1 else y.max(axis=1))
+    i = int(np.argmax(env > 0.003)); n = int(SR * ms / 1000)
+    r = 0.5 - 0.5 * np.cos(np.linspace(0, np.pi, n))
+    seg = y[i:i + n]; r = r[:len(seg)]
+    y[i:i + n] = seg * (r if y.ndim == 1 else r[:, None])
+    return y
+
+
 def habiller(master, sortie_wav):
     """Ajoute l'habillage en début et en fin. Renvoie (durée ajoutée, durée avant la voix), en secondes ; (0, 0) sans fichier d'habillage."""
     h = CONFIG.get('habillage') or {}
@@ -267,7 +279,7 @@ def habiller(master, sortie_wav):
     sauve = CONFIG['lufs']; CONFIG['lufs'] = h['lufs']
     try: loudnorm_2_passes(brut, norm)
     finally: CONFIG['lufs'] = sauve
-    j = sf.read(norm, always_2d=True)[0]; v = sf.read(master, always_2d=True)[0]
+    j = adoucir_attaque(sf.read(norm, always_2d=True)[0], h.get('attaque_ms', 0)); v = sf.read(master, always_2d=True)[0]
     if j.shape[1] != v.shape[1]: j = np.repeat(j.mean(1, keepdims=True), v.shape[1], axis=1)
     b1 = np.zeros((int(SR * h['blanc_debut_s']), v.shape[1])); b2 = np.zeros((int(SR * h['blanc_fin_s']), v.shape[1]))
     sf.write(sortie_wav, np.concatenate([j, b1, v, b2, j]), SR, subtype='PCM_24')
