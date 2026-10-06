@@ -41,10 +41,10 @@ def pied_bloc(redaction, annee, absolu=False):
             f'<i style="font-weight:400;color:#c2410c;">Software</i> <span style="font:500 19px/22px {SANS_};color:#0f2a4a;letter-spacing:-.025em;">Compliance</span></span>'
             f'<span style="display:block;font:12px/18px {SANS_};color:#6b7280;">Revue de presse hebdomadaire</span></span></td>'
             f'<td class="pd-c" align="right" valign="middle" style="padding:16px 0 12px 12px;font:13px/20px {SANS_};text-align:right;white-space:nowrap;">{nav}</td></tr></table>'
-            # ligne 2 : mentions et lien vers les mentions légales
-            f'{T}><tr><td class="pd-c" valign="top" style="padding:4px 0 0;font:350 12px/18px {SANS_};color:#8a8f98;">'
+            # filet fin, puis ligne 2 : mentions et lien vers les mentions légales
+            f'{T} style="border-top:1px solid #e5e1d8;"><tr><td class="pd-c" valign="top" style="padding:10px 0 0;font:350 12px/18px {SANS_};color:#8a8f98;">'
             f'©\u00a0{annee} {EDITEUR} · <a href="{LICENCE_URL}" style="{fin}">CC\u00a0BY\u00a04.0</a> · Rédigé par une IA à partir des sources citées</td>'
-            f'<td class="pd-c" align="right" valign="top" style="padding:4px 0 0 12px;font:350 12px/18px {SANS_};text-align:right;white-space:nowrap;">'
+            f'<td class="pd-c" align="right" valign="top" style="padding:10px 0 0 12px;font:350 12px/18px {SANS_};text-align:right;white-space:nowrap;">'
             f'<a href="{b}/mentions-legales/" style="{fin}">Mentions légales</a></td></tr></table>'
             '</td></tr></table>')
 

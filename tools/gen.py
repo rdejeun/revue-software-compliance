@@ -204,7 +204,7 @@ function defile(){var t=w.querySelector('.pod-t'),x=t&&t.querySelector('.pod-tx'
  t.classList.add('run');var d=x.scrollWidth-t.clientWidth;if(d<=0){t.classList.remove('run');return}
  var a=x.animate([{transform:'translateX(0)'},{transform:'translateX(0)',offset:.15},{transform:'translateX('+(-d)+'px)',offset:.85},{transform:'translateX('+(-d)+'px)'}],{duration:Math.max(5000,d*45+2500),easing:'linear'});
  a.onfinish=function(){t.classList.remove('run')}}
-h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o){if(a.paused)a.play()}else a.pause()});
+h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(!o)a.pause()});   /* ouverture : pas de lecture automatique ; fermeture : pause */
 var m=w.querySelector('.pod-m'),v=w.querySelector('.pod-v');
 function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0);m.setAttribute('aria-label',x==0?'Rétablir le son':'Couper le son')}
 v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vol()});
