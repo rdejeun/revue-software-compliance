@@ -91,7 +91,7 @@ var SYID='',PAGE=null;
    à la fermeture, l'adresse et le titre de la page d'origine sont rétablis pour les mesures suivantes */
 function canon(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[’']/g,'-').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)}
 function vueSy(){if(!window._paq)return;var t=box.querySelector('.sy-t'),x=t?t.textContent.trim():SYID;if(!PAGE)PAGE=[location.href.split('#')[0],document.title];
- window.SC_VUE=[location.origin+'/synthese/'+canon(x),x+' – En savoir plus – Software Compliance'];
+ window.SC_VUE=[location.origin+'/synthese/'+canon(x),x+' – Synthèse – Software Compliance'];
  window._paq.push(['setCustomUrl',window.SC_VUE[0]]);window._paq.push(['setDocumentTitle',window.SC_VUE[1]]);window._paq.push(['trackPageView'])}
 dlg.addEventListener('close',function(){window.SC_VUE=null;if(PAGE&&window._paq){window._paq.push(['setCustomUrl',PAGE[0]]);window._paq.push(['setDocumentTitle',PAGE[1]])}});
 /* liens de la fenêtre : insérés à chaque ouverture, Matomo ne les surveille pas (il pose ses écouteurs au chargement) ;
