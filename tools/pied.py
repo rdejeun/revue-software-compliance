@@ -53,7 +53,7 @@ def mentions(redaction, annee):
         li('Habillage sonore : « Tech Logo Intro », de sergequadrado, publié sur Pixabay sous la '
            '<a href="https://pixabay.com/service/license-summary/">licence de contenu Pixabay</a>.'),
         '<div class="r"></div><h2>Visuels</h2>',
-        li('Monogramme « SC » des flux RSS et de la couverture du podcast : image générée avec ChatGPT (OpenAI). Illustration de l’en-tête : image générée avec Gemini (Google).'),
+        li('Monogramme « SC » (icône du site, flux RSS et couverture du podcast) : image générée avec ChatGPT (OpenAI). Illustration de l’en-tête : image générée avec Gemini (Google).'),
         '<div class="r"></div><h2>Données personnelles</h2>',
         li('Le site ne dépose pas de cookie et ne mesure pas l’audience. Les adresses des destinataires de la lettre servent uniquement à son envoi, '
            'confié au prestataire Resend. Pour toute demande (accès, rectification, désinscription), écrire à l’adresse de contact ci-dessus.'),
