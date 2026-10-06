@@ -42,6 +42,8 @@ def lead(items):
             return [{'t':t[:i]},{'t':ph,'b':1},{'t':t[i+len(ph):]}]+items[1:]
     m=re.match(r'^([^:]{1,90}?)(\s:)',t)
     if m: return [{'t':m.group(1),'b':1},{'t':t[m.end(1):]}]+items[1:]
+    if ':' not in t and 0<len(t.strip())<=90 and len(items)>1 and not items[1].get('href') and items[1]['t'].lstrip().startswith(':'):
+        return [{'t':t.rstrip(),'b':1},{'t':' '+items[1]['t'].lstrip()}]+items[2:]   # « Lien avec le CRA » + « : … » en deux segments
     return items
 JS=r'''<dialog class="sy" id="sy" aria-labelledby="sy-h"><button type="button" class="sy-x" aria-label="Fermer"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sy-w" id="sy-c"></div></dialog>
 <script>
@@ -292,7 +294,10 @@ def render(web):
         inner=inner[:-1]+tl+fin if (tl and inner.endswith('.')) else inner+tl
         if web:
             ITEMS.append({'sid':sid,'sec':cursec,'kind':kind,'rappel':bool((attrs or {}).get('rappel')),'date':(attrs or {}).get('date'),'themes':(attrs or {}).get('themes',[]),'segs':segs,'sum':sm,'html':B._post(inner)})
-        if sid: inner+=(' '+SYNB.format(sid)) if web else EL(sid)
+        if sid and web:
+            m_=re.search(r'((?:<a class="s[^"]*"[^>]*>[^<]*</a>\s*)?<span style="color:#8a8f98;[^"]*">(?:[^<]|<sup[^>]*>[^<]*</sup>)*</span>\.?|[^\s<>]+)$',inner)
+            inner=(inner[:m_.start()]+'<span class="nw">'+m_.group(1)+' '+SYNB.format(sid)+'</span>') if m_ else inner+' '+SYNB.format(sid)
+        elif sid: inner+=EL(sid)
         return sid,inner
     def syattr(sid): return f' class="sy-it" data-syn="{sid}"' if (web and sid) else ''
     def row(sid,inner):
@@ -327,7 +332,7 @@ def render(web):
                 first_p=False
                 body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;"><tr><td style="border-left:4px solid #1f4e8c;background:#eef2f8;background-image:linear-gradient(45deg,#e4ecf7 0%,#f6f9fd 100%);padding:16px 20px;font:17.7px/26px {SERIF};color:{NAVY};">{inl(b["i"],False)}</td></tr></table>')
                 body.append('@@TOC@@');continue
-            if prev_h2 and not raw.startswith(('Depuis le','Défense','Lien avec')) and ':' not in raw[:60]:
+            if prev_h2 and not b.get('attrs') and not b.get('sum') and not raw.startswith(('Depuis le','Défense','Lien avec')):
                 body.append(f'<p style="{CHAPO}">{inl(b["i"],False)}</p>')
             else:
                 a=b.get('attrs') or {}
@@ -414,7 +419,8 @@ def render(web):
 a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;position:relative;cursor:help}}
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:290px;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.rss{{display:inline-flex;vertical-align:-2px;color:{ACC}}}a.rss:hover,a.rss:focus-visible{{color:{NAVY}}}
-a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
+a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap}}
+.nw{{white-space:nowrap}}
 a.s.so{{font-weight:600}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .sy-it{{cursor:pointer;transition:background .15s}}
