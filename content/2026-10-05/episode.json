@@ -30,5 +30,52 @@
   "Fidélité au script (faster-whisper)": "8.6 % de mots différents sur 1245"
  },
  "requetes": 7,
- "fichier": "episode.m4a"
+ "fichier": "episode.m4a",
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "CRA : le règlement est entré dans le concret",
+   "court": "CRA",
+   "debut_s": 26.3
+  },
+  {
+   "titre": "Normes et SBOM",
+   "court": "Normes et SBOM",
+   "debut_s": 100.1
+  },
+  {
+   "titre": "Outils : du scan au classement export",
+   "court": "Outils",
+   "debut_s": 169.7
+  },
+  {
+   "titre": "Chaîne d'approvisionnement",
+   "court": "Approvisionnement",
+   "debut_s": 230.8
+  },
+  {
+   "titre": "Export : liste dual-use et CMMC",
+   "court": "Export",
+   "debut_s": 283.2
+  },
+  {
+   "titre": "Défense européenne : Omnibus, SAFE et EDIP",
+   "court": "Défense",
+   "debut_s": 334.8
+  },
+  {
+   "titre": "La date à retenir",
+   "court": "Date à retenir",
+   "debut_s": 382.7
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 395.6
+  }
+ ]
 }

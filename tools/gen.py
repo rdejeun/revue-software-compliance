@@ -121,15 +121,22 @@ def libelle_ep(diso):
     return f"Écouter l’épisode du {'1er' if j=='01' else int(j)}&nbsp;{mois[int(m)-1]}&nbsp;{a}"
 ICO_RSS='<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><circle cx="3.2" cy="12.8" r="1.7" fill="currentColor"/><path d="M2 7.2a6.8 6.8 0 0 1 6.8 6.8M2 2.6A11.4 11.4 0 0 1 13.4 14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>'
 ICO_VOL='<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M2 6h2.5L8 3v10L4.5 10H2z" fill="currentColor"/><path class="w" d="M10.5 5.5a3.5 3.5 0 0 1 0 5M12.3 3.6a6 6 0 0 1 0 8.8" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'
+ICO_CASQUE='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><rect x="1.8" y="9" width="3.4" height="5" rx="1.2" fill="currentColor"/><rect x="10.8" y="9" width="3.4" height="5" rx="1.2" fill="currentColor"/></svg>'
 ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
 # Outlook pour Windows : sans PixelsPerInch=96, les formes VML sont mises à l'échelle à 120 ppp et le texte du bouton est coupé
 MSO_HEAD='<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->'
 # sommaire latéral : section courante (lecture au défilement) ; bouton de retour au sommaire sur petit écran
-TOC_JS=r"""<script>(function(){var L=document.querySelector('.toc-l'),F=document.querySelector('.toc-f'),T=document.getElementById('sommaire');
-var A=L?[].slice.call(L.querySelectorAll('a')):[],H=A.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
-function maj(){var y=innerHeight*0.3,k=-1;for(var i=0;i<H.length;i++)if(H[i]&&H[i].getBoundingClientRect().top<y)k=i;
- A.forEach(function(a,i){a.classList.toggle('on',i===k);if(i===k)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
- if(F&&T)F.classList.toggle('vu',T.getBoundingClientRect().bottom<0)}
+TOC_JS=r"""<script>(function(){var L=document.querySelector('.toc-l'),B=document.querySelector('.toc-b'),bt=B&&B.querySelector('.toc-bt'),ls=B&&B.querySelector('.toc-ls'),cur=B&&B.querySelector('.toc-c'),N=cur?cur.textContent:'';
+var H=[].slice.call(document.querySelectorAll('h2[id^="s"]')),AL=L?[].slice.call(L.querySelectorAll('a')):[],AB=ls?[].slice.call(ls.querySelectorAll('a')):[];
+function maj(){var y=innerHeight*0.3,k=-1;for(var i=0;i<H.length;i++)if(H[i].getBoundingClientRect().top<y)k=i;
+ [AL,AB].forEach(function(A){A.forEach(function(a,i){a.classList.toggle('on',i===k);if(i===k)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')})});
+ if(cur)cur.textContent=k>=0&&AB[k]?AB[k].textContent:N;
+ if(B)B.classList.toggle('colle',B.getBoundingClientRect().top<=0.5&&scrollY>0)}
+function ouvre(o){if(!B)return;ls.hidden=!o;bt.setAttribute('aria-expanded',o);B.classList.toggle('ouvert',o)}
+if(bt){bt.addEventListener('click',function(){ouvre(ls.hidden)});
+ ls.addEventListener('click',function(e){if(e.target.closest('a'))ouvre(false)});
+ document.addEventListener('click',function(e){if(!B.contains(e.target))ouvre(false)});
+ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!ls.hidden){ouvre(false);bt.focus()}})}
 addEventListener('scroll',maj,{passive:true});addEventListener('resize',maj);maj()})()</script>"""
 def bloc_podcast(web,diso,ed_url):
     """Barre « Écouter l'épisode » (largeur de la colonne) entre l'en-tête et la Une.
@@ -153,18 +160,25 @@ def bloc_podcast(web,diso,ed_url):
         esp='<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td height="26" style="height:26px;font-size:0;line-height:26px;">&nbsp;</td></tr></table>'
         return vml+html_+esp
     titre=esc(typo((POD or {}).get('titre','')))
+    # signets : début de chaque sujet (episode.json, « chapitres ») sauf ouverture et clôture ; libellé court (avant « : »)
+    ch=[c for c in EP.get('chapitres') or [] if c.get('titre') not in ('Ouverture','Clôture')]
+    fm=lambda t:f'{int(t)//60}:{int(t)%60:02d}'
+    signets=('<div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
+        f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div>') if ch else ''
+    reperes=''.join(f'<i style="left:{100*c["debut_s"]/max(1,EP["duree_s"]):.2f}%"></i>' for c in ch)
     return (f'<div class="pod" id="ecouter">'
-            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{m}</span></button>'
+            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-hd"><span class="pod-eb">Podcast</span><a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
             f'<div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
             +
             f'<audio preload="none" src="/{diso}/{EP_FICHIER}"></audio>'
             f'<div class="pod-p"><button type="button" class="pod-pl" aria-label="Lecture">{ICO_PLAY}</button>'
-            f'<input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode">'
+            f'<span class="pod-rw"><input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode">{reperes}</span>'
             f'<span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
             f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
             f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
+            +signets+
             f'</div></div></div>')
 POD_JS=r"""<script>
 (function(){
@@ -172,9 +186,9 @@ var w=document.getElementById('ecouter');if(!w)return;
 var h=w.querySelector('.pod-h'),b=w.querySelector('.pod-b'),a=w.querySelector('audio'),pl=w.querySelector('.pod-pl'),r=w.querySelector('.pod-r'),c=w.querySelector('.pod-c');
 var PLAY=pl.innerHTML,PAUSE='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5h3v11H4zM9 2.5h3v11H9z" fill="currentColor"/></svg>';
 function fmt(t){t=Math.floor(t||0);return Math.floor(t/60)+':'+('0'+t%60).slice(-2)}
-function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px';if(o)defile()}
-/* titre de l'épisode sur une ligne : s'il est trop long, il défile lentement une fois, puis s'affiche coupé par « … » */
-function defile(){var t=w.querySelector('.pod-t'),x=t&&t.querySelector('.pod-tx');if(!x||t.getAttribute('data-vu'))return;t.setAttribute('data-vu','1');
+var TD=null;function set(o){w.classList.toggle('on',o);h.setAttribute('aria-expanded',o);b.style.maxHeight=o?b.scrollHeight+'px':'0px';clearInterval(TD);if(o){defile();TD=setInterval(defile,30000)}}
+/* titre de l'épisode sur une ligne : s'il est trop long, il défile lentement à l'ouverture puis toutes les 30 s, et s'affiche sinon coupé par « … » */
+function defile(){var t=w.querySelector('.pod-t'),x=t&&t.querySelector('.pod-tx');if(!x||t.classList.contains('run'))return;
  if(!x.animate||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
  t.classList.add('run');var d=x.scrollWidth-t.clientWidth;if(d<=0){t.classList.remove('run');return}
  var a=x.animate([{transform:'translateX(0)'},{transform:'translateX(0)',offset:.15},{transform:'translateX('+(-d)+'px)',offset:.85},{transform:'translateX('+(-d)+'px)'}],{duration:Math.max(5000,d*45+2500),easing:'linear'});
@@ -191,6 +205,12 @@ a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-la
 a.addEventListener('loadedmetadata',function(){if(isFinite(a.duration))r.max=a.duration});
 a.addEventListener('timeupdate',function(){if(!r.matches(':active'))r.value=a.currentTime;c.textContent=fmt(a.currentTime);r.style.setProperty('--p',(100*a.currentTime/(r.max||1))+'%')});
 r.addEventListener('input',function(){a.currentTime=+r.value;c.textContent=fmt(r.value);r.style.setProperty('--p',(100*r.value/(r.max||1))+'%')});
+var S=[].slice.call(w.querySelectorAll('.pod-ch button'));
+var CH=w.querySelector('.pod-ch');function deb(){if(CH)CH.classList.toggle('deb',CH.scrollWidth>CH.clientWidth+1)}addEventListener('resize',deb);h.addEventListener('click',function(){setTimeout(deb,50)});deb();
+S.forEach(function(s){s.addEventListener('click',function(){a.currentTime=+s.getAttribute('data-t');if(a.paused)a.play()})});
+function chap(){var k=-1;S.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
+ S.forEach(function(s,i){var on=i===k;if(on&&!s.classList.contains('on')&&s.parentNode.scrollWidth>s.parentNode.clientWidth)s.parentNode.scrollTo({left:s.offsetLeft-24,behavior:'smooth'});s.classList.toggle('on',on)})}
+a.addEventListener('timeupdate',chap);a.addEventListener('seeked',chap);
 if(location.hash==='#ecouter')set(true);
 })();
 </script>"""
@@ -324,7 +344,7 @@ def render(web):
     def row(sid,inner):
         return f'<tr{syattr(sid)}><td width="20" valign="top" style="width:20px;min-width:20px;padding:14px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;"><div style="width:20px;">&#9632;</div></td><td style="padding:6px 8px 6px 0;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
     def rcell(sid,inner):
-        return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="width:16px;min-width:16px;padding:12px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;"><div style="width:16px;">&#9632;</div></td><td style="padding:5px 6px 5px 0;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
+        return f'<table class="rp" role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="width:16px;min-width:16px;padding:12px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;"><div style="width:16px;">&#9632;</div></td><td style="padding:5px 6px 5px 0;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
     rap=[]   # rappels de la section courante, affichés en fin de section sur deux colonnes
     def flush():
         if not rap: return
@@ -422,24 +442,28 @@ def render(web):
             cards=[]
             for (yr,mo),its in groups.items():
                 if not web:
-                    cards.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f4ee" style="background:#f7f4ee;"><tr><td bgcolor="#f7f4ee" style="background:#f7f4ee;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</td></tr></table>'); continue
-                cards.append(f'<div style="background:#f7f4ee;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</div>')
+                    cards.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f4ee" style="background:#f7f4ee;border-radius:6px;"><tr><td bgcolor="#f7f4ee" style="background:#f7f4ee;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</td></tr></table>'); continue
+                cards.append(f'<div style="background:#f7f4ee;border-radius:6px;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</div>')
             sp='<div style="height:14px;font-size:0;line-height:14px;">&nbsp;</div>'
             rows=f'<tr><td class="c" width="50%" valign="top" style="padding:0 7px 0 0;">{sp.join(cards[:cut])}</td><td class="c" width="50%" valign="top" style="padding:0 0 0 7px;">{sp.join(cards[cut:])}</td></tr>'
             body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 8px;">{rows}</table>');prev_h2=False
     flush()
     SEC=META['toc']
     if web:
-        # sommaire : bloc sous la Une (petits écrans) et colonne fixe dans la marge gauche, section courante signalée (grands écrans)
-        toc='<span class="toc-sep" aria-hidden="true"> | </span>'.join(f'<a href="#s{i}">{E(s)}</a>' for i,s in enumerate(SEC))
-        tocb=f'<nav class="toc" id="sommaire" aria-label="Sommaire"><span class="toc-t">Sommaire</span>{toc}</nav>'
-        TOCNAV=('<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>'
-                +''.join(f'<li><a href="#s{i}">{E(s)}</a></li>' for i,s in enumerate(SEC))+'</ol></nav>'
-                '<a class="toc-f" href="#sommaire" aria-label="Revenir au sommaire" title="Sommaire"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M5 4h8M5 8h8M5 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2.5" cy="4" r="1" fill="currentColor"/><circle cx="2.5" cy="8" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/></svg></a>'+TOC_JS)
+        # sommaire. Petits écrans : barre en haut de l'article, qui reste en haut de l'écran pendant la lecture
+        # (section en cours ; liste au clic). Dès 912 px : colonne fixe dans la marge gauche, l'article se décale
+        # vers la droite si la marge ne suffit pas (la colonne mord d'un tiers sur la marge intérieure de l'article).
+        tocb=''
+        li=''.join(f'<li><a href="#s{i}">{E(s)}</a></li>' for i,s in enumerate(SEC))
+        TOCBAR=('<nav class="toc-b" id="sommaire" aria-label="Sommaire"><button type="button" class="toc-bt" aria-expanded="false" aria-controls="toc-ls">'
+                '<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5 4h8M5 8h8M5 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2.5" cy="4" r="1" fill="currentColor"/><circle cx="2.5" cy="8" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/></svg>'
+                f'<span class="toc-t">Sommaire</span><span class="toc-c">{len(SEC)} rubriques</span><svg class="toc-v" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
+                f'<ol class="toc-ls" id="toc-ls" hidden>{li}</ol></nav>')
+        TOCNAV=f'<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>{li}</ol></nav>'+TOC_JS
     else:
         toc=' <span style="color:#c3cad5;">·</span> '.join(f'<a href="#s{i}" style="color:#4b5563;text-decoration:none;border-bottom:1px solid #d5dbe5;">{E(s)}</a>' for i,s in enumerate(SEC))
         tocb=f'<p style="margin:0 0 4px;font:13px/24px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Dans ce numéro</b>&nbsp; {toc}</p>'
-        TOCNAV=''
+        TOCNAV=TOCBAR=''
     out=B._post(''.join(body).replace('@@TOC@@',tocb))
     import re as _re
     mins=max(1,round(len(_re.sub(r'<[^>]+>',' ',out).split())/220))
@@ -454,18 +478,23 @@ a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotte
 .nw{{white-space:nowrap}}
 a.s .ar{{color:#9ca3af}}
 a.s.so .ar{{color:{ACC}}}
-.toc{{margin:0 0 6px;padding:10px 0 0;border-top:1px solid #ece7dc;font:13px/24px {SANS};color:#c3cad5}}
-.toc .toc-t{{margin-right:10px;font:400 11px/24px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
-.toc a{{color:#4b5563;text-decoration:none;white-space:nowrap}}
-.toc a:hover,.toc a:focus-visible{{color:{NAVY};text-decoration:underline;text-underline-offset:3px}}
-h2[id^='s']{{scroll-margin-top:20px}}
+h2[id^='s']{{scroll-margin-top:56px}}
+.toc-b{{position:sticky;top:0;z-index:30;margin:0 0 18px;background:#fff;border-bottom:1px solid #ece7dc}}
+.toc-b.colle{{box-shadow:0 6px 10px -8px rgba(15,42,74,.25)}}
+.toc-bt{{display:flex;align-items:center;gap:8px;width:100%;height:40px;padding:0 2px;border:0;background:none;color:{NAVY};font:13px/1 {SANS};text-align:left;cursor:pointer}}
+.toc-bt .toc-t{{font:400 11px/1 {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
+.toc-c{{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#4b5563}}
+.toc-v{{flex:none;color:#6f675a;transition:transform .15s}}
+.toc-b.ouvert .toc-v{{transform:rotate(180deg)}}
+.toc-ls{{position:absolute;left:0;right:0;top:100%;margin:0;padding:6px 0;list-style:none;background:#fff;border:1px solid #ece7dc;border-top:0;border-radius:0 0 6px 6px;box-shadow:0 10px 18px -10px rgba(15,42,74,.3)}}
+.toc-ls a{{display:block;padding:8px 14px;border-left:2px solid transparent;color:#4b5563;font:14px/20px {SANS};text-decoration:none}}
+.toc-ls a.on{{border-left-color:{ACC};color:{NAVY}}}
+.toc-ls a:hover,.toc-ls a:focus-visible{{background:#faf8f3;color:{NAVY};outline:none}}
 .toc-l{{display:none}}
-.toc-f{{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d6d3cc;border-radius:50%;background:rgba(255,255,255,.96);color:{NAVY};box-shadow:0 2px 10px rgba(15,42,74,.14);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}}
-.toc-f.vu{{opacity:1;visibility:visible}}
-.toc-f:hover,.toc-f:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
-@media(min-width:1180px){{
-.toc{{display:none}}.toc-f{{display:none}}
-.toc-l{{display:block;position:fixed;top:120px;left:calc(50% - 360px - 212px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:rgba(255,255,255,.9);border-radius:6px;font:13px/18px {SANS}}}
+@media(min-width:912px){{
+.toc-b{{display:none}}
+table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right:auto!important}}
+.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fff;border-radius:6px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
 .toc-l .toc-t{{display:block;margin:0 0 8px;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
 .toc-l ol{{margin:0;padding:0;list-style:none;border-left:2px solid #ece7dc}}
 .toc-l a{{display:block;margin-left:-2px;padding:4px 0 4px 12px;border-left:2px solid transparent;color:#6b7280;text-decoration:none}}
@@ -479,6 +508,7 @@ tr.sy-it:hover{{background:none}}
 tr.sy-it>td{{transition:background .15s}}
 tr.sy-it:hover>td{{background:#faf7f0}}
 tr.sy-it:hover>td:first-child{{color:transparent!important}}
+.rp tr.sy-it:hover>td:first-child{{color:#dba98f!important}}
 tr.sy-it>td:first-child{{border-radius:6px 0 0 6px}}
 tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .sy-b{{display:inline-block;position:relative;width:20px;height:20px;margin:0 0 0 5px;padding:0;border:0;background:none;vertical-align:-4px;cursor:pointer}}
@@ -494,7 +524,17 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-i{{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:{ACC};color:#fff;flex:none}}
 .pod-i svg{{margin-left:2px}}
 .pod-l{{flex:1}}
-.pod-d{{font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
+.pod-d{{display:inline-flex;align-items:center;gap:6px;font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
+.pod-d svg{{flex:none;color:#8a8f98}}
+.pod-rw{{position:relative;flex:1;min-width:0;display:flex;align-items:center}}
+.pod-rw .pod-r{{flex:1}}
+.pod-rw i{{position:absolute;top:50%;width:2px;height:8px;margin:-4px 0 0 -1px;background:#fff;border-radius:1px;pointer-events:none}}
+.pod-ch{{display:flex;gap:4px;width:0;min-width:100%;margin:12px 0 2px;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
+.pod-ch.deb{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}}
+.pod-ch::-webkit-scrollbar{{display:none}}
+.pod-ch button{{flex:none;padding:2px 7px;border:1px solid transparent;border-radius:11px;background:none;color:#6b7280;font:12px/18px {SANS};cursor:pointer}}
+.pod-ch button:hover,.pod-ch button:focus-visible{{border-color:#e3d6c3;background:#fff;color:{NAVY};outline:none}}
+.pod-ch button.on{{border-color:{ACC};background:#fff;color:{ACC}}}
 .pod-b{{max-height:0;overflow:hidden;transition:max-height .28s ease}}
 .pod-in{{padding:4px 22px 16px;border-top:1px solid #e3d6c3}}
 .pod-hd{{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:2px 16px;margin:12px 0 10px}}
@@ -571,7 +611,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
 <tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
-<tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
+<tr><td class="w" style="padding:30px 52px 40px;">{TOCBAR}{bloc_podcast(web,DISO,ED_URL)}{out}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid #7a808d;"><tr><td style="padding:16px 0 0;font:11px/15px {SANS};color:#7a808d;">{pied(META.get("redaction") or REDACTION_DEFAUT,(META.get("date_iso") or "2026")[:4],absolu=not web)}</td></tr></table>
 </td></tr></table></td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}{TOCNAV}</body></html>''',len(used)
 def compact_email(h):

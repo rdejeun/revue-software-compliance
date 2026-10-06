@@ -102,7 +102,7 @@ def pistes(blocs, voix):
             r = np.linspace(0, 1, fondu); seg[:fondu] *= r; seg[-fondu:] *= r[::-1]
             st[v][a:z] += seg; masque[v][a:z] = True
             fin_prec = max(fin_prec or 0, z)
-    return mix, st, masque, journal
+    return mix, st, masque, journal, [o / SR for o in offs]
 
 
 # ------------------------------------------------------------------ mesures
@@ -258,10 +258,10 @@ def loudnorm_2_passes(wav_in, wav_out):
 
 
 def habiller(master, sortie_wav):
-    """Ajoute l'habillage en début et en fin. Renvoie la durée ajoutée (s) ; 0 sans fichier d'habillage."""
+    """Ajoute l'habillage en début et en fin. Renvoie (durée ajoutée, durée avant la voix), en secondes ; (0, 0) sans fichier d'habillage."""
     h = CONFIG.get('habillage') or {}
     if not h.get('fichier') or not os.path.isfile(h['fichier']):
-        import shutil; shutil.copyfile(master, sortie_wav); return 0.0
+        import shutil; shutil.copyfile(master, sortie_wav); return 0.0, 0.0
     d = os.path.dirname(sortie_wav); brut = os.path.join(d, 'habillage_mono.wav'); norm = os.path.join(d, 'habillage_norm.wav')
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', h['fichier'], '-ac', '1' if CONFIG['mono'] else '2', '-ar', str(SR), '-c:a', 'pcm_f32le', brut], check=True)
     sauve = CONFIG['lufs']; CONFIG['lufs'] = h['lufs']
@@ -271,7 +271,7 @@ def habiller(master, sortie_wav):
     if j.shape[1] != v.shape[1]: j = np.repeat(j.mean(1, keepdims=True), v.shape[1], axis=1)
     b1 = np.zeros((int(SR * h['blanc_debut_s']), v.shape[1])); b2 = np.zeros((int(SR * h['blanc_fin_s']), v.shape[1]))
     sf.write(sortie_wav, np.concatenate([j, b1, v, b2, j]), SR, subtype='PCM_24')
-    return (2 * len(j) + len(b1) + len(b2)) / SR
+    return (2 * len(j) + len(b1) + len(b2)) / SR, (len(j) + len(b1)) / SR
 
 
 def encoder(wav, sortie, meta):
@@ -285,7 +285,7 @@ def produire(blocs, voix, sortie_audio, dossier, meta, sortie_brute=None):
     """Chaîne complète. Écrit stems/ et out/ dans `dossier`, puis sortie_audio. Renvoie le dictionnaire de mesures."""
     os.makedirs(os.path.join(dossier, 'stems'), exist_ok=True); os.makedirs(os.path.join(dossier, 'out'), exist_ok=True)
     M = {'journal': []}
-    mix, st, masque, j = pistes(blocs, voix); M['journal'] += j
+    mix, st, masque, j, M['offs_s'] = pistes(blocs, voix); M['journal'] += j   # offs_s : début de chaque bloc dans la voix (s)
     sf.write(os.path.join(dossier, 'raw_dialogue_full.wav'), mix.astype(np.float32), SR, subtype='FLOAT')
     if sortie_brute:   # référence d'écoute : audio ElevenLabs tel quel, seulement mis au même volume et au même format
         brut = os.path.join(dossier, 'out', 'brut_master.wav')
@@ -344,7 +344,7 @@ def produire(blocs, voix, sortie_audio, dossier, meta, sortie_brute=None):
     sf.write(pre, (bus.T / max(1.0, np.abs(bus).max())).astype(np.float32), SR, subtype='FLOAT')
     loudnorm_2_passes(pre, master)
     final = os.path.join(dossier, 'out', 'episode_final.wav')
-    M['habillage_s'] = habiller(master, final)          # le contrôle qualité porte sur la voix (master) ; l'habillage s'y ajoute
+    M['habillage_s'], M['intro_s'] = habiller(master, final)          # le contrôle qualité porte sur la voix (master) ; l'habillage s'y ajoute
     encoder(final, sortie_audio, meta)
     M['duree_blocs_s'] = sum(len(decoder(b['mp3'])) for b in blocs) / SR + CONFIG['pause_s'] * (len(blocs) - 1)
     M['master'] = master; M['masques'] = masque; M['stems'] = st

@@ -97,14 +97,15 @@ def charger(d, chemin=None):
 
 
 def preparer(pod):
-    # {"sujet": "…"} : marque de changement de sujet (non lue). Chaque réplique reçoit le numéro de son sujet.
-    reps, n, noms = [], 0, []
+    # {"sujet": "…", "court": "…"} : marque de changement de sujet (non lue) ; « court » : libellé du signet dans le
+    # lecteur (facultatif, sinon le début du sujet avant « : »). Chaque réplique reçoit le numéro de son sujet.
+    reps, n, noms, courts = [], 0, [], []
     for r in pod.get('repliques') or []:
         if 'sujet' in r and 't' not in r:
             if reps or noms: n += 1
-            noms.append(r['sujet']); continue
+            noms.append(r['sujet']); courts.append(r.get('court') or r['sujet'].split(' : ')[0]); continue
         reps.append({**r, '_s': n})
-    pod['repliques'], pod['_sujets'] = reps, noms
+    pod['repliques'], pod['_sujets'], pod['_courts'] = reps, noms, courts
     return pod
 
 
@@ -311,6 +312,20 @@ def synthetique(chunk, voix, base):
     return segs
 
 
+def chapitres(pod, chunks, blocs, offs_s, intro_s):
+    """Début de chaque sujet dans l'épisode (signets du lecteur) : première réplique du sujet, d'après les
+    horodatages d'ElevenLabs (dialogue_input_index), le début de son bloc dans la voix et la durée de l'habillage."""
+    noms, courts, vus, ch = pod.get('_sujets') or [], pod.get('_courts') or [], set(), []
+    for k, (c, b) in enumerate(zip(chunks, blocs)):
+        for i, r in enumerate(c):
+            s = r.get('_s')
+            if s is None or s in vus or s >= len(noms): continue
+            vus.add(s)
+            t = [x['start_time_seconds'] for x in b['segments'] if x.get('dialogue_input_index') == i]
+            ch.append({'titre': noms[s], 'court': courts[s] if s < len(courts) else noms[s], 'debut_s': 0.0 if not ch else round(intro_s + offs_s[k] + (min(t) if t else 0), 1)})
+    return ch
+
+
 def produire(d, dry=False, force=False):
     pod, sha = charger(d)
     if pod is None: bilan('notice', f'{d} : pas de podcast.json, rien à faire.'); return False
@@ -372,7 +387,7 @@ def produire(d, dry=False, force=False):
             'voix': {k: {'nom': v['nom'], 'voice': v.get('voice', '')} for k, v in voix.items()},
             'genere_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'sha_script': sha, 'extrait': coupe, 'repliques': len(reps),
             'prononciation': 'aucune (essai à blanc)' if dry else ('dictionnaire ElevenLabs ' + loc['version_id'] if loc else 'remplacements locaux'),
-            'qc': resume, 'requetes': len(chunks)}
+            'qc': resume, 'requetes': len(chunks), 'chapitres': chapitres(pod, chunks, blocs, M['offs_s'], M.get('intro_s', 0))}
     if dry:
         log(f'{d} : essai à blanc terminé : {sortie} ({duree / 60:.1f} min), contrôle {"réussi" if ok else "en écart"} ; rapport : {travail}/qc_report.md. Aucun fichier écrit dans content/.')
         return False
