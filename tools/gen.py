@@ -91,7 +91,7 @@ function close(){if(dlg.open)dlg.close()}
 dlg.addEventListener('close',function(){if(byPop)return;if(pushed){pushed=false;try{history.back()}catch(e){}}else try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}});
 window.addEventListener('popstate',function(e){var s=e.state&&e.state.syn;if(s){pushed=true;open(s,false);return}pushed=false;if(dlg.open){byPop=true;dlg.close();byPop=false}});
 dlg.querySelector('.sy-x').addEventListener('click',close);
-box.addEventListener('mouseover',function(e){var t=e.target.closest&&e.target.closest('a.t');if(!t)return;var r=t.getBoundingClientRect(),c=box.getBoundingClientRect();t.classList.toggle('r',r.left-c.left>c.width/2)});
+box.addEventListener('mouseover',function(e){var t=e.target.closest&&e.target.closest('a.t');if(!t)return;var r=t.getBoundingClientRect(),c=box.getBoundingClientRect();t.classList.toggle('tip-d',r.left-c.left>c.width/2)});
 dlg.addEventListener('click',function(e){if(e.target===dlg)close()});
 document.addEventListener('click',function(e){
  var b=e.target.closest('[data-syn]');if(!b||dlg.contains(b))return;
@@ -476,7 +476,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w h4{{margin:18px 0 6px;font:700 13px/18px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
-.sy-w a.t.r:hover::after,.sy-w a.t.r:focus::after{{left:auto;right:0}}
+.sy-w a.t.tip-d:hover::after,.sy-w a.t.tip-d:focus::after{{left:auto;right:0}}
 .sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF}}}
 .sy-v{{margin:0;padding-left:14px;list-style:none}}
 .sy-w h4~p:not(.sy-s){{padding-left:14px}}
