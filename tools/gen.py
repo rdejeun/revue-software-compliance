@@ -189,8 +189,8 @@ def bloc_podcast(web,diso,ed_url):
             f'<div class="pod-tw"><span class="pod-tm"><span class="pod-c">0:00</span> / {EP["duree_s"]//60}:{EP["duree_s"]%60:02d}</span>'
             f'<span class="pod-rw"><input class="pod-r" type="range" min="0" max="{EP["duree_s"]}" step="0.1" value="0" aria-label="Position dans l’épisode"{reperes}><span class="pod-th" aria-hidden="true"></span></span>'
             +temps+'</div>'+
-            f'<button type="button" class="pod-m" aria-label="Couper le son">{ICO_VOL}</button>'
-            f'<input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></div>'
+            f'<span class="pod-vw"><button type="button" class="pod-m" aria-label="Volume" aria-expanded="false">{ICO_VOL}</button>'
+            f'<span class="pod-vp"><input class="pod-v" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"></span></span></div>'
             +signets+
             f'</div></div></div>')
 POD_JS=r"""<script>
@@ -206,11 +206,15 @@ function defile(){var t=w.querySelector('.pod-t'),x=t&&t.querySelector('.pod-tx'
  t.classList.add('run');var d=x.scrollWidth-t.clientWidth;if(d<=0){t.classList.remove('run');return}
  var a=x.animate([{transform:'translateX(0)'},{transform:'translateX(0)',offset:.15},{transform:'translateX('+(-d)+'px)',offset:.85},{transform:'translateX('+(-d)+'px)'}],{duration:Math.max(5000,d*45+2500),easing:'linear'});
  a.onfinish=function(){t.classList.remove('run')}}
-h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(!o)a.pause()});   /* ouverture : pas de lecture automatique ; fermeture : pause */
+h.addEventListener('click',function(){var o=!w.classList.contains('on');set(o);if(o){if(a.paused)a.play()}else a.pause()});   /* ouverture : lecture ; fermeture : pause */
 var m=w.querySelector('.pod-m'),v=w.querySelector('.pod-v');
-function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0);m.setAttribute('aria-label',x==0?'Rétablir le son':'Couper le son')}
+function vol(){var x=a.muted?0:a.volume;v.value=x;v.style.setProperty('--p',(100*x)+'%');w.classList.toggle('mu',x==0)}
 v.addEventListener('input',function(){a.volume=+v.value;a.muted=(+v.value==0);vol()});
-m.addEventListener('click',function(){if(a.muted||a.volume==0){a.muted=false;if(a.volume==0)a.volume=.8}else a.muted=true;vol()});
+/* haut-parleur : déplie le réglage du volume ; clic ailleurs ou Échap : replie */
+function vo(o){w.classList.toggle('volo',o);m.setAttribute('aria-expanded',o);if(o)v.focus()}
+m.addEventListener('click',function(e){e.stopPropagation();vo(!w.classList.contains('volo'))});
+document.addEventListener('click',function(e){if(!e.target.closest('.pod-vw'))vo(false)});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&w.classList.contains('volo')){vo(false);m.focus()}});
 a.addEventListener('volumechange',vol);vol();
 pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
 a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause');w.classList.add('joue')});   /* joue : égaliseur dans la barre repliée */
@@ -526,7 +530,7 @@ h2[id^='s']{{scroll-margin-top:56px}}
 @media(min-width:912px){{
 .toc-b{{display:none}}
 table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right:auto!important}}
-.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fcfbf8;border-radius:8px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
+.toc-l{{display:block;position:fixed;z-index:30;top:120px;left:calc(8px + max(175px,(100% - 736px) / 2) - 167px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:#fcfbf8;border:1px solid rgba(194,65,12,.5);border-radius:8px;box-shadow:0 1px 3px rgba(15,42,74,.08),0 6px 18px rgba(15,42,74,.10);font:13px/18px {SANS}}}
 .toc-l .toc-t{{display:block;margin:0 0 8px;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
 .toc-l ol{{margin:0;padding:0;list-style:none;border-left:2px solid #ece7dc}}
 .toc-l a{{display:block;margin-left:-2px;padding:4px 0 4px 12px;border-left:2px solid transparent;color:#6b7280;text-decoration:none}}
@@ -594,8 +598,11 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-tl button:hover,.pod-tl button:focus-visible,.pod-tl button.on{{background-image:linear-gradient({ACC},{ACC});background-size:2px 7px;outline:none}}
 .pod-p{{align-items:flex-start}}
 .pod-p .pod-pl{{margin-top:4px}}
-.pod-p .pod-m{{margin-top:10px}}
-.pod-v{{display:none!important}}
+.pod-p .pod-vw{{margin-top:10px}}
+.pod-vw{{position:relative;flex:none}}
+.pod-vp{{position:absolute;right:calc(100% + 2px);top:50%;display:flex;align-items:center;height:30px;padding:0 12px;box-sizing:border-box;border:1px solid #e3d6c3;border-radius:15px;background:#fff;box-shadow:0 4px 12px rgba(15,42,74,.12);opacity:0;visibility:hidden;transform:translate(6px,-50%);transition:opacity .15s,transform .15s,visibility .15s}}
+.pod.volo .pod-vp{{opacity:1;visibility:visible;transform:translate(0,-50%)}}
+.pod.volo .pod-m{{color:{ACC}}}
 .pod-eq{{display:none;align-items:flex-end;gap:2px;height:11px}}
 .pod-eq i{{display:block;width:3px;height:100%;border-radius:1px;background:#fff;transform-origin:bottom}}
 .pod.joue .pod-i svg{{display:none}}
@@ -605,13 +612,13 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-m{{display:inline-flex;align-items:center;justify-content:center;flex:none;width:28px;height:28px;padding:0;border:0;border-radius:50%;background:none;color:{NAVY};cursor:pointer}}
 .pod-m:hover,.pod-m:focus-visible{{color:{ACC};outline:none}}
 .pod.mu .pod-m .w{{display:none}}
-.pod-v{{--p:100%;flex:none;width:72px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
+.pod-v{{--p:100%;flex:none;width:96px;height:4px;margin:0;border-radius:2px;background:linear-gradient(to right,{NAVY} var(--p),#dccfb9 var(--p));-webkit-appearance:none;appearance:none;cursor:pointer}}
 .pod-v::-webkit-slider-thumb{{-webkit-appearance:none;width:12px;height:12px;border-radius:50%;background:{NAVY};border:2px solid #fff;box-shadow:0 0 0 1px {NAVY}}}
 .pod-v::-moz-range-thumb{{width:10px;height:10px;border-radius:50%;background:{NAVY};border:2px solid #fff}}
 .pod-rss{{display:inline-flex;align-items:center;gap:5px;height:24px;box-sizing:border-box;padding:0 11px 0 8px;border:1px solid #e1c6b4;border-radius:12px;background:#fff;color:{ACC};font:600 12px/1 {SANS};text-decoration:none;transition:background .15s,color .15s,border-color .15s}}
 .pod-rss svg{{flex:none}}
 .pod-rss:hover,.pod-rss:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
-@media(max-width:660px){{.pod{{width:100%}}.pod-v{{display:none}}table.cv{{background-size:60% auto!important}}}}
+@media(max-width:660px){{.pod{{width:100%}}table.cv{{background-size:60% auto!important}}}}
 dialog.sy{{width:min(860px,calc(100vw - 32px));max-height:min(92vh,1200px);padding:0;border:0;border-top:6px solid {ACC};border-radius:8px;overflow:hidden;background:#fff;color:#1f2937;box-shadow:0 18px 50px rgba(15,42,74,.28)}}
 dialog.sy::backdrop{{background:rgba(15,42,74,.42);backdrop-filter:blur(2px)}}
 dialog.sy[open]{{display:flex;flex-direction:column}}
