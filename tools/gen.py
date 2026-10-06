@@ -124,8 +124,15 @@ ICO_VOL='<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><pat
 ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 2.5v11l9.5-5.5z" fill="currentColor"/></svg>'
 # Outlook pour Windows : sans PixelsPerInch=96, les formes VML sont mises à l'échelle à 120 ppp et le texte du bouton est coupé
 MSO_HEAD='<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->'
+# sommaire latéral : section courante (lecture au défilement) ; bouton de retour au sommaire sur petit écran
+TOC_JS=r"""<script>(function(){var L=document.querySelector('.toc-l'),F=document.querySelector('.toc-f'),T=document.getElementById('sommaire');
+var A=L?[].slice.call(L.querySelectorAll('a')):[],H=A.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
+function maj(){var y=innerHeight*0.3,k=-1;for(var i=0;i<H.length;i++)if(H[i]&&H[i].getBoundingClientRect().top<y)k=i;
+ A.forEach(function(a,i){a.classList.toggle('on',i===k);if(i===k)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
+ if(F&&T)F.classList.toggle('vu',T.getBoundingClientRect().bottom<0)}
+addEventListener('scroll',maj,{passive:true});addEventListener('resize',maj);maj()})()</script>"""
 def bloc_podcast(web,diso,ed_url):
-    """Barre « Écouter l'épisode » (80 %, centrée) entre l'en-tête et la Une.
+    """Barre « Écouter l'épisode » (largeur de la colonne) entre l'en-tête et la Une.
     Web : se déplie au clic (lecteur aux couleurs de la page). E-mail : lien vers la page web."""
     if not EP or not diso: return ''
     m=duree_ep()
@@ -136,10 +143,10 @@ def bloc_podcast(web,diso,ed_url):
         # Outlook pour Windows (moteur Word) ignore border-radius et ne rend cliquable que le texte d'un lien :
         # bouton VML arrondi, entièrement cliquable ; les autres clients reçoivent la boîte HTML
         vml=(f'<!--[if mso]><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center">'
-             f'<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{u}" style="height:46px;v-text-anchor:middle;width:462px;" arcsize="50%" strokecolor="#e3d6c3" fillcolor="#f7f4ee">'
+             f'<v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="{u}" style="height:46px;v-text-anchor:middle;width:616px;" arcsize="50%" strokecolor="#e3d6c3" fillcolor="#f7f4ee">'
              f'<w:anchorlock/><v:textbox inset="0,0,0,0" style="mso-fit-shape-to-text:false;"><center style="color:{NAVY};font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:22px;mso-line-height-rule:exactly;font-weight:600;"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}&nbsp;&nbsp;<span style="color:#6b7280;font-weight:400;">{m}</span></center></v:textbox>'
              f'</v:roundrect></td></tr></table><![endif]-->')
-        html_=(f'<!--[if !mso]><!-- --><table role="presentation" width="75%" align="center" cellpadding="0" cellspacing="0" style="width:75%;margin:0 auto;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
+        html_=(f'<!--[if !mso]><!-- --><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;">'
                f'<tr><td style="padding:0;"><a href="{u}" style="display:block;padding:10px 18px;text-decoration:none;border-radius:22px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>'
                f'<td style="font:600 14px/22px {SANS};color:{NAVY};"><span style="color:{ACC};">&#9654;</span>&nbsp;&nbsp;{libelle_ep(diso)}</td>'
                f'<td align="right" style="font:13px/22px {SANS};color:#6b7280;white-space:nowrap;">{m}</td></tr></table></a></td></tr></table><!--<![endif]-->')
@@ -245,7 +252,7 @@ def render(web):
 
     LS="color:#6b7280;font:13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
     FLECHE="font-weight:400;font-family:'Segoe UI Symbol','Segoe UI',Arial,sans-serif;"
-    LSO="color:#6b7280;font:600 13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
+    LSO="color:#6b7280;font:13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
     def srcfix(items):
         o=[];n=len(items)
         for k,x in enumerate(items):
@@ -270,9 +277,13 @@ def render(web):
             if x.get('href'):
                 a=esc(x['href'],True)
                 o_=officiel(x['href'])
-                if web: r.append(f'<a class="s{" so" if o_ else ""}" href="{a}" target="_blank" rel="noopener">{E(typo(t))}</a>')
+                if web:
+                    lab=E(typo(t[2:])) if t.startswith('↗\u00a0') else E(typo(t))
+                    fl='<span class="ar" aria-hidden="true">↗</span>\u00a0' if t.startswith('↗\u00a0') else ''
+                    ti=' title="Source officielle"' if o_ else ''
+                    r.append(f'<a class="s{" so" if o_ else ""}" href="{a}" target="_blank" rel="noopener"{ti}>{fl}{lab}</a>')
                 elif o_ and t.startswith('↗\u00a0'):   # Outlook : pas de glyphe ↗ dans la police en semi-gras -> flèche en graisse normale
-                    r.append(f'<a href="{a}" style="{LSO}{"font-size:12px;" if fs<16 else ""}"><span style="{FLECHE}">↗&nbsp;</span>{E(typo(t[2:]))}</a>')
+                    r.append(f'<a href="{a}" style="{LSO}{"font-size:12px;" if fs<16 else ""}"><span style="{FLECHE}color:{ACC};">↗&nbsp;</span>{E(typo(t[2:]))}</a>')
                 else: r.append(f'<a href="{a}" style="{LSO if o_ else LS}{"font-size:12px;" if fs<16 else ""}">{E(typo(t))}</a>')
             elif x.get('b'):
                 r.append(f'<b style="font:600 {fs}px/1 {SANS};color:{NAVY};">{mark(t,web)}</b>')
@@ -287,30 +298,40 @@ def render(web):
         d=fdate((attrs or {}).get('date'))
         if d: t.append(d)
         return f' <span style="color:#8a8f98;font:12px/16px {SANS};">· {E(typo(" · ".join(t)))}</span>' if t else ''
+    def point_final(segs):
+        """le point final ferme la phrase avant les sources de fin d'élément (« … financière. ↗ ANSSI · 23 sept. »)"""
+        g=[dict(x) for x in segs]
+        while g and not g[-1].get('href') and re.fullmatch(r'[\s).]*',g[-1]['t']): g.pop()   # « ). » ou point isolé après la dernière source
+        k=len(g)
+        while k>0 and (g[k-1].get('href') or re.fullmatch(r'[\s,;()]*|\s*et\s*',g[k-1]['t'])): k-=1   # sources de fin (et leurs séparateurs)
+        if k==0: return g
+        t=g[k-1]['t'].rstrip().rstrip('(').rstrip()
+        if k<len(g): g[k:]=[x if x.get('href') else {'t':' '} for x in g[k:]]
+        if not t.endswith(('.','!','?','…')): t=t+'.'
+        g[k-1]['t']=t+(' ' if k<len(g) else '')
+        return g
     def item(segs,sm,attrs,kind,small=False):
         sid=syn_html(sm,srcs_of(segs),cursec) if sm else None
-        inner=inl(segs,fs=14 if small else 16); tl=tail(segs,attrs)
-        fin='' if tl.endswith('.</span>') else '.'
-        inner=inner[:-1]+tl+fin if (tl and inner.endswith('.')) else inner+tl
+        inner=inl(point_final(segs),fs=14 if small else 16)+tail(segs,attrs)
         if web:
             ITEMS.append({'sid':sid,'sec':cursec,'kind':kind,'rappel':bool((attrs or {}).get('rappel')),'date':(attrs or {}).get('date'),'themes':(attrs or {}).get('themes',[]),'segs':segs,'sum':sm,'html':B._post(inner)})
         if sid and web:
-            m_=re.search(r'((?:<a class="s[^"]*"[^>]*>[^<]*</a>\s*)?<span style="color:#8a8f98;[^"]*">(?:[^<]|<sup[^>]*>[^<]*</sup>)*</span>\.?|[^\s<>]+)$',inner)
+            m_=re.search(r'((?:<a class="s[^"]*"[^>]*>(?:[^<]|<span[^>]*>[^<]*</span>)*</a>\s*)?<span style="color:#8a8f98;[^"]*">(?:[^<]|<sup[^>]*>[^<]*</sup>)*</span>\.?|[^\s<>]+)$',inner)
             inner=(inner[:m_.start()]+'<span class="nw">'+m_.group(1)+' '+SYNB.format(sid)+'</span>') if m_ else inner+' '+SYNB.format(sid)
         elif sid: inner+=EL(sid)
         return sid,inner
     def syattr(sid): return f' class="sy-it" data-syn="{sid}"' if (web and sid) else ''
     def row(sid,inner):
-        return f'<tr{syattr(sid)}><td width="20" valign="top" style="padding:14px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;">&#9632;</td><td style="padding:6px 8px 6px 0;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
+        return f'<tr{syattr(sid)}><td width="20" valign="top" style="width:20px;min-width:20px;padding:14px 0 0;font:8px/8px Arial,sans-serif;color:#dba98f;"><div style="width:20px;">&#9632;</div></td><td style="padding:6px 8px 6px 0;font:16px/24px {SERIF};color:#1f2937;">{inner}</td></tr>'
     def rcell(sid,inner):
-        return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="padding:12px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;">&#9632;</td><td style="padding:5px 6px 5px 0;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
+        return f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr{syattr(sid)}><td width="16" valign="top" style="width:16px;min-width:16px;padding:12px 0 0;font:7px/7px Arial,sans-serif;color:#dba98f;"><div style="width:16px;">&#9632;</div></td><td style="padding:5px 6px 5px 0;font:14px/20px {SERIF};color:#374151;">{inner}</td></tr></table>'
     rap=[]   # rappels de la section courante, affichés en fin de section sur deux colonnes
     def flush():
         if not rap: return
         cells=[rcell(*item(sg,sm,a,kd,small=True)) for sg,sm,a,kd in rap]
         rows_=''.join(f'<tr><td class="c2" width="50%" valign="top" style="padding:0 10px 0 0;">{cells[i]}</td><td class="c2" width="50%" valign="top" style="padding:0 0 0 10px;">{cells[i+1] if i+1<len(cells) else "&nbsp;"}</td></tr>' for i in range(0,len(cells),2))
         ln='<div style="border-top:1px solid #e3ddd0;font-size:0;line-height:0;">&nbsp;</div>'
-        body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:4px 0 10px;"><tr><td width="50%" valign="middle">{ln}</td><td valign="middle" style="padding:0 12px;font:700 11px/16px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47;white-space:nowrap;">Rappels</td><td width="50%" valign="middle">{ln}</td></tr></table><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 6px;">{rows_}</table>')
+        body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#faf8f3" style="margin:6px 0 4px;background:#faf8f3;border-radius:6px;"><tr><td style="padding:10px 14px 6px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 8px;"><tr><td width="50%" valign="middle">{ln}</td><td valign="middle" style="padding:0 12px;font:700 11px/16px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#7d6c47;white-space:nowrap;">Rappels</td><td width="50%" valign="middle">{ln}</td></tr></table><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 6px;">{rows_}</table></td></tr></table>')
         rap.clear()
     CHAPO=f"margin:0 0 20px;font:17px/24px {SERIF};color:#4b5563;"
     body=[];title='';h2n=-1;first_p=True;prev_h2=False;cursec=''
@@ -330,7 +351,7 @@ def render(web):
             if raw.startswith(('Cette section ne retient','Les échéances d')) or cursec.startswith('Agenda'): continue
             if first_p:
                 first_p=False
-                body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;"><tr><td style="border-left:4px solid #1f4e8c;background:#eef2f8;background-image:linear-gradient(45deg,#e4ecf7 0%,#f6f9fd 100%);padding:16px 20px;font:17.7px/26px {SERIF};color:{NAVY};">{inl(b["i"],False)}</td></tr></table>')
+                body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 16px;"><tr><td style="border-left:4px solid {ACC};background:#f7f4ee;padding:16px 20px;font:17.7px/26px {SERIF};color:{NAVY};">{inl(b["i"],False)}</td></tr></table>')
                 body.append('@@TOC@@');continue
             if prev_h2 and not b.get('attrs') and not b.get('sum') and not raw.startswith(('Depuis le','Défense','Lien avec')):
                 body.append(f'<p style="{CHAPO}">{inl(b["i"],False)}</p>')
@@ -408,20 +429,48 @@ def render(web):
             body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 8px;">{rows}</table>');prev_h2=False
     flush()
     SEC=META['toc']
-    toc=' <span style="color:#c3cad5;">·</span> '.join(f'<a href="#s{i}" style="color:#4b5563;text-decoration:none;border-bottom:1px solid #d5dbe5;">{E(s)}</a>' for i,s in enumerate(SEC))
-    tocb=f'<p style="margin:0 0 4px;font:13px/24px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Dans ce numéro</b>&nbsp; {toc}</p>'
+    if web:
+        # sommaire : bloc sous la Une (petits écrans) et colonne fixe dans la marge gauche, section courante signalée (grands écrans)
+        toc='<span class="toc-sep" aria-hidden="true"> | </span>'.join(f'<a href="#s{i}">{E(s)}</a>' for i,s in enumerate(SEC))
+        tocb=f'<nav class="toc" id="sommaire" aria-label="Sommaire"><span class="toc-t">Sommaire</span>{toc}</nav>'
+        TOCNAV=('<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>'
+                +''.join(f'<li><a href="#s{i}">{E(s)}</a></li>' for i,s in enumerate(SEC))+'</ol></nav>'
+                '<a class="toc-f" href="#sommaire" aria-label="Revenir au sommaire" title="Sommaire"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M5 4h8M5 8h8M5 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2.5" cy="4" r="1" fill="currentColor"/><circle cx="2.5" cy="8" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/></svg></a>'+TOC_JS)
+    else:
+        toc=' <span style="color:#c3cad5;">·</span> '.join(f'<a href="#s{i}" style="color:#4b5563;text-decoration:none;border-bottom:1px solid #d5dbe5;">{E(s)}</a>' for i,s in enumerate(SEC))
+        tocb=f'<p style="margin:0 0 4px;font:13px/24px {SANS};color:#6b7280;"><b style="font-weight:600;color:#4b5563;">Dans ce numéro</b>&nbsp; {toc}</p>'
+        TOCNAV=''
     out=B._post(''.join(body).replace('@@TOC@@',tocb))
     import re as _re
     mins=max(1,round(len(_re.sub(r'<[^>]+>',' ',out).split())/220))
     css=''
     if web:
         css=f'''body{{font-variant-numeric:lining-nums}}
-a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;position:relative;cursor:help}}
+a.t{{border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none;position:relative;cursor:help}}
+a.t:hover,a.t:focus{{border-bottom-color:{NAVY}}}
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:290px;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.rss{{display:inline-flex;vertical-align:-2px;color:{ACC}}}a.rss:hover,a.rss:focus-visible{{color:{NAVY}}}
 a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap}}
 .nw{{white-space:nowrap}}
-a.s.so{{font-weight:600}}
+a.s .ar{{color:#9ca3af}}
+a.s.so .ar{{color:{ACC}}}
+.toc{{margin:0 0 6px;padding:10px 0 0;border-top:1px solid #ece7dc;font:13px/24px {SANS};color:#c3cad5}}
+.toc .toc-t{{margin-right:10px;font:400 11px/24px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
+.toc a{{color:#4b5563;text-decoration:none;white-space:nowrap}}
+.toc a:hover,.toc a:focus-visible{{color:{NAVY};text-decoration:underline;text-underline-offset:3px}}
+h2[id^='s']{{scroll-margin-top:20px}}
+.toc-l{{display:none}}
+.toc-f{{position:fixed;right:16px;bottom:16px;z-index:20;display:flex;align-items:center;justify-content:center;width:40px;height:40px;border:1px solid #d6d3cc;border-radius:50%;background:rgba(255,255,255,.96);color:{NAVY};box-shadow:0 2px 10px rgba(15,42,74,.14);opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s}}
+.toc-f.vu{{opacity:1;visibility:visible}}
+.toc-f:hover,.toc-f:focus-visible{{background:{ACC};border-color:{ACC};color:#fff;outline:none}}
+@media(min-width:1180px){{
+.toc{{display:none}}.toc-f{{display:none}}
+.toc-l{{display:block;position:fixed;top:120px;left:calc(50% - 360px - 212px);width:184px;box-sizing:border-box;padding:14px 16px 12px;background:rgba(255,255,255,.9);border-radius:6px;font:13px/18px {SANS}}}
+.toc-l .toc-t{{display:block;margin:0 0 8px;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:#6f675a}}
+.toc-l ol{{margin:0;padding:0;list-style:none;border-left:2px solid #ece7dc}}
+.toc-l a{{display:block;margin-left:-2px;padding:4px 0 4px 12px;border-left:2px solid transparent;color:#6b7280;text-decoration:none}}
+.toc-l a:hover,.toc-l a:focus-visible{{color:{NAVY};outline:none}}
+.toc-l a.on{{border-left-color:{ACC};color:{NAVY}}}}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .sy-it{{cursor:pointer;transition:background .15s}}
 .sy-it:hover{{background:#faf7f0}}
@@ -439,7 +488,7 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .sy-b:hover .sy-p,.sy-b:focus-visible .sy-p{{z-index:5;background:{ACC};border-color:{ACC};color:#fff;box-shadow:0 2px 8px rgba(15,42,74,.18)}}
 .sy-b:hover .sy-l,.sy-b:focus-visible .sy-l{{max-width:9em;opacity:1;margin-left:4px;padding-right:6px}}
 .sy-b:focus-visible{{outline:none}}
-.pod{{width:75%;margin:0 auto 28px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
+.pod{{width:100%;margin:0 0 24px;background:#f7f4ee;border:1px solid #e3d6c3;border-radius:22px;overflow:hidden}}
 .pod-h{{display:flex;align-items:center;gap:10px;width:100%;padding:10px 18px;border:0;background:none;color:{NAVY};font:600 14px/22px {SANS};text-align:left;cursor:pointer}}
 .pod-h:hover,.pod-h:focus-visible{{background:#f1ebdf;outline:none}}
 .pod-i{{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:{ACC};color:#fff;flex:none}}
@@ -524,7 +573,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 <tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 40px;">{bloc_podcast(web,DISO,ED_URL)}{out}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:44px 0 0;border-top:2px solid #7a808d;"><tr><td style="padding:16px 0 0;font:11px/15px {SANS};color:#7a808d;">{pied(META.get("redaction") or REDACTION_DEFAUT,(META.get("date_iso") or "2026")[:4],absolu=not web)}</td></tr></table>
-</td></tr></table></td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}</body></html>''',len(used)
+</td></tr></table></td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}{TOCNAV}</body></html>''',len(used)
 def compact_email(h):
     """Allège l'e-mail : chaque style répété (4 fois ou plus) passe dans une classe déclarée dans <head>.
     Couleur et marges restent en ligne, pour les clients qui ignorent les styles de <head>."""

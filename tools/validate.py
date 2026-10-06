@@ -79,6 +79,9 @@ def check_content(d, blocks, meta, themes):
         elif isinstance(x, list): yield from (c for v in x for c in chaines(v))
     for c in chaines(blocks):   # italique *…* (README, § 4) : astérisques appariés
         if c.count('*') % 2: ERR.append(f'Italique non refermée (astérisque isolé) : « {c[:80]}… »')
+        m = re.match(r'^([^:]{1,90}?)\s:', c)   # début en gras : la date de l'élément figure déjà en fin de ligne (README, § 12)
+        if m and re.search(r'\((?:\d{1,2}(?:er)?\s)?(?:janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)\s\d{4}\)', m.group(1)):
+            WARN.append(f'Date entre parenthèses dans le début en gras (déjà affichée en fin d’élément) : « {m.group(1)} »')
     for k in ('n', 'date_iso', 'date_long', 'date', 'toc', 'site'):
         if k not in meta: ERR.append(f'meta.json : clé « {k} » manquante')
     if meta.get('date_iso') != d: ERR.append(f'meta.json : date_iso « {meta.get("date_iso")} » différente du dossier « {d} »')

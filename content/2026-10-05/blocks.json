@@ -410,7 +410,7 @@
    ],
    [
     {
-     "t": "ENISA (juin 2026) : 78 % des organisations ont commencé leur démarche SBOM et 79 % comptent atteindre le niveau requis avant décembre 2027 ; freins principaux : la complétude (62 %) et la qualité des données (37 %) ("
+     "t": "ENISA : 78 % des organisations ont commencé leur démarche SBOM et 79 % comptent atteindre le niveau requis avant décembre 2027 ; freins principaux : la complétude (62 %) et la qualité des données (37 %) ("
     },
     {
      "t": "ThreatCluster",
@@ -738,7 +738,7 @@
   "items": [
    [
     {
-     "t": "Grype 0.120.0 (2 octobre 2026) : scanneur de vulnérabilités open source d’Anchore ; cette version stocke les points de décision SSVC du NVD dans une nouvelle table de la base v6, ajoute une colonne d’emplacements aux rapports HTML, signe les sommes de contrôle des versions avec sigstore et met Syft à jour en 1.54.0 ("
+     "t": "Grype 0.120.0 : scanneur de vulnérabilités open source d’Anchore ; cette version stocke les points de décision SSVC du NVD dans une nouvelle table de la base v6, ajoute une colonne d’emplacements aux rapports HTML, signe les sommes de contrôle des versions avec sigstore et met Syft à jour en 1.54.0 ("
     },
     {
      "t": "GitHub",
@@ -750,7 +750,7 @@
    ],
    [
     {
-     "t": "Syft 1.54.0 (1er octobre 2026) : générateur de SBOM open source d'Anchore ; cette version signale l'interpréteur Perl comme paquet de l'écosystème Perl, ajoute un catalogueur pour l'écosystème Perl et l'analyse Podman sans démon, et corrige plusieurs plantages sur des fichiers tronqués ("
+     "t": "Syft 1.54.0 : générateur de SBOM open source d'Anchore ; cette version signale l'interpréteur Perl comme paquet de l'écosystème Perl, ajoute un catalogueur pour l'écosystème Perl et l'analyse Podman sans démon, et corrige plusieurs plantages sur des fichiers tronqués ("
     },
     {
      "t": "GitHub",
@@ -817,7 +817,7 @@
    ],
    [
     {
-     "t": "OSV-Scanner 2.6.0 (14 septembre 2026) : scanneur open source qui confronte les inventaires de composants à la base OSV ; ses résultats et ceux de Grype divergent assez souvent pour que leur usage conjoint se justifie ("
+     "t": "OSV-Scanner 2.6.0 : scanneur open source qui confronte les inventaires de composants à la base OSV ; ses résultats et ceux de Grype divergent assez souvent pour que leur usage conjoint se justifie ("
     },
     {
      "t": "Dev Tool Lab",
@@ -1142,7 +1142,7 @@
   "items": [
    [
     {
-     "t": "ENISA, panorama des menaces 2026 (22 septembre 2026) : les attaques visant les dépendances, dont celles de la chaîne d'approvisionnement et de tiers, entraînent en général des incidents de grande ampleur ou à fort impact ; 73 % des organisations ciblées en 2025 relèvent des entités essentielles ou importantes au sens de NIS2 ("
+     "t": "ENISA, panorama des menaces 2026 : les attaques visant les dépendances, dont celles de la chaîne d'approvisionnement et de tiers, entraînent en général des incidents de grande ampleur ou à fort impact ; 73 % des organisations ciblées en 2025 relèvent des entités essentielles ou importantes au sens de NIS2 ("
     },
     {
      "t": "ENISA",

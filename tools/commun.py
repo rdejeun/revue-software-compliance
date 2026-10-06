@@ -30,7 +30,7 @@ pats=[(i,re.compile(r'(?<![\w-])('+g[0].replace(' ','[  ]')+r')(?![\w])')) for 
 used=[];seen=set()
 def term(shown,i,web):
     d=typo(G[i][2]);u=G[i][3];tip=esc(d,True)
-    st="border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;"
+    st="border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none;"   # sigles : couleur du texte (le bleu est réservé aux liens)
     if web:
         return f'<a class="t" data-tip="{tip}"'+(f' href="{u}" target="_blank" rel="noopener"' if u else '')+f'>{E(shown)}</a>'
     if u: return f'<a href="{u}" title="{tip}" style="{st}">{E(shown)}</a>'
