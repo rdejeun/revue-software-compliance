@@ -222,6 +222,13 @@ document.addEventListener('click',function(e){if(!e.target.closest('.pod-vw'))vo
 document.addEventListener('keydown',function(e){if(e.key==='Escape'&&w.classList.contains('volo')){vo(false);m.focus()}});
 a.addEventListener('volumechange',vol);vol();
 pl.addEventListener('click',function(){if(a.paused)a.play();else a.pause()});
+/* mesure d'audience (Matomo, sans cookie) : lancement, paliers d'écoute, signets ; nom = date de l'édition */
+var EPN=(a.getAttribute('src')||'').split('/')[1]||'',VU={};
+function ev(act,nom){if(window._paq)window._paq.push(['trackEvent','Podcast',act,nom||EPN])}
+a.addEventListener('play',function(){if(!VU.l){VU.l=1;ev('Lecture')}});
+a.addEventListener('timeupdate',function(){var d=a.duration||+r.max;if(!d)return;var f=a.currentTime/d;
+ [25,50,75].forEach(function(p){if(f>=p/100&&!VU[p]){VU[p]=1;ev('Écoute '+p+' %')}})});
+a.addEventListener('ended',function(){if(!VU.f){VU.f=1;ev('Écoute complète')}});
 a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause');w.classList.add('joue')});   /* joue : égaliseur dans la barre repliée */
 a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture');w.classList.remove('joue')});
 a.addEventListener('loadedmetadata',function(){if(isFinite(a.duration))r.max=a.duration});
@@ -237,7 +244,7 @@ addEventListener('resize',function(){pos(+r.value/(r.max||1))});h.addEventListen
 /* sujets : ligne de mots sous les commandes et repères cliquables sous la barre */
 var S=[].slice.call(w.querySelectorAll('.pod-ch button')),TL=[].slice.call(w.querySelectorAll('.pod-tl button'));
 var CH=w.querySelector('.pod-ch');function deb(){if(CH)CH.classList.toggle('deb',CH.scrollWidth>CH.clientWidth+1)}addEventListener('resize',deb);h.addEventListener('click',function(){setTimeout(deb,50)});deb();
-S.concat(TL).forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
+S.concat(TL).forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');ev('Signet',EPN+' · '+(s.textContent||s.title||'').trim());a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
 function chap(){[S,TL].forEach(function(L){var k=-1;L.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
  L.forEach(function(s,i){var on=i===k;if(L===S&&on&&!s.classList.contains('on')&&s.parentNode.scrollWidth>s.parentNode.clientWidth)s.parentNode.scrollTo({left:s.offsetLeft-24,behavior:'smooth'});
   s.classList.toggle('on',on)})})}
