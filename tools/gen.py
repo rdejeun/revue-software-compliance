@@ -482,12 +482,12 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w p.sy-eb{{margin:0 0 6px;font:600 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{ACC}}}
 .sy-t{{margin:0 36px 14px 0;font:600 21px/28px {SANS};color:{NAVY};text-wrap:balance}}
 .sy-m{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0 0 16px;padding:10px 14px;background:#f7f4ee;border-radius:6px;font:13px/17px {SANS};color:#374151}}
-.sy-m dt{{color:#6f675a;font:600 11px/16px {SANS};letter-spacing:.1em;text-transform:uppercase}}
+.sy-m dt{{color:#6f675a;font:400 11px/16px {SANS};letter-spacing:.14em;text-transform:uppercase}}
 .sy-m dt:has(.sy-k){{display:flex;align-items:center;gap:8px}}
 .sy-k{{display:inline-flex;align-items:center;box-sizing:border-box;height:18px;padding:0 8px;border:1px solid #d9cfbd;border-radius:9px;background:#fff;font:400 12px/1 {SANS};letter-spacing:0;text-transform:none;color:#5a5244;white-space:nowrap}}
 @supports (text-box:trim-both cap alphabetic){{.sy-k{{height:auto;padding:4px 8px;text-box:trim-both cap alphabetic}}}}
 .sy-m dd{{margin:0;min-width:0}}
-.sy-w h4{{margin:18px 0 6px;font:700 13px/18px {SANS};letter-spacing:.12em;text-transform:uppercase;color:#6f675a}}
+.sy-w h4{{margin:18px 0 6px;font:400 13px/18px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#6f675a}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
 .sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
