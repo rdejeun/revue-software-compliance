@@ -186,7 +186,7 @@ def bloc_podcast(web,diso,ed_url):
         f'<button type="button" data-t="{c["debut_s"]}" style="left:calc(7px + (100% - 14px) * {frac(c)})" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}"><span>{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</span></button>' for c in ch)+'</div>') if ch else ''
     reperes=''
     return (f'<div class="pod" id="ecouter">'
-            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}<span class="pod-eq" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="pod-k">Le podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
+            f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}<span class="pod-eq" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="pod-k">Podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-hd"><div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
             f'<a class="pod-rss" href="/podcast.xml" title="Flux RSS du podcast, à ajouter dans votre application de podcasts">{ICO_RSS}<span>S’abonner</span></a></div>'
