@@ -213,10 +213,11 @@ def render(web):
         h=[f'<p class="sy-eb">{T(sec)}</p><h3 class="sy-t">{T(sm.get("titre",""))}</h3>']
         meta=[]
         if sm.get('statut'): meta.append(f'<dt>Statut</dt><dd>{T(sm["statut"])}</dd>')
-        if sm.get('fonctions'): meta.append(f'<dt>Fonctions concernées</dt><dd>{T(sm["fonctions"])}</dd>')
-        if sm.get('reseau'): meta.append(f'<dt>Connexion réseau</dt><dd>{T(sm["reseau"])}</dd>')   # outils et services (README, § 6)
-        if sm.get('licence'): meta.append(f'<dt>Modèle de licence</dt><dd>{T(sm["licence"])}</dd>')
-        if meta: h.append('<dl class="sy-m">'+''.join(meta)+'</dl>')
+        if sm.get('fonctions'): meta.append(f'<dt>Fonctions</dt><dd>{T(sm["fonctions"])}</dd>')
+        if sm.get('reseau'): meta.append(f'<dt>Réseau</dt><dd>{T(sm["reseau"])}</dd>')   # outils et services (README, § 6)
+        if sm.get('licence'): meta.append(f'<dt>Licence</dt><dd>{T(sm["licence"])}</dd>')
+        # encart à droite du texte sur grand écran (CSS), au-dessus sur petit écran ; ordre du DOM inchangé pour la numérotation des mots
+        h.append('<div class="sy-g">'+('<dl class="sy-m">'+''.join(meta)+'</dl>' if meta else '')+'<div class="sy-c">')
         for k,lab in SYN_LABELS:
             if sm.get(k): h.append(f'<h4>{lab}</h4><p>{M(sm[k])}</p>')
         if sm.get('impact_avere') or sm.get('impact_potentiel'):
@@ -225,6 +226,7 @@ def render(web):
                 if sm.get(k): h.append(f'<p>{M(sm[k])}</p>')
         if sm.get('a_verifier'):
             h.append('<h4>À vérifier</h4><ul class="sy-v">'+''.join(f'<li>{M(q)}</li>' for q in sm['a_verifier'])+'</ul>')
+        h.append('</div></div>')
         if srcs:
             h.append('<p class="sy-s">'+' '.join(f'<a href="{esc(u,True)}" target="_blank" rel="noopener">↗&nbsp;{T(l)}</a>' for l,u in srcs)+'</p>')
         seen.clear(); seen.update(sv_seen); used[:]=sv_used
@@ -489,6 +491,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-s a{{margin-right:10px;color:#6b7280;font:13px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af}}
 @media (prefers-reduced-motion:no-preference){{dialog.sy[open]{{animation:syin .18s ease-out}}@keyframes syin{{from{{opacity:0;transform:translateY(8px)}}to{{opacity:1;transform:none}}}}}}
 @media(min-width:661px){{.sy-m{{column-gap:36px;padding:12px 20px}}}}
+@media(min-width:860px){{.sy-g{{display:grid;grid-template-columns:minmax(0,1fr) 236px;column-gap:32px;align-items:start}}.sy-g>.sy-m{{grid-column:2;grid-row:1;position:sticky;top:4px;display:block;margin:6px 0 0;padding:14px 16px}}.sy-g>.sy-m dd{{margin:1px 0 12px}}.sy-g>.sy-m dd:last-child{{margin-bottom:0}}.sy-g>.sy-c{{grid-column:1;grid-row:1;min-width:0}}.sy-c>h4:first-child{{margin-top:4px}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
     if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
     return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8">{'' if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{'<meta name="robots" content="noindex">' if web else ''}<title>{esc(title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}@media(max-width:660px){{.w{{padding:22px 18px 28px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style></head>
