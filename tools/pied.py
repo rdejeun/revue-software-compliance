@@ -32,7 +32,7 @@ def pied_bloc(redaction, annee, absolu=False):
         ('Archives', '/archives/'), ('Dossiers', '/dossiers/'), ('Fil RSS', '/feed.xml')))
     fin = 'color:#8a8f98;text-decoration:none;border-bottom:1px dotted #b8bcc4;'
     T = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"'
-    return (f'{T} style="margin:44px 0 0;border-top:1px solid #e5e1d8;"><tr><td style="padding:0;">'
+    return (f'{T} style="margin:44px 0 0;"><tr><td style="padding:0;">'
             # ligne 1 : identité, navigation
             f'{T}><tr><td class="pd-c pd-n" valign="middle" style="padding:16px 0 12px;font:13px/20px {SANS_};color:#4b5563;white-space:nowrap;">'
             f'<img src="{b}/apple-touch-icon.png" width="40" height="40" alt="SC" style="display:inline-block;vertical-align:middle;width:40px;height:40px;border:0;border-radius:6px;margin:0 12px 0 0;">'
