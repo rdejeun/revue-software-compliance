@@ -140,7 +140,7 @@ ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><pa
 MSO_HEAD='<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->'
 # sommaire latéral : section courante (lecture au défilement) ; bouton de retour au sommaire sur petit écran
 # libellés abrégés là où la place manque (colonne du sommaire, signets du podcast)
-ABREV={"Chaîne d'approvisionnement":"Chaîne d’appro.","Commerce international":"Export et sanctions"}
+ABREV={"Chaîne d'approvisionnement":"Chaîne d’appro.","Commerce international":"Export et sanctions","Outils":"Outils et services"}   # libellés propres au sommaire flottant
 TOC_JS=r"""<script>(function(){var L=document.querySelector('.toc-l'),B=document.querySelector('.toc-b'),bt=B&&B.querySelector('.toc-bt'),ls=B&&B.querySelector('.toc-ls'),cur=B&&B.querySelector('.toc-c'),N=cur?cur.textContent:'';
 var H=[].slice.call(document.querySelectorAll('h2[id^="s"]')),AL=L?[].slice.call(L.querySelectorAll('a')):[],AB=ls?[].slice.call(ls.querySelectorAll('a')):[];
 function maj(){var y=innerHeight*0.3,k=-1;for(var i=0;i<H.length;i++)if(H[i].getBoundingClientRect().top<y)k=i;
