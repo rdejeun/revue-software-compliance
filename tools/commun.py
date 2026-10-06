@@ -21,7 +21,11 @@ def typo(t):
     t=re.sub(r'(?<![\w’])(à|y|de|du|la|le|en|un|ou|et|au|se|ne|ce|si|on|l|d)'+NB+r'(?=[^\s'+NB+r']+'+NB+r')',r'\1 ',t)
     return t
 def esc(s,quote=False): return html.escape(s,quote=quote)
-def E(s): return re.sub(r'\b(\d+)(er|e)\b',r'\1<sup style="font-size:70%;line-height:0;">\2</sup>',esc(s))
+# italique : *terme* ou *{en}terme* (langue du passage, pour les lecteurs d'écran) ; README, § 4 (typographie)
+ITAL=re.compile(r'\*(?:\{([a-z]{2,3})\})?([^*\s](?:[^*]*?[^*\s])?)\*')
+def ital(h): return ITAL.sub(lambda m:(f'<i lang="{m.group(1)}">' if m.group(1) else '<i>')+m.group(2)+'</i>',h)
+def sans_ital(s): return ITAL.sub(r'\2',s)
+def E(s): return ital(re.sub(r'\b(\d+)(er|e)\b',r'\1<sup style="font-size:70%;line-height:0;">\2</sup>',esc(s)))
 pats=[(i,re.compile(r'(?<![\w-])('+g[0].replace(' ','[  ]')+r')(?![\w])')) for i,g in enumerate(G)]
 used=[];seen=set()
 def term(shown,i,web):
@@ -44,6 +48,6 @@ def mark(text,web):
         if s<pos or i in seen: continue
         seen.add(i);used.append(i)
         out.append(E(text[pos:s]));out.append(term(text[s:e],i,web));pos=e
-    out.append(E(text[pos:]));return ''.join(out)
+    out.append(E(text[pos:]));return ital(''.join(out))   # italique qui englobe un terme du glossaire
 SANS="'Segoe UI',Arial,sans-serif";SERIF="Georgia,serif"
 def _post(h): return re.sub(r'>([^<>]+)<',lambda m:'>'+typo(m.group(1))+'<',h)

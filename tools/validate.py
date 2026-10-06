@@ -18,7 +18,7 @@ ERR, WARN = [], []
 AGENDA_MAX = 8   # dates présentées dans l'agenda
 
 
-def words(s): return len(re.findall(r"\w+(?:[’'-]\w+)*", s or ''))
+def words(s): return len(re.findall(r"\w+(?:[’'-]\w+)*", re.sub(r'\*\{[a-z]{2,3}\}', '', s or '')))   # sans balise de langue de l'italique
 
 
 def segs_ok(segs, where):
@@ -73,6 +73,12 @@ def check_attrs(a, where, themes, need_date=True):
 
 
 def check_content(d, blocks, meta, themes):
+    def chaines(x):
+        if isinstance(x, str): yield x
+        elif isinstance(x, dict): yield from (c for v in x.values() for c in chaines(v))
+        elif isinstance(x, list): yield from (c for v in x for c in chaines(v))
+    for c in chaines(blocks):   # italique *…* (README, § 4) : astérisques appariés
+        if c.count('*') % 2: ERR.append(f'Italique non refermée (astérisque isolé) : « {c[:80]}… »')
     for k in ('n', 'date_iso', 'date_long', 'date', 'toc', 'site'):
         if k not in meta: ERR.append(f'meta.json : clé « {k} » manquante')
     if meta.get('date_iso') != d: ERR.append(f'meta.json : date_iso « {meta.get("date_iso")} » différente du dossier « {d} »')

@@ -31,6 +31,12 @@ Lecteur : le référent Software Compliance d'une entreprise française de défe
 
 Titres et chapôs reflètent ce que disent les sources, sans interprétation ni qualification commerciale (jamais « marché à prospecter »). Terminologie : « chaîne d'approvisionnement logicielle » (on peut préciser *software supply chain* à la première occurrence) et « nomenclature logicielle (SBOM) » ; pour l'attaque, « attaque de la chaîne d'approvisionnement » (vocabulaire de l'UE et de l'ENISA), une seule forme par édition ; jamais « chaîne logistique logicielle ». Pas de formule du type « Je n'ai pas trouvé… » : écrire « Aucun … n'a été relevé dans les sources consultées. ». Les synthèses (§ 6) sont le seul endroit où l'impact est analysé. Noms de marque : sans les séparateurs graphiques des logos (« QAD Redzone », pas « QAD | Redzone »).
 
+**Italique** (règles typographiques françaises usuelles, Lexique de l'Imprimerie nationale), dans tous les textes de `blocks.json` (éléments, synthèses, agenda) ; balisage `*terme*`, avec la langue entre accolades pour les lecteurs d'écran : `*{en}dual-use*`, `*{la}de minimis*` (italique HTML sur le site et dans l'e-mail, `*…*` dans le Markdown, retiré dans la version texte ; `validate.py` refuse un astérisque isolé) :
+- **Mots et locutions étrangers non francisés** : *dual-use*, *guidance*, *steward*, *fork*, *commit*, *copyleft*, *de minimis*, développé anglais d'un sigle (SBOM, *Software Bill of Materials*). L'italique remplace les guillemets : pas de « *steward* ».
+- **Restent en romain** : les mots entrés dans l'usage et les dictionnaires français (open source, cloud, logiciel, scanner, audit), les noms propres (organismes, entreprises, produits, programmes), les noms de textes officiels et de dispositifs (Cyber Resilience Act, AI Act, Digital Omnibus, Federal Register), les sigles (SBOM, ECCN) et les noms de marque.
+- **Citations** : en français, en romain entre guillemets français « … » ; dans une langue étrangère, en italique entre guillemets : « *reasonable steps* ». Une citation traduite par la rédaction est en romain, entre guillemets.
+- Pas d'italique pour l'emphase ; pas de mot en italique dans un titre d'élément ou de synthèse s'il n'est pas étranger.
+
 ## 5. Continuité d'une édition à l'autre
 
 Les éditions précédentes (`content/*/blocks.json`) forment le registre de ce qui a été publié. Avant de rédiger, lire au moins les quatre dernières.

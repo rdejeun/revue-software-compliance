@@ -27,6 +27,9 @@ URL = 'https://revue.dejeun.es'
 SANS = "'Segoe UI',Arial,sans-serif"; SERIF = "Georgia,serif"
 E = lambda s: html.escape(str(s), quote=True)
 TY = lambda s: str(s).replace("'", '’')
+ITAL = re.compile(r'\*(?:\{([a-z]{2,3})\})?([^*\s](?:[^*]*?[^*\s])?)\*')   # italique (tools/commun.py)
+NI = lambda s: ITAL.sub(r'\2', s)          # texte brut
+MI = lambda s: ITAL.sub(r'*\2*', s)        # Markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
 from pied import pied, mentions, CSS_COURRIEL
@@ -87,14 +90,14 @@ def seg_md(segs):
     o = ''
     for s in segs:
         o += f'[{TY(s["t"])}]({s["href"]})' if s.get('href') else TY(s['t'])
-    return re.sub(r'\s+', ' ', o).strip()
+    return MI(re.sub(r'\s+', ' ', o).strip())
 
 
 def seg_txt(segs):
     o = ''
     for s in segs:
         o += f'{TY(s["t"])} <{s["href"]}>' if s.get('href') else TY(s['t'])
-    return re.sub(r'\s+', ' ', o).strip()
+    return NI(re.sub(r'\s+', ' ', o).strip())
 
 
 def sum_md(sm, ind='  '):
@@ -105,7 +108,7 @@ def sum_md(sm, ind='  '):
     imp = ' '.join(TY(sm[k]) for k in ('impact_avere', 'impact_potentiel') if sm.get(k))
     if imp: L.append(f'{ind}  - Impact : {imp}')
     for q in sm.get('a_verifier') or []: L.append(f'{ind}  - À vérifier : {TY(q)}')
-    return L
+    return [MI(x) for x in L]
 
 
 def to_md(blocks, meta, text=False):
@@ -165,7 +168,7 @@ def to_md(blocks, meta, text=False):
     flush()
     L += ['', '---', f'Édition web : {URL}/{meta["date_iso"]}/' + ('' if text else f' · Archives : {URL}/archives/ · Dossiers : {URL}/dossiers/ · RSS : {URL}/feed.xml')]
     out = '\n'.join(L)
-    return re.sub(r'\n{3,}', '\n\n', out).strip() + '\n'
+    return (NI if text else MI)(re.sub(r'\n{3,}', '\n\n', out).strip()) + '\n'   # italique : *…* en Markdown, rien en texte brut
 
 
 # ---------------------------------------------------------------- pages annexes
@@ -254,7 +257,7 @@ def main():
         ep = episode(d)
         if ep: shutil.copyfile(os.path.join(CONTENT, d, ep['fichier']), os.path.join(SITE, d, ep['fichier']))
         write(os.path.join(out, 'revue-email.txt'), to_md(blocks, meta, text=True))
-        lede = next((TY(''.join(x['t'] for x in b['i']).strip(' ·')) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
+        lede = next((NI(TY(''.join(x['t'] for x in b['i']).strip(' ·'))) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         infos.append({'d': d, 'meta': meta, 'lede': lede, 'items': json.load(open(os.path.join(out, 'items.json'), encoding='utf-8')), 'md': md})
         if os.path.isfile(os.path.join(out, 'syn.json')): SYN.update(json.load(open(os.path.join(out, 'syn.json'), encoding='utf-8')))
     last = infos[-1]
