@@ -65,8 +65,8 @@ def mentions(redaction, annee):
     """Corps de la page /mentions-legales/."""
     li = lambda t: f'<p>{t}</p>'
     return ''.join([
-        '<div class="r"></div><h2>Éditeur et directeur de la publication</h2>',
-        li(f'{EDITEUR} — contact : {courriel()}'),
+        '<div class="r"></div><h2>Responsable de la publication</h2>',
+        li(f'{EDITEUR}, éditeur et directeur de la publication au sens de l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l’économie numérique — contact : {courriel()}'),
         '<div class="r"></div><h2>Hébergement</h2>',
         li('GitHub, Inc. (service GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, États-Unis — <a href="https://github.com">github.com</a>.'),
         '<div class="r"></div><h2>Rédaction</h2>',
