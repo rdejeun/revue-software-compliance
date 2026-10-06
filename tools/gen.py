@@ -91,8 +91,9 @@ var SYID='',PAGE=null;
    à la fermeture, l'adresse et le titre de la page d'origine sont rétablis pour les mesures suivantes */
 function canon(t){return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[’']/g,'-').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80)}
 function vueSy(){if(!window._paq)return;var t=box.querySelector('.sy-t'),x=t?t.textContent.trim():SYID;if(!PAGE)PAGE=[location.href.split('#')[0],document.title];
- window._paq.push(['setCustomUrl',location.origin+'/synthese/'+canon(x)]);window._paq.push(['setDocumentTitle',x+' – En savoir plus – Software Compliance']);window._paq.push(['trackPageView'])}
-dlg.addEventListener('close',function(){if(PAGE&&window._paq){window._paq.push(['setCustomUrl',PAGE[0]]);window._paq.push(['setDocumentTitle',PAGE[1]])}});
+ window.SC_VUE=[location.origin+'/synthese/'+canon(x),x+' – En savoir plus – Software Compliance'];
+ window._paq.push(['setCustomUrl',window.SC_VUE[0]]);window._paq.push(['setDocumentTitle',window.SC_VUE[1]]);window._paq.push(['trackPageView'])}
+dlg.addEventListener('close',function(){window.SC_VUE=null;if(PAGE&&window._paq){window._paq.push(['setCustomUrl',PAGE[0]]);window._paq.push(['setDocumentTitle',PAGE[1]])}});
 /* liens de la fenêtre : insérés à chaque ouverture, Matomo ne les surveille pas (il pose ses écouteurs au chargement) ;
    les liens vers un autre site sont donc déclarés à la main comme liens sortants (rapport « Liens sortants ») */
 box.addEventListener('click',function(e){var l=e.target.closest&&e.target.closest('a[href]');if(!l)return;
@@ -195,7 +196,7 @@ def bloc_podcast(web,diso,ed_url):
     temps=('<div class="pod-tl" role="group" aria-label="Sujets de l’épisode">'+''.join(
         f'<button type="button" data-t="{c["debut_s"]}" style="left:calc(7px + (100% - 14px) * {frac(c)})" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}"><span>{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</span></button>' for c in ch)+'</div>') if ch else ''
     reperes=''
-    return (f'<div class="pod" id="ecouter">'
+    return (f'<div class="pod" id="ecouter" data-vue="{esc("Épisode du "+META.get("date",""),True)}">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}<span class="pod-eq" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="pod-k">Podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-hd"><div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
@@ -244,7 +245,12 @@ var EPN=(a.getAttribute('src')||'').split('/')[1]||'',VU={};
 function ev(act,nom){if(window._paq)window._paq.push(['trackEvent','Podcast',act,nom||EPN])}
 a.addEventListener('play',function(){if(!VU.l){VU.l=1;ev('Lecture')}});
 a.addEventListener('timeupdate',function(){var d=a.duration||+r.max;if(!d)return;var f=a.currentTime/d;
- [25,50,75].forEach(function(p){if(f>=p/100&&!VU[p]){VU[p]=1;ev('Écoute '+p+' %')}})});
+ [25,50,75].forEach(function(p){if(f>=p/100&&!VU[p]){VU[p]=1;ev('Écoute '+p+' %');if(p===50)vue()}})});
+/* écoute à 50 % : aussi une consultation de page « /podcast/AAAA-MM-JJ », titre « Épisode du j mmmm aaaa » ;
+   puis retour à l'adresse et au titre en cours (édition, ou synthèse ouverte) */
+function vue(){var q=window._paq;if(!q||!EPN)return;var c=window.SC_VUE||[location.href.split('#')[0],document.title];
+ q.push(['setCustomUrl',location.origin+'/podcast/'+EPN]);q.push(['setDocumentTitle',w.getAttribute('data-vue')||EPN]);q.push(['trackPageView']);
+ q.push(['setCustomUrl',c[0]]);q.push(['setDocumentTitle',c[1]])}
 a.addEventListener('ended',function(){if(!VU.f){VU.f=1;ev('Écoute complète')}});
 a.addEventListener('play',function(){pl.innerHTML=PAUSE;pl.setAttribute('aria-label','Pause');w.classList.add('joue')});   /* joue : égaliseur dans la barre repliée */
 a.addEventListener('pause',function(){pl.innerHTML=PLAY;pl.setAttribute('aria-label','Lecture');w.classList.remove('joue')});
