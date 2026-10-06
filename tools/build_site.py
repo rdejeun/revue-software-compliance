@@ -176,7 +176,7 @@ def to_md(blocks, meta, text=False):
 
 # ---------------------------------------------------------------- pages annexes
 CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;background-size:512px 512px;color:#1f2937;font:16px/24px {SERIF}}}
-.c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;padding:38px 52px 44px;box-sizing:border-box}}
+.c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;border-radius:8px;box-shadow:0 1px 2px rgba(15,42,74,.05),0 8px 28px rgba(15,42,74,.07);padding:38px 52px 31px;box-sizing:border-box}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
 h1{{margin:8px 0 14px;font:700 46px/52px {SERIF};color:#0f2a4a;letter-spacing:-.01em;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 44px/52px {SANS};letter-spacing:-.025em}} h1.dos{{font-size:44px;line-height:50px}} h1.dos span{{font-size:42px;line-height:50px}}
 {CSS_PIED}
