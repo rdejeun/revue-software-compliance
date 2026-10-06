@@ -495,6 +495,7 @@ def render(web):
 table.cv{{overflow:clip;box-shadow:0 1px 2px rgba(15,42,74,.05),0 8px 28px rgba(15,42,74,.07)}}
 a.t{{border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none;position:relative;cursor:help}}
 a.t:hover,a.t:focus{{border-bottom-color:{NAVY}}}
+a.t[href]{{cursor:pointer}}   /* sigle avec lien : main ; sans lien : flèche et point d'interrogation (cursor:help) */
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:var(--dx,0px);top:1.7em;z-index:9;width:290px;max-width:calc(100vw - 24px);box-sizing:border-box;background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px;box-shadow:0 4px 14px rgba(0,0,0,.25)}}
 a.rss{{display:inline-flex;vertical-align:-2px;color:{ACC}}}a.rss:hover,a.rss:focus-visible{{color:{NAVY}}}
 a.s{{color:#6b7280;font:14px {SANS};text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap}}
