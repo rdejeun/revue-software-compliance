@@ -36,6 +36,9 @@ from pied import pied, mentions, CSS_COURRIEL
 POD_TITRE = 'Software Compliance, le podcast'
 # Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
 IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'podcast.jpg')
+# favicon (monogramme « SC ») : à la racine du site, où les navigateurs le cherchent aussi sans balise
+ICONES_RACINE = ('favicon.ico', 'apple-touch-icon.png', 'icon-512.png')
+ICONES = '<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
 _T = os.path.dirname(os.path.abspath(__file__))
 IMG_FLUX = ('<image><url>https://revue.dejeun.es/assets/flux-144.png</url><title>Software Compliance</title><link>https://revue.dejeun.es/</link><width>144</width><height>144</height></image>'
             if os.path.isfile(os.path.join(_T, 'flux-144.png')) else '')
@@ -221,7 +224,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style></head>
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style></head>
 <body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}<p class="pied">{pied(REDACTION, datetime.date.today().year)}</p></main>{fin}</body></html>'''
 
 
@@ -234,6 +237,16 @@ def main():
     global REDACTION
     if os.path.isdir(SITE): shutil.rmtree(SITE)
     os.makedirs(SITE)
+    # images communes (fond, en-tête, favicon, visuels des flux) : copiées d'abord, y compris pour le site d'attente
+    if os.path.isfile(os.path.join(TOOLS, 'fond.webp')):   # fond de page répété
+        os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, 'fond.webp'), os.path.join(SITE, 'assets', 'fond.webp'))
+    for x in ('webp', 'png', 'jpg'):   # image d'en-tête facultative (tools/en-tete.*)
+        f = os.path.join(TOOLS, f'en-tete.{x}')
+        if os.path.isfile(f): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(f, os.path.join(SITE, 'assets', f'en-tete.{x}'))
+    for f in ICONES_RACINE:
+        if os.path.isfile(os.path.join(TOOLS, f)): shutil.copyfile(os.path.join(TOOLS, f), os.path.join(SITE, f))
+    for f in IMAGES_FLUX:   # visuels des flux RSS (tools/flux.jpg, flux-144.png, podcast.jpg)
+        if os.path.isfile(os.path.join(TOOLS, f)): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, f), os.path.join(SITE, 'assets', f))
     eds = editions()
     if not eds:   # aucune édition (remise à zéro) : site d'attente, archives et flux vides
         attente = 'La première édition paraîtra un vendredi matin. Les archives, les dossiers et les flux se rempliront à partir de là.'
@@ -359,13 +372,6 @@ def main():
     L += ['', '## Dossiers thématiques', ''] + [f'- [{v["nom"]}]({URL}/dossiers/{k}/): {TY(v.get("reference", ""))}' for k, v in themes.items() if by[k]]
     write(os.path.join(SITE, 'llms.txt'), '\n'.join(L) + '\n')
 
-    if os.path.isfile(os.path.join(TOOLS, 'fond.webp')):   # fond de page répété
-        os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, 'fond.webp'), os.path.join(SITE, 'assets', 'fond.webp'))
-    for x in ('webp', 'png', 'jpg'):   # image d'en-tête facultative (tools/en-tete.*)
-        f = os.path.join(TOOLS, f'en-tete.{x}')
-        if os.path.isfile(f): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(f, os.path.join(SITE, 'assets', f'en-tete.{x}'))
-    for f in IMAGES_FLUX:   # visuels des flux RSS (tools/flux.jpg, flux-144.png, podcast.jpg)
-        if os.path.isfile(os.path.join(TOOLS, f)): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, f), os.path.join(SITE, 'assets', f))
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
     write(os.path.join(SITE, '.nojekyll'), '')
     print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s) -> {SITE}')
