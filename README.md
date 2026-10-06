@@ -39,6 +39,8 @@ Titres et chapôs reflètent ce que disent les sources, sans interprétation ni 
 - **Citations** : en français, en romain entre guillemets français « … » ; dans une langue étrangère, en italique entre guillemets : « *reasonable steps* ». Une citation traduite par la rédaction est en romain, entre guillemets.
 - Pas d'italique pour l'emphase ; pas de mot en italique dans un titre d'élément ou de synthèse s'il n'est pas étranger.
 
+**Mots-clés de lecture rapide** : balisage `==passage==` dans le texte d'un article, rendu en couleur brique (#8f3110, graisse et taille inchangées ; supprimé dans le texte brut et le Markdown). Avec parcimonie : au plus un passage de 2 à 6 mots par article, et seulement s'il porte la conséquence pratique (obligation, statut juridique, critère, seuil, limite : « non contraignante », « l'usage prévu par le fabricant », « sans date de reprise ») ; aucun s'il n'y en a pas. Jamais un sigle, un nom propre ou une date (déjà repérables), jamais dans le début en gras, les rappels ou les synthèses ; dans une rubrique, un article sur deux au plus. `validate.py` le contrôle.
+
 ## 5. Continuité d'une édition à l'autre
 
 Les éditions précédentes (`content/*/blocks.json`) forment le registre de ce qui a été publié. Avant de rédiger, lire au moins les quatre dernières.

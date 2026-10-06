@@ -68,7 +68,7 @@
    ],
    [
     {
-     "t": "*{en}Guidance* de la Commission du 27 juillet 2026 : non contraignante, elle couvre le périmètre, l'open source, les modifications substantielles et les périodes de support ("
+     "t": "*{en}Guidance* de la Commission du 27 juillet 2026 : ==non contraignante==, elle couvre le périmètre, l'open source, les modifications substantielles et les périodes de support ("
     },
     {
      "t": "SKW Schwarz",
@@ -270,7 +270,7 @@
     "href": "https://www.springlex.eu/en/packages/cra/cra-regulation/article-2/"
    },
    {
-    "t": "). Le critère est l'usage prévu par le fabricant : un usage militaire ne suffit pas à écarter les obligations d'un produit à double usage ("
+    "t": "). Le critère est ==l'usage prévu par le fabricant== : un usage militaire ne suffit pas à écarter les obligations d'un produit à double usage ("
    },
    {
     "t": "Lutz Abel",
@@ -436,7 +436,7 @@
      "href": "https://devtoollab.com/blog/supply-chain-security-tools"
     },
     {
-     "t": "). La lettre de juin 2026 relève un bilan de la campagne Mini Shai-Hulud : une attestation signée prouve ce que la plateforme de build a observé, pas que le build était fiable ; elle signale aussi un rapport 2026 sur la préparation au CRA ("
+     "t": "). La lettre de juin 2026 relève un bilan de la campagne Mini Shai-Hulud : une attestation signée prouve ce que la plateforme de build a observé, ==pas que le build était fiable== ; elle signale aussi un rapport 2026 sur la préparation au CRA ("
     },
     {
      "t": "OpenSSF",
@@ -762,7 +762,7 @@
    ],
    [
     {
-     "t": "Classement export assisté par IA : QAD a lancé le 22 septembre 2026 des agents qui proposent un classement HTS et ECCN avec un score de confiance et une justification, chaque proposition étant relue par une personne ; l’éditeur annonce moins d’une minute par article contre environ 110 ("
+     "t": "Classement export assisté par IA : QAD a lancé le 22 septembre 2026 des agents qui proposent un classement HTS et ECCN avec un score de confiance et une justification, chaque proposition étant ==relue par une personne== ; l’éditeur annonce moins d’une minute par article contre environ 110 ("
     },
     {
      "t": "QAD, communiqué",
@@ -817,7 +817,7 @@
    ],
    [
     {
-     "t": "OSV-Scanner 2.6.0 : scanneur open source qui confronte les inventaires de composants à la base OSV ; ses résultats et ceux de Grype divergent assez souvent pour que leur usage conjoint se justifie ("
+     "t": "OSV-Scanner 2.6.0 : scanneur open source qui confronte les inventaires de composants à la base OSV ; ses résultats et ceux de Grype divergent assez souvent pour que leur ==usage conjoint== se justifie ("
     },
     {
      "t": "Dev Tool Lab",
@@ -1142,7 +1142,7 @@
   "items": [
    [
     {
-     "t": "ENISA, panorama des menaces 2026 : les attaques visant les dépendances, dont celles de la chaîne d'approvisionnement et de tiers, entraînent en général des incidents de grande ampleur ou à fort impact ; 73 % des organisations ciblées en 2025 relèvent des entités essentielles ou importantes au sens de NIS2 ("
+     "t": "ENISA, panorama des menaces 2026 : les attaques visant les dépendances, dont celles de la chaîne d'approvisionnement et de tiers, entraînent en général des incidents de grande ampleur ou à fort impact ; 73 % des organisations ciblées en 2025 relèvent des ==entités essentielles ou importantes== au sens de NIS2 ("
     },
     {
      "t": "ENISA",
@@ -1369,7 +1369,7 @@
   "items": [
    [
     {
-     "t": "*{en}Dual-use* UE : le règlement délégué C(2026)6323, adopté le 14 septembre 2026, met à jour l’annexe I et étend les contrôles sur les logiciels à de nouveaux équipements semi-conducteurs ; la note de changements de la Commission détaille, une nouvelle entrée 5E501.f sur des « bibliothèques » et l’ajout à 4D001.a du logiciel de développement ou de production des équipements 4A005 ; sauf objection du Parlement européen ou du Conseil pendant deux mois, il sera publié au JO ("
+     "t": "*{en}Dual-use* UE : le règlement délégué C(2026)6323, adopté le 14 septembre 2026, met à jour l’annexe I et ==étend les contrôles sur les logiciels== à de nouveaux équipements semi-conducteurs ; la note de changements de la Commission détaille, une nouvelle entrée 5E501.f sur des « bibliothèques » et l’ajout à 4D001.a du logiciel de développement ou de production des équipements 4A005 ; sauf objection du Parlement européen ou du Conseil pendant deux mois, il sera publié au JO ("
     },
     {
      "t": "Commission européenne",
@@ -1395,7 +1395,7 @@
    ],
    [
     {
-     "t": "Sanctions visant des personnes et entreprises : le 22 septembre 2026, l’UE a prolongé de 36 mois, jusqu’au 22 septembre 2029, ses sanctions ciblées liées à la Russie, sans reconduire Usmanov, Fridman, Falaeev et Redbird Corporate Services ; un arrêt de la CJUE du 3 septembre exige d’établir la détention ou le contrôle par une personne inscrite pour geler les fonds d’une entité non inscrite ("
+     "t": "Sanctions visant des personnes et entreprises : le 22 septembre 2026, l’UE a prolongé de 36 mois, jusqu’au 22 septembre 2029, ses sanctions ciblées liées à la Russie, sans reconduire Usmanov, Fridman, Falaeev et Redbird Corporate Services ; un arrêt de la CJUE du 3 septembre exige d’établir ==la détention ou le contrôle== par une personne inscrite pour geler les fonds d’une entité non inscrite ("
     },
     {
      "t": "Mayer Brown",
@@ -1414,7 +1414,7 @@
    ],
    [
     {
-     "t": "CMMC, fournisseurs de primes américains : la suspension de la phase 2, décidée le 13 juillet 2026, a été reprise dans une *{en}class deviation* (révision 3) signée le 3 septembre, sans date de reprise ; NIST SP 800-171 et la déclaration d’incident sous 72 heures de DFARS 252.204-7012 restent applicables ("
+     "t": "CMMC, fournisseurs de primes américains : la suspension de la phase 2, décidée le 13 juillet 2026, a été reprise dans une *{en}class deviation* (révision 3) signée le 3 septembre, ==sans date de reprise== ; NIST SP 800-171 et la déclaration d’incident sous 72 heures de DFARS 252.204-7012 restent applicables ("
     },
     {
      "t": "Serabrynn",
@@ -1738,7 +1738,7 @@
    ],
    [
     {
-     "t": "SAFE et EDIP : SAFE ouvre jusqu’à 150 Md€ de prêts et plafonne à 35 % le coût des composants de pays tiers ; EDIP dispose de 1,5 Md€ pour 2026-2027, avec un appel de 180 M€ pour le soutien à l’Ukraine clos le 13 octobre et un appel d’achats conjoints de 240 M€ en octobre ; le Fonds européen de défense 2026 a clos ses appels le 29 septembre ("
+     "t": "SAFE et EDIP : SAFE ouvre jusqu’à 150 Md€ de prêts et plafonne à 35 % ==le coût des composants de pays tiers== ; EDIP dispose de 1,5 Md€ pour 2026-2027, avec un appel de 180 M€ pour le soutien à l’Ukraine clos le 13 octobre et un appel d’achats conjoints de 240 M€ en octobre ; le Fonds européen de défense 2026 a clos ses appels le 29 septembre ("
     },
     {
      "t": "CMS",
@@ -1959,7 +1959,7 @@
   "items": [
    [
     {
-     "t": "GPL, SFC contre Vizio : le procès devant jury était annoncé à partir du 10 août 2026 devant la Cour supérieure de Californie (comté d’Orange) ; il porte sur la possibilité, pour un consommateur, d’exiger le code source en tant que bénéficiaire de la licence. Ni la tenue du procès, ni un report, ni un verdict n’ont été relevés dans les sources consultées ("
+     "t": "GPL, SFC contre Vizio : le procès devant jury était annoncé à partir du 10 août 2026 devant la Cour supérieure de Californie (comté d’Orange) ; il porte sur la possibilité, pour un consommateur, d’==exiger le code source== en tant que bénéficiaire de la licence. Ni la tenue du procès, ni un report, ni un verdict n’ont été relevés dans les sources consultées ("
     },
     {
      "t": "PPC Land",

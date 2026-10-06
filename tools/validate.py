@@ -72,12 +72,39 @@ def check_attrs(a, where, themes, need_date=True):
     if not a.get('themes'): WARN.append(f'{where} : élément sans thème (absent des dossiers)')
 
 
+def check_cles(blocks):
+    """Mots-clés de lecture rapide (==…==, README § 4) : au plus un par article, aucun dans les rappels, les synthèses
+    ni les débuts en gras ; dans une rubrique d'au moins trois articles, pas plus d'un article sur deux."""
+    sec, n, m = '', 0, 0
+    def bilan():
+        if n >= 3 and m * 2 > n: WARN.append(f'Rubrique « {sec} » : {m} articles sur {n} ont un mot-clé (un sur deux au plus)')
+    for x in blocks:
+        if x['k'] == 'h2':
+            bilan(); sec, n, m = ''.join(z['t'] for z in x['i']), 0, 0; continue
+        if '==' in json.dumps(x.get('sum') or [], ensure_ascii=False): WARN.append(f'Rubrique « {sec} » : mot-clé (==…==) dans une synthèse, à retirer')
+        if x['k'] == 'ul':
+            at = x.get('attrs') or [{}] * len(x['items']); its = [(it, (at[i] or {}).get('rappel')) for i, it in enumerate(x['items'])]
+        elif x['k'] == 'p' and x.get('attrs'): its = [(x['i'], x['attrs'].get('rappel'))]
+        else: continue
+        for it, rap in its:
+            t = ''.join(z['t'] for z in it if not z.get('href')); k = t.count('==') // 2
+            if rap:
+                if k: WARN.append(f'Rubrique « {sec} » : mot-clé dans un rappel, à retirer : « {t[:60]}… »')
+                continue
+            n += 1; m += bool(k)
+            if k > 1: WARN.append(f'Rubrique « {sec} » : {k} mots-clés dans un article (un au plus) : « {t[:60]}… »')
+            if k and re.match(r'^[^:]{0,90}==', t.split(' : ')[0] + ' : ') : WARN.append(f'Mot-clé dans le début en gras : « {t[:60]}… »')
+    bilan()
+
+
 def check_content(d, blocks, meta, themes):
+    check_cles(blocks)
     def chaines(x):
         if isinstance(x, str): yield x
         elif isinstance(x, dict): yield from (c for v in x.values() for c in chaines(v))
         elif isinstance(x, list): yield from (c for v in x for c in chaines(v))
     for c in chaines(blocks):   # italique *…* (README, § 4) : astérisques appariés
+        if c.count('==') % 2: ERR.append(f'Mot-clé non refermé (== isolé) : « {c[:80]}… »')
         if c.count('*') % 2: ERR.append(f'Italique non refermée (astérisque isolé) : « {c[:80]}… »')
         for x in re.findall(r'(?<![*}])\b[A-Z]{2,}[A-Za-z0-9-]*\s\(([A-Z][a-z][\w-]*(?:\s(?:[A-Z][\w-]*|of|and|in|on|for|by|the|to))+)\)', c):   # README, § 4
             WARN.append(f'Développé anglais de sigle à mettre en italique (*{{en}}…*) : « {x} »')

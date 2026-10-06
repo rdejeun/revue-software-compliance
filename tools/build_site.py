@@ -28,8 +28,8 @@ SANS = "'Segoe UI',Arial,sans-serif"; SERIF = "Georgia,serif"
 E = lambda s: html.escape(str(s), quote=True)
 TY = lambda s: str(s).replace("'", '’')
 ITAL = re.compile(r'\*(?:\{([a-z]{2,3})\})?([^*\s](?:[^*]*?[^*\s])?)\*')   # italique (tools/commun.py)
-NI = lambda s: ITAL.sub(r'\2', s)          # texte brut
-MI = lambda s: ITAL.sub(r'*\2*', s)        # Markdown
+NI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'\2', s))      # texte brut (sans italique ni mots-clés)
+MI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'*\2*', s))    # Markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
 from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED
