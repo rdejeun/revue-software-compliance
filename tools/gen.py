@@ -52,7 +52,7 @@ var SH='<a class="sy-sh" id="sy-sh" href="#" aria-label="Partager par e-mail"><s
 function partage(id){SEL.m='';SEL.fin=0;var l=box.querySelector('p.sy-s');if(!l){l=document.createElement('p');l.className='sy-s';box.appendChild(l)}l.insertAdjacentHTML('beforeend',SH);var a=document.getElementById('sy-sh');var t=(box.querySelector('.sy-t')||{}).textContent||document.title;
  var m=/^(\d{4}-\d{2}-\d{2})-(syn\d+)$/.exec(id),ed=m?m[1]:(dlg.getAttribute('data-ed')||''),s=m?m[2]:id;
  var base=location.origin+(ed?'/'+ed+'/':location.pathname)+'#'+s;
- function lien(q){a.href='mailto:?subject='+encodeURIComponent(t)+'&body='+encodeURIComponent(t+'\n\n'+base+q)}
+ function lien(q){a.href='mailto:?subject='+encodeURIComponent('📰 '+t)+'&body='+encodeURIComponent(t+'\n\n'+base+q)}
  lien('');
  /* passage sélectionné : le lien porte les numéros du premier et du dernier mot (#syn3.c-12, en hexadécimal), surlignés à l'ouverture.
     Le clic sur le bouton efface la sélection avant l'événement « click » : on la retient avant (mousedown sans
