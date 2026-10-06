@@ -100,7 +100,7 @@ def seg_txt(segs):
 def sum_md(sm, ind='  '):
     L = []
     if sm.get('titre'): L.append(f'{ind}- **Synthèse : {TY(sm["titre"])}**')
-    for k, lab in (('statut', 'Statut'), ('fonctions', 'Fonctions concernées'), ('reseau', 'Mode réseau'), ('contexte', 'Contexte'), ('essentiel', 'Résumé')):
+    for k, lab in (('statut', 'Statut'), ('fonctions', 'Fonctions concernées'), ('reseau', 'Connexion réseau'), ('licence', 'Modèle de licence'), ('contexte', 'Contexte'), ('essentiel', 'Résumé')):
         if sm.get(k): L.append(f'{ind}  - {lab} : {TY(sm[k])}')
     imp = ' '.join(TY(sm[k]) for k in ('impact_avere', 'impact_potentiel') if sm.get(k))
     if imp: L.append(f'{ind}  - Impact : {imp}')

@@ -214,7 +214,8 @@ def render(web):
         meta=[]
         if sm.get('statut'): meta.append(f'<dt>Statut</dt><dd>{T(sm["statut"])}</dd>')
         if sm.get('fonctions'): meta.append(f'<dt>Fonctions concernées</dt><dd>{T(sm["fonctions"])}</dd>')
-        if sm.get('reseau'): meta.append(f'<dt>Mode réseau</dt><dd>{T(sm["reseau"])}</dd>')   # outils et services (README, § 6)
+        if sm.get('reseau'): meta.append(f'<dt>Connexion réseau</dt><dd>{T(sm["reseau"])}</dd>')   # outils et services (README, § 6)
+        if sm.get('licence'): meta.append(f'<dt>Modèle de licence</dt><dd>{T(sm["licence"])}</dd>')
         if meta: h.append('<dl class="sy-m">'+''.join(meta)+'</dl>')
         for k,lab in SYN_LABELS:
             if sm.get(k): h.append(f'<h4>{lab}</h4><p>{M(sm[k])}</p>')
