@@ -34,7 +34,9 @@ def segs_ok(segs, where):
 
 
 RESEAU_DEPUIS = '2026-10-09'
-PREUVES_DEPUIS = '2026-10-09'   # claims.json (ancrage des affirmations) et cotation des éléments obligatoires à partir de cette édition
+PREUVES_DEPUIS = '2026-10-09'
+BUDGET_LECTURE = 10            # minutes (temps de lecture affiché dans l'en-tête), à partir du N° 2 ; dépassement signalé, jamais bloquant
+RESERVE_MAX_JOURS = 21         # au-delà, un article en réserve (veille/reserve.json) est retiré   # claims.json (ancrage des affirmations) et cotation des éléments obligatoires à partir de cette édition
 JURIDIQUE = {'cra', 'export-ue', 'export-us', 'sanctions', 'nis2', 'ai-act', 'pld', 'cmmc'}   # dossiers où un fait appelle une source officielle   # « Connexion réseau » et « Modèle de licence » obligatoires pour les outils et services à partir de cette édition
 RESEAU_VALEURS = ('Déconnecté', 'Connecté', 'Non documenté')
 LICENCE_VALEURS = ('Open source', 'Commercial', 'Mixte', 'Gratuit', 'Non documenté')
@@ -203,6 +205,17 @@ def check_outputs(d):
     em = open(os.path.join(out, 'revue-email.html'), encoding='utf-8').read()
     web = open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read()
     size = len(em.encode())
+    m = re.search(r'Lecture ≈(?:&nbsp;|\s|\u00a0)*(\d+)', web)
+    meta = json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8'))
+    if m and int(meta.get('n') or 0) >= 2 and int(m.group(1)) > BUDGET_LECTURE:
+        WARN.append(f'Temps de lecture de {m.group(1)} min, au-delà du budget de {BUDGET_LECTURE} min : mettre en réserve les nouveautés les moins prioritaires (README, § 5)')
+    f = os.path.join(ROOT, 'veille', 'reserve.json')
+    if os.path.isfile(f):
+        try:
+            for r in json.load(open(f, encoding='utf-8')):
+                j = (datetime.date.fromisoformat(d) - datetime.date.fromisoformat(r.get('mis_en_reserve', d))).days
+                if j > RESERVE_MAX_JOURS: WARN.append(f'Réserve : « {str(r.get("sujet"))[:60]} » attend depuis {j} jours (plus de {RESERVE_MAX_JOURS}) : publier ou retirer')
+        except (ValueError, TypeError, AttributeError) as e: ERR.append(f'veille/reserve.json illisible ({e})')
     if size > 100000: ERR.append(f'E-mail de {size} octets : au-delà de 100 000, Gmail le coupe')
     log = open(os.path.join(out, 'gen.log'), encoding='utf-8').read()
     for l in log.splitlines():

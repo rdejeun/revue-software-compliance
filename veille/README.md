@@ -28,4 +28,11 @@ Ce dossier n'est pas publié sur le site et ne déclenche pas la publication. Le
 Affirmations : n ; confirmées : n ; corrigées : n ; retirées : n. Extraits retrouvés automatiquement : n ; à vérifier à la main : n.
 ```
 
+- `reserve.json` : articles reportés au numéro suivant faute de place (budget de lecture de 10 minutes, README, § 5), selon ce format :
+
+```json
+[{"sujet": "…", "mis_en_reserve": "AAAA-MM-JJ", "rubrique": "Licences", "cote": [2, 1, 3], "fiabilite": "A",
+  "item": [segments de blocks.json], "attrs": {…}, "sum": {synthèse}, "motif": "budget de lecture"}]
+```
+
 La revue mensuelle (README, § 14) compte, sur ces journaux, les requêtes sans élément retenu, les sources jamais citées et les dossiers sans nouveauté.
