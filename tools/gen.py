@@ -196,7 +196,7 @@ def bloc_podcast(web,diso,ed_url):
     temps=('<div class="pod-tl" role="group" aria-label="Sujets de l’épisode">'+''.join(
         f'<button type="button" data-t="{c["debut_s"]}" style="left:calc(7px + (100% - 14px) * {frac(c)})" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}"><span>{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</span></button>' for c in ch)+'</div>') if ch else ''
     reperes=''
-    return (f'<div class="pod" id="ecouter" data-vue="{esc("Épisode du "+META.get("date",""),True)}">'
+    return (f'<div class="pod" id="ecouter" data-vue="{esc("Épisode du "+META.get("date","")+" – Podcast – Software Compliance",True)}">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}<span class="pod-eq" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="pod-k">Podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
             f'<div class="pod-b" id="pod-b" role="region" aria-label="Podcast"><div class="pod-in">'
             f'<div class="pod-hd"><div class="pod-t"><span class="pod-tx">{esc(typo(titre_episode(META["n"],(POD or {}).get("titre",""))))}</span></div>'
@@ -523,7 +523,7 @@ def render(web):
                 '<nav class="toc-b" id="sommaire" aria-label="Sommaire"><button type="button" class="toc-bt" aria-expanded="false" aria-controls="toc-ls">'
                 '<svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path d="M5 4h8M5 8h8M5 12h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="2.5" cy="4" r="1" fill="currentColor"/><circle cx="2.5" cy="8" r="1" fill="currentColor"/><circle cx="2.5" cy="12" r="1" fill="currentColor"/></svg>'
                 f'<span class="toc-x"><span class="toc-t">Sommaire</span><span class="toc-c">{len(SEC)} rubriques</span></span><svg class="toc-v" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>'
-                f'<ol class="toc-ls" id="toc-ls" hidden>{li}</ol></nav>')
+                f'<ol class="toc-ls" id="toc-ls" hidden>{lic}</ol></nav>')
         TOCNAV=f'<nav class="toc-l" aria-label="Sommaire"><span class="toc-t">Sommaire</span><ol>{lic}</ol></nav>'+TOC_JS
     else:
         toc=' <span style="color:#c3cad5;">·</span> '.join(f'<a href="#s{i}" style="color:#4b5563;text-decoration:none;border-bottom:1px solid #d5dbe5;">{E(s)}</a>' for i,s in enumerate(SEC))
