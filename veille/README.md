@@ -35,4 +35,6 @@ Affirmations : n ; confirmées : n ; corrigées : n ; retirées : n. Extraits re
   "item": [segments de blocks.json], "attrs": {…}, "sum": {synthèse}, "motif": "budget de lecture"}]
 ```
 
+- `reserve-retraits.md` : articles retirés automatiquement de la réserve après 21 jours (`tools/reserve.py`, lancé en début de numéro).
+
 La revue mensuelle (README, § 14) compte, sur ces journaux, les requêtes sans élément retenu, les sources jamais citées et les dossiers sans nouveauté.

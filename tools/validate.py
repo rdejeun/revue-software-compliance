@@ -214,7 +214,7 @@ def check_outputs(d):
         try:
             for r in json.load(open(f, encoding='utf-8')):
                 j = (datetime.date.fromisoformat(d) - datetime.date.fromisoformat(r.get('mis_en_reserve', d))).days
-                if j > RESERVE_MAX_JOURS: WARN.append(f'Réserve : « {str(r.get("sujet"))[:60]} » attend depuis {j} jours (plus de {RESERVE_MAX_JOURS}) : publier ou retirer')
+                if j > RESERVE_MAX_JOURS: WARN.append(f'Réserve : « {str(r.get("sujet"))[:60]} » attend depuis {j} jours (plus de {RESERVE_MAX_JOURS}) : tools/reserve.py n’a pas été lancé (README, § 7, étape 1)')
         except (ValueError, TypeError, AttributeError) as e: ERR.append(f'veille/reserve.json illisible ({e})')
     if size > 100000: ERR.append(f'E-mail de {size} octets : au-delà de 100 000, Gmail le coupe')
     log = open(os.path.join(out, 'gen.log'), encoding='utf-8').read()
