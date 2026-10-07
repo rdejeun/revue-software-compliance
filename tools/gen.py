@@ -16,10 +16,7 @@ PHR={"Une déclaration CRA ne remplace pas":None,"Chainguard":None,"déclarer le
 NAVY='#0f2a4a'
 ACC='#c2410c'
 # Sources « officielles » (texte juridique, autorité publique, organisme de normalisation) : mises en relief
-OFFICIEL=('europa.eu','federalregister.gov','ecfr.gov','govinfo.gov','bis.gov','bis.doc.gov','treasury.gov','state.gov','cisa.gov','nist.gov','defense.gov','gouv.fr','assemblee-nationale.fr','senat.fr','gov.uk','iso.org','etsi.org','cencenelec.eu')
-def officiel(u):
-    h=(urlparse(u).hostname or '').lower()
-    return any(h==d or h.endswith('.'+d) for d in OFFICIEL)
+from officiel import OFFICIEL, officiel   # liste commune avec validate.py et archiver.py
 MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.']
 def fdate(iso):
     """'2026-10-01' -> '1er oct.' ; '2026-12' -> 'déc. 2026' ; année affichée si différente de celle de l'édition"""

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """Contrôle une édition avant publication et envoi.
 
-Usage : python3 tools/validate.py [AAAA-MM-JJ] [--no-links]
-  (par défaut : la dernière édition de content/ ; --no-links : sans vérification des liens)
+Usage : python3 tools/validate.py [AAAA-MM-JJ] [--no-links] [--citations]
+  (par défaut : la dernière édition de content/ ; --no-links : sans vérification des liens ni des citations ;
+   --citations : vérifie seulement les extraits de claims.json dans les pages sources, sans le reste du contrôle)
 À lancer après tools/build_site.py (lit build/AAAA-MM-JJ/).
 Code de sortie 1 si une erreur bloquante est trouvée. Le rapport est écrit sur la sortie standard
 et, dans GitHub Actions, dans le résumé de l'exécution.
@@ -32,7 +33,9 @@ def segs_ok(segs, where):
     return True
 
 
-RESEAU_DEPUIS = '2026-10-09'   # « Connexion réseau » et « Modèle de licence » obligatoires pour les outils et services à partir de cette édition
+RESEAU_DEPUIS = '2026-10-09'
+PREUVES_DEPUIS = '2026-10-09'   # claims.json (ancrage des affirmations) et cotation des éléments obligatoires à partir de cette édition
+JURIDIQUE = {'cra', 'export-ue', 'export-us', 'sanctions', 'nis2', 'ai-act', 'pld', 'cmmc'}   # dossiers où un fait appelle une source officielle   # « Connexion réseau » et « Modèle de licence » obligatoires pour les outils et services à partir de cette édition
 RESEAU_VALEURS = ('Déconnecté', 'Connecté', 'Non documenté')
 LICENCE_VALEURS = ('Open source', 'Commercial', 'Mixte', 'Gratuit', 'Non documenté')
 
@@ -230,6 +233,73 @@ def probe(u):
     return None, 'sans réponse'
 
 
+def check_preuves(d, blocks):
+    """Ancrage des affirmations (claims.json) et cotation des éléments (README, § 3 et § 8), à partir de PREUVES_DEPUIS."""
+    if d < PREUVES_DEPUIS: return []
+    if not os.path.isfile(os.path.join(os.path.dirname(CONTENT), 'veille', 'journal', d + '.md')): WARN.append(f'veille/journal/{d}.md absent : journal de veille (README, § 7, étape 9)')
+    sys.path.insert(0, TOOLS); from officiel import officiel
+    f = os.path.join(CONTENT, d, 'claims.json')
+    if not os.path.isfile(f): ERR.append('claims.json absent : liste des affirmations vérifiées (affirmation, url, extrait, ou, verifie)'); claims = []
+    else:
+        claims = json.load(open(f, encoding='utf-8'))
+        for i, c in enumerate(claims, 1):
+            for k in ('affirmation', 'url', 'extrait', 'ou', 'verifie'):
+                if not c.get(k): ERR.append(f'claims.json, affirmation {i} : champ « {k} » manquant')
+            if c.get('verifie') and c['verifie'] != 'confirmé': ERR.append(f'claims.json, affirmation {i} non confirmée : {str(c.get("affirmation"))[:80]}')
+            if c.get('ou') and c['ou'] not in ('article', 'synthese', 'agenda', 'podcast'): ERR.append(f'claims.json, affirmation {i} : « ou » inconnu ({c["ou"]})')
+            if len(str(c.get('extrait') or '')) > 300: WARN.append(f'claims.json, affirmation {i} : extrait de plus de 300 caractères')
+        if not any(c.get('ou') == 'podcast' for c in claims) and os.path.isfile(os.path.join(CONTENT, d, 'podcast.json')):
+            WARN.append('claims.json : aucune affirmation du podcast (README, § 11)')
+    # cotation : fiabilité (A source officielle, B source secondaire qualifiée, C presse ou éditeur) et cote [impact, urgence, certitude]
+    for b in blocks:
+        if b['k'] == 'ul': its = list(zip(b['items'], b.get('attrs') or [{}] * len(b['items'])))
+        elif b['k'] == 'p' and b.get('attrs'): its = [(b['i'], b['attrs'])]
+        else: continue
+        prec = None
+        for segs, a in its:
+            a = a or {}; t = ''.join(x['t'] for x in segs)[:60]
+            if a.get('rappel'): continue
+            fi, co = a.get('fiabilite'), a.get('cote')
+            if fi not in ('A', 'B', 'C'): ERR.append(f'« {t}… » : fiabilité (A, B ou C) manquante')
+            if not (isinstance(co, list) and len(co) == 3 and all(x in (1, 2, 3) for x in co)): ERR.append(f'« {t}… » : cote [impact, urgence, certitude] (1 à 3) manquante'); continue
+            off = any(x.get('href') and officiel(x['href']) for x in segs)
+            if fi == 'A' and not off: WARN.append(f'« {t}… » : fiabilité A sans lien vers une source officielle')
+            if set(a.get('themes') or []) & JURIDIQUE and not off: WARN.append(f'« {t}… » : fait juridique sans source officielle (README, § 3)')
+            p = co[0] * co[1] * co[2]
+            if prec is not None and p > prec: WARN.append(f'« {t}… » : cote {p} supérieure à celle de l’élément précédent ({prec}) ; ordonner par cote décroissante')
+            prec = p
+    return claims
+
+
+def norme(t):
+    t = html.unescape(t).replace('\u00a0', ' ').replace('\u202f', ' ').replace('’', "'").replace('‘', "'").replace('“', '"').replace('”', '"')
+    return re.sub(r'\s+', ' ', t).strip().lower()
+
+
+def check_citations(claims):
+    """Chaque extrait de claims.json doit figurer dans la page source (texte, balises retirées). PDF et pages illisibles :
+    avertissement « non vérifiable » ; extrait absent d'une page lue : erreur."""
+    pages = {}
+    def lire(u):
+        try:
+            req = urllib.request.Request(u, headers={'User-Agent': UA, 'Accept': 'text/html,*/*'})
+            with urllib.request.urlopen(req, timeout=25) as r:
+                if 'pdf' in (r.headers.get('Content-Type') or '').lower() or u.lower().endswith('.pdf'): return None, 'PDF'
+                txt = r.read(4_000_000).decode(r.headers.get_content_charset() or 'utf-8', 'replace')
+            txt = re.sub(r'(?is)<(script|style|noscript)\b.*?</\1>', ' ', txt)
+            return norme(re.sub(r'<[^>]+>', ' ', txt)), ''
+        except Exception as e: return None, type(e).__name__
+    urls = sorted({c['url'] for c in claims if c.get('url', '').startswith('http')})
+    with concurrent.futures.ThreadPoolExecutor(6) as ex: pages = dict(zip(urls, ex.map(lire, urls)))
+    n = 0
+    for i, c in enumerate(claims, 1):
+        txt, why = pages.get(c.get('url'), (None, 'adresse invalide'))
+        if txt is None: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {c.get("url")}'); continue
+        if norme(c.get('extrait') or '') not in txt: ERR.append(f'Extrait introuvable dans la source : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
+        else: n += 1
+    return n
+
+
 def check_links(web):
     urls = sorted({html.unescape(u) for u in re.findall(r'href="(https?://[^"]+)"', web)} - {'https://revue.dejeun.es/'})
     with concurrent.futures.ThreadPoolExecutor(8) as ex:
@@ -250,7 +320,12 @@ def main():
     blocks = json.load(open(os.path.join(CONTENT, d, 'blocks.json'), encoding='utf-8'))
     meta = json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8'))
     themes = json.load(open(os.path.join(TOOLS, 'themes.json'), encoding='utf-8'))
+    if '--citations' in sys.argv:   # contrôle seul des extraits (étape 7 de la procédure)
+        f = os.path.join(CONTENT, d, 'claims.json'); claims = json.load(open(f, encoding='utf-8')) if os.path.isfile(f) else []
+        n = check_citations(claims)
+        print(f'{n} extrait(s) retrouvé(s) sur {len(claims)}'); [print('ERREUR', e) for e in ERR]; [print('avertissement', w) for w in WARN]; sys.exit(1 if ERR else 0)
     nitems = check_content(d, blocks, meta, themes)
+    claims = check_preuves(d, blocks)
     if os.path.isfile(os.path.join(CONTENT, d, 'podcast.json')):
         sys.path.insert(0, TOOLS); import podcast
         pod, _ = podcast.charger(d)
@@ -258,8 +333,9 @@ def main():
         ERR.extend(f'podcast.json : {e}' for e in perr)
     size, em, web = check_outputs(d)
     nl = check_links(web) if '--no-links' not in sys.argv else 0
+    nc = check_citations(claims) if claims and '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',
-           f'{nitems} éléments · e-mail de {size} octets · {nl} liens vérifiés' + (' (vérification des liens désactivée)' if '--no-links' in sys.argv else ''), '']
+           f'{nitems} éléments · e-mail de {size} octets · {nl} liens vérifiés · {nc} citations retrouvées' + (' (vérification des liens désactivée)' if '--no-links' in sys.argv else ''), '']
     rep += [f'### Erreurs bloquantes ({len(ERR)})', ''] + [f'- {e}' for e in ERR] + ([''] if ERR else ['Aucune.', ''])
     rep += [f'### Avertissements ({len(WARN)})', ''] + [f'- {w}' for w in WARN] + ([] if WARN else ['Aucun.'])
     txt = '\n'.join(rep) + '\n'

@@ -1,6 +1,6 @@
 # Sources de référence
 
-À consulter chaque semaine, avant la recherche générale. Elles priment sur la presse et les blogs : quand une information en découle, citer la source primaire.
+Les sources à flux sont relevées automatiquement chaque jeudi soir (`tools/sources.json`, relevé dans `veille/collecte/`, README § 3) ; les autres sont à consulter chaque semaine, avant la recherche générale. Elles priment sur la presse et les blogs : quand une information en découle, citer la source primaire.
 
 ## Union européenne
 
@@ -16,6 +16,9 @@
 | CJUE | https://curia.europa.eu/ | Arrêts sur les sanctions, la responsabilité, la propriété intellectuelle |
 | CEN-CENELEC (JTC 13) | https://www.cencenelec.eu/ | Normes harmonisées du CRA |
 | ETSI | https://www.etsi.org/newsroom | EN 303 645, EN 18031, normes CRA |
+| ENISA, base européenne des vulnérabilités (EUVD) | https://euvd.enisa.europa.eu/ | Vulnérabilités exploitées (relevé automatique), notion clé de la déclaration CRA |
+| BSI (Allemagne), directive technique TR-03183 | https://www.bsi.bund.de/EN/Themen/Unternehmen-und-Organisationen/Standards-und-Zertifizierung/Technische-Richtlinien/TR-nach-Thema-sortiert/tr03183/TR-03183_node.html | Exigences du CRA pour les fabricants, SBOM (partie 2) : référence très citée en Europe |
+| Arrangement de Wassenaar | https://www.wassenaar.org/ | Plénière de décembre et listes de contrôle, reprises ensuite dans l'annexe I du règlement dual-use |
 
 ## France
 
@@ -39,7 +42,9 @@
 | DDTC (ITAR) | https://www.pmddtc.state.gov/ | Exemptions, modifications de l'USML |
 | DoD CIO, CMMC | https://dodcio.defense.gov/CMMC/ | Calendrier des phases |
 | CISA | https://www.cisa.gov/sbom | Éléments minimaux du SBOM, Secure by Design |
+| CISA, catalogue KEV | https://www.cisa.gov/known-exploited-vulnerabilities-catalog | Vulnérabilités activement exploitées (relevé automatique) : composants tiers des produits |
 | NIST, NVD | https://nvd.nist.gov/ | Base de vulnérabilités, SSDF |
+| ECJU (Royaume-Uni) | https://www.gov.uk/government/organisations/export-control-joint-unit | Contrôle des exportations britannique : avis aux exportateurs, listes, licences (relevé automatique) |
 | OFSI (Royaume-Uni) | https://www.gov.uk/government/organisations/office-of-financial-sanctions-implementation | Sanctions britanniques |
 
 ## Standards, communautés et licences
@@ -50,6 +55,7 @@
 | CycloneDX | https://cyclonedx.org/news/ | Versions de la spécification |
 | SPDX | https://spdx.dev/ | Versions de la spécification |
 | OpenChain | https://openchainproject.org/news | ISO/IEC 5230 et 18974 |
+| ISA/IEC 62443 | https://www.isa.org/standards-and-publications/isa-standards/isa-iec-62443-series-of-standards | Cybersécurité des systèmes industriels : exigences de développement sécurisé (62443-4-1), pertinentes pour les équipements |
 | Eclipse ORC | https://orcwg.org/ | Travaux sur la conformité réglementaire open source |
 | OSI | https://opensource.org/blog | Licences approuvées |
 | Software Freedom Conservancy | https://sfconservancy.org/news/ | Contentieux GPL |

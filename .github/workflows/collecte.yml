@@ -1,0 +1,35 @@
+name: Relevé des sources de veille
+
+# Chaque jeudi soir, relève les publications des sources de référence (tools/sources.json) parues depuis la dernière
+# édition et dépose le relevé dans veille/collecte/<vendredi suivant>.md, que la routine du vendredi lit (README, § 7).
+# Exécuté sur les serveurs de GitHub : les flux bloqués dans les sessions de rédaction (versions GitHub) y sont lisibles.
+# Le dossier veille/ ne déclenche pas la publication.
+
+on:
+  schedule:
+    - cron: '0 17 * * 4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  releve:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Relever les sources
+        run: |
+          v=$(python3 -c "import datetime as d;t=d.date.today();print(t+d.timedelta(days=(4-t.weekday())%7))")
+          python3 tools/collecte.py --sortie "veille/collecte/$v.md"
+      - name: Enregistrer le relevé
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add veille
+          git diff --cached --quiet && exit 0
+          git commit -m "Relevé des sources de veille"
+          git pull --rebase origin main && git push origin HEAD:main
