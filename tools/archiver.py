@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Conservation des preuves (README, § 3) : archive dans la Wayback Machine (Internet Archive, « Save Page Now »)
 chaque source officielle citée par une édition, et chaque source de claims.json, puis note l'adresse de la copie et la
-date dans content/AAAA-MM-JJ/archives.json. Non bloquant : une source non archivée (service indisponible, refus) est
-retentée à la publication suivante.
+date dans content/AAAA-MM-JJ/archives.json. Lancé par le workflow « Archiver les sources » ; non bloquant : une source
+non archivée (service indisponible, refus) est retentée à l'exécution suivante.
 
   python3 tools/archiver.py                 # dernière édition
   python3 tools/archiver.py 2026-10-09 --max 40
@@ -57,7 +57,7 @@ def main():
             fait[u] = {'archive': archiver(u), 'le': datetime.date.today().isoformat()}; ok += 1
         except (urllib.error.URLError, OSError, ValueError) as e:
             ko += 1; print(f'non archivé : {u} ({type(e).__name__})', file=sys.stderr)
-            if ko >= 3 and ok == 0: print('Service indisponible : arrêt, nouvel essai à la prochaine publication.', file=sys.stderr); break
+            if ko >= 3 and ok == 0: print('Service indisponible : arrêt, nouvel essai à la prochaine exécution.', file=sys.stderr); break
         time.sleep(6)   # Save Page Now limite le débit des requêtes anonymes
         json.dump(fait, open(f, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print(f'{d} : {ok} source(s) archivée(s), {ko} en échec, {len(fait)} au total.')

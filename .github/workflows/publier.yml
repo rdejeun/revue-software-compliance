@@ -118,20 +118,14 @@ jobs:
           MAIL_FROM: ${{ vars.MAIL_FROM }}
         run: python3 tools/send.py --mode "${{ steps.mode.outputs.mode }}" --wait
 
-      - name: Archiver les sources officielles (non bloquant)
-        id: archives
-        continue-on-error: true
-        timeout-minutes: 12
-        run: python3 tools/archiver.py
-
-      - name: Enregistrer l’envoi, l’épisode et les archives
-        if: always() && (steps.envoi.outputs.sent == '1' || steps.audio.outputs.new == '1' || steps.archives.outcome != 'skipped')
+      - name: Enregistrer l’envoi et l’épisode
+        if: steps.envoi.outputs.sent == '1' || steps.audio.outputs.new == '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A content
           git diff --cached --quiet && exit 0
           msg="Envoi enregistré [skip ci]"
-          [ "${{ steps.envoi.outputs.sent }}" != '1' ] && msg="Épisode audio ou archives enregistrés [skip ci]"
+          [ "${{ steps.envoi.outputs.sent }}" != '1' ] && msg="Épisode audio enregistré [skip ci]"
           git commit -m "$msg"
           git pull --rebase origin main && git push origin HEAD:main

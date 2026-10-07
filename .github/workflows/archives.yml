@@ -1,0 +1,43 @@
+name: Archiver les sources
+
+# Conservation des preuves (README, § 3) : copie dans la Wayback Machine des sources officielles et des sources de
+# claims.json de la dernière édition (tools/archiver.py), notée dans content/AAAA-MM-JJ/archives.json. Séparé de la
+# publication, car le service est lent (environ une source toutes les deux minutes) : lancé après chaque publication et
+# chaque nuit, il reprend là où il s'est arrêté.
+
+on:
+  workflow_run:
+    workflows: ['Publier la revue']
+    types: [completed]
+  schedule:
+    - cron: '30 2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: archives
+  cancel-in-progress: false
+
+jobs:
+  archiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Archiver (non bloquant)
+        continue-on-error: true
+        timeout-minutes: 40
+        run: python3 tools/archiver.py --max 20
+      - name: Enregistrer les archives
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/*/archives.json 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Archives des sources [skip ci]"
+          git pull --rebase origin main && git push origin HEAD:main
