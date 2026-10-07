@@ -3,7 +3,7 @@ name: Publier la revue
 # Produit l'épisode audio (si content/AAAA-MM-JJ/podcast.json existe), construit le site à partir
 # de content/, contrôle la dernière édition, la met en ligne sur https://revue.dejeun.es/ puis
 # envoie l'e-mail par Resend. L'épisode n'est jamais bloquant : s'il échoue, la revue part sans.
-# Déclenché par chaque push sur main (édition déposée par la tâche du vendredi) ou à la main.
+# Déclenché par chaque push sur main (édition déposée par la routine du mardi) ou à la main.
 # Mots-clés dans le message de commit : [brouillon] envoie seulement à DRAFT_TO ; [sans-envoi] n'envoie rien.
 # [sans-podcast] : l'épisode audio n'est ni produit ni régénéré (l'épisode existant est conservé).
 # [skip ci] (n'importe où dans le message, y compris en citation) : aucune exécution (rien n'est reconstruit ni mis en ligne ; utile quand une modification ne doit pas

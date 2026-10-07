@@ -1,16 +1,12 @@
 name: Archiver les sources
 
 # Conservation des preuves (README, § 3) : copie dans la Wayback Machine des sources officielles et des sources de
-# claims.json de la dernière édition (tools/archiver.py), notée dans content/AAAA-MM-JJ/archives.json. Séparé de la
-# publication, car le service est lent (environ une source toutes les deux minutes) : lancé après chaque publication et
-# chaque nuit, il reprend là où il s'est arrêté.
+# claims.json de la dernière édition (tools/archiver.py), notée dans content/AAAA-MM-JJ/archives.json. Le service est
+# lent (environ une source toutes les deux minutes) ; chaque lancement reprend là où le précédent s'est arrêté.
+# SUSPENDU : lancement manuel uniquement (onglet Actions), sur décision du propriétaire du dépôt. Pour le rendre
+# automatique, ajouter sous « on: » : workflow_run (workflows: ['Publier la revue'], types: [completed]) et schedule.
 
 on:
-  workflow_run:
-    workflows: ['Publier la revue']
-    types: [completed]
-  schedule:
-    - cron: '30 2 * * *'
   workflow_dispatch:
 
 permissions:

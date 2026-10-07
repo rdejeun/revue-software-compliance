@@ -249,7 +249,7 @@ def main():
         if os.path.isfile(os.path.join(TOOLS, f)): os.makedirs(os.path.join(SITE, 'assets'), exist_ok=True); shutil.copyfile(os.path.join(TOOLS, f), os.path.join(SITE, 'assets', f))
     eds = editions()
     if not eds:   # aucune édition (remise à zéro) : site d'attente, archives et flux vides
-        attente = 'La première édition paraîtra un vendredi matin. Les archives, les dossiers et les flux se rempliront à partir de là.'
+        attente = 'La première édition paraîtra le vendredi 9 octobre 2026, puis la revue paraîtra chaque mardi matin. Les archives, les dossiers et les flux se rempliront à partir de là.'
         write(os.path.join(SITE, 'index.html'), page('Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Première édition à paraître', f'<p>{attente}</p>'))
         write(os.path.join(SITE, 'archives', 'index.html'), page('Archives – Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Archives · aucune édition · <a href="/">Accueil</a>', '<ul class="l"></ul>'))
         write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers – Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers', 'Aucun dossier pour l’instant · <a href="/">Accueil</a>', ''))
