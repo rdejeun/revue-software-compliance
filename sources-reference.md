@@ -61,6 +61,41 @@ Les sources à flux sont relevées automatiquement chaque jeudi soir (`tools/sou
 | Software Freedom Conservancy | https://sfconservancy.org/news/ | Contentieux GPL |
 | OSV et GitHub Advisory Database | https://osv.dev/ · https://github.com/advisories | Bases de vulnérabilités des composants |
 
+## Licences : intégration et redistribution dans un produit
+
+Au-delà de la GPL et des licences « source available » : obligations des licences permissives à la redistribution (avis de copyright, texte de licence, fichier NOTICE, brevets), logiciels commerciaux redistribués sous licence OEM ou embarquée, pools de brevets des codecs, audits de licences et contentieux de redistribution. Flux marqués « relevé » : relevés automatiquement (`tools/sources.json`).
+
+| Source | Adresse | À surveiller | Nature |
+|---|---|---|---|
+| OSADL, listes d'obligations par licence | https://www.osadl.org/OSADL-Open-Source-License-Checklists.oss-compliance-lists.0.html | Obligations à la redistribution licence par licence (MIT, BSD, Apache-2.0…), table copyleft, matrice de compatibilité (JSON) | Consortium industriel de l'embarqué |
+| Apache Software Foundation, LICENSE et NOTICE | https://infra.apache.org/licensing-howto.html · https://www.apache.org/legal/ | Contenu des fichiers LICENSE et NOTICE, dépendances regroupées | Primaire |
+| REUSE (FSFE) | https://reuse.software/ | Spécification des avis de copyright par fichier ; versions de l'outil (relevé) | Organisme |
+| Liste des licences SPDX | https://spdx.org/licenses/ | Nouveaux identifiants, exceptions, licences retirées (relevé) | Primaire (ISO/IEC 5962) |
+| ScanCode LicenseDB et ClearlyDefined | https://scancode-licensedb.aboutcode.org/ · https://clearlydefined.io/about | Catégories de licences et données de licence des composants utilisées par les outils de SCA | Référentiels ouverts |
+| Linux Foundation, pratiques de licence | https://www.linuxfoundation.org/licensebestpractices | Guides, OSPO, Civil Infrastructure Platform (relevé, filtré) | Organisme |
+| SFC, conformité copyleft | https://sfconservancy.org/copyleft-compliance/ | Produits embarqués (téléviseurs, imprimantes 3D), code source correspondant (relevé : actualités et blog) | Organisme |
+| FSFE | https://fsfe.org/news/news.en.html | REUSE, politique européenne, droit d'auteur du code généré par IA (relevé) | Organisme |
+| Commission, EUPL et Open Source Observatory (OSOR) | https://interoperable-europe.ec.europa.eu/collection/eupl · https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor | Compatibilité des licences, EUPL, politique open source de l'UE (relevé) | Primaire |
+| Microsoft, Windows IoT Enterprise | https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/commercialization/licensing | Licence OEM par appareil, distributeurs agréés, calendrier LTSC | Primaire |
+| Microsoft, conditions des produits | https://www.microsoft.com/licensing/terms/ | Modifications mensuelles des conditions d'utilisation | Primaire |
+| Oracle, Java SE et audits | https://www.oracle.com/java/technologies/javase/jdk-faqs.html · https://www.oracle.com/corporate/license-management-services/ | Licences NFTC et OTN, abonnement, embarquement ; règles d'audit | Primaire |
+| The Qt Company, licences | https://www.qt.io/development/qt-framework/qt-licensing | Licences de distribution par appareil, LGPL ou commercial (relevé, filtré) | Primaire |
+| QNX, contrats de licence | https://www.qnx.com/legal/licensing/ | Licences de distribution (runtime), contrats par version | Primaire |
+| Via Licensing Alliance et Access Advance | https://www.via-la.com/licensing-programs/ · https://accessadvance.com/licensing-programs/ | Redevances des codecs (AVC, HEVC, VVC, AAC, projet AV1/AV2) dues pour les appareils (relevé) | Pools de brevets |
+| ITAM Review | https://itassetmanagement.net/ | Audits Oracle, Microsoft, Broadcom (relevé, filtré) | Presse spécialisée |
+| CIGREF, CNLL, Numeum, April, inno³ | https://www.cigref.fr/ · https://cnll.fr/news/ · https://numeum.fr/ · https://www.april.org/ · https://inno3.fr/ | Relations avec les éditeurs et audits (CIGREF), CRA et open source (CNLL, relevé), affaires de licence libre en France (April) | Organismes français |
+
+**Jurisprudence**
+
+| Source | Adresse | À surveiller | Nature |
+|---|---|---|---|
+| Judilibre (Cour de cassation) | https://www.courdecassation.fr/recherche-judilibre | Contrefaçon de logiciel, licences, art. L. 122-6 CPI (cours d'appel comprises) | Primaire |
+| CJUE, directive 2009/24/CE | https://curia.europa.eu/ | Questions préjudicielles (références : UsedSoft C-128/11, IT Development C-666/18, Top System C-13/20) | Primaire |
+| Legalis | https://www.legalis.net/ | Décisions françaises du numérique, contrefaçon de logiciel (relevé, filtré) | Base spécialisée |
+| ifrOSS | https://www.ifross.org/ | Décisions allemandes sur la GPL, l'AGPL et le copyleft (relevé) | Institut juridique |
+| Copyleft Currents (Heather Meeker) | https://heathermeeker.com/ | Contentieux américains : licences, attribution, IA (relevé) | Avocate spécialisée |
+| Kluwer Copyright Blog, The IPKat | https://legalblogs.wolterskluwer.com/copyright-blog/ · https://ipkitten.blogspot.com/ | Droit d'auteur européen, logiciels et licences (relevé, filtré) | Universitaires et praticiens |
+
 ## Outils et services de conformité (installables ou en ligne)
 
 | Source | Adresse | À surveiller |
@@ -81,6 +116,9 @@ Les sources à flux sont relevées automatiquement chaque jeudi soir (`tools/sou
 - « encryption classification 5D002 », « mass market encryption », « moyens de cryptologie déclaration » ;
 - « AI model export control », « geospatial imagery deep learning export control », « 0D521 » ;
 - « patent search AI tool », « freedom to operate software », « code provenance copyright tool », « snippet matching open source » ;
+- licences dans un produit : « obligations licence MIT BSD Apache distribution binaire », « fichier NOTICE Apache conformité », `"NOTICE file" Apache-2.0 redistribution binary`, `attribution notices embedded firmware open source` ;
+- licences commerciales embarquées et audits : `"Windows IoT" licensing OEM`, `Oracle Java audit`, « audit de licences éditeur », `codec patent pool AV1 OR HEVC OR VVC royalty devices` ;
+- contentieux : « contrefaçon de logiciel licence arrêt cour d'appel », « non-respect licence logiciel libre », `GPL OR LGPL OR AGPL lawsuit embedded device`, `Landgericht GPL Urteil`, `CJEU "Directive 2009/24" judgment` ;
 - un audit des sujets connexes est fait une fois par mois (README, § 14).
 
 ## Presse et analyses (interprétation, jamais seule source d'un fait juridique)

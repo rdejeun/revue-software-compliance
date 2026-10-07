@@ -1,25 +1,189 @@
 {
  "_doc": "Sources relevées automatiquement par tools/collecte.py (README, § 7, étape 2). filtre : expression à trouver dans le titre ; exclure : expression qui écarte un lien. type : rss (RSS ou Atom), federalregister (API JSON), kev (catalogue CISA KEV), euvd (API ENISA), github (versions publiées). Une source qui ne répond pas est listée « à consulter manuellement » dans le relevé.",
  "sources": [
-  {"nom": "Federal Register — BIS (EAR)", "type": "federalregister", "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau"},
-  {"nom": "Federal Register — Département d’État (ITAR)", "type": "federalregister", "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bagencies%5D%5B%5D=state-department&conditions%5Bterm%5D=ITAR"},
-  {"nom": "Federal Register — Défense (CMMC, DFARS)", "type": "federalregister", "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bagencies%5D%5B%5D=defense-department&conditions%5Bterm%5D=CMMC%20%7C%20DFARS%20cyber"},
-  {"nom": "CISA — vulnérabilités activement exploitées (KEV)", "type": "kev", "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"},
-  {"nom": "ENISA — EUVD, vulnérabilités exploitées", "type": "euvd", "url": "https://euvdservices.enisa.europa.eu/api/exploitedvulnerabilities"},
-  {"nom": "CERT-FR (alertes, menaces, bulletins ; hors avis produits)", "type": "rss", "url": "https://www.cert.ssi.gouv.fr/feed/", "exclure": "/avis/"},
-  {"nom": "Conseil de l’UE — communiqués", "type": "rss", "url": "https://www.consilium.europa.eu/en/rss/pressreleases.ashx", "filtre": "sanction|restrictive measure|dual-use|cyber|defen[cs]e|export|SAFE|EDIP|omnibus"},
-  {"nom": "Royaume-Uni — Export Control Joint Unit", "type": "rss", "url": "https://www.gov.uk/government/organisations/export-control-joint-unit.atom"},
-  {"nom": "OpenSSF", "type": "rss", "url": "https://openssf.org/feed/"},
-  {"nom": "OpenChain", "type": "rss", "url": "https://openchainproject.org/feed"},
-  {"nom": "SPDX", "type": "rss", "url": "https://spdx.dev/feed/"},
-  {"nom": "Software Freedom Conservancy", "type": "rss", "url": "https://sfconservancy.org/feeds/news/"},
-  {"nom": "Syft (versions)", "type": "github", "url": "https://github.com/anchore/syft/releases.atom"},
-  {"nom": "Grype (versions)", "type": "github", "url": "https://github.com/anchore/grype/releases.atom"},
-  {"nom": "Trivy (versions)", "type": "github", "url": "https://github.com/aquasecurity/trivy/releases.atom"},
-  {"nom": "OSV-Scanner (versions)", "type": "github", "url": "https://github.com/google/osv-scanner/releases.atom"},
-  {"nom": "Dependency-Track (versions)", "type": "github", "url": "https://github.com/DependencyTrack/dependency-track/releases.atom"},
-  {"nom": "CycloneDX, spécification (versions)", "type": "github", "url": "https://github.com/CycloneDX/specification/releases.atom"},
-  {"nom": "SPDX, spécification (versions)", "type": "github", "url": "https://github.com/spdx/spdx-spec/releases.atom"}
+  {
+   "nom": "Federal Register — BIS (EAR)",
+   "type": "federalregister",
+   "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau"
+  },
+  {
+   "nom": "Federal Register — Département d’État (ITAR)",
+   "type": "federalregister",
+   "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bagencies%5D%5B%5D=state-department&conditions%5Bterm%5D=ITAR"
+  },
+  {
+   "nom": "Federal Register — Défense (CMMC, DFARS)",
+   "type": "federalregister",
+   "url": "https://www.federalregister.gov/api/v1/documents.json?per_page=100&order=newest&conditions%5Bagencies%5D%5B%5D=defense-department&conditions%5Bterm%5D=CMMC%20%7C%20DFARS%20cyber"
+  },
+  {
+   "nom": "CISA — vulnérabilités activement exploitées (KEV)",
+   "type": "kev",
+   "url": "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
+  },
+  {
+   "nom": "ENISA — EUVD, vulnérabilités exploitées",
+   "type": "euvd",
+   "url": "https://euvdservices.enisa.europa.eu/api/exploitedvulnerabilities"
+  },
+  {
+   "nom": "CERT-FR (alertes, menaces, bulletins ; hors avis produits)",
+   "type": "rss",
+   "url": "https://www.cert.ssi.gouv.fr/feed/",
+   "exclure": "/avis/"
+  },
+  {
+   "nom": "Conseil de l’UE — communiqués",
+   "type": "rss",
+   "url": "https://www.consilium.europa.eu/en/rss/pressreleases.ashx",
+   "filtre": "sanction|restrictive measure|dual-use|cyber|defen[cs]e|export|SAFE|EDIP|omnibus"
+  },
+  {
+   "nom": "Royaume-Uni — Export Control Joint Unit",
+   "type": "rss",
+   "url": "https://www.gov.uk/government/organisations/export-control-joint-unit.atom"
+  },
+  {
+   "nom": "OpenSSF",
+   "type": "rss",
+   "url": "https://openssf.org/feed/"
+  },
+  {
+   "nom": "OpenChain",
+   "type": "rss",
+   "url": "https://openchainproject.org/feed"
+  },
+  {
+   "nom": "SPDX",
+   "type": "rss",
+   "url": "https://spdx.dev/feed/"
+  },
+  {
+   "nom": "Software Freedom Conservancy",
+   "type": "rss",
+   "url": "https://sfconservancy.org/feeds/news/"
+  },
+  {
+   "nom": "Syft (versions)",
+   "type": "github",
+   "url": "https://github.com/anchore/syft/releases.atom"
+  },
+  {
+   "nom": "Grype (versions)",
+   "type": "github",
+   "url": "https://github.com/anchore/grype/releases.atom"
+  },
+  {
+   "nom": "Trivy (versions)",
+   "type": "github",
+   "url": "https://github.com/aquasecurity/trivy/releases.atom"
+  },
+  {
+   "nom": "OSV-Scanner (versions)",
+   "type": "github",
+   "url": "https://github.com/google/osv-scanner/releases.atom"
+  },
+  {
+   "nom": "Dependency-Track (versions)",
+   "type": "github",
+   "url": "https://github.com/DependencyTrack/dependency-track/releases.atom"
+  },
+  {
+   "nom": "CycloneDX, spécification (versions)",
+   "type": "github",
+   "url": "https://github.com/CycloneDX/specification/releases.atom"
+  },
+  {
+   "nom": "SPDX, spécification (versions)",
+   "type": "github",
+   "url": "https://github.com/spdx/spdx-spec/releases.atom"
+  },
+  {
+   "nom": "ifrOSS (droit allemand de l’open source)",
+   "type": "rss",
+   "url": "https://www.ifross.org/?q=rss.xml"
+  },
+  {
+   "nom": "Copyleft Currents (Heather Meeker)",
+   "type": "rss",
+   "url": "https://heathermeeker.com/feed/"
+  },
+  {
+   "nom": "Kluwer Copyright Blog",
+   "type": "rss",
+   "url": "https://legalblogs.wolterskluwer.com/copyright-blog/rss.xml",
+   "filtre": "software|logiciel|licen|open source|computer program|2009/24"
+  },
+  {
+   "nom": "The IPKat",
+   "type": "rss",
+   "url": "https://ipkitten.blogspot.com/feeds/posts/default",
+   "filtre": "software|licen|open source|computer program|SEP|codec"
+  },
+  {
+   "nom": "Legalis (jurisprudence du numérique)",
+   "type": "rss",
+   "url": "https://www.legalis.net/feed/",
+   "filtre": "logiciel|licence|contrefa"
+  },
+  {
+   "nom": "Software Freedom Conservancy — blog",
+   "type": "rss",
+   "url": "https://sfconservancy.org/feeds/blog/"
+  },
+  {
+   "nom": "FSFE",
+   "type": "rss",
+   "url": "https://fsfe.org/news/news.en.rss"
+  },
+  {
+   "nom": "REUSE (versions de l’outil)",
+   "type": "rss",
+   "url": "https://codeberg.org/fsfe/reuse-tool/releases.rss"
+  },
+  {
+   "nom": "Linux Foundation — blog",
+   "type": "rss",
+   "url": "https://www.linuxfoundation.org/blog/rss.xml",
+   "filtre": "licens|compliance|SPDX|OpenChain|SBOM|CRA|OSPO"
+  },
+  {
+   "nom": "CNLL",
+   "type": "rss",
+   "url": "https://cnll.fr/rss/"
+  },
+  {
+   "nom": "Commission — Open Source Observatory (OSOR)",
+   "type": "rss",
+   "url": "https://interoperable-europe.ec.europa.eu/collection/open-source-observatory-osor/feed.xml"
+  },
+  {
+   "nom": "Qt — blog (licences)",
+   "type": "rss",
+   "url": "https://www.qt.io/blog/rss.xml",
+   "filtre": "licens"
+  },
+  {
+   "nom": "Via Licensing Alliance (pools de brevets codecs)",
+   "type": "rss",
+   "url": "https://www.via-la.com/feed/"
+  },
+  {
+   "nom": "Access Advance (pools de brevets codecs)",
+   "type": "rss",
+   "url": "https://accessadvance.com/feed/"
+  },
+  {
+   "nom": "ITAM Review (audits de licences)",
+   "type": "rss",
+   "url": "https://itassetmanagement.net/feed/",
+   "filtre": "audit|licens|Oracle|Microsoft|Broadcom|Java|OEM"
+  },
+  {
+   "nom": "SPDX — liste des licences (versions)",
+   "type": "github",
+   "url": "https://github.com/spdx/license-list-XML/releases.atom"
+  }
  ],
  "manuelles": [
   "EUR-Lex et Journal officiel de l’UE (pas de flux public stable)",
@@ -29,6 +193,9 @@
   "ANSSI, SGDSN, DGA, DG Trésor",
   "BIS (pages), DDTC, DoD CIO CMMC, OFAC, OFSI",
   "ETSI, CEN-CENELEC, BSI (TR-03183), Arrangement de Wassenaar, IEC 62443",
-  "CJUE, Assemblée nationale et Sénat"
+  "CJUE, Assemblée nationale et Sénat",
+  "OSADL, listes d’obligations par licence ; Apache (LICENSE, NOTICE) ; ScanCode LicenseDB ; ClearlyDefined",
+  "Microsoft (Windows IoT, conditions des produits), Oracle (Java SE, audits), QNX (contrats de licence)",
+  "Judilibre (Cour de cassation), Légifrance (jurisprudence), InfoCuria (directive 2009/24/CE)"
  ]
 }
