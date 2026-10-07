@@ -224,7 +224,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
 <body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
 
 
