@@ -43,14 +43,22 @@ jobs:
         with:
           python-version: '3.12'
 
+      # ffmpeg, bibliothèques audio et modèle de transcription ne servent qu'à l'épisode : pas installés avec [sans-podcast]
       - name: Installer ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+        if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') }}
+        run: |
+          # sortie minimale gardée dans le journal (dépôts consultés, paquets téléchargés), avec l'heure de chaque phase
+          echo "$(date -u +%T) mise à jour de la liste des paquets"; sudo apt-get update
+          echo "$(date -u +%T) installation"; sudo apt-get install -y -q ffmpeg | grep -E '^(Get|Err|W:|E:)|newly installed' || true
+          echo "$(date -u +%T) terminé"; ffmpeg -version | head -1
 
       - name: Bibliothèques audio (post-production et contrôle qualité)
+        if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') }}
         continue-on-error: true
         run: pip install -q numpy scipy soundfile pyloudnorm pedalboard faster-whisper==1.2.1
 
       - name: Modèle de transcription en cache
+        if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') }}
         uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface
