@@ -44,12 +44,17 @@ jobs:
           python-version: '3.12'
 
       # ffmpeg, bibliothèques audio et modèle de transcription ne servent qu'à l'épisode : pas installés avec [sans-podcast]
+      # plafonnée à 5 minutes et non bloquante : si l'installation échoue ou traîne (dépôt Ubuntu lent), l'épisode n'est pas
+      # produit (tools/podcast.py s'arrête sans ffmpeg) et la revue part sans lui
       - name: Installer ffmpeg
         if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') }}
+        continue-on-error: true
+        timeout-minutes: 5
         run: |
           # sortie minimale gardée dans le journal (dépôts consultés, paquets téléchargés), avec l'heure de chaque phase
-          echo "$(date -u +%T) mise à jour de la liste des paquets"; sudo apt-get update
-          echo "$(date -u +%T) installation"; sudo apt-get install -y -q ffmpeg | grep -E '^(Get|Err|W:|E:)|newly installed' || true
+          A="-o Acquire::Retries=3 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"
+          echo "$(date -u +%T) mise à jour de la liste des paquets"; sudo apt-get $A update
+          echo "$(date -u +%T) installation"; sudo apt-get $A install -y -q ffmpeg | grep -E '^(Get|Err|W:|E:)|newly installed' || true
           echo "$(date -u +%T) terminé"; ffmpeg -version | head -1
 
       - name: Bibliothèques audio (post-production et contrôle qualité)
