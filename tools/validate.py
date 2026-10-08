@@ -33,11 +33,12 @@ def segs_ok(segs, where):
     return True
 
 
-RESEAU_DEPUIS = '2026-10-09'
-PREUVES_DEPUIS = '2026-10-09'
+RESEAU_DEPUIS = '2026-10-09'   # « Connexion réseau » et « Modèle de licence » obligatoires pour les outils et services à partir de cette édition
+PREUVES_DEPUIS = '2026-10-09'  # claims.json (ancrage des affirmations) et cotation des éléments obligatoires à partir de cette édition
+CITATIONS_TOLERANTES = {'2026-10-09'}   # N° 1 (état des lieux, sans relecture) : extrait introuvable signalé, non bloquant
 BUDGET_LECTURE = 10            # minutes (temps de lecture affiché dans l'en-tête), à partir du N° 2 ; dépassement signalé, jamais bloquant
-RESERVE_MAX_JOURS = 21         # au-delà, un article en réserve (veille/reserve.json) est retiré   # claims.json (ancrage des affirmations) et cotation des éléments obligatoires à partir de cette édition
-JURIDIQUE = {'cra', 'export-ue', 'export-us', 'sanctions', 'nis2', 'ai-act', 'pld', 'cmmc'}   # dossiers où un fait appelle une source officielle   # « Connexion réseau » et « Modèle de licence » obligatoires pour les outils et services à partir de cette édition
+RESERVE_MAX_JOURS = 21         # au-delà, un article en réserve (veille/reserve.json) est retiré
+JURIDIQUE = {'cra', 'export-ue', 'export-us', 'sanctions', 'nis2', 'ai-act', 'pld', 'cmmc'}   # dossiers où un fait appelle une source officielle
 RESEAU_VALEURS = ('Déconnecté', 'Connecté', 'Non documenté')
 LICENCE_VALEURS = ('Open source', 'Commercial', 'Mixte', 'Gratuit', 'Non documenté')
 
@@ -289,9 +290,9 @@ def norme(t):
     return re.sub(r'\s+', ' ', t).strip().lower()
 
 
-def check_citations(claims):
+def check_citations(claims, d=''):
     """Chaque extrait de claims.json doit figurer dans la page source (texte, balises retirées). PDF et pages illisibles :
-    avertissement « non vérifiable » ; extrait absent d'une page lue : erreur."""
+    avertissement « non vérifiable » ; extrait absent d'une page lue : erreur (avertissement pour CITATIONS_TOLERANTES)."""
     pages = {}
     def lire(u):
         try:
@@ -308,7 +309,7 @@ def check_citations(claims):
     for i, c in enumerate(claims, 1):
         txt, why = pages.get(c.get('url'), (None, 'adresse invalide'))
         if txt is None: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {c.get("url")}'); continue
-        if norme(c.get('extrait') or '') not in txt: ERR.append(f'Extrait introuvable dans la source : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
+        if norme(c.get('extrait') or '') not in txt: (WARN if d in CITATIONS_TOLERANTES else ERR).append(f'Extrait introuvable dans la source : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
         else: n += 1
     return n
 
@@ -335,7 +336,7 @@ def main():
     themes = json.load(open(os.path.join(TOOLS, 'themes.json'), encoding='utf-8'))
     if '--citations' in sys.argv:   # contrôle seul des extraits (étape 7 de la procédure)
         f = os.path.join(CONTENT, d, 'claims.json'); claims = json.load(open(f, encoding='utf-8')) if os.path.isfile(f) else []
-        n = check_citations(claims)
+        n = check_citations(claims, d)
         print(f'{n} extrait(s) retrouvé(s) sur {len(claims)}'); [print('ERREUR', e) for e in ERR]; [print('avertissement', w) for w in WARN]; sys.exit(1 if ERR else 0)
     nitems = check_content(d, blocks, meta, themes)
     claims = check_preuves(d, blocks)
@@ -346,7 +347,7 @@ def main():
         ERR.extend(f'podcast.json : {e}' for e in perr)
     size, em, web = check_outputs(d)
     nl = check_links(web) if '--no-links' not in sys.argv else 0
-    nc = check_citations(claims) if claims and '--no-links' not in sys.argv else 0
+    nc = check_citations(claims, d) if claims and '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',
            f'{nitems} éléments · e-mail de {size} octets · {nl} liens vérifiés · {nc} citations retrouvées' + (' (vérification des liens désactivée)' if '--no-links' in sys.argv else ''), '']
     rep += [f'### Erreurs bloquantes ({len(ERR)})', ''] + [f'- {e}' for e in ERR] + ([''] if ERR else ['Aucune.', ''])
