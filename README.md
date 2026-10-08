@@ -138,7 +138,7 @@ Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_
 
 Le workflow « Archiver les sources » (`.github/workflows/archives.yml`, `tools/archiver.py`) copie dans la Wayback Machine les sources officielles et celles de `claims.json` de la dernière édition (`archives.json`). **Suspendu** : il ne se lance qu'à la main (onglet Actions), sur décision du propriétaire du dépôt.
 
-Chaque mardi vers 3 h 30 (heure de Paris ; le jeudi 8 octobre 2026 pour le N° 1 du vendredi), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`) dépose le relevé des sources à flux dans `veille/collecte/` (§ 3) ; ce dossier ne déclenche pas la publication.
+Chaque mardi vers 3 h 30 (heure de Paris), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`) dépose le relevé des sources à flux dans `veille/collecte/` (§ 3) ; ce dossier ne déclenche pas la publication.
 
 ## 10. Construire en local
 

@@ -3,13 +3,13 @@ name: Relevé des sources de veille
 # Relève les publications des sources de référence (tools/sources.json) parues depuis la dernière édition et dépose le
 # relevé dans veille/collecte/<date de l'édition>.md, que la routine lit en premier (README, § 3 et § 7).
 # Exécuté sur les serveurs de GitHub : les flux bloqués dans les sessions de rédaction (versions GitHub) y sont lisibles.
-# Calendrier : le mardi à 1 h 30 UTC (3 h 30 en heure d'été à Paris), juste avant la routine ; exceptionnellement le
-# jeudi 8 octobre 2026 pour le N° 1 du vendredi 9 octobre. Le dossier veille/ ne déclenche pas la publication.
+# Calendrier : le mardi à 1 h 30 UTC (3 h 30 en heure d'été à Paris), juste avant la routine. GitHub peut retarder ou omettre
+# une exécution programmée : la routine lance alors tools/collecte.py elle-même (README, § 3). Le dossier veille/ ne
+# déclenche pas la publication.
 
 on:
   schedule:
     - cron: '30 1 * * 2'
-    - cron: '0 17 8 10 *'
   workflow_dispatch:
 
 permissions:
@@ -25,8 +25,8 @@ jobs:
           python-version: '3.12'
       - name: Relever les sources
         run: |
-          # date de l'édition : le jour même le mardi, le vendredi suivant sinon (N° 1)
-          v=$(python3 -c "import datetime as d;t=d.date.today();print(t if t.weekday()==1 else t+d.timedelta(days=(4-t.weekday())%7))")
+          # date de l'édition : le jour même le mardi, sinon le mardi suivant (lancement manuel)
+          v=$(python3 -c "import datetime as d;t=d.date.today();print(t+d.timedelta(days=(1-t.weekday())%7))")
           python3 tools/collecte.py --sortie "veille/collecte/$v.md"
       - name: Enregistrer le relevé
         run: |
