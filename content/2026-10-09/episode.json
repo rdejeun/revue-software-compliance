@@ -1,7 +1,7 @@
 {
- "duree_s": 417,
- "octets": 3463792,
- "mots": 1197,
+ "duree_s": 456,
+ "octets": 3793667,
+ "mots": 1318,
  "modele": "eleven_v4",
  "seed": 20261004,
  "voix": {
@@ -14,20 +14,20 @@
    "voice": "cTNP6ZM2mLTKj2BFhxEh"
   }
  },
- "genere_le": "2026-10-09T02:44:14Z",
- "sha_script": "12cbe01d1b335d00071f500fa7b75c71826fbeb26126cbcf72477f00fa4cdbd8",
+ "genere_le": "2026-10-09T08:49:21Z",
+ "sha_script": "4a5af5445fe0373e6b3119228d93fa3bb9cbb0ecf6a3d04bd69c75651c882125",
  "extrait": false,
- "repliques": 40,
- "prononciation": "dictionnaire ElevenLabs LylpNvL5ffU7g78uz3Ve",
+ "repliques": 46,
+ "prononciation": "dictionnaire ElevenLabs hbrG9Eu1G2io1YYNIXgL",
  "qc": {
   "Loudness intégré du master": "-19.0 LUFS",
   "True peak": "-1.0 dBTP",
   "Écart de loudness A/B": "0.00 LU",
-  "Écart de timbre A/B (150 Hz–8 kHz)": "10.0 → 0.9 dB",
-  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 71 → 24 ms, B 23 → 22 ms",
-  "Durée": "401.8 s (blocs : 402.2 s)",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.1 → 0.8 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 65 → 29 ms, B 22 → 21 ms",
+  "Durée": "441.1 s (blocs : 441.4 s)",
   "Clics": "0 saut(s) anormal(aux)",
-  "Fidélité au script (faster-whisper)": "8.0 % de mots différents sur 1280"
+  "Fidélité au script (faster-whisper)": "11.4 % de mots différents sur 1402"
  },
  "requetes": 7,
  "chapitres": [
@@ -37,44 +37,54 @@
    "debut_s": 0.0
   },
   {
-   "titre": "CRA : le règlement est entré dans le concret",
+   "titre": "CRA : déclarer une faille",
    "court": "CRA",
-   "debut_s": 25.9
+   "debut_s": 29.3
   },
   {
-   "titre": "Normes et SBOM",
-   "court": "Normes et SBOM",
-   "debut_s": 107.5
+   "titre": "Normes et guides",
+   "court": "Normes et guides",
+   "debut_s": 117.2
   },
   {
-   "titre": "Outils : du scan au classement export",
-   "court": "Outils",
-   "debut_s": 180.9
+   "titre": "SBOM : formats et outils",
+   "court": "SBOM",
+   "debut_s": 166.5
   },
   {
    "titre": "Chaîne d'approvisionnement",
    "court": "Chaîne d'approvisionnement",
-   "debut_s": 242.5
+   "debut_s": 225.2
   },
   {
-   "titre": "Export : liste dual-use et CMMC",
+   "titre": "Export : un contrôle logiciel étendu",
    "court": "Export",
-   "debut_s": 294.9
+   "debut_s": 273.4
   },
   {
-   "titre": "Défense européenne : Omnibus, SAFE et EDIP",
+   "titre": "Défense européenne : financements et transferts",
    "court": "Défense européenne",
-   "debut_s": 345.6
+   "debut_s": 304.5
+  },
+  {
+   "titre": "Sanctions et CMMC",
+   "court": "Sanctions et CMMC",
+   "debut_s": 353.6
+  },
+  {
+   "titre": "France : la loi Résilience reportée",
+   "court": "France",
+   "debut_s": 388.1
   },
   {
    "titre": "La date à retenir",
    "court": "La date à retenir",
-   "debut_s": 392.3
+   "debut_s": 419.9
   },
   {
    "titre": "Clôture",
    "court": "Clôture",
-   "debut_s": 405.2
+   "debut_s": 444.5
   }
  ],
  "fichier": "episode.m4a"
