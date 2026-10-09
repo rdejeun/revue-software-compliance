@@ -186,7 +186,7 @@ def bloc_podcast(web,diso,ed_url):
     # signets : début de chaque sujet (episode.json, « chapitres ») sauf ouverture et clôture ; libellé court (avant « : »)
     ch=[c for c in EP.get('chapitres') or [] if c.get('titre') not in ('Ouverture','Clôture')]
     fm=lambda t:f'{int(t)//60}:{int(t)%60:02d}'
-    signets=('<div class="pod-cw"><button type="button" class="pod-cn pod-cg" aria-label="Sujets précédents" tabindex="-1">‹</button><button type="button" class="pod-cn pod-cd" aria-label="Sujets suivants" tabindex="-1">›</button><div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
+    signets=('<div class="pod-cw"><button type="button" class="pod-cn pod-cg" aria-label="Sujets précédents" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="pod-cn pod-cd" aria-label="Sujets suivants" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
         f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div></div>') if ch else ''
     # repères des sujets sous la barre, à leur position (la course du curseur va de 7 px à largeur − 7 px)
     frac=lambda c:f'{c["debut_s"]/max(1,EP["duree_s"]):.4f}'
@@ -609,9 +609,10 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-ch.fr{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}}
 .pod-ch.fl{{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px);mask-image:linear-gradient(to right,transparent,#000 28px)}}
 .pod-ch.fl.fr{{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent)}}
-.pod-cn{{display:none;position:absolute;top:0;z-index:1;width:22px;height:22px;padding:0;border:1px solid transparent;border-radius:50%;background:none;color:{NAVY};font:16px/20px {SANS};text-align:center;cursor:pointer}}
+.pod-cn{{display:none;position:absolute;top:0;z-index:1;width:22px;height:22px;padding:0;box-sizing:border-box;border:1px solid transparent;border-radius:50%;background:none;color:{NAVY};cursor:pointer;align-items:center;justify-content:center}}
 .pod-cg{{left:0}}.pod-cd{{right:0}}
-.pod-cw.g .pod-cg,.pod-cw.d .pod-cd{{display:block}}
+.pod-cw.g .pod-cg,.pod-cw.d .pod-cd{{display:flex}}
+.pod-cn svg{{display:block;flex:none}}
 .pod-cn:hover,.pod-cn:focus-visible{{background:#fff;border-color:#e3d6c3;color:{ACC};outline:none}}
 .pod-ch::-webkit-scrollbar{{display:none}}
 .pod-ch button{{flex:none;padding:2px 8px;border:0;border-radius:11px;background:none;color:#8a8f98;font:12px/18px {SANS};cursor:pointer}}
@@ -723,7 +724,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
 <tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 14px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 28px;">{TOCBAR}{bloc_podcast(web,DISO,ED_URL)}{out}
-{pied_bloc(META.get("redaction") or REDACTION_DEFAUT,(META.get("date_iso") or "2026")[:4],absolu=not web)}
+{pied_bloc(META.get("redaction") or REDACTION_DEFAUT,(META.get("date_iso") or "2026")[:4],absolu=not web,desabo=not web)}
 </td></tr></table></td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}{TOCNAV}</body></html>''',len(used)
 def compact_email(h):
     """Allège l'e-mail : chaque style répété (4 fois ou plus) passe dans une classe déclarée dans <head>.

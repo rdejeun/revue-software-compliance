@@ -28,7 +28,10 @@ CSS_PIED = ('a.pd-l:hover,a.pd-l:focus-visible{text-decoration:underline!importa
             'td.pd-c.pd-n{padding-bottom:4px!important}}')
 
 
-def pied_bloc(redaction, annee, absolu=False):
+DESABO_URL = '{{{RESEND_UNSUBSCRIBE_URL}}}'   # remplacé par Resend dans une diffusion (tools/send.py : mailto: sinon)
+
+
+def pied_bloc(redaction, annee, absolu=False, desabo=False):
     """Pied de page (variante A) : monogramme et « Revue de presse hebdomadaire », navigation à droite ; filet fin ;
     une ligne de mentions (©, licence, rédaction par IA) et le lien vers les mentions légales. Tableaux et styles en
     ligne, pour l'e-mail (Outlook compris) ; petit écran : les cellules s'empilent (CSS_PIED). absolu=True : liens complets."""
@@ -53,7 +56,10 @@ def pied_bloc(redaction, annee, absolu=False):
             f'©\u00a0{annee} {EDITEUR} · <a class="pd-l" href="{LICENCE_URL}" style="{fin}">CC\u00a0BY\u00a04.0</a> · Rédigé par une IA à partir des sources citées</td>'
             f'<td class="pd-c" align="right" valign="top" style="padding:14px 0 0 12px;font:350 12px/18px {SANS_};text-align:right;white-space:nowrap;">'
             f'<a class="pd-l" href="{b}/mentions-legales/" style="{fin}">Mentions légales</a></td></tr></table>'
-            '</td></tr></table>')
+            + (f'{T} style="margin:0;"><tr><td style="padding:12px 0 0;font:350 12px/18px {SANS_};color:#8a8f98;">'
+               'Vous recevez cette revue parce que votre adresse est inscrite à la liste de diffusion. '
+               f'<a class="pd-l" href="{DESABO_URL}" style="{fin}border-bottom:1px dotted #9ca3af;">Se désabonner</a></td></tr></table>' if desabo else '')
+            + '</td></tr></table>')
 
 
 def courriel():

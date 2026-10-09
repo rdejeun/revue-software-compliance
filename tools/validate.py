@@ -126,6 +126,8 @@ def check_content(d, blocks, meta, themes):
             WARN.append(f'Date entre parenthèses dans le début en gras (déjà affichée en fin d’élément) : « {m.group(1)} »')
     for k in ('n', 'date_iso', 'date_long', 'date', 'toc', 'site'):
         if k not in meta: ERR.append(f'meta.json : clé « {k} » manquante')
+    if not meta.get('titre'): WARN.append('meta.json : « titre » absent (titre éditorial du flux RSS, README § 8)')
+    elif len(meta['titre']) > 90: WARN.append(f'meta.json : « titre » de {len(meta["titre"])} caractères (90 au plus)')
     if meta.get('date_iso') != d: ERR.append(f'meta.json : date_iso « {meta.get("date_iso")} » différente du dossier « {d} »')
     try:
         dt = datetime.date.fromisoformat(d)

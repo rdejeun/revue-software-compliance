@@ -170,6 +170,7 @@ def to_md(blocks, meta, text=False):
             L.append('')
     flush()
     L += ['', '---', f'Édition web : {URL}/{meta["date_iso"]}/' + ('' if text else f' · Archives : {URL}/archives/ · Dossiers : {URL}/dossiers/ · RSS : {URL}/feed.xml')]
+    if text: L += ['', 'Se désabonner : {{{RESEND_UNSUBSCRIBE_URL}}}']   # e-mail seulement ; remplacé par Resend (tools/send.py)
     out = '\n'.join(L)
     return (NI if text else MI)(re.sub(r'\n{3,}', '\n\n', out).strip()) + '\n'   # italique : *…* en Markdown, rien en texte brut
 
@@ -349,7 +350,7 @@ def main():
     # RSS (hors démonstration)
     pub = [i for i in infos if not i['meta'].get('demo')]
     def rfc(d): return datetime.datetime.strptime(d, '%Y-%m-%d').replace(hour=5, minute=30).strftime('%a, %d %b %Y %H:%M:%S +0000')
-    items = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description></item>''' for i in reversed(pub))
+    items = ''.join(f'''<item><title>{E(f"N° {i['meta']['n']} — {i['meta']['titre']}" if i['meta'].get('titre') else f"N° {i['meta']['n']} — {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description></item>''' for i in reversed(pub))
     write(os.path.join(SITE, 'feed.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{IMG_FLUX}{items}</channel></rss>
 ''')

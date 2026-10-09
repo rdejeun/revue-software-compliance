@@ -23,10 +23,12 @@ UNSUB = '<mailto:unsubscribe@dejeun.es>'
 VISIBLE = os.environ.get('MAIL_VISIBLE') or FROM
 BCC_MAX = 50   # limite de Resend par message (envoi sans segment)
 SEGMENT = os.environ.get('RESEND_SEGMENT_ID', '').strip()
-# lien de désabonnement géré par Resend (diffusions) : le segment ne reçoit que les contacts abonnés
+# lien de désabonnement : {{{RESEND_UNSUBSCRIBE_URL}}} est dans l'e-mail construit (tools/pied.py) ; Resend le remplace dans une
+# diffusion, sinon (brouillon, envoi en copie cachée) on le remplace ici par l'adresse de désabonnement
+PH = '{{{RESEND_UNSUBSCRIBE_URL}}}'
 PIED_DESABO = ('<div style="margin:0;padding:18px 16px 28px;text-align:center;font:12px/18px \'Segoe UI\',Arial,sans-serif;color:#6b7280;">'
                'Vous recevez cette revue parce que votre adresse est inscrite à la liste de diffusion. '
-               '<a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#6b7280;">Se désabonner</a></div>')
+               '<a href="'+PH+'" style="color:#6b7280;">Se désabonner</a></div>')
 
 
 def out(k, v):
@@ -81,8 +83,9 @@ def main():
     if mode == 'auto' and not diffusion and len(to) > BCC_MAX: sys.exit(f'{len(to)} destinataires : au-delà de {BCC_MAX}, Resend refuse la copie cachée (passer à un envoi par lots)')
     if diffusion:
         html_ = open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read()
-        html_ = html_.replace('</body>', PIED_DESABO + '</body>', 1) if '</body>' in html_ else html_ + PIED_DESABO
-        texte = open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read().rstrip() + '\n\nSe désabonner : {{{RESEND_UNSUBSCRIBE_URL}}}\n'
+        if PH not in html_: html_ = html_.replace('</body>', PIED_DESABO + '</body>', 1) if '</body>' in html_ else html_ + PIED_DESABO   # sécurité
+        texte = open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read().rstrip() + '\n'
+        if PH not in texte: texte += '\nSe désabonner : ' + PH + '\n'
         payload = {'segment_id': SEGMENT, 'from': FROM, 'subject': subject, 'name': f'Revue {d} (N° {meta["n"]})', 'html': html_, 'text': texte, 'send': mode == 'auto'}
         req = urllib.request.Request('https://api.resend.com/broadcasts', data=json.dumps(payload).encode(), method='POST',
                                      headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'User-Agent': 'revue-sc'})
@@ -96,9 +99,10 @@ def main():
             out('sent', '1')
         return
     dest = {'to': [VISIBLE], 'bcc': to} if mode == 'auto' else {'to': to}
+    desabo = UNSUB.strip('<>')
     payload = {'from': FROM, **dest, 'subject': subject,
-               'html': open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read(),
-               'text': open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read(),
+               'html': open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read().replace(PH, desabo),
+               'text': open(os.path.join(b, 'revue-email.txt'), encoding='utf-8').read().replace(PH, desabo),
                'headers': {'List-Unsubscribe': UNSUB}}
     # empreinte du contenu : un nouvel essai identique est dédoublonné par Resend, un contenu corrigé repart
     emp = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()[:12]
