@@ -28,6 +28,10 @@ CSS_PIED = ('a.pd-l:hover,a.pd-l:focus-visible{text-decoration:underline!importa
             'td.pd-c.pd-n{padding-bottom:4px!important}}')
 
 
+ROBOTS = 'noindex, nofollow, noarchive, nosnippet, noimageindex'
+ROBOTS_META = f'<meta name="robots" content="{ROBOTS}"><meta name="googlebot" content="{ROBOTS}"><meta name="bingbot" content="{ROBOTS}">'   # pages jamais indexées, ni copiées en cache, ni extraites en extraits ou images
+
+
 DESABO_URL = '{{{RESEND_UNSUBSCRIBE_URL}}}'   # remplacé par Resend dans une diffusion (tools/send.py : mailto: sinon)
 
 

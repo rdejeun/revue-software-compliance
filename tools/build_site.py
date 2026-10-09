@@ -32,7 +32,7 @@ NI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'\2', s))      # texte b
 MI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'*\2*', s))    # Markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
-from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO, og, OG_IMAGE
+from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO, og, OG_IMAGE, ROBOTS_META
 POD_TITRE = 'Software Compliance, le podcast'
 # Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
 IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'flux-article.jpg', 'podcast.jpg')
@@ -225,13 +225,19 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1">{ROBOTS_META}<meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
 <body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
 
 
 def write(path, txt):
     os.makedirs(os.path.dirname(path), exist_ok=True)
     open(path, 'w', encoding='utf-8').write(txt)
+
+
+def ecrire_robots_et_404():
+    """robots.txt (tools/robots.txt) et page 404 avec balises robots : diffusion limitée aux personnes qui ont le lien (README)."""
+    shutil.copyfile(os.path.join(TOOLS, 'robots.txt'), os.path.join(SITE, 'robots.txt'))
+    write(os.path.join(SITE, '404.html'), page('Page introuvable – Software Compliance', 'Revue de presse hebdomadaire', '<i>Page</i> <span>introuvable</span>', '<a href="/">Accueil</a>', '<p>Cette page n’existe pas ou plus.</p>'))
 
 
 def main():
@@ -260,6 +266,7 @@ def main():
         write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
         write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales – Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>', '<a href="/">Accueil</a>', mentions(REDACTION, datetime.date.today().year)))
         write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
+        ecrire_robots_et_404()
         print('Aucune édition : site d’attente construit'); return
     infos = []
     for d in eds:
@@ -366,7 +373,7 @@ def main():
         return p['titre'], p['description']
     pitems = ''.join(f'''<item><title>{E(TY(titre_episode(i['meta']['n'], pod(i)[0])))}</title><link>{URL}/{i['d']}/#ecouter</link><guid isPermaLink="false">{URL}/{i['d']}/episode</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(TY(pod(i)[1]))}</description><enclosure url="{URL}/{i['d']}/{ep['fichier']}" length="{ep['octets']}" type="{'audio/mp4' if ep['fichier'].endswith('.m4a') else 'audio/mpeg'}"/><itunes:duration>{duree(ep['duree_s'])}</itunes:duration><itunes:episode>{i['meta']['n']}</itunes:episode><itunes:explicit>false</itunes:explicit></item>''' for i, ep in reversed(eps))
     write(os.path.join(SITE, 'podcast.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>{E(POD_TITRE)}</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>{E(POD_DESC)}</description>{IMG_POD}<language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>{E(POD_TITRE)}</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>{E(POD_DESC)}</description>{IMG_POD}<language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:block>Yes</itunes:block><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
 ''')
 
     # llms.txt (hors démonstration)
@@ -378,6 +385,7 @@ def main():
 
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
     write(os.path.join(SITE, '.nojekyll'), '')
+    ecrire_robots_et_404()
     print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s) -> {SITE}')
 
 

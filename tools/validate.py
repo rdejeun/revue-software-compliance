@@ -201,6 +201,24 @@ def visible(h):
     return html.unescape(re.sub(r'<[^>]+>', ' ', h))
 
 
+def check_robots():
+    """Diffusion limitée aux personnes qui ont le lien : toute page HTML du site porte noindex, robots.txt ne bloque pas
+    Google ni Bing (ils doivent lire noindex) mais exclut les robots d'IA (README, Diffusion et robots)."""
+    site = os.path.join(ROOT, '_site')
+    if not os.path.isdir(site): WARN.append('_site absent : balises robots non contrôlées (lancer tools/build_site.py)'); return
+    for dp, _, fs in os.walk(site):
+        for f in fs:
+            if not f.endswith('.html'): continue
+            p = os.path.join(dp, f); rel = os.path.relpath(p, site)
+            h = open(p, encoding='utf-8').read()
+            m = re.search(r'<meta name="robots" content="([^"]*)"', h)
+            if not m or 'noindex' not in m.group(1): ERR.append(f'{rel} : balise <meta name="robots" content="noindex…"> absente (la revue ne doit pas être indexée)')
+    rb = os.path.join(site, 'robots.txt')
+    if not os.path.isfile(rb): ERR.append('robots.txt absent du site (tools/robots.txt)'); return
+    t = open(rb, encoding='utf-8').read()
+    if not re.search(r'User-agent: GPTBot', t) or not re.search(r'User-agent: ClaudeBot', t): ERR.append('robots.txt : robots d\'IA (GPTBot, ClaudeBot…) non exclus')
+
+
 def check_outputs(d):
     out = os.path.join(BUILD, d)
     em = open(os.path.join(out, 'revue-email.html'), encoding='utf-8').read()
@@ -345,7 +363,7 @@ def main():
         pod, _ = podcast.charger(d)
         perr, _, _ = podcast.controler(pod, meta.get('n'))
         ERR.extend(f'podcast.json : {e}' for e in perr)
-    size, em, web = check_outputs(d)
+    size, em, web = check_outputs(d); check_robots()
     nl = check_links(web) if '--no-links' not in sys.argv else 0
     nc = check_citations(claims, d) if claims and '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',
