@@ -52,6 +52,7 @@ def construire(infos, themes, G):
 
 JS = r'''(function(){
 var D=null,MS=null,champ=document.getElementById('q'),selD=document.getElementById('f-d'),selE=document.getElementById('f-e'),res=document.getElementById('res'),cpt=document.getElementById('cpt');
+var MIN=3;   /* pas de résultat sous 3 caractères (lettres et chiffres, hors opérateurs et espaces) */
 var STOP=new Set('a à au aux avec ce ces cet cette d dans de des du elle elles en est et il ils j l la le les leur leurs ne ni nous on ou par pas plus pour qu que qui s sa se ses si son sont sur un une vous y'.split(' '));
 function pli(c){var f=c.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();return f.length===1?f:c.toLowerCase().slice(0,1)}
 function plier(s){var o='';for(var i=0;i<s.length;i++)o+=pli(s[i]);return o}   /* même longueur que s : pour surligner dans le texte d'origine */
@@ -96,7 +97,7 @@ function afficher(q,ids,tt){var h='',n=ids.length;cpt.textContent=q?(n?n+' résu
   h+='<li><a class="rs" href="/'+d.e+'/#'+d.s+'"><span class="rm">'+esc(D.secs[d.r])+' · N° '+e.n+(d.p?' · rappel':'')+'</span><span class="rt">'+surligne(d.t,tt)+'</span><span class="rx">'+extrait(d,tt)+'</span></a></li>'});
  res.innerHTML=h+(n>60?'<li class="rm">Affinez la recherche : '+(n-60)+' autres résultats.</li>':'')}
 var tempo;function lancer(maj){var q=champ.value.trim();return charger().then(function(){
- if(!q){res.innerHTML='';cpt.textContent='';}else{var rr=recherche(q);afficher(q,rr.ids,rr.tt)}
+ if(!q||jetons(q).join('').length<MIN){res.innerHTML='';cpt.textContent=q?'Saisissez au moins '+MIN+' caractères.':''}else{var rr=recherche(q);afficher(q,rr.ids,rr.tt)}
  if(maj!==false){var u=new URLSearchParams();if(q)u.set('q',q);if(selD.value)u.set('d',selD.value);if(selE.value)u.set('e',selE.value);history.replaceState(null,'',u.toString()?'?'+u:location.pathname)}
  /*SUIVI*/})}
 champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(lancer,120)});selD.addEventListener('change',lancer);selE.addEventListener('change',lancer);
