@@ -103,6 +103,7 @@ champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(l
 document.getElementById('rech').addEventListener('submit',function(e){e.preventDefault();clearTimeout(tempo);lancer().then(function(){var a=res.querySelector('a.rs');if(a){champ.blur();a.focus()}})});   /* Entrée : le focus passe au premier résultat */
 var p=new URLSearchParams(location.search);champ.value=p.get('q')||'';
 charger().then(function(){if(p.get('d'))selD.value=p.get('d');if(p.get('e'))selE.value=p.get('e');lancer(false)});
+document.addEventListener('keydown',function(e){if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)return;var n=(e.target&&e.target.tagName)||'';if(n==='INPUT'||n==='TEXTAREA'||n==='SELECT')return;e.preventDefault();champ.focus();champ.select()});   /* « / » : saisir une recherche */
 champ.focus()})();'''
 
 CSS = '''<style>
