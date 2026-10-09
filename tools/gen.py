@@ -186,8 +186,8 @@ def bloc_podcast(web,diso,ed_url):
     # signets : début de chaque sujet (episode.json, « chapitres ») sauf ouverture et clôture ; libellé court (avant « : »)
     ch=[c for c in EP.get('chapitres') or [] if c.get('titre') not in ('Ouverture','Clôture')]
     fm=lambda t:f'{int(t)//60}:{int(t)%60:02d}'
-    signets=('<div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
-        f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div>') if ch else ''
+    signets=('<div class="pod-cw"><button type="button" class="pod-cn pod-cg" aria-label="Sujets précédents" tabindex="-1">‹</button><button type="button" class="pod-cn pod-cd" aria-label="Sujets suivants" tabindex="-1">›</button><div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
+        f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div></div>') if ch else ''
     # repères des sujets sous la barre, à leur position (la course du curseur va de 7 px à largeur − 7 px)
     frac=lambda c:f'{c["debut_s"]/max(1,EP["duree_s"]):.4f}'
     temps=('<div class="pod-tl" role="group" aria-label="Sujets de l’épisode">'+''.join(
@@ -263,11 +263,20 @@ r.addEventListener('change',function(){if(!a.paused)requestAnimationFrame(boucle
 addEventListener('resize',function(){pos(+r.value/(r.max||1))});h.addEventListener('click',function(){setTimeout(function(){pos(+r.value/(r.max||1))},60)});
 /* sujets : ligne de mots sous les commandes et repères cliquables sous la barre */
 var S=[].slice.call(w.querySelectorAll('.pod-ch button')),TL=[].slice.call(w.querySelectorAll('.pod-tl button'));
-var CH=w.querySelector('.pod-ch');function deb(){if(CH)CH.classList.toggle('deb',CH.scrollWidth>CH.clientWidth+1)}addEventListener('resize',deb);h.addEventListener('click',function(){setTimeout(deb,50)});deb();
+var CH=w.querySelector('.pod-ch'),CW=w.querySelector('.pod-cw'),HOLD=0,KP=-2;
+/* défilement de la ligne des sujets : fondus et flèches selon la position ; la bulle active est ramenée dans la vue, sauf si l'utilisateur vient de faire défiler la ligne (6 s) */
+function etat(){if(!CH)return;var m=CH.scrollWidth-CH.clientWidth,o=m>1;CH.classList.toggle('fl',o&&CH.scrollLeft>2);CH.classList.toggle('fr',o&&CH.scrollLeft<m-2);CW.classList.toggle('g',o&&CH.scrollLeft>2);CW.classList.toggle('d',o&&CH.scrollLeft<m-2)}
+function visible(s){var x=s.offsetLeft-CH.scrollLeft;return x>=(CH.scrollLeft>2?30:0)&&x+s.offsetWidth<=CH.clientWidth-(CH.scrollLeft<CH.scrollWidth-CH.clientWidth-2?30:0)}
+function voir(s,doux){if(!CH||!s||CH.scrollWidth<=CH.clientWidth+1)return;var x=Math.max(0,Math.min(s.offsetLeft-(CH.clientWidth-s.offsetWidth)/2,CH.scrollWidth-CH.clientWidth));CH.scrollTo({left:x,behavior:doux?'smooth':'auto'})}
+function main(){HOLD=Date.now()+6000}
+if(CH){CH.addEventListener('scroll',etat);['touchstart','pointerdown','focusin'].forEach(function(e){CH.addEventListener(e,main,{passive:true})});
+ CH.addEventListener('wheel',function(e){var m=CH.scrollWidth-CH.clientWidth;if(m<=1)return;var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if((d<0&&CH.scrollLeft<=0)||(d>0&&CH.scrollLeft>=m-1))return;e.preventDefault();main();CH.scrollLeft+=d},{passive:false});
+ [].forEach.call(CW.querySelectorAll('.pod-cn'),function(b){b.addEventListener('click',function(){main();CH.scrollBy({left:(b.classList.contains('pod-cd')?1:-1)*CH.clientWidth*.7,behavior:'smooth'})})});
+ addEventListener('resize',etat);h.addEventListener('click',function(){setTimeout(function(){etat();var a_=S[KP];if(a_)voir(a_,false);etat()},60)});etat()}
 S.concat(TL).forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');ev('Signet',EPN+' · '+(s.textContent||s.title||'').trim());a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
 function chap(){[S,TL].forEach(function(L){var k=-1;L.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
- L.forEach(function(s,i){var on=i===k;if(L===S&&on&&!s.classList.contains('on')&&s.parentNode.scrollWidth>s.parentNode.clientWidth)s.parentNode.scrollTo({left:s.offsetLeft-24,behavior:'smooth'});
-  s.classList.toggle('on',on)})})}
+ L.forEach(function(s,i){s.classList.toggle('on',i===k)});
+ if(L===S&&CH){var ch=k!==KP;KP=k;if(k>=0&&Date.now()>HOLD&&(ch||!visible(S[k])))voir(S[k],true)}})}
 a.addEventListener('timeupdate',chap);a.addEventListener('seeked',function(){chap();pos(a.currentTime/(r.max||1))});
 if(location.hash==='#ecouter')set(true);
 })();
@@ -595,7 +604,15 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-d{{display:inline-flex;align-items:center;gap:6px;font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-d svg{{flex:none;color:#8a8f98}}
 .pod-ch{{display:flex;justify-content:space-between;gap:4px;width:0;min-width:100%;margin:12px 0 0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
-.pod-ch.deb{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 24px),transparent)}}
+.pod-cw{{position:relative}}
+.pod-ch{{position:relative}}
+.pod-ch.fr{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}}
+.pod-ch.fl{{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px);mask-image:linear-gradient(to right,transparent,#000 28px)}}
+.pod-ch.fl.fr{{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent)}}
+.pod-cn{{display:none;position:absolute;top:13px;z-index:1;width:22px;height:22px;padding:0;border:1px solid #e3d6c3;border-radius:50%;background:#fff;color:{NAVY};font:15px/18px {SANS};cursor:pointer}}
+.pod-cg{{left:0}}.pod-cd{{right:0}}
+.pod-cw.g .pod-cg,.pod-cw.d .pod-cd{{display:block}}
+.pod-cn:hover{{color:{ACC}}}
 .pod-ch::-webkit-scrollbar{{display:none}}
 .pod-ch button{{flex:none;padding:2px 8px;border:0;border-radius:11px;background:none;color:#8a8f98;font:12px/18px {SANS};cursor:pointer}}
 .pod-ch button:hover,.pod-ch button:focus-visible{{color:{NAVY};outline:none}}
