@@ -1,171 +1,201 @@
 {
- "titre": "Revue Software Compliance, numéro 1 : le CRA en marche, normes, outils, export et défense européenne",
- "description": "Premier numéro : le CRA opérationnel et ses autorités françaises, les normes et nomenclatures, de nouveaux outils de scan et de classement export, la chaîne d'approvisionnement, la liste dual-use, CMMC, l'Omnibus défense, SAFE et EDIP.",
+ "titre": "Revue Software Compliance, numéro 1 : déclarer une faille, normes en préparation, SBOM, export et loi Résilience reportée",
+ "description": "Premier numéro : les délais de déclaration du CRA et les rôles de l'ANSSI et de l'ANFR, les normes de l'ETSI et le guide de l'OpenSSF, les SBOM, la chaîne d'approvisionnement, la liste des biens à double usage et le report de la loi Résilience.",
  "repliques": [
   {
    "sujet": "Ouverture"
   },
   {
    "v": "A",
-   "t": "Bonjour, bienvenue dans la revue de presse Software Compliance, numéro un, du neuf octobre deux mille vingt-six."
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le vendredi neuf octobre deux mille vingt-six, et voici le numéro un."
   },
   {
    "v": "B",
-   "t": "Bonjour. Pour ce premier numéro, on fait le tour complet : le règlement européen sur la cyber-résilience, les normes, les outils, les attaques contre la chaîne logicielle, l'export et les programmes européens de défense."
+   "t": "Bonjour. Pour ce premier numéro, on part de ce qui change au quotidien pour ceux qui livrent des équipements contenant du logiciel : déclarer une faille, lire les normes en préparation, inventorier les composants, et surveiller les règles d'export."
   },
   {
-   "sujet": "CRA : le règlement est entré dans le concret"
+   "sujet": "CRA : déclarer une faille"
   },
   {
    "v": "A",
-   "t": "On commence par la une. Le règlement européen sur la cyber-résilience, qu'on appelle le CRA, est entré dans le concret le onze septembre. Qu'est-ce qui a changé ce jour-là ?"
+   "t": "Commençons par la une. Imaginons qu'une faille soit exploitée dans une bibliothèque embarquée dans un de nos produits. Que dit le règlement européen sur la cyber-résilience, le CRA ?"
   },
   {
    "v": "B",
-   "t": "Depuis le onze septembre, un fabricant doit déclarer toute faille activement exploitée dans un de ses produits, et tout incident grave. Il a vingt-quatre heures pour une première alerte, soixante-douze heures pour une notification, et quatorze jours après la mise à disposition d'un correctif pour le rapport final d'une faille exploitée. Pour un incident grave, ce rapport final est dû dans le mois qui suit la notification."
+   "t": "Depuis le onze septembre, le fabricant doit prévenir. Il a vingt-quatre heures pour une première alerte, puis soixante-douze heures pour une notification plus complète. Ensuite, le rapport final est attendu au plus tard quatorze jours après la disponibilité d'une mesure corrective, s'il s'agit d'une faille exploitée."
   },
   {
    "v": "A",
-   "t": "Vingt-quatre heures, c'est très court. Et qui contrôle tout ça en France ?"
+   "t": "Et si c'est un incident grave plutôt qu'une faille ?"
   },
   {
    "v": "B",
-   "t": "L'ANSSI, l'agence nationale de la sécurité des systèmes d'information, l'a précisé le vingt-trois septembre. Elle évalue, contrôle et notifie les organismes d'évaluation de la conformité, et elle joue le rôle d'équipe nationale de réponse aux incidents. L'ANFR, l'agence nationale des fréquences, surveille les produits sur le marché. Elle peut prendre des mesures de police et infliger des sanctions financières."
+   "t": "Dans ce cas, le rapport final est dû dans le mois qui suit la notification de soixante-douze heures. Tout passe par une plateforme unique, gérée par l'ENISA, l'agence européenne de cybersécurité."
   },
   {
    "v": "A",
-   "t": "Et pour nous, concrètement ? On fabrique des équipements de défense."
+   "t": "Et en France, qui fait quoi ?"
   },
   {
    "v": "B",
-   "t": "Le règlement exclut les produits développés exclusivement pour la défense ou la sécurité nationale. Mais le critère, c'est l'usage prévu par le fabricant. Un produit à double usage, ou décliné en version civile, reste dans le champ. Pour ces produits-là, il faut déjà savoir déclarer une faille en vingt-quatre heures, y compris quand elle vient d'un composant acheté à un tiers."
-  },
-  {
-   "sujet": "Normes et SBOM"
+   "t": "Le vingt-trois septembre, l'ANSSI a précisé son rôle : elle évalue, contrôle et notifie les organismes chargés de vérifier la conformité, et elle sert aussi d'équipe nationale de réponse aux incidents. L'ANFR, l'agence des fréquences, surveille les produits sur le marché. Elle peut prendre des mesures de police administrative et infliger des sanctions financières."
   },
   {
    "v": "A",
-   "t": "Pour se mettre en conformité, il faut des normes. Où en est-on ?"
+   "t": "Pour nous, concrètement ? Nos équipements sont destinés à la défense."
   },
   {
    "v": "B",
-   "t": "Le treize août, l'ETSI, l'un des organismes européens de normalisation, a lancé l'approbation de dix-sept projets de normes. Chacune précise les exigences du règlement pour un type de produit. L'enquête publique court jusqu'à la mi-novembre. Pour l'instant, aucune norme du CRA n'est encore citée au Journal officiel."
+   "t": "Le règlement exclut les produits conçus exclusivement pour la défense ou la sécurité nationale. Mais le critère, c'est l'usage prévu par le fabricant. Une version civile, ou un produit à double usage, reste concerné. Et la Commission a publié le vingt-sept juillet un document d'orientation, qui n'est pas contraignant. Un acte délégué sur la présomption de conformité EUCC est attendu au quatrième trimestre."
+  },
+  {
+   "sujet": "Normes et guides"
   },
   {
    "v": "A",
-   "t": "Et le SBOM, on en entend parler partout. C'est quoi, exactement ?"
+   "t": "Pour appliquer le règlement, on attend des normes. Où en est-on ?"
   },
   {
    "v": "B",
-   "t": "Le SBOM, c'est la liste des ingrédients d'un logiciel : chaque composant, sa version, son origine. Le vingt-neuf juillet, l'agence américaine de cybersécurité, la CISA, a publié avec la NSA et le FBI une nouvelle version des éléments minimaux de cette liste. Elle remplace celle de deux mille vingt-et-un et précise que l'intelligence artificielle et le logiciel en ligne peuvent exiger des éléments en plus."
+   "t": "Le treize août, l'ETSI a lancé l'approbation de dix-sept projets de normes, une par famille de produits. L'enquête publique se termine entre la mi-septembre et la mi-novembre, selon le projet. Mais aucune norme du CRA n'est encore citée au Journal officiel de l'Union."
   },
   {
    "v": "A",
-   "t": "[curious] Et il paraît qu'une liste des ingrédients cryptographiques arrive aussi ?"
+   "t": "Donc en attendant, on fait comment ?"
   },
   {
    "v": "B",
-   "t": "Oui. Un décret présidentiel américain du vingt-deux juin charge la CISA de publier, sous deux cent soixante-dix jours, une guidance sur les éléments minimaux d'une nomenclature cryptographique. Elle viserait à inventorier les actifs cryptographiques d'un produit. Ce n'est pas encore une obligation pour nous. Mais un tel inventaire pourrait aider à classer le chiffrement à l'export, et des clients américains pourraient l'exiger."
-  },
-  {
-   "sujet": "Outils : du scan au classement export"
+   "t": "On s'appuie sur des guides. Le six octobre, à Prague, la fondation OpenSSF a présenté un guide de préparation au CRA pour les éditeurs et les mainteneurs de logiciels libres, avec des parcours par métier. Elle cite aussi le cas d'Ericsson : plus de quatorze cents corrections remontées au projet d'origine, plutôt que gardées dans des copies privées."
   },
   {
    "v": "A",
-   "t": "Passons aux outils. Qu'est-ce qui est sorti ?"
+   "t": "[curious] Pourquoi est-ce mieux de remonter les corrections ?"
   },
   {
    "v": "B",
-   "t": "Deux outils open source très utilisés ont publié une version début octobre : Syft, qui fabrique la liste des ingrédients, et Grype, qui la compare aux bases de failles connues. Grype enregistre maintenant des critères qui aident à décider quelles failles traiter en premier."
+   "t": "Parce qu'une copie privée, il faut la maintenir soi-même à chaque nouvelle version. Une correction acceptée en amont, elle profite à tous, et elle disparaît de notre liste de choses à suivre."
+  },
+  {
+   "sujet": "SBOM : formats et outils"
   },
   {
    "v": "A",
-   "t": "Et au-delà du scan de code ?"
+   "t": "Parlons de la liste des ingrédients d'un logiciel, le SBOM. Du neuf ?"
   },
   {
    "v": "B",
-   "t": "Le vingt-deux septembre, l'éditeur QAD a lancé des agents d'intelligence artificielle qui proposent un classement export américain, avec un score de confiance et une justification. Selon l'éditeur, une revue humaine est prévue à chaque décision. Il parle de moins d'une minute par article, contre près de deux heures. Ce sont ses chiffres, et l'outil vise la liste américaine, pas la liste européenne."
+   "t": "Oui. Le vingt-neuf juillet, l'agence américaine CISA a publié, avec la NSA, le FBI et des partenaires, les éléments minimaux de deux mille vingt-six. Ils remplacent ceux de deux mille vingt-et-un. Le texte précise que les logiciels d'intelligence artificielle et les services en ligne peuvent exiger des éléments supplémentaires."
   },
   {
    "v": "A",
-   "t": "Donc la responsabilité reste à l'exportateur."
+   "t": "Et côté formats ?"
   },
   {
    "v": "B",
-   "t": "Exactement. Autre outil : FossID a annoncé en avril une analyse du code produit par les assistants d'intelligence artificielle. Elle repère le code repris de projets open source, en entier ou par extraits, avec sa licence. C'est encore en phase pilote. L'enjeu est simple : un assistant peut recopier du code sous licence libre contraignante sans que personne ne le voie."
+   "t": "Le projet CycloneDX annonce une version deux point zéro pour cet automne, avec une ratification par Ecma en décembre. Elle pourrait décrire les risques, les contrôles, et même la provenance de composants matériels. C'est une annonce : rien n'est encore publié."
+  },
+  {
+   "v": "A",
+   "t": "Et les outils ?"
+  },
+  {
+   "v": "B",
+   "t": "Le projet SPDX signale quatre nouveaux outils en cinq semaines. L'un d'eux, lynkctl, produit des SBOM pour les projets en C et C plus plus et pour les logiciels embarqués, sans lancer la compilation. Du côté des scanners, Grype et Syft ont publié des correctifs le six octobre, et Dependency-Track une version cinq point deux le huit."
   },
   {
    "sujet": "Chaîne d'approvisionnement"
   },
   {
    "v": "A",
-   "t": "On parle beaucoup d'attaques contre la chaîne logicielle. Qu'en dit l'agence européenne de cybersécurité ?"
+   "t": "Les attaques sur la chaîne logicielle, on en entend parler tout le temps. Que dit l'ENISA ?"
   },
   {
    "v": "B",
-   "t": "L'ENISA a publié le vingt-deux septembre son panorama des menaces. Les attaques qui passent par les dépendances, c'est-à-dire par les fournisseurs et les composants tiers, provoquent en général des incidents de grande ampleur. Et soixante-treize pour cent des organisations visées en deux mille vingt-cinq étaient des entités régulées par la directive NIS2."
+   "t": "Dans son panorama du vingt-deux septembre, elle écrit que les attaques par les dépendances entraînent en général des incidents de grande ampleur. Et soixante-treize pour cent des organisations visées en deux mille vingt-cinq relevaient des entités essentielles ou importantes de la directive NIS2."
   },
   {
    "v": "A",
-   "t": "Et les grandes plateformes réagissent ?"
+   "t": "Et les grandes plateformes ?"
   },
   {
    "v": "B",
-   "t": "Oui, avec un principe simple : laisser passer quelques jours. Depuis fin juillet, l'outil de mise à jour de GitHub attend trois jours avant de proposer une nouvelle version, sauf pour les correctifs de sécurité. Et PyPI, le dépôt de paquets Python, a annoncé qu'on ne pourra plus ajouter de fichiers à une version publiée depuis plus de quatorze jours."
+   "t": "Le seize septembre, une douzaine d'organisations, dont GitHub, Google, Microsoft, Red Hat et la fondation Rust, ont signé un engagement pour financer durablement les registres de paquets publics. Ceux qui les utilisent beaucoup devraient les financer en proportion. Côté défenses techniques, PyPI interdira d'ajouter des fichiers à une version publiée depuis plus de quatorze jours, et l'outil Dependabot de GitHub attend trois jours avant de proposer une nouvelle version, sauf pour la sécurité."
+  },
+  {
+   "sujet": "Export : un contrôle logiciel étendu"
   },
   {
    "v": "A",
-   "t": "Pourquoi attendre trois jours ?"
+   "t": "Venons-en à l'export. Il y a du mouvement sur la liste des biens à double usage."
   },
   {
    "v": "B",
-   "t": "Parce qu'une version piégée est le plus souvent repérée et retirée en quelques jours. Attendre, c'est éviter de l'intégrer pendant ce laps de temps."
-  },
-  {
-   "sujet": "Export : liste dual-use et CMMC"
+   "t": "Le quatorze septembre, la Commission européenne a adopté un règlement qui met à jour l'annexe un de cette liste. Il étend les contrôles existants sur les logiciels à de nouveaux équipements de fabrication de semi-conducteurs. Le Parlement européen et le Conseil ont deux mois pour s'y opposer, puis le texte sera publié au Journal officiel."
   },
   {
    "v": "A",
-   "t": "Côté export, il y a du nouveau sur les biens à double usage."
+   "t": "Donc rien d'applicable aujourd'hui ?"
   },
   {
    "v": "B",
-   "t": "Le quatorze septembre, la Commission a adopté la mise à jour de la liste européenne des biens à double usage. Côté logiciel, elle étend les contrôles existants à de nouveaux équipements de fabrication de semi-conducteurs. Le texte n'est pas encore applicable. Le Parlement européen et le Conseil ont deux mois pour objecter, ensuite il sera publié au Journal officiel."
+   "t": "Exact. Mais il faut repérer dès maintenant les logiciels qui touchent à ces équipements, pour revoir leur classement avant l'entrée en vigueur."
+  },
+  {
+   "sujet": "Défense européenne : financements et transferts"
   },
   {
    "v": "A",
-   "t": "Donc il faudra revoir certains classements ?"
+   "t": "Un mot sur la défense européenne. Où en sont les financements ?"
   },
   {
    "v": "B",
-   "t": "C'est ça. Il faut repérer les logiciels qui touchent aux entrées modifiées, avant l'entrée en vigueur. Et côté américain, pour ceux qui fournissent les grands maîtres d'œuvre de la défense, la phase deux de CMMC, la certification de cybersécurité des fournisseurs, reste suspendue. Un texte signé le trois septembre maintient la suspension sans date de reprise. Mais les exigences de sécurité, elles, restent en place, comme la déclaration d'incident en soixante-douze heures."
-  },
-  {
-   "sujet": "Défense européenne : Omnibus, SAFE et EDIP"
+   "t": "L'instrument SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts, mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. Le programme EDIP dispose, lui, d'un milliard et demi d'euros pour deux mille vingt-six et deux mille vingt-sept. Un appel de cent quatre-vingts millions d'euros, pour le soutien à l'Ukraine, se clôt le treize octobre, comme le premier appel d'achats conjoints, de quatre-vingt-dix millions."
   },
   {
    "v": "A",
-   "t": "Et au niveau européen, la défense avance aussi ?"
+   "t": "[thoughtful] Et ça touche le logiciel ?"
   },
   {
    "v": "B",
-   "t": "Le seize septembre, le Parlement européen a adopté l'Omnibus défense, une directive qui simplifie les transferts de produits de défense entre pays de l'Union. Elle crée de nouvelles licences générales de transfert. Le Conseil devrait l'approuver, puisque le texte avait déjà été négocié."
+   "t": "Indirectement. L'origine des composants devient un critère d'éligibilité, et il faut pouvoir la documenter. Le règlement EDIP exige aussi une autorité de conception sur les produits de défense. Autre point : le seize septembre, le Parlement européen a adopté une directive qui simplifie les transferts de produits de défense entre pays de l'Union, avec de nouvelles licences générales. Le Conseil doit encore l'approuver."
+  },
+  {
+   "sujet": "Sanctions et CMMC"
   },
   {
    "v": "A",
-   "t": "Et les financements ?"
+   "t": "Et côté sanctions et exigences américaines ?"
   },
   {
    "v": "B",
-   "t": "SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts aux États. Mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. EDIP, le programme industriel, dispose d'un milliard et demi d'euros, avec des appels qui se clôturent le treize octobre. Pour un industriel, l'origine des composants devient un critère d'éligibilité."
+   "t": "Le vingt-deux septembre, l'Union a prolongé de trente-six mois, jusqu'en septembre deux mille vingt-neuf, ses sanctions ciblées liées à la Russie, sans reconduire quatre inscriptions. Un arrêt de la Cour de justice du trois septembre exige d'établir la détention ou le contrôle par une personne inscrite pour geler les fonds d'une entité qui ne figure pas sur la liste."
   },
   {
    "v": "A",
-   "t": "[surprised] Donc la liste des ingrédients sert aussi à décrocher des financements !"
+   "t": "Et pour les fournisseurs des grands donneurs d'ordre américains ?"
   },
   {
    "v": "B",
-   "t": "Oui, elle sert à prouver d'où viennent les composants. On retrouve le même outil, au service de deux sujets différents."
+   "t": "La phase deux de la certification CMMC reste suspendue, sans date de reprise. Mais les exigences de sécurité demeurent, comme la déclaration d'incident sous soixante-douze heures."
+  },
+  {
+   "sujet": "France : la loi Résilience reportée"
+  },
+  {
+   "v": "A",
+   "t": "Et en France, la loi qui transpose la directive NIS2 ?"
+  },
+  {
+   "v": "B",
+   "t": "Elle devait être examinée à l'Assemblée nationale les sept et neuf octobre. Mais le six octobre, la conférence des présidents l'a retirée de l'ordre du jour, sans nouvelle date. Le rapporteur, Éric Bothorel, espère une réinscription d'ici quinze jours ou trois semaines."
+  },
+  {
+   "v": "A",
+   "t": "La France est donc toujours en retard."
+  },
+  {
+   "v": "B",
+   "t": "Oui. La Commission a d'ailleurs saisi la Cour de justice de l'Union européenne le huit juillet contre la France et trois autres États pour défaut de transposition. Le prochain rendez-vous, c'est la conférence des présidents du treize octobre."
   },
   {
    "sujet": "La date à retenir"
@@ -176,7 +206,7 @@
   },
   {
    "v": "B",
-   "t": "Le onze décembre deux mille vingt-sept, application complète du CRA. Ce jour-là, toutes les exigences du règlement s'appliquent aux produits concernés, avec la documentation technique et le marquage CE."
+   "t": "Le dix novembre deux mille vingt-six. Ce jour-là, la règle américaine des affiliés doit redevenir applicable, sauf décision contraire du BIS, le service américain du contrôle des exportations. Elle étend les restrictions de la liste des entités sanctionnées à celles que détiennent à cinquante pour cent ou plus des entités inscrites. Il faut donc vérifier d'ici là les livraisons et les mises à jour prévues."
   },
   {
    "sujet": "Clôture"

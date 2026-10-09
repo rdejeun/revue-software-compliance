@@ -110,7 +110,7 @@ def preparer(pod):
 
 
 # Balises audio d'Eleven v3 autorisées (jouées, pas lues). Toute autre balise est refusée.
-BALISES = {'curious', 'thoughtful', 'surprised', 'chuckles', 'sighs', 'exhales'}
+BALISES = {'curious', 'thoughtful', 'chuckles', 'sighs', 'exhales'}
 # Quota : chaque type de balise au plus une fois par épisode, et seulement à dessein pédagogique
 # (par exemple, une respiration au milieu d'une longue explication).
 HESITATIONS_MAX = 3                # « euh », « hum »… écrits dans le texte (avertissement au-delà)
