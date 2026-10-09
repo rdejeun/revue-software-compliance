@@ -7,7 +7,7 @@
   },
   {
    "v": "A",
-   "t": "Bonjour, bienvenue dans la revue de presse Software Compliance, numéro un, du cinq octobre deux mille vingt-six."
+   "t": "Bonjour, bienvenue dans la revue de presse Software Compliance, numéro un, du neuf octobre deux mille vingt-six."
   },
   {
    "v": "B",
@@ -22,7 +22,7 @@
   },
   {
    "v": "B",
-   "t": "Depuis le onze septembre, un fabricant doit déclarer toute faille activement exploitée dans un de ses produits, et tout incident grave. Il a vingt-quatre heures pour une première alerte, soixante-douze heures pour une notification, et quatorze jours après la mise à disposition d'un correctif pour le rapport final."
+   "t": "Depuis le onze septembre, un fabricant doit déclarer toute faille activement exploitée dans un de ses produits, et tout incident grave. Il a vingt-quatre heures pour une première alerte, soixante-douze heures pour une notification, et quatorze jours après la mise à disposition d'un correctif pour le rapport final d'une faille exploitée. Pour un incident grave, ce rapport final est dû dans le mois qui suit la notification."
   },
   {
    "v": "A",
@@ -57,7 +57,7 @@
   },
   {
    "v": "B",
-   "t": "Le SBOM, c'est la liste des ingrédients d'un logiciel : chaque composant, sa version, son origine. Le vingt-neuf juillet, l'agence américaine de cybersécurité, la CISA, a publié avec la NSA et le FBI une nouvelle version des éléments minimaux de cette liste. Elle remplace celle de deux mille vingt-et-un et prévoit des éléments en plus pour l'intelligence artificielle."
+   "t": "Le SBOM, c'est la liste des ingrédients d'un logiciel : chaque composant, sa version, son origine. Le vingt-neuf juillet, l'agence américaine de cybersécurité, la CISA, a publié avec la NSA et le FBI une nouvelle version des éléments minimaux de cette liste. Elle remplace celle de deux mille vingt-et-un et précise que l'intelligence artificielle et le logiciel en ligne peuvent exiger des éléments en plus."
   },
   {
    "v": "A",
@@ -65,7 +65,7 @@
   },
   {
    "v": "B",
-   "t": "Oui. Un décret présidentiel américain du vingt-deux juin charge la CISA de définir, sous deux cent soixante-dix jours, une nomenclature cryptographique. Elle décrirait les algorithmes, les clés et les protocoles d'un produit. Ce n'est pas encore une obligation pour nous. Mais un tel inventaire pourrait aider à classer le chiffrement à l'export, et des clients américains pourraient l'exiger."
+   "t": "Oui. Un décret présidentiel américain du vingt-deux juin charge la CISA de publier, sous deux cent soixante-dix jours, une guidance sur les éléments minimaux d'une nomenclature cryptographique. Elle décrirait les algorithmes, les clés et les protocoles d'un produit. Ce n'est pas encore une obligation pour nous. Mais un tel inventaire pourrait aider à classer le chiffrement à l'export, et des clients américains pourraient l'exiger."
   },
   {
    "sujet": "Outils : du scan au classement export"
@@ -84,7 +84,7 @@
   },
   {
    "v": "B",
-   "t": "Le vingt-deux septembre, l'éditeur QAD a lancé des agents d'intelligence artificielle qui proposent un classement export américain, avec un score de confiance et une justification. Une personne relit chaque proposition. L'éditeur parle de moins d'une minute par article, contre près de deux heures. Ce sont ses chiffres, et l'outil vise la liste américaine, pas la liste européenne."
+   "t": "Le vingt-deux septembre, l'éditeur QAD a lancé des agents d'intelligence artificielle qui proposent un classement export américain, avec un score de confiance et une justification. Selon l'éditeur, une revue humaine est prévue à chaque décision. Il parle de moins d'une minute par article, contre près de deux heures. Ce sont ses chiffres, et l'outil vise la liste américaine, pas la liste européenne."
   },
   {
    "v": "A",
@@ -130,7 +130,7 @@
   },
   {
    "v": "B",
-   "t": "Le quatorze septembre, la Commission a adopté la mise à jour de la liste européenne des biens à double usage. Côté logiciel, elle crée une nouvelle entrée sur certaines bibliothèques et étend un contrôle sur des logiciels de développement. Le texte n'est pas encore applicable. Le Parlement européen et le Conseil ont deux mois pour objecter, ensuite il sera publié au Journal officiel."
+   "t": "Le quatorze septembre, la Commission a adopté la mise à jour de la liste européenne des biens à double usage. Côté logiciel, elle étend les contrôles existants à de nouveaux équipements de fabrication de semi-conducteurs. Le texte n'est pas encore applicable. Le Parlement européen et le Conseil ont deux mois pour objecter, ensuite il sera publié au Journal officiel."
   },
   {
    "v": "A",
@@ -157,7 +157,7 @@
   },
   {
    "v": "B",
-   "t": "SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts aux États. Mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. EDIP, le programme industriel, dispose d'un milliard et demi d'euros, avec des appels qui se clôturent en octobre. Pour un industriel, l'origine des composants, logiciels compris, devient un critère d'éligibilité."
+   "t": "SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts aux États. Mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. EDIP, le programme industriel, dispose d'un milliard et demi d'euros, avec des appels qui se clôturent le treize octobre. Pour un industriel, l'origine des composants, logiciels compris, devient un critère d'éligibilité."
   },
   {
    "v": "A",

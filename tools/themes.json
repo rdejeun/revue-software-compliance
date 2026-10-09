@@ -33,6 +33,10 @@
     "texte": "L’ANSSI précise ses rôles d’autorité notifiante et de CSIRT national, et celui de l’ANFR pour la surveillance du marché"
    },
    {
+    "date": "2026-10-06",
+    "texte": "L’OpenSSF publie un guide CRA Readiness pour les éditeurs et mainteneurs"
+   },
+   {
     "date": "2026-12",
     "libelle": "T4 2026",
     "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC"
@@ -61,6 +65,10 @@
    {
     "date": "2026-08-05",
     "texte": "Annonce de CycloneDX 2.0 (version attendue à l’automne, ratification Ecma en décembre)"
+   },
+   {
+    "date": "2026-10-05",
+    "texte": "L’annuaire SPDX référence quatre nouveaux outils en cinq semaines"
    }
   ]
  },
@@ -132,10 +140,15 @@
   "reference": "Directive (UE) 2022/2555 ; projet de loi Résilience (NIS2, DORA, REC)",
   "chronologie": [
    {
-    "date": "2026-10-07",
-    "texte": "Début de l’examen de la loi Résilience à l’Assemblée nationale"
+    "date": "2026-10-06",
+    "texte": "L’examen de la loi Résilience est retiré de l’ordre du jour de l’Assemblée nationale (7 et 9 octobre), sans nouvelle date"
+   },
+   {
+    "date": "2026-10-13",
+    "texte": "Conférence des présidents de l’Assemblée nationale"
    }
-  ]
+  ],
+  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, sans nouvelle date"
  },
  "ai-act": {
   "nom": "AI Act",

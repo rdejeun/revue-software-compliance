@@ -3,7 +3,7 @@
   "k": "h1",
   "i": [
    {
-    "t": "Revue de presse Software Compliance — N° 1 — 5 octobre 2026"
+    "t": "Revue de presse Software Compliance — N° 1 — 9 octobre 2026"
    }
   ]
  },
@@ -19,7 +19,7 @@
   "k": "p",
   "i": [
    {
-    "t": "Le CRA est opérationnel depuis le 11 septembre et ses autorités françaises sont désignées ; l’ETSI soumet 17 normes du CRA à enquête publique ; le Parlement européen a adopté l’Omnibus défense ; la loi Résilience arrive à l’Assemblée le 7 octobre ; la phase 2 de CMMC reste suspendue sans date de reprise."
+    "t": "Le CRA est opérationnel depuis le 11 septembre et l’ANSSI et l’ANFR précisent leurs rôles ; l’ETSI soumet 17 normes du CRA à enquête publique ; le Parlement européen a adopté l’Omnibus défense, l’adoption du Conseil étant attendue ; l’examen de la loi Résilience, prévu le 7 octobre, est de nouveau reporté, sans date ; la phase 2 de CMMC reste suspendue sans date de reprise."
    }
   ]
  },
@@ -44,11 +44,18 @@
   "items": [
    [
     {
-     "t": "France, CRA : l’ANSSI est l’autorité notifiante et le CSIRT national, chargée d’évaluer, contrôler et notifier les organismes d’évaluation de la conformité ; l’ANFR est l’autorité de surveillance des produits mis à disposition sur le marché, avec des pouvoirs de police administrative et de sanction financière ("
+     "t": "Délais : alerte précoce sous 24 h, notification sous 72 h, rapport final sous 14 jours après la mise à disposition d'une mesure corrective pour une vulnérabilité exploitée, et sous un mois pour un incident grave ("
     },
     {
-     "t": "ANSSI",
-     "href": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/"
+     "t": "Complycra",
+     "href": "https://complycra.eu/what-are-the-cra-obligations-starting-september-11-2026/"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Commission européenne",
+     "href": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting"
     },
     {
      "t": ")."
@@ -56,11 +63,11 @@
    ],
    [
     {
-     "t": "Délais : alerte précoce sous 24 h, notification sous 72 h, rapport final sous 14 jours après la mise à disposition d'une mesure corrective ("
+     "t": "France, CRA : l’ANSSI est l’autorité notifiante et le CSIRT national, chargée d’évaluer, contrôler et notifier les organismes d’évaluation de la conformité ; l’ANFR est l’autorité de surveillance des produits mis à disposition sur le marché, avec des pouvoirs de police administrative et de sanction financière ("
     },
     {
-     "t": "Complycra",
-     "href": "https://complycra.eu/what-are-the-cra-obligations-starting-september-11-2026/"
+     "t": "ANSSI",
+     "href": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/"
     },
     {
      "t": ")."
@@ -75,12 +82,7 @@
      "href": "https://www.skwschwarz.de/en/news/european-commission-guidance-cra"
     },
     {
-     "t": ")."
-    }
-   ],
-   [
-    {
-     "t": "À venir : actes d'exécution et délégués au T4 2026, dont un acte délégué sur la présomption de conformité EUCC ("
+     "t": ", "
     },
     {
      "t": "Commission européenne",
@@ -92,7 +94,19 @@
    ],
    [
     {
-     "t": "Périmètre : les produits déjà sur le marché avant le 11 septembre sont couverts ; l’obligation continue après la fin de la période de support ("
+     "t": "À venir : un acte délégué sur la présomption de conformité EUCC est attendu au T4 2026 ("
+    },
+    {
+     "t": "Commission européenne",
+     "href": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Périmètre : les obligations de déclaration s’appliquent aussi aux produits déjà sur le marché avant le 11 septembre ; elles continuent après la fin de la période de support ("
     },
     {
      "t": "Kirkland",
@@ -117,28 +131,52 @@
   ],
   "attrs": [
    {
+    "themes": [
+     "cra"
+    ],
+    "date": "2026-09-11",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     3,
+     3
+    ]
+   },
+   {
     "date": "2026-09-23",
     "themes": [
      "cra"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     3,
+     2,
+     3
     ]
    },
    {
     "themes": [
      "cra"
     ],
-    "date": "2026-09-11"
+    "date": "2026-07-27",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     2,
+     3
+    ]
    },
    {
     "themes": [
      "cra"
     ],
-    "date": "2026-07-27"
-   },
-   {
-    "themes": [
-     "cra"
-    ],
-    "date": "2026-07-27"
+    "date": "2026-07-27",
+    "fiabilite": "A",
+    "cote": [
+     2,
+     2,
+     3
+    ]
    },
    {
     "themes": [
@@ -157,6 +195,20 @@
   ],
   "sum": [
    {
+    "titre": "CRA : délais de déclaration des vulnérabilités exploitées",
+    "statut": "En vigueur depuis le 11 septembre 2026",
+    "fonctions": "PSIRT et ingénierie produit, juridique, achats",
+    "essentiel": "Depuis le 11 septembre 2026, le fabricant d'un produit comportant des éléments numériques doit déclarer toute vulnérabilité activement exploitée et tout incident grave : alerte précoce sous 24 heures, notification sous 72 heures, rapport final sous 14 jours après la mise à disposition d'une mesure corrective pour une vulnérabilité exploitée, ou sous un mois après la notification de 72 heures pour un incident grave, via la plateforme unique de l'ENISA.",
+    "contexte": "Ce sont les premières obligations imposées aux fabricants par le CRA, quinze mois avant les exigences essentielles. Elles visent aussi les produits déjà sur le marché et ne remplacent pas les déclarations prévues par d'autres régimes.",
+    "impact_avere": "Pour les produits civils ou à double usage vendus dans l'UE, une faille activement exploitée dans un composant tiers embarqué, open source compris, ==déclenche l'obligation du fabricant du produit final==. Le délai de 24 heures suppose un inventaire des composants à jour.",
+    "impact_potentiel": "Les produits exclusivement militaires sont hors champ, mais clients publics et maîtres d'œuvre pourraient exiger contractuellement une réactivité équivalente.",
+    "a_verifier": [
+     "Nos SBOM couvrent-ils tous les composants tiers des produits concernés ?",
+     "Une veille sur les vulnérabilités exploitées est-elle en place, avec astreinte ?",
+     "Nos contrats fournisseurs prévoient-ils la remontée rapide des vulnérabilités ?"
+    ]
+   },
+   {
     "titre": "CRA en France : autorité notifiante et surveillance du marché",
     "statut": "Publication de l’ANSSI du 23 septembre 2026 ; obligations de déclaration en vigueur depuis le 11 septembre 2026, application complète le 11 décembre 2027",
     "fonctions": "Juridique, qualité et certification, PSIRT, direction produit",
@@ -168,20 +220,6 @@
      "Quels produits de la gamme relèvent du champ du CRA ?",
      "Qui, dans l’entreprise, répondrait à une demande de l’ANFR ?",
      "La documentation technique et l’inventaire des composants sont-ils prêts ?"
-    ]
-   },
-   {
-    "titre": "CRA : délais de déclaration des vulnérabilités exploitées",
-    "statut": "En vigueur depuis le 11 septembre 2026",
-    "fonctions": "PSIRT et ingénierie produit, juridique, achats",
-    "essentiel": "Depuis le 11 septembre 2026, le fabricant d'un produit comportant des éléments numériques doit déclarer toute vulnérabilité activement exploitée et tout incident grave : alerte précoce sous 24 heures, notification sous 72 heures, rapport final sous 14 jours après la mise à disposition d'une mesure corrective, via la plateforme unique de l'ENISA.",
-    "contexte": "Ce sont les premières obligations du CRA à s'appliquer, quinze mois avant les exigences essentielles. Elles visent aussi les produits déjà sur le marché et ne remplacent pas les déclarations prévues par d'autres régimes.",
-    "impact_avere": "Pour les produits civils ou à double usage vendus dans l'UE, une faille activement exploitée dans un composant tiers embarqué, open source compris, ==déclenche l'obligation du fabricant du produit final==. Le délai de 24 heures suppose un inventaire des composants à jour.",
-    "impact_potentiel": "Les produits exclusivement militaires sont hors champ, mais clients publics et maîtres d'œuvre pourraient exiger contractuellement une réactivité équivalente.",
-    "a_verifier": [
-     "Nos SBOM couvrent-ils tous les composants tiers des produits concernés ?",
-     "Une veille sur les vulnérabilités exploitées est-elle en place, avec astreinte ?",
-     "Nos contrats fournisseurs prévoient-ils la remontée rapide des vulnérabilités ?"
     ]
    },
    {
@@ -199,16 +237,16 @@
     ]
    },
    {
-    "titre": "Actes d'exécution et délégués du CRA attendus au quatrième trimestre 2026",
-    "statut": "Annonce de la Commission : adoption attendue au T4 2026.",
+    "titre": "Acte délégué du CRA sur la présomption de conformité EUCC attendu au quatrième trimestre 2026",
+    "statut": "Annonce de la Commission : acte délégué attendu au T4 2026.",
     "fonctions": "Juridique, ingénierie logicielle, qualité, achats",
-    "essentiel": "La Commission européenne indique que des actes d'exécution et des actes délégués sont attendus au quatrième trimestre 2026. Parmi eux figure la présomption de conformité fondée sur le schéma EUCC (schéma européen de certification de cybersécurité fondé sur les critères communs), prévue au T4 2026.",
-    "contexte": "Le règlement sur la cyber-résilience renvoie à des actes complémentaires pour préciser plusieurs modalités d'application. La Commission en publie le calendrier prévisionnel.",
-    "impact_avere": "Ces textes ne sont pas tous publiés ; les exigences détaillées reposent donc, pour l'instant, sur le règlement lui-même. Un industriel de défense dont certains produits entrent dans le champ doit suivre ce calendrier.",
+    "essentiel": "La Commission européenne indique, dans sa page de mise en œuvre du CRA, qu'un acte délégué est attendu au quatrième trimestre 2026 : il porte sur la présomption de conformité fondée sur le schéma EUCC (schéma européen de certification de cybersécurité fondé sur les critères communs).",
+    "contexte": "Le règlement sur la cyber-résilience renvoie à des actes complémentaires pour préciser certaines modalités d'application. La Commission publie un calendrier prévisionnel, dont la dernière mise à jour date du 27 juillet 2026.",
+    "impact_avere": "Cet acte n'est pas publié ; les exigences détaillées reposent donc, pour l'instant, sur le règlement lui-même. Un industriel de défense dont certains produits entrent dans le champ doit suivre ce calendrier.",
     "impact_potentiel": "La présomption de conformité EUCC pourrait faciliter la démonstration de conformité de produits civils ou à double usage et orienter le choix de certifications. Les dates annoncées pourraient aussi évoluer, et les composants tiers pourraient devoir être évalués selon ces référentiels.",
     "a_verifier": [
      "Quels produits seraient concernés par l'EUCC ?",
-     "Les dates du T4 2026 sont-elles confirmées par un texte publié ?",
+     "La date du T4 2026 est-elle confirmée par un texte publié ?",
      "Les fournisseurs de composants suivent-ils ce calendrier ?"
     ]
    },
@@ -216,7 +254,7 @@
     "titre": "Périmètre du règlement sur la cyber-résilience (CRA) : produits déjà commercialisés",
     "statut": "En vigueur depuis le 11 septembre 2026 pour les obligations rapportées par la source.",
     "fonctions": "Juridique, ingénierie logicielle, PSIRT (équipe de réponse aux incidents de sécurité produit), qualité, achats",
-    "essentiel": "Selon le cabinet Kirkland, le périmètre couvre tous les produits comportant des éléments numériques entrant dans le champ du règlement, y compris ceux déjà mis sur le marché avant le 11 septembre. L'obligation se poursuit après la fin de la période de support.",
+    "essentiel": "Selon le cabinet Kirkland, les obligations de déclaration couvrent les produits comportant des éléments numériques entrant dans le champ du règlement, y compris ceux déjà mis sur le marché avant le 11 septembre. Ces obligations de déclaration se poursuivent après la fin de la période de support.",
     "contexte": "Le règlement (UE) sur la cyber-résilience impose des exigences de cybersécurité aux produits comportant des éléments numériques. Son article 2 prévoit des exclusions pour certains produits de défense.",
     "impact_avere": "Pour un industriel de défense, l'analyse du champ doit être faite ==produit par produit== : les équipements relevant de l'exclusion défense échappent au texte, mais les composants logiciels tiers intégrés à des produits civils ou à double usage peuvent y entrer.",
     "impact_potentiel": "Les versions civiles ou à double usage d'un équipement, ou des exigences contractuelles reprenant le CRA, pourraient rendre applicables des obligations de suivi des vulnérabilités sur des produits anciens, même après la fin du support, y compris pour les composants fournis par des tiers.",
@@ -286,6 +324,12 @@
   "attrs": {
    "themes": [
     "cra"
+   ],
+   "fiabilite": "B",
+   "cote": [
+    3,
+    2,
+    3
    ]
   },
   "sum": {
@@ -343,6 +387,18 @@
    ],
    [
     {
+     "t": "CISA : publication le 29 juillet 2026 des *{en}2026 Minimum Elements* du SBOM, avec la NSA, le FBI et des partenaires internationaux ; ils remplacent ceux du NTIA de 2021 ; l’IA et le SaaS peuvent nécessiter des éléments supplémentaires ("
+    },
+    {
+     "t": "CISA",
+     "href": "https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
      "t": "Calendrier de normalisation du CRA : la Commission a adopté la demande de normalisation M/606 (41 normes). Un projet de modification, publié début juillet 2026 selon un guide indépendant, reporterait les normes de types A et B au 31 octobre 2026 et celles de type C au 31 décembre 2026 ; il n'était pas adopté au 8 septembre ("
     },
     {
@@ -362,35 +418,11 @@
    ],
    [
     {
-     "t": "Programme CVE : le 6 août 2026, le NCIA (agence de communication et d’information de l’OTAN) et AISLE (entreprise d’IA et de cybersécurité) sont devenus autorités de numérotation CVE (CNA) sous la racine ENISA, qui en compte 20 : 12 intégrées directement et 8 transférées de la racine MITRE ("
+     "t": "OpenSSF : le 6 octobre 2026, à Prague, publication d’un guide *{en}CRA Readiness* pour les éditeurs et mainteneurs et de parcours par rôle ; une étude de cas d’Ericsson relève plus de 1 400 corrections de dépendances et de sécurité remontées en amont plutôt que conservées dans des *{en}forks* privés ("
     },
     {
-     "t": "ENISA",
-     "href": "https://www.enisa.europa.eu/news/enisa-scales-up-its-role-in-the-cve-program"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
-     "t": "CISA : publication le 29 juillet 2026 des *{en}2026 Minimum Elements* du SBOM, avec la NSA, le FBI et des partenaires internationaux ; ils remplacent ceux du NTIA de 2021 et prévoient des éléments supplémentaires pour l’IA et le SaaS ("
-    },
-    {
-     "t": "CISA",
-     "href": "https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
-     "t": "Nomenclature cryptographique (CBOM) : le décret présidentiel américain 14412 du 22 juin 2026 charge la CISA, avec le NIST, de publier sous 270 jours les éléments minimaux d’une *{en}cryptographic bill of materials*, pour évaluer automatiquement les fonctions cryptographiques d’un matériel ou d’un logiciel ("
-    },
-    {
-     "t": "Maison-Blanche",
-     "href": "https://www.whitehouse.gov/wp-content/uploads/2026/06/eo-14412.pdf"
+     "t": "OpenSSF",
+     "href": "https://openssf.org/press-release/2026/10/06/openssf-shares-expanded-membership-and-new-global-policy-resources-during-community-day-europe/"
     },
     {
      "t": ")."
@@ -410,7 +442,31 @@
    ],
    [
     {
-     "t": "ENISA : 78 % des organisations ont commencé leur démarche SBOM et 79 % comptent atteindre le niveau requis avant décembre 2027 ; freins principaux : la complétude (62 %) et la qualité des données (37 %) ("
+     "t": "Programme CVE : le 6 août 2026, le NCIA (agence de communication et d’information de l’OTAN) et AISLE (entreprise d’IA et de cybersécurité) sont devenus autorités de numérotation CVE (CNA) sous la racine ENISA, qui en compte 20 : 12 intégrées directement et 8 transférées de la racine MITRE ("
+    },
+    {
+     "t": "ENISA",
+     "href": "https://www.enisa.europa.eu/news/enisa-scales-up-its-role-in-the-cve-program"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Nomenclature cryptographique (CBOM) : le décret présidentiel américain 14412 du 22 juin 2026 charge la CISA, avec le NIST, de publier sous 270 jours une guidance sur les éléments minimaux d’une *{en}cryptographic bill of materials*, pour évaluer automatiquement les fonctions cryptographiques d’un matériel ou d’un logiciel ("
+    },
+    {
+     "t": "Maison-Blanche",
+     "href": "https://www.whitehouse.gov/wp-content/uploads/2026/06/eo-14412.pdf"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "ENISA : 78 % des organisations ont commencé leur démarche SBOM et 79 % comptent atteindre le niveau requis d’ici la pleine application du CRA (décembre 2027) ; freins cités : la complétude (62 %), l’appariement des vulnérabilités (58 %) et la qualité des données (37 %) ("
     },
     {
      "t": "ThreatCluster",
@@ -432,8 +488,8 @@
      "t": "OpenSSF : SLSA 1.2 est approuvé (pistes Build et Source ; la 1.1 est retirée) ("
     },
     {
-     "t": "Dev Tool Lab",
-     "href": "https://devtoollab.com/blog/supply-chain-security-tools"
+     "t": "SLSA",
+     "href": "https://slsa.dev/spec/"
     },
     {
      "t": "). La lettre de juin 2026 relève un bilan de la campagne Mini Shai-Hulud : une attestation signée prouve ce que la plateforme de build a observé, ==pas que le build était fiable== ; elle signale aussi un rapport 2026 sur la préparation au CRA ("
@@ -448,7 +504,7 @@
    ],
    [
     {
-     "t": "Eclipse Foundation et OWASP : protocole d'accord signé le 30 juillet 2026 pour la préparation au CRA (guides pour les *{en}stewards*, ressources SBOM, soutien aux mainteneurs) ("
+     "t": "Eclipse Foundation et OWASP : protocole d'accord annoncé le 30 juillet 2026 pour la préparation au CRA ; les priorités attendues comprennent des guides pour les *{en}stewards*, des ressources SBOM et un soutien aux mainteneurs ("
     },
     {
      "t": "Eclipse",
@@ -495,59 +551,127 @@
     "themes": [
      "cra"
     ],
-    "date": "2026-08-13"
+    "date": "2026-08-13",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     3,
+     3
+    ]
+   },
+   {
+    "themes": [
+     "sbom"
+    ],
+    "date": "2026-07-29",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     2,
+     3
+    ]
    },
    {
     "themes": [
      "cra"
     ],
-    "date": "2026-07-31"
+    "date": "2026-07-31",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     2,
+     2
+    ]
+   },
+   {
+    "date": "2026-10-06",
+    "themes": [
+     "cra",
+     "sbom",
+     "chaine"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "themes": [
+     "sbom"
+    ],
+    "date": "2026-08-05",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     2
+    ]
    },
    {
     "date": "2026-08-06",
     "themes": [
      "cra",
      "sca"
-    ]
-   },
-   {
-    "themes": [
-     "sbom"
     ],
-    "date": "2026-07-29"
+    "fiabilite": "A",
+    "cote": [
+     2,
+     1,
+     3
+    ]
    },
    {
     "date": "2026-06-22",
     "themes": [
      "sbom",
      "export-us"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     1,
+     3
     ]
    },
    {
     "themes": [
      "sbom"
     ],
-    "date": "2026-08-05"
-   },
-   {
-    "themes": [
-     "sbom"
-    ],
-    "date": "2026-06"
+    "date": "2026-06",
+    "fiabilite": "A",
+    "cote": [
+     2,
+     1,
+     3
+    ]
    },
    {
     "themes": [
      "cra",
      "chaine"
     ],
-    "date": "2026-06"
+    "date": "2026-06",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     1,
+     3
+    ]
    },
    {
     "themes": [
      "cra",
      "sbom"
     ],
-    "date": "2026-07-30"
+    "date": "2026-07-30",
+    "fiabilite": "B",
+    "cote": [
+     1,
+     1,
+     3
+    ]
    },
    {
     "themes": [
@@ -581,33 +705,6 @@
     ]
    },
    {
-    "titre": "Calendrier de normalisation du CRA",
-    "statut": "Demande de normalisation M/606 adoptée ; projet de modification non adopté au 8 septembre 2026",
-    "fonctions": "Ingénierie logicielle, juridique, qualité",
-    "essentiel": "La Commission a adopté la demande de normalisation M/606, qui couvre 41 normes. Selon un guide indépendant, un projet de modification publié début juillet 2026 reporterait les normes de types A et B au 31 octobre 2026 et celles de type C au 31 décembre 2026. Ce projet n'était pas adopté au 8 septembre.",
-    "contexte": "Les normes harmonisées doivent permettre de démontrer la conformité aux exigences essentielles du règlement sur la cyber-résilience (CRA). Leur calendrier conditionne la disponibilité d'une présomption de conformité.",
-    "impact_avere": "La demande M/606 est adoptée et comporte 41 normes. Les industriels concernés par le CRA ne disposent pas encore de l'ensemble de ces normes et doivent s'appuyer sur le texte du règlement et sur les documents en cours d'élaboration.",
-    "impact_potentiel": "Si le report était adopté, les normes de types A et B et celles de type C seraient disponibles plus tard, ce qui retarderait leur référence dans les dossiers techniques. Les variantes civiles ou à double usage de produits de défense pourraient rester concernées.",
-    "a_verifier": [
-     "Le projet de modification a-t-il été adopté depuis le 8 septembre ?",
-     "Quelles normes de types A, B et C intéressent les gammes concernées ?"
-    ]
-   },
-   {
-    "titre": "ENISA, racine du programme CVE : 20 autorités de numérotation",
-    "statut": "Communiqué de l’ENISA du 6 août 2026 ; ENISA racine CVE depuis novembre 2025",
-    "fonctions": "PSIRT, ingénierie logicielle, juridique",
-    "essentiel": "Le 6 août 2026, le NCIA et AISLE ont rejoint les autorités de numérotation CVE (CNA) placées sous la racine ENISA. Celle-ci en compte 20 : 12 intégrées directement par l’ENISA et 8 transférées de la racine MITRE. Depuis novembre 2025, l’ENISA est racine du programme CVE : elle recrute, intègre, forme, soutient et encadre les CNA.",
-    "contexte": "Le programme CVE attribue un identifiant unique à chaque vulnérabilité publiquement connue ; ces identifiants alimentent les bases de vulnérabilités qu’exploitent les outils d’analyse de composition logicielle. Le communiqué ne mentionne pas le CRA.",
-    "impact_avere": "Les identifiants CVE restent la référence des bases de vulnérabilités utilisées pour surveiller les composants tiers d’un produit. L’Union dispose d’une racine européenne pour coordonner les CNA de ses entités.",
-    "impact_potentiel": "Un industriel doté d’un PSIRT pourrait envisager de devenir CNA pour ses propres produits, afin d’attribuer lui-même les identifiants de ses vulnérabilités, sous réserve des règles du programme.",
-    "a_verifier": [
-     "Les vulnérabilités de nos produits reçoivent-elles un identifiant CVE ?",
-     "Quelle CNA couvre aujourd’hui nos produits ?",
-     "Notre PSIRT surveille-t-il les bases fondées sur les CVE ?"
-    ]
-   },
-   {
     "titre": "CISA : *{en}2026 Minimum Elements* du SBOM",
     "statut": "Publié le 29 juillet 2026",
     "fonctions": "Ingénierie logicielle, achats, contrôle des exportations, qualité",
@@ -622,16 +719,29 @@
     ]
    },
    {
-    "titre": "États-Unis : vers une nomenclature cryptographique (CBOM)",
-    "statut": "Décret présidentiel 14412 du 22 juin 2026, publié au Federal Register le 25 juin ; éléments minimaux attendus sous 270 jours",
-    "fonctions": "Ingénierie logicielle, contrôle des exportations, sécurité, achats",
-    "essentiel": "Le décret présidentiel 14412 du 22 juin 2026 charge la CISA, en coordination avec le NIST, de publier sous 270 jours les éléments minimaux d'une nomenclature cryptographique (CBOM). Elle doit permettre l'évaluation automatisée des fonctions cryptographiques d'un élément matériel ou logiciel. Le FAR Council doit proposer sous 180 jours une règle imposant aux contractants concernés les normes FIPS, y compris post-quantiques, d'ici le 31 décembre 2030.",
-    "contexte": "La CBOM complète le SBOM : elle décrit les algorithmes, clés et protocoles utilisés, et non plus seulement les composants. Les éléments minimaux sont attendus vers mars 2027.",
-    "impact_avere": "Aucune obligation n'en découle encore pour un industriel français. Le décret vise d'abord l'administration fédérale et ses contractants.",
-    "impact_potentiel": "Un format normalisé d'inventaire cryptographique pourrait servir aux autoclassements du chiffrement (5A002, 5D002) et aux déclarations de moyens de cryptologie ; des clients américains pourraient l'exiger.",
+    "titre": "Calendrier de normalisation du CRA",
+    "statut": "Demande de normalisation M/606 adoptée ; projet de modification non adopté au 8 septembre 2026",
+    "fonctions": "Ingénierie logicielle, juridique, qualité",
+    "essentiel": "La Commission a adopté la demande de normalisation M/606, qui couvre 41 normes. Selon un guide indépendant, un projet de modification publié début juillet 2026 reporterait les normes de types A et B au 31 octobre 2026 et celles de type C au 31 décembre 2026. Ce projet n'était pas adopté au 8 septembre.",
+    "contexte": "Les normes harmonisées doivent permettre de démontrer la conformité aux exigences essentielles du règlement sur la cyber-résilience (CRA). Leur calendrier conditionne la disponibilité d'une présomption de conformité.",
+    "impact_avere": "La demande M/606 est adoptée et comporte 41 normes. Les industriels concernés par le CRA ne disposent pas encore de l'ensemble de ces normes et doivent s'appuyer sur le texte du règlement et sur les documents en cours d'élaboration.",
+    "impact_potentiel": "Si le report était adopté, les normes de types A et B et celles de type C seraient disponibles plus tard, ce qui retarderait leur référence dans les dossiers techniques. Les variantes civiles ou à double usage de produits de défense pourraient rester concernées.",
     "a_verifier": [
-     "Les fonctions cryptographiques des produits sont-elles inventoriées ?",
-     "Les produits vendus aux États-Unis utilisent-ils des modules FIPS ?"
+     "Le projet de modification a-t-il été adopté depuis le 8 septembre ?",
+     "Quelles normes de types A, B et C intéressent les gammes concernées ?"
+    ]
+   },
+   {
+    "titre": "OpenSSF : guide de préparation au CRA et étude de cas Ericsson",
+    "statut": "Communiqué de l'OpenSSF du 6 octobre 2026 ; ressources non contraignantes",
+    "fonctions": "Ingénierie logicielle, PSIRT, juridique, achats",
+    "essentiel": "Lors de l'OpenSSF Community Day Europe à Prague, l'Open Source Security Foundation a annoncé le 6 octobre 2026 un guide pratique *{en}CRA Readiness* pour les éditeurs et mainteneurs, accompagné de parcours guidés par rôle (développeurs, ingénieurs sécurité, responsables d'OSPO, dirigeants). Une étude de cas d'Ericsson fait état de plus de 1 400 corrections de dépendances et de sécurité remontées en amont, sans passer par des *{en}forks* privés.",
+    "contexte": "Le communiqué rappelle que l'obligation de signalement des vulnérabilités et incidents du Cyber Resilience Act est entrée en vigueur en septembre 2026. L'OpenSSF est une communauté qui travaille à sécuriser les logiciels open source.",
+    "impact_avere": "Ces ressources sont publiques et sans valeur réglementaire. Pour un industriel qui intègre des composants open source, elles décrivent une façon de contribuer en amont ==plutôt que de maintenir des forks privés==.",
+    "impact_potentiel": "Le guide pourrait servir de base pour cadrer les échanges avec les mainteneurs et les exigences adressées aux fournisseurs. Le retour d'expérience d'un seul industriel ne dit pas si la démarche convient à d'autres contextes.",
+    "a_verifier": [
+     "Des composants open source sont-ils maintenus en interne dans des *{en}forks* privés ?",
+     "Le guide est-il utile aux équipes PSIRT et ingénierie ?"
     ]
    },
    {
@@ -649,12 +759,39 @@
     ]
    },
    {
+    "titre": "ENISA, racine du programme CVE : 20 autorités de numérotation",
+    "statut": "Communiqué de l’ENISA du 6 août 2026 ; ENISA racine CVE depuis novembre 2025",
+    "fonctions": "PSIRT, ingénierie logicielle, juridique",
+    "essentiel": "Le 6 août 2026, le NCIA et AISLE ont rejoint les autorités de numérotation CVE (CNA) placées sous la racine ENISA. Celle-ci en compte 20 : 12 intégrées directement par l’ENISA et 8 transférées de la racine MITRE. Depuis novembre 2025, l’ENISA est racine du programme CVE : elle recrute, intègre, forme, soutient et encadre les CNA.",
+    "contexte": "Le programme CVE attribue un identifiant unique à chaque vulnérabilité publiquement connue ; ces identifiants alimentent les bases de vulnérabilités qu’exploitent les outils d’analyse de composition logicielle. Le communiqué ne mentionne pas le CRA.",
+    "impact_avere": "Les identifiants CVE restent la référence des bases de vulnérabilités utilisées pour surveiller les composants tiers d’un produit. L’Union dispose d’une racine européenne pour coordonner les CNA de ses entités.",
+    "impact_potentiel": "Un industriel doté d’un PSIRT pourrait envisager de devenir CNA pour ses propres produits, afin d’attribuer lui-même les identifiants de ses vulnérabilités, sous réserve des règles du programme.",
+    "a_verifier": [
+     "Les vulnérabilités de nos produits reçoivent-elles un identifiant CVE ?",
+     "Quelle CNA couvre aujourd’hui nos produits ?",
+     "Notre PSIRT surveille-t-il les bases fondées sur les CVE ?"
+    ]
+   },
+   {
+    "titre": "États-Unis : vers une nomenclature cryptographique (CBOM)",
+    "statut": "Décret présidentiel 14412 du 22 juin 2026, publié au Federal Register le 25 juin ; guidance sur les éléments minimaux attendue sous 270 jours",
+    "fonctions": "Ingénierie logicielle, contrôle des exportations, sécurité, achats",
+    "essentiel": "Le décret présidentiel 14412 du 22 juin 2026 charge la CISA, en coordination avec le NIST, de publier sous 270 jours une guidance publique sur les éléments minimaux d'une nomenclature cryptographique (CBOM). Elle doit permettre l'évaluation automatisée des fonctions cryptographiques d'un élément matériel ou logiciel. Le FAR Council doit proposer sous 180 jours une règle imposant aux contractants concernés les normes FIPS, y compris post-quantiques, d'ici le 31 décembre 2030.",
+    "contexte": "La CBOM complète le SBOM : elle décrit les algorithmes, clés et protocoles utilisés, et non plus seulement les composants. Les éléments minimaux sont attendus vers mars 2027.",
+    "impact_avere": "Aucune obligation n'en découle encore pour un industriel français. Le décret vise d'abord l'administration fédérale et ses contractants.",
+    "impact_potentiel": "Un format normalisé d'inventaire cryptographique pourrait servir aux autoclassements du chiffrement (5A002, 5D002) et aux déclarations de moyens de cryptologie ; des clients américains pourraient l'exiger.",
+    "a_verifier": [
+     "Les fonctions cryptographiques des produits sont-elles inventoriées ?",
+     "Les produits vendus aux États-Unis utilisent-ils des modules FIPS ?"
+    ]
+   },
+   {
     "titre": "Adoption des SBOM : état des lieux de l'ENISA (juin 2026)",
     "statut": "Publication de juin 2026 ; étude de l'Agence de l'Union européenne pour la cybersécurité, sans valeur normative.",
     "fonctions": "Ingénierie logicielle, achats, PSIRT, qualité",
-    "essentiel": "Selon l'ENISA, 78 % des organisations ont commencé leur démarche SBOM (nomenclatures logicielles) et 79 % comptent atteindre le niveau requis avant décembre 2027. Les principaux freins sont la complétude (62 %) et la qualité des données (37 %).",
+    "essentiel": "Selon l'ENISA, 78 % des organisations ont commencé leur démarche SBOM (nomenclatures logicielles) et 79 % comptent atteindre le niveau requis d'ici la pleine application du CRA (décembre 2027). Les freins cités sont la complétude (62 %), l'appariement des vulnérabilités (58 %) et la qualité des données (37 %).",
     "contexte": "Le règlement sur la cyber-résilience demande aux fabricants de documenter les composants de leurs produits, ce qui place les SBOM au coeur de la préparation. ThreatCluster commente l'étude en soulignant une génération élevée mais une exploitation faible.",
-    "impact_avere": "L'étude fournit un repère chiffré de maturité du marché. Elle confirme que complétude et qualité des données sont les difficultés dominantes, ce qui concerne directement un fabricant intégrant de nombreux composants tiers, libres ou propriétaires, dans ses logiciels embarqués.",
+    "impact_avere": "L'étude fournit un repère chiffré de maturité du marché. Elle indique que complétude, appariement des vulnérabilités et qualité des données sont les difficultés citées, ce qui concerne directement un fabricant intégrant de nombreux composants tiers, libres ou propriétaires, dans ses logiciels embarqués.",
     "impact_potentiel": "Les fournisseurs pourraient peiner à livrer des SBOM complets, ce qui compliquerait le suivi des vulnérabilités. Des clients, étatiques ou contractuels, pourraient aussi réclamer des SBOM pour des produits relevant de l'exclusion défense, indépendamment du CRA.",
     "a_verifier": [
      "Les SBOM actuels couvrent-ils les composants tiers ?",
@@ -677,9 +814,9 @@
    },
    {
     "titre": "Eclipse Foundation et OWASP : accord pour la préparation au CRA",
-    "statut": "Protocole d'accord signé le 30 juillet 2026",
+    "statut": "Protocole d'accord annoncé le 30 juillet 2026",
     "fonctions": "Ingénierie logicielle, achats, juridique, PSIRT",
-    "essentiel": "L'Eclipse Foundation et l'OWASP ont signé le 30 juillet 2026 un protocole d'accord pour la préparation au CRA. Il prévoit des guides pour les *{en}stewards*, des ressources sur les SBOM et un soutien aux mainteneurs.",
+    "essentiel": "L'Eclipse Foundation et l'OWASP ont annoncé le 30 juillet 2026 un protocole d'accord pour la préparation au CRA. Ses priorités devraient inclure des guides pour les *{en}stewards*, des ressources sur les SBOM et un soutien aux mainteneurs.",
     "contexte": "Le Cyber Resilience Act (CRA) introduit un rôle de *{en}steward* pour les organisations qui soutiennent de façon durable des logiciels open source destinés à un usage commercial. L'OWASP (*{en}Open Worldwide Application Security Project*) et l'Eclipse Foundation sont deux acteurs majeurs de l'écosystème open source.",
     "impact_avere": "Il s'agit d'un accord de coopération entre deux organisations, sans valeur réglementaire. Les composants open source intégrés aux équipements restent soumis aux obligations de l'industriel qui les utilise.",
     "impact_potentiel": "Les guides et ressources annoncés pourraient faciliter l'obtention d'informations de sécurité et de SBOM sur des composants open source. Ils pourraient aussi servir de référence pour dialoguer avec les mainteneurs. Leur contenu et leur calendrier de publication ne sont pas précisés dans la source.",
@@ -738,7 +875,7 @@
   "items": [
    [
     {
-     "t": "Grype 0.120.0 : scanneur de vulnérabilités open source d’Anchore ; cette version stocke les points de décision SSVC du NVD dans une nouvelle table de la base v6, ajoute une colonne d’emplacements aux rapports HTML, signe les sommes de contrôle des versions avec sigstore et met Syft à jour en 1.54.0 ("
+     "t": "Grype 0.120.0 : scanneur de vulnérabilités open source d’Anchore, suivi d’une version 0.120.1 le 6 octobre ; la 0.120.0 stocke les points de décision SSVC du NVD dans une nouvelle table de la base v6, ajoute une colonne d’emplacements aux rapports HTML, signe les sommes de contrôle des versions avec sigstore et met Syft à jour en 1.54.0 ("
     },
     {
      "t": "GitHub",
@@ -750,7 +887,7 @@
    ],
    [
     {
-     "t": "Syft 1.54.0 : générateur de SBOM open source d'Anchore ; cette version signale l'interpréteur Perl comme paquet de l'écosystème Perl, ajoute un catalogueur pour l'écosystème Perl et l'analyse Podman sans démon, et corrige plusieurs plantages sur des fichiers tronqués ("
+     "t": "Syft 1.54.0 : générateur de SBOM open source d'Anchore ; cette version signale l'interpréteur Perl comme paquet de l'écosystème Perl, ajoute un catalogueur pour l'écosystème Perl et l'analyse Podman sans démon ; la 1.54.1 du 6 octobre corrige l'attestation depuis une image Podman locale ("
     },
     {
      "t": "GitHub",
@@ -762,12 +899,11 @@
    ],
    [
     {
-     "t": "Classement export assisté par IA : QAD a lancé le 22 septembre 2026 des agents qui proposent un classement HTS et ECCN avec un score de confiance et une justification, chaque proposition étant ==relue par une personne== ; l’éditeur annonce moins d’une minute par article contre environ 110 ("
+     "t": "Annuaire SPDX : quatre nouveaux outils référencés en cinq semaines (SBOMlyze, sbomqs, lynkctl, DevKit Dossier), qui comparent les modifications de SBOM, évaluent leur qualité, génèrent des SBOM SPDX 3.0.1 pour le C/C++ et le *{en}firmware* embarqué sans compilation, ou tiennent un registre pour les fabricants de logiciels vendus dans l’UE ("
     },
     {
-     "t": "QAD, communiqué",
-     "href": "https://finance.yahoo.com/technology/ai/articles/qad-launches-trade-compliance-ai-120400203.html",
-     "type": "editeur"
+     "t": "SPDX",
+     "href": "https://spdx.dev/4-new-spdx-tools-in-the-last-5-weeks/"
     },
     {
      "t": ")."
@@ -775,19 +911,30 @@
    ],
    [
     {
-     "t": "Recherche d’antériorité de brevets : IPRally propose depuis mars 2026 un agent qui produit en quelques minutes un rapport de recherche à partir d’une déclaration d’invention, sur 120 millions de brevets ; le service a obtenu le 6 août 2026 un rapport SOC 2 Type II sans réserve ("
+     "t": "Dependency-Track : la version 5.0 (9 juin 2026) de cette plateforme open source de suivi des SBOM CycloneDX apporte montée en charge horizontale, tolérance aux pannes et vérification de l’intégrité de la chaîne ; la 5.1.0 est sortie le 31 août 2026 et la 5.2.0 le 8 octobre (comptes de service, webhooks signés) ("
     },
     {
-     "t": "IPRally",
-     "href": "https://www.iprally.com/news/introducing-agent",
-     "type": "editeur"
+     "t": "Dependency-Track",
+     "href": "https://www.dependencytrack.org/news/"
     },
     {
      "t": ", "
     },
     {
-     "t": "IPRally",
-     "href": "https://www.iprally.com/news/iprally-is-soc-2-type-ii-compliant",
+     "t": "OWASP",
+     "href": "https://owasp.org/dependencytrack"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Classement export assisté par IA : QAD a lancé le 22 septembre 2026 des agents qui proposent un classement HTS et ECCN avec un score de confiance et une justification, une revue humaine étant ==intégrée à chaque décision== selon l’éditeur ; l’éditeur annonce moins d’une minute par article contre environ 110 ("
+    },
+    {
+     "t": "QAD, communiqué",
+     "href": "https://finance.yahoo.com/technology/ai/articles/qad-launches-trade-compliance-ai-120400203.html",
      "type": "editeur"
     },
     {
@@ -836,18 +983,20 @@
    ],
    [
     {
-     "t": "Dependency-Track : la version 5.0 (9 juin 2026) de cette plateforme open source de suivi des SBOM CycloneDX apporte montée en charge horizontale, tolérance aux pannes et vérification de l’intégrité de la chaîne ; la 5.1.0 est sortie le 31 août 2026 ("
+     "t": "Recherche d’antériorité de brevets : IPRally propose depuis mars 2026 un agent qui produit en quelques minutes un rapport de recherche à partir d’une déclaration d’invention, sur un corpus de plus de 120 millions de brevets selon l'éditeur ; le service a obtenu le 6 août 2026 un rapport SOC 2 Type II sans réserve ("
     },
     {
-     "t": "Dependency-Track",
-     "href": "https://www.dependencytrack.org/news/"
+     "t": "IPRally",
+     "href": "https://www.iprally.com/news/introducing-agent",
+     "type": "editeur"
     },
     {
      "t": ", "
     },
     {
-     "t": "OWASP",
-     "href": "https://owasp.org/dependencytrack"
+     "t": "IPRally",
+     "href": "https://www.iprally.com/news/iprally-is-soc-2-type-ii-compliant",
+     "type": "editeur"
     },
     {
      "t": ")."
@@ -859,7 +1008,8 @@
     },
     {
      "t": "Refonte Learning",
-     "href": "https://www.refontelearning.com/blog/sbom-compliance-platforms-cyber-resilience-act"
+     "href": "https://www.refontelearning.com/blog/sbom-compliance-platforms-cyber-resilience-act",
+     "type": "editeur"
     },
     {
      "t": ")."
@@ -893,10 +1043,16 @@
   ],
   "attrs": [
    {
-    "date": "2026-10-02",
+    "date": "2026-10-06",
     "themes": [
      "sca",
      "sbom"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
     ]
    },
    {
@@ -904,33 +1060,26 @@
      "sbom",
      "sca"
     ],
-    "date": "2026-10-01"
-   },
-   {
-    "date": "2026-09-22",
-    "themes": [
-     "export-us",
-     "sca"
+    "date": "2026-10-06",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
     ]
    },
    {
-    "date": "2026-08-06",
+    "date": "2026-10-05",
     "themes": [
-     "licences"
-    ]
-   },
-   {
-    "date": "2026-04-14",
-    "themes": [
-     "sca",
-     "licences"
-    ]
-   },
-   {
-    "themes": [
+     "sbom",
      "sca"
     ],
-    "date": "2026-09-14"
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
    },
    {
     "themes": [
@@ -938,7 +1087,63 @@
      "sca",
      "chaine"
     ],
-    "date": "2026-08-31"
+    "date": "2026-10-08",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-09-22",
+    "themes": [
+     "export-us",
+     "sca"
+    ],
+    "fiabilite": "C",
+    "cote": [
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "date": "2026-04-14",
+    "themes": [
+     "sca",
+     "licences"
+    ],
+    "fiabilite": "C",
+    "cote": [
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "themes": [
+     "sca"
+    ],
+    "date": "2026-09-14",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     1,
+     3
+    ]
+   },
+   {
+    "date": "2026-08-06",
+    "themes": [
+     "licences"
+    ],
+    "fiabilite": "C",
+    "cote": [
+     1,
+     1,
+     3
+    ]
    },
    {
     "themes": [
@@ -946,7 +1151,13 @@
      "sbom",
      "sca"
     ],
-    "date": "2026-05"
+    "date": "2026-05",
+    "fiabilite": "C",
+    "cote": [
+     1,
+     1,
+     2
+    ]
    },
    {
     "date": "2026-09-11",
@@ -966,12 +1177,12 @@
   ],
   "sum": [
    {
-    "titre": "Grype 0.120.0 : nouvelle version du scanneur de vulnérabilités",
-    "statut": "Version publiée le 2 octobre 2026",
+    "titre": "Grype 0.120.0 et 0.120.1 : versions du scanneur de vulnérabilités",
+    "statut": "Version 0.120.0 publiée le 2 octobre 2026, 0.120.1 le 6 octobre 2026",
     "fonctions": "Ingénierie logicielle, PSIRT, qualité",
     "reseau": "Déconnecté (air-gapped) : fonctionnement complet sans Internet, la base de vulnérabilités étant importée manuellement (grype db import).",
-    "licence": "Open source : Apache-2.0 pour le code ; la base de vulnérabilités est publiée gratuitement par Anchore, sans licence ni conditions d’utilisation publiées.",
-    "essentiel": "Grype 0.120.0 stocke les points de décision SSVC du NVD dans une nouvelle table de décoration de la base v6, ajoute une colonne d’emplacements aux modèles de rapport HTML pour faciliter le tri et signe les sommes de contrôle des versions avec un bundle sigstore. Syft passe de la version 1.52.0 à la 1.54.0. Hors ligne, la base s’importe avec grype db import ; par défaut, Grype refuse de scanner si elle a plus de 5 jours (réglable).",
+    "licence": "Open source : Apache-2.0 pour le code ; licence de la base de vulnérabilités : non documentée.",
+    "essentiel": "Grype 0.120.0 stocke les points de décision SSVC du NVD dans une nouvelle table de décoration de la base v6, ajoute une colonne d’emplacements aux modèles de rapport HTML pour faciliter le tri et signe les sommes de contrôle des versions avec un bundle sigstore. Syft passe de la version 1.52.0 à la 1.54.0. La version 0.120.1 a été publiée le 6 octobre 2026. Hors ligne, la base s’importe avec grype db import ; par défaut, Grype refuse de scanner si elle a plus de 5 jours (réglable).",
     "contexte": "Grype analyse des images, des systèmes de fichiers et des SBOM ; Syft, du même éditeur, génère ces SBOM. La version 1.54.0 de Syft est sortie le 1er octobre 2026. La version précédente de Grype, la 0.119.0, date du 17 septembre 2026.",
     "impact_avere": "Les équipes qui scannent leurs inventaires avec Grype changent de version de base de données et de moteur ; ==les résultats peuvent différer d’une version à l’autre==, ce qui compte pour la traçabilité des contrôles.",
     "impact_potentiel": "Les points de décision SSVC pourraient aider à classer les vulnérabilités par priorité de traitement, et les rapports avec emplacements pourraient accélérer le tri par les équipes produit.",
@@ -981,12 +1192,12 @@
     ]
    },
    {
-    "titre": "Syft 1.54.0 : nouvelle version du générateur de SBOM",
-    "statut": "Version publiée le 1er octobre 2026",
+    "titre": "Syft 1.54.0 et 1.54.1 : versions du générateur de SBOM",
+    "statut": "Version 1.54.0 publiée le 1er octobre 2026, 1.54.1 le 6 octobre 2026",
     "fonctions": "Ingénierie logicielle, qualité, PSIRT",
     "reseau": "Déconnecté (air-gapped) : fonctionnement complet sans Internet ; seul l’enrichissement facultatif par les registres publics (Maven Central, npm), désactivé par défaut, utilise le réseau.",
     "licence": "Open source : Apache-2.0.",
-    "essentiel": "Syft 1.54.0, publiée le 1er octobre 2026, est une version du générateur de SBOM open source d'Anchore. Elle signale l'interpréteur Perl comme paquet CPAN, ajoute un catalogueur pour l'écosystème Perl et l'analyse Podman sans démon. Elle corrige aussi plusieurs plantages sur des fichiers tronqués.",
+    "essentiel": "Syft 1.54.0, publiée le 1er octobre 2026, est une version du générateur de SBOM open source d'Anchore. Elle signale l'interpréteur Perl comme paquet CPAN, ajoute un catalogueur pour l'écosystème Perl et l'analyse Podman sans démon. La version 1.54.1, publiée le 6 octobre 2026, corrige l'attestation depuis une image Podman locale.",
     "contexte": "Syft produit des nomenclatures logicielles (SBOM) à partir d'images de conteneurs et d'arborescences de fichiers. Sa sortie alimente souvent des outils d'analyse de composition logicielle (SCA) et de suivi des vulnérabilités.",
     "impact_avere": "Les équipes qui utilisent Syft disposent d'une version corrigée. Le changement de repérage de l'interpréteur Perl modifie le contenu des SBOM produits.",
     "impact_potentiel": "Les SBOM générés avec cette version pourraient différer des précédents, ce qui pourrait provoquer des écarts dans les comparaisons ou les alertes de vulnérabilités. La couverture de l'écosystème Perl pourrait révéler des composants jusque-là absents des inventaires. Une mise à jour pourrait demander une requalification de l'outil dans une chaîne maîtrisée.",
@@ -997,12 +1208,44 @@
     ]
    },
    {
+    "titre": "SPDX : quatre nouveaux outils référencés",
+    "statut": "Page de l'annuaire SPDX mise à jour le 5 octobre 2026 ; outils tiers, sans caractère obligatoire",
+    "fonctions": "Ingénierie logicielle, qualité, PSIRT, juridique",
+    "reseau": "Non documenté : la page de l’annuaire SPDX ne renseigne pas le fonctionnement hors connexion ni l’hébergement des quatre outils.",
+    "licence": "Open source : SBOMlyze sous Apache-2.0 ; licences des trois autres outils non indiquées dans la page consultée.",
+    "essentiel": "L'annuaire du projet SPDX signale quatre nouveaux outils en cinq semaines. SBOMlyze (Apache-2.0) est un outil en ligne de commande et une action GitHub qui comparent les modifications de SBOM SPDX, CycloneDX et Syft. sbomqs évalue la qualité et la conformité des SBOM. lynkctl génère des SBOM SPDX 3.0.1 pour les projets C/C++ et le *{en}firmware* embarqué sans exécuter la compilation. DevKit Dossier est un registre hébergé destiné aux fabricants qui vendent des logiciels, *{en}firmware*, applications mobiles ou SDK dans l'UE.",
+    "contexte": "SPDX (*{en}System Package Data Exchange*) est un format de SBOM normalisé, utilisé avec CycloneDX. Les outils référencés par l'annuaire sont proposés par des tiers : le projet SPDX ne les certifie pas.",
+    "impact_avere": "Ces outils élargissent l'offre pour produire et contrôler des SBOM. Le lecteur n'y trouve aucune obligation : leur intérêt dépend de la qualité des SBOM déjà produits. ==Le C/C++ et le *{en}firmware*== sont les écosystèmes où les composants tiers sont les plus difficiles à inventorier.",
+    "impact_potentiel": "Un outil de comparaison ou de notation des SBOM pourrait aider à vérifier les SBOM livrés par les fournisseurs. Les outils récents pourraient aussi manquer de recul ou de support, et leurs licences ne sont pas toutes précisées.",
+    "a_verifier": [
+     "Les SBOM livrés par les fournisseurs sont-ils évalués selon un critère de qualité ?",
+     "Les composants C/C++ et le *{en}firmware* sont-ils inventoriés sans compilation complète ?",
+     "La licence de chaque outil est-elle compatible avec l'usage prévu ?"
+    ]
+   },
+   {
+    "titre": "Dependency-Track 5.2.0 : gestion de SBOM open source",
+    "statut": "Version 5.0 du 9 juin 2026, 5.1.0 du 31 août 2026, 5.2.0 du 8 octobre 2026 ; outil libre, sans caractère obligatoire.",
+    "fonctions": "Ingénierie logicielle, PSIRT, qualité",
+    "reseau": "Connecté : la plateforme a besoin d’un accès réseau pour ses flux de vulnérabilités ; mode hors ligne non documenté dans les sources consultées.",
+    "licence": "Open source : Apache-2.0 (OWASP Foundation).",
+    "essentiel": "Dependency-Track est une plateforme open source de suivi des composants. Elle ingère des SBOM au format CycloneDX, suit les composants, croise les vulnérabilités (NVD, OSV, GitHub Advisories) et applique des politiques. La version 5.0, publiée le 9 juin 2026, apporte montée en charge horizontale, tolérance aux pannes et vérification de l'intégrité de la chaîne ; la version 5.1.0 est sortie le 31 août 2026, puis la 5.2.0 le 8 octobre 2026 (comptes de service, fédération d'identité de charge de travail, webhooks signés).",
+    "contexte": "L'outil est un projet de l'OWASP (*{en}Open Worldwide Application Security Project*). Il s'inscrit dans l'outillage de suivi des composants logiciels, utile à la gestion des vulnérabilités.",
+    "impact_avere": "Le suivi continu des composants tiers et des vulnérabilités connues est une activité courante de la gestion de la chaîne logicielle. Cet outil en offre une réalisation libre, sans lien automatique avec une obligation réglementaire.",
+    "impact_potentiel": "Un déploiement sur des réseaux de développement sensibles pourrait imposer des choix d'hébergement et de bases de vulnérabilités accessibles. La montée en charge annoncée pourrait convenir à de grands portefeuilles de produits, sous réserve d'une évaluation interne.",
+    "a_verifier": [
+     "L'outil est-il compatible avec les contraintes de réseaux isolés ?",
+     "Les SBOM produits sont-ils au format CycloneDX ?",
+     "Qui assurerait le traitement des alertes ?"
+    ]
+   },
+   {
     "titre": "Classement export : agents d'IA de QAD",
     "statut": "Produit annoncé le 22 septembre 2026 ; performances déclarées par l'éditeur",
     "fonctions": "Contrôle des exportations, douane, ingénierie produit, systèmes d'information",
-    "reseau": "Connecté : fonctions d’IA hébergées aux États-Unis (AWS) ; exploitation technique du cloud confiée à Persistent Systems (siège en Inde, bureau aux États-Unis) ; ni mode hors ligne ni région UE documentés.",
-    "licence": "Commercial : abonnement au service en ligne ; l’IA Champion se consomme en crédits plafonnés par année d’abonnement ; aucun prix publié.",
-    "essentiel": "QAD Redzone a lancé le 22 septembre 2026 des agents d'intelligence artificielle de classement de produits et d'automatisation documentaire. L'agent de classement propose un code douanier HTS et un numéro de classement export américain ECCN, avec un score de confiance et une justification. Chaque proposition est relue par une personne et conserve une piste d'audit.",
+    "reseau": "Connecté : service en ligne bâti sur AWS (partenaire cité par l’éditeur) ; région d’hébergement, sous-traitants et mode hors ligne : non documentés dans les sources consultées.",
+    "licence": "Commercial : abonnement ; conditions tarifaires non documentées dans les sources consultées.",
+    "essentiel": "QAD Redzone a lancé le 22 septembre 2026 des agents d'intelligence artificielle de classement de produits et d'automatisation documentaire. L'agent de classement propose un code douanier HTS et un numéro de classement export américain ECCN, avec un score de confiance et une justification. Selon l'éditeur, une revue humaine est intégrée à chaque décision, les recommandations à forte confiance suivant une revue simplifiée.",
     "contexte": "Selon l'éditeur, le temps de classement passe d'environ 110 minutes par article à moins d'une minute. L'outil vise l'ECCN de la réglementation américaine (EAR) ; il n'est pas présenté comme couvrant les numéros de la liste européenne des biens à double usage.",
     "impact_avere": "Le classement export d'un logiciel ==reste de la responsabilité de l'exportateur==, quel que soit l'outil. Ces outils fournissent une proposition argumentée et une trace, utiles pour documenter la décision.",
     "impact_potentiel": "Un tel outil pourrait accélérer le classement de gammes nombreuses, mais une erreur reproduite à grande échelle pourrait multiplier les exportations non autorisées ; la correspondance avec la liste européenne resterait à établir.",
@@ -1012,26 +1255,11 @@
     ]
    },
    {
-    "titre": "Propriété intellectuelle : agent de recherche d'antériorité d'IPRally",
-    "statut": "Service en ligne ; agent lancé le 31 mars 2026, rapport SOC 2 Type II publié le 6 août 2026",
-    "fonctions": "Propriété intellectuelle, juridique, ingénierie, sécurité des systèmes d'information",
-    "reseau": "Connecté : serveurs d’IPRally dans l’UE, environnements Google Cloud UE et États-Unis ; les questions sont transmises aux serveurs Gemini de Google (pays non précisé).",
-    "licence": "Commercial : abonnement annuel par siège ; IPRally n’acquiert pas les contenus des utilisateurs, et rien n’est utilisé pour entraîner un modèle.",
-    "essentiel": "IPRally a lancé le 31 mars 2026 un agent qui part d'une déclaration d'invention (texte, PDF, images) et produit en quelques minutes un tableau de caractéristiques et un rapport de recherche, sur un corpus de 120 millions de brevets. Le 6 août 2026, l'éditeur a annoncé un rapport SOC 2 Type II couvrant la période du 4 mars au 4 juin 2026, sans réserve.",
-    "contexte": "L'éditeur indique ne pas entraîner ses modèles sur les données des clients et ne pas laisser ses fournisseurs de modèles de langage conserver les données ; il est certifié ISO 27001:2022.",
-    "impact_avere": "Confier une déclaration d'invention à un service en ligne revient à ==transmettre une information sensible à un tiers==. Pour un industriel de défense, la nature des données et leur éventuelle classification déterminent si un tel service est utilisable.",
-    "impact_potentiel": "Ces outils pourraient réduire le coût des recherches de liberté d'exploitation des logiciels embarqués, à condition que les engagements de confidentialité soient compatibles avec les règles de protection du secret.",
-    "a_verifier": [
-     "Quelles inventions peuvent être confiées à un service hébergé hors de l'entreprise ?",
-     "Les engagements contractuels de l'éditeur ont-ils été revus ?"
-    ]
-   },
-   {
     "titre": "Code généré par IA : détection d'extraits et de licences par FossID",
     "statut": "Annonce du 14 avril 2026 ; produit en phase pilote avec liste d'attente au 5 octobre 2026",
     "fonctions": "Ingénierie logicielle, juridique, propriété intellectuelle, qualité",
-    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — Workbench s’installe sur site, mais sa base de connaissances se met à jour par téléchargement ou livraison physique ; mode réseau d’Agentic SCA non documenté.",
-    "licence": "Commercial : licence propriétaire, déployée en cloud, en hybride ou sur site ; aucun prix public ; conditions d’Agentic SCA non documentées.",
+    "reseau": "Déconnecté (air-gapped) : fonctionnement complet pour Workbench et Intelligence Engine, déployables dans un environnement isolé selon l’éditeur ; mode réseau d’Agentic SCA : non documenté.",
+    "licence": "Commercial ; conditions d’Agentic SCA non documentées dans les sources consultées.",
     "essentiel": "FossID a annoncé le 14 avril 2026 « Agentic SCA », une analyse de composition logicielle destinée au code produit avec des assistants d'IA. L'outil détecte les extraits de code open source, tiers ou propriétaire, entiers ou par extraits, et indique leur provenance, leur licence et le copyright. Il se branche sur les agents de codage par un serveur MCP et des garde-fous en temps réel.",
     "contexte": "L'éditeur cite des pilotes dans l'automobile, les semi-conducteurs et les télécommunications. La disponibilité générale était annoncée pour le second semestre 2026 ; la page du produit indique encore une phase pilote.",
     "impact_avere": "Le code proposé par un assistant d'IA peut reproduire des extraits sous licence *{en}copyleft* ou protégés par le droit d'auteur ; ==l'inventaire classique par paquets ne les voit pas==.",
@@ -1045,8 +1273,8 @@
     "titre": "OSV-Scanner 2.6.0 et Grype : analyse des inventaires logiciels",
     "statut": "OSV-Scanner 2.6.0 publié le 14 septembre 2026",
     "fonctions": "Ingénierie logicielle, PSIRT, qualité",
-    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — scan sur une base locale téléchargée, sans scan par *{en}commit* ni résolution des dépendances transitives.",
-    "licence": "Open source : Apache-2.0 ; les données OSV.dev gardent la licence de chaque source (CC-BY-4.0, CC-BY-SA-4.0…), avec leurs obligations d’attribution.",
+    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — le mode hors ligne n’envoie aucune information de projet et utilise une base locale téléchargée, mais le scan par *{en}commit* n’est pas pris en charge.",
+    "licence": "Open source : Apache-2.0 pour le code ; licence des données OSV.dev : non documentée dans les sources consultées.",
     "essentiel": "OSV-Scanner a été publié en version 2.6.0 le 14 septembre 2026. Avec Grype, il analyse les inventaires de composants logiciels face aux bases de vulnérabilités. Selon Dev Tool Lab, les deux outils divergent assez souvent pour que leur usage conjoint se justifie.",
     "contexte": "Ces outils comparent la liste des composants d'un produit, souvent issue d'un SBOM (nomenclature logicielle), avec des bases publiques de vulnérabilités. Les résultats varient selon les bases interrogées et la manière d'identifier les composants.",
     "impact_avere": "Les deux outils existent et leurs résultats peuvent différer. Pour un industriel dont les équipements embarquent de nombreux composants tiers, ==un seul outil peut donc laisser passer des vulnérabilités connues==, ce qui concerne le suivi de sécurité des produits.",
@@ -1058,27 +1286,26 @@
     ]
    },
    {
-    "titre": "Dependency-Track 5.0 : gestion de SBOM open source",
-    "statut": "Version 5.0 du 9 juin 2026, version 5.1.0 du 31 août 2026 ; outil libre, sans caractère obligatoire.",
-    "fonctions": "Ingénierie logicielle, PSIRT, qualité",
-    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — la plateforme interroge des API externes ; la source OSV peut être alimentée par un miroir hors ligne.",
-    "licence": "Open source : Apache-2.0 (OWASP Foundation).",
-    "essentiel": "Dependency-Track est une plateforme open source de suivi des composants. Elle ingère des SBOM au format CycloneDX, suit les composants, croise les vulnérabilités (NVD, OSV, GitHub Advisories) et applique des politiques. La version 5.0, publiée le 9 juin 2026, apporte montée en charge horizontale, tolérance aux pannes et vérification de l'intégrité de la chaîne ; la version 5.1.0 est sortie le 31 août 2026.",
-    "contexte": "L'outil est un projet de l'OWASP (*{en}Open Worldwide Application Security Project*). Il s'inscrit dans l'outillage de suivi des composants logiciels, utile à la gestion des vulnérabilités.",
-    "impact_avere": "Le suivi continu des composants tiers et des vulnérabilités connues est une activité courante de la gestion de la chaîne logicielle. Cet outil en offre une réalisation libre, sans lien automatique avec une obligation réglementaire.",
-    "impact_potentiel": "Un déploiement sur des réseaux de développement sensibles pourrait imposer des choix d'hébergement et de bases de vulnérabilités accessibles. La montée en charge annoncée pourrait convenir à de grands portefeuilles de produits, sous réserve d'une évaluation interne.",
+    "titre": "Propriété intellectuelle : agent de recherche d'antériorité d'IPRally",
+    "statut": "Service en ligne ; agent lancé le 31 mars 2026, rapport SOC 2 Type II publié le 6 août 2026",
+    "fonctions": "Propriété intellectuelle, juridique, ingénierie, sécurité des systèmes d'information",
+    "reseau": "Connecté : environnements Google Cloud dédiés à l’UE et aux États-Unis ; modèles d’IA tiers (Google Gemini, Anthropic, OpenAI) appelés par API, sans entraînement ni conservation selon l’éditeur.",
+    "licence": "Commercial : abonnement annuel par siège.",
+    "essentiel": "IPRally a lancé le 31 mars 2026 un agent qui part d'une déclaration d'invention (texte, PDF, images) et produit en quelques minutes un tableau de caractéristiques et un rapport de recherche, sur un corpus de brevets dont la taille varie selon la page de l'éditeur (120 à plus de 130 millions). Le 6 août 2026, l'éditeur a annoncé un rapport SOC 2 Type II couvrant la période du 4 mars au 4 juin 2026, sans réserve.",
+    "contexte": "L'éditeur indique ne pas entraîner ses modèles sur les données des clients et ne pas laisser ses fournisseurs de modèles de langage conserver les données ; il est certifié ISO 27001:2022.",
+    "impact_avere": "Confier une déclaration d'invention à un service en ligne revient à ==transmettre une information sensible à un tiers==. Pour un industriel de défense, la nature des données et leur éventuelle classification déterminent si un tel service est utilisable.",
+    "impact_potentiel": "Ces outils pourraient réduire le coût des recherches de liberté d'exploitation des logiciels embarqués, à condition que les engagements de confidentialité soient compatibles avec les règles de protection du secret.",
     "a_verifier": [
-     "L'outil est-il compatible avec les contraintes de réseaux isolés ?",
-     "Les SBOM produits sont-ils au format CycloneDX ?",
-     "Qui assurerait le traitement des alertes ?"
+     "Quelles inventions peuvent être confiées à un service hébergé hors de l'entreprise ?",
+     "Les engagements contractuels de l'éditeur ont-ils été revus ?"
     ]
    },
    {
     "titre": "Plateformes commerciales de conformité SBOM et CRA",
     "statut": "Information commerciale ; Anchore Enterprise v6 publié en mai 2026",
     "fonctions": "Ingénierie logicielle, achats, qualité",
-    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel pour Anchore Enterprise (flux importés manuellement) ; Connecté pour FOSSA sur site (accès sortant requis) et Snyk, hébergé aux États-Unis, en Allemagne ou en Australie selon la région.",
-    "licence": "Commercial : Anchore Enterprise sur devis, avec essai gratuit de 15 jours ; FOSSA (5 projets) et Snyk proposent une offre gratuite limitée.",
+    "reseau": "Non documenté : les sources consultées ne permettent pas de conclure sur le fonctionnement hors connexion ni sur les pays d’hébergement de ces plateformes.",
+    "licence": "Commercial ; conditions tarifaires non documentées dans les sources consultées.",
     "essentiel": "Selon Refonte Learning, Anchore Enterprise v6 (mai 2026) est présenté comme une solution de conformité fondée sur les SBOM et liée à l'échéance du 11 septembre. FOSSA propose une évaluation gratuite vis-à-vis du règlement sur la cyber-résilience (CRA), avec un plan de remédiation à 30, 60 et 90 jours ; Snyk est aussi cité, sans produit CRA dédié identifié.",
     "contexte": "Les SBOM (nomenclatures logicielles) et l'analyse de composition logicielle (SCA, *{en}Software Composition Analysis*) alimentent la préparation au CRA. Le marché propose des outils qui revendiquent un appui à cette conformité. Ces fonctions couvrent notamment la génération de nomenclatures et la surveillance des vulnérabilités.",
     "impact_avere": "Ces offres existent et sont décrites par un blog de formation, source secondaire. Leur présentation ==n'établit pas qu'elles satisfassent les exigences du CRA== ni celles de marchés de défense.",
@@ -1092,9 +1319,9 @@
     "titre": "CRA : plateforme unique de déclaration de l’ENISA",
     "statut": "En service depuis le 11 septembre 2026",
     "fonctions": "PSIRT et ingénierie produit, juridique",
-    "reseau": "Connecté : service en ligne de l’ENISA ; aucun transfert de données personnelles hors UE/EEE prévu (pays du centre de données non précisé).",
-    "licence": "Non documenté : service public sans tarif publié, accessible avec un compte EU Login ; les utilisateurs accordent à l’ENISA une licence gratuite sur leurs déclarations.",
-    "essentiel": "L’ENISA exploite la plateforme unique de déclaration du CRA, ouverte le 11 septembre 2026. Les fabricants y déclarent les vulnérabilités activement exploitées et les incidents graves touchant leurs produits comportant des éléments numériques. Les gestionnaires de logiciels open source y sont soumis à partir du 11 décembre 2027.",
+    "reseau": "Connecté : service en ligne de l’ENISA ; transfert de données personnelles hors UE/EEE non prévu selon l’avis de protection des données ; sous-traitants cités : AWS, Microsoft Azure, UniSystems Luxembourg et WEDOS.",
+    "licence": "Gratuit : service public accessible avec un compte EU Login ; conditions d’utilisation de la plateforme : non documentées dans les sources consultées.",
+    "essentiel": "L’ENISA exploite la plateforme unique de déclaration du CRA, ouverte le 11 septembre 2026. Les fabricants y déclarent les vulnérabilités activement exploitées et les incidents graves touchant leurs produits comportant des éléments numériques. Selon l'ENISA, les gestionnaires de logiciels open source y sont soumis à partir du 11 décembre 2027.",
     "contexte": "Selon l’ENISA, une fois une déclaration déposée, le CSIRT désigné comme coordinateur qui la reçoit en premier la diffuse aux CSIRT concernés des autres États membres. Les délais de déclaration sont de 24 heures, 72 heures et 14 jours.",
     "impact_avere": "Un fabricant concerné doit disposer d’un processus et de comptes capables de déposer une alerte précoce ==dans les 24 heures==, y compris pour une vulnérabilité d’un composant tiers intégré à son produit.",
     "impact_potentiel": "Une vulnérabilité exploitée dans un composant open source d’un produit à double usage pourrait imposer une alerte sur la plateforme avant même la publication d’un correctif en amont.",
@@ -1107,8 +1334,8 @@
     "titre": "Chainguard : images durcies avec SBOM signée et provenance",
     "statut": "Offre commerciale d'un éditeur, sans date d'effet",
     "fonctions": "Achats, ingénierie logicielle, PSIRT, qualité",
-    "reseau": "Connecté : images récupérées depuis le registre cgr.dev (stockage Cloudflare R2, pays non documenté) ; un proxy local est recommandé pour limiter la dépendance au registre.",
-    "licence": "Mixte : images :latest et :latest-dev gratuites sans compte, ou cinq images au choix (Catalog Starter, sans engagement de correction des CVE) ; autres versions sur abonnement.",
+    "reseau": "Connecté : images récupérées depuis le registre cgr.dev ; pays d’hébergement non documenté dans les sources consultées ; un proxy local est recommandé pour limiter la dépendance au registre.",
+    "licence": "Commercial ; conditions des offres gratuites non documentées dans les sources consultées.",
     "essentiel": "Chainguard met en avant des images durcies livrées avec une SBOM signée et une provenance, des mises à jour quotidiennes et un délai de 7 jours pour les CVE (*{en}Common Vulnerabilities and Exposures*) critiques. Ce délai est une promesse de l'éditeur.",
     "contexte": "Ces arguments sont présentés par l'éditeur dans un contenu consacré au Cyber Resilience Act (CRA). Le règlement impose aux fabricants de gérer les vulnérabilités et de documenter les composants de leurs produits.",
     "impact_avere": "Il s'agit d'une communication commerciale. Elle n'établit aucune conformité et ne modifie pas les obligations de l'industriel.",
@@ -1133,7 +1360,7 @@
   "k": "p",
   "i": [
    {
-    "t": "Les registres de paquets durcissent leurs règles après une série d’attaques majeures en 2026, qui ont visé jusqu’aux outils d’analyse eux-mêmes."
+    "t": "Une série d’attaques majeures de la chaîne d’approvisionnement en 2026 a visé jusqu’aux outils d’analyse eux-mêmes ; les registres de paquets annoncent des défenses."
    }
   ]
  },
@@ -1207,19 +1434,37 @@
      "chaine",
      "nis2"
     ],
-    "date": "2026-09-22"
+    "date": "2026-09-22",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     2,
+     3
+    ]
    },
    {
     "themes": [
      "chaine"
     ],
-    "date": "2026-09-16"
+    "date": "2026-09-16",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
    },
    {
     "themes": [
      "chaine"
     ],
-    "date": "2026-07-27"
+    "date": "2026-07-27",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
    },
    {
     "date": "2026-03-19",
@@ -1332,6 +1577,12 @@
    "themes": [
     "cra",
     "sca"
+   ],
+   "fiabilite": "B",
+   "cote": [
+    3,
+    3,
+    3
    ]
   },
   "sum": {
@@ -1369,7 +1620,7 @@
   "items": [
    [
     {
-     "t": "*{en}Dual-use* UE : le règlement délégué C(2026)6323, adopté le 14 septembre 2026, met à jour l’annexe I et ==étend les contrôles sur les logiciels== à de nouveaux équipements semi-conducteurs ; la note de changements de la Commission détaille, une nouvelle entrée 5E501.f sur des « bibliothèques » et l’ajout à 4D001.a du logiciel de développement ou de production des équipements 4A005 ; sauf objection du Parlement européen ou du Conseil pendant deux mois, il sera publié au JO ("
+     "t": "*{en}Dual-use* UE : le règlement délégué C(2026)6323, adopté le 14 septembre 2026, met à jour l’annexe I et ==étend les contrôles sur les logiciels== à de nouveaux équipements semi-conducteurs ; sauf objection du Parlement européen ou du Conseil pendant deux mois, il sera publié au JO ("
     },
     {
      "t": "Commission européenne",
@@ -1388,6 +1639,25 @@
     {
      "t": "Ashurst",
      "href": "https://www.ashurstperkinscoie.com/en/insights/the-european-commission-updates-the-eu-dual-use-export-control-list/"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Sanctions contre la Russie : le 20e paquet (23 avril 2026) interdit les services de cybersécurité gérés au gouvernement russe et aux entités établies en Russie ; le 21e paquet (23 juillet 2026) ajoute 216 inscriptions et 51 entités à l’annexe IV, dont des entités de Chine, de Turquie et d’Inde ("
+    },
+    {
+     "t": "DLA Piper",
+     "href": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Baker McKenzie",
+     "href": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/"
     },
     {
      "t": ")."
@@ -1433,14 +1703,14 @@
    ],
    [
     {
-     "t": "Défense, ITAR-free : la demande européenne de systèmes sans composants soumis à l'ITAR monte, par crainte d'un blocage américain des réexportations. Honeywell a affecté 1 000 ingénieurs en Pologne et en Tchéquie à des technologies non-ITAR ("
+     "t": "Défense, ITAR-free : la demande européenne de systèmes sans composants soumis à l'ITAR monte, par crainte d'un blocage américain des réexportations. Honeywell a chargé 1 000 ingénieurs en Pologne et en Tchéquie de concevoir des technologies non-ITAR ("
     },
     {
      "t": "BNN Bloomberg/Reuters",
      "href": "https://www.bnnbloomberg.ca/business/company-news/2026/07/09/honeywell-aero-to-develop-more-defence-products-for-europe-outside-us-export-controls/"
     },
     {
-     "t": "). Le 15 juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free ("
+     "t": "). En juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free ("
     },
     {
      "t": "Safran",
@@ -1458,7 +1728,7 @@
     },
     {
      "t": "Williams Mullen",
-     "href": "https://www.williamsmullen.com/news/itar-amendment-expands-license-exemption-transfers-or-us-government"
+     "href": "https://www.law.cornell.edu/cfr/text/22/123.9"
     },
     {
      "t": ")."
@@ -1466,7 +1736,7 @@
    ],
    [
     {
-     "t": "Régime français : les licences de matériels de guerre passent par la CIEEMG et le système SIGALE ; la DGA a publié le 23 mars 2026 un mini-guide du contrôle des exportations ("
+     "t": "Régime français : les licences de matériels de guerre passent par la CIEEMG et le système SIGALE ; la DGA a publié en mars 2026 un mini-guide du contrôle des exportations ("
     },
     {
      "t": "DGA",
@@ -1478,30 +1748,11 @@
    ],
    [
     {
-     "t": "Sanctions contre la Russie : le 20e paquet (23 avril 2026) interdit les services de cybersécurité gérés au gouvernement russe et aux entités établies en Russie ; le 21e paquet (23 juillet 2026) ajoute 216 inscriptions et 51 entités à l’annexe IV, dont des entités de Chine, de Turquie et d’Inde ("
-    },
-    {
-     "t": "DLA Piper",
-     "href": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia"
-    },
-    {
-     "t": ", "
-    },
-    {
-     "t": "Baker McKenzie",
-     "href": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
      "t": "ECCN 0D521 n° 1 (IA d’analyse d’images géospatiales) : la table de l’EAR indique un passage en EAR99 au 6 janvier 2023, sauf reclassement ("
     },
     {
      "t": "eCFR",
-     "href": "https://www.ecfr.gov/current/title-15/subtitle-B/chapter-VII/subchapter-C/part-774/appendix-Supplement%20No.%205%20to%20Part%20774"
+     "href": "https://www.law.cornell.edu/cfr/text/15/appendix-Supplement_No_5_to_part_774"
     },
     {
      "t": ")."
@@ -1525,31 +1776,12 @@
     "themes": [
      "export-ue"
     ],
-    "date": "2026-09-14"
-   },
-   {
-    "date": "2026-09-22",
-    "themes": [
-     "sanctions"
-    ]
-   },
-   {
-    "themes": [
-     "nis2",
-     "cmmc"
-    ],
-    "date": "2026-09-03"
-   },
-   {
-    "themes": [
-     "export-us"
-    ],
-    "date": "2026-07-09"
-   },
-   {
-    "date": "2026-03-23",
-    "themes": [
-     "export-ue"
+    "date": "2026-09-14",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     3,
+     3
     ]
    },
    {
@@ -1557,7 +1789,62 @@
      "export-ue",
      "sanctions"
     ],
-    "date": "2026-07-23"
+    "date": "2026-07-23",
+    "fiabilite": "B",
+    "cote": [
+     3,
+     3,
+     3
+    ]
+   },
+   {
+    "date": "2026-09-22",
+    "themes": [
+     "sanctions"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     3,
+     2,
+     3
+    ]
+   },
+   {
+    "themes": [
+     "nis2",
+     "cmmc"
+    ],
+    "date": "2026-09-03",
+    "fiabilite": "B",
+    "cote": [
+     3,
+     2,
+     3
+    ]
+   },
+   {
+    "themes": [
+     "export-us"
+    ],
+    "date": "2026-07-09",
+    "fiabilite": "B",
+    "cote": [
+     3,
+     1,
+     2
+    ]
+   },
+   {
+    "date": "2026-03-23",
+    "themes": [
+     "export-ue"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     2,
+     1,
+     3
+    ]
    },
    {
     "date": "2022-01-06",
@@ -1586,7 +1873,21 @@
     "a_verifier": [
      "Les produits ou outils de l'entreprise touchent-ils aux équipements semi-conducteurs visés ?",
      "Les classements des logiciels et composants tiers sont-ils à jour ?",
-     "Quand la période d'examen prend-elle fin ?"
+     "Quand la publication au JO est-elle attendue ?"
+    ]
+   },
+   {
+    "titre": "Sanctions de l'UE contre la Russie : services de cybersécurité, logiciels et listes du 21e paquet",
+    "statut": "20e paquet adopté le 23 avril 2026 ; 21e paquet adopté le 23 juillet 2026",
+    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
+    "essentiel": "Le 20e paquet de sanctions de l'UE (23 avril 2026) interdit les services de cybersécurité gérés au gouvernement russe et aux entités établies en Russie. Le 21e paquet (23 juillet 2026) ajoute 216 inscriptions et 51 entités à l'annexe IV du règlement (restrictions *{en}dual-use* renforcées).",
+    "contexte": "Parmi ces entités figurent des sociétés de Chine, de Turquie et d'Inde. Un délai court jusqu'au 25 octobre 2026 pour exécuter certains contrats antérieurs.",
+    "impact_avere": "Ces interdictions sont en vigueur. Pour un industriel de défense, fournir des mises à jour logicielles, de la maintenance ou des services gérés ==peut constituer une prestation interdite== ; le criblage des clients doit inclure les nouvelles inscriptions.",
+    "impact_potentiel": "Les restrictions de l'annexe IV pourraient affecter des chaînes de revente vers des pays tiers. La fin de la période de transition, le 25 octobre 2026, pourrait imposer de régler rapidement des contrats en cours sur les biens nouvellement listés.",
+    "a_verifier": [
+     "Les listes de criblage intègrent-elles les inscriptions du 21e paquet ?",
+     "Des mises à jour ou services logiciels sont-ils fournis à des tiers liés à la Russie ?",
+     "Quels contrats relèvent de la période transitoire ?"
     ]
    },
    {
@@ -1620,7 +1921,7 @@
     "titre": "Défense : demande de systèmes sans composants ITAR",
     "statut": "Tendance de marché ; réglementation américaine ITAR en vigueur",
     "fonctions": "Contrôle des exportations, achats, juridique, ingénierie logicielle",
-    "essentiel": "La demande européenne de systèmes sans composants soumis à l'ITAR (*{en}International Traffic in Arms Regulations*) augmente, par crainte d'un blocage américain des réexportations. Honeywell a affecté 1 000 ingénieurs en Pologne et en Tchéquie à des technologies non-ITAR. Le 15 juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free.",
+    "essentiel": "La demande européenne de systèmes sans composants soumis à l'ITAR (*{en}International Traffic in Arms Regulations*) augmente, par crainte d'un blocage américain des réexportations. Honeywell a chargé 1 000 ingénieurs en Pologne et en Tchéquie de concevoir des technologies non-ITAR. En juin 2026, la France est entrée en négociations exclusives avec Safran et MBDA pour THUNDART, présenté comme ITAR-free.",
     "contexte": "L'ITAR impose une autorisation du DDTC (*{en}Directorate of Defense Trade Controls*) pour réexporter ou retransférer des articles fabriqués à l'étranger à partir de composants, de données techniques ou de logiciels ITAR.",
     "impact_avere": "Pour un industriel de défense, tout logiciel, donnée technique ou composant d'origine ITAR intégré à un équipement rend la réexportation ==soumise à autorisation américaine==.",
     "impact_potentiel": "Les clients pourraient exiger une attestation ITAR-free, y compris pour les bibliothèques et outils logiciels tiers. Cela pourrait pousser à cartographier l'origine des composants et à remplacer certains éléments. Ces exigences pourraient figurer dans des appels d'offres.",
@@ -1634,27 +1935,13 @@
     "titre": "Contrôle des exportations de matériels de guerre : le mini-guide de la DGA",
     "statut": "Document publié en mars 2026 ; régime de licences en vigueur",
     "fonctions": "Contrôle des exportations, juridique, direction commerciale, ingénierie",
-    "essentiel": "La DGA a publié le 23 mars 2026 un mini-guide du contrôle des exportations. Les demandes de licences d'exportation de matériels de guerre sont examinées par la commission interministérielle pour l'étude des exportations de matériels de guerre (CIEEMG) et gérées dans le système d'information SIGALE.",
+    "essentiel": "La DGA a publié en mars 2026 un mini-guide du contrôle des exportations. Les demandes de licences d'exportation de matériels de guerre sont examinées par la commission interministérielle pour l'étude des exportations de matériels de guerre (CIEEMG) et gérées dans le système d'information SIGALE.",
     "contexte": "Ce régime national s'applique aux matériels de guerre et aux matériels assimilés ; les biens à double usage relèvent d'un autre régime, celui du règlement européen 2021/821. Le logiciel et la technologie associés peuvent être soumis à licence.",
     "impact_avere": "Pour un industriel de défense, l'exportation d'un équipement, de son logiciel ou d'une mise à jour vers un pays tiers relève de ce régime de licences, avec les délais d'instruction associés.",
     "impact_potentiel": "Une mise à jour logicielle livrée à distance, ou un transfert de code à un partenaire étranger, pourrait nécessiter une licence si elle concerne un matériel de guerre.",
     "a_verifier": [
      "Les mises à jour logicielles livrées à l'export sont-elles couvertes par les licences ?",
      "Le guide de la DGA est-il diffusé aux équipes concernées ?"
-    ]
-   },
-   {
-    "titre": "Sanctions de l'UE contre la Russie : services de cybersécurité, logiciels et listes du 21e paquet",
-    "statut": "20e paquet adopté le 23 avril 2026 ; 21e paquet adopté le 23 juillet 2026",
-    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
-    "essentiel": "Le 20e paquet de sanctions de l'UE (23 avril 2026) interdit les services de cybersécurité gérés au gouvernement russe et aux entités établies en Russie. Le 21e paquet (23 juillet 2026) ajoute 216 inscriptions et 51 entités à l'annexe IV du règlement (restrictions *{en}dual-use* renforcées).",
-    "contexte": "Parmi ces entités figurent des sociétés de Chine, de Turquie et d'Inde. Un délai court jusqu'au 25 octobre 2026 pour exécuter certains contrats antérieurs.",
-    "impact_avere": "Ces interdictions sont en vigueur. Pour un industriel de défense, fournir des mises à jour logicielles, de la maintenance ou des services gérés ==peut constituer une prestation interdite== ; le criblage des clients doit inclure les nouvelles inscriptions.",
-    "impact_potentiel": "Les restrictions de l'annexe IV pourraient affecter des chaînes de revente vers des pays tiers. La fin de la période de transition, le 25 octobre 2026, pourrait imposer de régler rapidement des contrats en cours sur les biens nouvellement listés.",
-    "a_verifier": [
-     "Les listes de criblage intègrent-elles les inscriptions du 21e paquet ?",
-     "Des mises à jour ou services logiciels sont-ils fournis à des tiers liés à la Russie ?",
-     "Quels contrats relèvent de la période transitoire ?"
     ]
    },
    {
@@ -1707,11 +1994,18 @@
   "items": [
    [
     {
-     "t": "Loi Résilience : l’examen du projet de loi transposant NIS2, DORA et REC commence à l’Assemblée nationale le 7 octobre 2026 ; la Commission a saisi la CJUE le 8 juillet contre la France et trois autres États membres pour défaut de transposition, et l’ANSSI a publié le référentiel ReCyF le 17 mars ("
+     "t": "Loi Résilience : l’examen du projet de loi transposant NIS2, DORA et REC, prévu les 7 et 9 octobre à l’Assemblée nationale, a été retiré de l’ordre du jour le 6 octobre, sans nouvelle date ; la Commission a saisi la CJUE le 8 juillet contre la France et trois autres États membres pour défaut de transposition, et l’ANSSI a publié le référentiel ReCyF le 17 mars ("
     },
     {
      "t": "Next",
      "href": "https://next.ink/brief-article/alleluia-la-transposition-de-nis2-est-enfin-a-lordre-du-jour-de-lassemblee-nationale/"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Leto",
+     "href": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026"
     },
     {
      "t": ", "
@@ -1738,7 +2032,7 @@
    ],
    [
     {
-     "t": "SAFE et EDIP : SAFE ouvre jusqu’à 150 Md€ de prêts et plafonne à 35 % ==le coût des composants de pays tiers== ; EDIP dispose de 1,5 Md€ pour 2026-2027, avec un appel de 180 M€ pour le soutien à l’Ukraine clos le 13 octobre et un appel d’achats conjoints de 240 M€ en octobre ; le Fonds européen de défense 2026 a clos ses appels le 29 septembre ("
+     "t": "SAFE et EDIP : SAFE ouvre jusqu’à 150 Md€ de prêts et plafonne à 35 % ==le coût des composants de pays tiers== ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ pour le soutien à l’Ukraine qui se clôt le 13 octobre ; le volet d’achats conjoints dispose de 240 M€, son premier appel (90 M€) se clôturant aussi le 13 octobre ; le Fonds européen de défense 2026 a clos ses appels le 29 septembre ("
     },
     {
      "t": "CMS",
@@ -1764,7 +2058,7 @@
    ],
    [
     {
-     "t": "AI Act : le règlement (UE) 2026/1744 (*{en}Digital Omnibus on AI*), publié au JO le 24 juillet et en vigueur le 27 juillet 2026, reporte les règles sur les systèmes à haut risque au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché ; la plupart des obligations de transparence restent inchangées et le Bureau de l'IA voit son rôle renforcé ("
+     "t": "AI Act : le règlement (UE) 2026/1744 (*{en}Digital Omnibus on AI*), publié au JO le 24 juillet et en vigueur le 27 juillet 2026, reporte les règles sur les systèmes à haut risque de l'annexe III au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché ; la plupart des obligations de transparence restent inchangées et le Bureau de l'IA voit son rôle renforcé ("
     },
     {
      "t": "K&L Gates",
@@ -1818,26 +2112,50 @@
     "themes": [
      "nis2"
     ],
-    "date": "2026-09-23"
+    "date": "2026-10-06",
+    "fiabilite": "B",
+    "cote": [
+     3,
+     3,
+     3
+    ]
    },
    {
     "date": "2026-09-16",
     "themes": [
      "export-ue",
      "financement"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     3,
+     3,
+     3
     ]
    },
    {
     "themes": [
      "financement"
     ],
-    "date": "2026-09-29"
+    "date": "2026-09-29",
+    "fiabilite": "A",
+    "cote": [
+     3,
+     3,
+     3
+    ]
    },
    {
     "themes": [
      "ai-act"
     ],
-    "date": "2026-07-24"
+    "date": "2026-07-24",
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
    },
    {
     "themes": [
@@ -1857,15 +2175,16 @@
   "sum": [
    {
     "titre": "Loi Résilience et transposition de NIS2",
-    "statut": "Projet de loi en discussion ; examen à l'Assemblée nationale programmé à partir du 7 octobre 2026",
+    "statut": "Projet de loi en discussion ; examen à l'Assemblée nationale retiré de l'ordre du jour le 6 octobre 2026, sans nouvelle date",
     "fonctions": "Juridique, qualité, ingénierie logicielle",
-    "essentiel": "Le projet de loi transposant NIS2, DORA et REC est programmé à l'Assemblée nationale à partir du 7 octobre 2026. Le 8 juillet 2026, la Commission a saisi la CJUE contre la France et trois autres États membres pour défaut de transposition. L'ANSSI a publié le référentiel ReCyF le 17 mars 2026.",
+    "essentiel": "Le 6 octobre 2026, la conférence des présidents de l'Assemblée nationale a retiré de l'ordre du jour des 7 et 9 octobre le projet de loi transposant NIS2, DORA et REC, sans fixer de nouvelle date ; le rapporteur Éric Bothorel espère une réinscription d'ici quinze jours ou trois semaines, et la prochaine conférence des présidents est fixée au 13 octobre. Le 8 juillet 2026, la Commission a saisi la CJUE contre la France et trois autres États membres pour défaut de transposition. L'ANSSI a publié le référentiel ReCyF le 17 mars 2026.",
     "contexte": "NIS2 est la directive européenne sur la sécurité des réseaux et des systèmes d'information. DORA concerne la résilience du secteur financier et REC celle des entités critiques.",
-    "impact_avere": "Le texte n'est pas encore adopté et la France fait l'objet d'une saisine de la CJUE pour défaut de transposition. Le référentiel ReCyF de l'ANSSI est publié.",
+    "impact_avere": "Le texte n'est pas adopté, son examen est de nouveau reporté et la France fait l'objet d'une saisine de la CJUE pour défaut de transposition. Le référentiel ReCyF de l'ANSSI est publié.",
     "impact_potentiel": "Le contenu final de la loi pourrait évoluer au cours du débat. Un industriel de défense pourrait être qualifié d'entité essentielle ou importante, ou être concerné comme fournisseur, et devoir adapter sa gouvernance cyber.",
     "a_verifier": [
      "L'entreprise relève-t-elle du champ de NIS2 ?",
-     "Quel contenu ReCyF s'applique à ses activités ?"
+     "Quel contenu ReCyF s'applique à ses activités ?",
+     "La prochaine conférence des présidents (13 octobre) fixe-t-elle une date ?"
     ]
    },
    {
@@ -1883,12 +2202,12 @@
    },
    {
     "titre": "Défense : SAFE, EDIP et exigences sur composants et logiciels",
-    "statut": "Programmes en cours ; appels EDIP ouverts jusqu'en octobre 2026, appels du Fonds européen de défense 2026 clos le 29 septembre",
+    "statut": "Programmes en cours ; appels EDIP ouverts jusqu'au 13 octobre 2026, appels du Fonds européen de défense 2026 clos le 29 septembre",
     "fonctions": "Achats, juridique, contrôle des exportations, ingénierie logicielle",
-    "essentiel": "SAFE ouvre jusqu'à 150 Md€ de prêts ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ (instrument de soutien à l'Ukraine) clos le 13 octobre 2026 et un premier appel d'achats conjoints de 240 M€ clos en octobre 2026. SAFE plafonne à 35 % le coût des composants de pays tiers non associés, exige des contractants établis dans l'UE, l'EEE-AELE ou l'Ukraine, et l'UE veut une autorité de conception sur les logiciels venus de l'étranger. EDIP reprend la règle des 65 % de composants européens. Le Fonds européen de défense 2026 a clos ses appels le 29 septembre.",
+    "essentiel": "SAFE ouvre jusqu'à 150 Md€ de prêts ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ (instrument de soutien à l'Ukraine) qui se clôt le 13 octobre 2026 et un volet d'achats conjoints de 240 M€, dont le premier appel de 90 M€ se clôt aussi le 13 octobre. SAFE plafonne à 35 % le coût des composants de pays tiers non associés et exige des contractants établis dans l'UE, l'EEE-AELE ou l'Ukraine. EDIP reprend la règle des 65 % de composants européens et exige une autorité de conception sur les produits de défense. Le Fonds européen de défense 2026 a clos ses appels le 29 septembre.",
     "contexte": "L'éligibilité se joue sur dossier : propriété, contrôle, origine des composants, exposition aux contrôles à l'export, cybersécurité.",
     "impact_avere": "L'origine des composants, logiciels tiers inclus, ==devient un critère d'éligibilité==. Les nomenclatures logicielles et les informations de provenance servent à documenter ces seuils.",
-    "impact_potentiel": "Les logiciels de sociétés non européennes pourraient exiger une autorité de conception européenne ou une substitution. L'exposition à des contrôles extérieurs, comme ceux des États-Unis, pourrait peser sur l'évaluation des dossiers.",
+    "impact_potentiel": "Les logiciels de sociétés non européennes pourraient poser la question de l'autorité de conception, au titre de l'EDIP. L'exposition à des contrôles extérieurs, comme ceux des États-Unis, pourrait peser sur l'évaluation des dossiers.",
     "a_verifier": [
      "Quelle part des composants et logiciels est d'origine tierce ?",
      "Quelle autorité de conception détient l'entreprise ?"
@@ -1898,7 +2217,7 @@
     "titre": "AI Act : règlement (UE) 2026/1744 *{en}Digital Omnibus on AI*",
     "statut": "En vigueur depuis le 27 juillet 2026 (publié au JO le 24 juillet)",
     "fonctions": "Juridique, ingénierie logicielle, qualité, achats",
-    "essentiel": "Le règlement (UE) 2026/1744, dit *{en}Digital Omnibus on AI*, a été publié au JO le 24 juillet et est en vigueur depuis le 27 juillet 2026. Il reporte les règles sur les systèmes à haut risque au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché. La plupart des obligations de transparence restent inchangées, et le Bureau de l'IA voit son rôle renforcé.",
+    "essentiel": "Le règlement (UE) 2026/1744, dit *{en}Digital Omnibus on AI*, a été publié au JO le 24 juillet et est en vigueur depuis le 27 juillet 2026. Il reporte les règles sur les systèmes à haut risque de l'annexe III au 2 décembre 2027 et le marquage de l'article 50(2) au 2 décembre 2026 pour les systèmes génératifs déjà sur le marché. La plupart des obligations de transparence restent inchangées, et le Bureau de l'IA voit son rôle renforcé.",
     "contexte": "Le règlement sur l'intelligence artificielle (AI Act) exclut les systèmes d'IA utilisés exclusivement à des fins militaires, de défense ou de sécurité nationale.",
     "impact_avere": "Les nouveaux délais s'appliquent depuis le 27 juillet 2026. Les règles sur les systèmes à haut risque sont reportées au 2 décembre 2027.",
     "impact_potentiel": "Un produit à usage mixte, ou une version civile d'un équipement embarquant de l'IA, pourrait relever du règlement. Des composants d'IA tiers pourraient entraîner des obligations de transparence dès le 2 décembre 2026.",
@@ -1959,7 +2278,7 @@
   "items": [
    [
     {
-     "t": "GPL, SFC contre Vizio : le procès devant jury était annoncé à partir du 10 août 2026 devant la Cour supérieure de Californie (comté d’Orange) ; il porte sur la possibilité, pour un consommateur, d’==exiger le code source== en tant que bénéficiaire de la licence. Ni la tenue du procès, ni un report, ni un verdict n’ont été relevés dans les sources consultées ("
+     "t": "GPL, SFC contre Vizio : le procès devant jury, annoncé à partir du 10 août 2026 devant la Cour supérieure de Californie (comté d’Orange), est indiqué par la SFC pour fin 2026 ; il porte sur la possibilité, pour un consommateur, d’==exiger le code source== en tant que bénéficiaire de la licence. Aucun verdict n’a été relevé dans les sources consultées ("
     },
     {
      "t": "PPC Land",
@@ -1978,7 +2297,7 @@
    ],
    [
     {
-     "t": "AGPLv3 : la SFC a publié le 18 mai 2026 sa réponse aux violations de l’AGPLv3 par Bambu Lab ; issue non publiée ("
+     "t": "AGPLv3 : la SFC a publié le 18 mai 2026 sa réponse aux violations de l’AGPLv3 par Bambu Lab ; l’enquête est en cours ("
     },
     {
      "t": "SFC",
@@ -1990,7 +2309,7 @@
    ],
    [
     {
-     "t": "Relicenciements : Elastic et Redis sont revenus à une licence approuvée par l'OSI (AGPL), tandis que les licences BSL et SSPL restent en circulation ("
+     "t": "Relicenciements : Elastic et Redis sont revenus à une licence approuvée par l'OSI (AGPL), tandis que, selon RedMonk, les licences BSL et SSPL sont très peu répandues sans progresser ("
     },
     {
      "t": "RedMonk",
@@ -2006,6 +2325,12 @@
     "date": "2026-05-27",
     "themes": [
      "licences"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     3,
+     2,
+     2
     ]
    },
    {
@@ -2026,9 +2351,9 @@
   "sum": [
    {
     "titre": "GPL : procédure SFC contre Vizio",
-    "statut": "Procès annoncé à partir du 10 août 2026 ; issue non publiée dans les sources consultées",
+    "statut": "Procès annoncé à partir du 10 août 2026, indiqué pour fin 2026 par la SFC ; aucun verdict relevé",
     "fonctions": "Juridique, ingénierie logicielle, achats, qualité",
-    "essentiel": "Software Freedom Conservancy (SFC) poursuit Vizio, fabricant de téléviseurs, devant la Cour supérieure de Californie (comté d'Orange). Le procès devant jury était annoncé à partir du 10 août 2026. La question centrale : un consommateur peut-il faire respecter les licences GPL et LGPL en tant que bénéficiaire, et obtenir le code source correspondant complet ?",
+    "essentiel": "Software Freedom Conservancy (SFC) poursuit Vizio, fabricant de téléviseurs, devant la Cour supérieure de Californie (comté d'Orange). Le procès devant jury était annoncé à partir du 10 août 2026 ; la page du dossier de la SFC indique désormais une date de procès à la fin de 2026. La question centrale : un consommateur peut-il faire respecter les licences GPL et LGPL en tant que bénéficiaire, et obtenir le code source correspondant complet ?",
     "contexte": "Selon PPC Land, Vizio a fourni six versions du code source présentées comme complètes, et aucune ne se compilait entièrement d'après les rapports de SFC. Aucun tribunal américain n'a encore tranché la question du bénéficiaire. La page du dossier de SFC n'a pas été mise à jour depuis février 2026.",
     "impact_avere": "Un industriel qui livre des équipements embarquant des composants sous GPL reste tenu de fournir le code source correspondant complet, scripts de compilation compris, ==quelle que soit l'issue de l'affaire==.",
     "impact_potentiel": "Une décision favorable à SFC pourrait permettre aux utilisateurs finaux d'exiger eux-mêmes le code source, et inciter les fabricants à revoir leurs procédures de publication.",
@@ -2104,12 +2429,12 @@
    [
     [
      {
-      "t": "7 octobre 2026"
+      "t": "13 octobre 2026"
      }
     ],
     [
      {
-      "t": "Début de l'examen de la loi Résilience à l'Assemblée nationale"
+      "t": "Conférence des présidents de l'Assemblée nationale : nouvelle date possible pour la loi Résilience"
      }
     ],
     [
@@ -2160,7 +2485,7 @@
     ],
     [
      {
-      "t": "Fin attendue de l’examen de deux mois, puis publication au JO de la liste *{en}dual-use*"
+      "t": "Publication au JO attendue de la liste *{en}dual-use* mise à jour"
      }
     ],
     [
@@ -2240,17 +2565,16 @@
   ],
   "sum": [
    {
-    "titre": "Examen de la loi Résilience à l'Assemblée nationale",
-    "statut": "Échéance du 7 octobre 2026 : début de l'examen en séance, selon Next.",
+    "titre": "Conférence des présidents de l'Assemblée nationale du 13 octobre 2026 et loi Résilience",
+    "statut": "Le projet de loi a été retiré de l'ordre du jour des 7 et 9 octobre 2026 ; aucune nouvelle date fixée au 9 octobre",
     "fonctions": "Juridique, qualité, achats, PSIRT",
-    "essentiel": "L'examen de la loi Résilience, qui transpose NIS2, commence à l'Assemblée nationale le 7 octobre 2026. L'agenda de la revue rattache aussi cette échéance à DORA, règlement européen sur la résilience opérationnelle numérique du secteur financier.",
-    "contexte": "NIS2 est la directive européenne sur la sécurité des réseaux et des systèmes d'information. Le site Next titre son article sur l'inscription, enfin, de cette transposition à l'ordre du jour de l'Assemblée nationale, ce qui laisse entendre un retard par rapport au calendrier européen.",
-    "impact_avere": "L'examen ouvre le débat parlementaire sur un texte susceptible de fixer les obligations nationales de cybersécurité. Le contenu définitif n'est pas arrêté à cette date et le texte devra encore poursuivre son parcours parlementaire.",
-    "impact_potentiel": "Des amendements pourraient modifier le champ des entités concernées, les exigences sur la chaîne d'approvisionnement ou le calendrier de mise en conformité. Un industriel de défense pourrait se découvrir assujetti ou voir ses clients et fournisseurs l'être.",
+    "essentiel": "Le 6 octobre 2026, la conférence des présidents de l'Assemblée nationale a retiré de l'ordre du jour des 7 et 9 octobre le projet de loi qui transpose NIS2, DORA et REC. Le rapporteur Éric Bothorel a dit espérer une réinscription d'ici quinze jours ou trois semaines. La prochaine conférence des présidents est fixée au mardi 13 octobre 2026.",
+    "contexte": "NIS2 est la directive européenne sur la sécurité des réseaux et des systèmes d'information ; la France devait la transposer avant le 17 octobre 2024. Officiellement, le report tient à la durée d'examen d'une autre proposition de loi ; Next évoque un calendrier chargé.",
+    "impact_avere": "Le texte n'est pas adopté et aucune date d'examen n'est arrêtée. ==Les obligations nationales restent non fixées==, alors que la Commission a engagé une procédure contre la France pour défaut de transposition.",
+    "impact_potentiel": "Une réinscription à l'ordre du jour pourrait être annoncée le 13 octobre. Des amendements pourraient ensuite modifier le champ des entités concernées ou les exigences sur la chaîne d'approvisionnement. Un industriel de défense pourrait se découvrir assujetti ou voir ses clients et fournisseurs l'être.",
     "a_verifier": [
      "L'entreprise est-elle identifiée comme entité essentielle ou importante ?",
-     "Quels amendements concernent la chaîne d'approvisionnement ?",
-     "Quel calendrier d'adoption est annoncé ?"
+     "Quels amendements concernent la chaîne d'approvisionnement ?"
     ]
    },
    {
@@ -2352,14 +2676,14 @@
    }
   ],
   "detail": [
+   "Le rapporteur espère une réinscription du texte d'ici quinze jours ou trois semaines",
    null,
    null,
-   null,
-   null,
+   "Règlement délégué adopté le 14 septembre 2026, après deux mois d'examen du Parlement européen et du Conseil",
    "Transposition de la directive (UE) 2024/2853, qui inclut le logiciel ; elle s'applique aux produits mis sur le marché après cette date",
    null,
-   "Règles sur les systèmes d'IA à haut risque, reportées à cette date par le règlement (UE) 2026/1744",
-   "Application complète du CRA ; les *{en}stewards* open source deviennent soumis à l'obligation de déclaration à la même date"
+   "Règles sur les systèmes d'IA à haut risque de l'annexe III, reportées à cette date par le règlement (UE) 2026/1744",
+   "Application complète du CRA ; selon l'ENISA, les gestionnaires de logiciels open source sont soumis à la déclaration à la même date"
   ],
   "attrs": [
    {
