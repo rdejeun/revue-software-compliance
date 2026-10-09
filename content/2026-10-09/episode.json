@@ -1,0 +1,81 @@
+{
+ "duree_s": 417,
+ "octets": 3463792,
+ "mots": 1197,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-10-09T02:44:14Z",
+ "sha_script": "12cbe01d1b335d00071f500fa7b75c71826fbeb26126cbcf72477f00fa4cdbd8",
+ "extrait": false,
+ "repliques": 40,
+ "prononciation": "dictionnaire ElevenLabs LylpNvL5ffU7g78uz3Ve",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.0 → 0.9 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 71 → 24 ms, B 23 → 22 ms",
+  "Durée": "401.8 s (blocs : 402.2 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "8.0 % de mots différents sur 1280"
+ },
+ "requetes": 7,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "CRA : le règlement est entré dans le concret",
+   "court": "CRA",
+   "debut_s": 25.9
+  },
+  {
+   "titre": "Normes et SBOM",
+   "court": "Normes et SBOM",
+   "debut_s": 107.5
+  },
+  {
+   "titre": "Outils : du scan au classement export",
+   "court": "Outils",
+   "debut_s": 180.9
+  },
+  {
+   "titre": "Chaîne d'approvisionnement",
+   "court": "Chaîne d'approvisionnement",
+   "debut_s": 242.5
+  },
+  {
+   "titre": "Export : liste dual-use et CMMC",
+   "court": "Export",
+   "debut_s": 294.9
+  },
+  {
+   "titre": "Défense européenne : Omnibus, SAFE et EDIP",
+   "court": "Défense européenne",
+   "debut_s": 345.6
+  },
+  {
+   "titre": "La date à retenir",
+   "court": "La date à retenir",
+   "debut_s": 392.3
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 405.2
+  }
+ ],
+ "fichier": "episode.m4a"
+}

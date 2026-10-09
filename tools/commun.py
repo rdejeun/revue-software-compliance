@@ -25,7 +25,7 @@ def esc(s,quote=False): return html.escape(s,quote=quote)
 ITAL=re.compile(r'\*(?:\{([a-z]{2,3})\})?([^*\s](?:[^*]*?[^*\s])?)\*')
 def ital(h): return ITAL.sub(lambda m:(f'<i lang="{m.group(1)}">' if m.group(1) else '<i>')+m.group(2)+'</i>',h)
 # mot-clé de lecture rapide : ==passage== -> couleur brique (README, § 4) ; style en ligne pour l'e-mail
-CLE=re.compile(r'==([^=]+?)==')
+CLE=re.compile(r'==((?:(?!==).)+?)==', re.S)   # tolère le HTML d'un terme du glossaire (attributs avec « = ») dans le passage
 def cle(h): return CLE.sub(r'<span class="kw" style="color:#9a3412;">\1</span>',h)
 def sans_ital(s): return CLE.sub(r'\1',ITAL.sub(r'\2',s))
 def E(s): return cle(ital(re.sub(r'\b(\d+)(er|e)\b',r'\1<sup style="font-size:70%;line-height:0;">\2</sup>',esc(s))))
