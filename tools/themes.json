@@ -81,7 +81,7 @@
  "chaine": {
   "nom": "Sécurité de la chaîne d’approvisionnement logicielle",
   "titre": "Sécurité de la|supply chain",
-  "court": "Chaîne d’approvisionnement",
+  "court": "Supply chain",
   "reference": "Registres de paquets, intégrité des builds (SLSA), attaques de référence"
  },
  "export-ue": {
