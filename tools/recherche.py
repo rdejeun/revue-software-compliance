@@ -103,6 +103,16 @@ champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(l
 document.getElementById('rech').addEventListener('submit',function(e){e.preventDefault();clearTimeout(tempo);lancer().then(function(){var a=res.querySelector('a.rs');if(a){champ.blur();a.focus()}})});   /* Entrée : le focus passe au premier résultat */
 var p=new URLSearchParams(location.search);champ.value=p.get('q')||'';
 charger().then(function(){if(p.get('d'))selD.value=p.get('d');if(p.get('e'))selE.value=p.get('e');lancer(false)});
+/* flèches : du champ au premier résultat, d'un résultat à l'autre, retour au champ (Échap ou flèche haut depuis le premier) */
+function liens(){return[].slice.call(res.querySelectorAll('a.rs'))}
+function allerA(a){if(a){champ.blur();a.focus()}}
+champ.addEventListener('keydown',function(e){if(e.key==='ArrowDown'&&!e.altKey&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey){var l=liens();if(l.length){e.preventDefault();allerA(l[0])}}});
+res.addEventListener('keydown',function(e){var a=e.target.closest&&e.target.closest('a.rs');if(!a||e.altKey||e.ctrlKey||e.metaKey||e.shiftKey)return;var l=liens(),i=l.indexOf(a),k=e.key;
+ if(k==='ArrowDown'){e.preventDefault();if(l[i+1])l[i+1].focus()}
+ else if(k==='ArrowUp'){e.preventDefault();if(i>0)l[i-1].focus();else{champ.focus();champ.select()}}
+ else if(k==='Home'){e.preventDefault();l[0].focus()}
+ else if(k==='End'){e.preventDefault();l[l.length-1].focus()}
+ else if(k==='Escape'){e.preventDefault();champ.focus();champ.select()}});
 document.addEventListener('keydown',function(e){if(e.key!=='/'||e.ctrlKey||e.metaKey||e.altKey)return;var n=(e.target&&e.target.tagName)||'';if(n==='INPUT'||n==='TEXTAREA'||n==='SELECT')return;e.preventDefault();champ.focus();champ.select()});   /* « / » : saisir une recherche */
 champ.focus()})();'''
 
@@ -152,5 +162,5 @@ def ecrire(infos, themes, G, page, write, SITE, TOOLS_DIR):
              '<noscript><p>La recherche demande JavaScript. Vous pouvez parcourir les <a href="/archives/">archives</a> et les <a href="/dossiers/">dossiers</a>.</p></noscript></div>'
              '<script src="/assets/minisearch.min.js"></script><script>' + JS.replace('/*SUIVI*/', suivi) + '</script>')
     write(os.path.join(SITE, 'recherche', 'index.html'), page('Recherche – Software Compliance', 'Revue de presse hebdomadaire',
-          '<i>Recherche</i> <span>dans la revue</span>', '<a href="/">Dernière édition</a> · <a href="/archives/">Archives</a> · <a href="/dossiers/">Dossiers</a>', corps))
+          '<i>Recherche</i> <span>dans la revue</span>', '<a href="/">Dernière édition</a> · <a href="/archives/">Archives</a> · <a href="/dossiers/">Dossiers</a>', corps, raccourci=False))   # « / » y met le focus dans le champ (script de la page)
     return len(data['docs'])

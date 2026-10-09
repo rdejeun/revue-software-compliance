@@ -116,3 +116,7 @@ def og(titre, desc, url=None):
        ('name','twitter:description',desc),('name','twitter:image',OG_IMAGE)]
     if url: m.append(('property','og:url',url))
     return ''.join(f'<meta {k}="{n}" content="{html.escape(v,quote=True)}">' for k,n,v in m)
+
+RACCOURCI_JS=('<script>document.addEventListener("keydown",function(e){if(e.key!=="/"||e.ctrlKey||e.metaKey||e.altKey||e.defaultPrevented)return;'
+              'var t=e.target,n=t&&t.tagName;if(n==="INPUT"||n==="TEXTAREA"||n==="SELECT"||(t&&t.isContentEditable))return;'
+              'var d=document.getElementById("sy");if(d&&d.open)return;e.preventDefault();location.href="/recherche/"})</script>')   # « / » : aller à la recherche (pas dans un champ de saisie, pas pendant la lecture d'une synthèse)

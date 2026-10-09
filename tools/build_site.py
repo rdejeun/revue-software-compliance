@@ -32,7 +32,7 @@ NI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'\2', s))      # texte b
 MI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'*\2*', s))    # Markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
-from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO, og, OG_IMAGE, ROBOTS_META
+from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO, og, OG_IMAGE, ROBOTS_META, RACCOURCI_JS
 import recherche
 from glossary import G as GLOSSAIRE
 POD_TITRE = 'Software Compliance, le podcast'
@@ -224,12 +224,12 @@ def titre(nom, spec=None):
 SYN = {}   # styles, script et pastille de la fenêtre « En savoir plus » (gen.py, syn.json de la dernière édition)
 
 
-def page(title, eyebrow, h1, sub, body, cls='', syn=''):
+def page(title, eyebrow, h1, sub, body, cls='', syn='', raccourci=True):
     """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1">{ROBOTS_META}<meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
-<body><main class="c"><div class="cx"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}</div>{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
+<body><main class="c"><div class="cx"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}</div>{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}{RACCOURCI_JS if raccourci else ''}</body></html>'''
 
 
 def write(path, txt):

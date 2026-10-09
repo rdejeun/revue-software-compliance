@@ -4,7 +4,7 @@ import re,json,html
 from urllib.parse import urlparse
 import commun as B
 from podcast import titre_episode
-from pied import pied, pied_bloc, CSS_PIED, MATOMO, ROBOTS_META
+from pied import pied, pied_bloc, CSS_PIED, MATOMO, ROBOTS_META, RACCOURCI_JS
 from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
@@ -138,9 +138,6 @@ def lien_dossier(t,html_t,web):
             tip='Voir le dossier de cette rubrique' if d else 'Voir les dossiers de cette rubrique'
             return f'<a class="dl" href="{href}" title="{tip}">{html_t}{ICO_DOSSIER}</a>'
     return html_t
-RACCOURCI_JS=('<script>document.addEventListener("keydown",function(e){if(e.key!=="/"||e.ctrlKey||e.metaKey||e.altKey||e.defaultPrevented)return;'
-              'var t=e.target,n=t&&t.tagName;if(n==="INPUT"||n==="TEXTAREA"||n==="SELECT"||(t&&t.isContentEditable))return;'
-              'var d=document.getElementById("sy");if(d&&d.open)return;e.preventDefault();location.href="/recherche/"})</script>')   # « / » : aller à la recherche (pas dans un champ de saisie, pas pendant la lecture d'une synthèse)
 DESABO_HTML=('<div style="padding:18px 12px 4px;text-align:center;font:13.2px/20px '+SANS+';"><a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#6b7280;text-decoration:underline;">Se désabonner</a></div>')   # sous la carte, sur le fond beige (e-mail seulement ; remplacé par Resend, ou par send.py hors diffusion)
 SOUS_TITRE='L’essentiel de la conformité des logiciels embarqués dans les produits de défense'   # sans point final : titre, sous-titre et accroche d'une seule phrase (Lexique de l'Imprimerie nationale)
 SOUS_TITRE_NB=' '.join(SOUS_TITRE.split(' ')[:-3])+' '+'\u00a0'.join(SOUS_TITRE.split(' ')[-3:])   # les trois derniers mots restent ensemble : jamais un mot seul sur la dernière ligne (navigateurs sans text-wrap:balance)
