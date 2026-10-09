@@ -45,7 +45,8 @@
     "date": "2027-12-11",
     "texte": "Application complète : exigences essentielles, documentation technique, marquage CE"
    }
-  ]
+  ],
+  "recherche": "Cyber Resilience Act"
  },
  "sbom": {
   "nom": "SBOM et nomenclatures logicielles",
@@ -70,13 +71,15 @@
     "date": "2026-10-05",
     "texte": "L’annuaire SPDX référence quatre nouveaux outils en cinq semaines"
    }
-  ]
+  ],
+  "recherche": "SBOM et nomenclatures"
  },
  "sca": {
   "nom": "Analyse de composition logicielle (SCA)",
   "titre": "Analyse de composition|(SCA)",
   "court": "SCA",
-  "reference": "Outils d’inventaire des composants, de détection des vulnérabilités et d’analyse des licences"
+  "reference": "Outils d’inventaire des composants, de détection des vulnérabilités et d’analyse des licences",
+  "recherche": "SCA et outils de conformité"
  },
  "chaine": {
   "nom": "Sécurité de la chaîne d’approvisionnement logicielle",

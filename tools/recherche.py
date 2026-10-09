@@ -46,7 +46,7 @@ def construire(infos, themes, G):
             if it.get('kind') == 'agenda' and it.get('label'): acc = f"{it.get('date') or it['label']} : {acc}"
             titre = texte([{'t': sm.get('titre', '')}]) or acc[:90]
             docs.append({'e': d, 's': it['sid'], 'r': secs.index(sec), 't': titre, 'a': acc, 'y': syn, 'h': it.get('themes') or [], 'p': 1 if it.get('rappel') else 0})
-    return {'editions': editions, 'secs': secs, 'themes': {k: v['court'] for k, v in themes.items() if any(k in x['h'] for x in docs)},
+    return {'editions': editions, 'secs': secs, 'themes': {k: [v['court'], v.get('recherche') or v['court']] for k, v in themes.items() if any(k in x['h'] for x in docs)},
             'syn': synonymes(G), 'docs': docs}
 
 
@@ -61,8 +61,9 @@ function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&
 function charger(){if(D)return Promise.resolve();return fetch('/recherche/docs.json').then(function(r){return r.json()}).then(function(j){D=j;
  MS=new MiniSearch({fields:['t','a','y'],storeFields:[],idField:'id',tokenize:jetons,processTerm:terme,searchOptions:{boost:{t:3,a:2},prefix:true,fuzzy:function(t){return t.length>5?0.15:0}}});
  D.docs.forEach(function(d,i){d.id=i});MS.addAll(D.docs);
- D.themes&&Object.keys(D.themes).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=D.themes[k];selD.appendChild(o)});
+ D.themes&&Object.keys(D.themes).forEach(function(k){var o=document.createElement('option');o.value=k;selD.appendChild(o)});libelles();if(window.matchMedia)matchMedia('(min-width:661px)').addEventListener('change',libelles);
  if(D.editions.length>1){D.editions.slice().reverse().forEach(function(e){var o=document.createElement('option');o.value=e.d;o.textContent='N° '+e.n+' · '+e.date;selE.appendChild(o)})}else selE.parentNode.hidden=true})}
+function libelles(){var long=window.matchMedia&&matchMedia('(min-width:661px)').matches;[].forEach.call(selD.options,function(o){if(o.value&&D.themes[o.value])o.textContent=D.themes[o.value][long?1:0]})}   /* intitulés longs quand la place le permet */
 function variantes(q){var f=plier(q),v=[q];D.syn.forEach(function(p){var a=plier(p[0]),b=plier(p[1]);
  var ra=new RegExp('(^|[^\\p{L}\\p{N}])'+a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','u'),rb=new RegExp('(^|[^\\p{L}\\p{N}])'+b.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','u');
  if(ra.test(f))v.push(f.replace(ra,'$1'+b));else if(rb.test(f))v.push(f.replace(rb,'$1'+a))});return v}
@@ -106,14 +107,16 @@ champ.focus()})();'''
 
 CSS = '''<style>
 .rch{margin:8px 0 0}
-.rch form{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:0 0 6px}
-.rch .fq{flex:1 1 320px}
+.rch form{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-start;margin:0 0 6px}
+.rch .fq{flex:1 1 300px}
 .rch label{display:block;font:600 12px/16px 'Segoe UI',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;margin:0 0 4px}
-.rch input,.rch select{box-sizing:border-box;width:100%;font:17px/24px Georgia,serif;color:#0f2a4a;background:#fff;border:1px solid #d9cdb8;border-radius:6px;padding:8px 12px}
+.rch input,.rch select{box-sizing:border-box;width:100%;height:44px;font:17px/24px Georgia,serif;color:#0f2a4a;background:#fff;border:1px solid #d9cdb8;border-radius:6px;padding:8px 12px}
 .rch input:focus,.rch select:focus{outline:2px solid #c2410c;outline-offset:1px}
 .rch .fs{flex:0 1 220px}
+@media(min-width:661px){.rch .fs{flex-basis:250px}}
 .rch .fs select{font-size:15px;line-height:22px;padding:9px 10px}
-#aide{margin:5px 0 0;font:12.5px/18px 'Segoe UI',Arial,sans-serif;color:#8a8f98}
+#aide{margin:5px 0 0;font:12px/18px 'Segoe UI',Arial,sans-serif;color:#8a8f98;white-space:nowrap}
+@media(max-width:380px){#aide{white-space:normal}}
 #aide b{font-weight:600;color:#6b7280}
 #cpt{min-height:24px;font:13px/24px 'Segoe UI',Arial,sans-serif;color:#6b7280;margin:0 0 6px}
 #res{list-style:none;margin:0;padding:0}
