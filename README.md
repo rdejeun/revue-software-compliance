@@ -121,7 +121,7 @@ Attributs : `{"date":"2026-10-01","rappel":false,"themes":["cra","sbom"],"fiabil
 Par édition, à côté de `blocks.json` : `claims.json` (affirmations vérifiées, § 3 et § 7, obligatoire à partir du 9 octobre 2026) et `archives.json` (copies des sources, écrit par la publication).
 Synthèse : `{"titre","statut","fonctions","reseau" et "licence" (Outils),"essentiel","contexte","impact_avere","impact_potentiel","a_verifier":[…]}`.
 
-`meta.json` : `n`, `titre` (titre éditorial court, 90 caractères au plus, qui dit l'essentiel de la semaine en trois propositions tirées de l'édition ; il titre l'article du flux RSS, « N° 1 — <titre> », car « N° 1 — 9 octobre 2026 » n'engage pas le lecteur ; sans titre, repli sur la date), `date_iso`, `date_long`, `date`, `site` (« https://revue.dejeun.es/ »), `toc` (libellés courts des sections), `redaction` (IA qui a rédigé l'édition, sous la forme « <éditeur> <modèle> <version> », ex. « Anthropic Claude Opus 5.5 », affichée en pied de page), `agenda_refs` (page de référence de chaque événement sans lien), `demo` (édition de démonstration, jamais envoyée).
+`meta.json` : `n`, `date_iso`, `date_long`, `date`, `site` (« https://revue.dejeun.es/ »), `toc` (libellés courts des sections), `redaction` (IA qui a rédigé l'édition, sous la forme « <éditeur> <modèle> <version> », ex. « Anthropic Claude Opus 5.5 », affichée en pied de page), `agenda_refs` (page de référence de chaque événement sans lien), `demo` (édition de démonstration, jamais envoyée).
 
 ## 9. Chaîne de publication (GitHub Actions)
 
