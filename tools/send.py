@@ -29,8 +29,7 @@ SEGMENT = os.environ.get('RESEND_SEGMENT_ID', '').strip()
 # lien de désabonnement : {{{RESEND_UNSUBSCRIBE_URL}}} est dans l'e-mail construit (tools/pied.py) ; Resend le remplace dans une
 # diffusion, sinon (brouillon, envoi en copie cachée) on le remplace ici par l'adresse de désabonnement
 PH = '{{{RESEND_UNSUBSCRIBE_URL}}}'
-PIED_DESABO = ('<div style="margin:0;padding:18px 16px 28px;text-align:center;font:12px/18px \'Segoe UI\',Arial,sans-serif;color:#6b7280;">'
-               'Vous recevez cette revue parce que votre adresse est inscrite à la liste de diffusion. '
+PIED_DESABO = ('<div style="margin:0;padding:18px 16px 28px;text-align:center;font:13.2px/20px \'Segoe UI\',Arial,sans-serif;">'
                '<a href="'+PH+'" style="color:#6b7280;">Se désabonner</a></div>')
 
 

@@ -225,7 +225,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire sur la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
 <body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
 
 
@@ -255,9 +255,9 @@ def main():
         write(os.path.join(SITE, 'archives', 'index.html'), page('Archives – Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>', 'Archives · aucune édition · <a href="/">Accueil</a>', '<ul class="l"></ul>'))
         write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers – Software Compliance', 'Revue de presse hebdomadaire', 'Dossiers', 'Aucun dossier pour l’instant · <a href="/">Accueil</a>', ''))
         vide = lambda t, d, x='': f'<?xml version="1.0" encoding="utf-8"?>\n<rss version="2.0"{x}><channel><title>{t}</title><link>{URL}/</link><description>{d}</description><language>fr</language></channel></rss>\n'
-        write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.'))
+        write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.'))
         write(os.path.join(SITE, 'podcast.xml'), vide(E(POD_TITRE), E(POD_DESC), ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
-        write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire sur la conformité logicielle des produits pour l’industrie de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
+        write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
         write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales – Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>', '<a href="/">Accueil</a>', mentions(REDACTION, datetime.date.today().year)))
         write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
         print('Aucune édition : site d’attente construit'); return
@@ -355,7 +355,7 @@ def main():
     def rfc(d): return datetime.datetime.strptime(d, '%Y-%m-%d').replace(hour=5, minute=30).strftime('%a, %d %b %Y %H:%M:%S +0000')
     items = ''.join(f'''<item><title>{E(f"Revue de presse – {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description><media:thumbnail url="{OG_IMAGE}" width="1200" height="630"/><media:content url="{OG_IMAGE}" medium="image" type="image/jpeg" width="1200" height="630"/><content:encoded><![CDATA[<p><img src="{OG_IMAGE}" width="1200" height="630" alt="Software Compliance, revue de presse hebdomadaire"></p><p>{html.escape(i['lede'])}</p><p><a href="{URL}/{i['d']}/">Lire l’édition complète</a></p>]]></content:encoded></item>''' for i in reversed(pub))
     write(os.path.join(SITE, 'feed.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{IMG_FLUX}{items}</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.</description><language>fr</language>{IMG_FLUX}{items}</channel></rss>
 ''')
 
     # flux du podcast (hors démonstration)
