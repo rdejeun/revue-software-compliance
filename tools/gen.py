@@ -126,6 +126,18 @@ var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.([0-9a-f]+)(?:-([0-9a-f]+))?)?$/.exe
 })();
 </script>'''
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
+# titres de rubrique -> dossier (themes.json) ; une rubrique qui couvre plusieurs dossiers mène à l'index des dossiers
+SEC_DOSSIER=(('À la une','cra'),('SBOM','sbom'),('Outils','sca'),('Sécurité de la chaîne','chaine'),('Licences','licences'),('Commerce international',None),('France et UE',None))
+ICO_DOSSIER='<svg class="dl-i" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
+def lien_dossier(t,html_t,web):
+    """Titre de rubrique cliquable vers son dossier (web seulement) ; l'icône « dossier » n'apparaît qu'au survol ou au focus."""
+    if not web: return html_t
+    for pre,d in SEC_DOSSIER:
+        if t.startswith(pre):
+            href=f'/dossiers/{d}/' if d else '/dossiers/'
+            tip='Voir le dossier de cette rubrique' if d else 'Voir les dossiers de cette rubrique'
+            return f'<a class="dl" href="{href}" title="{tip}">{html_t}{ICO_DOSSIER}</a>'
+    return html_t
 DESABO_HTML=('<div style="padding:18px 12px 4px;text-align:center;font:13.2px/20px '+SANS+';"><a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#6b7280;text-decoration:underline;">Se désabonner</a></div>')   # sous la carte, sur le fond beige (e-mail seulement ; remplacé par Resend, ou par send.py hors diffusion)
 SOUS_TITRE='L’essentiel de la conformité des logiciels embarqués dans les produits de défense'   # sans point final : titre, sous-titre et accroche d'une seule phrase (Lexique de l'Imprimerie nationale)
 SYN_LABELS=[('contexte','Contexte'),('essentiel','Résumé')]
@@ -433,7 +445,7 @@ def render(web):
             flush()
             if t.startswith(('Audit','Sources')): break
             h2n+=1;cursec=t
-            body.append(f'<div style="margin:{50 if h2n else 38}px 0 14px;"><div style="width:30px;height:3px;background:{ACC};font-size:0;line-height:3px;">&nbsp;</div><h2 id="s{h2n}" style="margin:12px 0 0;font:600 22px/30px {SANS};color:{NAVY};">{E(typo(t))}</h2></div>')
+            body.append(f'<div style="margin:{50 if h2n else 38}px 0 14px;"><div style="width:30px;height:3px;background:{ACC};font-size:0;line-height:3px;">&nbsp;</div><h2 id="s{h2n}" style="margin:12px 0 0;font:600 22px/30px {SANS};color:{NAVY};">{lien_dossier(t,E(typo(t)),web)}</h2></div>')
             prev_h2=True;continue
         if k=='p':
             raw=''.join(x['t'] for x in b['i']).strip(' ·')
@@ -580,6 +592,11 @@ table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right
 .toc-l a:hover,.toc-l a:focus-visible{{color:{NAVY};outline:none}}
 .toc-l a.on{{border-left-color:{ACC};color:{NAVY};font-weight:600}}}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
+.dl{{color:inherit;text-decoration:none}}
+.dl-i{{display:inline-block;vertical-align:-2px;margin-left:10px;color:{ACC};opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s}}
+.dl:hover .dl-i,.dl:focus-visible .dl-i{{opacity:1;transform:none}}
+.dl:focus-visible{{outline:2px solid {ACC};outline-offset:3px;border-radius:3px}}
+@media(hover:none){{.dl-i{{opacity:.5;transform:none}}}}
 .sy-it{{cursor:pointer;transition:background .15s}}
 .sy-it:hover{{background:#faf7f0}}
 p.sy-it,div.sy-it{{border-radius:6px}}
@@ -724,7 +741,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
 <table class="cv" role="presentation" width="720" cellpadding="0" cellspacing="0" style="width:100%;max-width:720px;background:#fff;border-radius:8px;{('background-image:url('+EN_TETE+');background-repeat:no-repeat;background-position:right 6px;background-size:67.5% auto;') if (web and EN_TETE) else ''}">
 <tr><td style="height:6px;background:{ACC};font-size:0;line-height:6px;">&nbsp;</td></tr>
-<tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div class="tt" style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 10px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><p{' class="stl"' if web else ''} style="margin:0 0 16px;font:italic 17px/24px Georgia,'Times New Roman',serif;mso-line-height-rule:exactly;color:#374151;">{SOUS_TITRE}</p><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
+<tr><td class="w hd" style="padding:38px 52px 0;"><div style="font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:{ACC};">Revue de presse hebdomadaire</div><div class="tt" style="font:700 46px/52px {SERIF};color:{NAVY};margin:8px 0 10px;letter-spacing:-.01em;"><i style="font-weight:400;color:{ACC};">Software</i> <span style="font:500 44px/52px {SANS};color:{NAVY};letter-spacing:-.025em;">Compliance</span></div><p{' class="stl"' if web else ''} style="{'display:inline-block;background:rgba(255,255,255,.62);border-radius:3px;padding:0 6px;margin:0 0 16px -6px;' if web else 'margin:0 0 16px;'}font:italic 17px/24px Georgia,'Times New Roman',serif;mso-line-height-rule:exactly;color:#374151;">{SOUS_TITRE}</p><table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-bottom:2px solid {NAVY};"><tr><td style="padding:0 0 14px;font:13px/20px {SANS};color:#6b7280;">N°&nbsp;{META['n']} &nbsp;·&nbsp; {META['date_long'].replace(' ','&nbsp;')} &nbsp;·&nbsp; {'<a href="/archives/" style="color:#6b7280;">Archives</a> &nbsp;·&nbsp; <a href="/dossiers/" style="color:#6b7280;">Dossiers</a> &nbsp;·&nbsp; <a class="rss" href="/feed.xml" title="S’abonner au flux RSS de la revue" aria-label="Flux RSS de la revue">'+ICO_RSS+'</a>' if web else f'<a href="{ED_URL}" style="color:#6b7280;">Afficher dans le navigateur</a>'}</td><td align="right" valign="top" style="padding:0 0 14px 12px;font:13px/20px {SANS};color:#6b7280;white-space:nowrap;"><span style="background:rgba(255,255,255,.5);border-radius:3px;padding:1px 4px;margin-right:-4px;">Lecture ≈&nbsp;{mins}&nbsp;min</span></td></tr></table></td></tr>
 <tr><td class="w" style="padding:30px 52px 28px;">{TOCBAR}{bloc_podcast(web,DISO,ED_URL)}{out}
 {pied_bloc(META.get("redaction") or REDACTION_DEFAUT,(META.get("date_iso") or "2026")[:4],absolu=not web)}
 </td></tr></table>{'' if web else DESABO_HTML}</td></tr></table>{''.join(syns)+JS.replace('id="sy" ',f'id="sy" data-ed="{DISO}" ',1)+PILL_JS if web and syns else ''}{POD_JS if web and EP else ''}{TOCNAV}</body></html>''',len(used)
