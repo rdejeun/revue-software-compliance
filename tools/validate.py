@@ -201,8 +201,8 @@ def visible(h):
 
 
 def check_robots():
-    """Diffusion limitée aux personnes qui ont le lien : toute page HTML du site porte noindex, robots.txt ne bloque pas
-    Google ni Bing (ils doivent lire noindex) mais exclut les robots d'IA (README, Diffusion et robots)."""
+    """Diffusion limitée aux personnes qui ont le lien : toute page HTML du site porte noindex, robots.txt bloque tous les robots
+    (README, Diffusion et robots)."""
     site = os.path.join(ROOT, '_site')
     if not os.path.isdir(site): WARN.append('_site absent : balises robots non contrôlées (lancer tools/build_site.py)'); return
     for dp, _, fs in os.walk(site):
@@ -216,6 +216,7 @@ def check_robots():
     if not os.path.isfile(rb): ERR.append('robots.txt absent du site (tools/robots.txt)'); return
     t = open(rb, encoding='utf-8').read()
     if not re.search(r'User-agent: GPTBot', t) or not re.search(r'User-agent: ClaudeBot', t): ERR.append('robots.txt : robots d\'IA (GPTBot, ClaudeBot…) non exclus')
+    if not re.search(r'User-agent: \*\s*\nDisallow: /\s*(\n|$)', t): ERR.append('robots.txt : blocage total (User-agent: * / Disallow: /) absent')
 
 
 def check_recherche():

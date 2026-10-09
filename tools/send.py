@@ -4,13 +4,13 @@
 Usage : python3 tools/send.py --mode auto|brouillon|diffusion|aucun [AAAA-MM-JJ] [--wait]
   auto      : envoi aux abonnés, une seule fois par édition (content/<date>/envoi.json), jamais pour une
               édition de démonstration ni pour une édition de plus de 3 jours. Avec RESEND_SEGMENT_ID : diffusion
-              (Broadcast) au segment Resend, avec le lien de désabonnement de Resend ; sinon copie cachée à MAIL_TO
+              (Broadcast) au segment Resend, avec le lien de désabonnement de Resend
   (le lancement manuel du workflow n'étant pas possible depuis la session de la routine, un push sans [sans-envoi] déclenche l'envoi auto)
   diffusion : crée la diffusion dans Resend SANS l'envoyer (à relire et à tester depuis le tableau de bord), sans enregistrement
   brouillon : envoi de relecture à DRAFT_TO, objet préfixé « [Brouillon] », sans enregistrement
   aucun     : pas d'envoi
   --wait    : attend que la page web de l'édition soit en ligne (6 minutes au plus)
-Variables d'environnement : RESEND_API_KEY (secret), RESEND_SEGMENT_ID, DRAFT_TO, MAIL_FROM (facultatif) ; MAIL_TO et MAIL_VISIBLE seulement sans segment.
+Variables d'environnement : RESEND_API_KEY (secret), RESEND_SEGMENT_ID, DRAFT_TO, MAIL_FROM (facultatif).
 Écrit sent=1 dans GITHUB_OUTPUT quand un envoi définitif a eu lieu (jamais en mode brouillon).
 """
 import datetime, hashlib, json, os, re, sys, time, urllib.error, urllib.request
@@ -21,10 +21,7 @@ FROM = os.environ.get('MAIL_FROM') or 'Software Compliance <no-reply@s2c2.dejeun
 if '<' not in FROM:   # adresse seule : afficher le nom de l'expéditeur (MAIL_FROM_NAME, par défaut « Software Compliance »)
     FROM = f'{os.environ.get("MAIL_FROM_NAME") or "Software Compliance"} <{FROM.strip()}>'
 UNSUB = '<mailto:unsubscribe@dejeun.es>'
-# Envoi aux abonnés : destinataires en copie cachée (aucun ne voit les autres) ; le champ « À » porte l'adresse
-# MAIL_VISIBLE, à défaut celle de l'expéditeur. Le brouillon (DRAFT_TO) reste adressé directement.
-VISIBLE = os.environ.get('MAIL_VISIBLE') or FROM
-BCC_MAX = 50   # limite de Resend par message (envoi sans segment)
+# Envoi aux abonnés : diffusion au segment Resend. Le brouillon (DRAFT_TO) est adressé directement.
 SEGMENT = os.environ.get('RESEND_SEGMENT_ID', '').strip()
 # lien de désabonnement : {{{RESEND_UNSUBSCRIBE_URL}}} est dans l'e-mail construit (tools/pied.py) ; Resend le remplace dans une
 # diffusion, sinon (brouillon, envoi en copie cachée) on le remplace ici par l'adresse de désabonnement
@@ -66,7 +63,7 @@ def main():
         if meta.get('demo'): print('Édition de démonstration : pas d’envoi.'); return
         if os.path.exists(rec): print(f'Édition {d} déjà envoyée ({json.load(open(rec)).get("id")}) : pas de nouvel envoi.'); return
         if not -1 <= age <= 3: print(f'Édition {d} datée de {age} jours : pas d’envoi automatique.'); return
-        to = '' if SEGMENT else os.environ.get('MAIL_TO', '')
+        to = ''
     elif mode == 'brouillon':
         to = os.environ.get('DRAFT_TO', '')
     elif mode == 'diffusion':
@@ -77,12 +74,12 @@ def main():
     key = os.environ.get('RESEND_API_KEY')
     diffusion = mode in ('auto', 'diffusion') and bool(SEGMENT)
     if mode == 'diffusion' and not SEGMENT: sys.exit('Mode « diffusion » : RESEND_SEGMENT_ID manquant.')
-    if not key or (not to and not diffusion): sys.exit('Destinataires (RESEND_SEGMENT_ID / MAIL_TO / DRAFT_TO) ou clé RESEND_API_KEY manquants : envoi impossible.')
+    if mode == 'auto' and not SEGMENT: sys.exit('Envoi aux abonnés : RESEND_SEGMENT_ID manquant.')
+    if not key or (not to and not diffusion): sys.exit('Destinataires (RESEND_SEGMENT_ID / DRAFT_TO) ou clé RESEND_API_KEY manquants : envoi impossible.')
     if '--wait' in a: wait_online(f'https://revue.dejeun.es/{d}/', meta['n'])
     b = os.path.join(BUILD, d)
     subject = f'📰 Revue de presse – {meta["date"]}'   # meta « date » : « 9 octobre 2026 »
     if mode == 'brouillon': subject = '[Brouillon] ' + subject
-    if mode == 'auto' and not diffusion and len(to) > BCC_MAX: sys.exit(f'{len(to)} destinataires : au-delà de {BCC_MAX}, Resend refuse la copie cachée (passer à un envoi par lots)')
     if diffusion:
         html_ = open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read()
         if PH not in html_: html_ = html_.replace('</body>', PIED_DESABO + '</body>', 1) if '</body>' in html_ else html_ + PIED_DESABO   # sécurité
@@ -100,7 +97,7 @@ def main():
             json.dump({'id': res.get('id'), 'envoye_le': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'objet': subject, 'diffusion': True, 'segment': SEGMENT}, open(rec, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
             out('sent', '1')
         return
-    dest = {'to': [VISIBLE], 'bcc': to} if mode == 'auto' else {'to': to}
+    dest = {'to': to}   # brouillon
     desabo = UNSUB.strip('<>')
     payload = {'from': FROM, **dest, 'subject': subject,
                'html': open(os.path.join(b, 'revue-email.html'), encoding='utf-8').read().replace(PH, desabo),
@@ -108,7 +105,7 @@ def main():
                'headers': {'List-Unsubscribe': UNSUB}}
     # empreinte du contenu : un nouvel essai identique est dédoublonné par Resend, un contenu corrigé repart
     emp = hashlib.sha256(json.dumps(payload, sort_keys=True).encode()).hexdigest()[:12]
-    idem = f'revue-{d}-n{meta["n"]}-{emp}' if mode == 'auto' else f'brouillon-{d}-{os.environ.get("GITHUB_RUN_ID", int(time.time()))}'
+    idem = f'brouillon-{d}-{os.environ.get("GITHUB_RUN_ID", int(time.time()))}'
     req = urllib.request.Request('https://api.resend.com/emails', data=json.dumps(payload).encode(), method='POST',
                                  headers={'Authorization': f'Bearer {key}', 'Content-Type': 'application/json', 'Idempotency-Key': idem, 'User-Agent': 'revue-sc'})
     try:
@@ -116,9 +113,6 @@ def main():
     except urllib.error.HTTPError as e:
         sys.exit(f'Resend a refusé l’envoi ({e.code}) : {e.read().decode()[:300]}')
     print(f'Envoyé ({mode}) : id {res.get("id")} · {len(to)} destinataire(s) · « {subject} »')
-    if mode == 'auto':
-        json.dump({'id': res.get('id'), 'envoye_le': datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds'), 'objet': subject}, open(rec, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-        out('sent', '1')
 
 
 if __name__ == '__main__':

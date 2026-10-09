@@ -14,7 +14,6 @@ Et pour le site :
   _site/archives/                    sommaire des éditions
   _site/dossiers/ et dossiers/<thème>/  pages Dossier (thèmes de tools/themes.json)
   _site/feed.xml                     flux RSS
-  _site/llms.txt                     index pour les LLM
 """
 import datetime, html, json, os, re, shutil, subprocess, sys
 
@@ -266,7 +265,6 @@ def main():
         vide = lambda t, d, x='': f'<?xml version="1.0" encoding="utf-8"?>\n<rss version="2.0"{x}><channel><title>{t}</title><link>{URL}/</link><description>{d}</description><language>fr</language></channel></rss>\n'
         write(os.path.join(SITE, 'feed.xml'), vide('Software Compliance', 'Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.'))
         write(os.path.join(SITE, 'podcast.xml'), vide(E(POD_TITRE), E(POD_DESC), ' xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"'))
-        write(os.path.join(SITE, 'llms.txt'), '# Software Compliance\n\n> Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.\n\n## Éditions\n\n- Première édition à paraître.\n')
         write(os.path.join(SITE, 'mentions-legales', 'index.html'), page('Mentions légales – Software Compliance', 'Revue de presse hebdomadaire', '<i>Mentions</i> <span>légales</span>', '<a href="/">Accueil</a>', mentions(REDACTION, datetime.date.today().year)))
         write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
         ecrire_robots_et_404()
@@ -378,13 +376,6 @@ def main():
     write(os.path.join(SITE, 'podcast.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"><channel><title>{E(POD_TITRE)}</title><link>{URL}/</link><atom:link href="{URL}/podcast.xml" rel="self" type="application/rss+xml"/><description>{E(POD_DESC)}</description>{IMG_POD}<language>fr</language><itunes:author>Software Compliance</itunes:author><itunes:block>Yes</itunes:block><itunes:explicit>false</itunes:explicit><itunes:category text="Technology"/><itunes:type>episodic</itunes:type>{pitems}</channel></rss>
 ''')
-
-    # llms.txt (hors démonstration)
-    L = ['# Software Compliance', '', '> Revue de presse hebdomadaire, en français, sur la maîtrise de la conformité logicielle des produits fabriqués par un industriel de la défense : Cyber Resilience Act, SBOM, analyse de composition logicielle, licences open source, contrôle des exportations et sanctions appliqués au logiciel.', '',
-         'Chaque édition existe en Markdown (synthèses comprises) à l’adresse /AAAA-MM-JJ/index.md. Les sources sont citées en lien pour chaque information.', '', '## Éditions', '']
-    L += [f'- [N° {i["meta"]["n"]} — {i["meta"]["date"]}]({URL}/{i["d"]}/index.md): {i["lede"]}' for i in reversed(pub)] or ['- Première édition à paraître.']
-    L += ['', '## Dossiers thématiques', ''] + [f'- [{v["nom"]}]({URL}/dossiers/{k}/): {TY(v.get("reference", ""))}' for k, v in themes.items() if by[k]]
-    write(os.path.join(SITE, 'llms.txt'), '\n'.join(L) + '\n')
 
     nrech = recherche.ecrire(infos, themes, GLOSSAIRE, page, write, SITE, TOOLS)   # /recherche/ (README, § 17)
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')

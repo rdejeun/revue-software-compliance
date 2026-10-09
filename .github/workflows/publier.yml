@@ -133,9 +133,7 @@ jobs:
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_SEGMENT_ID: ${{ vars.RESEND_SEGMENT_ID }}
-          MAIL_TO: ${{ vars.MAIL_TO }}
           DRAFT_TO: ${{ vars.DRAFT_TO }}
-          MAIL_VISIBLE: ${{ vars.MAIL_VISIBLE }}
           MAIL_FROM: ${{ vars.MAIL_FROM }}
         run: python3 tools/send.py --mode "${{ steps.mode.outputs.mode }}" --wait
 

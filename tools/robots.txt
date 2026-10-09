@@ -1,8 +1,6 @@
 # Revue « Software Compliance » : diffusion limitée aux personnes qui ont le lien (README, § Diffusion et robots).
-# Phase 1 : les moteurs de recherche (Google, Bing…) restent autorisés à EXPLORER les pages pour y lire la balise
-# <meta name="robots" content="noindex…"> et retirer d'éventuelles entrées de leur index ; un « Disallow: / » général
-# les empêcherait de la lire. Phase 2 (quand le retrait est constaté) : passer le bloc « * » en « Disallow: / ».
-# Les robots d'entraînement et d'assistants d'IA, de moissonnage et d'archivage sont exclus dès maintenant.
+# Blocage total : aucun robot n'est autorisé à explorer le site. Les pages portent en plus <meta name="robots" content="noindex…">,
+# mais un moteur qui obéit à ce fichier ne les lit plus : une page déjà indexée se retire par la Search Console / Bing Webmaster.
 
 User-agent: GPTBot
 User-agent: ChatGPT-User
@@ -42,4 +40,4 @@ User-agent: archive.org_bot
 Disallow: /
 
 User-agent: *
-Allow: /
+Disallow: /

@@ -17,6 +17,7 @@ NAVY='#0f2a4a'
 ACC='#c2410c'
 # Sources « officielles » (texte juridique, autorité publique, organisme de normalisation) : mises en relief
 from officiel import OFFICIEL, officiel   # liste commune avec validate.py et archiver.py
+ICO_CAL='<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" style="vertical-align:-2px;margin-right:6px;"><rect x="2" y="3" width="12" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M2 6.5h12M5.2 1.8v2.8M10.8 1.8v2.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>'   # agenda (version web)
 MOIS=['janv.','févr.','mars','avr.','mai','juin','juil.','août','sept.','oct.','nov.','déc.']
 def fdate(iso):
     """'2026-10-01' -> '1er oct.' ; '2026-12' -> 'déc. 2026' ; année affichée si différente de celle de l'édition"""
@@ -526,7 +527,7 @@ def render(web):
             for (yr,mo),its in groups.items():
                 if not web:
                     cards.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" bgcolor="#f7f4ee" style="background:#f7f4ee;border-radius:6px;"><tr><td bgcolor="#f7f4ee" style="background:#f7f4ee;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</td></tr></table>'); continue
-                cards.append(f'<div style="background:#f7f4ee;border-radius:6px;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</div>')
+                cards.append(f'<div style="background:#f7f4ee;border-radius:6px;padding:14px 16px 4px;"><div style="font:600 12px/16px {SANS};letter-spacing:.14em;text-transform:uppercase;color:{NAVY};padding:0 0 10px;">{ICO_CAL}{mo.capitalize()} {yr}</div>{"".join(ev(e) for e in its)}</div>')
             sp='<div style="height:14px;font-size:0;line-height:14px;">&nbsp;</div>'
             rows=f'<tr><td class="c" width="50%" valign="top" style="padding:0 7px 0 0;">{sp.join(cards[:cut])}</td><td class="c" width="50%" valign="top" style="padding:0 0 0 7px;">{sp.join(cards[cut:])}</td></tr>'
             body.append(f'<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 8px;">{rows}</table>');prev_h2=False
