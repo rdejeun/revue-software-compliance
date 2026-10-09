@@ -112,9 +112,14 @@ CSS = '''<style>
 .rch label{display:block;font:600 12px/16px 'Segoe UI',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#6b7280;margin:0 0 4px}
 .rch input,.rch select{box-sizing:border-box;width:100%;height:44px;font:17px/24px Georgia,serif;color:#0f2a4a;background:#fff;border:1px solid #d9cdb8;border-radius:6px;padding:8px 12px}
 .rch input:focus,.rch select:focus{outline:2px solid #c2410c;outline-offset:1px}
+.ic{position:relative}
+.ic .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#8a8f98}
+.ic-d .ico{color:#c2410c}
+.ic:focus-within .ico{color:#c2410c}
+.rch .ic input,.rch .ic select{padding-left:39px}
 .rch .fs{flex:0 1 220px}
 @media(min-width:661px){.rch .fs{flex-basis:250px}}
-.rch .fs select{font-size:15px;line-height:22px;padding:9px 10px}
+.rch .fs select{font-size:15px;line-height:22px;padding:9px 10px 9px 39px}
 #aide{margin:5px 0 0;font:12px/18px 'Segoe UI',Arial,sans-serif;color:#8a8f98;white-space:nowrap;text-align:center}
 @media(max-width:380px){#aide{white-space:normal}}
 #aide b{font-weight:600;color:#6b7280}
@@ -141,8 +146,8 @@ def ecrire(infos, themes, G, page, write, SITE, TOOLS_DIR):
     write(os.path.join(SITE, 'recherche', 'docs.json'), json.dumps(data, ensure_ascii=False, separators=(',', ':')))
     suivi = "if(q&&window._paq)window._paq.push(['trackSiteSearch',q,selD.value||false,D?recherche(q).ids.length:0]);" if SUIVI_MATOMO else ''
     corps = (CSS + '<div class="rch"><form id="rech" role="search" autocomplete="off"><div class="fq"><label for="q">Rechercher dans les éditions</label>'
-             '<input id="q" type="search" placeholder="CRA, SBOM, licence GPL, classement ECCN…" enterkeyhint="search" aria-describedby="aide"><p id="aide">Astuces : <b>"phrase exacte"</b> · <b>+mot</b> obligatoire · <b>-mot</b> exclu</p></div>'
-             '<div class="fs"><label for="f-d">Dossier</label><select id="f-d"><option value="">Tous</option></select></div>'
+             '<div class="ic"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.3 10.3 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="CRA, SBOM, licence GPL, classement ECCN…" enterkeyhint="search" aria-describedby="aide"></div><p id="aide">Astuces : <b>"phrase exacte"</b> · <b>+mot</b> obligatoire · <b>-mot</b> exclu</p></div>'
+             '<div class="fs"><label for="f-d">Dossier</label><div class="ic ic-d"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><select id="f-d"><option value="">Tous</option></select></div></div>'
              '<div class="fs"><label for="f-e">Édition</label><select id="f-e"><option value="">Toutes</option></select></div></form>'
              '<div id="cpt" role="status" aria-live="polite"></div><ul id="res"></ul>'
              '<noscript><p>La recherche demande JavaScript. Vous pouvez parcourir les <a href="/archives/">archives</a> et les <a href="/dossiers/">dossiers</a>.</p></noscript></div>'
