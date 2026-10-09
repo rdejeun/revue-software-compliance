@@ -66,10 +66,26 @@ function charger(){if(D)return Promise.resolve();return fetch('/recherche/docs.j
 function variantes(q){var f=plier(q),v=[q];D.syn.forEach(function(p){var a=plier(p[0]),b=plier(p[1]);
  var ra=new RegExp('(^|[^\\p{L}\\p{N}])'+a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','u'),rb=new RegExp('(^|[^\\p{L}\\p{N}])'+b.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','u');
  if(ra.test(f))v.push(f.replace(ra,'$1'+b));else if(rb.test(f))v.push(f.replace(rb,'$1'+a))});return v}
-function chercher(q){var filtre=function(r){var d=D.docs[r.id];return(!selD.value||d.h.indexOf(selD.value)>=0)&&(!selE.value||d.e===selE.value)};
- var m={};variantes(q).forEach(function(v,k){[['AND',1],['OR',.35]].forEach(function(c){if(k&&c[0]==='OR')return;MS.search(v,{combineWith:c[0],filter:filtre}).forEach(function(r){var s=r.score*c[1]*(k?.45:1);if(!(r.id in m)||m[r.id]<s)m[r.id]=s})})});
- var ids=Object.keys(m).map(Number);ids.sort(function(a,b){return m[b]-m[a]||(D.docs[b].e>D.docs[a].e?1:-1)});
- return ids}
+function filtre(r){var d=D.docs[r.id];return(!selD.value||d.h.indexOf(selD.value)>=0)&&(!selE.value||d.e===selE.value)}
+function classer(m){var ids=Object.keys(m).map(Number);ids.sort(function(a,b){return m[b]-m[a]||(D.docs[b].e>D.docs[a].e?1:-1)});return ids}
+function chercher(q){var m={};variantes(q).forEach(function(v,k){[['AND',1],['OR',.35]].forEach(function(c){if(k&&c[0]==='OR')return;MS.search(v,{combineWith:c[0],filter:filtre}).forEach(function(r){var s=r.score*c[1]*(k?.45:1);if(!(r.id in m)||m[r.id]<s)m[r.id]=s})})});return m}
+/* syntaxe : "phrase exacte" ; +mot (obligatoire, AND) ; -mot (exclu, AND_NOT) ; -"phrase" exclue ; les autres mots : tous d'abord, puis l'un d'eux */
+function analyser(q){var o={R:[],P:[],X:[],PH:[],XPH:[]},re=/([+-]?)"([^"]*)"|([+-]?)([^\s"]+)/g,m;
+ while((m=re.exec(q))){var s=m[1]||m[3]||'',ph=m[2]!==undefined,t=ph?m[2]:m[4];
+  if(ph){var tk=jetons(t).map(plier);if(tk.length)(s==='-'?o.XPH:o.PH).push(tk)}
+  else if(jetons(t).length)(s==='-'?o.X:s==='+'?o.R:o.P).push(t)}
+ return o}
+function ensemble(mot){var s={};MS.search(mot,{prefix:true,fuzzy:false,combineWith:'AND'}).forEach(function(r){s[r.id]=1});return s}
+function avecPhrase(d,tk){if(!d._f)d._f=' '+jetons(d.t+' '+d.a+' '+d.y).map(plier).join(' ')+' ';return d._f.indexOf(' '+tk.join(' ')+' ')>=0}
+function recherche(q){var a=analyser(q),pos=a.R.concat(a.P).concat(a.PH.map(function(t){return t.join(' ')})).join(' ').trim(),m;
+ if(!pos&&!a.X.length&&!a.XPH.length)return{ids:[],tt:[]};
+ if(pos)m=chercher(pos);else{m={};MS.search(MiniSearch.wildcard,{filter:filtre}).forEach(function(r){m[r.id]=1})}
+ var ids=classer(m);
+ a.R.forEach(function(w){var s=ensemble(w);ids=ids.filter(function(i){return s[i]})});
+ a.PH.forEach(function(tk){ids=ids.filter(function(i){return avecPhrase(D.docs[i],tk)})});
+ a.X.forEach(function(w){var s=ensemble(w);ids=ids.filter(function(i){return !s[i]})});
+ a.XPH.forEach(function(tk){ids=ids.filter(function(i){return !avecPhrase(D.docs[i],tk)})});
+ return{ids:ids,tt:jetons(pos).map(terme).filter(Boolean)}}
 function extrait(d,tt){var t=d.a+' '+d.y,f=plier(t),pos=-1;for(var i=0;i<tt.length&&pos<0;i++){var p=f.search(new RegExp('(^|[^\\p{L}\\p{N}])'+tt[i].replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'u'));if(p>=0)pos=p}
  var deb=Math.max(0,pos-70);if(pos<0)deb=0;var s=t.slice(deb,deb+230);return(deb>0?'… ':'')+surligne(s,tt)+(deb+230<t.length?' …':'')}
 function surligne(s,tt){var f=plier(s),out='',i=0,re=tt.length?new RegExp('(^|[^\\p{L}\\p{N}])('+tt.map(function(x){return x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).join('|')+')[\\p{L}\\p{N}]*','gu'):null;
@@ -78,8 +94,8 @@ function afficher(q,ids,tt){var h='',n=ids.length;cpt.textContent=q?(n?n+' résu
  ids.slice(0,60).forEach(function(i){var d=D.docs[i],e=D.editions.filter(function(x){return x.d===d.e})[0];
   h+='<li><a class="rs" href="/'+d.e+'/#'+d.s+'"><span class="rm">'+esc(D.secs[d.r])+' · N° '+e.n+(d.p?' · rappel':'')+'</span><span class="rt">'+surligne(d.t,tt)+'</span><span class="rx">'+extrait(d,tt)+'</span></a></li>'});
  res.innerHTML=h+(n>60?'<li class="rm">Affinez la recherche : '+(n-60)+' autres résultats.</li>':'')}
-var tempo;function lancer(maj){var q=champ.value.trim();charger().then(function(){var tt=jetons(q).map(terme).filter(Boolean);
- if(!q){res.innerHTML='';cpt.textContent='';}else afficher(q,chercher(q),tt);
+var tempo;function lancer(maj){var q=champ.value.trim();charger().then(function(){
+ if(!q){res.innerHTML='';cpt.textContent='';}else{var rr=recherche(q);afficher(q,rr.ids,rr.tt)}
  if(maj!==false){var u=new URLSearchParams();if(q)u.set('q',q);if(selD.value)u.set('d',selD.value);if(selE.value)u.set('e',selE.value);history.replaceState(null,'',u.toString()?'?'+u:location.pathname)}
  /*SUIVI*/})}
 champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(lancer,120)});selD.addEventListener('change',lancer);selE.addEventListener('change',lancer);
@@ -97,6 +113,8 @@ CSS = '''<style>
 .rch input:focus,.rch select:focus{outline:2px solid #c2410c;outline-offset:1px}
 .rch .fs{flex:0 1 220px}
 .rch .fs select{font-size:15px;line-height:22px;padding:9px 10px}
+#aide{margin:5px 0 0;font:12.5px/18px 'Segoe UI',Arial,sans-serif;color:#8a8f98}
+#aide b{font-weight:600;color:#6b7280}
 #cpt{min-height:24px;font:13px/24px 'Segoe UI',Arial,sans-serif;color:#6b7280;margin:0 0 6px}
 #res{list-style:none;margin:0;padding:0}
 #res li{margin:0 0 10px}
@@ -118,9 +136,9 @@ def ecrire(infos, themes, G, page, write, SITE, TOOLS_DIR):
     shutil.copyfile(os.path.join(TOOLS_DIR, 'vendor', 'minisearch', 'LICENSE'), os.path.join(SITE, 'assets', 'minisearch.LICENSE.txt'))
     data = construire(infos, themes, G)
     write(os.path.join(SITE, 'recherche', 'docs.json'), json.dumps(data, ensure_ascii=False, separators=(',', ':')))
-    suivi = "if(q&&window._paq)window._paq.push(['trackSiteSearch',q,selD.value||false,D?chercher(q).length:0]);" if SUIVI_MATOMO else ''
+    suivi = "if(q&&window._paq)window._paq.push(['trackSiteSearch',q,selD.value||false,D?recherche(q).ids.length:0]);" if SUIVI_MATOMO else ''
     corps = (CSS + '<div class="rch"><form id="rech" role="search" autocomplete="off"><div class="fq"><label for="q">Rechercher dans les éditions</label>'
-             '<input id="q" type="search" placeholder="CRA, SBOM, licence GPL, classement ECCN…" enterkeyhint="search"></div>'
+             '<input id="q" type="search" placeholder="CRA, SBOM, licence GPL, classement ECCN…" enterkeyhint="search" aria-describedby="aide"><p id="aide">Astuces : <b>"phrase exacte"</b> · <b>+mot</b> obligatoire · <b>-mot</b> exclu</p></div>'
              '<div class="fs"><label for="f-d">Dossier</label><select id="f-d"><option value="">Tous</option></select></div>'
              '<div class="fs"><label for="f-e">Édition</label><select id="f-e"><option value="">Toutes</option></select></div></form>'
              '<div id="cpt" role="status" aria-live="polite"></div><ul id="res"></ul>'
