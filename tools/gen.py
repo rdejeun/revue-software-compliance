@@ -603,16 +603,16 @@ tr.sy-it>td:last-child{{border-radius:0 6px 6px 0}}
 .pod-l{{flex:1}}
 .pod-d{{display:inline-flex;align-items:center;gap:6px;font:400 13px/22px {SANS};color:#6b7280;white-space:nowrap}}
 .pod-d svg{{flex:none;color:#8a8f98}}
-.pod-ch{{display:flex;justify-content:space-between;gap:4px;width:0;min-width:100%;margin:12px 0 0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
-.pod-cw{{position:relative}}
+.pod-ch{{display:flex;justify-content:space-between;gap:4px;width:0;min-width:100%;margin:0;overflow-x:auto;white-space:nowrap;scrollbar-width:none;}}
+.pod-cw{{position:relative;margin-top:12px}}
 .pod-ch{{position:relative}}
 .pod-ch.fr{{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}}
 .pod-ch.fl{{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px);mask-image:linear-gradient(to right,transparent,#000 28px)}}
 .pod-ch.fl.fr{{-webkit-mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,transparent,#000 28px,#000 calc(100% - 28px),transparent)}}
-.pod-cn{{display:none;position:absolute;top:13px;z-index:1;width:22px;height:22px;padding:0;border:1px solid #e3d6c3;border-radius:50%;background:#fff;color:{NAVY};font:15px/18px {SANS};cursor:pointer}}
+.pod-cn{{display:none;position:absolute;top:0;z-index:1;width:22px;height:22px;padding:0;border:1px solid transparent;border-radius:50%;background:none;color:{NAVY};font:16px/20px {SANS};text-align:center;cursor:pointer}}
 .pod-cg{{left:0}}.pod-cd{{right:0}}
 .pod-cw.g .pod-cg,.pod-cw.d .pod-cd{{display:block}}
-.pod-cn:hover{{color:{ACC}}}
+.pod-cn:hover,.pod-cn:focus-visible{{background:#fff;border-color:#e3d6c3;color:{ACC};outline:none}}
 .pod-ch::-webkit-scrollbar{{display:none}}
 .pod-ch button{{flex:none;padding:2px 8px;border:0;border-radius:11px;background:none;color:#8a8f98;font:12px/18px {SANS};cursor:pointer}}
 .pod-ch button:hover,.pod-ch button:focus-visible{{color:{NAVY};outline:none}}

@@ -18,7 +18,7 @@ on:
       envoi:
         description: 'Envoi de l’e-mail'
         type: choice
-        options: [auto, brouillon, aucun]
+        options: [auto, brouillon, diffusion, aucun]
         default: brouillon
 
 permissions:
@@ -125,6 +125,7 @@ jobs:
         id: envoi
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_SEGMENT_ID: ${{ vars.RESEND_SEGMENT_ID }}
           MAIL_TO: ${{ vars.MAIL_TO }}
           DRAFT_TO: ${{ vars.DRAFT_TO }}
           MAIL_VISIBLE: ${{ vars.MAIL_VISIBLE }}
