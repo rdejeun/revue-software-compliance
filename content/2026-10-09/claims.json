@@ -1576,158 +1576,6 @@
   "raison": "Dernier contrôle de la source : 8 septembre 2026 (page mise à jour 11 septembre) ; statut au 9 octobre non vérifié."
  },
  {
-  "affirmation": "[r5] CRA : incident grave, rapport final dans le mois suivant la notification de 72 h",
-  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
-  "extrait": "within a month from the 72-hour notification for severe incidents",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r5] CRA : alerte précoce sous 24 h et notification complète sous 72 h",
-  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
-  "extrait": "They need to submit an early warning within 24 hours of becoming aware, and a full notification within 72 hours.",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r7] L'ANSSI a précisé son rôle le 23 septembre (événement ANSSI/ANFR/DGE)",
-  "url": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/",
-  "extrait": "ont organisé ce mercredi 23 septembre 2026 au Centre Pierre Mendès France, un évènement dédié au Cyber Resilience Act (CRA)",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r9] Le CRA exclut les produits développés exclusivement pour la défense ou la sécurité nationale",
-  "url": "https://www.springlex.eu/en/packages/cra/cra-regulation/article-2/",
-  "extrait": "This Regulation does not apply to products with digital elements developed or modified exclusively for national security or defence purposes",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r9] Le critère est l'usage prévu par le fabricant",
-  "url": "https://www.lutzabel.com/en/article/it-related-legal-challenges-for-defense-companies-with-dual-use-products/",
-  "extrait": "While the CRA and AI Regulation are based on the product’s intended use",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r12] 13 août : l'ETSI a lancé l'approbation de 17 projets de normes",
-  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
-  "extrait": "Sophia Antipolis, France, 13 August 2026 ETSI is pleased to announce the availability of the 17 vertical final draft standards",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r21] Revue humaine prévue à chaque décision (selon l'éditeur)",
-  "url": "https://finance.yahoo.com/technology/ai/articles/qad-launches-trade-compliance-ai-120400203.html",
-  "extrait": "with human review built into every decision",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r21] Moins d'une minute par article contre près de deux heures (chiffres de l'éditeur)",
-  "url": "https://finance.yahoo.com/technology/ai/articles/qad-launches-trade-compliance-ai-120400203.html",
-  "extrait": "turns a classification and country-of-origin exercise that used to take a trade professional nearly two hours into a sub-minute",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r21] L'outil vise la liste américaine (ECCN), le communiqué ne mentionne pas la liste européenne",
-  "url": "https://finance.yahoo.com/technology/ai/articles/qad-launches-trade-compliance-ai-120400203.html",
-  "extrait": "HTS, ECCN, and Export classification recommendations",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Absence de mention de la liste dual-use UE dans le communiqué ; inférence raisonnable."
- },
- {
-  "affirmation": "[r23] Encore en phase pilote",
-  "url": "https://fossid.com/news/fossid-reveals-agentic-software-composition-analysis-ai-era/",
-  "extrait": "FossID Agentic SCA is currently in pilot with select enterprise customers",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r26] ENISA : panorama des menaces publié le 22 septembre 2026",
-  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
-  "extrait": "Press Release 22 Sep 2026 The 2026 ENISA Threat Landscape",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r26] Les attaques sur les dépendances (chaîne d'approvisionnement, tiers) entraînent en général des incidents de grande ampleur",
-  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
-  "extrait": "Such attacks usually result in large-scale and / or impactful incidents.",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r26] 73 % des organisations visées étaient des entités essentielles ou importantes au sens de NIS2",
-  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
-  "extrait": "73% of the targeted organisations are essential and important entities as per the NIS2 definition",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r26] Période d'analyse : année 2025",
-  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
-  "extrait": "ENISA collected and analysed incidents and events observed from 1 January to 31 December 2025",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r28] Depuis fin juillet, Dependabot attend trois jours avant de proposer une nouvelle version",
-  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
-  "extrait": "allowing the tool to wait at least three days after a release is published before opening a pull request",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Article du 27 juillet 2026."
- },
- {
-  "affirmation": "[r28] Sauf pour les correctifs de sécurité",
-  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
-  "extrait": "Security updates will continue to be pushed right away",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r28] PyPI : plus de fichiers ajoutés à une version publiée depuis plus de 14 jours",
-  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
-  "extrait": "announced plans to block maintainers from adding new files to a package release after 14 days have passed since its publication",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "« a annoncé » : la source parle de « plans » (projet annoncé, pas encore appliqué)."
- },
- {
-  "affirmation": "[r30] Une version piégée est vite repérée et retirée",
-  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
-  "extrait": "A cooldown is built for a specific pattern: a malicious version that ships, spreads, and gets caught quickly",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "[r38] Le Conseil devrait l'approuver, texte déjà négocié",
-  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
-  "extrait": "The Parliament's position reflects what had been previously agreed between the institutions. The Council should therefore be in a position to approve the Parliament's position.",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
   "affirmation": "L'ETSI soumet 17 normes verticales du CRA à enquête publique.",
   "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
   "extrait": "availability of the 17 vertical final draft standards developed in the framework of the EU Cyber Resilience Act (CRA) and currently under Public Enquiry",
@@ -3054,5 +2902,501 @@
   "ou": "synthese",
   "verifie": "confirmé",
   "raison": "Considérant du texte annexé à la note du Conseil."
+ },
+ {
+  "affirmation": "Depuis le 11 septembre 2026 le fabricant doit déclarer vulnérabilités exploitées et incidents graves",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
+  "extrait": "As of 11 September 2026, manufacturers are required to report actively exploited vulnerabilities and severe incidents",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Alerte précoce sous 24 h, notification sous 72 h, rapport final sous 14 jours après mesure corrective (faille exploitée)",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
+  "extrait": "They need to submit an early warning within 24 hours of becoming aware, and a full notification within 72 hours. A final report needs to be submitted no later than 14 days after a corrective measure is available for actively exploited vulnerabilities",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Incident grave : rapport final dans le mois suivant la notification de 72 h",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
+  "extrait": "and within a month from the 72-hour notification for severe incidents",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Plateforme unique de déclaration gérée par l'ENISA",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
+  "extrait": "ENISA has established the CRA Single Reporting Platform (SRP), operational as of 11 September 2026",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le 23 septembre l'ANSSI a précisé son rôle (publication ANSSI du 23 septembre 2026)",
+  "url": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/",
+  "extrait": "Publié le mercredi 23 septembre 2026",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "ANSSI : évalue, contrôle et notifie les organismes de conformité et sert de CSIRT national",
+  "url": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/",
+  "extrait": "L’ANSSI , qui interviendra en tant qu’ autorité notifiante et de CSIRT national au titre du CRA. En tant qu’autorité notifiante, elle sera chargée d’ évaluer, contrôler et notifier les organismes de conformité (OEC)",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "ANFR (agence des fréquences) surveille les produits sur le marché, mesures de police administrative et sanctions financières",
+  "url": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/",
+  "extrait": "intervient en tant qu’ autorité de surveillance pour l’ensemble des produits numériques mis à disposition sur le marché national.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "ANFR peut prendre des mesures de police administrative et infliger des sanctions pécuniaires",
+  "url": "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/",
+  "extrait": "elle sera habilitée à prendre les mesures de police administrative nécessaires à l’encontre des fabricants pour qu’ils les corrigent (par exemple le retrait du produit du marché) ou des sanctions pécuniaires élevées.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le règlement exclut les produits conçus exclusivement pour la défense ou la sécurité nationale",
+  "url": "https://www.springlex.eu/en/packages/cra/cra-regulation/article-2/",
+  "extrait": "This Regulation does not apply to products with digital elements developed or modified exclusively for national security or defence purposes or to products specifically designed to process classified information.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le critère est l'usage prévu par le fabricant ; version civile/double usage reste concernée",
+  "url": "https://www.lutzabel.com/en/article/it-related-legal-challenges-for-defense-companies-with-dual-use-products/",
+  "extrait": "The scope of the exemption is tied to the manufacturer’s intended purpose",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le critère : un usage militaire n'exonère pas le fabricant d'un produit à double usage",
+  "url": "https://www.lutzabel.com/en/article/it-related-legal-challenges-for-defense-companies-with-dual-use-products/",
+  "extrait": "Military use does not exempt the manufacturer from CRA obligations.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "La Commission a publié le 27 juillet 2026 un document d'orientation (guidance) CRA",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "27 July 2026 First set of Commission guidance on the Cyber Resilience Act implementation",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le document d'orientation n'est pas contraignant",
+  "url": "https://www.skwschwarz.de/en/news/european-commission-guidance-cra",
+  "extrait": "The guidance is not legally binding.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Acte délégué sur la présomption de conformité EUCC attendu au T4 2026",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "Q4 2026 Delegated Act specifying the presumption of conformity for the European Cybersecurity Certification scheme on Common Critera (EUCC) with the CRA",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le 13 août 2026 l'ETSI a lancé l'approbation de 17 projets de normes (une par famille de produits)",
+  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
+  "extrait": "ETSI is pleased to announce the availability of the 17 vertical final draft standards developed in the framework of the EU Cyber Resilience Act (CRA) and currently under Public Enquiry.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Enquête publique de mi-septembre à mi-novembre selon le projet",
+  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
+  "extrait": "The approval procedure will run until mid-September to mid-November 2026, depending on the vertical.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Aucune norme du CRA n'est encore citée au Journal officiel de l'Union",
+  "url": "https://www.cyberresilienceact.eu/news/etsi-17-cra-product-standards-public-enquiry-13-august-2026.html",
+  "extrait": "no CRA harmonised standard is cited in the Official Journal",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le 6 octobre 2026, à Prague, l'OpenSSF a présenté un guide CRA Readiness (Community Day Europe)",
+  "url": "https://openssf.org/press-release/2026/10/06/openssf-shares-expanded-membership-and-new-global-policy-resources-during-community-day-europe/",
+  "extrait": "Prague – OpenSSF Community Day Europe – October 6, 2026",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Guide de préparation au CRA publié par l'OpenSSF pour éditeurs et mainteneurs",
+  "url": "https://openssf.org/press-release/2026/10/06/openssf-shares-expanded-membership-and-new-global-policy-resources-during-community-day-europe/",
+  "extrait": "Publication of the CRA Readiness practitioner’s guide — OpenSSF published practical compliance guidance for the EU Cyber Resilience Act.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Parcours par métier (rôles)",
+  "url": "https://openssf.org/press-release/2026/10/06/openssf-shares-expanded-membership-and-new-global-policy-resources-during-community-day-europe/",
+  "extrait": "OpenSSF rolled out role-based “User Journeys,” for security practitioners looking to find the right guidance and resources.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Ericsson : plus de 1 400 corrections remontées en amont plutôt que gardées dans des copies privées",
+  "url": "https://openssf.org/press-release/2026/10/06/openssf-shares-expanded-membership-and-new-global-policy-resources-during-community-day-europe/",
+  "extrait": "Ericsson Software Technology eliminated private forks and contributed over 1,400 dependency updates and security fixes upstream to meet CRA obligations",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "CISA a publié le 29 juillet 2026 les éléments minimaux SBOM 2026, avec NSA, FBI et partenaires ; ils remplacent ceux de 2021 (NTIA) ; IA et services en ligne peuvent exiger des éléments supplémentaires",
+  "url": "https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom",
+  "extrait": "that updates and replaces the minimum elements for an SBOM",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Page 403 pour curl ; lue via WebFetch : date de publication « July 29, 2026 », NSA/FBI/partenaires internationaux, « may require additional elements » pour IA et SaaS. Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "CycloneDX 2.0 attendu cet automne, ratification Ecma en décembre",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "CycloneDX 2.0, due this fall with Ecma International approval anticipated in December",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "CycloneDX 2.0 pourrait décrire risques, contrôles, provenance de composants physiques",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "A threat model can exist on its own, and likewise a risk register, a privacy profile, a control inventory",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "CycloneDX 2.0 : provenance des composants physiques (matériel)",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "the origins of its physical components",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "SPDX : quatre nouveaux outils en cinq semaines (billet du 5 octobre 2026)",
+  "url": "https://spdx.dev/4-new-spdx-tools-in-the-last-5-weeks/",
+  "extrait": "4 New SPDX Tools in the Last 5 Weeks By podence October 5, 2026",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "lynkctl produit des SBOM pour les projets C/C++ et logiciels embarqués sans lancer la compilation",
+  "url": "https://spdx.dev/4-new-spdx-tools-in-the-last-5-weeks/",
+  "extrait": "lynkctl- CLI SBOM generator tool that produces high-quality SPDX:3.0.1 (and CycloneDX) SBOMs from C/C++ and embedded firmware projects without executing the build.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Grype a publié un correctif le 6 octobre (0.120.1)",
+  "url": "https://github.com/anchore/grype/releases/tag/v0.120.1",
+  "extrait": "Table presenter appends a spurious \", ...\" to the FIX column when all fix versions are already shown",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Page GitHub 403 pour curl ; lue via WebFetch : v0.120.1 « Released 6 October ». Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "Syft a publié un correctif le 6 octobre (1.54.1)",
+  "url": "https://github.com/anchore/syft/releases",
+  "extrait": "Cannot produce attestation file from local podman image",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Page GitHub 403 pour curl ; lue via WebFetch : v1.54.1 « released 06 Oct », section Bug Fixes. Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "Dependency-Track 5.2 sorti le 8 octobre",
+  "url": "https://www.dependencytrack.org/news/",
+  "extrait": "5.2 Release October 8, 2026 Dependency-Track 5.2.0 Is Out",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "ENISA, panorama du 22 septembre 2026",
+  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
+  "extrait": "Press Release 22 Sep 2026 The 2026 ENISA Threat Landscape",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Attaques par les dépendances entraînent en général des incidents de grande ampleur",
+  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
+  "extrait": "Such attacks usually result in large-scale and / or impactful incidents.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "73 % des organisations visées en 2025 sont des entités essentielles ou importantes NIS2",
+  "url": "https://www.enisa.europa.eu/news/exploring-the-evolution-of-the-cyber-threat-landscape-how-dependencies-weaken-our-digital-resilience",
+  "extrait": "73% of the targeted organisations are essential and important entities as per the NIS2 definition.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le 16 septembre 2026, une douzaine d'organisations (GitHub, Google, Microsoft, Red Hat, Rust Foundation...) ont signé l'engagement sur les registres",
+  "url": "https://openssf.org/blog/2026/09/16/were-in-enterprise-commitment-to-sustainable-package-registries/",
+  "extrait": "Signed by: Arm Datadog Dell Technologies Ericsson GitHub Google IBM Kusari Microsoft Red Hat Rust Foundation Sonatype",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Les gros utilisateurs devraient financer les registres proportionnellement",
+  "url": "https://openssf.org/blog/2026/09/16/were-in-enterprise-commitment-to-sustainable-package-registries/",
+  "extrait": "we believe they should proportionally fund the infrastructure from which they derive commercial value.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "PyPI interdira d'ajouter des fichiers à une version publiée depuis plus de 14 jours",
+  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
+  "extrait": "announced plans to block maintainers from adding new files to a package release after 14 days have passed since its publication",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Dependabot attend 3 jours avant de proposer une nouvelle version, sauf mises à jour de sécurité",
+  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
+  "extrait": "Security updates will continue to be pushed right away",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Dependabot : délai de 3 jours par défaut",
+  "url": "https://thehackernews.com/2026/07/github-adds-3-day-dependabot-cooldown.html",
+  "extrait": "allowing the tool to wait at least three days after a release is published before opening a pull request",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le 14 septembre 2026 la Commission a adopté un règlement délégué mettant à jour l'annexe I de la liste dual-use",
+  "url": "https://policy.trade.ec.europa.eu/news/2026-update-eu-control-list-dual-use-items-2026-09-14_en",
+  "extrait": "On 14 September 2026, the European Commission adopted a Delegated Regulation updating the EU dual-use export control list in Annex I of Regulation (EU) 2021/821.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le règlement étend les contrôles existants sur les logiciels à de nouveaux équipements de fabrication de semi-conducteurs",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "Existing software controls are extended to certain newly listed semiconductor equipment",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Baker McKenzie (cité par la puce) 403 pour curl ; lu via WebFetch. La page de la Commission cite les équipements semi-conducteurs mais ne mentionne pas les logiciels. Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "Équipements de fabrication de semi-conducteurs ajoutés (page Commission)",
+  "url": "https://policy.trade.ec.europa.eu/news/2026-update-eu-control-list-dual-use-items-2026-09-14_en",
+  "extrait": "Semiconductor manufacturing and testing equipment and materials",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Entrée en vigueur à la publication au JO après deux mois d'examen Parlement/Conseil : rien d'applicable aujourd'hui",
+  "url": "https://policy.trade.ec.europa.eu/news/2026-update-eu-control-list-dual-use-items-2026-09-14_en",
+  "extrait": "The updated EU control list enters into force upon publication in the Official Journal after the usual two-month scrutiny period for the Council and the European Parliament.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "SAFE : jusqu'à 150 milliards d'euros de prêts",
+  "url": "https://cms.law/en/fra/legal-updates/SAFE-program-to-strengthen-European-defence-capabilities",
+  "extrait": "The overall envelope amounts to €150 billion",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "SAFE plafonne à 35 % le coût des composants de pays tiers",
+  "url": "https://cms.law/en/fra/legal-updates/SAFE-program-to-strengthen-European-defence-capabilities",
+  "extrait": "the cost of components originating in third countries may not exceed 35% of the total estimated cost of the components of the final product",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "EDIP : 1,5 milliard d'euros pour 2026-2027",
+  "url": "https://www.zabala.eu/news/edip-defence-industry/",
+  "extrait": "with a budget of €1.5 billion for the 2026–2027 period",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Appel de 180 M€ (soutien à l'Ukraine) clos le 13 octobre",
+  "url": "https://www.zabala.eu/news/edip-defence-industry/",
+  "extrait": "First call , with a deadline of 13th October 2026 : Missiles, ammunition and bombs (€180 million)",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Premier appel d'achats conjoints de 90 M€ clos le 13 octobre",
+  "url": "https://www.welcomeurope.com/en/the-list-of-our-calls-projects/european-defence-fund-edf-1st-call-for-proposals-for-common-procurement-actions-under-the-programme-2026/",
+  "extrait": "Closing 2026-10-13 90 million euros",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Confirmé par la fiche d'appel EDF-EDIP-P-2026-FNLC-CPA (agrégateur Welcomeurope, source secondaire) ; les pages citées par la puce (Zabala : « first call will close in October 2026 », 240 M€ au total) ne donnent ni 90 M€ ni le 13."
+ },
+ {
+  "affirmation": "Le règlement EDIP exige une autorité de conception sur les produits de défense",
+  "url": "https://cms.law/en/lux/publication/CMS-Global-Radar-2026-third-edition/The-35-rule-and-design-authority-how-EDIP-s-third-country-restrictions-reshape-defence-supply-chains",
+  "extrait": "Article 10(5) requires recipients of EU funding to have the ability to decide on the definition, adaptation and evolution of the design of defence products.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Page cible de la puce (Conseil de l'UE) 403 ; confirmé par l'analyse CMS Luxembourg de l'art. 10(5) du règlement (UE) 2025/2643. Source secondaire."
+ },
+ {
+  "affirmation": "Le 16 septembre 2026 le Parlement européen a adopté en première lecture la directive simplifiant les transferts intra-UE de produits de défense",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "When it voted on 16 September 2026, the plenary adopted the compromise amendment (amendment number 69) to the abovementioned proposal for a Directive.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Nouvelles licences générales de transfert",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "it is appropriate to introduce a general transfer licence for transfers in the framework of a structured intra-EU industrial partnership",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le Conseil doit encore approuver le texte",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "The Council should therefore be in a position to approve the Parliament's position.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Le 22 septembre l'UE a prolongé de 36 mois, jusqu'en septembre 2029, ses sanctions ciblées liées à la Russie",
+  "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/russia-ukraine-sanctions-update-month-of-september-2026",
+  "extrait": "for another 36 months, until 22 September 2029",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Mayer Brown 403 pour curl ; lu via WebFetch. Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "Quatre inscriptions non reconduites (Usmanov, Fridman, Falaeev, Redbird)",
+  "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/russia-ukraine-sanctions-update-month-of-september-2026",
+  "extrait": "decided not to renew the listings of three individuals",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Mayer Brown 403 pour curl ; lu via WebFetch (trois personnes : Usmanov, Fridman, Falaeev, plus Redbird Corporate Services Ltd). Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "Arrêt de la CJUE du 3 septembre : détention ou contrôle par une personne inscrite requis pour geler les fonds d'une entité non inscrite",
+  "url": "https://www.mayerbrown.com/en/insights/publications/2026/09/russia-ukraine-sanctions-update-month-of-september-2026",
+  "extrait": "The mere existence of \"links\" with a designated person is not sufficient.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Mayer Brown 403 pour curl ; lu via WebFetch (arrêt du 3 septembre 2026 : seules les entités détenues ou contrôlées par une personne désignée). Extrait non revérifiable par curl."
+ },
+ {
+  "affirmation": "Phase 2 du CMMC suspendue sans date de reprise",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "No reinstatement, no replacement date, no hint of one.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Déclaration d'incident sous 72 heures toujours applicable (DFARS 252.204-7012)",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "still report cyber incidents to DIBNet within 72 hours of discovery",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Loi Résilience : examen prévu les 7 et 9 octobre ; retrait de l'ordre du jour par la conférence des présidents le 6 octobre, sans nouvelle date",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "Le mardi 6 octobre 2026, la conférence des présidents de l'Assemblée nationale a retiré de l'ordre du jour des 7 et 9 octobre le projet de loi",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Rapporteur Éric Bothorel espère une réinscription d'ici quinze jours ou trois semaines",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "J'ai bon espoir qu'on pourra réinscrire le texte d'ici quinze jours ou trois semaines",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "Prochaine conférence des présidents le 13 octobre 2026",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "La prochaine conférence des présidents est fixée au mardi 13 octobre 2026.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "La Commission a saisi la CJUE le 8 juillet 2026 contre la France et trois autres États membres pour défaut de transposition",
+  "url": "https://www.openkritis.de/eu/eu-nis-2-france.html",
+  "extrait": "On 8 July 2026, the European Commission referred France and three other member states to the Court of Justice of the EU (CJEU) for failure to transpose.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
+ },
+ {
+  "affirmation": "La règle américaine des affiliés redevient applicable le 10 novembre 2026, sauf décision contraire du BIS",
+  "url": "https://www.govinfo.gov/content/pkg/FR-2025-11-12/html/2025-19846.htm",
+  "extrait": "In the second phase of this final rule, effective November 10, 2026 and extending indefinitely, the changes included in the Affiliates Rule that are removed in the first stage will be added back into the EAR.",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Source primaire (Federal Register 2025-19846, via govinfo) ; la puce/agenda de blocks.json n'a pas de lien, la règle citée est la suspension d'un an jusqu'au 9 novembre 2026."
+ },
+ {
+  "affirmation": "La règle des affiliés étend les restrictions de l'Entity List aux entités détenues à 50 % ou plus par des entités inscrites",
+  "url": "https://www.govinfo.gov/content/pkg/FR-2025-11-12/html/2025-19846.htm",
+  "extrait": "any entity that is at least 50 percent owned directly or indirectly, individually or in the aggregate, by one or more entities on the Entity List",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Extrait vérifié mot pour mot dans la page."
  }
 ]
