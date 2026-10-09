@@ -179,12 +179,13 @@ def to_md(blocks, meta, text=False):
 
 # ---------------------------------------------------------------- pages annexes
 CSS = f'''body{{margin:0;background:#ecebe6 url(/assets/fond.webp) repeat;background-size:512px 512px;color:#1f2937;font:16px/24px {SERIF}}}
-.c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;border-radius:8px;box-shadow:0 1px 2px rgba(15,42,74,.05),0 8px 28px rgba(15,42,74,.07);padding:38px 52px 31px;box-sizing:border-box}}
+.c{{max-width:720px;margin:24px auto;background:#fff;border-top:6px solid #c2410c;border-radius:8px;box-shadow:0 1px 2px rgba(15,42,74,.05),0 8px 28px rgba(15,42,74,.07);padding:38px 52px 31px;box-sizing:border-box;min-height:calc(100vh - 48px);display:flex;flex-direction:column}}
+.cx{{flex:1 0 auto}}
 .e{{font:600 12px/16px {SANS};letter-spacing:.16em;text-transform:uppercase;color:#c2410c}}
 h1{{margin:8px 0 14px;font:700 46px/52px {SERIF};color:#0f2a4a;letter-spacing:-.01em;text-wrap:balance}} h1 i{{font-weight:400;color:#c2410c}} h1 span{{font:500 44px/52px {SANS};letter-spacing:-.025em}} h1.dos{{font-size:44px;line-height:50px}} h1.dos span{{font-size:42px;line-height:50px}}
 {CSS_PIED}
 {CSS_COURRIEL}
-.c>p a{{color:#1f4e8c}}
+.cx>p a{{color:#1f4e8c}}
 .sub{{margin:0 0 24px;padding-bottom:14px;border-bottom:2px solid #0f2a4a;font:13px/20px {SANS};color:#6b7280}} .sub a{{color:#6b7280}}
 h2{{margin:32px 0 12px;font:600 20px/28px {SANS};color:#0f2a4a}} .r{{width:30px;height:3px;background:#c2410c;margin:32px 0 10px}} .r+h2{{margin-top:0}}
 ul.l{{list-style:none;margin:0;padding:0}} ul.l>li{{border-bottom:1px solid #e5e1d8}}
@@ -205,7 +206,7 @@ a.t{{border-bottom:1px dotted #1f4e8c;color:#1f4e8c;text-decoration:none;positio
 a.t:hover::after,a.t:focus::after{{content:attr(data-tip);position:absolute;left:0;top:1.7em;z-index:9;width:min(290px,70vw);background:#0f2a4a;color:#fff;font:400 13px/1.45 {SANS};padding:9px 11px;border-radius:6px}}
 a.more{{color:#c2410c;font:600 13px {SANS};text-decoration:none;white-space:nowrap}}
 .demo{{font:600 11px/16px {SANS};color:#8a8f98;letter-spacing:.06em;text-transform:uppercase}}
-@media(max-width:660px){{.c{{margin:0;padding:24px 18px 30px}} h1{{font-size:36px;line-height:42px}} h1 span{{font-size:34px;line-height:42px}} dl.st{{grid-template-columns:1fr;gap:0}} dl.st dd{{margin-bottom:6px}}}}'''
+@media(max-width:660px){{.c{{margin:0;padding:24px 18px 30px;min-height:100vh;min-height:100dvh}} h1{{font-size:36px;line-height:42px}} h1 span{{font-size:34px;line-height:42px}} dl.st{{grid-template-columns:1fr;gap:0}} dl.st dd{{margin-bottom:6px}}}}'''
 
 
 REDACTION = 'Anthropic Claude Opus 5.5'   # remplacé par la valeur « redaction » de la dernière édition
@@ -228,7 +229,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
     return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1">{ROBOTS_META}<meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire : l’essentiel de la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
-<body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
+<body><main class="c"><div class="cx"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}</div>{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
 
 
 def write(path, txt):
