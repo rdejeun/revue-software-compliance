@@ -5,6 +5,7 @@ Usage : python3 tools/send.py --mode auto|brouillon|diffusion|aucun [AAAA-MM-JJ]
   auto      : envoi aux abonnés, une seule fois par édition (content/<date>/envoi.json), jamais pour une
               édition de démonstration ni pour une édition de plus de 3 jours. Avec RESEND_SEGMENT_ID : diffusion
               (Broadcast) au segment Resend, avec le lien de désabonnement de Resend ; sinon copie cachée à MAIL_TO
+  (le lancement manuel du workflow n'étant pas possible depuis la session de la routine, un push sans [sans-envoi] déclenche l'envoi auto)
   diffusion : crée la diffusion dans Resend SANS l'envoyer (à relire et à tester depuis le tableau de bord), sans enregistrement
   brouillon : envoi de relecture à DRAFT_TO, objet préfixé « [Brouillon] », sans enregistrement
   aucun     : pas d'envoi
