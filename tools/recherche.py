@@ -115,7 +115,7 @@ CSS = '''<style>
 .rch .fs{flex:0 1 220px}
 @media(min-width:661px){.rch .fs{flex-basis:250px}}
 .rch .fs select{font-size:15px;line-height:22px;padding:9px 10px}
-#aide{margin:5px 0 0;font:12px/18px 'Segoe UI',Arial,sans-serif;color:#8a8f98;white-space:nowrap}
+#aide{margin:5px 0 0;font:12px/18px 'Segoe UI',Arial,sans-serif;color:#8a8f98;white-space:nowrap;text-align:center}
 @media(max-width:380px){#aide{white-space:normal}}
 #aide b{font-weight:600;color:#6b7280}
 #cpt{min-height:24px;font:13px/24px 'Segoe UI',Arial,sans-serif;color:#6b7280;margin:0 0 6px}
