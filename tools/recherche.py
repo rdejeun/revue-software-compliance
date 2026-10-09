@@ -95,12 +95,12 @@ function afficher(q,ids,tt){var h='',n=ids.length;cpt.textContent=q?(n?n+' résu
  ids.slice(0,60).forEach(function(i){var d=D.docs[i],e=D.editions.filter(function(x){return x.d===d.e})[0];
   h+='<li><a class="rs" href="/'+d.e+'/#'+d.s+'"><span class="rm">'+esc(D.secs[d.r])+' · N° '+e.n+(d.p?' · rappel':'')+'</span><span class="rt">'+surligne(d.t,tt)+'</span><span class="rx">'+extrait(d,tt)+'</span></a></li>'});
  res.innerHTML=h+(n>60?'<li class="rm">Affinez la recherche : '+(n-60)+' autres résultats.</li>':'')}
-var tempo;function lancer(maj){var q=champ.value.trim();charger().then(function(){
+var tempo;function lancer(maj){var q=champ.value.trim();return charger().then(function(){
  if(!q){res.innerHTML='';cpt.textContent='';}else{var rr=recherche(q);afficher(q,rr.ids,rr.tt)}
  if(maj!==false){var u=new URLSearchParams();if(q)u.set('q',q);if(selD.value)u.set('d',selD.value);if(selE.value)u.set('e',selE.value);history.replaceState(null,'',u.toString()?'?'+u:location.pathname)}
  /*SUIVI*/})}
 champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(lancer,120)});selD.addEventListener('change',lancer);selE.addEventListener('change',lancer);
-document.getElementById('rech').addEventListener('submit',function(e){e.preventDefault();lancer()});
+document.getElementById('rech').addEventListener('submit',function(e){e.preventDefault();clearTimeout(tempo);lancer().then(function(){var a=res.querySelector('a.rs');if(a){champ.blur();a.focus()}})});   /* Entrée : le focus passe au premier résultat */
 var p=new URLSearchParams(location.search);champ.value=p.get('q')||'';
 charger().then(function(){if(p.get('d'))selD.value=p.get('d');if(p.get('e'))selE.value=p.get('e');lancer(false)});
 champ.focus()})();'''
@@ -113,9 +113,7 @@ CSS = '''<style>
 .rch input,.rch select{box-sizing:border-box;width:100%;height:44px;font:17px/24px Georgia,serif;color:#0f2a4a;background:#fff;border:1px solid #d9cdb8;border-radius:6px;padding:8px 12px}
 .rch input:focus,.rch select:focus{outline:2px solid #c2410c;outline-offset:1px}
 .ic{position:relative}
-.ic .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#8a8f98}
-.ic-d .ico{color:#c2410c}
-.ic:focus-within .ico{color:#c2410c}
+.ic .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);pointer-events:none;color:#c2410c}
 .rch .ic input,.rch .ic select{padding-left:39px}
 .rch .fs{flex:0 1 220px}
 @media(min-width:661px){.rch .fs{flex-basis:250px}}
@@ -145,9 +143,9 @@ def ecrire(infos, themes, G, page, write, SITE, TOOLS_DIR):
     data = construire(infos, themes, G)
     write(os.path.join(SITE, 'recherche', 'docs.json'), json.dumps(data, ensure_ascii=False, separators=(',', ':')))
     suivi = "if(q&&window._paq)window._paq.push(['trackSiteSearch',q,selD.value||false,D?recherche(q).ids.length:0]);" if SUIVI_MATOMO else ''
-    corps = (CSS + '<div class="rch"><form id="rech" role="search" autocomplete="off"><div class="fq"><label for="q">Rechercher dans les éditions</label>'
+    corps = (CSS + '<div class="rch"><form id="rech" role="search" autocomplete="off"><div class="fq"><label for="q">Rechercher dans les articles</label>'
              '<div class="ic"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.3 10.3 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="CRA, SBOM, licence GPL, classement ECCN…" enterkeyhint="search" aria-describedby="aide"></div><p id="aide">Astuces : <b>"phrase exacte"</b> · <b>+mot</b> obligatoire · <b>-mot</b> exclu</p></div>'
-             '<div class="fs"><label for="f-d">Dossier</label><div class="ic ic-d"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><select id="f-d"><option value="">Tous</option></select></div></div>'
+             '<div class="fs"><label for="f-d">Limiter au dossier</label><div class="ic ic-d"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><select id="f-d"><option value="">Tous</option></select></div></div>'
              '<div class="fs"><label for="f-e">Édition</label><select id="f-e"><option value="">Toutes</option></select></div></form>'
              '<div id="cpt" role="status" aria-live="polite"></div><ul id="res"></ul>'
              '<noscript><p>La recherche demande JavaScript. Vous pouvez parcourir les <a href="/archives/">archives</a> et les <a href="/dossiers/">dossiers</a>.</p></noscript></div>'
