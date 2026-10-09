@@ -294,7 +294,7 @@ def main():
     rows = ''.join(f'<li><a class="b" href="/{i["d"]}/"><span class="m">N° {i["meta"]["n"]} · {E(i["meta"]["date_long"])}{" · démonstration" if i["meta"].get("demo") else ""}</span><span class="x">{E(i["lede"])}</span></a></li>' for i in reversed(infos))
     n = len(infos)
     write(os.path.join(SITE, 'archives', 'index.html'), page('Archives – Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>',
-          f'Archives · {n} édition{"s" if n > 1 else ""} · <a href="/">Dernière édition</a> · <a href="/dossiers/">Dossiers</a> · <a href="/feed.xml">RSS</a>', f'<ul class="l">{rows}</ul>'))
+          f'Archives · {n} édition{"s" if n > 1 else ""} · <a href="/">Dernière édition</a> · <a href="/dossiers/">Dossiers</a> · <a href="/feed.xml" type="application/rss+xml">RSS</a>', f'<ul class="l">{rows}</ul>'))
 
     # dossiers
     themes = json.load(open(os.path.join(TOOLS, 'themes.json'), encoding='utf-8'))

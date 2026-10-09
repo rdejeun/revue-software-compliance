@@ -41,7 +41,7 @@ def pied_bloc(redaction, annee, absolu=False):
     ligne, pour l'e-mail (Outlook compris) ; petit écran : les cellules s'empilent (CSS_PIED). absolu=True : liens complets."""
     b = SITE if absolu else ''
     lk = 'color:#4b5563;text-decoration:none;border-bottom:1px dotted #9ca3af;'
-    nav = ' &nbsp;&nbsp; '.join(f'<a href="{b}{u}" style="{lk}">{t}</a>' for t, u in (
+    nav = ' &nbsp;&nbsp; '.join('<a href="%s%s"%s style="%s">%s</a>' % (b, u, ' type="application/rss+xml"' if u.endswith('.xml') else '', lk, t) for t, u in (
         ('Archives', '/archives/'), ('Dossiers', '/dossiers/'), ('Fil RSS', '/feed.xml')))
     fin = 'color:#8a8f98;text-decoration:none;'   # non souligné (souligné au survol : CSS_PIED)
     T = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"'
