@@ -418,7 +418,7 @@
    ],
    [
     {
-     "t": "OpenSSF : le 6 octobre 2026, à Prague, publication d’un guide *{en}CRA Readiness* pour les éditeurs et mainteneurs et de parcours par rôle ; une étude de cas d’Ericsson relève plus de 1 400 corrections de dépendances et de sécurité remontées en amont plutôt que conservées dans des *{en}forks* privés ("
+     "t": "OpenSSF : lors de l’*{en}OpenSSF Community Day Europe* (Prague, 6 octobre 2026), présentation, parmi les réalisations du troisième trimestre, d’un guide *{en}CRA Readiness* pour les éditeurs et mainteneurs et de parcours par rôle ; une étude de cas d’Ericsson relève plus de 1 400 corrections de dépendances et de sécurité remontées en amont plutôt que conservées dans des *{en}forks* privés ("
     },
     {
      "t": "OpenSSF",
@@ -454,7 +454,7 @@
    ],
    [
     {
-     "t": "Nomenclature cryptographique (CBOM) : le décret présidentiel américain 14412 du 22 juin 2026 charge la CISA, avec le NIST, de publier sous 270 jours une guidance sur les éléments minimaux d’une *{en}cryptographic bill of materials*, pour évaluer automatiquement les fonctions cryptographiques d’un matériel ou d’un logiciel ("
+     "t": "Nomenclature cryptographique (CBOM) : le décret présidentiel américain 14412 du 22 juin 2026 charge la CISA, avec le NIST, de publier sous 270 jours une guidance sur les éléments minimaux d’une *{en}cryptographic bill of materials*, pour évaluer automatiquement les actifs cryptographiques d’un matériel ou d’un logiciel ("
     },
     {
      "t": "Maison-Blanche",
@@ -465,13 +465,6 @@
     }
    ],
    [
-    {
-     "t": "ENISA : 78 % des organisations ont commencé leur démarche SBOM et 79 % comptent atteindre le niveau requis d’ici la pleine application du CRA (décembre 2027) ; freins cités : la complétude (62 %), l’appariement des vulnérabilités (58 %) et la qualité des données (37 %) ("
-    },
-    {
-     "t": "ThreatCluster",
-     "href": "https://threatcluster.io/cluster/sbom-adoption-in-2026-high-generation-low-utilization-c752d94c"
-    },
     {
      "t": ", "
     },
@@ -485,7 +478,7 @@
    ],
    [
     {
-     "t": "OpenSSF : SLSA 1.2 est approuvé (pistes Build et Source ; la 1.1 est retirée) ("
+     "t": "OpenSSF : SLSA 1.2 est approuvé (pistes Build et Source ; la 1.1 est retirée selon la page de cette version) ("
     },
     {
      "t": "SLSA",
@@ -497,6 +490,13 @@
     {
      "t": "OpenSSF",
      "href": "https://openssf.org/?p=11187"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "SLSA 1.1",
+     "href": "https://slsa.dev/spec/v1.1/"
     },
     {
      "t": ")."
@@ -735,7 +735,7 @@
     "titre": "OpenSSF : guide de préparation au CRA et étude de cas Ericsson",
     "statut": "Communiqué de l'OpenSSF du 6 octobre 2026 ; ressources non contraignantes",
     "fonctions": "Ingénierie logicielle, PSIRT, juridique, achats",
-    "essentiel": "Lors de l'OpenSSF Community Day Europe à Prague, l'Open Source Security Foundation a annoncé le 6 octobre 2026 un guide pratique *{en}CRA Readiness* pour les éditeurs et mainteneurs, accompagné de parcours guidés par rôle (développeurs, ingénieurs sécurité, responsables d'OSPO, dirigeants). Une étude de cas d'Ericsson fait état de plus de 1 400 corrections de dépendances et de sécurité remontées en amont, sans passer par des *{en}forks* privés.",
+    "essentiel": "Lors de l'OpenSSF Community Day Europe à Prague, l'Open Source Security Foundation a présenté, le 6 octobre 2026 et parmi ses réalisations du troisième trimestre, un guide pratique *{en}CRA Readiness* pour les éditeurs et mainteneurs, accompagné de parcours guidés par rôle (développeurs, ingénieurs sécurité, responsables d'OSPO, responsables marketing, dirigeants). Une étude de cas d'Ericsson fait état de plus de 1 400 corrections de dépendances et de sécurité remontées en amont, sans passer par des *{en}forks* privés.",
     "contexte": "Le communiqué rappelle que l'obligation de signalement des vulnérabilités et incidents du Cyber Resilience Act est entrée en vigueur en septembre 2026. L'OpenSSF est une communauté qui travaille à sécuriser les logiciels open source.",
     "impact_avere": "Ces ressources sont publiques et sans valeur réglementaire. Pour un industriel qui intègre des composants open source, elles décrivent une façon de contribuer en amont ==plutôt que de maintenir des forks privés==.",
     "impact_potentiel": "Le guide pourrait servir de base pour cadrer les échanges avec les mainteneurs et les exigences adressées aux fournisseurs. Le retour d'expérience d'un seul industriel ne dit pas si la démarche convient à d'autres contextes.",
@@ -776,8 +776,8 @@
     "titre": "États-Unis : vers une nomenclature cryptographique (CBOM)",
     "statut": "Décret présidentiel 14412 du 22 juin 2026, publié au Federal Register le 25 juin ; guidance sur les éléments minimaux attendue sous 270 jours",
     "fonctions": "Ingénierie logicielle, contrôle des exportations, sécurité, achats",
-    "essentiel": "Le décret présidentiel 14412 du 22 juin 2026 charge la CISA, en coordination avec le NIST, de publier sous 270 jours une guidance publique sur les éléments minimaux d'une nomenclature cryptographique (CBOM). Elle doit permettre l'évaluation automatisée des fonctions cryptographiques d'un élément matériel ou logiciel. Le FAR Council doit proposer sous 180 jours une règle imposant aux contractants concernés les normes FIPS, y compris post-quantiques, d'ici le 31 décembre 2030.",
-    "contexte": "La CBOM complète le SBOM : elle décrit les algorithmes, clés et protocoles utilisés, et non plus seulement les composants. Les éléments minimaux sont attendus vers mars 2027.",
+    "essentiel": "Le décret présidentiel 14412 du 22 juin 2026 charge la CISA, en coordination avec le NIST, de publier sous 270 jours une guidance publique sur les éléments minimaux d'une nomenclature cryptographique (CBOM). Elle doit permettre l'évaluation automatisée des actifs cryptographiques d'un élément matériel ou logiciel. Le FAR Council doit proposer sous 180 jours une règle imposant aux contractants concernés les normes FIPS, y compris post-quantiques, d'ici le 31 décembre 2030.",
+    "contexte": "La CBOM complète le SBOM : elle vise à inventorier les actifs cryptographiques, et non plus seulement les composants. Les éléments minimaux sont attendus vers mars 2027.",
     "impact_avere": "Aucune obligation n'en découle encore pour un industriel français. Le décret vise d'abord l'administration fédérale et ses contractants.",
     "impact_potentiel": "Un format normalisé d'inventaire cryptographique pourrait servir aux autoclassements du chiffrement (5A002, 5D002) et aux déclarations de moyens de cryptologie ; des clients américains pourraient l'exiger.",
     "a_verifier": [
@@ -789,8 +789,8 @@
     "titre": "Adoption des SBOM : état des lieux de l'ENISA (juin 2026)",
     "statut": "Publication de juin 2026 ; étude de l'Agence de l'Union européenne pour la cybersécurité, sans valeur normative.",
     "fonctions": "Ingénierie logicielle, achats, PSIRT, qualité",
-    "essentiel": "Selon l'ENISA, 78 % des organisations ont commencé leur démarche SBOM (nomenclatures logicielles) et 79 % comptent atteindre le niveau requis d'ici la pleine application du CRA (décembre 2027). Les freins cités sont la complétude (62 %), l'appariement des vulnérabilités (58 %) et la qualité des données (37 %).",
-    "contexte": "Le règlement sur la cyber-résilience demande aux fabricants de documenter les composants de leurs produits, ce qui place les SBOM au coeur de la préparation. ThreatCluster commente l'étude en soulignant une génération élevée mais une exploitation faible.",
+    "essentiel": "Selon l'ENISA, 78 % des organisations ont commencé leur démarche SBOM (nomenclatures logicielles) et 79 % comptent atteindre le niveau requis d'ici la pleine application du CRA (décembre 2027). Les freins cités sont la complétude (62 %), l'appariement des vulnérabilités (35 % « assez » et 23 % « extrêmement » difficile) et la qualité des données (37 %).",
+    "contexte": "Le règlement sur la cyber-résilience demande aux fabricants de documenter les composants de leurs produits, ce qui place les SBOM au coeur de la préparation.",
     "impact_avere": "L'étude fournit un repère chiffré de maturité du marché. Elle indique que complétude, appariement des vulnérabilités et qualité des données sont les difficultés citées, ce qui concerne directement un fabricant intégrant de nombreux composants tiers, libres ou propriétaires, dans ses logiciels embarqués.",
     "impact_potentiel": "Les fournisseurs pourraient peiner à livrer des SBOM complets, ce qui compliquerait le suivi des vulnérabilités. Des clients, étatiques ou contractuels, pourraient aussi réclamer des SBOM pour des produits relevant de l'exclusion défense, indépendamment du CRA.",
     "a_verifier": [
@@ -899,7 +899,7 @@
    ],
    [
     {
-     "t": "Annuaire SPDX : quatre nouveaux outils référencés en cinq semaines (SBOMlyze, sbomqs, lynkctl, DevKit Dossier), qui comparent les modifications de SBOM, évaluent leur qualité, génèrent des SBOM SPDX 3.0.1 pour le C/C++ et le *{en}firmware* embarqué sans compilation, ou tiennent un registre pour les fabricants de logiciels vendus dans l’UE ("
+     "t": "Projet SPDX : quatre nouveaux outils référencés en cinq semaines (SBOMlyze, sbomqs, lynkctl, DevKit Dossier), qui comparent les modifications de SBOM, évaluent leur qualité, génèrent des SBOM SPDX 3.0.1 pour le C/C++ et le *{en}firmware* embarqué sans compilation, ou tiennent un registre pour les fabricants de logiciels vendus dans l’UE ("
     },
     {
      "t": "SPDX",
@@ -999,6 +999,20 @@
      "type": "editeur"
     },
     {
+     "t": ", "
+    },
+    {
+     "t": "IPRally",
+     "href": "https://www.iprally.com/pricing"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "IPRally",
+     "href": "https://www.iprally.com/legal/privacy"
+    },
+    {
      "t": ")."
     }
    ],
@@ -1022,6 +1036,13 @@
     {
      "t": "ENISA",
      "href": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "ENISA",
+     "href": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
     },
     {
      "t": ")."
@@ -1209,12 +1230,12 @@
    },
    {
     "titre": "SPDX : quatre nouveaux outils référencés",
-    "statut": "Page de l'annuaire SPDX mise à jour le 5 octobre 2026 ; outils tiers, sans caractère obligatoire",
+    "statut": "Billet du projet SPDX du 5 octobre 2026 ; outils sans caractère obligatoire",
     "fonctions": "Ingénierie logicielle, qualité, PSIRT, juridique",
-    "reseau": "Non documenté : la page de l’annuaire SPDX ne renseigne pas le fonctionnement hors connexion ni l’hébergement des quatre outils.",
-    "licence": "Open source : SBOMlyze sous Apache-2.0 ; licences des trois autres outils non indiquées dans la page consultée.",
-    "essentiel": "L'annuaire du projet SPDX signale quatre nouveaux outils en cinq semaines. SBOMlyze (Apache-2.0) est un outil en ligne de commande et une action GitHub qui comparent les modifications de SBOM SPDX, CycloneDX et Syft. sbomqs évalue la qualité et la conformité des SBOM. lynkctl génère des SBOM SPDX 3.0.1 pour les projets C/C++ et le *{en}firmware* embarqué sans exécuter la compilation. DevKit Dossier est un registre hébergé destiné aux fabricants qui vendent des logiciels, *{en}firmware*, applications mobiles ou SDK dans l'UE.",
-    "contexte": "SPDX (*{en}System Package Data Exchange*) est un format de SBOM normalisé, utilisé avec CycloneDX. Les outils référencés par l'annuaire sont proposés par des tiers : le projet SPDX ne les certifie pas.",
+    "reseau": "Non documenté pour SBOMlyze, sbomqs et lynkctl dans la source consultée ; DevKit Dossier est décrit comme un registre hébergé.",
+    "licence": "Open source : SBOMlyze sous Apache-2.0 ; licences des trois autres outils non indiquées dans le billet consulté.",
+    "essentiel": "Un billet du projet SPDX daté du 5 octobre 2026 signale quatre nouveaux outils en cinq semaines. SBOMlyze (Apache-2.0) est un outil en ligne de commande et une action GitHub qui comparent les modifications de SBOM SPDX, CycloneDX et Syft. sbomqs évalue la qualité et la conformité des SBOM. lynkctl génère des SBOM SPDX 3.0.1 pour les projets C/C++ et le *{en}firmware* embarqué sans exécuter la compilation. DevKit Dossier est un registre hébergé destiné aux fabricants qui vendent des logiciels, *{en}firmware*, applications mobiles ou SDK dans l'UE.",
+    "contexte": "SPDX (*{en}System Package Data Exchange*) est un format de SBOM normalisé, utilisé avec CycloneDX. Le billet présente ces outils sans détailler leur qualification.",
     "impact_avere": "Ces outils élargissent l'offre pour produire et contrôler des SBOM. Le lecteur n'y trouve aucune obligation : leur intérêt dépend de la qualité des SBOM déjà produits. ==Le C/C++ et le *{en}firmware*== sont les écosystèmes où les composants tiers sont les plus difficiles à inventorier.",
     "impact_potentiel": "Un outil de comparaison ou de notation des SBOM pourrait aider à vérifier les SBOM livrés par les fournisseurs. Les outils récents pourraient aussi manquer de recul ou de support, et leurs licences ne sont pas toutes précisées.",
     "a_verifier": [
@@ -1243,8 +1264,8 @@
     "titre": "Classement export : agents d'IA de QAD",
     "statut": "Produit annoncé le 22 septembre 2026 ; performances déclarées par l'éditeur",
     "fonctions": "Contrôle des exportations, douane, ingénierie produit, systèmes d'information",
-    "reseau": "Connecté : service en ligne bâti sur AWS (partenaire cité par l’éditeur) ; région d’hébergement, sous-traitants et mode hors ligne : non documentés dans les sources consultées.",
-    "licence": "Commercial : abonnement ; conditions tarifaires non documentées dans les sources consultées.",
+    "reseau": "Non documenté : les sources consultées ne permettent pas de conclure sur la connexion réseau, l’hébergement ou les sous-traitants du service.",
+    "licence": "Non documenté : conditions commerciales non indiquées dans les sources consultées.",
     "essentiel": "QAD Redzone a lancé le 22 septembre 2026 des agents d'intelligence artificielle de classement de produits et d'automatisation documentaire. L'agent de classement propose un code douanier HTS et un numéro de classement export américain ECCN, avec un score de confiance et une justification. Selon l'éditeur, une revue humaine est intégrée à chaque décision, les recommandations à forte confiance suivant une revue simplifiée.",
     "contexte": "Selon l'éditeur, le temps de classement passe d'environ 110 minutes par article à moins d'une minute. L'outil vise l'ECCN de la réglementation américaine (EAR) ; il n'est pas présenté comme couvrant les numéros de la liste européenne des biens à double usage.",
     "impact_avere": "Le classement export d'un logiciel ==reste de la responsabilité de l'exportateur==, quel que soit l'outil. Ces outils fournissent une proposition argumentée et une trace, utiles pour documenter la décision.",
@@ -1306,7 +1327,7 @@
     "fonctions": "Ingénierie logicielle, achats, qualité",
     "reseau": "Non documenté : les sources consultées ne permettent pas de conclure sur le fonctionnement hors connexion ni sur les pays d’hébergement de ces plateformes.",
     "licence": "Commercial ; conditions tarifaires non documentées dans les sources consultées.",
-    "essentiel": "Selon Refonte Learning, Anchore Enterprise v6 (mai 2026) est présenté comme une solution de conformité fondée sur les SBOM et liée à l'échéance du 11 septembre. FOSSA propose une évaluation gratuite vis-à-vis du règlement sur la cyber-résilience (CRA), avec un plan de remédiation à 30, 60 et 90 jours ; Snyk est aussi cité, sans produit CRA dédié identifié.",
+    "essentiel": "Selon Refonte Learning, Anchore Enterprise v6 (mai 2026) est présenté comme une solution de conformité fondée sur les SBOM et liée à l'échéance du 11 septembre. FOSSA propose une évaluation gratuite vis-à-vis du règlement sur la cyber-résilience (CRA), avec un plan de remédiation à 30, 60 et 90 jours ; Snyk est aussi cité, avec du contenu et une page CRA dédiés.",
     "contexte": "Les SBOM (nomenclatures logicielles) et l'analyse de composition logicielle (SCA, *{en}Software Composition Analysis*) alimentent la préparation au CRA. Le marché propose des outils qui revendiquent un appui à cette conformité. Ces fonctions couvrent notamment la génération de nomenclatures et la surveillance des vulnérabilités.",
     "impact_avere": "Ces offres existent et sont décrites par un blog de formation, source secondaire. Leur présentation ==n'établit pas qu'elles satisfassent les exigences du CRA== ni celles de marchés de défense.",
     "impact_potentiel": "Un industriel pourrait comparer ces outils à ses chaînes existantes. Des enjeux d'hébergement des données, de confidentialité des nomenclatures de produits sensibles et de contrôle des exportations pourraient se poser lors de l'usage de services en ligne. Les offres pourraient évoluer rapidement.",
@@ -1319,8 +1340,8 @@
     "titre": "CRA : plateforme unique de déclaration de l’ENISA",
     "statut": "En service depuis le 11 septembre 2026",
     "fonctions": "PSIRT et ingénierie produit, juridique",
-    "reseau": "Connecté : service en ligne de l’ENISA ; transfert de données personnelles hors UE/EEE non prévu selon l’avis de protection des données ; sous-traitants cités : AWS, Microsoft Azure, UniSystems Luxembourg et WEDOS.",
-    "licence": "Gratuit : service public accessible avec un compte EU Login ; conditions d’utilisation de la plateforme : non documentées dans les sources consultées.",
+    "reseau": "Connecté : service en ligne de l’ENISA ; pays d’hébergement, sous-traitants et transferts de données non documentés dans les sources consultées.",
+    "licence": "Non documenté : accès par compte EU Login selon les conditions d’utilisation v1.0 de l’ENISA ; aucune redevance n’y est mentionnée.",
     "essentiel": "L’ENISA exploite la plateforme unique de déclaration du CRA, ouverte le 11 septembre 2026. Les fabricants y déclarent les vulnérabilités activement exploitées et les incidents graves touchant leurs produits comportant des éléments numériques. Selon l'ENISA, les gestionnaires de logiciels open source y sont soumis à partir du 11 décembre 2027.",
     "contexte": "Selon l’ENISA, une fois une déclaration déposée, le CSIRT désigné comme coordinateur qui la reçoit en premier la diffuse aux CSIRT concernés des autres États membres. Les délais de déclaration sont de 24 heures, 72 heures et 14 jours.",
     "impact_avere": "Un fabricant concerné doit disposer d’un processus et de comptes capables de déposer une alerte précoce ==dans les 24 heures==, y compris pour une vulnérabilité d’un composant tiers intégré à son produit.",
@@ -1620,7 +1641,7 @@
   "items": [
    [
     {
-     "t": "*{en}Dual-use* UE : le règlement délégué C(2026)6323, adopté le 14 septembre 2026, met à jour l’annexe I et ==étend les contrôles sur les logiciels== à de nouveaux équipements semi-conducteurs ; sauf objection du Parlement européen ou du Conseil pendant deux mois, il sera publié au JO ("
+     "t": "*{en}Dual-use* UE : le règlement délégué adopté le 14 septembre 2026 met à jour l’annexe I et ==étend les contrôles sur les logiciels== à de nouveaux équipements semi-conducteurs ; sauf objection du Parlement européen ou du Conseil pendant deux mois, il sera publié au JO ("
     },
     {
      "t": "Commission européenne",
@@ -1866,7 +1887,7 @@
     "titre": "Contrôles *{en}dual-use* UE : mise à jour de l'annexe I",
     "statut": "Règlement délégué adopté le 14 septembre 2026 ; publication au JO après deux mois d'examen sans objection",
     "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle",
-    "essentiel": "La Commission a adopté le 14 septembre 2026 le règlement délégué C(2026)6323, qui met à jour l'annexe I du règlement *{en}dual-use* de l'UE. Il étend les contrôles sur les logiciels à de nouveaux équipements semi-conducteurs. Il n'est pas encore en vigueur : sauf objection du Parlement européen ou du Conseil pendant une période d'examen de deux mois, il sera publié au Journal officiel (JO).",
+    "essentiel": "La Commission a adopté le 14 septembre 2026 un règlement délégué qui met à jour l'annexe I du règlement *{en}dual-use* de l'UE. Il étend les contrôles sur les logiciels à de nouveaux équipements semi-conducteurs. Il n'est pas encore en vigueur : sauf objection du Parlement européen ou du Conseil pendant une période d'examen de deux mois, il sera publié au Journal officiel (JO).",
     "contexte": "L'annexe I liste les biens, logiciels et technologies à double usage soumis à autorisation d'exportation. Elle est mise à jour périodiquement par acte délégué.",
     "impact_avere": "==Aucune obligation nouvelle n'est applicable== avant la publication et l'entrée en vigueur. La liste actuelle continue de s'appliquer.",
     "impact_potentiel": "Les logiciels liés aux équipements semi-conducteurs concernés pourraient devenir soumis à autorisation, y compris lors de transferts intracommunautaires ou de transferts de code vers des fournisseurs. Des classements existants pourraient devoir être revus, notamment pour des composants tiers. La date et le champ exacts dépendraient du texte publié.",
@@ -2032,7 +2053,7 @@
    ],
    [
     {
-     "t": "SAFE et EDIP : SAFE ouvre jusqu’à 150 Md€ de prêts et plafonne à 35 % ==le coût des composants de pays tiers== ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ pour le soutien à l’Ukraine qui se clôt le 13 octobre ; le volet d’achats conjoints dispose de 240 M€, son premier appel (90 M€) se clôturant aussi le 13 octobre ; le Fonds européen de défense 2026 a clos ses appels le 29 septembre ("
+     "t": "SAFE et EDIP : SAFE ouvre jusqu’à 150 Md€ de prêts et plafonne à 35 % ==le coût des composants de pays tiers== ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ pour le soutien à l’Ukraine qui se clôt le 13 octobre ; le volet d’achats conjoints dispose de 240 M€, son premier appel (90 M€) se clôturant aussi le 13 octobre  ("
     },
     {
      "t": "CMS",
@@ -2202,9 +2223,9 @@
    },
    {
     "titre": "Défense : SAFE, EDIP et exigences sur composants et logiciels",
-    "statut": "Programmes en cours ; appels EDIP ouverts jusqu'au 13 octobre 2026, appels du Fonds européen de défense 2026 clos le 29 septembre",
+    "statut": "Programmes en cours ; appels EDIP ouverts jusqu'au 13 octobre 2026",
     "fonctions": "Achats, juridique, contrôle des exportations, ingénierie logicielle",
-    "essentiel": "SAFE ouvre jusqu'à 150 Md€ de prêts ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ (instrument de soutien à l'Ukraine) qui se clôt le 13 octobre 2026 et un volet d'achats conjoints de 240 M€, dont le premier appel de 90 M€ se clôt aussi le 13 octobre. SAFE plafonne à 35 % le coût des composants de pays tiers non associés et exige des contractants établis dans l'UE, l'EEE-AELE ou l'Ukraine. EDIP reprend la règle des 65 % de composants européens et exige une autorité de conception sur les produits de défense. Le Fonds européen de défense 2026 a clos ses appels le 29 septembre.",
+    "essentiel": "SAFE ouvre jusqu'à 150 Md€ de prêts ; EDIP dispose de 1,5 Md€ pour 2026-2027, dont un appel de 180 M€ (instrument de soutien à l'Ukraine) qui se clôt le 13 octobre 2026 et un volet d'achats conjoints de 240 M€, dont le premier appel de 90 M€ se clôt aussi le 13 octobre. SAFE plafonne à 35 % le coût des composants de pays tiers non associés et exige des contractants établis dans l'UE, l'EEE-AELE ou l'Ukraine. EDIP plafonne aussi à 35 % le coût des composants de pays tiers non associés et exige une autorité de conception sur les produits de défense.",
     "contexte": "L'éligibilité se joue sur dossier : propriété, contrôle, origine des composants, exposition aux contrôles à l'export, cybersécurité.",
     "impact_avere": "L'origine des composants, logiciels tiers inclus, ==devient un critère d'éligibilité==. Les nomenclatures logicielles et les informations de provenance servent à documenter ces seuils.",
     "impact_potentiel": "Les logiciels de sociétés non européennes pourraient poser la question de l'autorité de conception, au titre de l'EDIP. L'exposition à des contrôles extérieurs, comme ceux des États-Unis, pourrait peser sur l'évaluation des dossiers.",
@@ -2278,7 +2299,7 @@
   "items": [
    [
     {
-     "t": "GPL, SFC contre Vizio : le procès devant jury, annoncé à partir du 10 août 2026 devant la Cour supérieure de Californie (comté d’Orange), est indiqué par la SFC pour fin 2026 ; il porte sur la possibilité, pour un consommateur, d’==exiger le code source== en tant que bénéficiaire de la licence. Aucun verdict n’a été relevé dans les sources consultées ("
+     "t": "GPL, SFC contre Vizio : le procès devant jury, annoncé initialement à partir du 10 août 2026 devant la Cour supérieure de Californie (comté d’Orange), est indiqué par la SFC pour fin 2026 ; il porte sur la possibilité, pour un consommateur, d’==exiger le code source== en tant que bénéficiaire de la licence. Aucun verdict n’a été relevé dans les sources consultées ("
     },
     {
      "t": "PPC Land",
@@ -2595,7 +2616,7 @@
     "statut": "Suspendue jusqu'au 9 novembre 2026 ; réimposition automatique le 10 novembre 2026, sauf action du BIS",
     "fonctions": "Contrôle des exportations, juridique, administration des ventes",
     "essentiel": "La « règle des affiliés » étend les restrictions de l'Entity List américaine aux entités détenues à 50 % ou plus par des entités inscrites, même si elles ne figurent pas nommément sur la liste. Suspendue pour un an, elle se réimposera automatiquement le 10 novembre 2026, sauf action du BIS.",
-    "contexte": "La suspension a été décidée en novembre 2025 dans le cadre d'un accord commercial entre les États-Unis et la Chine. Aucun ajout à l'Entity List daté de 2026 n'a été relevé.",
+    "contexte": "La suspension d'un an est entrée en vigueur le 10 novembre 2025 et expire le 9 novembre 2026.",
     "impact_avere": "Un industriel français est concerné dès qu'un produit, un logiciel ou une mise à jour relève de l'EAR, par exemple par son contenu d'origine américaine au-delà des seuils *{la}de minimis*. Le filtrage des contreparties doit alors ==couvrir la chaîne de détention==.",
     "impact_potentiel": "Des clients aujourd'hui autorisés pourraient devenir soumis à licence le 10 novembre, y compris pour les mises à jour logicielles et l'assistance technique en cours.",
     "a_verifier": [

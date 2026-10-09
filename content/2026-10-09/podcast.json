@@ -30,7 +30,7 @@
   },
   {
    "v": "B",
-   "t": "L'ANSSI, l'agence nationale de la sécurité des systèmes d'information, l'a précisé le vingt-trois septembre. Elle reconnaît les laboratoires qui évalueront la conformité des produits, et elle joue le rôle d'équipe nationale de réponse aux incidents. L'ANFR, l'agence nationale des fréquences, surveille les produits sur le marché. Elle peut prendre des mesures de police et infliger des sanctions financières."
+   "t": "L'ANSSI, l'agence nationale de la sécurité des systèmes d'information, l'a précisé le vingt-trois septembre. Elle évalue, contrôle et notifie les organismes d'évaluation de la conformité, et elle joue le rôle d'équipe nationale de réponse aux incidents. L'ANFR, l'agence nationale des fréquences, surveille les produits sur le marché. Elle peut prendre des mesures de police et infliger des sanctions financières."
   },
   {
    "v": "A",
@@ -65,7 +65,7 @@
   },
   {
    "v": "B",
-   "t": "Oui. Un décret présidentiel américain du vingt-deux juin charge la CISA de publier, sous deux cent soixante-dix jours, une guidance sur les éléments minimaux d'une nomenclature cryptographique. Elle décrirait les algorithmes, les clés et les protocoles d'un produit. Ce n'est pas encore une obligation pour nous. Mais un tel inventaire pourrait aider à classer le chiffrement à l'export, et des clients américains pourraient l'exiger."
+   "t": "Oui. Un décret présidentiel américain du vingt-deux juin charge la CISA de publier, sous deux cent soixante-dix jours, une guidance sur les éléments minimaux d'une nomenclature cryptographique. Elle viserait à inventorier les actifs cryptographiques d'un produit. Ce n'est pas encore une obligation pour nous. Mais un tel inventaire pourrait aider à classer le chiffrement à l'export, et des clients américains pourraient l'exiger."
   },
   {
    "sujet": "Outils : du scan au classement export"
@@ -157,7 +157,7 @@
   },
   {
    "v": "B",
-   "t": "SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts aux États. Mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. EDIP, le programme industriel, dispose d'un milliard et demi d'euros, avec des appels qui se clôturent le treize octobre. Pour un industriel, l'origine des composants, logiciels compris, devient un critère d'éligibilité."
+   "t": "SAFE ouvre jusqu'à cent cinquante milliards d'euros de prêts aux États. Mais il plafonne à trente-cinq pour cent le coût des composants venant de pays tiers. EDIP, le programme industriel, dispose d'un milliard et demi d'euros, avec des appels qui se clôturent le treize octobre. Pour un industriel, l'origine des composants devient un critère d'éligibilité."
   },
   {
    "v": "A",
