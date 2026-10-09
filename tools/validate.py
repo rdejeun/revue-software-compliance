@@ -219,6 +219,15 @@ def check_robots():
     if not re.search(r'User-agent: GPTBot', t) or not re.search(r'User-agent: ClaudeBot', t): ERR.append('robots.txt : robots d\'IA (GPTBot, ClaudeBot…) non exclus')
 
 
+def check_recherche():
+    """La recherche (/recherche/) existe et son index couvre toutes les éditions publiées (README, § 17)."""
+    f = os.path.join(ROOT, '_site', 'recherche', 'docs.json')
+    if not os.path.isfile(f): ERR.append('recherche : _site/recherche/docs.json absent (tools/recherche.py)'); return
+    try: n = len(json.load(open(f, encoding='utf-8')).get('docs') or [])
+    except ValueError: ERR.append('recherche : docs.json illisible'); return
+    if n == 0: ERR.append('recherche : index vide')
+
+
 def check_outputs(d):
     out = os.path.join(BUILD, d)
     em = open(os.path.join(out, 'revue-email.html'), encoding='utf-8').read()
@@ -363,7 +372,7 @@ def main():
         pod, _ = podcast.charger(d)
         perr, _, _ = podcast.controler(pod, meta.get('n'))
         ERR.extend(f'podcast.json : {e}' for e in perr)
-    size, em, web = check_outputs(d); check_robots()
+    size, em, web = check_outputs(d); check_robots(); check_recherche()
     nl = check_links(web) if '--no-links' not in sys.argv else 0
     nc = check_citations(claims, d) if claims and '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',

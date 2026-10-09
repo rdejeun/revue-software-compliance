@@ -42,7 +42,7 @@ def pied_bloc(redaction, annee, absolu=False):
     b = SITE if absolu else ''
     lk = 'color:#4b5563;text-decoration:none;border-bottom:1px dotted #9ca3af;'
     nav = ' &nbsp;&nbsp; '.join('<a href="%s%s"%s style="%s">%s</a>' % (b, u, ' type="application/rss+xml"' if u.endswith('.xml') else '', lk, t) for t, u in (
-        ('Archives', '/archives/'), ('Dossiers', '/dossiers/'), ('Fil RSS', '/feed.xml')))
+        ('Archives', '/archives/'), ('Dossiers', '/dossiers/'), ('Recherche', '/recherche/'), ('Fil RSS', '/feed.xml')))
     fin = 'color:#8a8f98;text-decoration:none;'   # non souligné (souligné au survol : CSS_PIED)
     T = '<table role="presentation" width="100%" cellpadding="0" cellspacing="0"'
     return (f'{T} style="margin:34px 0 0;"><tr><td style="padding:0;">'

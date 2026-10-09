@@ -33,6 +33,8 @@ MI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'*\2*', s))    # Markdow
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
 from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO, og, OG_IMAGE, ROBOTS_META
+import recherche
+from glossary import G as GLOSSAIRE
 POD_TITRE = 'Software Compliance, le podcast'
 # Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
 IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'flux-article.jpg', 'podcast.jpg')
@@ -294,7 +296,7 @@ def main():
     rows = ''.join(f'<li><a class="b" href="/{i["d"]}/"><span class="m">N° {i["meta"]["n"]} · {E(i["meta"]["date_long"])}{" · démonstration" if i["meta"].get("demo") else ""}</span><span class="x">{E(i["lede"])}</span></a></li>' for i in reversed(infos))
     n = len(infos)
     write(os.path.join(SITE, 'archives', 'index.html'), page('Archives – Software Compliance', 'Revue de presse hebdomadaire', '<i>Software</i> <span>Compliance</span>',
-          f'Archives · {n} édition{"s" if n > 1 else ""} · <a href="/">Dernière édition</a> · <a href="/dossiers/">Dossiers</a> · <a href="/feed.xml" type="application/rss+xml">RSS</a>', f'<ul class="l">{rows}</ul>'))
+          f'Archives · {n} édition{"s" if n > 1 else ""} · <a href="/">Dernière édition</a> · <a href="/dossiers/">Dossiers</a> · <a href="/recherche/">Recherche</a> · <a href="/feed.xml" type="application/rss+xml">RSS</a>', f'<ul class="l">{rows}</ul>'))
 
     # dossiers
     themes = json.load(open(os.path.join(TOOLS, 'themes.json'), encoding='utf-8'))
@@ -383,10 +385,11 @@ def main():
     L += ['', '## Dossiers thématiques', ''] + [f'- [{v["nom"]}]({URL}/dossiers/{k}/): {TY(v.get("reference", ""))}' for k, v in themes.items() if by[k]]
     write(os.path.join(SITE, 'llms.txt'), '\n'.join(L) + '\n')
 
+    nrech = recherche.ecrire(infos, themes, GLOSSAIRE, page, write, SITE, TOOLS)   # /recherche/ (README, § 17)
     write(os.path.join(SITE, 'CNAME'), 'revue.dejeun.es\n')
     write(os.path.join(SITE, '.nojekyll'), '')
     ecrire_robots_et_404()
-    print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s) -> {SITE}')
+    print(f'Site construit : {len(infos)} édition(s), {len(idx)} dossier(s), {nrech} documents de recherche -> {SITE}')
 
 
 if __name__ == '__main__':
