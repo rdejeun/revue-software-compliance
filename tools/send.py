@@ -18,6 +18,8 @@ import datetime, hashlib, json, os, re, sys, time, urllib.error, urllib.request
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CONTENT, BUILD = os.path.join(ROOT, 'content'), os.path.join(ROOT, 'build')
 FROM = os.environ.get('MAIL_FROM') or 'Software Compliance <no-reply@s2c2.dejeun.es>'
+if '<' not in FROM:   # adresse seule : afficher le nom de l'expéditeur (MAIL_FROM_NAME, par défaut « Software Compliance »)
+    FROM = f'{os.environ.get("MAIL_FROM_NAME") or "Software Compliance"} <{FROM.strip()}>'
 UNSUB = '<mailto:unsubscribe@dejeun.es>'
 # Envoi aux abonnés : destinataires en copie cachée (aucun ne voit les autres) ; le champ « À » porte l'adresse
 # MAIL_VISIBLE, à défaut celle de l'expéditeur. Le brouillon (DRAFT_TO) reste adressé directement.

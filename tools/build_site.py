@@ -32,10 +32,10 @@ NI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'\2', s))      # texte b
 MI = lambda s: re.sub(r'==([^=]+?)==', r'\1', ITAL.sub(r'*\2*', s))    # Markdown
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from podcast import titre_episode   # « Épisode n : … »
-from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO
+from pied import pied, pied_bloc, mentions, CSS_COURRIEL, CSS_PIED, MATOMO, og, OG_IMAGE
 POD_TITRE = 'Software Compliance, le podcast'
 # Visuels des flux : <image> RSS 2.0 (144 px de large au plus) et couverture du podcast (carrée, 1400 px au moins)
-IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'podcast.jpg')
+IMAGES_FLUX = ('flux.jpg', 'flux-144.png', 'flux-article.jpg', 'podcast.jpg')
 # favicon (monogramme « SC ») : à la racine du site, où les navigateurs le cherchent aussi sans balise
 ICONES_RACINE = ('favicon.ico', 'apple-touch-icon.png', 'icon-512.png')
 ICONES = '<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
@@ -225,7 +225,7 @@ def page(title, eyebrow, h1, sub, body, cls='', syn=''):
     """syn : contenus des fenêtres « En savoir plus » de la page (la fenêtre et ses scripts ne sont ajoutés que s'il y en a)"""
     css = CSS + ('\n' + SYN.get('css', '') if syn else '')
     fin = (syn + SYN.get('js', '') + SYN.get('pill', '')) if syn else ''
-    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light"><title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
+    return f'''<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta name="color-scheme" content="light">{og(title, "Revue de presse hebdomadaire sur la conformité des logiciels embarqués dans les produits de défense.")}<title>{E(title)}</title><link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml"><style>{css}</style>{MATOMO}</head>
 <body><main class="c"><div class="e">{eyebrow}</div><h1{f' class="{cls}"' if cls else ''}>{h1}</h1><p class="sub">{sub}</p>{body}{pied_bloc(REDACTION, datetime.date.today().year)}</main>{fin}</body></html>'''
 
 
@@ -265,7 +265,10 @@ def main():
     for d in eds:
         blocks, meta = load(d)
         out = run_gen(d)
-        write(os.path.join(SITE, d, 'index.html'), open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read())
+        lede0 = next((NI(TY(''.join(x['t'] for x in b['i']).strip(' ·'))) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
+        html0 = open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read()
+        html0 = html0.replace('</head>', og(f'Revue de presse – {meta["date"]}', lede0, f'{URL}/{d}/') + '</head>', 1)   # aperçus (Feedly, messageries)
+        write(os.path.join(SITE, d, 'index.html'), html0)
         md = to_md(blocks, meta)
         write(os.path.join(SITE, d, 'index.md'), md)
         ep = episode(d)
@@ -350,9 +353,9 @@ def main():
     # RSS (hors démonstration)
     pub = [i for i in infos if not i['meta'].get('demo')]
     def rfc(d): return datetime.datetime.strptime(d, '%Y-%m-%d').replace(hour=5, minute=30).strftime('%a, %d %b %Y %H:%M:%S +0000')
-    items = ''.join(f'''<item><title>{E(f"Revue de presse – {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description></item>''' for i in reversed(pub))
+    items = ''.join(f'''<item><title>{E(f"Revue de presse – {i['meta']['date']}")}</title><link>{URL}/{i['d']}/</link><guid isPermaLink="true">{URL}/{i['d']}/</guid><pubDate>{rfc(i['d'])}</pubDate><description>{E(i['lede'])}</description><media:thumbnail url="{OG_IMAGE}" width="1200" height="630"/><media:content url="{OG_IMAGE}" medium="image" type="image/jpeg" width="1200" height="630"/><content:encoded><![CDATA[<p><img src="{OG_IMAGE}" width="1200" height="630" alt="Software Compliance, revue de presse hebdomadaire"></p><p>{html.escape(i['lede'])}</p><p><a href="{URL}/{i['d']}/">Lire l’édition complète</a></p>]]></content:encoded></item>''' for i in reversed(pub))
     write(os.path.join(SITE, 'feed.xml'), f'''<?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{IMG_FLUX}{items}</channel></rss>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Software Compliance</title><link>{URL}/</link><atom:link href="{URL}/feed.xml" rel="self" type="application/rss+xml"/><description>Revue de presse hebdomadaire sur la conformité logicielle des produits, pour l’industrie de défense.</description><language>fr</language>{IMG_FLUX}{items}</channel></rss>
 ''')
 
     # flux du podcast (hors démonstration)

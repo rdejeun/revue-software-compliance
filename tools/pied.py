@@ -31,7 +31,7 @@ CSS_PIED = ('a.pd-l:hover,a.pd-l:focus-visible{text-decoration:underline!importa
 DESABO_URL = '{{{RESEND_UNSUBSCRIBE_URL}}}'   # remplacé par Resend dans une diffusion (tools/send.py : mailto: sinon)
 
 
-def pied_bloc(redaction, annee, absolu=False, desabo=False):
+def pied_bloc(redaction, annee, absolu=False):
     """Pied de page (variante A) : monogramme et « Revue de presse hebdomadaire », navigation à droite ; filet fin ;
     une ligne de mentions (©, licence, rédaction par IA) et le lien vers les mentions légales. Tableaux et styles en
     ligne, pour l'e-mail (Outlook compris) ; petit écran : les cellules s'empilent (CSS_PIED). absolu=True : liens complets."""
@@ -47,19 +47,16 @@ def pied_bloc(redaction, annee, absolu=False, desabo=False):
             f'<a href="{b}/" style="color:inherit;text-decoration:none;" title="Accueil">'   # bloc d'identité : lien vers l'accueil
             f'<img src="{b}/apple-touch-icon.png" width="40" height="40" alt="SC" style="display:inline-block;vertical-align:middle;width:40px;height:40px;border:0;border-radius:6px;margin:0 12px 0 0;">'
             # titre de la page en petit (même typographie que l'en-tête), puis le sous-titre
-            f'<span style="display:inline-block;vertical-align:middle;"><span style="display:block;font:700 20px/22px Georgia,serif;color:#0f2a4a;letter-spacing:-.01em;">'
+            f'<span style="display:inline-block;vertical-align:middle;"><span style="font:700 20px/22px Georgia,serif;color:#0f2a4a;letter-spacing:-.01em;">'
             f'<i style="font-weight:400;color:#c2410c;">Software</i> <span style="font:500 19px/22px {SANS_};color:#0f2a4a;letter-spacing:-.025em;">Compliance</span></span>'
-            f'<span style="display:block;font:12px/18px {SANS_};color:#6b7280;">Revue de presse hebdomadaire</span></span></a></td>'
+            f'<br><span style="font:12px/18px {SANS_};color:#6b7280;">Revue de presse hebdomadaire</span></span></a></td>'
             f'<td class="pd-c" align="right" valign="middle" style="padding:16px 0 16px 12px;font:13px/20px {SANS_};text-align:right;white-space:nowrap;">{nav}</td></tr></table>'
             # filet fin, puis ligne 2 : mentions et lien vers les mentions légales
             f'{T} style="border-top:1px solid #e5e1d8;"><tr><td class="pd-c" valign="top" style="padding:14px 0 0;font:350 12px/18px {SANS_};color:#8a8f98;">'
             f'©\u00a0{annee} {EDITEUR} · <a class="pd-l" href="{LICENCE_URL}" style="{fin}">CC\u00a0BY\u00a04.0</a> · Rédigé par une IA à partir des sources citées</td>'
             f'<td class="pd-c" align="right" valign="top" style="padding:14px 0 0 12px;font:350 12px/18px {SANS_};text-align:right;white-space:nowrap;">'
             f'<a class="pd-l" href="{b}/mentions-legales/" style="{fin}">Mentions légales</a></td></tr></table>'
-            + (f'{T} style="margin:0;"><tr><td style="padding:12px 0 0;font:350 12px/18px {SANS_};color:#8a8f98;">'
-               'Vous recevez cette revue parce que votre adresse est inscrite à la liste de diffusion. '
-               f'<a class="pd-l" href="{DESABO_URL}" style="{fin}border-bottom:1px dotted #9ca3af;">Se désabonner</a></td></tr></table>' if desabo else '')
-            + '</td></tr></table>')
+            '</td></tr></table>')
 
 
 def courriel():
@@ -104,3 +101,14 @@ def mentions(redaction, annee):
            'sans cookie ; les données de navigation ne sont pas transmises à des tiers. Les adresses des destinataires de la lettre servent uniquement à son envoi, '
            'confié au prestataire Resend. Pour toute demande (accès, rectification, désinscription), écrire à l’adresse de contact ci-dessus.'),
     ])
+
+
+OG_IMAGE = 'https://revue.dejeun.es/assets/flux-article.jpg'   # 1200 × 630, recadrée à partir de tools/flux.jpg
+def og(titre, desc, url=None):
+    """Balises de partage (Open Graph, X/Twitter) : aperçus des messageries, réseaux et lecteurs de flux (Feedly)."""
+    m=[('property','og:type','article' if url else 'website'),('property','og:site_name','Software Compliance'),('property','og:locale','fr_FR'),
+       ('property','og:title',titre),('property','og:description',desc),('property','og:image',OG_IMAGE),('property','og:image:width','1200'),('property','og:image:height','630'),
+       ('property','og:image:alt','Software Compliance, revue de presse hebdomadaire'),('name','twitter:card','summary_large_image'),('name','twitter:title',titre),
+       ('name','twitter:description',desc),('name','twitter:image',OG_IMAGE)]
+    if url: m.append(('property','og:url',url))
+    return ''.join(f'<meta {k}="{n}" content="{html.escape(v,quote=True)}">' for k,n,v in m)
