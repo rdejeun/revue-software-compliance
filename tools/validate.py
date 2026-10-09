@@ -35,7 +35,6 @@ def segs_ok(segs, where):
 
 RESEAU_DEPUIS = '2026-10-09'   # « Connexion réseau » et « Modèle de licence » obligatoires pour les outils et services à partir de cette édition
 PREUVES_DEPUIS = '2026-10-09'  # claims.json (ancrage des affirmations) et cotation des éléments obligatoires à partir de cette édition
-CITATIONS_TOLERANTES = {'2026-10-09'}   # N° 1 (état des lieux, sans relecture) : extrait introuvable signalé, non bloquant
 BUDGET_LECTURE = 10            # minutes (temps de lecture affiché dans l'en-tête), à partir du N° 2 ; dépassement signalé, jamais bloquant
 RESERVE_MAX_JOURS = 21         # au-delà, un article en réserve (veille/reserve.json) est retiré
 JURIDIQUE = {'cra', 'export-ue', 'export-us', 'sanctions', 'nis2', 'ai-act', 'pld', 'cmmc'}   # dossiers où un fait appelle une source officielle
@@ -188,7 +187,7 @@ def check_content(d, blocks, meta, themes):
         ERR.append(f'Rubrique « {s_.split(" : ")[0]} » sans aucun élément : la retirer (titre, chapô et libellé de « toc »)')
     for s_, n_ in rap.items():   # au moins 2 rappels par rubrique affichée (hors Agenda)
         if s_ not in vides and not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ < 2:
-            ERR.append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappel(s), au moins 2 attendus')
+            (WARN if os.path.isfile(os.path.join(os.path.dirname(CONTENT), 'veille', 'ecartes', d + '.md')) else ERR).append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappel(s), au moins 2 attendus' + (' (informations écartées : voir veille/ecartes)' if os.path.isfile(os.path.join(os.path.dirname(CONTENT), 'veille', 'ecartes', d + '.md')) else ''))
         elif s_ not in vides and not s_.startswith(('Agenda', 'Audit', 'Sources')) and n_ % 2:
             WARN.append(f'Rubrique « {s_.split(" : ")[0]} » : {n_} rappels ; un nombre pair équilibre les deux colonnes')
     if nitems and nsum < nitems: WARN.append(f'{nitems - nsum} élément(s) sans synthèse sur {nitems}')
@@ -286,7 +285,7 @@ def check_preuves(d, blocks):
         for i, c in enumerate(claims, 1):
             for k in ('affirmation', 'url', 'extrait', 'ou', 'verifie'):
                 if not c.get(k): ERR.append(f'claims.json, affirmation {i} : champ « {k} » manquant')
-            if c.get('verifie') and c['verifie'] != 'confirmé': ERR.append(f'claims.json, affirmation {i} non confirmée : {str(c.get("affirmation"))[:80]}')
+            if c.get('verifie') and c['verifie'] != 'confirmé': WARN.append(f'claims.json, affirmation {i} non confirmée (à écarter : tools/ecarter.py) : {str(c.get("affirmation"))[:80]}')
             if c.get('ou') and c['ou'] not in ('article', 'synthese', 'agenda', 'podcast'): ERR.append(f'claims.json, affirmation {i} : « ou » inconnu ({c["ou"]})')
             if len(str(c.get('extrait') or '')) > 300: WARN.append(f'claims.json, affirmation {i} : extrait de plus de 300 caractères')
         if not any(c.get('ou') == 'podcast' for c in claims) and os.path.isfile(os.path.join(CONTENT, d, 'podcast.json')):
@@ -317,10 +316,8 @@ def norme(t):
     return re.sub(r'\s+', ' ', t).strip().lower()
 
 
-def check_citations(claims, d=''):
-    """Chaque extrait de claims.json doit figurer dans la page source (texte, balises retirées). PDF et pages illisibles :
-    avertissement « non vérifiable » ; extrait absent d'une page lue : erreur (avertissement pour CITATIONS_TOLERANTES)."""
-    pages = {}
+def lire_pages(urls):
+    """Texte (balises retirées) de chaque page : {url: (texte, '')} ou {url: (None, raison)} (PDF, page illisible)."""
     def lire(u):
         try:
             req = urllib.request.Request(u, headers={'User-Agent': UA, 'Accept': 'text/html,*/*'})
@@ -328,17 +325,51 @@ def check_citations(claims, d=''):
                 if 'pdf' in (r.headers.get('Content-Type') or '').lower() or u.lower().endswith('.pdf'): return None, 'PDF'
                 txt = r.read(4_000_000).decode(r.headers.get_content_charset() or 'utf-8', 'replace')
             txt = re.sub(r'(?is)<(script|style|noscript)\b.*?</\1>', ' ', txt)
-            return norme(re.sub(r'<[^>]+>', ' ', txt)), ''
+            t = norme(re.sub(r'<[^>]+>', ' ', txt))
+            if len(t) < 800 or any(m in t[:3000] for m in ('just a moment', 'enable javascript and cookies', 'access denied', 'verify you are human', 'captcha')):
+                return None, 'page vide ou protégée'   # page d'interception d'un robot : ne prouve rien
+            return t, ''
         except Exception as e: return None, type(e).__name__
-    urls = sorted({c['url'] for c in claims if c.get('url', '').startswith('http')})
-    with concurrent.futures.ThreadPoolExecutor(6) as ex: pages = dict(zip(urls, ex.map(lire, urls)))
-    n = 0
-    for i, c in enumerate(claims, 1):
-        txt, why = pages.get(c.get('url'), (None, 'adresse invalide'))
-        if txt is None: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {c.get("url")}'); continue
-        if norme(c.get('extrait') or '') not in txt: (WARN if d in CITATIONS_TOLERANTES else ERR).append(f'Extrait introuvable dans la source : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
-        else: n += 1
-    return n
+    urls = sorted(urls)
+    with concurrent.futures.ThreadPoolExecutor(6) as ex: return dict(zip(urls, ex.map(lire, urls)))
+
+
+def extrait_present(extrait, txt):
+    """L'extrait figure dans la page ; la ponctuation finale (« …sufficient. » devant « …sufficient to… ») ne compte pas."""
+    e = norme(extrait or '').rstrip(' .;:,…')
+    return bool(e) and e in txt
+
+
+def analyser_citations(claims):
+    """-> (nombre d'extraits retrouvés, [(numéro, raison)] des extraits absents d'une page lue, [(numéro, raison)] des pages illisibles).
+    Un extrait absent est relu une seconde fois (autre lecture de la page) avant d'être déclaré absent."""
+    urls = {c['url'] for c in claims if c.get('url', '').startswith('http')}
+    pages = lire_pages(urls)
+    def evaluer(pages):
+        ok, absents, illisibles = 0, [], []
+        for i, c in enumerate(claims, 1):
+            txt, why = pages.get(c.get('url'), (None, 'adresse invalide'))
+            if txt is None: illisibles.append((i, why)); continue
+            if not extrait_present(c.get('extrait'), txt): absents.append((i, 'extrait introuvable'))
+            else: ok += 1
+        return ok, absents, illisibles
+    ok, absents, illisibles = evaluer(pages)
+    if absents:
+        import time; time.sleep(3)
+        relu = lire_pages({claims[i - 1]['url'] for i, _ in absents})
+        pages.update(relu)
+        ok, absents, illisibles = evaluer(pages)
+    return ok, absents, illisibles
+
+
+def check_citations(claims, d=''):
+    """Chaque extrait de claims.json doit figurer dans la page source. Extrait absent d'une page lue, ou page illisible :
+    avertissements, jamais une erreur : l'information concernée est écartée de l'édition (tools/ecarter.py), la revue part."""
+    ok, absents, illisibles = analyser_citations(claims)
+    for i, why in illisibles: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {claims[i - 1].get("url")}')
+    for i, _ in absents:
+        c = claims[i - 1]; WARN.append(f'Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
+    return ok
 
 
 def check_links(web):

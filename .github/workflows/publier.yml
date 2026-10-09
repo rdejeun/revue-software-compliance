@@ -43,6 +43,13 @@ jobs:
         with:
           python-version: '3.12'
 
+      # une information dont la vérification est douteuse (affirmation non confirmée, extrait introuvable dans sa source lue deux fois)
+      # est écartée de l'édition ; elle ne bloque jamais la publication (README, § 3). Non bloquant : en cas d'échec du script, la revue part telle quelle.
+      - name: Écarter les informations non vérifiées (non bloquant)
+        id: ecarter
+        continue-on-error: true
+        run: python3 tools/ecarter.py --appliquer
+
       # ffmpeg, bibliothèques audio et modèle de transcription ne servent qu'à l'épisode : pas installés avec [sans-podcast]
       # plafonnée à 5 minutes et non bloquante : si l'installation échoue ou traîne (dépôt Ubuntu lent), l'épisode n'est pas
       # produit (tools/podcast.py s'arrête sans ffmpeg) et la revue part sans lui
@@ -71,7 +78,7 @@ jobs:
 
       - name: Produire l’épisode audio (non bloquant)
         id: audio
-        if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') }}
+        if: ${{ !contains(github.event.head_commit.message, '[sans-podcast]') && steps.ecarter.outputs.podcast_a_relire != '1' }}
         continue-on-error: true
         timeout-minutes: 45
         env:
@@ -132,14 +139,15 @@ jobs:
           MAIL_FROM: ${{ vars.MAIL_FROM }}
         run: python3 tools/send.py --mode "${{ steps.mode.outputs.mode }}" --wait
 
-      - name: Enregistrer l’envoi et l’épisode
-        if: steps.envoi.outputs.sent == '1' || steps.audio.outputs.new == '1'
+      - name: Enregistrer l’envoi, l’épisode et les informations écartées
+        if: steps.envoi.outputs.sent == '1' || steps.audio.outputs.new == '1' || steps.ecarter.outputs.ecartes == '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A content
+          git add -A content veille/ecartes
           git diff --cached --quiet && exit 0
           msg="Envoi enregistré [skip ci]"
           [ "${{ steps.envoi.outputs.sent }}" != '1' ] && msg="Épisode audio enregistré [skip ci]"
+          [ "${{ steps.ecarter.outputs.ecartes }}" = '1' ] && msg="Informations écartées de l’édition, $msg"
           git commit -m "$msg"
           git pull --rebase origin main && git push origin HEAD:main
