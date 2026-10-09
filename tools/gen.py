@@ -128,7 +128,7 @@ var h=/^((?:\d{4}-\d{2}-\d{2}-)?syn\d+)(?:\.([0-9a-f]+)(?:-([0-9a-f]+))?)?$/.exe
 NO_EL=False   # passe à True si l'e-mail dépasse la limite de taille : liens par élément retirés
 # titres de rubrique -> dossier (themes.json) ; une rubrique qui couvre plusieurs dossiers mène à l'index des dossiers
 SEC_DOSSIER=(('À la une','cra'),('SBOM','sbom'),('Outils','sca'),('Sécurité de la chaîne','chaine'),('Licences','licences'),('Commerce international',None),('France et UE',None))
-ICO_DOSSIER='<svg class="dl-i" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
+ICO_DOSSIER='<svg class="dl-i" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>'
 def lien_dossier(t,html_t,web):
     """Titre de rubrique cliquable vers son dossier (web seulement) ; l'icône « dossier » n'apparaît qu'au survol ou au focus."""
     if not web: return html_t
@@ -162,7 +162,7 @@ ICO_PLAY='<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><pa
 MSO_HEAD='<!--[if mso]><xml><o:OfficeDocumentSettings><o:AllowPNG/><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml><![endif]-->'
 # sommaire latéral : section courante (lecture au défilement) ; bouton de retour au sommaire sur petit écran
 # libellés abrégés là où la place manque (colonne du sommaire, signets du podcast)
-ABREV={"Chaîne d'approvisionnement":"Chaîne d’appro.","Commerce international":"Export et sanctions","Outils":"Outils et services"}   # libellés propres au sommaire flottant
+ABREV={"Chaîne d'approvisionnement":"Supply chain","Commerce international":"Export et sanctions","Outils":"Outils et services"}   # libellés propres au sommaire flottant
 TOC_JS=r"""<script>(function(){var L=document.querySelector('.toc-l'),B=document.querySelector('.toc-b'),bt=B&&B.querySelector('.toc-bt'),ls=B&&B.querySelector('.toc-ls'),cur=B&&B.querySelector('.toc-c'),N=cur?cur.textContent:'';
 var H=[].slice.call(document.querySelectorAll('h2[id^="s"]')),AL=L?[].slice.call(L.querySelectorAll('a')):[],AB=ls?[].slice.call(ls.querySelectorAll('a')):[];
 function maj(){var y=innerHeight*0.3,k=-1;for(var i=0;i<H.length;i++)if(H[i].getBoundingClientRect().top<y)k=i;
@@ -593,7 +593,7 @@ table.cv{{margin-left:max(175px,calc((100% - 720px) / 2))!important;margin-right
 .toc-l a.on{{border-left-color:{ACC};color:{NAVY};font-weight:600}}}}
 td[style*='font:14px/20px'] a.s{{font-size:12px}}
 .dl{{color:inherit;text-decoration:none}}
-.dl-i{{display:inline-block;vertical-align:-2px;margin-left:10px;color:{ACC};opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s}}
+.dl-i{{display:inline-block;vertical-align:-4px;margin-left:10px;color:{ACC};opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s}}
 .dl:hover .dl-i,.dl:focus-visible .dl-i{{opacity:1;transform:none}}
 .dl:focus-visible{{outline:2px solid {ACC};outline-offset:3px;border-radius:3px}}
 @media(hover:none){{.dl-i{{opacity:.5;transform:none}}}}
