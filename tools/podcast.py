@@ -185,13 +185,16 @@ def charger(d, chemin=None):
 def preparer(pod):
     # {"sujet": "…", "court": "…"} : marque de changement de sujet (non lue) ; « court » : libellé du signet dans le
     # lecteur (facultatif, sinon le début du sujet avant « : »). Chaque réplique reçoit le numéro de son sujet.
-    reps, n, noms, courts = [], 0, [], []
+    # « long » : libellé développé, affiché quand la ligne des sujets a la place (ex. « Cyber Resilience Act » pour « CRA »).
+    # {"sujet": …, "suite": true} : coupure de requête dans un sujet trop long, sans nouveau signet (le sujet continue).
+    reps, n, noms, courts, longs, suites = [], 0, [], [], [], []
     for r in pod.get('repliques') or []:
         if 'sujet' in r and 't' not in r:
             if reps or noms: n += 1
-            noms.append(r['sujet']); courts.append(r.get('court') or r['sujet'].split(' : ')[0]); continue
+            noms.append(r['sujet']); courts.append(r.get('court') or r['sujet'].split(' : ')[0]); longs.append(r.get('long') or '')
+            suites.append(bool(r.get('suite')) and bool(noms[:-1])); continue
         reps.append({**r, '_s': n})
-    pod['repliques'], pod['_sujets'], pod['_courts'] = reps, noms, courts
+    pod['repliques'], pod['_sujets'], pod['_courts'], pod['_longs'], pod['_suites'] = reps, noms, courts, longs, suites
     return pod
 
 
@@ -262,7 +265,7 @@ def controler(pod, n=None):
     if not noms: warn.append('aucun marqueur {"sujet": …} : les coupures entre requêtes ne suivront pas les sujets')
     for k, nom in enumerate(noms):
         t = sum(len(r['t']) for r in reps if r.get('_s') == k)
-        if t > CHUNK_MAX: warn.append(f'sujet « {nom} » : {t} caractères, au-delà de {CHUNK_MAX} ; il sera coupé avant une question (mieux : le scinder en deux sujets)')
+        if t > CHUNK_MAX: warn.append(f'sujet « {nom} » : {t} caractères, au-delà de {CHUNK_MAX} ; il sera coupé avant une question (mieux : ajouter un marqueur {{"sujet": …, "suite": true}} à l’endroit voulu)')
     if not MOTS_MIN <= mots <= MOTS_MAX: warn.append(f'{mots} mots : hors de la plage visée ({MOTS_MIN}-{MOTS_MAX})')
     return err, warn, mots
 
@@ -402,13 +405,16 @@ def chapitres(pod, chunks, blocs, offs_s, intro_s):
     """Début de chaque sujet dans l'épisode (signets du lecteur) : première réplique du sujet, d'après les
     horodatages d'ElevenLabs (dialogue_input_index), le début de son bloc dans la voix et la durée de l'habillage."""
     noms, courts, vus, ch = pod.get('_sujets') or [], pod.get('_courts') or [], set(), []
+    longs, suites = pod.get('_longs') or [], pod.get('_suites') or []
     for k, (c, b) in enumerate(zip(chunks, blocs)):
         for i, r in enumerate(c):
             s = r.get('_s')
             if s is None or s in vus or s >= len(noms): continue
             vus.add(s)
+            if s < len(suites) and suites[s]: continue   # suite du sujet précédent : pas de nouveau signet
             t = [x['start_time_seconds'] for x in b['segments'] if x.get('dialogue_input_index') == i]
             ch.append({'titre': noms[s], 'court': courts[s] if s < len(courts) else noms[s], 'debut_s': 0.0 if not ch else round(intro_s + offs_s[k] + (min(t) if t else 0), 1)})
+            if s < len(longs) and longs[s]: ch[-1]['long'] = longs[s]
     return ch
 
 

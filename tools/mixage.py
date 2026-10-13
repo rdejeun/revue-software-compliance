@@ -40,6 +40,7 @@ CONFIG = {
     # (`fondu_fin_ms`, `fondu_fin_courbe` : 0 linéaire, 3 légèrement exponentiel) ;
     # recouvrements à 0 : bout à bout, avec les blancs indiqués.
     'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120, 'recouvrement_debut_s': 0.8, 'recouvrement_fin_s': 1.7, 'fondu_fin_ms': 2000, 'fondu_fin_courbe': 3},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    'prolongation_s': 0.8,             # prolongation maximale d'un segment de voix au-delà de son horodatage de fin (fin de mot coupée)
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -74,7 +75,7 @@ def pistes(blocs, voix):
     """blocs : [{'mp3': chemin, 'segments': [...voice_segments...]}] ; voix : {'A': voice_id, 'B': voice_id}.
     Renvoie (mix d'origine, {'A': piste, 'B': piste}, masques de parole, journal)."""
     ids = {v: k for k, v in voix.items()}
-    audios, journal, offs = [], [], []
+    audios, journal, offs, lens = [], [], [], []
     pause = np.zeros(int(SR * CONFIG['pause_s']))
     pos = 0
     for k, b in enumerate(blocs):
@@ -85,17 +86,24 @@ def pistes(blocs, voix):
             if 0.005 < dec < 0.2:
                 x = x[int(dec * SR):]; journal.append(f'bloc {k + 1} : décalage de décodage corrigé ({dec * 1000:.0f} ms)')
         if k: audios.append(pause); pos += len(pause)
-        offs.append(pos); audios.append(x); pos += len(x)
+        offs.append(pos); audios.append(x); pos += len(x); lens.append(len(x))
     mix = np.concatenate(audios)
     st = {k: np.zeros_like(mix) for k in voix}
     masque = {k: np.zeros(len(mix), bool) for k in voix}
     fondu = int(SR * 0.010)
+    ext_max = int(SR * CONFIG['prolongation_s'])
     for k, b in enumerate(blocs):
         fin_prec = None
-        for s in sorted(b['segments'], key=lambda s: s['start_time_seconds']):
+        segs = sorted(b['segments'], key=lambda s: s['start_time_seconds'])
+        for n, s in enumerate(segs):
             v = ids.get(s['voice_id'])
             if v is None: journal.append(f'bloc {k + 1} : voix inconnue {s["voice_id"]}'); continue
             a = offs[k] + int(round(s['start_time_seconds'] * SR)); z = offs[k] + int(round(s['end_time_seconds'] * SR))
+            # l'horodatage de fin d'ElevenLabs tombe parfois avant la fin réelle du dernier mot (« classement » réduit à « class »
+            # en fin de requête) : le segment est prolongé jusqu'au début du suivant, ou jusqu'à la fin du bloc, dans la limite
+            # de `prolongation_s` ; ce qui suit la parole n'est que du silence, traité ensuite par l'expandeur
+            borne = offs[k] + (int(round(segs[n + 1]['start_time_seconds'] * SR)) if n + 1 < len(segs) else lens[k])
+            if borne > z: z = min(borne, z + ext_max)
             if fin_prec is not None and a < fin_prec:
                 journal.append(f'bloc {k + 1} : chevauchement de {(fin_prec - a) / SR * 1000:.0f} ms attribué à la voix précédente')
                 a = fin_prec

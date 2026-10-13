@@ -159,6 +159,8 @@ def check_content(d, blocks, meta, themes):
                 sm = (b.get('sum') or [None] * len(its))[j] if j < len(b.get('sum') or []) else None
                 check_attrs(a or {}, ww, themes); check_sum(sm, ww)
                 if sec.startswith('Outils'): check_reseau(sm, ww, d)
+                if sec.startswith('Outils') and d > '2026-10-13' and not (a or {}).get('rappel') and not any(x.get('type') == 'projet' for x in it):
+                    WARN.append(f'{ww} : nom de l’outil sans lien vers sa page officielle (segment « type »: « projet », README § 6)')
                 nitems += 1; nsum += bool(sm); nb[sec] = nb.get(sec, 0) + 1
                 if a and a.get('rappel'): rap[sec] = rap.get(sec, 0) + 1
                 if a and a.get('rappel') and words(''.join(x['t'] for x in it if not x.get('href'))) > 30:

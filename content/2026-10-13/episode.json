@@ -39,12 +39,8 @@
   {
    "titre": "CRA : une liste de contrôle d'OpenChain",
    "court": "CRA",
-   "debut_s": 27.8
-  },
-  {
-   "titre": "CRA : et pour nous, concrètement ?",
-   "court": "CRA",
-   "debut_s": 100.7
+   "debut_s": 27.8,
+   "long": "Cyber Resilience Act"
   },
   {
    "titre": "Royaume-Uni : le classement à l'export suspendu",
@@ -57,9 +53,10 @@
    "debut_s": 185.5
   },
   {
-   "titre": "Une date à retenir",
-   "court": "Une date à retenir",
-   "debut_s": 225.3
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 225.3,
+   "long": "Date à retenir"
   },
   {
    "titre": "Clôture",

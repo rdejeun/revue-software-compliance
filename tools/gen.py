@@ -1,6 +1,6 @@
 """Génère l'édition (e-mail et web) à partir de blocks.json et meta.json du dossier courant.
 Usage : python3 gen.py DOSSIER_SORTIE   (écrit revue-email.html, revue-web.html, items.json)"""
-import re,json,html
+import os,re,json,html
 from urllib.parse import urlparse
 import commun as B
 from podcast import titre_episode
@@ -8,6 +8,21 @@ from pied import pied, pied_bloc, CSS_PIED, MATOMO, ROBOTS_META, RACCOURCI_JS
 from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
+# numéros des éditions publiées (dossiers voisins ../AAAA-MM-JJ/meta.json) : « N° 1 » d'une synthèse devient un lien vers l'édition
+LIEN='#1d4ed8'   # liens du texte (nom d'outil vers sa page officielle, renvoi à un autre numéro) : le bleu est réservé aux liens
+NUMEROS={}
+for _d in sorted(os.listdir('..')) if os.path.isdir('..') else []:
+    if re.fullmatch(r'\d{4}-\d{2}-\d{2}',_d) and os.path.isfile(os.path.join('..',_d,'meta.json')):
+        try:
+            _m=json.load(open(os.path.join('..',_d,'meta.json'),encoding='utf-8'))
+            if not _m.get('demo') and _m.get('n') and _m.get('n')!=META.get('n'): NUMEROS[int(_m['n'])]=_d
+        except (OSError,ValueError): pass
+def liens_numeros(h):
+    """« N° 1 » / « numéro 1 » (texte HTML d'une synthèse) -> lien vers la page de cette édition, pour les autres éditions publiées."""
+    def r(m):
+        d=NUMEROS.get(int(m.group(3)))
+        return f'<a class="sy-n" href="/{d}/">{m.group(0)}</a>' if d else m.group(0)
+    return re.sub(r'(?<![\w>])(N°|numéro)((?:\s|&nbsp;|&#160;|\u00a0|\u202f)+)(\d+)\b',r,h)
 # Épisode audio (tools/podcast.py) : présent seulement s'il a été produit pour cette édition
 EP_FICHIER=next((f for f in ('episode.m4a','episode.mp3') if os.path.isfile(f)),None)   # M4A (AAC) ; MP3 pour les anciens épisodes
 EP=json.load(open('episode.json')) if os.path.isfile('episode.json') and EP_FICHIER else None
@@ -32,7 +47,10 @@ SYN_ASSETS={}   # styles, script et pastille de la fenêtre, pour les pages Doss
 ITEMS=[]   # éléments rendus (version web), exportés dans items.json pour le site (dossiers, Markdown)
 def lead(items):
     """découpe le 1er segment texte en [pré, GRAS, reste]"""
-    if not items or items[0].get('href'): return items
+    if not items: return items
+    if items[0].get('type')=='projet':   # nom de l'outil lié à sa page officielle, en tête : il forme l'accroche en gras
+        return [{**items[0],'b':1}]+items[1:]
+    if items[0].get('href'): return items
     t=items[0]['t']
     for ph in PHR:
         i=t.find(ph)
@@ -212,12 +230,15 @@ def bloc_podcast(web,diso,ed_url):
     # signets : début de chaque sujet (episode.json, « chapitres ») sauf ouverture et clôture ; libellé court (avant « : »)
     ch=[c for c in EP.get('chapitres') or [] if c.get('titre') not in ('Ouverture','Clôture')]
     fm=lambda t:f'{int(t)//60}:{int(t)%60:02d}'
+    court=lambda c:c.get('court') or c['titre'].split(' : ')[0]
+    # libellé développé (« long ») : affiché à la place du court quand toute la ligne des sujets tient sans défiler (script du lecteur)
+    dl=lambda c:f' data-c="{esc(typo(court(c)),True)}" data-l="{esc(typo(c["long"]),True)}"' if c.get('long') and c['long']!=court(c) else ''
     signets=('<div class="pod-cw"><button type="button" class="pod-cn pod-cg" aria-label="Sujets précédents" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button type="button" class="pod-cn pod-cd" aria-label="Sujets suivants" tabindex="-1"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button><div class="pod-ch" role="group" aria-label="Sujets de l’épisode">'+''.join(
-        f'<button type="button" data-t="{c["debut_s"]}" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</button>' for c in ch)+'</div></div>') if ch else ''
+        f'<button type="button" data-t="{c["debut_s"]}"{dl(c)} title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}">{esc(typo(court(c)))}</button>' for c in ch)+'</div></div>') if ch else ''
     # repères des sujets sous la barre, à leur position (la course du curseur va de 7 px à largeur − 7 px)
     frac=lambda c:f'{c["debut_s"]/max(1,EP["duree_s"]):.4f}'
     temps=('<div class="pod-tl" role="group" aria-label="Sujets de l’épisode">'+''.join(
-        f'<button type="button" data-t="{c["debut_s"]}" style="left:calc(7px + (100% - 14px) * {frac(c)})" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}"><span>{esc(typo(c.get("court") or c["titre"].split(" : ")[0]))}</span></button>' for c in ch)+'</div>') if ch else ''
+        f'<button type="button" data-t="{c["debut_s"]}" style="left:calc(7px + (100% - 14px) * {frac(c)})" title="{fm(c["debut_s"])} · {esc(typo(c["titre"]),True)}"><span>{esc(typo(court(c)))}</span></button>' for c in ch)+'</div>') if ch else ''
     reperes=''
     return (f'<div class="pod" id="ecouter" data-vue="{esc("Épisode du "+META.get("date","")+" – Podcast – Software Compliance",True)}">'
             f'<button type="button" class="pod-h" aria-expanded="false" aria-controls="pod-b"><span class="pod-i">{ICO_PLAY}<span class="pod-eq" aria-hidden="true"><i></i><i></i><i></i></span></span><span class="pod-k">Podcast</span><span class="pod-l">{libelle_ep(diso)}</span><span class="pod-d">{ICO_CASQUE}{m}</span></button>'
@@ -291,6 +312,9 @@ addEventListener('resize',function(){pos(+r.value/(r.max||1))});h.addEventListen
 var S=[].slice.call(w.querySelectorAll('.pod-ch button')),TL=[].slice.call(w.querySelectorAll('.pod-tl button'));
 var CH=w.querySelector('.pod-ch'),CW=w.querySelector('.pod-cw'),HOLD=0,KP=-2;
 /* défilement de la ligne des sujets : fondus et flèches selon la position ; la bulle active est ramenée dans la vue, sauf si l'utilisateur vient de faire défiler la ligne (6 s) */
+/* libellés développés (data-l) si toute la ligne tient sans défiler, sinon libellés courts (data-c) */
+function libs(){if(!CH)return;var L=S.filter(function(s){return s.hasAttribute('data-l')});if(!L.length)return;
+ L.forEach(function(s){s.textContent=s.getAttribute('data-l')});if(CH.scrollWidth>CH.clientWidth+1)L.forEach(function(s){s.textContent=s.getAttribute('data-c')})}
 function etat(){if(!CH)return;var m=CH.scrollWidth-CH.clientWidth,o=m>1;CH.classList.toggle('fl',o&&CH.scrollLeft>2);CH.classList.toggle('fr',o&&CH.scrollLeft<m-2);CW.classList.toggle('g',o&&CH.scrollLeft>2);CW.classList.toggle('d',o&&CH.scrollLeft<m-2)}
 function visible(s){var x=s.offsetLeft-CH.scrollLeft;return x>=(CH.scrollLeft>2?30:0)&&x+s.offsetWidth<=CH.clientWidth-(CH.scrollLeft<CH.scrollWidth-CH.clientWidth-2?30:0)}
 function voir(s,doux){if(!CH||!s||CH.scrollWidth<=CH.clientWidth+1)return;var x=Math.max(0,Math.min(s.offsetLeft-(CH.clientWidth-s.offsetWidth)/2,CH.scrollWidth-CH.clientWidth));CH.scrollTo({left:x,behavior:doux?'smooth':'auto'})}
@@ -298,7 +322,7 @@ function main(){HOLD=Date.now()+6000}
 if(CH){CH.addEventListener('scroll',etat);['touchstart','pointerdown','focusin'].forEach(function(e){CH.addEventListener(e,main,{passive:true})});
  CH.addEventListener('wheel',function(e){var m=CH.scrollWidth-CH.clientWidth;if(m<=1)return;var d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;if((d<0&&CH.scrollLeft<=0)||(d>0&&CH.scrollLeft>=m-1))return;e.preventDefault();main();CH.scrollLeft+=d},{passive:false});
  [].forEach.call(CW.querySelectorAll('.pod-cn'),function(b){b.addEventListener('click',function(){main();CH.scrollBy({left:(b.classList.contains('pod-cd')?1:-1)*CH.clientWidth*.7,behavior:'smooth'})})});
- addEventListener('resize',etat);h.addEventListener('click',function(){setTimeout(function(){etat();var a_=S[KP];if(a_)voir(a_,false);etat()},60)});etat()}
+ libs();addEventListener('resize',function(){libs();etat()});h.addEventListener('click',function(){setTimeout(function(){libs();etat();var a_=S[KP];if(a_)voir(a_,false);etat()},60)});etat()}
 S.concat(TL).forEach(function(s){s.addEventListener('click',function(){var t=+s.getAttribute('data-t');ev('Signet',EPN+' · '+(s.textContent||s.title||'').trim());a.currentTime=t;r.value=t;c.textContent=fmt(t);pos(t/(r.max||1));chap();if(a.paused)a.play()})});
 function chap(){[S,TL].forEach(function(L){var k=-1;L.forEach(function(s,i){if(a.currentTime+0.25>=+s.getAttribute('data-t'))k=i});
  L.forEach(function(s,i){s.classList.toggle('on',i===k)});
@@ -331,7 +355,7 @@ def render(web):
             syns.append(None); return f'syn{len(syns)}'
         T=lambda x:E(typo(x))
         sv_seen=set(seen); sv_used=list(used); seen.clear()
-        M=lambda x:mark(x,True)
+        M=lambda x:liens_numeros(mark(x,True))
         h=[f'<p class="sy-eb">{T(sec)}</p><h3 class="sy-t">{T(sm.get("titre",""))}</h3>']
         meta=[]
         if sm.get('statut'): meta.append(f'<dt>Statut</dt><dd>{T(sm["statut"])}</dd>')
@@ -368,10 +392,13 @@ def render(web):
     LSO="color:#6b7280;font:13px/1 %s;text-decoration:none;border-bottom:1px dotted #9ca3af;white-space:nowrap;"%SANS
     def srcfix(items):
         o=[];n=len(items)
+        src=lambda y:y is not None and y.get('href') and y.get('type')!='projet'
         for k,x in enumerate(items):
             x=dict(x);t=x['t']
             nx=items[k+1] if k+1<n else None
             pv=items[k-1] if k>0 else None
+            if x.get('type')=='projet': o.append(x); continue
+            pv=pv if src(pv) else None; nx=nx if src(nx) else None
             if not x.get('href'):
                 if pv and pv.get('href') and t.startswith(')'): t=t[1:]
                 if nx and nx.get('href') and t.rstrip().endswith('('): t=t.rstrip()[:-1].rstrip()+' '
@@ -387,6 +414,12 @@ def render(web):
         for x in items:
             t=x['t']
             if not t and not x.get('href'): continue
+            if x.get('type')=='projet':   # nom d'outil ou de projet lié à sa page officielle (README, § 6) : lien du texte, pas une source
+                a=esc(x['href'],True); lab=E(typo(t))
+                if web: lk=f'<a class="np" href="{a}" target="_blank" rel="noopener">{lab}</a>'
+                else: lk=f'<a href="{a}" style="color:{LIEN};text-decoration:underline;">{lab}</a>'
+                r.append(f'<b style="font:600 {fs}px/1 {SANS};color:{NAVY};">{lk}</b>' if x.get('b') else lk)
+                continue
             if x.get('href'):
                 a=esc(x['href'],True)
                 o_=officiel(x['href'])
@@ -405,7 +438,7 @@ def render(web):
     BODY=f"margin:0 0 16px;font:16px/24px {SERIF};color:#1f2937;"
     def tail(segs,attrs):
         """mention « source commerciale » et date de l'information, après les sources"""
-        hs=[x for x in segs if x.get('href')]
+        hs=[x for x in segs if x.get('href') and x.get('type')!='projet']
         t=[]
         if hs and all(x.get('type')=='editeur' for x in hs): t.append('source commerciale')
         d=fdate((attrs or {}).get('date'))
@@ -729,6 +762,8 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w h4::before{{content:'';display:inline-block;width:12px;height:2px;margin:0 8px 0 0;background:{ACC};vertical-align:.32em}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
+a.np,a.sy-n{{color:{LIEN};text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}}
+a.np:hover,a.sy-n:hover,a.np:focus-visible,a.sy-n:focus-visible{{text-decoration-thickness:2px;outline:none}}
 .sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF};text-wrap:pretty}}
