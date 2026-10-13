@@ -1,6 +1,6 @@
 {
- "titre": "Revue Software Compliance, numéro 2 : liste de contrôle du CRA, classement export britannique suspendu et trois outils",
- "description": "Numéro deux : la liste de contrôle du CRA publiée par OpenChain, la pause du service britannique de classement des biens contrôlés, les nouvelles versions d'OSV-Scanner et d'ORT, l'outil Pitloom et la règle des affiliés du BIS.",
+ "titre": "Revue Software Compliance, numéro 2 : liste de contrôle du CRA, classement export britannique suspendu et l’outil Pitloom",
+ "description": "Numéro deux : la liste de contrôle du CRA publiée par OpenChain, la pause du service britannique de classement des biens contrôlés, l’outil Pitloom pour les nomenclatures logicielles de projets Python et de modèles d’IA, et la règle des affiliés du BIS.",
  "repliques": [
   {
    "sujet": "Ouverture"
@@ -11,10 +11,13 @@
   },
   {
    "v": "B",
-   "t": "Bonjour. Cette semaine, une liste de contrôle pour le règlement européen sur la cyber-résilience, un service de classement à l'export mis en pause au Royaume-Uni, et trois outils qui aident à suivre les composants d'un logiciel."
+   "t": "Bonjour. Cette semaine, une liste de contrôle pour le règlement européen sur la cyber-résilience, un service de classement à l'export mis en pause au Royaume-Uni, et un nouvel outil pour inventorier les composants d'un logiciel."
   },
   {
-   "sujet": "CRA : une liste de contrôle d'OpenChain"
+   "sujet": "CRA : une liste de contrôle d'OpenChain",
+   "elements": [
+    "Liste de contrôle du CRA : OpenChain a p"
+   ]
   },
   {
    "v": "A",
@@ -41,7 +44,10 @@
    "t": "Non, et c'est le point à retenir. OpenChain parle d'autocertification : c'est l'entreprise qui s'évalue elle-même. Et ça ne dispense pas de regarder, produit par produit, si le règlement s'applique. Pour un industriel de défense, il reste la question de l'exclusion prévue à l'article deux pour les produits développés exclusivement à des fins de défense."
   },
   {
-   "sujet": "CRA : et pour nous, concrètement ?"
+   "sujet": "CRA : et pour nous, concrètement ?",
+   "elements": [
+    "Liste de contrôle du CRA : OpenChain a p"
+   ]
   },
   {
    "v": "A",
@@ -52,7 +58,10 @@
    "t": "Un client ou un fournisseur pourrait demander une autoévaluation fondée sur cette liste. Et OpenChain annonce une version deux pour deux mille vingt-sept, qui pourrait changer le contenu. L'application complète du règlement, elle, reste fixée au onze décembre deux mille vingt-sept."
   },
   {
-   "sujet": "Royaume-Uni : le classement à l'export suspendu"
+   "sujet": "Royaume-Uni : le classement à l'export suspendu",
+   "elements": [
+    "Royaume-Uni, classement export : l’ECJU "
+   ]
   },
   {
    "v": "A",
@@ -87,69 +96,32 @@
    "t": "Pendant la suspension, on ne peut plus demander d'avis officiel de classement britannique. Et l'avis le rappelle : le classement reste de la responsabilité de l'exportateur. Un composant logiciel soumis au contrôle britannique pourrait donc voir sa classification retardée, et il faudrait alors documenter son propre classement."
   },
   {
-   "sujet": "Outils : OSV-Scanner"
+   "sujet": "Outils : Pitloom",
+   "elements": [
+    "Pitloom : le projet SPDX a référencé le "
+   ]
   },
   {
    "v": "A",
-   "t": "Côté outils, on commence par OSV-Scanner. De quoi s'agit-il ?"
+   "t": "Côté outils, un nouveau venu : Pitloom. De quoi s'agit-il ?"
   },
   {
    "v": "B",
-   "t": "C'est un scanneur open source qui compare la liste des composants d'un produit à une base publique de vulnérabilités. La version deux point sept est sortie le douze octobre. La précédente, la deux point six, datait du quatorze septembre."
+   "t": "Le projet SPDX l'a référencé le douze octobre. Il génère des nomenclatures logicielles au format SPDX trois, autrement dit la liste des ingrédients d'un logiciel, pour les applications écrites en Python et pour les modèles d'intelligence artificielle. Il sait lire plusieurs formats de modèles, comme PyTorch ou ONNX."
   },
   {
    "v": "A",
-   "t": "Qu'est-ce qui change ?"
+   "t": "Et on peut l'adopter tel quel ?"
   },
   {
    "v": "B",
-   "t": "La sortie au format JSON indique maintenant l'identifiant du paquet, ce qu'on appelle le purl, quand il est disponible. Et la sortie au format CycloneDX donne la gravité des vulnérabilités. Le scanneur analyse aussi par défaut un fichier propre au langage Dart. Enfin, une correction empêche une sortie de chemin dans le cache du registre Maven."
+   "t": "Il faut d'abord connaître sa licence : la page du projet SPDX ne l'indique pas. Son fonctionnement sans connexion à Internet n'est pas documenté non plus. Une fois ces deux points éclaircis, il pourrait servir à inventorier les modèles d'intelligence artificielle et les composants Python embarqués dans un produit."
   },
   {
-   "v": "A",
-   "t": "Et sur un réseau coupé d'Internet, ça fonctionne ?"
-  },
-  {
-   "v": "B",
-   "t": "Partiellement. En mode hors ligne, l'outil n'envoie aucune information sur le projet et utilise une base locale téléchargée. Mais l'analyse par commit n'est pas prise en charge. Autre détail de cette version : quand on combine l'option hors ligne avec le téléchargement des bases, les greffons qui ont besoin du réseau ne s'exécutent plus."
-  },
-  {
-   "v": "A",
-   "t": "Donc il faut noter la version de l'outil dans ses preuves de contrôle ?"
-  },
-  {
-   "v": "B",
-   "t": "C'est le bon réflexe. La version compte pour la traçabilité d'un résultat, puisque les rapports contiennent de nouveaux champs."
-  },
-  {
-   "sujet": "Outils : ORT et Pitloom"
-  },
-  {
-   "v": "A",
-   "t": "Deuxième outil, ORT. Là, c'est plus technique, non ?"
-  },
-  {
-   "v": "B",
-   "t": "ORT, c'est le sigle de OSS Review Toolkit, une suite open source sous licence Apache deux point zéro qui analyse la conformité des dépendances d'un projet. La version quatre-vingt-seize est sortie le huit octobre. Elle ajoute un greffon appelé Nomos pour détecter les licences, et deux options pour le service SCANOSS, un service de détection de composants open source."
-  },
-  {
-   "v": "A",
-   "t": "Y a-t-il des précautions à prendre ?"
-  },
-  {
-   "v": "B",
-   "t": "Oui, la version contient six modifications cassantes. Cela touche surtout les interfaces de stockage et de téléchargement. Les équipes qui ont branché ORT sur leurs propres outils devront donc vérifier leurs intégrations. Quant au fonctionnement hors ligne, les sources consultées ne le documentent pas."
-  },
-  {
-   "v": "A",
-   "t": "[thoughtful] Et le troisième outil ?"
-  },
-  {
-   "v": "B",
-   "t": "Pitloom, référencé le douze octobre par le projet SPDX. Il génère des nomenclatures logicielles au format SPDX trois pour les applications Python et pour les modèles d'intelligence artificielle. La page ne donne pas sa licence. C'est une information à demander avant de l'adopter."
-  },
-  {
-   "sujet": "Une date à retenir"
+   "sujet": "Une date à retenir",
+   "elements": [
+    "10 novembre 2026 Réimposition automatiqu"
+   ]
   },
   {
    "v": "A",
