@@ -447,7 +447,7 @@
     "fonctions": "Ingénierie logicielle, qualité, juridique",
     "reseau": "Non documenté dans les sources consultées.",
     "licence": "Non documenté : la page du projet SPDX n’indique pas de licence.",
-    "essentiel": "Une note du projet SPDX, mise à jour le 12 octobre 2026, présente Pitloom, qui génère des SBOM conformes à SPDX 3 pour des applications Python et des modèles d’IA. L’outil lit les métadonnées de systèmes de construction Python courants et de formats de modèles tels que PyTorch, ONNX, Safetensors, GGUF et fastText. Il s’intègre nativement à Hatchling, propose une action GitHub officielle et peut placer le SBOM dans une distribution *{en}wheel* sous .dist-info/sboms, conformément à la PEP 770.",
+    "essentiel": "Une note du projet SPDX, publiée le 12 octobre 2026, présente Pitloom, qui génère des SBOM conformes à SPDX 3 pour des applications Python et des modèles d’IA. L’outil lit les métadonnées de systèmes de construction Python courants et de formats de modèles tels que PyTorch, ONNX, Safetensors, GGUF et fastText. Il s’intègre nativement à Hatchling, propose une action GitHub officielle et peut placer le SBOM dans une distribution *{en}wheel* sous .dist-info/sboms, conformément à la PEP 770.",
     "contexte": "Le projet SPDX avait référencé le 5 octobre 2026 quatre autres outils en cinq semaines (voir le N° 1). Cette note ajoute Pitloom.",
     "impact_avere": "Pitloom produit un SBOM pour des projets Python et pour des modèles d’IA ; la source ne précise pas ==sa licence ni son fonctionnement réseau==.",
     "impact_potentiel": "Pour les produits qui embarquent des modèles d’IA ou des composants Python, l’outil pourrait fournir un inventaire de ces éléments ; l’absence de licence indiquée dans la source pourrait en limiter l’adoption.",
@@ -464,7 +464,7 @@
     "reseau": "Connecté : service en ligne de l’ENISA ; pays d’hébergement, sous-traitants et transferts de données non documentés dans les sources consultées.",
     "licence": "Non documenté : accès par compte EU Login selon les conditions d’utilisation v1.0 de l’ENISA ; aucune redevance n’y est mentionnée.",
     "essentiel": "L’ENISA exploite la plateforme unique de déclaration du CRA, ouverte le 11 septembre 2026. Les fabricants y déclarent les vulnérabilités activement exploitées et les incidents graves touchant leurs produits comportant des éléments numériques. Selon l'ENISA, les gestionnaires de logiciels open source y sont soumis à partir du 11 décembre 2027.",
-    "contexte": "Selon l’ENISA, une fois une déclaration déposée, le CSIRT désigné comme coordinateur qui la reçoit en premier la diffuse aux CSIRT concernés des autres États membres. Les délais de déclaration sont de 24 heures, 72 heures et 14 jours.",
+    "contexte": "Selon l’ENISA, une fois une déclaration déposée, le CSIRT désigné comme coordinateur qui la reçoit en premier la diffuse aux CSIRT concernés des autres États membres. Les délais de déclaration sont de 24 heures pour l’alerte précoce et de 72 heures pour la notification ; le rapport final est dû sous 14 jours pour une vulnérabilité exploitée.",
     "impact_avere": "Un fabricant concerné doit disposer d’un processus et de comptes capables de déposer une alerte précoce ==dans les 24 heures==, y compris pour une vulnérabilité d’un composant tiers intégré à son produit.",
     "impact_potentiel": "Une vulnérabilité exploitée dans un composant open source d’un produit à double usage pourrait imposer une alerte sur la plateforme avant même la publication d’un correctif en amont.",
     "a_verifier": [
@@ -751,6 +751,13 @@
      "href": "https://www.zabala.eu/news/edip-defence-industry/"
     },
     {
+     "t": ", "
+    },
+    {
+     "t": "Welcomeurope",
+     "href": "https://www.welcomeurope.com/en/?p=88015"
+    },
+    {
      "t": ")."
     }
    ],
@@ -927,7 +934,7 @@
     "titre": "GPL : procédure SFC contre Vizio",
     "statut": "Procès annoncé à partir du 10 août 2026, indiqué pour fin 2026 par la SFC ; aucun verdict relevé",
     "fonctions": "Juridique, ingénierie logicielle, achats, qualité",
-    "essentiel": "Software Freedom Conservancy (SFC) poursuit Vizio, fabricant de téléviseurs, devant la Cour supérieure de Californie (comté d'Orange). Le procès devant jury était annoncé à partir du 10 août 2026 ; la page du dossier de la SFC indique désormais une date de procès à la fin de 2026. La question centrale : un consommateur peut-il faire respecter les licences GPL et LGPL en tant que bénéficiaire, et obtenir le code source correspondant complet ?",
+    "essentiel": "Software Freedom Conservancy (SFC) poursuit Vizio, fabricant de téléviseurs, devant la Cour supérieure de Californie (comté d'Orange). Le procès devant jury était annoncé à partir du 10 août 2026 ; la page du dossier de la SFC indique une date de procès à la fin de 2026. La question centrale : un consommateur peut-il faire respecter les licences GPL et LGPL en tant que bénéficiaire, et obtenir le code source correspondant complet ?",
     "contexte": "Selon PPC Land, Vizio a fourni six versions du code source présentées comme complètes, et aucune ne se compilait entièrement d'après les rapports de SFC. Aucun tribunal américain n'a encore tranché la question du bénéficiaire. La page du dossier de SFC n'a pas été mise à jour depuis février 2026.",
     "impact_avere": "Un industriel qui livre des équipements embarquant des composants sous GPL reste tenu de fournir le code source correspondant complet, scripts de compilation compris, ==quelle que soit l'issue de l'affaire==.",
     "impact_potentiel": "Une décision favorable à SFC pourrait permettre aux utilisateurs finaux d'exiger eux-mêmes le code source, et inciter les fabricants à revoir leurs procédures de publication.",
@@ -1161,8 +1168,8 @@
     "titre": "Liste *{en}dual-use* 2026 : fin de l'examen et publication au JO",
     "statut": "Règlement délégué adopté le 14 septembre 2026 ; publication au JO après deux mois d'examen sans objection",
     "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
-    "essentiel": "La Commission a adopté le 14 septembre 2026 un règlement délégué mettant à jour l'annexe I du règlement *{en}dual-use* de l'UE. Une période de contrôle de deux mois par le Parlement européen et le Conseil précède la publication au Journal officiel ; à compter de l'adoption du 14 septembre, elle s'achèverait à la mi-novembre. Le texte entre en vigueur à sa publication, sauf objection.",
-    "contexte": "Selon Baker McKenzie, la mise à jour porte sur les semi-conducteurs, le calcul à haute performance, des équipements de fabrication et la technologie des turbines à gaz, dont les données de conception et l'assistance technique à distance.",
+    "essentiel": "La Commission a adopté le 14 septembre 2026 un règlement délégué mettant à jour l'annexe I du règlement *{en}dual-use* de l'UE. Une période de contrôle de deux mois par le Parlement européen et le Conseil précède la publication au Journal officiel ; à compter de l'adoption du 14 septembre, elle s'achèverait en novembre. Le texte entre en vigueur à sa publication, sauf objection.",
+    "contexte": "Selon Baker McKenzie, la mise à jour porte sur les semi-conducteurs, le calcul avancé, des équipements de fabrication et la technologie des turbines à gaz, dont les données de conception et l'assistance technique à distance.",
     "impact_avere": "Cette annexe, non encore publiée, n'est pas applicable. Les classifications actuelles restent valables jusqu'à l'entrée en vigueur. Les technologies et logiciels associés aux biens listés relèvent déjà du contrôle des exportations.",
     "impact_potentiel": "À la publication, des produits, logiciels ou technologies pourraient changer de classification et nécessiter une licence. L'assistance technique à distance pourrait aussi être concernée. Des transferts intra-UE relevant de l'annexe IV pourraient également être touchés.",
     "a_verifier": [
@@ -1232,7 +1239,7 @@
    "Le rapporteur espère une réinscription du texte d'ici quinze jours ou trois semaines",
    null,
    null,
-   "Règlement délégué adopté le 14 septembre 2026, après deux mois d'examen du Parlement européen et du Conseil",
+   "Règlement délégué adopté le 14 septembre 2026 ; publication au JO après deux mois d'examen du Parlement européen et du Conseil, sauf objection",
    "Transposition de la directive (UE) 2024/2853, qui inclut le logiciel ; elle s'applique aux produits mis sur le marché après cette date",
    null,
    "Règles sur les systèmes d'IA à haut risque de l'annexe III, reportées à cette date par le règlement (UE) 2026/1744",
