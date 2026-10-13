@@ -5,7 +5,15 @@ Usage :
   python3 tools/podcast.py --check [AAAA-MM-JJ]   contrôle le script (sans appel réseau)
   python3 tools/podcast.py [AAAA-MM-JJ]           produit l'épisode (par défaut : dernière édition)
   python3 tools/podcast.py --dry-run [...]        chaîne complète sans appel à ElevenLabs (voix synthétiques)
-  python3 tools/podcast.py --force [...]          régénère même si l'épisode est à jour
+  python3 tools/podcast.py --force [...]          régénère même si l'épisode est à jour (dans le respect du figeage et du plafond)
+  python3 tools/podcast.py --figer AAAA-MM-JJ     fige le script après une répétition verte (README, § 7 et § 11)
+  python3 tools/podcast.py --verifier-fige [...]  vérifie que le figeage correspond au script et aux sources (code 1 sinon)
+  python3 tools/podcast.py --solde [...]          solde ElevenLabs et besoin du script, en JSON (lecture seule, gratuite)
+
+Figeage : aucun appel facturé à ElevenLabs tant que le script n'est pas figé. podcast.fige.json porte l'empreinte de
+podcast.json et des affirmations « podcast » de claims.json, et le commit dont la répétition (workflow « Répétition »,
+veille/repetition/AAAA-MM-JJ.json) est verte ; toute modification du script ou de ces sources rend le figeage caduc.
+Plafond : PODCAST_PRODUCTIONS_MAX productions par édition (2 par défaut), comptées dans episode.essais.json.
 
 Synthèse vocale : API ElevenLabs « Text to Dialogue » (plusieurs voix dans une même requête).
 Variables : ELEVENLABS_API_KEY (clé), ELEVENLABS_VOICE_FEMALE et ELEVENLABS_VOICE_MALE (identifiants
@@ -49,6 +57,8 @@ MOTS_MIN, MOTS_MAX = 900, 1800   # ≈ 6 à 12 minutes
 # Mode essai (variable PODCAST_MAX_CHARS, ex. 450 ≈ 30 s) : seules les premières répliques, jusqu'à
 # ce nombre de caractères, sont synthétisées. Pour limiter le coût pendant la mise au point.
 MAX_CHARS = int(os.environ.get('PODCAST_MAX_CHARS') or 0)
+# Plafond de dépense : nombre de productions facturées par édition (essais comptés dans episode.essais.json).
+PRODUCTIONS_MAX = int(os.environ.get('PODCAST_PRODUCTIONS_MAX') or 2)
 
 
 def extrait(reps):
@@ -85,6 +95,82 @@ def numero(d):
     """numéro de l'édition (meta.json), ou None"""
     try: return json.load(open(os.path.join(CONTENT, d, 'meta.json'), encoding='utf-8')).get('n')
     except (OSError, ValueError): return None
+
+
+# ------------------------------------------------------------------ figeage et plafond
+def _git(*a):
+    r = subprocess.run(['git', *a], cwd=ROOT, capture_output=True, text=True)
+    return r.returncode, r.stdout.strip()
+
+
+def empreintes(d):
+    """(empreinte de podcast.json, empreinte des affirmations « podcast » de claims.json), ou (None, None)."""
+    dossier = os.path.join(CONTENT, d)
+    p = os.path.join(dossier, 'podcast.json')
+    if not os.path.isfile(p): return None, None
+    script = hashlib.sha256(open(p, 'rb').read()).hexdigest()
+    try: claims = json.load(open(os.path.join(dossier, 'claims.json'), encoding='utf-8'))
+    except (OSError, ValueError): claims = []
+    pod = [c for c in claims if c.get('ou') == 'podcast']
+    sources = hashlib.sha256(json.dumps(pod, sort_keys=True, ensure_ascii=False).encode('utf-8')).hexdigest()
+    return script, sources
+
+
+def fige_valide(d):
+    """-> (True, figeage) si podcast.fige.json correspond au script et aux sources actuels, sinon (False, raison)."""
+    f = os.path.join(CONTENT, d, 'podcast.fige.json')
+    if not os.path.isfile(f): return False, 'script non figé (pas de podcast.fige.json)'
+    try: F = json.load(open(f, encoding='utf-8'))
+    except ValueError: return False, 'podcast.fige.json illisible'
+    script, sources = empreintes(d)
+    if script is None: return False, 'pas de podcast.json'
+    if F.get('script') != script: return False, 'figeage caduc : podcast.json a changé depuis le figeage'
+    if F.get('sources') != sources: return False, 'figeage caduc : les affirmations « podcast » de claims.json ont changé depuis le figeage'
+    return True, F
+
+
+def figer(d):
+    """Fige le script : exige une répétition verte (veille/repetition/AAAA-MM-JJ.json) sur un commit dont content/ et
+    tools/ sont identiques à l'état actuel, et un script sans erreur. Écrit content/AAAA-MM-JJ/podcast.fige.json."""
+    r = os.path.join(ROOT, 'veille', 'repetition', d + '.json')
+    if not os.path.isfile(r): raise SystemExit(f'{d} : pas de rapport de répétition ({os.path.relpath(r, ROOT)}) : pousser l’édition sur edition/{d} et attendre le workflow « Répétition ».')
+    R = json.load(open(r, encoding='utf-8'))
+    if R.get('verdict') != 'verte': raise SystemExit(f'{d} : répétition « {R.get("verdict")} » sur {str(R.get("commit"))[:7]} : corriger puis repousser ; on ne fige qu’après une répétition verte.')
+    x = R.get('commit') or ''
+    if _git('cat-file', '-e', x + '^{commit}')[0]: raise SystemExit(f'{d} : commit de la répétition {x[:7]} introuvable (git fetch ?)')
+    excl = [f':(exclude)content/{d}/podcast.fige.json', f':(exclude)content/{d}/episode.*']
+    if _git('diff', '--quiet', x, '--', 'content', 'tools', *excl)[0] or _git('diff', '--quiet', 'HEAD', '--', 'content', 'tools', *excl)[0]:
+        raise SystemExit(f'{d} : content/ ou tools/ ont changé depuis le commit répété ({x[:7]}) : repousser et attendre une nouvelle répétition verte.')
+    script, sources = empreintes(d)
+    if script is None: raise SystemExit(f'{d} : pas de podcast.json')
+    if (R.get('script'), R.get('sources')) != (script, sources): raise SystemExit(f'{d} : empreintes du rapport de répétition différentes du script actuel.')
+    pod, _ = charger(d)
+    err, _, _ = controler(pod, numero(d))
+    if err: raise SystemExit(f'{d} : script invalide :\n- ' + '\n- '.join(err))
+    f = os.path.join(CONTENT, d, 'podcast.fige.json')
+    if os.path.isfile(f):
+        A = json.load(open(f, encoding='utf-8'))
+        if (A.get('script'), A.get('sources'), A.get('commit_repetition')) == (script, sources, x): log(f'{d} : déjà figé ({x[:7]}).'); return
+    F = {'date': d, 'script': script, 'sources': sources, 'commit_repetition': x,
+         'fige_le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')}
+    json.dump(F, open(f, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    log(f'{d} : script figé (répétition verte {x[:7]}) : pousser content/{d}/podcast.fige.json déclenche le workflow « Studio ».')
+
+
+def essais_lire(d):
+    f = os.path.join(CONTENT, d, 'episode.essais.json')
+    try: return json.load(open(f, encoding='utf-8'))
+    except (OSError, ValueError): return []
+
+
+def essais_noter(d, liste):
+    json.dump(liste, open(os.path.join(CONTENT, d, 'episode.essais.json'), 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+
+
+def besoin_caracteres(d):
+    pod, _ = charger(d)
+    if pod is None: return 0
+    return int(sum(len(dire(r['t'], lexique())) for r in extrait(pod['repliques'])) * MARGE)
 
 
 def charger(d, chemin=None):
@@ -351,6 +437,12 @@ def produire(d, dry=False, force=False):
     manque = [v['nom'] for v in voix.values() if not v.get('voice')]
     if manque and not dry: bilan('warning', f'{d} : identifiant de voix manquant pour {", ".join(manque)} (variables ELEVENLABS_VOICE_FEMALE / ELEVENLABS_VOICE_MALE), épisode non produit.'); return False
     reps = extrait(pod['repliques'])
+    if not dry:   # aucun appel facturé sans figeage valide, ni au-delà du plafond de productions (README, § 11)
+        ok_f, F = fige_valide(d)
+        if not ok_f: bilan('warning', f'{d} : {F} : aucun appel à ElevenLabs.'); return False
+        faits = essais_lire(d)
+        if len(faits) >= PRODUCTIONS_MAX:
+            bilan('error', f'{d} : plafond atteint ({len(faits)} production(s) sur {PRODUCTIONS_MAX}, voir episode.essais.json) : aucun appel à ElevenLabs. Relever PODCAST_PRODUCTIONS_MAX (variable du dépôt) pour autoriser une production de plus.'); return False
     if not dry:   # règle de budget : une semaine où le solde ne couvre pas le script (+20 %) ne produit pas de podcast
         besoin = int(sum(len(dire(r['t'], lexique())) for r in reps) * MARGE)
         try: reste, raz = solde(cle)
@@ -359,6 +451,11 @@ def produire(d, dry=False, force=False):
         if reste < besoin:
             bilan('warning', f'{d} : solde ElevenLabs insuffisant ({reste} caractères restants, {besoin} nécessaires avec la marge) : pas d’épisode cette semaine. Remise à zéro le {raz}.'); return False
         log(f'{d} : solde ElevenLabs {reste} caractères, besoin {besoin} (marge comprise) : ok')
+    if not dry:
+        faits = essais_lire(d) + [{'le': datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'), 'script': F['script'][:12], 'resultat': 'en cours'}]
+        essais_noter(d, faits)   # compté même si l'exécution s'interrompt
+    def resultat(r):
+        if not dry: faits[-1]['resultat'] = r; essais_noter(d, faits)
     loc = None if dry else dictionnaire(cle)
     lex = [] if loc else lexique()
     if coupe:
@@ -392,13 +489,16 @@ def produire(d, dry=False, force=False):
         log(f'{d} : essai à blanc terminé : {sortie} ({duree / 60:.1f} min), contrôle {"réussi" if ok else "en écart"} ; rapport : {travail}/qc_report.md. Aucun fichier écrit dans content/.')
         return False
     if not ok:
+        resultat('contrôle qualité en écart')
         bilan('error', f'{d} : épisode produit mais non publié, contrôle qualité en écart : ' + ' ; '.join(ecarts) + '. Détail dans l’artefact « podcast » de l’exécution.')
         return False
     for e in ecarts: bilan('warning', f'{d} : contrôle qualité, écart non bloquant : {e}')
     shutil.copyfile(sortie, mp3); meta['octets'] = os.path.getsize(mp3); meta['fichier'] = 'episode.m4a'
     ancien = os.path.join(dossier, 'episode.mp3')
     if os.path.isfile(ancien): os.remove(ancien)   # ancien format, remplacé
+    meta['figeage'] = F.get('commit_repetition', '')[:12]
     json.dump(meta, open(info, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    resultat('produit')
     bilan('notice', f'{d} : {"extrait d’essai" if coupe else "épisode"} produit : {meta["duree_s"] // 60} min {meta["duree_s"] % 60:02d} s, {meta["octets"]} octets.')
     return True
 
@@ -465,9 +565,35 @@ def main():
             for e in err: print('  ERREUR :', e)
             ko |= bool(err)
         sys.exit(1 if ko else 0)
+    if '--figer' in flags:
+        for d in eds: figer(d)
+        return
+    if '--verifier-fige' in flags:
+        ko = False
+        for d in eds:
+            ok, F = fige_valide(d)
+            print(f'{d} : figeage valide (répétition {F["commit_repetition"][:7]}, figé le {F["fige_le"]})' if ok else f'{d} : {F}')
+            ko |= not ok
+        sys.exit(1 if ko else 0)
+    if '--solde' in flags:   # lecture seule : /v1/user/subscription ne consomme aucun caractère
+        for d in eds:
+            out = {'date': d, 'besoin': besoin_caracteres(d), 'reste': None, 'raz': None, 'suffisant': None, 'raison': ''}
+            cle = os.environ.get('ELEVENLABS_API_KEY', '').strip()
+            if not cle: out['raison'] = 'secret ELEVENLABS_API_KEY absent'
+            else:
+                try:
+                    out['reste'], out['raz'] = solde(cle); out['suffisant'] = out['reste'] >= out['besoin']
+                except (urllib.error.URLError, KeyError, ValueError) as e: out['raison'] = f'solde illisible ({getattr(e, "code", "")} {type(e).__name__})'
+            print(json.dumps(out, ensure_ascii=False))
+        return
     nouveau = False
     for d in eds:
-        nouveau |= produire(d, dry='--dry-run' in flags, force='--force' in flags)
+        try: nouveau |= produire(d, dry='--dry-run' in flags, force='--force' in flags)
+        except BaseException as e:   # essai interrompu (refus de l'API, mixage…) : noté comme tel, il reste compté
+            faits = essais_lire(d)
+            if faits and faits[-1].get('resultat') == 'en cours' and '--dry-run' not in flags:
+                faits[-1]['resultat'] = f'erreur : {str(e)[:160]}'; essais_noter(d, faits)
+            raise
     if os.environ.get('GITHUB_OUTPUT'):
         open(os.environ['GITHUB_OUTPUT'], 'a').write(f'new={"1" if nouveau else "0"}\n')
 
