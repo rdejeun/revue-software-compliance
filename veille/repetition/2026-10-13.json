@@ -1,0 +1,157 @@
+{
+ "date": "2026-10-13",
+ "commit": "e1a3a18604e8aef725c750b624df804d16ad34b0",
+ "le": "2026-10-13T10:08:05Z",
+ "verdict": "verte",
+ "motifs": [],
+ "script": "6fc711415f942bb7ffbfe242843d787badab750f56081c909c46083aae90782a",
+ "sources": "7a64a7c27f2a1e6ca70e28e8fcbabaa7ffd532316f088684848c8bc9dc6ca360",
+ "controle": {
+  "code": 0,
+  "erreurs": [],
+  "avertissements": [
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Lien non vérifiable (403) : https://www.cisa.gov/sbom",
+   "Lien non vérifiable (403) : https://www.efta.int/",
+   "Lien non vérifiable (403) : https://www.iso.org/",
+   "Lien non vérifiable (403) : https://www.safran-group.com/products-services/thundart-long-range-land-strike-system",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 57, https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 58, https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 110, https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 111, https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 128, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 129, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 130, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 131, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 132, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 133, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 134, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 135, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 136, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 189, https://public-inspection.federalregister.gov/2025-19846.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 193, https://public-inspection.federalregister.gov/2025-19846.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 234, https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 262, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 263, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-10-13",
+  "echecs": 0,
+  "extraits_retrouves": 248,
+  "illisibles": [
+   {
+    "affirmation": 57,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
+   },
+   {
+    "affirmation": 58,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
+   },
+   {
+    "affirmation": 110,
+    "raison": "HTTPError",
+    "url": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia"
+   },
+   {
+    "affirmation": 111,
+    "raison": "HTTPError",
+    "url": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia"
+   },
+   {
+    "affirmation": 128,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 129,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 130,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 131,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 132,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 133,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 134,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 135,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 136,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 189,
+    "raison": "PDF",
+    "url": "https://public-inspection.federalregister.gov/2025-19846.pdf"
+   },
+   {
+    "affirmation": 193,
+    "raison": "PDF",
+    "url": "https://public-inspection.federalregister.gov/2025-19846.pdf"
+   },
+   {
+    "affirmation": 234,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf"
+   },
+   {
+    "affirmation": 262,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 263,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   }
+  ],
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-10-13 : 28 répliques, 768 mots (≈ 5 min)\n  avertissement : 768 mots : hors de la plage visée (900-1800)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-10-13 : avertissement : 768 mots : hors de la plage visée (900-1800)\n2026-10-13 : 28 répliques, 768 mots, 4 requête(s) (essai à blanc)\n  requête 1/4 (376 caractères) : Ouverture\n  requête 2/4 (1680 caractères) : CRA : une liste de contrôle d'OpenChain, CRA : et pour nous, concrètement ?\n  requête 3/4 (1280 caractères) : Royaume-Uni : le classement à l'export suspendu\n  requête 4/4 (1458 caractères) : Outils : Pitloom, Une date à retenir, Clôture\n2026-10-13 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-10-13/out/episode.m4a (5.7 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-10-13/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-10-13",
+  "besoin": 5755,
+  "reste": 26463,
+  "raz": "04/11/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 116
+}
