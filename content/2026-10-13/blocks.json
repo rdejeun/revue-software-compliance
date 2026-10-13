@@ -285,30 +285,6 @@
   "items": [
    [
     {
-     "t": "OSV-Scanner 2.7.0 : mise à jour du scanneur open source adossé à la base OSV, qui ajoute les purl à la sortie JSON et la sévérité à la sortie CycloneDX, active par défaut l’extracteur Dart et corrige une traversée de chemin dans le cache du registre Maven ("
-    },
-    {
-     "t": "GitHub",
-     "href": "https://github.com/google/osv-scanner/releases/tag/v2.7.0"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
-     "t": "ORT 96.0.0 : la suite open source d’analyse de conformité (*{en}OSS Review Toolkit*) ajoute un greffon Nomos de détection de licences et deux options SCANOSS, avec six modifications cassantes de ses API de stockage et de téléchargement ("
-    },
-    {
-     "t": "GitHub",
-     "href": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0"
-    },
-    {
-     "t": ")."
-    }
-   ],
-   [
-    {
      "t": "Pitloom : le projet SPDX a référencé le 12 octobre 2026 cet outil qui génère des SBOM SPDX 3 pour les applications Python et les modèles d’IA (PyTorch, ONNX, Safetensors, GGUF, fastText) et peut les intégrer aux distributions *{en}wheel* ("
     },
     {
@@ -355,32 +331,6 @@
   "attrs": [
    {
     "themes": [
-     "sca",
-     "sbom"
-    ],
-    "date": "2026-10-12",
-    "fiabilite": "B",
-    "cote": [
-     2,
-     2,
-     3
-    ]
-   },
-   {
-    "themes": [
-     "sca",
-     "licences"
-    ],
-    "date": "2026-10-08",
-    "fiabilite": "B",
-    "cote": [
-     2,
-     2,
-     3
-    ]
-   },
-   {
-    "themes": [
      "sbom",
      "sca"
     ],
@@ -409,38 +359,6 @@
    }
   ],
   "sum": [
-   {
-    "titre": "OSV-Scanner 2.7.0 : version du scanneur de vulnérabilités",
-    "statut": "Version 2.7.0 publiée le 12 octobre 2026",
-    "fonctions": "Ingénierie logicielle, PSIRT, qualité",
-    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — le mode hors ligne n’envoie aucune information de projet et utilise une base locale téléchargée, mais le scan par *{en}commit* n’est pas pris en charge.",
-    "licence": "Open source : Apache-2.0 pour le code ; licence des données OSV.dev : non documentée dans les sources consultées.",
-    "essentiel": "OSV-Scanner 2.7.0 a été publié le 12 octobre 2026. La sortie JSON inclut les purl (identifiants de paquets) lorsqu’ils sont disponibles, et la sortie CycloneDX inclut la sévérité et la cotation des vulnérabilités. L’extracteur du fichier Dart package_config.json est activé par défaut pour les analyses de fichiers de verrouillage. Les greffons qui dépendent du réseau ne s’exécutent plus lorsque l’option --offline est combinée à --download-offline-databases. Une correction confine les écritures du cache disque du registre Maven, pour empêcher une traversée de chemin.",
-    "contexte": "La version précédente, la 2.6.0, date du 14 septembre 2026 (voir le N° 1). En mode hors ligne, la base locale se télécharge par l’option --download-offline-databases ou à la main depuis le dépôt public osv-vulnerabilities.",
-    "impact_avere": "Les équipes qui exploitent les sorties JSON ou CycloneDX d’OSV-Scanner y trouvent de nouveaux champs (purl, sévérité) ; la version de l’outil ==compte pour la traçabilité== d’un résultat de contrôle.",
-    "impact_potentiel": "La sévérité intégrée aux SBOM CycloneDX pourrait faciliter le tri des alertes par la fonction PSIRT, et la correction de sécurité du cache Maven pourrait justifier une mise à jour des chaînes d’intégration continue.",
-    "a_verifier": [
-     "Quelle version d’OSV-Scanner figure dans nos preuves de contrôle ?",
-     "Les chaînes d’intégration exploitent-elles la sortie JSON ou CycloneDX ?",
-     "La base OSV est-elle disponible hors ligne sur nos réseaux isolés ?"
-    ]
-   },
-   {
-    "titre": "ORT 96.0.0 : version de la suite d’analyse de conformité",
-    "statut": "Version 96.0.0 publiée le 8 octobre 2026",
-    "fonctions": "Ingénierie logicielle, juridique, qualité",
-    "reseau": "Non documenté dans les sources consultées.",
-    "licence": "Open source : Apache-2.0.",
-    "essentiel": "La version 96.0.0 d’ORT (*{en}OSS Review Toolkit*) a été publiée le 8 octobre 2026. Elle ajoute un greffon Nomos pour la détection de licences par le scanneur, la possibilité de configurer une correspondance supplémentaire pour les licences déclarées et pour les licences simples, et deux options SCANOSS : définir des PURL à ignorer et rapporter les paquets couverts comme PURL inclus. Six modifications cassantes touchent les interfaces : le téléchargeur renvoie un résultat au lieu de lever une exception, et plusieurs API de stockage deviennent suspendantes.",
-    "contexte": "Le dépôt décrit un conseiller (*{en}Advisor*) qui récupère des avis de vulnérabilité auprès de services configurés, et un scanneur qui utilise des scanneurs de code source configurés. La version précédente, la 95.0.0, date du 1er octobre 2026.",
-    "impact_avere": "Les six modifications cassantes touchent les API de stockage et de téléchargement : ==les intégrations qui les utilisent== sont concernées par la mise à jour.",
-    "impact_potentiel": "Le greffon Nomos et les options SCANOSS pourraient élargir la détection des licences des composants intégrés dans un produit, au prix d’un paramétrage supplémentaire.",
-    "a_verifier": [
-     "ORT ou un autre outil produit-il l’inventaire des licences de nos produits ?",
-     "Les intégrations internes dépendent-elles des API modifiées ?",
-     "Le fonctionnement hors ligne est-il établi pour notre déploiement ?"
-    ]
-   },
    {
     "titre": "Pitloom : générateur de SBOM SPDX 3 pour Python et modèles d’IA",
     "statut": "Outil référencé par le projet SPDX le 12 octobre 2026 ; sans caractère obligatoire",
