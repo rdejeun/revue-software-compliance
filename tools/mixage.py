@@ -35,8 +35,9 @@ CONFIG = {
     'lufs': -19, 'true_peak': -1.0, 'lra': 11,   # −19 LUFS en mono (équivalent de −16 en stéréo)
     'aac_kbps': 64,
     # Habillage sonore : même son en ouverture et en clôture (tools/habillage.mp3, « Tech Logo Intro »,
-    # sergequadrado, Pixabay), ramené 2 LU sous la voix, enchaîné directement sur la parole en ouverture, après un court blanc en clôture.
-    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    # sergequadrado, Pixabay), ramené 2 LU sous la voix, superposé à la voix sur `recouvrement_s` secondes en ouverture et en clôture, sans
+    # fondu enchaîné (le jingle commence et finit en fondu) ; recouvrement 0 : bout à bout, avec les blancs indiqués.
+    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120, 'recouvrement_s': 1.5},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -281,9 +282,32 @@ def habiller(master, sortie_wav):
     finally: CONFIG['lufs'] = sauve
     j = adoucir_attaque(sf.read(norm, always_2d=True)[0], h.get('attaque_ms', 0)); v = sf.read(master, always_2d=True)[0]
     if j.shape[1] != v.shape[1]: j = np.repeat(j.mean(1, keepdims=True), v.shape[1], axis=1)
-    b1 = np.zeros((int(SR * h['blanc_debut_s']), v.shape[1])); b2 = np.zeros((int(SR * h['blanc_fin_s']), v.shape[1]))
-    sf.write(sortie_wav, np.concatenate([j, b1, v, b2, j]), SR, subtype='PCM_24')
-    return (2 * len(j) + len(b1) + len(b2)) / SR, (len(j) + len(b1)) / SR
+    r = int(SR * min(h.get('recouvrement_s') or 0, len(j) / SR, len(v) / SR / 2))
+    if not r:   # habillage bout à bout, séparé de la voix par des blancs
+        b1 = np.zeros((int(SR * h['blanc_debut_s']), v.shape[1])); b2 = np.zeros((int(SR * h['blanc_fin_s']), v.shape[1]))
+        sf.write(sortie_wav, np.concatenate([j, b1, v, b2, j]), SR, subtype='PCM_24')
+        return (2 * len(j) + len(b1) + len(b2)) / SR, (len(j) + len(b1)) / SR
+    # recouvrement de `recouvrement_s` secondes, sans fondu enchaîné : la voix démarre pendant la fin du jingle d'ouverture
+    # et le jingle de clôture démarre pendant la fin de la voix, les deux signaux étant simplement additionnés (le jingle est
+    # conçu pour commencer et finir en fondu). Si la somme dépasse le true peak visé, le jingle concerné est atténué en entier
+    # (jamais de saut de niveau au milieu).
+    debut, fin = len(j) - r, len(j) - r + len(v) - r            # début de la voix, début du jingle de clôture
+    out = np.zeros((fin + len(j), v.shape[1]))
+    lim = 10 ** (CONFIG['true_peak'] / 20)
+    def poser(sig, k, g=1.0): out[k:k + len(sig)] += g * sig
+    def gain(zone_v, zone_j):   # plus grand gain du jingle (≤ 1) qui garde la somme sous le plafond
+        if np.abs(zone_v + zone_j).max() <= lim: return 1.0
+        bas, haut = 0.0, 1.0
+        for _ in range(20):
+            m = (bas + haut) / 2
+            if np.abs(zone_v + m * zone_j).max() <= lim: bas = m
+            else: haut = m
+        return bas
+    g1 = gain(v[:r], j[-r:]); g2 = gain(v[-r:], j[:r])
+    poser(j, 0, g1); poser(v, debut); poser(j, fin, g2)
+    if min(g1, g2) < 1: print(f'  habillage : jingle atténué ({20 * np.log10(max(min(g1, g2), 1e-6)):.1f} dB) pour rester sous {CONFIG["true_peak"]} dBFS', flush=True)
+    sf.write(sortie_wav, out, SR, subtype='PCM_24')
+    return (2 * len(j) - 2 * r) / SR, (len(j) - r) / SR
 
 
 def encoder(wav, sortie, meta):
