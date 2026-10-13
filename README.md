@@ -80,7 +80,7 @@ Chaque puce, chaque paragraphe « Défense : … » et chaque événement de l'a
 - `impact_potentiel` : 2e paragraphe, au conditionnel : effet possible ou à venir.
 - `a_verifier` : 2 ou 3 questions courtes et neutres que l'industriel peut se poser.
 
-Renvois : dans une synthèse, « N° 1 » ou « numéro 1 » devient automatiquement un lien vers la page de cette édition (générateur, pour toute édition publiée autre que la courante) ; écrire le renvoi sous cette forme (« voir le N° 1 »).
+Renvois : dans une synthèse, « N° 1 » ou « numéro 1 » devient automatiquement un lien vers la page de cette édition (générateur, pour toute édition publiée autre que la courante), affiché « 📰 N° 1 » dans la couleur du texte et souligné au survol seulement ; écrire le renvoi sous cette forme (« voir le N° 1 »).
 
 Règles : faits uniquement tirés des sources vérifiées ; tenir compte des exclusions « défense » (CRA, AI Act…) sans conclure à tort à une non-applicabilité (double usage, versions civiles, exigences contractuelles) ; pas de recommandation commerciale ; tout nouveau sigle a son entrée au glossaire.
 

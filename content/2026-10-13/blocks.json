@@ -285,7 +285,12 @@
   "items": [
    [
     {
-     "t": "Pitloom : le projet SPDX a référencé le 12 octobre 2026 cet outil qui génère des SBOM SPDX 3 pour les applications Python et les modèles d’IA (PyTorch, ONNX, Safetensors, GGUF, fastText) et peut les intégrer aux distributions *{en}wheel* ("
+     "t": "Pitloom",
+     "href": "https://github.com/bact/pitloom",
+     "type": "projet"
+    },
+    {
+     "t": " : le projet SPDX a référencé le 12 octobre 2026 cet outil qui génère des SBOM SPDX 3 pour les applications Python et les modèles d’IA (PyTorch, ONNX, Safetensors, GGUF, fastText) et peut les intégrer aux distributions *{en}wheel* ("
     },
     {
      "t": "SPDX",
@@ -363,15 +368,15 @@
     "titre": "Pitloom : générateur de SBOM SPDX 3 pour Python et modèles d’IA",
     "statut": "Outil référencé par le projet SPDX le 12 octobre 2026 ; sans caractère obligatoire",
     "fonctions": "Ingénierie logicielle, qualité, juridique",
-    "reseau": "Non documenté dans les sources consultées.",
-    "licence": "Non documenté : la page du projet SPDX n’indique pas de licence.",
+    "reseau": "Non documenté : le dépôt ne décrit pas de fonctionnement hors ligne ; l’analyse d’un modèle du Hugging Face Hub passe par une extension dédiée (pitloom[huggingface_hub]).",
+    "licence": "Open source : Apache-2.0 pour le code ; documentation sous CC BY 4.0 (dépôt du projet).",
     "essentiel": "Une note du projet SPDX, publiée le 12 octobre 2026, présente Pitloom, qui génère des SBOM conformes à SPDX 3 pour des applications Python et des modèles d’IA. L’outil lit les métadonnées de systèmes de construction Python courants et de formats de modèles tels que PyTorch, ONNX, Safetensors, GGUF et fastText. Il s’intègre nativement à Hatchling, propose une action GitHub officielle et peut placer le SBOM dans une distribution *{en}wheel* sous .dist-info/sboms, conformément à la PEP 770.",
     "contexte": "Le projet SPDX avait référencé le 5 octobre 2026 quatre autres outils en cinq semaines (voir le N° 1). Cette note ajoute Pitloom.",
-    "impact_avere": "Pitloom produit un SBOM pour des projets Python et pour des modèles d’IA ; la source ne précise pas ==sa licence ni son fonctionnement réseau==.",
-    "impact_potentiel": "Pour les produits qui embarquent des modèles d’IA ou des composants Python, l’outil pourrait fournir un inventaire de ces éléments ; l’absence de licence indiquée dans la source pourrait en limiter l’adoption.",
+    "impact_avere": "Pitloom produit un SBOM pour des projets Python et pour des modèles d’IA ; son code est sous licence Apache-2.0, mais son dépôt ==ne décrit pas de fonctionnement hors ligne==.",
+    "impact_potentiel": "Pour les produits qui embarquent des modèles d’IA ou des composants Python, l’outil pourrait fournir un inventaire de ces éléments ; son usage sur un réseau isolé resterait à vérifier, notamment pour les modèles récupérés depuis le Hugging Face Hub.",
     "a_verifier": [
      "Des modèles d’IA ou des composants Python sont-ils intégrés dans nos produits ?",
-     "La licence de l’outil est-elle compatible avec l’usage prévu ?",
+     "L’outil fonctionne-t-il sans connexion sur nos réseaux de développement ?",
      "Les SBOM SPDX 3 sont-ils acceptés par nos clients ?"
     ]
    },

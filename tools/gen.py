@@ -9,7 +9,7 @@ from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
 # numéros des éditions publiées (dossiers voisins ../AAAA-MM-JJ/meta.json) : « N° 1 » d'une synthèse devient un lien vers l'édition
-LIEN='#1d4ed8'   # liens du texte (nom d'outil vers sa page officielle, renvoi à un autre numéro) : le bleu est réservé aux liens
+LIEN='#1d4ed8'   # lien du nom d'outil vers sa page officielle (le bleu est réservé aux liens) ; les renvois « 📰 N° n » restent dans la couleur du texte
 NUMEROS={}
 for _d in sorted(os.listdir('..')) if os.path.isdir('..') else []:
     if re.fullmatch(r'\d{4}-\d{2}-\d{2}',_d) and os.path.isfile(os.path.join('..',_d,'meta.json')):
@@ -21,7 +21,7 @@ def liens_numeros(h):
     """« N° 1 » / « numéro 1 » (texte HTML d'une synthèse) -> lien vers la page de cette édition, pour les autres éditions publiées."""
     def r(m):
         d=NUMEROS.get(int(m.group(3)))
-        return f'<a class="sy-n" href="/{d}/">{m.group(0)}</a>' if d else m.group(0)
+        return f'<a class="sy-n" href="/{d}/"><span aria-hidden="true">📰</span>\u00a0{m.group(0)}</a>' if d else m.group(0)
     return re.sub(r'(?<![\w>])(N°|numéro)((?:\s|&nbsp;|&#160;|\u00a0|\u202f)+)(\d+)\b',r,h)
 # Épisode audio (tools/podcast.py) : présent seulement s'il a été produit pour cette édition
 EP_FICHIER=next((f for f in ('episode.m4a','episode.mp3') if os.path.isfile(f)),None)   # M4A (AAC) ; MP3 pour les anciens épisodes
@@ -762,8 +762,10 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w h4::before{{content:'';display:inline-block;width:12px;height:2px;margin:0 8px 0 0;background:{ACC};vertical-align:.32em}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
-a.np,a.sy-n{{color:{LIEN};text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}}
-a.np:hover,a.sy-n:hover,a.np:focus-visible,a.sy-n:focus-visible{{text-decoration-thickness:2px;outline:none}}
+a.np{{color:{LIEN};text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}}
+a.np:hover,a.np:focus-visible{{text-decoration-thickness:2px;outline:none}}
+a.sy-n{{color:inherit;text-decoration:none;white-space:nowrap}}
+a.sy-n:hover,a.sy-n:focus-visible{{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;outline:none}}
 .sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
 .sy-w a.t:hover::after,.sy-w a.t:focus::after{{width:min(290px,60vw)}}
 .sy-w p,.sy-v li{{margin:0 0 10px;font:16px/24px {SERIF};text-wrap:pretty}}

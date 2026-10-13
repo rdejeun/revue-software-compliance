@@ -2372,5 +2372,32 @@
   "verifie": "confirmé",
   "raison": "",
   "sujet": "Outils : Pitloom"
+ },
+ {
+  "affirmation": "Pitloom : code sous licence Apache-2.0",
+  "url": "https://github.com/bact/pitloom",
+  "extrait": "Source code: Apache License 2.0",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "README du dépôt officiel (lu le 13 octobre 2026)",
+  "ref": "Pitloom : le projet SPDX a référencé le "
+ },
+ {
+  "affirmation": "Pitloom : documentation sous CC BY 4.0",
+  "url": "https://github.com/bact/pitloom",
+  "extrait": "Documentation: Creative Commons Attribution 4.0 International",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "README du dépôt officiel",
+  "ref": "Pitloom : le projet SPDX a référencé le "
+ },
+ {
+  "affirmation": "Pitloom : l'analyse d'un modèle du Hugging Face Hub passe par l'extension pitloom[huggingface_hub]",
+  "url": "https://github.com/bact/pitloom",
+  "extrait": "or a Hugging Face Hub model (needs pitloom[huggingface_hub])",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "README du dépôt officiel ; aucun passage sur un fonctionnement hors ligne",
+  "ref": "Pitloom : le projet SPDX a référencé le "
  }
 ]
