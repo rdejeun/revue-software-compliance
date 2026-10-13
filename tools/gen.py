@@ -16,6 +16,20 @@ for _d in sorted(os.listdir('..')) if os.path.isdir('..') else []:
             _m=json.load(open(os.path.join('..',_d,'meta.json'),encoding='utf-8'))
             if not _m.get('demo') and _m.get('n') and _m.get('n')!=META.get('n'): NUMEROS[int(_m['n'])]=_d
         except (OSError,ValueError): pass
+def lier_premier(h,nom,url):
+    """Lie la première occurrence de `nom` (texte HTML échappé) hors balises et hors lien existant ; renvoie h inchangé sinon."""
+    dans_a=0; out=[]; fait=False
+    for part in re.split(r'(<[^>]+>)',h):
+        if part.startswith('<'):
+            if re.match(r'<a[\s>]',part): dans_a+=1
+            elif part.startswith('</a'): dans_a=max(0,dans_a-1)
+            out.append(part); continue
+        if not fait and not dans_a:
+            m=re.search(r'(?<![\w-])'+re.escape(nom)+r'(?![\w-])',part)
+            if m:
+                part=part[:m.start()]+f'<a class="np" href="{html.escape(url,True)}" target="_blank" rel="noopener">{m.group(0)}</a>'+part[m.end():]; fait=True
+        out.append(part)
+    return ''.join(out)
 def liens_numeros(h):
     """« N° 1 » / « numéro 1 » (texte HTML d'une synthèse) -> lien vers la page de cette édition, pour les autres éditions publiées."""
     def r(m):
@@ -348,13 +362,20 @@ def render(web):
     SITE=(META.get('site') or '').rstrip('/'); DISO=META.get('date_iso') or ''
     ED_URL=f'{SITE}/{DISO}/' if SITE and DISO else ''
     def EL(sid): return '' if NO_EL else f' <a href="{ED_URL}#{sid}" style="color:{ACC};font-size:14px;text-decoration:none;white-space:nowrap">En savoir plus&nbsp;↗</a>' if ED_URL else ''
-    def syn_html(sm,srcs,sec):
-        """fiche de synthèse (version web) ; en version e-mail, réserve seulement le numéro pour les liens"""
+    def syn_html(sm,srcs,sec,projets=()):
+        """fiche de synthèse (version web) ; en version e-mail, réserve seulement le numéro pour les liens.
+        projets : [(nom, adresse)] des noms d'outils liés dans l'élément ; leur première occurrence dans le texte de la fiche est liée aussi."""
         if not web:
             syns.append(None); return f'syn{len(syns)}'
         T=lambda x:E(typo(x))
         sv_seen=set(seen); sv_used=list(used); seen.clear()
-        M=lambda x:liens_numeros(mark(x,True))
+        reste=[(n,u) for n,u in projets if n.strip()]
+        def M(x):
+            h_=liens_numeros(mark(x,True))
+            for n,u in list(reste):
+                h2=lier_premier(h_,E(typo(n)),u)
+                if h2!=h_: h_=h2; reste.remove((n,u))
+            return h_
         h=[f'<p class="sy-eb">{T(sec)}</p><h3 class="sy-t">{T(sm.get("titre",""))}</h3>']
         meta=[]
         if sm.get('statut'): meta.append(f'<dt>Statut</dt><dd>{T(sm["statut"])}</dd>')
@@ -456,7 +477,7 @@ def render(web):
         g[k-1]['t']=t+(' ' if k<len(g) else '')
         return g
     def item(segs,sm,attrs,kind,small=False):
-        sid=syn_html(sm,srcs_of(segs),cursec) if sm else None
+        sid=syn_html(sm,srcs_of(segs),cursec,[(x['t'],x['href']) for x in segs if x.get('type')=='projet']) if sm else None
         inner=inl(point_final(segs),fs=14 if small else 16)+tail(segs,attrs)
         if web:
             ITEMS.append({'sid':sid,'sec':cursec,'kind':kind,'rappel':bool((attrs or {}).get('rappel')),'date':(attrs or {}).get('date'),'themes':(attrs or {}).get('themes',[]),'segs':segs,'sum':sm,'html':B._post(inner)})
@@ -783,7 +804,7 @@ a.sy-n:hover,a.sy-n:focus-visible{{text-decoration:underline;text-decoration-thi
 @media(min-width:661px){{.sy-m{{column-gap:36px;padding:12px 20px}}}}
 @media(min-width:860px){{.sy-g{{display:flow-root}}.sy-g>.sy-m{{float:right;width:236px;box-sizing:border-box;display:block;margin:4px 0 16px 28px;padding:12px 16px 14px}}.sy-g>.sy-m dd{{margin:2px 0 12px}}.sy-g>.sy-m dd:last-child{{margin-bottom:0}}.sy-c>h4:first-child{{margin-top:4px}}}}
 @media(max-width:660px){{.sy-w{{padding:22px 18px 22px}}.sy-m{{grid-template-columns:1fr;gap:0}}.sy-m dd{{margin-bottom:6px}}}}'''
-    if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if 'sy' in l and not l.startswith(('a.t','a.s'))), js=JS, pill=PILL_JS, synb=SYNB)
+    if web: SYN_ASSETS.update(css='\n'.join(l for l in css.split('\n') if ('sy' in l and not l.startswith(('a.t','a.s'))) or l.startswith('a.np')), js=JS, pill=PILL_JS, synb=SYNB)
     return f'''<!doctype html><html lang="fr"{'' if web else ' xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"'}><head><meta charset="utf-8"><meta name="referrer" content="same-origin">{ICONES if web else MSO_HEAD}<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light">{ROBOTS_META if web else ''}<title>{esc(('Revue de presse du '+META.get('date','')+' – Software Compliance') if web else title)}</title>{'<link rel="alternate" type="application/rss+xml" title="Software Compliance" href="/feed.xml">' if web else ''}{'<link rel="alternate" type="application/rss+xml" title="Software Compliance, le podcast" href="/podcast.xml">' if (web and EP) else ''}<style>{css}{CSS_PIED}@media(min-width:661px){{.stl{{white-space:nowrap}}}}@media(max-width:660px){{.tt,.tt span{{line-height:44px!important}}.stl{{text-wrap:balance}}.w{{padding:22px 18px 20px!important}}td.c{{display:block!important;width:100%!important;padding:0 0 12px!important;box-sizing:border-box}}td.c2{{display:block!important;width:100%!important;padding:0!important}}}}</style>{MATOMO if web else ''}</head>
 <body style="margin:0;background:#ecebe6;{'background-image:url('+FOND+');background-size:512px 512px;' if (web and FOND) else ''}">{'<div style="background:#0f2a4a;color:#fff;font:13px/20px '+SANS+';text-align:center;padding:8px 16px;">Édition de démonstration : contenu de l’édition de référence, avec des synthèses d’exemple.</div>' if web and META.get('demo') else ''}<span style="display:none;max-height:0;overflow:hidden;">La revue de la semaine : conformité logicielle des produits, export et sanctions, licences.</span>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:{'transparent' if (web and FOND) else '#ecebe6'};"><tr><td align="center" style="padding:24px 8px;">
