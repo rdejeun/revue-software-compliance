@@ -2,8 +2,11 @@
 """Écarte d'une édition les informations dont la vérification est douteuse : affirmation « non confirmée » de claims.json
 ou extrait introuvable dans sa source (page lue). La revue n'est jamais bloquée pour cela (README, § 3 et § 7).
 
-Usage : python3 tools/ecarter.py [AAAA-MM-JJ] [--appliquer]
+Usage : python3 tools/ecarter.py [AAAA-MM-JJ] [--appliquer] [--json=FICHIER]
   sans --appliquer : liste seulement ce qui serait écarté (aucun fichier modifié)
+  --json=FICHIER   : écrit aussi le bilan en JSON (workflow « Répétition », tools/repetition.py) : échecs, éléments, sujets du
+                     podcast touchés (marqueur {"sujet": …, "elements": [ref…]} de podcast.json, ou champ « sujet » d'une
+                     affirmation « podcast » de claims.json)
   --appliquer      : retire les éléments de blocks.json (puce, paragraphe « Défense », ligne d'agenda), leurs affirmations de
                      claims.json, les rubriques devenues vides ; écrit le journal veille/ecartes/AAAA-MM-JJ.md
 Un élément est retrouvé par le champ facultatif « ref » de l'affirmation (début du texte de l'élément), à défaut par l'adresse
@@ -55,6 +58,22 @@ def rattacher(c, els):
     if len(cand) > 1 and c.get('ou') == 'article': cand = [e for e in cand if e['kind'] in ('ul', 'p')]   # la même source peut être citée par la puce et par l'agenda
     if len(cand) > 1 and c.get('ou') == 'agenda': cand = [e for e in cand if e['kind'] == 'agenda']
     return cand[0] if len(cand) == 1 else None
+
+
+def sujets_touches(dossier, claims, retires, num_podcast):
+    """Sujets du podcast qui dépendent d'un élément retiré (marqueur {"sujet": …, "elements": [ref…]}) ou d'une affirmation
+    « podcast » en échec ou liée à un élément retiré (champ « sujet » de l'affirmation)."""
+    try: pod = json.load(open(os.path.join(dossier, 'podcast.json'), encoding='utf-8'))
+    except (OSError, ValueError): return []
+    out = []
+    for r in pod.get('repliques') or []:
+        if 'sujet' in r and 't' not in r:
+            refs = [V.norme(x) for x in r.get('elements') or []]
+            if any(e['texte'].startswith(x) or x in e['texte'][:220] for e in retires for x in refs if x): out.append(r['sujet'])
+    for i in num_podcast:
+        c = claims[i - 1]
+        if c.get('ou') == 'podcast' and c.get('sujet') and c['sujet'] not in out: out.append(c['sujet'])
+    return out
 
 
 def retirer(blocks, meta, a_retirer):
@@ -123,8 +142,18 @@ def main():
     pod = [i for i, c in enumerate(claims, 1) if c.get('ou') == 'podcast' and any(norm_url(c.get('url')) in e['urls'] for (e, _) in par_element.values())]
     if pod and par_element: lignes += ['## Podcast à relire', '', 'Des affirmations du podcast citent la source d\'un élément écarté : relire `podcast.json` (aucun fait absent de l\'édition).', '']
     if illisibles: lignes += ['## Pages non vérifiables automatiquement (PDF, accès refusé…)', ''] + [f'- affirmation {i} ({why}) : {claims[i - 1].get("url")}' for i, why in illisibles[:40]] + ['']
+    sujets = sujets_touches(dossier, claims, [e for (e, _) in par_element.values()], [i for i, _ in sans_element] + pod)
+    if sujets: lignes += ['## Sujets du podcast concernés', ''] + [f'- {x}' for x in sujets] + ['']
     txt = '\n'.join(lignes) + '\n'
     print(txt)
+    jf = next((a.split('=', 1)[1] for a in sys.argv if a.startswith('--json=')), None)
+    if jf:
+        J = {'date': d, 'echecs': len(echecs), 'extraits_retrouves': ok, 'illisibles': [{'affirmation': i, 'raison': why, 'url': claims[i - 1].get('url')} for i, why in illisibles],
+             'elements': [{'kind': e['kind'], 'texte': e['texte'][:160], 'affirmations': [{'n': i, 'raison': r, 'affirmation': claims[i - 1].get('affirmation'), 'url': claims[i - 1].get('url'), 'ou': claims[i - 1].get('ou')} for i, r in fails]} for (e, fails) in par_element.values()],
+             'sans_element': [{'n': i, 'raison': r, 'affirmation': claims[i - 1].get('affirmation'), 'url': claims[i - 1].get('url'), 'ou': claims[i - 1].get('ou')} for i, r in sans_element],
+             'podcast_affirmations': pod, 'sujets_podcast': sujets}
+        os.makedirs(os.path.dirname(os.path.abspath(jf)), exist_ok=True)
+        json.dump(J, open(jf, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     if os.environ.get('GITHUB_STEP_SUMMARY'): open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8').write(txt)
     if os.environ.get('GITHUB_ACTIONS'):
         for (e, fails) in par_element.values(): print(f'::warning title=Information écartée ({d})::{e["texte"][:100]}')

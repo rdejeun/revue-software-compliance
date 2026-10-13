@@ -1,0 +1,117 @@
+name: Studio (épisode audio)
+
+# Seul workflow qui consomme des caractères ElevenLabs. Déclenché quand la routine B pousse content/AAAA-MM-JJ/podcast.fige.json
+# sur la branche edition/AAAA-MM-JJ (script figé après une répétition verte), ou à la main (rattrapage, sur la branche ou sur main).
+# Garde-fous, avant tout appel facturé : figeage valide (empreintes du script et des sources), statut « Répétition » vert
+# sur le commit figé, plafond PODCAST_PRODUCTIONS_MAX (2 par défaut). L'épisode est enregistré sur la branche ; la routine C
+# fusionne ensuite la branche dans main. README, § 7, § 9 et § 11.
+
+on:
+  push:
+    branches: ['edition/**']
+    paths: ['content/*/podcast.fige.json']
+  workflow_dispatch:
+    inputs:
+      date:
+        description: 'Édition (AAAA-MM-JJ) ; vide : la dernière'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+  statuses: read
+  actions: write
+
+concurrency:
+  group: studio-${{ github.ref }}
+  cancel-in-progress: false   # jamais d'interruption d'une production facturée
+
+jobs:
+  studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Figeage valide
+        id: fige
+        env:
+          SAISIE: ${{ github.event.inputs.date }}
+        run: |
+          d="${SAISIE:-$(ls content | grep -E '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' | sort | tail -1)}"
+          echo "date=$d" >> "$GITHUB_OUTPUT"
+          python3 tools/podcast.py --verifier-fige "$d"
+          echo "commit=$(python3 -c "import json;print(json.load(open('content/$d/podcast.fige.json'))['commit_repetition'])")" >> "$GITHUB_OUTPUT"
+
+      - name: Répétition verte sur le commit figé
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          s=$(gh api "repos/${{ github.repository }}/commits/${{ steps.fige.outputs.commit }}/status" --jq '[.statuses[] | select(.context=="Répétition")][0].state')
+          echo "Statut « Répétition » du commit ${{ steps.fige.outputs.commit }} : ${s:-absent}"
+          [ "$s" = success ] || { echo "::error title=Studio::Pas de répétition verte sur le commit figé : aucun appel à ElevenLabs."; exit 1; }
+
+      - name: Installer ffmpeg
+        timeout-minutes: 8
+        run: |
+          A="-o Acquire::Retries=3 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"
+          sudo apt-get $A update -q && sudo apt-get $A install -y -q ffmpeg | grep -E '^(Err|W:|E:)|newly installed' || true
+          ffmpeg -version | head -1
+
+      - name: Bibliothèques audio (post-production et contrôle qualité)
+        run: pip install -q numpy scipy soundfile pyloudnorm pedalboard faster-whisper==1.2.1
+
+      - name: Modèle de transcription en cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: whisper-small-v1
+
+      - name: Produire l’épisode audio
+        id: audio
+        timeout-minutes: 45
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_FEMALE: ${{ vars.ELEVENLABS_VOICE_FEMALE }}
+          ELEVENLABS_VOICE_MALE: ${{ vars.ELEVENLABS_VOICE_MALE }}
+          ELEVENLABS_MODEL: ${{ vars.ELEVENLABS_MODEL }}
+          PODCAST_MAX_CHARS: ${{ vars.PODCAST_MAX_CHARS }}
+          PODCAST_PRODUCTIONS_MAX: ${{ vars.PODCAST_PRODUCTIONS_MAX }}
+        run: |
+          python3 tools/podcast.py "${{ steps.fige.outputs.date }}"
+          [ -f "content/${{ steps.fige.outputs.date }}/episode.m4a" ] || { echo "::error title=Studio::Épisode non produit (voir les annotations)."; exit 1; }
+
+      - name: Conserver les fichiers de travail du podcast (30 jours)
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: podcast
+          path: build/podcast/
+          retention-days: 30
+          if-no-files-found: ignore
+
+      # toujours, même en échec : le compteur d'essais (episode.essais.json) doit être conservé (plafond de dépense)
+      - name: Enregistrer l’épisode et les essais
+        if: always() && steps.fige.outputs.date != ''
+        run: |
+          d="${{ steps.fige.outputs.date }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/$d/episode.* 2>/dev/null || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Épisode audio du $d [skip ci]"
+          for i in 1 2 3; do git pull --rebase origin "${{ github.ref_name }}" && git push origin "HEAD:${{ github.ref_name }}" && break; sleep 5; done
+
+      # rattrapage lancé à la main sur main : le commit du robot ne déclenche pas la publication, on la relance sans e-mail
+      - name: Republier le site (rattrapage sur main)
+        if: success() && github.ref_name == 'main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run publier.yml --ref main -f envoi=aucun
