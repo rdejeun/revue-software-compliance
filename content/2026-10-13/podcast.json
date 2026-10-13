@@ -1,0 +1,182 @@
+{
+ "titre": "Revue Software Compliance, numéro 2 : liste de contrôle du CRA, classement export britannique suspendu et trois outils",
+ "description": "Numéro deux : la liste de contrôle du CRA publiée par OpenChain, la pause du service britannique de classement des biens contrôlés, les nouvelles versions d'OSV-Scanner et d'ORT, l'outil Pitloom et la règle des affiliés du BIS.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi treize octobre deux mille vingt-six, et voici le numéro deux."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Cette semaine, une liste de contrôle pour le règlement européen sur la cyber-résilience, un service de classement à l'export mis en pause au Royaume-Uni, et trois outils qui aident à suivre les composants d'un logiciel."
+  },
+  {
+   "sujet": "CRA : une liste de contrôle d'OpenChain"
+  },
+  {
+   "v": "A",
+   "t": "Commençons par le règlement européen sur la cyber-résilience, le CRA. Qu'est-ce qui est tombé cette semaine ?"
+  },
+  {
+   "v": "B",
+   "t": "OpenChain a publié la version un point zéro de sa liste de contrôle pour le CRA. Sa lettre d'information du douze octobre indique que la publication date du onze septembre deux mille vingt-six. C'est le jour même où la déclaration des vulnérabilités exploitées est devenue obligatoire."
+  },
+  {
+   "v": "A",
+   "t": "Une liste de contrôle, ça sert à quoi, concrètement ? Comme les listes qu'on coche avant le décollage d'un avion ?"
+  },
+  {
+   "v": "B",
+   "t": "L'image est bonne. OpenChain la décrit comme une ressource d'autocertification et de préparation. Elle est reliée au règlement européen deux mille vingt-quatre barre deux mille huit cent quarante-sept. Et elle est alignée sur deux normes ISO, la cinq mille deux cent trente et la dix-huit mille neuf cent soixante-quatorze, ainsi que sur une directive technique de l'office allemand de la sécurité informatique, le BSI."
+  },
+  {
+   "v": "A",
+   "t": "[curious] Donc si une entreprise coche toutes les cases, elle est en règle avec le CRA ?"
+  },
+  {
+   "v": "B",
+   "t": "Non, et c'est le point à retenir. OpenChain parle d'autocertification : c'est l'entreprise qui s'évalue elle-même. Et ça ne dispense pas de regarder, produit par produit, si le règlement s'applique. Pour un industriel de défense, il reste la question de l'exclusion prévue à l'article deux pour les produits développés exclusivement à des fins de défense."
+  },
+  {
+   "sujet": "CRA : et pour nous, concrètement ?"
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Un client ou un fournisseur pourrait demander une autoévaluation fondée sur cette liste. Et OpenChain annonce une version deux pour deux mille vingt-sept, qui pourrait changer le contenu. L'application complète du règlement, elle, reste fixée au onze décembre deux mille vingt-sept."
+  },
+  {
+   "sujet": "Royaume-Uni : le classement à l'export suspendu"
+  },
+  {
+   "v": "A",
+   "t": "Passons au commerce international. Le Royaume-Uni a mis un service en pause ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Le douze octobre, l'unité britannique de contrôle des exportations, qu'on appelle l'ECJU, a publié un avis aux exportateurs. Elle suspend à partir du douze octobre son service de classement. C'est le service qui aidait les exportateurs à savoir si un bien, un logiciel ou une technologie figure sur la liste de contrôle."
+  },
+  {
+   "v": "A",
+   "t": "Pourquoi cette pause ?"
+  },
+  {
+   "v": "B",
+   "t": "L'avis explique qu'il devient de plus en plus difficile de fournir ce service tout en traitant les demandes de licence sans retard. Les demandes reçues avant le douze octobre restent traitées, mais plus lentement. Pour les nouvelles, l'ECJU demande de ne pas en soumettre, parce qu'elles ne seront pas traitées."
+  },
+  {
+   "v": "A",
+   "t": "Et jusqu'à quand ?"
+  },
+  {
+   "v": "B",
+   "t": "L'avis ne donne pas de date de reprise. L'ECJU étudie une façon de rendre le service avec moins de ressources, et promet un point avant la fin de l'année."
+  },
+  {
+   "v": "A",
+   "t": "Qu'est-ce que ça change pour une entreprise ?"
+  },
+  {
+   "v": "B",
+   "t": "Pendant la suspension, on ne peut plus demander d'avis officiel de classement britannique. Et l'avis le rappelle : le classement reste de la responsabilité de l'exportateur. Un composant logiciel soumis au contrôle britannique pourrait donc voir sa classification retardée, et il faudrait alors documenter son propre classement."
+  },
+  {
+   "sujet": "Outils : OSV-Scanner"
+  },
+  {
+   "v": "A",
+   "t": "Côté outils, on commence par OSV-Scanner. De quoi s'agit-il ?"
+  },
+  {
+   "v": "B",
+   "t": "C'est un scanneur open source qui compare la liste des composants d'un produit à une base publique de vulnérabilités. La version deux point sept est sortie le douze octobre. La précédente, la deux point six, datait du quatorze septembre."
+  },
+  {
+   "v": "A",
+   "t": "Qu'est-ce qui change ?"
+  },
+  {
+   "v": "B",
+   "t": "La sortie au format JSON indique maintenant l'identifiant du paquet, ce qu'on appelle le purl, quand il est disponible. Et la sortie au format CycloneDX donne la gravité des vulnérabilités. Le scanneur analyse aussi par défaut un fichier propre au langage Dart. Enfin, une correction empêche une sortie de chemin dans le cache du registre Maven."
+  },
+  {
+   "v": "A",
+   "t": "Et sur un réseau coupé d'Internet, ça fonctionne ?"
+  },
+  {
+   "v": "B",
+   "t": "Partiellement. En mode hors ligne, l'outil n'envoie aucune information sur le projet et utilise une base locale téléchargée. Mais l'analyse par commit n'est pas prise en charge. Autre détail de cette version : quand on combine l'option hors ligne avec le téléchargement des bases, les greffons qui ont besoin du réseau ne s'exécutent plus."
+  },
+  {
+   "v": "A",
+   "t": "Donc il faut noter la version de l'outil dans ses preuves de contrôle ?"
+  },
+  {
+   "v": "B",
+   "t": "C'est le bon réflexe. La version compte pour la traçabilité d'un résultat, puisque les rapports contiennent de nouveaux champs."
+  },
+  {
+   "sujet": "Outils : ORT et Pitloom"
+  },
+  {
+   "v": "A",
+   "t": "Deuxième outil, ORT. Là, c'est plus technique, non ?"
+  },
+  {
+   "v": "B",
+   "t": "ORT, c'est le sigle de OSS Review Toolkit, une suite open source sous licence Apache deux point zéro qui analyse la conformité des dépendances d'un projet. La version quatre-vingt-seize est sortie le huit octobre. Elle ajoute un greffon appelé Nomos pour détecter les licences, et deux options pour le service SCANOSS, un service de détection de composants open source."
+  },
+  {
+   "v": "A",
+   "t": "Y a-t-il des précautions à prendre ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, la version contient six modifications cassantes. Cela touche surtout les interfaces de stockage et de téléchargement. Les équipes qui ont branché ORT sur leurs propres outils devront donc vérifier leurs intégrations. Quant au fonctionnement hors ligne, les sources consultées ne le documentent pas."
+  },
+  {
+   "v": "A",
+   "t": "[thoughtful] Et le troisième outil ?"
+  },
+  {
+   "v": "B",
+   "t": "Pitloom, référencé le douze octobre par le projet SPDX. Il génère des nomenclatures logicielles au format SPDX trois pour les applications Python et pour les modèles d'intelligence artificielle. La page ne donne pas sa licence. C'est une information à demander avant de l'adopter."
+  },
+  {
+   "sujet": "Une date à retenir"
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu'une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Le dix novembre deux mille vingt-six. Ce jour-là, la règle des affiliés du BIS américain se réimposera automatiquement, sauf action du BIS. Cette règle étend les restrictions de la liste des entités à celles qui sont détenues à cinquante pour cent ou plus par des entités inscrites. Des clients aujourd'hui autorisés pourraient alors devenir soumis à licence, mises à jour logicielles comprises."
+  },
+  {
+   "v": "A",
+   "t": "Donc il vaut mieux vérifier les chaînes de détention avant cette date."
+  },
+  {
+   "v": "B",
+   "t": "Le filtrage des contreparties doit couvrir la chaîne de détention, oui."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "Merci d'avoir écouté ce numéro deux de la revue de presse Software Compliance."
+  },
+  {
+   "v": "B",
+   "t": "Retrouvez les synthèses complètes sur le site de la revue. À la semaine prochaine."
+  }
+ ]
+}
