@@ -37,7 +37,7 @@ CONFIG = {
     # Habillage sonore : même son en ouverture et en clôture (tools/habillage.mp3, « Tech Logo Intro »,
     # sergequadrado, Pixabay), ramené 2 LU sous la voix, superposé à la voix sur `recouvrement_s` secondes en ouverture et en clôture, sans
     # fondu enchaîné (le jingle commence et finit en fondu) ; recouvrement 0 : bout à bout, avec les blancs indiqués.
-    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120, 'recouvrement_s': 1.5},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120, 'recouvrement_s': 0.8},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
