@@ -36,9 +36,10 @@ CONFIG = {
     'aac_kbps': 64,
     # Habillage sonore : même son en ouverture et en clôture (tools/habillage.mp3, « Tech Logo Intro »,
     # sergequadrado, Pixabay), ramené 2 LU sous la voix, superposé à la voix sans fondu enchaîné : 0,8 s en ouverture (`recouvrement_debut_s`, fin du jingle
-    # en fondu) ; 1,2 s en clôture (`recouvrement_fin_s`), avec un fondu d'entrée de 1,5 s sur le jingle (`fondu_fin_ms`) ;
+    # en fondu) ; 1,7 s en clôture (`recouvrement_fin_s`), avec un fondu d'entrée exponentiel de 2 s sur le jingle
+    # (`fondu_fin_ms`, `fondu_fin_courbe` : 0 linéaire, 3 légèrement exponentiel) ;
     # recouvrements à 0 : bout à bout, avec les blancs indiqués.
-    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120, 'recouvrement_debut_s': 0.8, 'recouvrement_fin_s': 1.2, 'fondu_fin_ms': 1500},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
+    'habillage': {'fichier': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'habillage.mp3'), 'lufs': -21, 'blanc_debut_s': 0, 'blanc_fin_s': 0.6, 'attaque_ms': 120, 'recouvrement_debut_s': 0.8, 'recouvrement_fin_s': 1.7, 'fondu_fin_ms': 2000, 'fondu_fin_courbe': 3},                    # export M4A (AAC-LC) mono : −31 % par rapport au MP3 96 kbps, validé à l'écoute
     'pause_s': 0.6,                    # silence entre deux blocs (= entre deux sujets)
 }
 
@@ -271,6 +272,20 @@ def adoucir_attaque(x, ms):
     return y
 
 
+def fondu_entree(x, ms, k):
+    """Fondu d'entrée de `ms` millisecondes à partir du premier son, en courbe exponentielle douce :
+    g(t) = (e^(k·t) − 1) / (e^k − 1), t de 0 à 1 ; k = 0 donne un fondu linéaire, k = 3 monte lentement puis plus vite."""
+    if not ms: return x
+    y = x.copy(); env = np.abs(y if y.ndim == 1 else y.max(axis=1))
+    i = int(np.argmax(env > 0.003)); n = int(SR * ms / 1000)
+    t = np.linspace(0, 1, n)
+    g = t if not k else np.expm1(k * t) / np.expm1(k)
+    seg = y[i:i + n]; g = g[:len(seg)]
+    y[i:i + n] = seg * (g if y.ndim == 1 else g[:, None])
+    y[:i] = 0
+    return y
+
+
 def habiller(master, sortie_wav):
     """Ajoute l'habillage en début et en fin. Renvoie (durée ajoutée, durée avant la voix), en secondes ; (0, 0) sans fichier d'habillage."""
     h = CONFIG.get('habillage') or {}
@@ -294,7 +309,8 @@ def habiller(master, sortie_wav):
     # conçu pour commencer et finir en fondu). Si la somme dépasse le true peak visé, le jingle concerné est atténué en entier
     # (jamais de saut de niveau au milieu).
     # le jingle de clôture reçoit un fondu d'entrée (`fondu_fin_ms`) à la place de l'attaque adoucie, pour ne pas couvrir les derniers mots
-    jf = adoucir_attaque(sf.read(norm, always_2d=True)[0], h.get('fondu_fin_ms') or h.get('attaque_ms', 0))
+    jf = sf.read(norm, always_2d=True)[0]
+    jf = fondu_entree(jf, h['fondu_fin_ms'], h.get('fondu_fin_courbe', 0)) if h.get('fondu_fin_ms') else adoucir_attaque(jf, h.get('attaque_ms', 0))
     if jf.shape[1] != v.shape[1]: jf = np.repeat(jf.mean(1, keepdims=True), v.shape[1], axis=1)
     debut, fin = len(j) - r1, len(j) - r1 + len(v) - r2          # début de la voix, début du jingle de clôture
     out = np.zeros((fin + len(jf), v.shape[1]))
