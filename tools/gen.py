@@ -9,7 +9,6 @@ from commun import typo,E,esc,mark,blocks,G,used,seen,SANS,SERIF,NB
 import sys,os
 META=json.load(open('meta.json'))
 # numéros des éditions publiées (dossiers voisins ../AAAA-MM-JJ/meta.json) : « N° 1 » d'une synthèse devient un lien vers l'édition
-LIEN='#1d4ed8'   # lien du nom d'outil vers sa page officielle (le bleu est réservé aux liens) ; les renvois « 📰 N° n » restent dans la couleur du texte
 NUMEROS={}
 for _d in sorted(os.listdir('..')) if os.path.isdir('..') else []:
     if re.fullmatch(r'\d{4}-\d{2}-\d{2}',_d) and os.path.isfile(os.path.join('..',_d,'meta.json')):
@@ -417,7 +416,7 @@ def render(web):
             if x.get('type')=='projet':   # nom d'outil ou de projet lié à sa page officielle (README, § 6) : lien du texte, pas une source
                 a=esc(x['href'],True); lab=E(typo(t))
                 if web: lk=f'<a class="np" href="{a}" target="_blank" rel="noopener">{lab}</a>'
-                else: lk=f'<a href="{a}" style="color:{LIEN};text-decoration:underline;">{lab}</a>'
+                else: lk=f'<a href="{a}" style="border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none;">{lab}</a>'
                 r.append(f'<b style="font:600 {fs}px/1 {SANS};color:{NAVY};">{lk}</b>' if x.get('b') else lk)
                 continue
             if x.get('href'):
@@ -762,8 +761,8 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w h4::before{{content:'';display:inline-block;width:12px;height:2px;margin:0 8px 0 0;background:{ACC};vertical-align:.32em}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
-a.np{{color:{LIEN};text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}}
-a.np:hover,a.np:focus-visible{{text-decoration-thickness:2px;outline:none}}
+a.np{{border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none}}
+a.np:hover,a.np:focus-visible{{border-bottom-color:{NAVY};outline:none}}
 a.sy-n{{color:inherit;text-decoration:none;white-space:nowrap}}
 a.sy-n:hover,a.sy-n:focus-visible{{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;outline:none}}
 .sy-w a.t:hover,.sy-w a.t:focus{{border-bottom-color:{NAVY}}}
