@@ -1,0 +1,72 @@
+{
+ "duree_s": 271,
+ "octets": 2249896,
+ "mots": 768,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-10-13T10:14:15Z",
+ "sha_script": "cccf144bc74e1ce53c82aa97738bc434ea6327fb1fec6f263f2ebed805f9223a",
+ "extrait": false,
+ "repliques": 28,
+ "prononciation": "dictionnaire ElevenLabs 4bBGnxhrzEQSO0v2Q0dM",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "9.5 → 1.0 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 62 → 27 ms, B 23 → 21 ms",
+  "Durée": "255.7 s (blocs : 255.9 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "12.2 % de mots différents sur 817"
+ },
+ "requetes": 4,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "CRA : une liste de contrôle d'OpenChain",
+   "court": "CRA",
+   "debut_s": 27.8
+  },
+  {
+   "titre": "CRA : et pour nous, concrètement ?",
+   "court": "CRA",
+   "debut_s": 100.7
+  },
+  {
+   "titre": "Royaume-Uni : le classement à l'export suspendu",
+   "court": "Royaume-Uni",
+   "debut_s": 117.3
+  },
+  {
+   "titre": "Outils : Pitloom",
+   "court": "Outils",
+   "debut_s": 185.5
+  },
+  {
+   "titre": "Une date à retenir",
+   "court": "Une date à retenir",
+   "debut_s": 225.3
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 254.9
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "e1a3a18604e8"
+}

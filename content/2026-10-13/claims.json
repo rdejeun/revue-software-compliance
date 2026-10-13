@@ -2277,156 +2277,13 @@
   "raison": ""
  },
  {
-  "affirmation": "OSV-Scanner compare les composants à une base publique de vulnérabilités (scanneur open source)",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.6.0",
-  "extrait": "Vulnerability scanner written in Go which uses the data provided by https://osv.dev",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Description du dépôt : « Vulnerability scanner written in Go which uses the data provided by https://osv.dev » (WebFetch) Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "La version 2.7 est sortie le 12 octobre",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.7.0",
-  "extrait": "released this 12 Oct",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Lu via WebFetch ; sans année Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "La précédente, la 2.6, datait du 14 septembre",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.6.0",
-  "extrait": "released this 14 Sep",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Lu via WebFetch ; sans année Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "La sortie JSON indique l'identifiant du paquet (purl) quand il est disponible",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.7.0",
-  "extrait": "in JSON output when available",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "La sortie CycloneDX donne la gravité des vulnérabilités",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.7.0",
-  "extrait": "Include vulnerability severity and rating in CycloneDX output when available",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "Le scanneur analyse par défaut un fichier propre au langage Dart",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.7.0",
-  "extrait": "extractor by default for lockfile scans",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "Une correction empêche une sortie de chemin dans le cache du registre Maven",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.7.0",
-  "extrait": "Confine Maven registry disk cache writes with",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "En mode hors ligne, l'outil n'envoie aucune information sur le projet",
-  "url": "https://google.github.io/osv-scanner/usage/offline-mode/",
-  "extrait": "nor will it send any project or dependency information anywhere",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "En mode hors ligne, l'outil utilise une base locale téléchargée",
-  "url": "https://google.github.io/osv-scanner/usage/offline-mode/",
-  "extrait": "causes OSV-Scanner to scan your project against a previously downloaded local database",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "L'analyse par commit n'est pas prise en charge",
-  "url": "https://google.github.io/osv-scanner/usage/offline-mode/",
-  "extrait": "Commit level scanning is not supported",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "Avec l'option hors ligne combinée au téléchargement des bases, les greffons qui ont besoin du réseau ne s'exécutent plus",
-  "url": "https://github.com/google/osv-scanner/releases/tag/v2.7.0",
-  "extrait": "Prevent network-requiring plugins (such as base image enrichment) from running when",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Fin de la ligne tronquée par l'outil de lecture ; voir l'élément correspondant Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "ORT est le sigle de OSS Review Toolkit, une suite open source qui analyse la conformité",
-  "url": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0",
-  "extrait": "A suite of tools to automate software compliance checks",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Description du dépôt (WebFetch) Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "ORT est sous licence Apache 2.0",
-  "url": "https://raw.githubusercontent.com/oss-review-toolkit/ort/main/LICENSE",
-  "extrait": "Apache License Version 2.0, January 2004",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": ""
- },
- {
-  "affirmation": "La version 96 est sortie le 8 octobre",
-  "url": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0",
-  "extrait": "released this 08 Oct",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Lu via WebFetch ; sans année Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "Elle ajoute un greffon Nomos pour détecter les licences",
-  "url": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0",
-  "extrait": "scanner: Add Nomos plugin for license scanning",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "Elle ajoute deux options pour le service SCANOSS (PURL à ignorer)",
-  "url": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0",
-  "extrait": "scanoss: Allow to configure PURLs to ignore for matching",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "Elle ajoute deux options pour le service SCANOSS (paquets couverts rapportés comme PURL inclus)",
-  "url": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0",
-  "extrait": "scanoss: Provide covered packages as included PURLs",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
-  "affirmation": "La version contient six modifications cassantes (interfaces de stockage et de téléchargement)",
-  "url": "https://github.com/oss-review-toolkit/ort/releases/tag/96.0.0",
-  "extrait": "refactor(downloader)!: Align on Result instead of throws",
-  "ou": "podcast",
-  "verifie": "confirmé",
-  "raison": "Six entrées « Breaking Changes » : downloader, ProvenanceFileStorage, FileStorage, PackageProvenanceStorage, NestedProvenanceStorage, stockage des scans (WebFetch) Page illisible par curl (403) : extrait relevé via WebFetch."
- },
- {
   "affirmation": "Pitloom a été référencé le 12 octobre par le projet SPDX",
   "url": "https://spdx.dev/and-another-tool/",
   "extrait": "And another Tool! By podence October 12, 2026",
   "ou": "podcast",
   "verifie": "confirmé",
-  "raison": ""
+  "raison": "",
+  "sujet": "Outils : Pitloom"
  },
  {
   "affirmation": "Pitloom génère des nomenclatures logicielles SPDX 3 pour les applications Python et les modèles d'IA",
@@ -2434,7 +2291,8 @@
   "extrait": "Pitloom automates the generation of SPDX 3-compliant Software Bills of Materials (SBOMs) for Python applications and AI models",
   "ou": "podcast",
   "verifie": "confirmé",
-  "raison": ""
+  "raison": "",
+  "sujet": "Outils : Pitloom"
  },
  {
   "affirmation": "Le 10 novembre 2026, la règle des affiliés du BIS se réimposera automatiquement, sauf action du BIS",
@@ -2505,5 +2363,14 @@
   "verifie": "confirmé",
   "raison": "",
   "ref": "11 décembre 2026 Nombre suffisant d'orga"
+ },
+ {
+  "affirmation": "Pitloom lit plusieurs formats de modèles d'IA, dont PyTorch et ONNX",
+  "url": "https://spdx.dev/and-another-tool/",
+  "extrait": "leading AI model formats, including PyTorch, ONNX, Safetensors, GGUF, and fastText",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "sujet": "Outils : Pitloom"
  }
 ]
