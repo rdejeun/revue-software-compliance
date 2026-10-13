@@ -8,8 +8,7 @@ name: Répétition de l’édition
 
 on:
   push:
-    branches: ['edition/**']
-    paths: ['content/**', 'tools/**', '!content/*/podcast.fige.json', '!content/*/episode.*']
+    branches: ['edition/**']   # sans filtre de chemins : le premier push d'une branche neuve doit toujours déclencher la répétition
   workflow_dispatch:
 
 permissions:
@@ -33,12 +32,24 @@ jobs:
         with:
           python-version: '3.12'
 
+      # un push qui ne touche que le figeage ou l'épisode (déclenche « Studio ») ou des rapports n'appelle pas de répétition
+      - name: Répétition nécessaire ?
+        id: besoin
+        env:
+          AVANT: ${{ github.event.before }}
+        run: |
+          if [ "${{ github.event_name }}" != push ] || [ -z "$AVANT" ] || [ "$AVANT" = 0000000000000000000000000000000000000000 ] || ! git cat-file -e "$AVANT^{commit}" 2>/dev/null; then echo "oui=1" >> "$GITHUB_OUTPUT"; exit 0; fi
+          autres=$(git diff --name-only "$AVANT" "${{ github.sha }}" | grep -E '^(content|tools)/' | grep -vE '^content/[^/]+/(podcast\.fige\.json|episode\.)' || true)
+          if [ -n "$autres" ]; then echo "oui=1" >> "$GITHUB_OUTPUT"; else echo "oui=0" >> "$GITHUB_OUTPUT"; echo "Rien à répéter : ni content/ ni tools/ modifiés hors figeage et épisode."; fi
+
       - name: Statut « en cours »
+        if: steps.besoin.outputs.oui == '1'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X POST "repos/${{ github.repository }}/statuses/${{ github.sha }}" -f state=pending -f context="Répétition" -f description="Répétition en cours" > /dev/null
 
       - name: ffmpeg et bibliothèques audio (essai à blanc)
+        if: steps.besoin.outputs.oui == '1'
         continue-on-error: true
         timeout-minutes: 8
         run: |
@@ -47,19 +58,21 @@ jobs:
           pip install -q numpy scipy soundfile pyloudnorm pedalboard faster-whisper==1.2.1
 
       - name: Modèle de transcription en cache
+        if: steps.besoin.outputs.oui == '1'
         uses: actions/cache@v4
         with:
           path: ~/.cache/huggingface
           key: whisper-small-v1
 
       - name: Répéter l’édition (contrôle, aperçu des écarts, podcast à blanc, solde)
+        if: steps.besoin.outputs.oui == '1'
         id: rep
         env:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}   # lecture du solde seulement (/v1/user/subscription)
         run: python3 tools/repetition.py
 
       - name: Conserver l’essai à blanc (7 jours)
-        if: always()
+        if: always() && steps.besoin.outputs.oui == '1'
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
@@ -71,6 +84,7 @@ jobs:
           if-no-files-found: ignore
 
       - name: Enregistrer le rapport sur la branche
+        if: steps.besoin.outputs.oui == '1'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -80,7 +94,7 @@ jobs:
           for i in 1 2 3; do git pull --rebase origin "${{ github.ref_name }}" && git push origin "HEAD:${{ github.ref_name }}" && break; sleep 5; done
 
       - name: Statut final
-        if: always()
+        if: always() && steps.besoin.outputs.oui == '1'
         env:
           GH_TOKEN: ${{ github.token }}
           VERDICT: ${{ steps.rep.outputs.verdict }}
