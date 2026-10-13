@@ -51,7 +51,7 @@ def construire(infos, themes, G):
 
 
 JS = r'''(function(){
-var D=null,MS=null,champ=document.getElementById('q'),selD=document.getElementById('f-d'),selE=document.getElementById('f-e'),res=document.getElementById('res'),cpt=document.getElementById('cpt');
+var D=null,MS=null,champ=document.getElementById('q'),selD=document.getElementById('f-d'),res=document.getElementById('res'),cpt=document.getElementById('cpt');
 var MIN=3;   /* pas de résultat sous 3 caractères (lettres et chiffres, hors opérateurs et espaces) */
 var STOP=new Set('a à au aux avec ce ces cet cette d dans de des du elle elles en est et il ils j l la le les leur leurs ne ni nous on ou par pas plus pour qu que qui s sa se ses si son sont sur un une vous y'.split(' '));
 function pli(c){var f=c.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();return f.length===1?f:c.toLowerCase().slice(0,1)}
@@ -62,13 +62,12 @@ function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&
 function charger(){if(D)return Promise.resolve();return fetch('/recherche/docs.json').then(function(r){return r.json()}).then(function(j){D=j;
  MS=new MiniSearch({fields:['t','a','y'],storeFields:[],idField:'id',tokenize:jetons,processTerm:terme,searchOptions:{boost:{t:3,a:2},prefix:true,fuzzy:function(t){return t.length>5?0.15:0}}});
  D.docs.forEach(function(d,i){d.id=i});MS.addAll(D.docs);
- D.themes&&Object.keys(D.themes).forEach(function(k){var o=document.createElement('option');o.value=k;selD.appendChild(o)});libelles();if(window.matchMedia)matchMedia('(min-width:661px)').addEventListener('change',libelles);
- if(D.editions.length>1){D.editions.slice().reverse().forEach(function(e){var o=document.createElement('option');o.value=e.d;o.textContent='N° '+e.n+' · '+e.date;selE.appendChild(o)})}else selE.parentNode.hidden=true})}
+ D.themes&&Object.keys(D.themes).forEach(function(k){var o=document.createElement('option');o.value=k;selD.appendChild(o)});libelles();if(window.matchMedia)matchMedia('(min-width:661px)').addEventListener('change',libelles);})}
 function libelles(){var long=window.matchMedia&&matchMedia('(min-width:661px)').matches;[].forEach.call(selD.options,function(o){if(o.value&&D.themes[o.value])o.textContent=D.themes[o.value][long?1:0]})}   /* intitulés longs quand la place le permet */
 function variantes(q){var f=plier(q),v=[q];D.syn.forEach(function(p){var a=plier(p[0]),b=plier(p[1]);
  var ra=new RegExp('(^|[^\\p{L}\\p{N}])'+a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','u'),rb=new RegExp('(^|[^\\p{L}\\p{N}])'+b.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?=$|[^\\p{L}\\p{N}])','u');
  if(ra.test(f))v.push(f.replace(ra,'$1'+b));else if(rb.test(f))v.push(f.replace(rb,'$1'+a))});return v}
-function filtre(r){var d=D.docs[r.id];return(!selD.value||d.h.indexOf(selD.value)>=0)&&(!selE.value||d.e===selE.value)}
+function filtre(r){var d=D.docs[r.id];return!selD.value||d.h.indexOf(selD.value)>=0}
 function classer(m){var ids=Object.keys(m).map(Number);ids.sort(function(a,b){return m[b]-m[a]||(D.docs[b].e>D.docs[a].e?1:-1)});return ids}
 function chercher(q){var m={};variantes(q).forEach(function(v,k){[['AND',1],['OR',.35]].forEach(function(c){if(k&&c[0]==='OR')return;MS.search(v,{combineWith:c[0],filter:filtre}).forEach(function(r){var s=r.score*c[1]*(k?.45:1);if(!(r.id in m)||m[r.id]<s)m[r.id]=s})})});return m}
 /* syntaxe : "phrase exacte" ; +mot (obligatoire, AND) ; -mot (exclu, AND_NOT) ; -"phrase" exclue ; les autres mots : tous d'abord, puis l'un d'eux */
@@ -98,12 +97,12 @@ function afficher(q,ids,tt){var h='',n=ids.length;cpt.textContent=q?(n?n+' résu
  res.innerHTML=h+(n>60?'<li class="rm">Affinez la recherche : '+(n-60)+' autres résultats.</li>':'')}
 var tempo;function lancer(maj){var q=champ.value.trim();return charger().then(function(){
  if(!q||jetons(q).join('').length<MIN){res.innerHTML='';cpt.textContent=q?'Saisissez au moins '+MIN+' caractères.':''}else{var rr=recherche(q);afficher(q,rr.ids,rr.tt)}
- if(maj!==false){var u=new URLSearchParams();if(q)u.set('q',q);if(selD.value)u.set('d',selD.value);if(selE.value)u.set('e',selE.value);history.replaceState(null,'',u.toString()?'?'+u:location.pathname)}
+ if(maj!==false){var u=new URLSearchParams();if(q)u.set('q',q);if(selD.value)u.set('d',selD.value);history.replaceState(null,'',u.toString()?'?'+u:location.pathname)}
  /*SUIVI*/})}
-champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(lancer,120)});selD.addEventListener('change',lancer);selE.addEventListener('change',lancer);
+champ.addEventListener('input',function(){clearTimeout(tempo);tempo=setTimeout(lancer,120)});selD.addEventListener('change',lancer);
 document.getElementById('rech').addEventListener('submit',function(e){e.preventDefault();clearTimeout(tempo);lancer().then(function(){var a=res.querySelector('a.rs');if(a){champ.blur();a.focus()}})});   /* Entrée : le focus passe au premier résultat */
 var p=new URLSearchParams(location.search);champ.value=p.get('q')||'';
-charger().then(function(){if(p.get('d'))selD.value=p.get('d');if(p.get('e'))selE.value=p.get('e');lancer(false)});
+charger().then(function(){if(p.get('d'))selD.value=p.get('d');lancer(false)});
 /* flèches : du champ au premier résultat, d'un résultat à l'autre, retour au champ (Échap ou flèche haut depuis le premier) */
 function liens(){return[].slice.call(res.querySelectorAll('a.rs'))}
 function allerA(a){if(a){champ.blur();a.focus()}}
@@ -158,7 +157,7 @@ def ecrire(infos, themes, G, page, write, SITE, TOOLS_DIR):
     corps = (CSS + '<div class="rch"><form id="rech" role="search" autocomplete="off"><div class="fq"><label for="q">Rechercher dans les articles</label>'
              '<div class="ic"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><circle cx="6.8" cy="6.8" r="4.6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.3 10.3 14 14" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><input id="q" type="search" placeholder="CRA, SBOM, licence GPL, classement ECCN…" enterkeyhint="search" aria-describedby="aide"></div><p id="aide">Astuces : <b>"phrase exacte"</b> · <b>+mot</b> obligatoire · <b>-mot</b> exclu</p></div>'
              '<div class="fs"><label for="f-d">Limiter au dossier</label><div class="ic ic-d"><svg class="ico" viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path d="M1.75 4.25a1 1 0 0 1 1-1h3.1l1.4 1.5h6a1 1 0 0 1 1 1v6.5a1 1 0 0 1-1 1h-10.5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><select id="f-d"><option value="">Tous</option></select></div></div>'
-             '<div class="fs"><label for="f-e">Édition</label><select id="f-e"><option value="">Toutes</option></select></div></form>'
+             '</form>'
              '<div id="cpt" role="status" aria-live="polite"></div><ul id="res"></ul>'
              '<noscript><p>La recherche demande JavaScript. Vous pouvez parcourir les <a href="/archives/">archives</a> et les <a href="/dossiers/">dossiers</a>.</p></noscript></div>'
              '<script src="/assets/minisearch.min.js"></script><script>' + JS.replace('/*SUIVI*/', suivi) + '</script>')
