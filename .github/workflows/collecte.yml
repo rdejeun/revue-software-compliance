@@ -3,13 +3,14 @@ name: Relevé des sources de veille
 # Relève les publications des sources de référence (tools/sources.json) parues depuis la dernière édition et dépose le
 # relevé dans veille/collecte/<date de l'édition>.md, que la routine lit en premier (README, § 3 et § 7).
 # Exécuté sur les serveurs de GitHub : les flux bloqués dans les sessions de rédaction (versions GitHub) y sont lisibles.
-# Calendrier : le mardi à 0 h 47 UTC (2 h 47 en heure d'été à Paris, 1 h 47 en heure d'hiver), minute « creuse » et marge d'une heure avant la routine, juste avant la routine. GitHub peut retarder ou omettre
+# Calendrier : la veille de l'édition, le lundi à 18 h 47 UTC (20 h 47 en heure d'été à Paris, 19 h 47 en heure d'hiver) :
+# le 13 octobre 2026, l'exécution programmée à 0 h 47 UTC n'a démarré qu'à 7 h 05, après la routine A. GitHub peut retarder ou omettre
 # une exécution programmée : la routine lance alors tools/collecte.py elle-même (README, § 3). Le dossier veille/ ne
 # déclenche pas la publication.
 
 on:
   schedule:
-    - cron: '47 0 * * 2'
+    - cron: '47 18 * * 1'
   workflow_dispatch:
 
 permissions:

@@ -21,7 +21,7 @@ Lecteur : le référent Software Compliance d'une entreprise française de défe
 
 ## 3. Fiabilité des sources
 
-1. **Relevé systématique d'abord** : le mardi vers 2 h 47 (heure de Paris ; 1 h 47 en hiver), avec plus d'une heure de marge avant la routine, le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`, script `tools/collecte.py`, sources de `tools/sources.json`) dépose dans `veille/collecte/AAAA-MM-JJ.md` la liste datée de tout ce que les sources à flux (Federal Register, CISA KEV, EUVD, CERT-FR, Conseil de l'UE, ECJU, OpenSSF, OpenChain, SPDX, SFC, versions des outils) ont publié depuis la dernière édition ; chaque candidat est trié (règle d'or). S'il manque, lancer `python3 tools/collecte.py` (les flux GitHub peuvent être bloqués dans la session). **Sources de référence ensuite** : consulter chaque semaine les sources sans flux de `sources-reference.md` (journaux officiels, autorités, organismes de normalisation), puis seulement la recherche générale, avec des requêtes en français et en anglais, dont « Software Composition Analysis » et celles de la section « Requêtes de veille » de `sources-reference.md` (outils et services en ligne : propriété intellectuelle, classement ECCN, chiffrement, IA…).
+1. **Relevé systématique d'abord** : la veille, le lundi vers 20 h 47 (heure de Paris ; 19 h 47 en hiver), avec plusieurs heures de marge avant la routine (GitHub peut retarder une exécution programmée de plusieurs heures), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`, script `tools/collecte.py`, sources de `tools/sources.json`) dépose dans `veille/collecte/AAAA-MM-JJ.md` la liste datée de tout ce que les sources à flux (Federal Register, CISA KEV, EUVD, CERT-FR, Conseil de l'UE, ECJU, OpenSSF, OpenChain, SPDX, SFC, versions des outils) ont publié depuis la dernière édition ; chaque candidat est trié (règle d'or). S'il manque, lancer `python3 tools/collecte.py` (les flux GitHub peuvent être bloqués dans la session). **Sources de référence ensuite** : consulter chaque semaine les sources sans flux de `sources-reference.md` (journaux officiels, autorités, organismes de normalisation), puis seulement la recherche générale, avec des requêtes en français et en anglais, dont « Software Composition Analysis » et celles de la section « Requêtes de veille » de `sources-reference.md` (outils et services en ligne : propriété intellectuelle, classement ECCN, chiffrement, IA…).
 2. **Source primaire** : quand une information découle d'un texte officiel (règlement, acte, avis, règle finale), citer ce texte en plus de l'analyse qui l'a signalée. Le générateur met automatiquement en relief les liens officiels.
 3. **Lecture intégrale** : toute date, tout chiffre, tout délai, toute citation est vérifié dans le document source lui-même (WebFetch), pas dans un extrait de résultat de recherche. Si le document ne peut pas être lu, l'information est écartée.
 4. **Recoupement** : une information qui ne repose que sur une source commerciale (éditeur) est marquée `"type": "editeur"` sur son lien ; elle est affichée « source commerciale ». Elle n'est retenue que si elle est utile en soi (annonce de produit, version).
@@ -90,7 +90,7 @@ La semaine est répartie entre trois routines et trois workflows. Principe : **a
 
 | Heure (Paris) | Étape | ElevenLabs |
 |---|---|---|
-| 2 h 47 | Workflow « Relevé des sources de veille » (§ 3) | aucun appel |
+| lundi 20 h 47 | Workflow « Relevé des sources de veille » (§ 3) | aucun appel |
 | 3 h 30 | **Routine A, Rédaction** : étapes 0 à 9 ci-dessous ; push sur la branche `edition/AAAA-MM-JJ` | aucun appel |
 | à chaque push sur `edition/**` | Workflow « Répétition » (`repetition.yml`, `tools/repetition.py`) | lecture du solde (gratuite) |
 | 5 h 30 | **Routine B, Contrôle et figeage** : étapes 10 à 12 | aucun appel |
@@ -171,7 +171,7 @@ Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_
 
 Le workflow « Archiver les sources » (`.github/workflows/archives.yml`, `tools/archiver.py`) copie dans la Wayback Machine les sources officielles et celles de `claims.json` de la dernière édition (`archives.json`). **Suspendu** : il ne se lance qu'à la main (onglet Actions), sur décision du propriétaire du dépôt.
 
-Chaque mardi vers 2 h 47 (heure de Paris ; GitHub peut retarder une exécution programmée), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`) dépose le relevé des sources à flux dans `veille/collecte/` (§ 3) ; ce dossier ne déclenche pas la publication.
+Chaque lundi vers 20 h 47 (heure de Paris, veille de l'édition ; GitHub peut retarder une exécution programmée), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`) dépose le relevé des sources à flux dans `veille/collecte/` (§ 3) ; ce dossier ne déclenche pas la publication.
 
 ## 10. Construire en local
 
