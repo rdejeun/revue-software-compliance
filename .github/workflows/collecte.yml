@@ -20,6 +20,8 @@ jobs:
   releve:
     runs-on: ubuntu-latest
     steps:
+      - name: Noter l’heure de lancement
+        run: echo "LANCE=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
@@ -28,7 +30,38 @@ jobs:
         run: |
           # date de l'édition : le jour même le mardi, sinon le mardi suivant (lancement manuel)
           v=$(python3 -c "import datetime as d;t=d.date.today();print(t+d.timedelta(days=(1-t.weekday())%7))")
-          python3 tools/collecte.py --sortie "veille/collecte/$v.md"
+          t0=$(date +%s)
+          python3 tools/collecte.py --sortie "veille/collecte/$v.md" 2> releve.log || { cat releve.log >&2; exit 1; }
+          cat releve.log >&2
+          echo "EDITION=$v" >> "$GITHUB_ENV"
+          echo "DUREE=$(( $(date +%s) - t0 ))" >> "$GITHUB_ENV"
+      - name: Journal des lancements (heure prévue, heure réelle, retard, durée)
+        env:
+          EVENEMENT: ${{ github.event_name }}
+          CRON: ${{ github.event.schedule }}
+        run: |
+          python3 - <<'EOF'
+          import datetime as d, os, re
+          f = 'veille/collecte/lancements.csv'
+          lance = d.datetime.strptime(os.environ['LANCE'], '%Y-%m-%dT%H:%M:%SZ')
+          prevu, retard = '', ''
+          if os.environ['EVENEMENT'] == 'schedule' and os.environ.get('CRON'):
+              mi, h = map(int, os.environ['CRON'].split()[:2])
+              p = lance.replace(hour=h, minute=mi, second=0)
+              if p > lance: p -= d.timedelta(days=1)   # lancé après minuit : prévu la veille
+              prevu, retard = p.strftime('%Y-%m-%d %H:%M'), str(round((lance - p).total_seconds() / 60))
+          log = open('releve.log', encoding='utf-8').read() if os.path.exists('releve.log') else ''
+          m = re.search(r'(\d+) élément\(s\), (\d+) source\(s\) en échec', log)
+          ligne = ';'.join([os.environ['EDITION'], os.environ['EVENEMENT'], prevu, lance.strftime('%Y-%m-%d %H:%M:%S'),
+                            retard, os.environ['DUREE'], m[1] if m else '', m[2] if m else ''])
+          neuf = not os.path.exists(f)
+          with open(f, 'a', encoding='utf-8') as o:
+              if neuf: o.write('edition;declenchement;prevu_utc;lance_utc;retard_min;duree_releve_s;candidats;sources_en_echec\n')
+              o.write(ligne + '\n')
+          print(ligne)
+          s = os.environ.get('GITHUB_STEP_SUMMARY')
+          if s: open(s, 'a').write(f'Lancement : {lance:%Y-%m-%d %H:%M:%S} UTC (prévu : {prevu or "lancement manuel"} ; retard : {retard or "—"} min) · relevé en {os.environ["DUREE"]} s\n')
+          EOF
       - name: Enregistrer le relevé
         run: |
           git config user.name "github-actions[bot]"

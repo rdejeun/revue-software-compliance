@@ -171,7 +171,7 @@ Configuration du dépôt : Pages, source « GitHub Actions » ; secrets `RESEND_
 
 Le workflow « Archiver les sources » (`.github/workflows/archives.yml`, `tools/archiver.py`) copie dans la Wayback Machine les sources officielles et celles de `claims.json` de la dernière édition (`archives.json`). **Suspendu** : il ne se lance qu'à la main (onglet Actions), sur décision du propriétaire du dépôt.
 
-Chaque lundi vers 20 h 47 (heure de Paris, veille de l'édition ; GitHub peut retarder une exécution programmée), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`) dépose le relevé des sources à flux dans `veille/collecte/` (§ 3) ; ce dossier ne déclenche pas la publication.
+Chaque lundi vers 20 h 47 (heure de Paris, veille de l'édition ; GitHub peut retarder une exécution programmée), le workflow « Relevé des sources de veille » (`.github/workflows/collecte.yml`) dépose le relevé des sources à flux dans `veille/collecte/` (§ 3) ; ce dossier ne déclenche pas la publication. Chaque exécution ajoute une ligne à `veille/collecte/lancements.csv` : heure prévue et heure réelle de lancement (UTC), retard en minutes, durée du relevé en secondes, nombre de candidats et de sources en échec (le 13 octobre 2026 : 379 minutes de retard, 18 secondes de relevé).
 
 ## 10. Construire en local
 
@@ -276,6 +276,7 @@ Issues de la revue critique du processus de veille du 7 octobre 2026 ; à repren
 
 - **Politique de correction** : une édition envoyée ne se modifie pas ; une erreur découverte ensuite serait signalée par un encadré « Correctif » dans l'édition suivante et une note datée sur la page de l'édition concernée.
 - **Retour des lecteurs** : intégrer à la revue mensuelle (§ 14) les mesures de Matomo (synthèses les plus ouvertes, sources cliquées, écoute du podcast) ; ajouter dans l'e-mail une invitation à répondre ; préciser les besoins par fonction (contrôle des exportations, juridique, PSIRT), qui alimentent déjà le champ « Fonctions ».
+- **Heure du relevé** : après plusieurs éditions, examiner les retards notés dans `veille/collecte/lancements.csv` ; s'ils restent courts, ramener le relevé au mardi matin, environ deux heures avant la routine A (relevé plus frais, qui couvre aussi le lundi soir et la nuit).
 - **Alerte exceptionnelle** : hors du rythme hebdomadaire, un e-mail court pour un événement critique (vulnérabilité activement exploitée dans un composant très répandu, inscription d'une entité sur une liste de sanctions), à critères stricts.
 
 ## 16. Diffusion limitée : robots et indexation
