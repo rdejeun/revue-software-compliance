@@ -233,13 +233,15 @@ dl.st{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0;
 ul.tl{{list-style:none;margin:0 0 0 16px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;display:grid;grid-template-columns:112px 1fr;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
 ul.tl li.sy-it{{margin-left:-6px;padding:2px 6px 2px 22px;border-radius:6px}} ul.tl li.sy-it::before{{left:-15px;top:9px}}
 ul.it li.sy-it{{margin:0 -8px;padding:10px 8px 12px;border-radius:6px}} ul.it li.sy-it:hover{{border-bottom-color:transparent}}
-ul.tl li[hidden]{{display:none}} ul.tl li.tl-ap{{animation:tlap .35s ease-out}} @keyframes tlap{{from{{opacity:0;transform:translateY(-4px)}}to{{opacity:1;transform:none}}}}
-ul.tl li.tl-pli{{display:block;margin:-4px 0 6px;padding:6px 0 6px 16px}}
-ul.tl li.tl-pli::before{{left:-16px;top:0;bottom:0;width:2px;height:auto;border:0;background:repeating-linear-gradient(to bottom,#fff 0 3px,transparent 3px 7px)}}
-.tl-g{{display:inline-flex;align-items:center;gap:7px;margin:0;padding:2px 10px 2px 3px;background:#fff;border:1px solid #e3ddd0;border-radius:12px;font:12.5px/18px {SANS};color:#6b7280;cursor:pointer}}
-.tl-g .tl-n{{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:#f4efe6;color:#c2410c;font-weight:600;text-align:center}}
-.tl-g:hover,.tl-g:focus-visible{{border-color:#c2410c;color:#0f2a4a;outline:none}} .tl-g:hover .tl-n,.tl-g:focus-visible .tl-n{{background:#c2410c;color:#fff}}
-@media (prefers-reduced-motion:reduce){{ul.tl li.tl-ap{{animation:none}}}}
+ul.tl li.cache{{display:none}} ul.tl.tout li.cache{{display:grid;animation:tlap .3s ease-out}} @keyframes tlap{{from{{opacity:0}}to{{opacity:1}}}}
+.tl-h{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px}} .tl-h h2{{margin:0}}
+.tl-sw{{position:relative;display:inline-flex;align-items:center;gap:8px;font:13px/20px {SANS};color:#6b7280;cursor:pointer;user-select:none;white-space:nowrap}}
+.tl-sw input{{position:absolute;opacity:0;width:1px;height:1px;margin:0}}
+.tl-k{{position:relative;width:28px;height:16px;border-radius:8px;background:#d6d3cc;transition:background .2s}}
+.tl-k::after{{content:"";position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.2);transition:transform .2s}}
+.tl-sw input:checked+.tl-k{{background:#c2410c}} .tl-sw input:checked+.tl-k::after{{transform:translateX(12px)}}
+.tl-sw:hover{{color:#0f2a4a}} .tl-sw input:focus-visible+.tl-k{{outline:2px solid #0f2a4a;outline-offset:2px}}
+@media (prefers-reduced-motion:reduce){{ul.tl.tout li.cache{{animation:none}} .tl-k,.tl-k::after{{transition:none}}}}
 ul.tl li::before{{content:"";position:absolute;left:-21px;top:7px;width:8px;height:8px;background:#c2410c;border:2px solid #fff}} ul.tl li.v::before{{background:#fff;border-color:#c2410c}}
 .dt{{display:block;font:600 13px/22px {SANS};color:#c2410c}}
 ul.it{{list-style:none;margin:0;padding:0}} ul.it li{{padding:10px 0 12px;border-bottom:1px solid #eee9de}}
@@ -381,35 +383,23 @@ def main():
             if d_ not in connues:   # échéance de l'agenda absente de la chronologie de themes.json : ajoutée telle quelle
                 connues.add(d_); chrono.append({'date': d_, 'html': it['html']})
         if chrono:
-            li, pli = [], []   # pli : dates masquées consécutives, repliées dans la ligne du temps (README, § 12)
+            li = []
             visibles = chrono_visibles(chrono, today, par_date)
-            lib = lambda c: c.get('libelle') or fdate_court(c['date'])
-            def replier():
-                if not pli: return
-                g = f'g{len(li)}'
-                a, z = lib(pli[0]), lib(pli[-1])
-                if len(pli) > 1 and a[-4:] == z[-4:] and a[-4:].isdigit(): a = a[:-5]
-                per = a if len(pli) == 1 else f'{a} – {z}'
-                li.append(f'<li class="tl-pli"><button type="button" class="tl-g" data-g="{g}" title="Afficher {"cette date" if len(pli) == 1 else "ces dates"}">'
-                          f'<span class="tl-n">+{len(pli)}</span>date{"s" if len(pli) > 1 else ""} · {E(per)}'
-                          f'<svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>')
-                li.extend(x.replace('<li class="', f'<li data-g="{g}" hidden class="', 1) for x in pli_html)
-                pli.clear(); pli_html.clear()
-            pli_html = []
             for c in sorted(chrono, key=lambda c: c["date"]):
                 u = sid_de(*par_date[c['date']]) if c['date'] in par_date else None
-                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '') if x)
-                att = f' class="{cl}"' if cl else ' class=""'
+                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '', '' if id(c) in visibles else 'cache') if x)
+                att = f' class="{cl}"' if cl else ''
                 if u: att += f' data-syn="{u}"'
-                h_ = f'<li{att}><span class="dt">{E(lib(c))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>'
-                if id(c) in visibles: replier(); li.append(h_)
-                else: pli.append(c); pli_html.append(h_)
-            replier()
-            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(li).replace(' class=""', '') + '</ul>'
-            if '<li class="tl-pli">' in body:
-                body += ('<script>document.addEventListener("click",function(e){var b=e.target.closest(".tl-g");if(!b)return;'
-                         'var l=document.querySelectorAll(\'li[data-g="\'+b.dataset.g+\'"]\');l.forEach(function(x){x.hidden=false;x.classList.add("tl-ap")});'
-                         'b.parentNode.remove();var f=l[0]&&l[0].querySelector(".sy-b,button,a");if(f)f.focus({preventScroll:true});});</script>')
+                li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
+            if len(visibles) < len(chrono):   # interrupteur « Toutes les dates » à droite du titre (README, § 12)
+                body += ('<div class="r"></div><div class="tl-h"><h2>Chronologie</h2><label class="tl-sw">Toutes les dates'
+                         f'<input type="checkbox" role="switch" aria-controls="tl" title="{len(chrono)} dates, dont {len(chrono) - len(visibles)} de moindre importance masquées">'
+                         '<span class="tl-k" aria-hidden="true"></span></label></div>'
+                         '<ul class="tl" id="tl">' + ''.join(li) + '</ul>'
+                         '<script>(function(){var c=document.querySelector(".tl-sw input"),l=document.getElementById("tl");'
+                         'c.checked=false;c.addEventListener("change",function(){l.classList.toggle("tout",c.checked);});})();</script>')
+            else:
+                body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(li) + '</ul>'
         if its:
             body += '<div class="r"></div><h2>Informations publiées</h2>'
             cur = None
