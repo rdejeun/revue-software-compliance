@@ -303,6 +303,7 @@ def main():
     by = {k: [] for k in themes}
     for i in infos:
         for it in i['items']:
+            if it.get('rappel'): continue   # pas de rappels dans les dossiers : ils redisent un fait déjà publié (README, § 12)
             for t in it.get('themes') or []:
                 if t in by: by[t].append((i, it))
     nav = lambda cur: '<nav class="d">' + ''.join(f'<a{" class=on" if k == cur else ""} href="/dossiers/{k}/">{E(v["court"])}</a>' for k, v in themes.items() if by[k] or v.get('chronologie')) + '</nav>'
@@ -341,7 +342,7 @@ def main():
                     if cur: body += '</ul>'
                     cur = i['d']
                     body += f'<p class="ed">N° {i["meta"]["n"]} · {E(i["meta"]["date"])}{" <span class=demo>· démonstration</span>" if i["meta"].get("demo") else ""}</p><ul class="it">'
-                lab = 'Agenda · ' + it.get('label', '') if it['kind'] == 'agenda' else it['sec'].split(' : ')[0] + (' · rappel' if it.get('rappel') else '')
+                lab = 'Agenda · ' + it.get('label', '') if it['kind'] == 'agenda' else it['sec'].split(' : ')[0]
                 u = sid_de(i, it)
                 if u and SYN.get('synb'): body += f'<li class="sy-it" data-syn="{u}"><span class="sec">{E(lab)}</span>{it["html"]} {SYN["synb"].format(u)}</li>'
                 else:
