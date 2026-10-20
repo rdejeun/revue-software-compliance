@@ -54,7 +54,7 @@ def fdate_court(iso):
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
 
-CHRONO_MAX = 8   # dates affichées dans la chronologie d'un dossier ; les autres sont masquées derrière « Chronologie complète »
+CHRONO_MAX = 8   # dates affichées dans la chronologie d’un dossier ; les autres apparaissent avec l’interrupteur « Toutes les dates »
 
 
 def chrono_poids(c, today, lie):
