@@ -437,7 +437,7 @@ def render(web):
             if x.get('type')=='projet':   # nom d'outil ou de projet lié à sa page officielle (README, § 6) : lien du texte, pas une source
                 a=esc(x['href'],True); lab=E(typo(t))
                 if web: lk=f'<a class="np" href="{a}" target="_blank" rel="noopener">{lab}</a>'
-                else: lk=f'<a href="{a}" style="border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none;">{lab}</a>'
+                else: lk=f'<a href="{a}" style="border-bottom:1px dotted #9ca3af;color:{NAVY};font-family:{SANS};font-weight:600;text-decoration:none;">{lab}</a>'
                 r.append(f'<b style="font:600 {fs}px/1 {SANS};color:{NAVY};">{lk}</b>' if x.get('b') else lk)
                 continue
             if x.get('href'):
@@ -782,7 +782,7 @@ mark.sy-hl{{background:#fff3a3;color:inherit;padding:0;border-radius:2px}}
 .sy-w h4::before{{content:'';display:inline-block;width:12px;height:2px;margin:0 8px 0 0;background:{ACC};vertical-align:.32em}}
 .sy-w{{overflow-x:hidden}}
 .sy-w a.t{{color:inherit;border-bottom-color:#9ca3af}}
-a.np{{border-bottom:1px dotted #9ca3af;color:inherit;text-decoration:none}}
+a.np{{border-bottom:1px dotted #9ca3af;color:{NAVY};font-family:{SANS};font-weight:600;text-decoration:none}}   /* nom d'outil lié : Segoe UI 600, comme l'accroche */
 a.np:hover,a.np:focus-visible{{border-bottom-color:{NAVY};outline:none}}
 a.sy-n{{color:inherit;text-decoration:none;white-space:nowrap}}
 a.sy-n:hover,a.sy-n:focus-visible{{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;outline:none}}
