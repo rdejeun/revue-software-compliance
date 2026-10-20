@@ -2,9 +2,12 @@
 """Version imprimable d'une édition : quatre pages A4 mises en page à la manière d'un journal (colonnes, titres,
 folios, en-têtes courants), puis imposition sur une feuille A3 recto-verso pliée en deux (README, § 18).
 
-Contenu : chapô de l'édition, toutes les nouveautés avec leur synthèse complète (Statut, Fonctions, Réseau, Licence,
-Contexte, Résumé, Impact, À vérifier), les rappels (texte court), l'agenda, un lexique des sigles et le colophon.
-Le corps du texte est calé automatiquement (de 9,6 à 7,6 pt) pour que l'édition tienne en quatre pages.
+Contenu : chapô de l'édition, chaque nouveauté (titre de sa synthèse, texte, puis Résumé, Impact et Contexte en
+paragraphes sans intertitre), les rappels (texte court), l'agenda, et, si la place le permet, le résumé des rappels,
+le détail de l'agenda et un lexique des sigles ; puis le colophon. Ni fiche Statut/Fonctions, ni ligne de sources,
+ni « À vérifier ».
+Calage sur exactement quatre pages : corps des paragraphes de 8,5 pt au moins (rappels, agenda et lexique : 8 pt au
+moins) ; l'élément d'ajustement est la profondeur du contenu, ajoutée bloc par bloc par ordre d'importance (README, § 18).
 
 Usage : python3 tools/journal.py [AAAA-MM-JJ …]   (défaut : dernière édition)
 Écrit build/AAAA-MM-JJ/revue-AAAA-MM-JJ.pdf (A4, 4 pages) et revue-AAAA-MM-JJ-a3.pdf (A3 imposé : recto 4|1, verso 2|3).
@@ -24,12 +27,13 @@ os.chdir(_cwd)
 from glossary import G   # noqa: E402
 from officiel import officiel   # noqa: E402
 
-PAGES = 4   # une feuille A3 pliée ; une édition trop longue passe à 8 pages (deux feuilles emboîtées), sans rien retirer
-TAILLES = [10.4, 10.2, 10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.4, 8.2, 8.0, 7.8, 7.6]   # corps du texte (pt), du plus grand au plus petit
+PAGES = 4   # une feuille A3 pliée
+CORPS_MIN, PETIT_MIN = 8.5, 8.0   # corps minimal des paragraphes ; des rappels, de l'agenda et du lexique
+TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraphes (pt), du plus grand au plus petit
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-5'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-6'   # à changer quand la mise en page change (invalide le cache)
 
 
 def T(s): return E(typo(s or ''))
@@ -67,15 +71,15 @@ def lire(d):
             if not x.get('attrs') and not cur['chapo'] and not cur['items']:
                 cur['chapo'] = t; continue
             a = x.get('attrs') or {}
-            (cur['rappels'] if a.get('rappel') else cur['items']).append({'segs': x['i'], 'a': a, 'sum': x.get('sum')})
+            (cur['rappels'] if a.get('rappel') else cur['items']).append({'id': f'e{i}', 'segs': x['i'], 'a': a, 'sum': x.get('sum')})
         elif k == 'ul':
-            for it, a, s in zip(x['items'], x.get('attrs') or [{}] * len(x['items']), x.get('sum') or [None] * len(x['items'])):
-                (cur['rappels'] if (a or {}).get('rappel') else cur['items']).append({'segs': it, 'a': a or {}, 'sum': s})
+            for j, (it, a, s) in enumerate(zip(x['items'], x.get('attrs') or [{}] * len(x['items']), x.get('sum') or [None] * len(x['items']))):
+                (cur['rappels'] if (a or {}).get('rappel') else cur['items']).append({'id': f'e{i}.{j}', 'segs': it, 'a': a or {}, 'sum': s})
         elif k == 'table':
             det = x.get('detail') or []
             for j, r in enumerate(x['rows'][1:]):
                 cel = [texte(c) if isinstance(c, list) else str(c) for c in r]
-                ed['agenda'].append({'date': cel[0], 'quoi': cel[1], 'theme': cel[2] if len(cel) > 2 else '',
+                ed['agenda'].append({'id': f'a{j}', 'date': cel[0], 'quoi': cel[1], 'theme': cel[2] if len(cel) > 2 else '',
                                      'detail': det[j] if j < len(det) else None})
     ed['rubriques'] = [r for r in ed['rubriques'] if not r['agenda'] and (r['items'] or r['rappels'])]
     return ed
@@ -105,54 +109,32 @@ def accroche(t):
     return f'<b class="acc">{T(m[1])}</b>\u00a0: {T(m[2])}'
 
 
-def ligne_sources(srcs, date):
-    s = []
-    for lab, u, off, edi in srcs:
-        s.append(f'<span class="{"so" if off else "s"}">{"↗\u00a0" if off else ""}{T(lab)}{" (source commerciale)" if edi else ""}</span>')
-    if date: s.append(f'<span class="dt">{fdate(date)}</span>')
-    return '<p class="src">' + ' · '.join(s) + '</p>' if s else ''
+def synthese(it, incl, tout=False):
+    """Paragraphes de la synthèse retenus par le calage, dans l'ordre de lecture : Contexte, Résumé, Impact."""
+    sm, h = it.get('sum') or {}, []
+    for k in ('contexte', 'essentiel', 'impact_avere', 'impact_potentiel'):
+        if sm.get(k) and (tout or (k, it['id']) in incl): h.append(f'<p>{T(sm[k])}</p>')
+    return '<div class="syn">' + ''.join(h) + '</div>' if h else ''
 
 
-def synthese(sm):
-    if not sm: return ''
-    h = []
-    meta = [(lab, sm.get(k)) for k, lab in (('statut', 'Statut'), ('fonctions', 'Fonctions'), ('reseau', 'Réseau'), ('licence', 'Licence')) if sm.get(k)]
-    if meta:
-        h.append('<p class="fiche">' + ' '.join(f'<span class="ft">{lab}</span>\u00a0{T(v)}' for lab, v in meta) + '</p>')
-    if sm.get('contexte'): h.append(f'<p><span class="rh">Contexte</span> {T(sm["contexte"])}</p>')
-    if sm.get('essentiel'): h.append(f'<p><span class="rh">Résumé</span> {T(sm["essentiel"])}</p>')
-    imp = [sm.get('impact_avere'), sm.get('impact_potentiel')]
-    imp = [x for x in imp if x]
-    if imp:
-        h.append(f'<p><span class="rh">Impact</span> {T(imp[0])}</p>')
-        h += [f'<p class="suite">{T(x)}</p>' for x in imp[1:]]
-    if sm.get('a_verifier'):
-        h.append('<p class="rh-b"><span class="rh">À vérifier</span></p><ul class="q">' + ''.join(f'<li>{T(q)}</li>' for q in sm['a_verifier']) + '</ul>')
-    return '<div class="syn">' + ''.join(h) + '</div>'
-
-
-def article(it, une=False):
-    t, srcs = corps(it['segs'])
-    sm = it.get('sum') or {}
-    tit = sm.get('titre')
-    h = [f'<h3 class="{"hl-une" if une else "hl"}">{T(tit)}</h3>' if tit and not une else '']
-    h.append(f'<p class="txt">{accroche(t)}</p>')
-    h.append(ligne_sources(srcs, it['a'].get('date')))
-    h.append(synthese(sm))
+def article(it, incl, une=False):
+    t, _ = corps(it['segs'])
+    tit = (it.get('sum') or {}).get('titre')
+    h = [f'<h3 class="hl">{T(tit)}</h3>' if tit and not une else '', f'<p class="txt">{accroche(t)}</p>', synthese(it, incl, tout=une)]
     return f'<article class="art{" une" if une else ""}">' + ''.join(h) + '</article>'
 
 
-def rappels(rs):
+def rappels(rs, incl):
     if not rs: return ''
     li = []
     for r in rs:
-        t, srcs = corps(r['segs'])
-        d = r['a'].get('date')
-        li.append(f'<li>{accroche(t)}{f" <span class=dt>{fdate(d)}</span>" if d else ""}</li>')
+        t, _ = corps(r['segs'])
+        res = (r.get('sum') or {}).get('essentiel')
+        li.append(f'<li><p>{accroche(t)}</p>' + (f'<p class="rap-s">{T(res)}</p>' if res and ('essentiel', r['id']) in incl else '') + '</li>')
     return '<aside class="rap"><p class="rap-t">Rappels</p><ul>' + ''.join(li) + '</ul></aside>'
 
 
-def agenda(ev):
+def agenda(ev, incl):
     if not ev: return ''
     h, mois = [], None
     for e in ev:
@@ -161,7 +143,7 @@ def agenda(ev):
         if mo != mois:
             mois = mo; h.append(f'<p class="ag-m">{T(mo)}</p>')
         jour = re.match(r'(1er|\d{1,2}(?:\s+au\s+\d{1,2})?)', e['date'])
-        det = f'<p class="ag-x">{T(e["detail"])}</p>' if e.get('detail') else ''
+        det = f'<p class="ag-x">{T(e["detail"])}</p>' if e.get('detail') and ('detail', e['id']) in incl else ''
         h.append(f'<div class="ag-e"><p class="ag-d">{T(jour[1]) if jour else "—"}</p><div><p class="ag-q">{T(e["quoi"])}</p>'
                  f'{det}<p class="ag-th">{T(e["theme"])}</p></div></div>')
     return '<h2 class="rub" id="r-agenda" data-rub="Agenda"><span>Agenda</span> Dates à surveiller</h2><div class="cols agenda">' + ''.join(h) + '</div>'
@@ -210,6 +192,7 @@ SANS = "'Source Sans 3','Source Sans 3 Ext','Segoe UI',Arial,sans-serif"
 
 def css(fs, meta):
     num = f'N°\u00a0{meta["n"]} · {meta["date"]}'
+    petit = max(PETIT_MIN, round(fs - .5, 2))   # rappels, agenda, lexique
     return polices() + f'''
 @page {{ size:A4; margin:14mm 9.5mm 12mm 9.5mm;
   @top-left {{ content:"Software Compliance"; font:italic 400 8pt {SERIF}; color:{ACC}; vertical-align:bottom; padding-bottom:2.2mm; border-bottom:.6pt solid {NAVY} }}
@@ -259,31 +242,20 @@ h2.rub span {{ display:inline-block; margin-right:2mm; padding:.4mm 1.6mm; backg
 h3.hl {{ margin:0 0 1mm; font:700 1.16em/1.18 {SANS}; color:{NAVY}; text-align:left; hyphens:manual; break-after:avoid }}
 .txt {{ margin-bottom:.8mm }}
 b.acc {{ font:700 .97em {SANS}; color:{NAVY} }}
-.src {{ font:400 .74em/1.3 {SANS}; color:#6b7280; text-align:left; margin-bottom:1.2mm; hyphens:manual }}
-.src .so {{ color:#454e5c; font-weight:600 }} .src .dt {{ color:#8a8f98 }}
-.syn {{ font-size:.94em }}
-.syn p {{ margin:0 0 .6mm }} .syn p.suite {{ text-indent:1em }}
-.rh {{ font:700 .76em {SANS}; letter-spacing:.1em; text-transform:uppercase; color:#7d6c47 }}
-.rh::after {{ content:" —"; color:#b8ad95 }}
-.rh-b .rh::after {{ content:"" }}
-.fiche {{ margin:0 0 1.2mm; padding:1.2mm 1.6mm; background:#f6f2ea; font:400 .78em/1.3 {SANS}; color:#374151; text-align:left; hyphens:manual }}
-.fiche .ft {{ font-weight:700; color:#7d6c47; text-transform:uppercase; letter-spacing:.07em; font-size:.86em; margin-left:.6em }}
-.fiche .ft:first-child {{ margin-left:0 }}
-ul.q {{ margin:.3mm 0 0; padding:0 0 0 3.2mm; list-style:none }} ul.q li {{ position:relative; margin-bottom:.4mm }}
-ul.q li::before {{ content:"■"; position:absolute; left:-3.2mm; top:.1em; font-size:.55em; color:#c9b9a3 }}
-.rap {{ margin:0 0 3mm; padding:1.6mm 2mm 1.2mm; border-top:.8pt solid {ACC}; background:#faf6ef; font-size:.86em; line-height:1.28; text-align:left; hyphens:auto }}
+.syn p {{ margin:0 0 .6mm; text-indent:1em }}
+.rap {{ margin:0 0 3mm; padding:1.6mm 2mm 1.2mm; border-top:.8pt solid {ACC}; background:#faf6ef; font-size:{petit}pt; line-height:1.27; text-align:left; hyphens:auto }}
 .rap-t {{ font:700 .82em {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:.8mm }}
 .rap ul {{ margin:0; padding:0; list-style:none }} .rap li {{ margin:0 0 1mm }}
-.rap .dt {{ font:400 .86em {SANS}; color:#8a8f98; white-space:nowrap }}
+.rap-s {{ margin-top:.4mm; color:#374151 }}
 /* agenda */
 .agenda .ag-m {{ font:700 .8em {SANS}; letter-spacing:.14em; text-transform:uppercase; color:{ACC}; border-bottom:.5pt solid #e0c7b8; margin:1.4mm 0 1mm; break-after:avoid }}
 .ag-e {{ display:table; width:100%; margin-bottom:1.3mm; break-inside:avoid; text-align:left }}
 .ag-e > p.ag-d {{ display:table-cell; width:9mm; font:700 1.05em/1.15 {SANS}; color:{NAVY} }}
 .ag-e > div {{ display:table-cell }}
-.ag-q {{ font-size:.95em; line-height:1.25 }} .ag-x {{ font-size:.84em; color:#4b5563; line-height:1.25; margin-top:.3mm }}
+.ag-q {{ font-size:{petit}pt; line-height:1.25 }} .ag-x {{ font-size:{petit}pt; color:#4b5563; line-height:1.25; margin-top:.3mm }}
 .ag-th {{ font:600 .7em {SANS}; letter-spacing:.06em; text-transform:uppercase; color:#7d6c47; margin-top:.4mm }}
 /* lexique et colophon */
-.lex dl {{ margin:0; font-size:.8em; line-height:1.26; text-align:left }}
+.lex dl {{ margin:0; font-size:{petit}pt; line-height:1.26; text-align:left }}
 .lex dt {{ font:700 .95em {SANS}; color:{NAVY}; margin-top:.8mm; break-after:avoid }} .lex dd {{ margin:0 }}
 .colo {{ margin-top:3mm; padding-top:1.6mm; border-top:1.2pt solid {NAVY}; font:400 .74em/1.35 {SANS}; color:#4b5563; text-align:left; break-inside:avoid }}
 .colo b {{ color:{NAVY} }} .colo .qr {{ float:right; width:15mm; height:15mm; margin:0 0 1mm 2mm }}
@@ -296,8 +268,9 @@ def rub_courante(h, lab):
     return h.replace('<article class="art', f'<article{a} class="art').replace('<aside class="rap"', f'<aside{a} class="rap"')
 
 
-def page_html(ed, fs, opt):
-    opt = dict(opt); avec_lexique = opt.pop('lexique', True)
+def page_html(ed, fs, incl):
+    """incl : blocs facultatifs retenus par le calage (voir blocs())."""
+    avec_lexique = ('lexique', '') in incl
     m = ed['meta']; d = m['date_iso']
     url = f'{m.get("site", "https://revue.dejeun.es/").rstrip("/")}/{d}/'
     rubs = ed['rubriques']
@@ -318,13 +291,13 @@ def page_html(ed, fs, opt):
         tu = une['sous'] or une['label']
         h.append(f'<div class="une-k">À la une</div><h2 class="une-h">{T(tu[:1].upper() + tu[1:])}</h2>')
         if une['chapo']: h.append(f'<p class="une-c">{T(une["chapo"])}</p>')
-        corps_une = ''.join(article(it, une=(j == 0)) for j, it in enumerate(une['items']))
-        h.append(f'<div class="une-cols">{rub_courante(corps_une + rappels(une["rappels"]), "À la une")}</div>')
+        corps_une = ''.join(article(it, incl, une=(j == 0)) for j, it in enumerate(une['items']))
+        h.append(f'<div class="une-cols">{rub_courante(corps_une + rappels(une["rappels"], incl), "À la une")}</div>')
     for k, r in enumerate(autres):   # une rubrique = un titre sur toute la largeur + son propre bloc de colonnes
         h.append(f'<h2 class="rub" id="r{k}" data-rub="{html.escape(r["label"], True)}"><span>{T(r["label"])}</span>{T(r["sous"])}</h2>')
         if r['chapo']: h.append(f'<p class="rub-c">{T(r["chapo"])}</p>')
-        h.append('<div class="cols">' + rub_courante(''.join(article(it) for it in r['items']) + rappels(r['rappels']), r['label']) + '</div>')
-    h.append(agenda(ed['agenda']))
+        h.append('<div class="cols">' + rub_courante(''.join(article(it, incl) for it in r['items']) + rappels(r['rappels'], incl), r['label']) + '</div>')
+    h.append(agenda(ed['agenda'], incl))
     tout = ''.join(h)
     if avec_lexique: h.append(lexique(tout))
     h.append(f'<div class="colo">{qr(url)}<b>Software Compliance</b>, revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}. '
@@ -336,28 +309,66 @@ def page_html(ed, fs, opt):
 
 # ---------------------------------------------------------------- rendu, calage et imposition
 
-def rendre(ed, fs, opt):
+def rendre(ed, fs, incl):
     from weasyprint import HTML
-    return HTML(string=page_html(ed, fs, opt), base_url=ROOT).render()
+    return HTML(string=page_html(ed, fs, incl), base_url=ROOT).render()
+
+
+def blocs(ed):
+    """Blocs facultatifs, du plus important au moins important : ajoutés dans cet ordre jusqu'à remplir les pages.
+    Nouveautés (hors Une, toujours complète) triées par cote décroissante (impact × urgence × certitude) :
+    d'abord leur Résumé, puis Impact (acquis, puis possible), puis Contexte ; ensuite le détail de l'agenda,
+    le résumé des rappels (ordre des rubriques), enfin le lexique."""
+    rubs = ed['rubriques']
+    une = rubs[0] if rubs and rubs[0]['label'].lower().startswith('à la une') else None
+    nouv = [it for r in rubs if r is not une for it in r['items'] if it.get('sum')]
+    if une: nouv += [it for it in une['items'][1:] if it.get('sum')]
+    cote = lambda it: -(lambda c: c[0] * c[1] * c[2] if len(c) == 3 else 0)(it['a'].get('cote') or [])
+    nouv = sorted(nouv, key=cote)   # tri stable : à cote égale, ordre de l'édition
+    b = [(k, it['id']) for k in ('essentiel', 'impact_avere', 'impact_potentiel', 'contexte') for it in nouv if (it['sum'] or {}).get(k)]
+    b += [('detail', e['id']) for e in ed['agenda'] if e.get('detail')]
+    b += [('essentiel', it['id']) for r in rubs for it in r['rappels'] if (it.get('sum') or {}).get('essentiel')]
+    return b + [('lexique', '')]
+
+
+def remplissage(doc):
+    """Part de la hauteur utile de la dernière page occupée par le contenu (0 à 1)."""
+    pb = doc.pages[-1]._page_box
+    haut = pb.content_box_y(); bas = haut
+    def parcourir(bx):
+        nonlocal bas
+        for c in getattr(bx, 'children', []):
+            if type(c).__name__ == 'MarginBox': continue
+            if getattr(c, 'height', None) is not None and getattr(c, 'position_y', None) is not None:
+                if type(c).__name__ in ('LineBox', 'ImageBox', 'InlineReplacedBox', 'BlockReplacedBox'): bas = max(bas, c.position_y + c.height)
+            parcourir(c)
+    parcourir(pb)
+    return min(1.0, (bas - haut) / pb.height)
 
 
 def caler(ed):
-    """Plus grand corps qui fait tenir l'édition en PAGES pages : avec le lexique jusqu'à 8,4 pt, puis sans lexique
-    jusqu'à 7,6 pt ; sinon, même recherche sur 8 pages, puis 12. Les synthèses ne sont jamais raccourcies."""
+    """Exactement PAGES pages, corps des paragraphes ≥ CORPS_MIN : si tout le contenu tient au corps minimal, plus grand
+    corps qui le fait tenir ; sinon, au corps minimal, le plus grand nombre de blocs facultatifs (blocs()) qui tient.
+    Une édition dont le contenu obligatoire dépasse PAGES pages au corps minimal passe à 8 pages (puis 12)."""
+    bl = blocs(ed); n = len(bl)
     for cible in (PAGES, 2 * PAGES, 3 * PAGES):
-        for opt, mini in (({}, 8.4), ({'lexique': False}, TAILLES[-1])):
-            tailles = [t for t in TAILLES if t >= mini]
-            if len(rendre(ed, tailles[-1], opt).pages) > cible: continue
-            lo, hi, best = 0, len(tailles) - 1, None
-            while lo <= hi:   # recherche dichotomique dans tailles (décroissantes)
-                mid = (lo + hi) // 2
-                doc = rendre(ed, tailles[mid], opt)
-                if len(doc.pages) <= cible: best, hi = (tailles[mid], opt, doc, cible), mid - 1
+        if len(rendre(ed, CORPS_MIN, set()).pages) > cible: continue
+        tout = set(bl)
+        if len(rendre(ed, CORPS_MIN, tout).pages) <= cible:   # tout tient : on grossit le corps
+            lo, hi, best = 0, len(TAILLES) - 1, None
+            while lo <= hi:
+                mid = (lo + hi) // 2; doc = rendre(ed, TAILLES[mid], tout)
+                if len(doc.pages) <= cible: best, hi = (TAILLES[mid], tout, doc, cible), mid - 1
                 else: lo = mid + 1
-            if best: return best
-    opt = {'lexique': False}
-    doc = rendre(ed, TAILLES[-1], opt)
-    return TAILLES[-1], opt, doc, -(-len(doc.pages) // 4) * 4
+            return best
+        lo, hi, best = 0, n, None   # au corps minimal, plus grand préfixe de blocs qui tient
+        while lo <= hi:
+            mid = (lo + hi) // 2; incl = set(bl[:mid]); doc = rendre(ed, CORPS_MIN, incl)
+            if len(doc.pages) <= cible: best, lo = (CORPS_MIN, incl, doc, cible), mid + 1
+            else: hi = mid - 1
+        return best
+    doc = rendre(ed, CORPS_MIN, set())
+    return CORPS_MIN, set(), doc, -(-len(doc.pages) // 4) * 4
 
 
 def imposer(a4, a3):
@@ -410,11 +421,13 @@ def produire(d, sortie=None):
     if os.path.exists(c4) and os.path.exists(c3) and os.path.exists(cj):
         shutil.copy(c4, a4); shutil.copy(c3, a3); return json.load(open(cj))
     ed = lire(d)
-    fs, opt, doc, cible = caler(ed)
+    fs, incl, doc, cible = caler(ed)
     doc.write_pdf(a4)
-    complet(page_html(ed, fs, opt), a4)
+    complet(page_html(ed, fs, incl), a4)
     imposer(a4, a3)
-    info = {'edition': d, 'pages': len(doc.pages), 'cahier': cible, 'corps_pt': fs, 'lexique': opt.get('lexique', True)}
+    bl = blocs(ed)
+    info = {'edition': d, 'pages': len(doc.pages), 'cahier': cible, 'corps_pt': fs, 'blocs': f'{len(incl)}/{len(bl)}',
+            'remplissage': round(remplissage(doc), 2), 'lexique': ('lexique', '') in incl}
     shutil.copy(a4, c4); shutil.copy(a3, c3); json.dump(info, open(cj, 'w'))
     return info
 
@@ -423,7 +436,8 @@ def main():
     eds = sys.argv[1:] or sorted(x for x in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', x))[-1:]
     for d in eds:
         i = produire(d)
-        print(f"{d} : {i['pages']} pages (cahier de {i['cahier']}), corps {i['corps_pt']} pt" + ('' if i['lexique'] else ', sans lexique'))
+        print(f"{d} : {i['pages']} pages (cahier de {i['cahier']}), corps {i['corps_pt']} pt, blocs facultatifs {i['blocs']}, "
+              f"dernière page remplie à {round(100 * i['remplissage'])} %")
 
 
 if __name__ == '__main__':
