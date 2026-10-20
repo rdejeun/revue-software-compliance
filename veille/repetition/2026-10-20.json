@@ -1,0 +1,174 @@
+{
+ "date": "2026-10-20",
+ "commit": "fc25be26057003144109eab1d2a01544c83f6e57",
+ "le": "2026-10-20T02:03:40Z",
+ "verdict": "verte",
+ "motifs": [],
+ "script": "814c50568b9f59cb1adc587cbaad96cc1ccd81f67f1da13a1a2676da6dfcdbbb",
+ "sources": "d7e72f7d436e13334a372a22e0c6452df118d95943abe5e4efaddddcc25ee8c7",
+ "controle": {
+  "code": 0,
+  "erreurs": [],
+  "avertissements": [
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Lien non vérifiable (403) : https://www.cisa.gov/sbom",
+   "Lien non vérifiable (429) : https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+   "Lien non vérifiable (403) : https://www.efta.int/",
+   "Lien non vérifiable (403) : https://www.iso.org/",
+   "Lien non vérifiable (403) : https://www.npmjs.com",
+   "Lien non vérifiable (403) : https://www.safran-group.com/products-services/thundart-long-range-land-strike-system",
+   "Lien non vérifiable (timed out) : https://www.wolftheiss.com/insights/cmmc-phase-ii-suspended-what-changes-and-what-does-not-for-european-suppliers-to-the-us-defence-industrial-base/",
+   "Lien non vérifiable (timed out) : https://www.wolftheiss.com/insights/software-digital-products-and-ai-stricter-safety-requirements-on-the-horizon/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 17, https://jdk.java.net/25/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 18, https://jdk.java.net/26/",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 84, https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 129, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 130, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 133, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 134, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 135, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 139, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 140, https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 173, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 174, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 175, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 176, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 177, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 178, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 179, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 231, https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 232, https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 235, https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 238, https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 239, https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 240, https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 263, https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 264, https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 326, https://www.boe.es/doue/2026/90364/L00001-00001.pdf"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-10-20",
+  "echecs": 0,
+  "extraits_retrouves": 321,
+  "illisibles": [
+   {
+    "affirmation": 17,
+    "raison": "page vide ou protégée",
+    "url": "https://jdk.java.net/25/"
+   },
+   {
+    "affirmation": 18,
+    "raison": "page vide ou protégée",
+    "url": "https://jdk.java.net/26/"
+   },
+   {
+    "affirmation": 84,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
+   },
+   {
+    "affirmation": 173,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 174,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 175,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 176,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 177,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 178,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 179,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 231,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng"
+   },
+   {
+    "affirmation": 232,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng"
+   },
+   {
+    "affirmation": 235,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng"
+   },
+   {
+    "affirmation": 238,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng"
+   },
+   {
+    "affirmation": 239,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng"
+   },
+   {
+    "affirmation": 240,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng"
+   },
+   {
+    "affirmation": 263,
+    "raison": "HTTPError",
+    "url": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia"
+   },
+   {
+    "affirmation": 264,
+    "raison": "HTTPError",
+    "url": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia"
+   },
+   {
+    "affirmation": 326,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/90364/L00001-00001.pdf"
+   }
+  ],
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-10-20 : 46 répliques, 1235 mots (≈ 8 min)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-10-20 : 46 répliques, 1235 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (358 caractères) : Ouverture\n  requête 2/7 (1497 caractères) : Java : Oracle JDK 21 change de licence\n  requête 3/7 (1090 caractères) : Chaîne d’approvisionnement : OVHcloud et GhostAction\n  requête 4/7 (806 caractères) : Chaîne d’approvisionnement : GhostAction\n  requête 5/7 (1111 caractères) : AI Act : une première norme harmonisée\n  requête 6/7 (1131 caractères) : Outils : Trivy, Syft et Grype\n  requête 7/7 (1659 caractères) : Export et sanctions, Date à retenir, Clôture\n2026-10-20 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-10-20/out/episode.m4a (9.0 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-10-20/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-10-20",
+  "besoin": 9196,
+  "reste": 24545,
+  "raz": "04/11/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 194
+}
