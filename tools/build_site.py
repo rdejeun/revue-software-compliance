@@ -54,6 +54,21 @@ def fdate_court(iso):
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
 
+def nb_infos(n):
+    return f'{n} information{"s" if n > 1 else ""}' if n else 'aucune information publiée'
+
+
+def iso_agenda(t):
+    """Date d'une ligne d'agenda (« 11 décembre 2026 », « 6 au 9 octobre 2026 », « 30 septembre au 2 octobre 2026 »,
+    « Novembre 2026 ») -> AAAA-MM-JJ (premier jour) ou AAAA-MM ; None sinon (« T4 2026 »)."""
+    t = (t or '').strip().lower()
+    mo, an = re.search(r'\b(' + '|'.join(MOIS) + r')\b', t), re.search(r'\b(\d{4})\b', t)
+    if not (mo and an): return None
+    j = re.match(r'(1er|\d{1,2})\b', t)
+    ym = f'{an[1]}-{MOIS.index(mo[1]) + 1:02d}'
+    return f'{ym}-{1 if j[1] == "1er" else int(j[1]):02d}' if j else ym
+
+
 def fdate_long(iso):
     p = iso.split('-'); m = MOIS[int(p[1]) - 1]
     if len(p) == 2: return f'{m} {p[0]}'
@@ -301,19 +316,22 @@ def main():
     themes = json.load(open(os.path.join(TOOLS, 'themes.json'), encoding='utf-8'))
     today = datetime.date.today().isoformat()
     by = {k: [] for k in themes}
+    ag = {k: [] for k in themes}   # échéances de l'agenda de la dernière édition : chronologie seulement (README, § 12)
     for i in infos:
         for it in i['items']:
             if it.get('rappel'): continue   # pas de rappels dans les dossiers : ils redisent un fait déjà publié (README, § 12)
             for t in it.get('themes') or []:
-                if t in by: by[t].append((i, it))
-    nav = lambda cur: '<nav class="d">' + ''.join(f'<a{" class=on" if k == cur else ""} href="/dossiers/{k}/">{E(v["court"])}</a>' for k, v in themes.items() if by[k] or v.get('chronologie')) + '</nav>'
+                if t not in by: continue
+                if it['kind'] != 'agenda': by[t].append((i, it))
+                elif i is infos[-1] and iso_agenda(it.get('date')): ag[t].append((i, it))
+    nav = lambda cur: '<nav class="d">' + ''.join(f'<a{" class=on" if k == cur else ""} href="/dossiers/{k}/">{E(v["court"])}</a>' for k, v in themes.items() if by[k] or ag[k] or v.get('chronologie')) + '</nav>'
     idx = []
     for k, v in themes.items():
         its = by[k]
-        if not its and not v.get('chronologie'): continue
+        if not its and not ag[k] and not v.get('chronologie'): continue
         maj = max((i['meta']['date'] for i, _ in its), key=lambda x: x, default='')
         dmaj = max((i['d'] for i, _ in its), default='')
-        idx.append(f'<li><a class="b" href="/dossiers/{k}/"><span class="m">{E(v["nom"])}</span><span class="x">{E(TY(v.get("reference", "")))}</span><span class="n">{len(its)} information{"s" if len(its) > 1 else ""}{" · mis à jour le " + fdate_long(dmaj) if dmaj else ""}</span></a></li>')
+        idx.append(f'<li><a class="b" href="/dossiers/{k}/"><span class="m">{E(v["nom"])}</span><span class="x">{E(TY(v.get("reference", "")))}</span><span class="n">{nb_infos(len(its))}{" · mis à jour le " + fdate_long(dmaj) if dmaj else ""}</span></a></li>')
         body = nav(k)
         st = [(lab, v.get(f)) for f, lab in (('statut', 'Statut'), ('fonctions', 'Fonctions concernées'), ('defense', 'Défense')) if v.get(f)]
         if st:
@@ -325,14 +343,21 @@ def main():
         par_date = {}   # événement de chronologie couvert par une synthèse : même date qu'un élément publié du dossier
         for i, it in sorted(its, key=lambda x: x[0]['d'], reverse=True):
             if it.get('date') and it.get('syn'): par_date.setdefault(it['date'], (i, it))
-        if v.get('chronologie'):
+        chrono = list(v.get('chronologie') or [])
+        connues = {c['date'] for c in chrono}
+        for i, it in ag[k]:
+            d_ = iso_agenda(it['date'])
+            if it.get('syn'): par_date.setdefault(d_, (i, it))
+            if d_ not in connues:   # échéance de l'agenda absente de la chronologie de themes.json : ajoutée telle quelle
+                connues.add(d_); chrono.append({'date': d_, 'html': it['html']})
+        if chrono:
             li = []
-            for c in sorted(v['chronologie'], key=lambda c: c['date']):
+            for c in sorted(chrono, key=lambda c: c['date']):
                 u = sid_de(*par_date[c['date']]) if c['date'] in par_date else None
                 cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '') if x)
                 att = f' class="{cl}"' if cl else ''
                 if u: att += f' data-syn="{u}"'
-                li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
+                li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
             body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(li) + '</ul>'
         if its:
             body += '<div class="r"></div><h2>Informations publiées</h2>'
@@ -342,7 +367,7 @@ def main():
                     if cur: body += '</ul>'
                     cur = i['d']
                     body += f'<p class="ed">N° {i["meta"]["n"]} · {E(i["meta"]["date"])}{" <span class=demo>· démonstration</span>" if i["meta"].get("demo") else ""}</p><ul class="it">'
-                lab = 'Agenda · ' + it.get('label', '') if it['kind'] == 'agenda' else it['sec'].split(' : ')[0]
+                lab = it['sec'].split(' : ')[0]
                 u = sid_de(i, it)
                 if u and SYN.get('synb'): body += f'<li class="sy-it" data-syn="{u}"><span class="sec">{E(lab)}</span>{it["html"]} {SYN["synb"].format(u)}</li>'
                 else:
@@ -350,7 +375,7 @@ def main():
                     body += f'<li><span class="sec">{E(lab)}</span>{it["html"]}{more}</li>'
             body += '</ul>'
         write(os.path.join(SITE, 'dossiers', k, 'index.html'), page(f'{v["nom"]} – Dossier – Software Compliance', 'Dossier', titre(v['nom'], v.get('titre')),
-              f'{E(TY(v.get("reference", "")))}<br>{len(its)} information{"s" if len(its) > 1 else ""} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body, cls='dos',
+              f'{E(TY(v.get("reference", "")))}<br>{nb_infos(len(its))} · <a href="/dossiers/">Tous les dossiers</a> · <a href="/">Dernière édition</a>', body, cls='dos',
               syn=''.join(f'<div class="sy-d" id="d-{u}" hidden>{h}</div>' for u, h in syn.items())))
     write(os.path.join(SITE, 'dossiers', 'index.html'), page('Dossiers – Software Compliance', 'Revue de presse hebdomadaire', titre('Dossiers'),
           'Tout ce que la revue a publié, thème par thème · <a href="/">Dernière édition</a> · <a href="/archives/">Archives</a>', f'<ul class="l">{"".join(idx)}</ul>'))
