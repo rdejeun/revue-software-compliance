@@ -33,10 +33,13 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-6'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-9'   # à changer quand la mise en page change (invalide le cache)
 
 
-def T(s): return E(typo(s or ''))
+RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
+
+
+def T(s): return E(typo(RENVOI.sub('', s or '')))
 def texte(segs): return ''.join(x.get('t', '') for x in segs)
 
 
@@ -134,19 +137,26 @@ def rappels(rs, incl):
     return '<aside class="rap"><p class="rap-t">Rappels</p><ul>' + ''.join(li) + '</ul></aside>'
 
 
+def pastille(date):
+    """« 20 octobre 2026 » -> cadre arrondi « 20 / OCT. » ; « Novembre 2026 » -> « NOV. / 2026 »."""
+    t = date.lower()
+    m = re.search(r'(' + '|'.join(MOIS) + r')\s+(\d{4})', t)
+    j = re.match(r'(1er|\d{1,2})(?:\s+au\s+(\d{1,2}))?', t)
+    if m and j:
+        jour = j[1] + (f'–{j[2]}' if j[2] else '')
+        return f'<div class="ag-cal"><span class="j">{T(jour)}</span><span class="m">{MOISC[MOIS.index(m[1])]}</span></div>'
+    if m: return f'<div class="ag-cal mois"><span class="j">{MOISC[MOIS.index(m[1])]}</span><span class="m">{m[2]}</span></div>'
+    return f'<div class="ag-cal mois"><span class="j">{T(date[:6])}</span></div>'
+
+
 def agenda(ev, incl):
     if not ev: return ''
-    h, mois = [], None
+    h = []
     for e in ev:
-        m = re.search(r'(' + '|'.join(MOIS) + r')\s+(\d{4})', e['date'].lower())
-        mo = f'{m[1].capitalize()} {m[2]}' if m else e['date']
-        if mo != mois:
-            mois = mo; h.append(f'<p class="ag-m">{T(mo)}</p>')
-        jour = re.match(r'(1er|\d{1,2}(?:\s+au\s+\d{1,2})?)', e['date'])
         det = f'<p class="ag-x">{T(e["detail"])}</p>' if e.get('detail') and ('detail', e['id']) in incl else ''
-        h.append(f'<div class="ag-e"><p class="ag-d">{T(jour[1]) if jour else "—"}</p><div><p class="ag-q">{T(e["quoi"])}</p>'
-                 f'{det}<p class="ag-th">{T(e["theme"])}</p></div></div>')
-    return '<h2 class="rub" id="r-agenda" data-rub="Agenda"><span>Agenda</span> Dates à surveiller</h2><div class="cols agenda">' + ''.join(h) + '</div>'
+        h.append(f'<div class="ag-e"><div class="ag-dt">{pastille(e["date"])}</div><div>'
+                 f'<p class="ag-th">{T(e["theme"])}</p><p class="ag-q">{T(e["quoi"])}</p>{det}</div></div>')
+    return '<h2 class="rub" id="r-agenda" data-rub="Agenda"><span>Agenda</span> Dates à surveiller</h2><div class="ag">' + ''.join(h) + '</div>'
 
 
 def lexique(html_txt):
@@ -190,18 +200,16 @@ SERIF = "'Gelasio','Gelasio Ext',Georgia,serif"
 SANS = "'Source Sans 3','Source Sans 3 Ext','Segoe UI',Arial,sans-serif"
 
 
-def css(fs, meta):
-    num = f'N°\u00a0{meta["n"]} · {meta["date"]}'
+def css(fs, meta, ess_pt=11.0):
+    pied = f'Software Compliance – {meta["date"]}'
     petit = max(PETIT_MIN, round(fs - .5, 2))   # rappels, agenda, lexique
     return polices() + f'''
-@page {{ size:A4; margin:14mm 9.5mm 12mm 9.5mm;
-  @top-left {{ content:"Software Compliance"; font:italic 400 8pt {SERIF}; color:{ACC}; vertical-align:bottom; padding-bottom:2.2mm; border-bottom:.6pt solid {NAVY} }}
-  @top-center {{ content:string(rub); font:600 7pt {SANS}; letter-spacing:.12em; text-transform:uppercase; color:{NAVY}; vertical-align:bottom; padding-bottom:2.2mm; border-bottom:.6pt solid {NAVY} }}
-  @top-right {{ content:"{num}"; font:400 7.5pt {SANS}; color:#555; vertical-align:bottom; padding-bottom:2.2mm; border-bottom:.6pt solid {NAVY} }}
-}}
-@page :left {{ @bottom-left {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY} }} @bottom-right {{ content:"revue.dejeun.es"; font:400 7pt {SANS}; color:#888 }} }}
-@page :right {{ @bottom-right {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY} }} @bottom-left {{ content:"revue.dejeun.es"; font:400 7pt {SANS}; color:#888 }} }}
-@page :first {{ margin-top:9mm; @top-left {{ content:none; border:0 }} @top-center {{ content:none; border:0 }} @top-right {{ content:none; border:0 }} }}
+@page {{ size:A4; margin:11mm 9.5mm 13mm 9.5mm }}
+@page :right {{ @bottom-left {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:2mm }}
+               @bottom-right {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY}; vertical-align:top; padding-top:1.6mm }} }}
+@page :left {{ @bottom-left {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY}; vertical-align:top; padding-top:1.6mm }}
+              @bottom-right {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:2mm }} }}
+@page :first {{ margin-top:16mm; @bottom-left {{ content:none }} @bottom-right {{ content:none }} }}
 html {{ font-family:{SERIF}; font-size:{fs}pt; line-height:1.25; color:#1b1f27; hyphens:auto; -webkit-hyphens:auto }}
 body {{ margin:0 }}
 p {{ margin:0 }}
@@ -209,19 +217,19 @@ i {{ font-style:italic }}
 sup {{ font-size:70%; line-height:0 }}
 .kw {{ color:{BRIQUE} }}
 /* manchette */
-.mast {{ text-align:center; border-bottom:2.2pt solid {NAVY}; padding-bottom:1.6mm; margin-bottom:.6mm }}
-.mast .ey {{ font:600 7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC} }}
-.mast h1 {{ margin:.6mm 0 0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
+.mast {{ text-align:center; border-bottom:2.2pt solid {NAVY}; padding-bottom:4mm; margin-bottom:.6mm }}
+.mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
-.mast .st {{ margin-top:1mm; font:italic 9.5pt {SERIF}; color:#374151 }}
-.band {{ display:table; width:100%; border-bottom:.6pt solid {NAVY}; padding:1.1mm 0; font:600 7.6pt {SANS}; color:{NAVY}; letter-spacing:.04em; margin-bottom:3.5mm }}
+.mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
+.band {{ display:table; width:100%; border-bottom:.6pt solid {NAVY}; padding:1.1mm 0; font:600 7.6pt {SANS}; color:{NAVY}; letter-spacing:.04em; margin-bottom:4.5mm }}
 .band span {{ display:table-cell }} .band .c {{ text-align:center }} .band .r {{ text-align:right }}
 /* essentiel et sommaire */
 .top {{ display:table; width:100%; margin-bottom:3.5mm }}
 .top > div {{ display:table-cell; vertical-align:top }}
-.ess {{ padding-right:5mm }}
-.ess .k {{ font:700 7.5pt {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:1mm }}
-.ess p.l {{ font:italic 11pt/1.3 {SERIF}; color:#1f2937; text-align:left; hyphens:manual }}
+.ess {{ border:1.2pt solid {ACC}; padding:2.4mm 3.2mm 2.6mm; vertical-align:middle !important }}
+.ess .k {{ font:700 7.5pt {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:1.2mm }}
+.ess p.l {{ font:italic {ess_pt}pt/1.3 {SERIF}; color:#1f2937; text-align:left; hyphens:manual }}
+.gout {{ width:5mm }}
 .som {{ width:52mm; border-left:.6pt solid #c9c2b4; padding-left:4mm }}
 .som .k {{ font:700 7.5pt {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{NAVY}; margin-bottom:1mm }}
 .som a {{ display:block; color:#1f2937; text-decoration:none; font:400 8.2pt/1.45 {SANS} }}
@@ -232,13 +240,14 @@ sup {{ font-size:70%; line-height:0 }}
 .une-c {{ font:11pt/1.35 {SERIF}; color:#374151; margin-bottom:2.5mm; hyphens:manual }}
 /* colonnes */
 .cols {{ column-count:4; column-gap:4mm; column-rule:.4pt solid #d8d2c6; text-align:justify }}
-.une-cols {{ column-count:3; column-gap:4mm; column-rule:.4pt solid #d8d2c6; text-align:justify; border-bottom:1.2pt solid {NAVY}; padding-bottom:3mm; margin-bottom:3.5mm }}
+.une-cols {{ column-count:3; column-gap:4mm; column-rule:.4pt solid #d8d2c6; text-align:justify; padding-bottom:1mm }}
 h2.rub {{ string-set:rub attr(data-rub); break-after:avoid; margin:3.6mm 0 2mm; padding-top:1.4mm; border-top:1.6pt solid {NAVY}; font:700 13pt/1.15 {SERIF}; color:{NAVY}; text-align:left; hyphens:manual }}
 h2.rub span {{ display:inline-block; margin-right:2mm; padding:.4mm 1.6mm; background:{ACC}; color:#fff; font:700 7.2pt/1.3 {SANS}; letter-spacing:.14em; text-transform:uppercase; vertical-align:2pt }}
 .rub-c {{ break-after:avoid; font:italic 9.6pt/1.32 {SERIF}; color:#4b5563; margin:-.6mm 0 2.4mm; text-align:left; hyphens:manual }}
 .art, .rap {{ string-set:rub attr(data-rub) }}
 .art {{ margin:0 0 2.4mm; padding-bottom:2mm; border-bottom:.4pt solid #d8d2c6 }}
 .art:last-of-type {{ border-bottom:0 }}
+.une-cols .art {{ margin:0 0 2mm; padding:0; border:0 }}   /* sans filet ni marge basse : sinon WeasyPrint ne répartit pas la Une sur trois colonnes */
 h3.hl {{ margin:0 0 1mm; font:700 1.16em/1.18 {SANS}; color:{NAVY}; text-align:left; hyphens:manual; break-after:avoid }}
 .txt {{ margin-bottom:.8mm }}
 b.acc {{ font:700 .97em {SANS}; color:{NAVY} }}
@@ -247,18 +256,28 @@ b.acc {{ font:700 .97em {SANS}; color:{NAVY} }}
 .rap-t {{ font:700 .82em {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:.8mm }}
 .rap ul {{ margin:0; padding:0; list-style:none }} .rap li {{ margin:0 0 1mm }}
 .rap-s {{ margin-top:.4mm; color:#374151 }}
-/* agenda */
-.agenda .ag-m {{ font:700 .8em {SANS}; letter-spacing:.14em; text-transform:uppercase; color:{ACC}; border-bottom:.5pt solid #e0c7b8; margin:1.4mm 0 1mm; break-after:avoid }}
-.ag-e {{ display:table; width:100%; margin-bottom:1.3mm; break-inside:avoid; text-align:left }}
-.ag-e > p.ag-d {{ display:table-cell; width:9mm; font:700 1.05em/1.15 {SANS}; color:{NAVY} }}
-.ag-e > div {{ display:table-cell }}
+/* bas de la dernière page : crédit à gauche (deux colonnes), agenda à droite (deux colonnes) */
+.bas {{ display:table; width:100%; table-layout:fixed; break-inside:avoid; border-top:1.6pt solid {NAVY}; margin-top:2mm }}
+.bas > div {{ display:table-cell; vertical-align:bottom; padding-top:2mm }}
+.bas .bas-g {{ padding-right:2mm; border-right:.4pt solid #d8d2c6 }}
+.bas .bas-d {{ padding-left:2mm; vertical-align:top }}
+.bas h2.rub {{ border-top:0; margin:0 0 2mm; padding-top:0 }}
+.ag {{ column-count:2; column-gap:4mm; column-rule:.4pt solid #d8d2c6 }}
+.ag-e {{ display:table; width:100%; margin-bottom:1.8mm; break-inside:avoid; text-align:left }}
+.ag-e > div {{ display:table-cell; vertical-align:top }}
+.ag-e > .ag-dt {{ width:11mm; padding-right:2mm }}
+.ag-cal {{ border:1pt solid {ACC}; border-radius:2.2mm; text-align:center; padding:.6mm 0 .7mm; color:{NAVY} }}
+.ag-cal .j {{ display:block; font:700 13pt/1 {SANS} }}
+.ag-cal .m {{ display:block; font:600 6.4pt/1.2 {SANS}; letter-spacing:.06em; text-transform:uppercase; color:{ACC}; margin-top:.3mm }}
+.ag-cal.mois .j {{ font-size:8.5pt; letter-spacing:.04em; text-transform:uppercase }}
+.ag-th {{ font:700 6.8pt/1.2 {SANS}; letter-spacing:.1em; text-transform:uppercase; color:#7d6c47; margin-bottom:.4mm }}
 .ag-q {{ font-size:{petit}pt; line-height:1.25 }} .ag-x {{ font-size:{petit}pt; color:#4b5563; line-height:1.25; margin-top:.3mm }}
-.ag-th {{ font:600 .7em {SANS}; letter-spacing:.06em; text-transform:uppercase; color:#7d6c47; margin-top:.4mm }}
 /* lexique et colophon */
 .lex dl {{ margin:0; font-size:{petit}pt; line-height:1.26; text-align:left }}
 .lex dt {{ font:700 .95em {SANS}; color:{NAVY}; margin-top:.8mm; break-after:avoid }} .lex dd {{ margin:0 }}
-.colo {{ margin-top:3mm; padding-top:1.6mm; border-top:1.2pt solid {NAVY}; font:400 .74em/1.35 {SANS}; color:#4b5563; text-align:left; break-inside:avoid }}
-.colo b {{ color:{NAVY} }} .colo .qr {{ float:right; width:15mm; height:15mm; margin:0 0 1mm 2mm }}
+.colo {{ font:400 7.6pt/1.4 {SANS}; color:#4b5563; text-align:left; hyphens:manual }}
+.colo b {{ color:{NAVY} }} .colo .qr {{ display:block; width:17mm; height:17mm; margin:0 0 2mm }}
+.colo .mq {{ font:400 15pt/1 {SERIF}; color:{NAVY}; margin-bottom:1.6mm }} .colo .mq i {{ color:{ACC} }} .colo .mq span {{ font:600 14pt/1 {SANS} }}
 '''
 
 
@@ -268,8 +287,9 @@ def rub_courante(h, lab):
     return h.replace('<article class="art', f'<article{a} class="art').replace('<aside class="rap"', f'<aside{a} class="rap"')
 
 
-def page_html(ed, fs, incl):
-    """incl : blocs facultatifs retenus par le calage (voir blocs())."""
+def page_html(ed, fs, incl, espace=0.0, haut_seul=False):
+    """incl : blocs facultatifs retenus par le calage (voir blocs()) ; espace : blanc (px) inséré avant le bas de la
+    dernière page pour le caler en bas ; haut_seul : manchette, bandeau, essentiel et sommaire seulement (mesure)."""
     avec_lexique = ('lexique', '') in incl
     m = ed['meta']; d = m['date_iso']
     url = f'{m.get("site", "https://revue.dejeun.es/").rstrip("/")}/{d}/'
@@ -282,11 +302,13 @@ def page_html(ed, fs, incl):
         som.append(f'<a href="#r{k}">{T(toc[k] if len(toc) == len(autres) else r["label"])}</a>')
     if ed['agenda']: som.append('<a href="#r-agenda">Agenda</a>')
     if avec_lexique: som.append('<a href="#r-lexique">Lexique</a>')
-    h = [f'<header class="mast"><div class="ey">Revue de presse hebdomadaire</div><h1><i>Software</i> <span>Compliance</span></h1>'
+    h = [f'<header class="mast"><h1><i>Software</i> <span>Compliance</span></h1>'
          f'<div class="st">L’essentiel de la conformité des logiciels embarqués dans les produits de défense</div></header>'
-         f'<div class="band"><span>N°\u00a0{m["n"]}</span><span class="c">{T(m.get("date_long", m["date"]))}</span><span class="r">revue.dejeun.es</span></div>'
-         f'<div class="top"><div class="ess"><div class="k">L’essentiel</div><p class="l">{T(ed["chapo"])}</p></div>'
-         f'<div class="som"><div class="k">Dans ce numéro</div>{"".join(som)}</div></div>']
+         f'<div class="band"><span>N°\u00a0{m["n"]} – {T(m.get("date_long", m["date"]))}</span><span class="c">Revue de presse hebdomadaire</span><span class="r">revue.dejeun.es</span></div>'
+         f'<div class="top"><div class="ess"><div class="ess-in"><div class="k">L’essentiel</div><p class="l">{T(ed["chapo"])}</p></div></div><div class="gout"></div>'
+         f'<div class="som"><div class="som-in"><div class="k">Dans ce numéro</div>{"".join(som)}</div></div></div>']
+    if haut_seul:
+        return f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>{css(fs, m, ed.get("ess_pt", 11.0))}</style></head><body>{"".join(h)}</body></html>'
     if une:
         tu = une['sous'] or une['label']
         h.append(f'<div class="une-k">À la une</div><h2 class="une-h">{T(tu[:1].upper() + tu[1:])}</h2>')
@@ -297,21 +319,69 @@ def page_html(ed, fs, incl):
         h.append(f'<h2 class="rub" id="r{k}" data-rub="{html.escape(r["label"], True)}"><span>{T(r["label"])}</span>{T(r["sous"])}</h2>')
         if r['chapo']: h.append(f'<p class="rub-c">{T(r["chapo"])}</p>')
         h.append('<div class="cols">' + rub_courante(''.join(article(it, incl) for it in r['items']) + rappels(r['rappels'], incl), r['label']) + '</div>')
-    h.append(agenda(ed['agenda'], incl))
     tout = ''.join(h)
     if avec_lexique: h.append(lexique(tout))
-    h.append(f'<div class="colo">{qr(url)}<b>Software Compliance</b>, revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}. '
-             f'Rédigée par une intelligence artificielle ({T(m.get("redaction", "Anthropic Claude"))}) à partir des sources citées ; des erreurs sont possibles. '
-             f'Édition en ligne, liens et sources : {html.escape(url)} · © {d[:4]} Rodolphe Dejeunes · CC BY 4.0.</div>')
+    if espace > 0: h.append(f'<div style="height:{espace:.2f}px"></div>')
+    colo = (f'<div class="colo">{qr(url)}<div class="mq"><i>Software</i> <span>Compliance</span></div>'
+            f'Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}. '
+            f'Rédigée par une intelligence artificielle ({T(m.get("redaction", "Anthropic Claude"))}) à partir des sources citées ; des erreurs sont possibles.<br>'
+            f'Édition en ligne, liens et sources : {html.escape(url)}<br>© {d[:4]} Rodolphe Dejeunes · CC BY 4.0</div>')
+    h.append(f'<div class="bas" id="bas"><div class="bas-g">{colo}</div><div class="bas-d">{agenda(ed["agenda"], incl)}</div></div>')
     return (f'<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Software Compliance – N° {m["n"]} – {html.escape(m["date"])}</title>'
-            f'<style>{css(fs, m)}</style></head><body>{"".join(h)}</body></html>')
+            f'<style>{css(fs, m, ed.get("ess_pt", 11.0))}</style></head><body>{"".join(h)}</body></html>')
 
 
 # ---------------------------------------------------------------- rendu, calage et imposition
 
-def rendre(ed, fs, incl):
+def rendre(ed, fs, incl, espace=0.0):
     from weasyprint import HTML
-    return HTML(string=page_html(ed, fs, incl), base_url=ROOT).render()
+    return HTML(string=page_html(ed, fs, incl, espace), base_url=ROOT).render()
+
+
+def boites(page):
+    def walk(b):
+        yield b
+        for c in getattr(b, 'children', []): yield from walk(c)
+    return walk(page._page_box)
+
+
+def boite(page, pred):
+    for b in boites(page):
+        el = getattr(b, 'element', None)
+        if el is not None and pred(el) and type(b).__name__ not in ('LineBox', 'TextBox', 'InlineBox'): return b
+    return None
+
+
+def taille_essentiel(ed):
+    """Plus grand corps de « L'essentiel » (de 14 à 9 pt) dont le cadre ne dépasse pas la hauteur du sommaire."""
+    from weasyprint import HTML
+    def mesure(pt):
+        ed['ess_pt'] = pt
+        pg = HTML(string=page_html(ed, CORPS_MIN, set(), haut_seul=True), base_url=ROOT).render().pages[0]
+        cls = lambda c: (lambda el: c in (el.get('class') or '').split())
+        return boite(pg, cls('ess-in')).margin_height(), boite(pg, cls('som-in')).margin_height()
+    pad = (2.4 + 2.6) * 96 / 25.4 + 2 * 1.2 * 4 / 3   # marges intérieures et bordure du cadre (px)
+    best = 9.0
+    for pt in [x / 4 for x in range(56, 35, -1)]:   # 14 → 9 pt, par quart de point
+        e, s_ = mesure(pt)
+        if e + pad <= s_: best = pt; break
+    ed['ess_pt'] = best
+    return best
+
+
+def caler_bas(ed, fs, incl, doc):
+    """Insère un blanc pour que le bloc du bas (crédit et agenda) touche le bas de la dernière page."""
+    pg = doc.pages[-1]
+    b = boite(pg, lambda el: el.get('id') == 'bas')
+    if b is None: return doc, 0.0
+    pb = pg._page_box
+    reste = pb.content_box_y() + pb.height - (b.position_y + b.margin_height()) - 1
+    if reste <= 2: return doc, 0.0
+    n = len(doc.pages)
+    for esp in (reste, reste - 6, reste - 14):
+        d2 = rendre(ed, fs, incl, esp)
+        if len(d2.pages) == n: return d2, esp
+    return doc, 0.0
 
 
 def blocs(ed):
@@ -421,9 +491,11 @@ def produire(d, sortie=None):
     if os.path.exists(c4) and os.path.exists(c3) and os.path.exists(cj):
         shutil.copy(c4, a4); shutil.copy(c3, a3); return json.load(open(cj))
     ed = lire(d)
+    taille_essentiel(ed)
     fs, incl, doc, cible = caler(ed)
+    doc, esp = caler_bas(ed, fs, incl, doc)
     doc.write_pdf(a4)
-    complet(page_html(ed, fs, incl), a4)
+    complet(page_html(ed, fs, incl, esp), a4)
     imposer(a4, a3)
     bl = blocs(ed)
     info = {'edition': d, 'pages': len(doc.pages), 'cahier': cible, 'corps_pt': fs, 'blocs': f'{len(incl)}/{len(bl)}',
