@@ -1,0 +1,83 @@
+{
+ "duree_s": 427,
+ "octets": 3549962,
+ "mots": 1235,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-10-20T03:41:28Z",
+ "sha_script": "ec0eecb35d66b87dfbe0888498655d300188bff0286748b0ccfe92cf607284a5",
+ "extrait": false,
+ "repliques": 46,
+ "prononciation": "dictionnaire ElevenLabs 1GW2PLCTfu3yhYr4OVUg",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "11.1 → 1.0 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 57 → 24 ms, B 23 → 21 ms",
+  "Durée": "415.2 s (blocs : 415.5 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "9.0 % de mots différents sur 1315"
+ },
+ "requetes": 7,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "Java : Oracle JDK 21 change de licence",
+   "court": "Java",
+   "debut_s": 26.2,
+   "long": "Oracle JDK 21"
+  },
+  {
+   "titre": "Chaîne d’approvisionnement : OVHcloud et GhostAction",
+   "court": "Supply chain",
+   "debut_s": 111.2,
+   "long": "Chaîne d’approvisionnement"
+  },
+  {
+   "titre": "AI Act : une première norme harmonisée",
+   "court": "AI Act",
+   "debut_s": 210.4,
+   "long": "AI Act : première norme"
+  },
+  {
+   "titre": "Outils : Trivy, Syft et Grype",
+   "court": "Outils",
+   "debut_s": 272.3,
+   "long": "Outils : Trivy, Syft, Grype"
+  },
+  {
+   "titre": "Export et sanctions",
+   "court": "Export",
+   "debut_s": 334.8,
+   "long": "Export et sanctions"
+  },
+  {
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 398.9,
+   "long": "Date à retenir"
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 415.2
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "fc25be260570"
+}
