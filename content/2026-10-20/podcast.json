@@ -1,0 +1,252 @@
+{
+ "titre": "Revue Software Compliance, numéro 3 : Oracle JDK 21 change de licence, un outil OVHcloud piégé et une première norme pour l’AI Act",
+ "description": "Numéro trois : les mises à jour d’Oracle JDK 21 passent sous licence OTN, des versions du CLI d’OVHcloud piégées sur GitHub, la campagne GhostAction, la première norme harmonisée de l’AI Act, Trivy, Syft et Grype, et de nouvelles mesures à l’export.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi vingt octobre deux mille vingt-six, et voici le numéro trois."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Au programme : une licence Java qui change aujourd’hui même, un outil officiel piégé sur GitHub, une première norme pour le règlement européen sur l’intelligence artificielle, et du nouveau à l’export."
+  },
+  {
+   "sujet": "Java : Oracle JDK 21 change de licence",
+   "court": "Java",
+   "long": "Oracle JDK 21",
+   "elements": [
+    "Oracle JDK 21 : les mises à jour publiée"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Commençons par Java. Il se passe quoi avec Oracle JDK 21 ?"
+  },
+  {
+   "v": "B",
+   "t": "Le JDK, c’est le kit qui permet de faire tourner des programmes Java. Oracle publie ses correctifs tous les trois mois, et celui d’octobre est daté d’aujourd’hui, le vingt octobre. À partir de ce correctif, les mises à jour d’Oracle JDK 21 sont prévues sous une autre licence, la licence OTN."
+  },
+  {
+   "v": "A",
+   "t": "Et jusqu’ici, c’était quoi ?"
+  },
+  {
+   "v": "B",
+   "t": "Une licence appelée NFTC, pour conditions sans redevance. JDK 21 était gratuit en production et on pouvait le redistribuer. Avec la licence OTN, la gratuité se limite à certains usages, comme l’usage personnel ou le développement. Au-delà, Oracle l’écrit sur sa page de téléchargement : l’usage en production exigera une redevance."
+  },
+  {
+   "v": "A",
+   "t": "[curious] Donc une machine livrée chez un client, qui fait tourner Java, c’est de la production ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, c’est bien le cas visé. Un équipement qui embarque Oracle JDK 21 et reçoit les correctifs publiés à partir d’aujourd’hui entre dans le champ de la redevance. C’est le même régime que celui déjà appliqué à Java 8, 11 et 17."
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement, quelles sont les portes de sortie ?"
+  },
+  {
+   "v": "B",
+   "t": "Oracle en propose une : passer à JDK 25, qui reste sous licence gratuite jusqu’en septembre deux mille vingt-huit. L’autre piste, c’est une distribution d’OpenJDK, la version open source. Mais changer de version de Java dans un équipement maintenu pendant des années, ça pourrait demander de requalifier le logiciel. Le premier réflexe, c’est l’inventaire : savoir quels produits embarquent quel Java."
+  },
+  {
+   "sujet": "Chaîne d’approvisionnement : OVHcloud et GhostAction",
+   "court": "Supply chain",
+   "long": "Chaîne d’approvisionnement",
+   "elements": [
+    "OVHcloud CLI : le 19 octobre 2026, penda",
+    "GhostAction : selon GitGuardian, cité pa"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Passons à la sécurité de la chaîne d’approvisionnement logicielle. Il y a eu une alerte chez OVHcloud ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, hier, le dix-neuf octobre. Selon le site Cyberattaque point org, pendant environ une heure et demie, plusieurs versions de l’outil en ligne de commande d’OVHcloud, téléchargées depuis son dépôt GitHub officiel, contenaient un programme malveillant. Ce programme cherchait les secrets présents sur l’ordinateur, comme des mots de passe ou des clés d’accès."
+  },
+  {
+   "v": "A",
+   "t": "Quelles versions ?"
+  },
+  {
+   "v": "B",
+   "t": "Les versions zéro point onze à zéro point quinze sont considérées comme compromises. La zéro point dix n’est pas touchée, et une version zéro point seize a été publiée. D’après Octave Klaba, cité par le site, l’attaquant a utilisé le compte GitHub d’un des développeurs."
+  },
+  {
+   "v": "A",
+   "t": "Comment est-ce qu’on s’en est rendu compte ?"
+  },
+  {
+   "v": "B",
+   "t": "C’est la leçon de l’histoire. Un système d’intégration vérifiait automatiquement l’empreinte du fichier téléchargé. L’empreinte, c’est comme l’empreinte digitale d’un fichier : si on change un seul octet, elle change. Elle ne correspondait plus, l’installation a échoué, et l’enquête a commencé."
+  },
+  {
+   "sujet": "Chaîne d’approvisionnement : GhostAction",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et GhostAction, c’est la même chose ?"
+  },
+  {
+   "v": "B",
+   "t": "C’est une campagne plus large de vol d’identifiants. Selon GitGuardian, cité par The Hacker News, elle vise plus de trente mille dépôts, après la compromission d’environ mille neuf cents comptes GitHub. Et une nouvelle étape est apparue : un fichier de configuration et une fausse police de caractères font exécuter par l’éditeur VS Code un voleur d’identifiants."
+  },
+  {
+   "v": "A",
+   "t": "Donc ouvrir un projet suffit ?"
+  },
+  {
+   "v": "B",
+   "t": "Si l’exécution automatique des tâches est autorisée, oui : ouvrir un dépôt piégé dans VS Code peut lancer le programme sur le poste du développeur. Pour un industriel, le risque, c’est qu’un composant piégé finisse dans un produit livré, ou que des secrets volés ouvrent l’accès à ses propres dépôts. D’où l’intérêt de figer les empreintes des binaires tiers qu’on télécharge."
+  },
+  {
+   "sujet": "AI Act : une première norme harmonisée",
+   "court": "AI Act",
+   "long": "AI Act : première norme",
+   "elements": [
+    "AI Act, première norme harmonisée : la C"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Côté réglementation, le règlement européen sur l’intelligence artificielle, l’AI Act, a sa première norme harmonisée. Ça veut dire quoi ?"
+  },
+  {
+   "v": "B",
+   "t": "Une norme harmonisée, c’est un mode d’emploi technique reconnu par l’Union européenne. La Commission a annoncé le dix-neuf octobre que la référence de la norme EN dix-huit mille deux cent quatre-vingt-six est publiée au Journal officiel. Elle porte sur le système de management de la qualité des fournisseurs d’IA à haut risque."
+  },
+  {
+   "v": "A",
+   "t": "Qui l’a rédigée ?"
+  },
+  {
+   "v": "B",
+   "t": "Les organismes européens de normalisation, le CEN et le CENELEC."
+  },
+  {
+   "v": "A",
+   "t": "Et l’appliquer, ça apporte quoi ?"
+  },
+  {
+   "v": "B",
+   "t": "Une présomption de conformité à l’article dix-sept du règlement, celui qui exige ce système qualité. Autrement dit, si on suit la norme, on est présumé respecter ces exigences-là. Et elle est conçue pour se superposer à des normes existantes comme l’ISO neuf mille un, sans les remplacer."
+  },
+  {
+   "v": "A",
+   "t": "Mais la défense est exclue de l’AI Act, non ?"
+  },
+  {
+   "v": "B",
+   "t": "Les usages exclusivement militaires, oui. Mais un produit à double usage ou une version civile qui intègre de l’IA à haut risque pourrait être concerné. Et d’autres normes harmonisées sont annoncées."
+  },
+  {
+   "sujet": "Outils : Trivy, Syft et Grype",
+   "court": "Outils",
+   "long": "Outils : Trivy, Syft, Grype",
+   "elements": [
+    "Trivy 0.76.0 : le scanneur d’Aqua Securi",
+    "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Un mot des outils. Quoi de neuf ?"
+  },
+  {
+   "v": "B",
+   "t": "Trois outils open source très utilisés ont publié des versions. Trivy, un scanneur de vulnérabilités, en est à la version zéro point soixante-seize. Il indique désormais le niveau de sécurité nominal des algorithmes dans sa nomenclature cryptographique, c’est-à-dire la liste des fonctions de chiffrement d’un logiciel. C’est encore expérimental, et l’identifiant de certains composants change."
+  },
+  {
+   "v": "A",
+   "t": "[thoughtful] Le chiffrement, ça nous parle, à cause de l’export."
+  },
+  {
+   "v": "B",
+   "t": "Exactement : ce type d’inventaire pourrait aider à documenter les fonctions de chiffrement qu’on examine pour le contrôle des exportations. Ensuite, Anchore a publié Syft et Grype. Syft, qui fabrique la liste des ingrédients d’un logiciel, le SBOM, sait maintenant lire les paquets IPK, un format qu’on trouve dans des systèmes Linux embarqués."
+  },
+  {
+   "v": "A",
+   "t": "Et sur un réseau coupé d’Internet ?"
+  },
+  {
+   "v": "B",
+   "t": "Les trois peuvent fonctionner sans Internet ; pour Trivy et Grype, il faut copier les bases de vulnérabilités à la main. Pour Grype, avec le réglage par défaut, la base ne doit pas avoir plus de cinq jours : il faut donc l’importer au moins tous les cinq jours."
+  },
+  {
+   "sujet": "Export et sanctions",
+   "court": "Export",
+   "long": "Export et sanctions",
+   "elements": [
+    "Sanctions, contournement : par le règlem",
+    "Royaume-Uni, licences générales : depuis"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "À l’export, maintenant. L’Union européenne a sanctionné des intermédiaires ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Le quinze octobre, le Conseil a inscrit trois personnes et neuf entités qui aident à contourner les sanctions contre la Russie. On y trouve des sociétés de commerce et de logistique qui font entrer en Russie des biens soumis aux mesures européennes."
+  },
+  {
+   "v": "A",
+   "t": "Pourquoi c’est important pour un industriel ?"
+  },
+  {
+   "v": "B",
+   "t": "Parce que ce ne sont pas des entreprises russes au sens strict, mais des intermédiaires. Le filtrage des distributeurs et des transitaires doit donc intégrer la liste à jour, y compris pour une livraison de logiciel ou de mise à jour."
+  },
+  {
+   "v": "A",
+   "t": "Et au Royaume-Uni ?"
+  },
+  {
+   "v": "B",
+   "t": "Il élargit ses licences générales d’exportation."
+  },
+  {
+   "v": "A",
+   "t": "Comment ça ?"
+  },
+  {
+   "v": "B",
+   "t": "Depuis le quatorze octobre, le service britannique de contrôle des exportations élargit ses licences générales. Ce sont des licences qu’on utilise sans demande individuelle, à condition d’en respecter les règles. Celle des biens à double usage gagne douze destinations, dont Bahreïn, le Maroc, Oman, les Philippines et le Qatar. Et celles des biens, logiciels et technologies militaires s’ouvrent notamment à la Pologne, à la Grèce et à la Corée du Sud. Le Royaume-Uni estime éviter ainsi plus de huit cents demandes de licences par an."
+  },
+  {
+   "sujet": "Date à retenir",
+   "court": "Agenda",
+   "long": "Date à retenir",
+   "elements": [
+    "Mise à jour, loi Résilience : la confére",
+    "20 octobre 2026 Conférence des président"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu’une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Aujourd’hui, le vingt octobre, la conférence des présidents de l’Assemblée nationale se réunit. Celle du treize octobre n’a pas réinscrit la loi Résilience, qui transpose la directive européenne NIS2 : on saura peut-être aujourd’hui quand le texte sera enfin examiné."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "Merci Guillaume. Vous retrouverez toutes les sources et les synthèses sur la page de ce numéro."
+  },
+  {
+   "v": "B",
+   "t": "Merci Julie, et à mardi prochain."
+  }
+ ]
+}

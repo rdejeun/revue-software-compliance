@@ -1,0 +1,3104 @@
+[
+ {
+  "affirmation": "Les mises à jour d’Oracle JDK 21 publiées à partir du CPU d’octobre 2026 sont prévues sous licence Java SE OTN",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "update releases of oracle jdk 21 released beginning with the october 2026 critical patch update (cpu) are planned to be offered under the java se otn license",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Le CPU d’octobre 2026 est daté du 20 octobre",
+  "url": "https://www.oracle.com/security-alerts/",
+  "extrait": "the next four dates are: 20 october 2026 19 january 2027",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "L’usage en production devient payant au-delà des autorisations gratuites de l’OTN",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "subsequent jdk 21 updates will be licensed under the java se otn license (otn) and production use beyond the limited free grants of the otn license will require a fee",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Oracle JDK 25 reste sous NFTC jusqu’en septembre 2028",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "jdk 25 will receive updates under the nftc, until september 2028, a year after the release of the next lts",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "OTN : licence des mises à jour de Java 8, 11 et 17",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "the same license under which we currently offer updates to java 8, 11, and 17",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "JDK 21 était jusqu’ici gratuit en production et redistribuable sous NFTC",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "jdk 21 binaries are free to use in production and free to redistribute, at no cost, under the oracle no-fee terms and conditions (nftc)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Oracle invite à passer à Oracle JDK 25 ou ultérieur pour garder une licence permissive après octobre 2026",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "users wanting to continue with permissively licensed versions of java after october of 2026 should upgrade to oracle jdk 25 or later",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Correctifs trimestriels le troisième mardi de janvier, avril, juillet et octobre",
+  "url": "https://www.oracle.com/security-alerts/",
+  "extrait": "critical patch updates are released on the third tuesday of january, april, july, and october",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "La sortie de JDK 25 en septembre 2025 a ouvert une période d’un an de chevauchement",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "the release of jdk 25 lts in september of 2025 started the one-year overlap period for users relying on jdk 21 lts under a permissive license to update to jdk 25",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "OTN gratuite seulement pour certains usages, dont l’usage personnel et le développement",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "this includes individuals who use java se for free on personal desktops or laptops, or those who use java se for development use",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Oracle JDK 8, 11 et 17 proposés sous OTN, gratuite pour les seuls usages personnels, de développement et assimilés",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "oracle jdk releases for java 8, 11, and 17 are available under the oracle technology network license agreement for java se , which is free for personal, development and other users only",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Java 8, 11 et 17 : les versions d’Oracle"
+ },
+ {
+  "affirmation": "Les dates de la feuille de route ne s’appliquent qu’aux versions d’Oracle JDK supportées commercialement",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "dates listed below apply only to the commercially supported oracle jdk releases available to oracle customers",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Java 8, 11 et 17 : les versions d’Oracle"
+ },
+ {
+  "affirmation": "Oracle propose aussi des versions OpenJDK sous licence open source sur jdk.java.net",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "oracle provides oracle openjdk releases under a free open source license (similar to that of linux). availability and community support of openjdk releases provided by oracle is listed separately on jdk.java.net",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Java 8, 11 et 17 : les versions d’Oracle"
+ },
+ {
+  "affirmation": "La feuille de route renvoie vers jdk.java.net pour les versions gratuites sous licence open source",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "if you are looking for the latest free jdk release from oracle, please see oracle.com/javadownload or under an open source license, at jdk.java.net",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Java 8, 11 et 17 : les versions d’Oracle"
+ },
+ {
+  "affirmation": "JDK 27 : versions de production sur jdk.java.net sous GPLv2 avec exception Classpath",
+  "url": "https://jdk.java.net/27/",
+  "extrait": "this page provides production-ready open-source builds of the java development kit, version 27 , an implementation of the java se 27 platform under the gnu general public license, version 2, with the classpath exception",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OpenJDK : Oracle publie aussi sur jdk.ja"
+ },
+ {
+  "affirmation": "JDK 27 est la version courante (GA) publiée sur jdk.java.net",
+  "url": "https://jdk.java.net/27/",
+  "extrait": "ga releases jdk 27 javafx 27",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OpenJDK : Oracle publie aussi sur jdk.ja"
+ },
+ {
+  "affirmation": "La page de JDK 25 indique que la version a été remplacée et renvoie à la version courante",
+  "url": "https://jdk.java.net/25/",
+  "extrait": "JDK 25 has been superseded. Please visit jdk.java.net for the current version",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page jugée « vide ou protégée » par le vérificateur (texte < 800 caractères) ; lue avec curl, l’extrait y figure.",
+  "ref": "OpenJDK : Oracle publie aussi sur jdk.ja"
+ },
+ {
+  "affirmation": "La page de JDK 26 indique que la version a été remplacée ; les anciennes versions restent dans les archives OpenJDK",
+  "url": "https://jdk.java.net/26/",
+  "extrait": "JDK 26 has been superseded. Please visit jdk.java.net for the current version. Older releases, which do not include the most up to date security vulnerability fixes and are no longer recommended for use in production , remain available in the OpenJDK Archive",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page jugée « vide ou protégée » par le vérificateur (texte < 800 caractères) ; lue avec curl, l’extrait y figure.",
+  "ref": "OpenJDK : Oracle publie aussi sur jdk.ja"
+ },
+ {
+  "affirmation": "Annonce de la Commission du 19 octobre 2026 : référence de la première norme harmonisée de l’AI Act publiée au JO",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "publication 19 october 2026 the european commission has published the reference to the first harmonised standard supporting the implementation of the ai act in the official journal of the european union",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "EN 18286:2026, système de management de la qualité, élaborée par le CEN et le CENELEC",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "en 18286:2026 - artificial intelligence - quality management system for eu ai act regulatory purposes , developed by cen and cenelec",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Décision d’exécution (UE) 2026/2274 ; présomption de conformité à l’article 17",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "its publication through commission implementing decision (eu) 2026/2274 means that providers implementing this standard will benefit from a presumption of conformity with the article 17 requirements covered by the standard",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Norme construite autour du cycle de vie du système d’IA, superposée à ISO/IEC 42001 ou ISO 9001 sans les remplacer",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "built around the ai system lifecycle – rather than the organisation – and designed to be layered on top of the existing international standards – such as iso/iec 42001, iso 9001 or a sectoral qms (e.g. iso 13485) – rather than replace them",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Selon le CEN-CENELEC, la publication au JO a coïncidé avec la Journée mondiale de la normalisation",
+  "url": "https://www.cencenelec.eu/news-events/news/2026/en-in-the-spotlight/2026-10-15-en-18286-2026-published-in-ojeu/",
+  "extrait": "world standards day this year marked an additional milestone for europe's ai ecosystem. the day coincided with the publication in the official journal of the european union (ojeu) of the commission implementing decision citing the first harmonized standard in support of the ai act",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "La Commission annonce d’autres normes harmonisées avant l’application des exigences sur l’IA à haut risque",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "ahead of the application of requirements for high-risk ai systems , with further harmonised standards expected to follow",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Exclusion défense de l’AI Act (usages exclusivement militaires)",
+  "url": "https://artificialintelligenceact.eu/article/2/",
+  "extrait": "exclusively for military, defence or national security purposes, regardless of the type of entity carrying out those activities",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "CycloneDX 2.0 attendu à l’automne 2026, approbation Ecma attendue en décembre",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "cyclonedx 2.0, due this fall with ecma international approval anticipated in december",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CycloneDX 2.0 : version attendue à l’aut"
+ },
+ {
+  "affirmation": "Extension aux modèles de menaces et à la provenance des composants physiques",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "the way a system is constructed, the threats to it, the measures that protect it, the actions it takes with data, the origins of its physical components",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CycloneDX 2.0 : version attendue à l’aut"
+ },
+ {
+  "affirmation": "Registres de risques et inventaires de contrôles",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "a threat model can exist on its own, and likewise a risk register, a privacy profile, a control inventory",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CycloneDX 2.0 : version attendue à l’aut"
+ },
+ {
+  "affirmation": "Ecma ratifierait la spécification",
+  "url": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon",
+  "extrait": "version 2.0 is expected this fall, with ratification by ecma international following soon thereafter",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CycloneDX 2.0 : version attendue à l’aut"
+ },
+ {
+  "affirmation": "17 projets de normes verticales de l’ETSI en enquête publique",
+  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
+  "extrait": "etsi is pleased to announce the availability of the 17 vertical final draft standards developed in the framework of the eu cyber resilience act (cra) and currently under public enquiry",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Procédure jusqu’à mi-novembre 2026 (selon le projet)",
+  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
+  "extrait": "the approval procedure will run until mid-september to mid-november 2026, depending on the vertical",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Aucune norme du CRA n’est encore citée au Journal officiel",
+  "url": "https://www.cyberresilienceact.eu/news/etsi-17-cra-product-standards-public-enquiry-13-august-2026.html",
+  "extrait": "no cra harmonised standard is cited in the official journal",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Lancement le 13 août 2026 par l’ETSI",
+  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
+  "extrait": "sophia antipolis, france, 13 august 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Série EN 304, numéros 617 à 627 et 631 à 636",
+  "url": "https://www.cyberresilienceact.eu/news/etsi-17-cra-product-standards-public-enquiry-13-august-2026.html",
+  "extrait": "numbered en 304 617 to en 304 627 and en 304 631 to en 304 636",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Procédure d'approbation ouverte le 13 août 2026, close entre mi-septembre et mi-novembre 2026 selon le projet",
+  "url": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/",
+  "extrait": "the approval procedure will run until mid-september to mid-november 2026, depending on the vertical",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Formulation corrigée après vérification",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Équipements de défense exclus du CRA (article 2)",
+  "url": "https://www.cyberresilienceact.eu/the-cyber-resilience-act/",
+  "extrait": "this regulation does not apply to products with digital elements developed or modified exclusively for national security or defence purposes",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Normes du CRA : 17 projets de normes ver"
+ },
+ {
+  "affirmation": "Trivy 0.76.0 publiée le 14 octobre 2026",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "## [0.76.0](https://github.com/aquasecurity/trivy/compare/v0.75.0...v0.76.0) (2026-10-14)",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Détection des vulnérabilités des paquets Maven et npm corrigés par Echo",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "**echo:** support echo maven and npm package scanning",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Analyse des images RapidFort fondées sur Debian, Oracle Linux, Rocky, AlmaLinux et Amazon Linux",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "**vuln:** extend rapidfort scanner to debian, oracle, rocky, alma, and amazon",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Niveau de sécurité nominal des algorithmes dans le CBOM",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "**crypto:** report nominal security levels of algorithms",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Fonction CBOM encore expérimentale",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "EXPERIMENTAL: CBOM generation is still experimental.",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Echo : Maven et npm en plus des paquets Python",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "Trivy now detects vulnerabilities in Maven and npm packages patched by Echo, in addition to Python packages.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Images RapidFort confrontées au flux de RapidFort",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "against the RapidFort feed",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Distinction des algorithmes DSA selon les paramètres L et N",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "**crypto:** distinguish dsa algorithms by l and n",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "L’identifiant bom-ref des composants DSA change",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "The bom-ref of DSA algorithm components changes accordingly, together with the references to them from keys and certificates",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Le CBOM peut évoluer sans compatibilité ascendante",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "This feature might change without preserving backward compatibility.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Réseau : Trivy demande normalement Internet ; documentation pour réseaux restreints ou entièrement isolés",
+  "url": "https://trivy.dev/latest/docs/advanced/air-gap/",
+  "extrait": "trivy requires internet connectivity in order to function normally. if your organizations blocks or restricts network traffic, that could prevent trivy from working correctly",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Copie manuelle des bases dans l’environnement isolé (option --download-db-only)",
+  "url": "https://trivy.dev/latest/docs/advanced/self-hosting/",
+  "extrait": "the --download-db-only flag tells trivy to only download the database files, not to scan any images. trivy image --cache-dir . --download-db-only you should now have 2 new files, metadata.json and trivy.db . these are the trivy db files, copy them over to the air-gapped environment",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Option --offline-scan pour Maven Central",
+  "url": "https://trivy.dev/latest/docs/advanced/air-gap/",
+  "extrait": "you can prevent trivy from trying to connect to it by using the --offline-scan flag",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Trivy hors ligne : fonctionnement partiel, Maven Central inutilisable dans un réseau restreint",
+  "url": "https://trivy.dev/latest/docs/advanced/air-gap/",
+  "extrait": "there's no way to leverage maven central in a network-restricted environment",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Qualification corrigée (« fonctionnement partiel ») après vérification",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Licence Apache-2.0 du code de Trivy",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/LICENSE",
+  "extrait": "apache license version 2.0, january 2004",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "En mars 2026, une version de Trivy et des actions GitHub ont distribué un code volant des secrets",
+  "url": "https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack",
+  "extrait": "on march 19, 2026, threat actors injected credential-stealing malware into aqua security's trivy scanner and related github actions",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Syft 1.55.0 inventorie les paquets IPK (catalogueur deb-archive)",
+  "url": "https://github.com/anchore/syft/releases/tag/v1.55.0",
+  "extrait": "Add support for scanning IPK packages using the deb-archive-cataloger",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Grype 0.121.0 tient compte de la date de fin de support des distributions pour ses alertes de fin de vie",
+  "url": "https://github.com/anchore/grype/releases/tag/v0.121.0",
+  "extrait": "OS End of life warnings should account for SupportEnd date from the distro release information",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Publication le 19 octobre 2026",
+  "url": "https://github.com/anchore/syft/releases/tag/v1.55.0",
+  "extrait": "19 Oct",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu. Les pages des versions indiquent « 19 Oct » (19:01 pour Syft, 20:32 pour Grype) sans l’année ; l’année 2026 est déduite du contexte.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Grype retrouve les avis GitHub des paquets Swift Package Manager",
+  "url": "https://github.com/anchore/grype/releases/tag/v0.121.0",
+  "extrait": "Swift Package Manager packages miss GitHub Swift advisories (searched by identity, not repository path)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Grype passe à golang.org/x/net 0.61.0",
+  "url": "https://github.com/anchore/grype/releases/tag/v0.121.0",
+  "extrait": "upgrade to golang.org/x/net v0.61.0",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Syft produit des SBOM CycloneDX, SPDX et Syft JSON",
+  "url": "https://raw.githubusercontent.com/anchore/syft/main/README.md",
+  "extrait": "multiple output formats (**cyclonedx**, **spdx**, **syft json**",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Licence Apache-2.0 pour Syft",
+  "url": "https://raw.githubusercontent.com/anchore/syft/main/README.md",
+  "extrait": "syft development is sponsored by anchore , and is released under the apache-2.0 license",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Licence Apache-2.0 pour Grype",
+  "url": "https://raw.githubusercontent.com/anchore/grype/main/README.md",
+  "extrait": "grype development is sponsored by anchore , and is released under the apache-2.0 license",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Enrichissement réseau de Syft facultatif et désactivé par défaut",
+  "url": "https://oss.anchore.com/docs/reference/syft/configuration/",
+  "extrait": "by default all enrichment is disabled",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Vérification de mise à jour de Syft au démarrage (activée par défaut)",
+  "url": "https://oss.anchore.com/docs/reference/syft/configuration/",
+  "extrait": "whether to check for an application update on start up or not (env: syft_check_for_app_update) check-for-app-update : true",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Import manuel de la base de Grype (grype db import)",
+  "url": "https://oss.anchore.com/docs/reference/grype/cli/",
+  "extrait": "grype db import import a vulnerability database archive from a local file or url",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Au lancement, Grype vérifie sa base locale et en cherche une plus récente en ligne",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/database/",
+  "extrait": "when grype is launched, it checks for an existing vulnerability database, and looks for an updated one online",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Âge maximal par défaut de la base : 120 heures",
+  "url": "https://oss.anchore.com/docs/reference/grype/configuration/",
+  "extrait": "default max age is 120h (or five days)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Base à réimporter au moins tous les cinq jours (sinon échec des analyses)",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/database/",
+  "extrait": "grype will automatically fail scans if the vulnerability database is more than 5 days old",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "L’OpenSSF a annoncé le 13 octobre 2026 l’entrée de Privateer dans son bac à sable",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "by openssf october 13, 2026",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Privateer approuvé comme projet Sandbox de l’OpenSSF, groupe ORBIT (référentiels, outillage)",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "privateer has officially been approved as an openssf sandbox project under the orbit working group (open resources for baselines, interoperability, and tooling)",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Cadre à base d’extensions d’évaluation automatisée de la sécurité et de la conformité",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "privateer is a plugin-based framework designed to deliver automated security and compliance evaluation",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Contrôles déterministes d’abord ; cas incertains « à revoir »",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "deterministic checks run first and settle what they can",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "IA facultative ; résultats ne déterminent pas la conformité juridique",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "ai is not required, and uncertain cases remain needs review. these findings can support cra readiness and other assurance workflows, but they do not independently determine legal compliance",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Billet signé par Jason Meridth et Vinaya Damle",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "by jason meridth and vinaya damle",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Option d’IA : documents déclarés envoyés au fournisseur d’IA configuré, à n’utiliser que si autorisé",
+  "url": "https://raw.githubusercontent.com/ossf/pvtr-github-repo-scanner/main/README.md",
+  "extrait": "declared document contents are sent to the configured ai provider. use this option only when that provider is approved to process the repository's data",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "L’extension principale évalue des dépôts GitHub",
+  "url": "https://raw.githubusercontent.com/ossf/pvtr-github-repo-scanner/main/README.md",
+  "extrait": "this application performs automated assessments against github repositories",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Licence Apache-2.0 (dépôt)",
+  "url": "https://raw.githubusercontent.com/privateerproj/pvtr/main/LICENSE",
+  "extrait": "apache license version 2.0, january 2004",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Licence Apache-2.0 (site du projet)",
+  "url": "https://privateerproj.com/",
+  "extrait": "open-source under the apache 2.0 license",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Plateforme unique de déclaration du CRA lancée par l’ENISA le 11 septembre 2026",
+  "url": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+  "extrait": "press release 11 sep 2026 the eu agency for cybersecurity (enisa) has deployed the initial operating capability of the single reporting platform (srp)",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Les fabricants y déclarent vulnérabilités activement exploitées et incidents graves",
+  "url": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+  "extrait": "from today, 11 september 2026, manufacturers are required to report actively exploited vulnerabilities and severe incidents having an impact on the security of products with digital elements",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Gestionnaires open source soumis à partir du 11 décembre 2027",
+  "url": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+  "extrait": "these reporting obligations will also apply to open-source software stewards to the extent that they are involved in the development of products with digital elements. this article shall apply from 11 december 2027",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Le CSIRT coordinateur qui reçoit la déclaration la diffuse aux CSIRT concernés",
+  "url": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+  "extrait": "the computer security incident response team (csirt) designated as a coordinator that initially receives it, disseminates the information to other relevant csirts in member states where the affected product is also available",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Délais : 24 h pour l’alerte précoce, 72 h pour la notification",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
+  "extrait": "they need to submit an early warning within 24 hours of becoming aware, and a full notification within 72 hours",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Rapport final au plus tard 14 jours après la mise à disposition d'une mesure corrective (vulnérabilité activement exploitée)",
+  "url": "https://digital-strategy.ec.europa.eu/en/policies/cra-reporting",
+  "extrait": "a final report needs to be submitted no later than 14 days after a corrective measure is available for actively exploited vulnerabilities",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Formulation corrigée après vérification",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Service en ligne de l’ENISA",
+  "url": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+  "extrait": "the agency has developed, operates and maintains the online tool",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Accès par compte EU Login selon les conditions d’utilisation v1.0",
+  "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+  "extrait": "Access to the Platform is open to Users with an EU Login account.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "PDF illisible par le vérificateur ; lu avec pdftotext (conditions « Version 1.0, 10 September 2026 », clause 3.1.1).",
+  "ref": "Plateforme unique du CRA : lancée par l’"
+ },
+ {
+  "affirmation": "Images durcies, mises à jour quotidiennes, délai de 7 jours pour les CVE critiques",
+  "url": "https://www.chainguard.dev/unchained/building-digital-products-for-the-cyber-resilience-act",
+  "extrait": "chainguard provides continuous patching, updating images every day with a 7-day sla for critical cves",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Chainguard : images durcies livrées avec"
+ },
+ {
+  "affirmation": "SBOM signé et provenance",
+  "url": "https://www.chainguard.dev/unchained/building-digital-products-for-the-cyber-resilience-act",
+  "extrait": "every chainguard artifact comes with a signed sbom with known provenance and immutable versioning",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Chainguard : images durcies livrées avec"
+ },
+ {
+  "affirmation": "Contenu de l’éditeur consacré au CRA, daté du 14 janvier 2026",
+  "url": "https://www.chainguard.dev/unchained/building-digital-products-for-the-cyber-resilience-act",
+  "extrait": "january 14, 2026 building digital products for the cyber resilience act",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Chainguard : images durcies livrées avec"
+ },
+ {
+  "affirmation": "Images récupérées depuis le registre cgr.dev",
+  "url": "https://edu.chainguard.dev/chainguard/chainguard-registry/overview/",
+  "extrait": "your organization's registry at cgr.dev/$organization/",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Chainguard : images durcies livrées avec"
+ },
+ {
+  "affirmation": "Proxy local recommandé pour limiter la dépendance au registre",
+  "url": "https://edu.chainguard.dev/chainguard/chainguard-registry/overview/",
+  "extrait": "in order to minimize production dependency on the chainguard's registry, we recommend that customers use a pull-through proxy",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Chainguard : images durcies livrées avec"
+ },
+ {
+  "affirmation": "Oracle publie ses correctifs tous les trois mois ; celui d’octobre est daté du 20 octobre",
+  "url": "https://www.oracle.com/security-alerts/",
+  "extrait": "critical patch updates are released on the third tuesday of january, april, july, and october. the next four dates are: 20 october 2026",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "À partir de ce correctif, mises à jour d’Oracle JDK 21 prévues sous licence OTN",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "updates of jdk 21 released beginning with the october 2026 critical patch update (cpu), are planned to be offered under the java se otn license",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "JDK 21 était gratuit en production et redistribuable sous NFTC",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "jdk 21 binaries are free to use in production and free to redistribute, at no cost, under the oracle no-fee terms and conditions (nftc)",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "OTN : gratuité limitée à l’usage personnel ou au développement",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "which is free for personal, development and other users only",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "Selon la page de téléchargement, l’usage en production exigera une redevance",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "production use beyond the limited free grants of the otn license will require a fee",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "Même régime que Java 8, 11 et 17",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "the same license under which we currently offer updates to java 8, 11, and 17",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "JDK 25 reste sous licence gratuite jusqu’en septembre 2028",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "jdk 25 will receive updates under the nftc, until september 2028",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "Oracle propose de passer à JDK 25",
+  "url": "https://www.oracle.com/java/technologies/java-se-support-roadmap.html",
+  "extrait": "should upgrade to oracle jdk 25 or later",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Java : Oracle JDK 21 change de licence"
+ },
+ {
+  "affirmation": "La Commission a annoncé le 19 octobre la publication au JO de la référence de l’EN 18286",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "publication 19 october 2026 the european commission has published the reference to the first harmonised standard",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "Norme sur le système de management de la qualité des fournisseurs d’IA à haut risque",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "provides a clear legal pathway for providers of high-risk ai systems to comply with the quality management system requirements under article 17 of the ai act",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "Rédigée par le CEN et le CENELEC",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "developed by cen and cenelec",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "Présomption de conformité à l’article 17",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "providers implementing this standard will benefit from a presumption of conformity with the article 17 requirements",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "Conçue pour se superposer à l’ISO 9001 sans la remplacer",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "designed to be layered on top of the existing international standards – such as iso/iec 42001, iso 9001",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "Usages exclusivement militaires exclus de l’AI Act",
+  "url": "https://artificialintelligenceact.eu/article/2/",
+  "extrait": "exclusively for military, defence or national security purposes",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "D’autres normes harmonisées sont annoncées",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "with further harmonised standards expected to follow",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "AI Act : une première norme harmonisée"
+ },
+ {
+  "affirmation": "Trivy en version 0.76",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "## [0.76.0](https://github.com/aquasecurity/trivy/compare/v0.75.0...v0.76.0) (2026-10-14)",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Trivy indique le niveau de sécurité nominal des algorithmes de sa nomenclature cryptographique",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/CHANGELOG.md",
+  "extrait": "report nominal security levels of algorithms",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Encore expérimental, et l’identifiant de certains composants change",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "The bom-ref of DSA algorithm components changes accordingly",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Trois outils open source",
+  "url": "https://raw.githubusercontent.com/aquasecurity/trivy/main/LICENSE",
+  "extrait": "apache license version 2.0, january 2004",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Syft sait maintenant lire les paquets IPK",
+  "url": "https://github.com/anchore/syft/releases/tag/v1.55.0",
+  "extrait": "Add support for scanning IPK packages using the deb-archive-cataloger",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Trivy peut fonctionner dans un environnement entièrement isolé, après configuration",
+  "url": "https://trivy.dev/latest/docs/advanced/air-gap/",
+  "extrait": "how to configure Trivy to work in restricted networks environments, including completely air-gapped environments",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Réplique corrigée : seuls Trivy et Grype ont des bases à copier",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Grype : base de cinq jours au plus avec le réglage par défaut",
+  "url": "https://oss.anchore.com/docs/reference/grype/configuration/",
+  "extrait": "default max age is 120h (or five days)",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l",
+  "sujet": "Outils : Trivy, Syft et Grype"
+ },
+ {
+  "affirmation": "Mardi 20 octobre 2026",
+  "url": "https://www.oracle.com/security-alerts/",
+  "extrait": "critical patch updates are released on the third tuesday of january, april, july, and october. the next four dates are: 20 october 2026",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Ouverture"
+ },
+ {
+  "affirmation": "Une licence Java qui change aujourd’hui même",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "jdk 21 will receive updates under the nftc, until september 2026, a year after the release of the next lts. subsequent jdk 21 updates will be licensed under the java se otn license",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée",
+  "sujet": "Ouverture"
+ },
+ {
+  "affirmation": "Une première norme pour le règlement européen sur l’IA",
+  "url": "https://digital-strategy.ec.europa.eu/en/library/first-harmonised-standard-supporting-ai-act-published-official-journal",
+  "extrait": "first harmonised standard supporting the ai act published in the official journal",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C",
+  "sujet": "Ouverture"
+ },
+ {
+  "affirmation": "Incident du 19 octobre 2026, pendant environ une heure et demie, binaire cherchant les secrets",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "pendant environ une heure et demie le 19 octobre 2026, plusieurs versions du cli distribuées depuis le dépôt github officiel ont embarqué un binaire malveillant capable de rechercher des secrets présents sur l'ordinateur de l'utilisateur",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Versions v0.11.0 à v0.15.0 compromises",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "les versions v0.11.0, v0.12.0, v0.13.0, v0.14.0 et v0.15.0 sont considérées comme compromises",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Vérification de l'empreinte SHA-256 a révélé l'attaque",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "son système d'intégration vérifiait automatiquement l'empreinte sha-256 du binaire téléchargé. celle-ci ayant soudainement changé, l'installation a échoué et déclenché l'enquête",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "v0.16.0 publiée",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "ovhcloud a ensuite publié la version v0.16.0",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "v0.10.0 non concernée",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "la v0.10.0 n'est pas concernée et une nouvelle v0.16.0 a depuis été publiée",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Octave Klaba : l'attaquant a utilisé le compte GitHub d'un développeur",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "le hacker a utilisé le compte github d'un des développeurs et a ajouté un binaire dont le job est récupérer les secrets sur le disque",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Aucun avis officiel (post-mortem) d'OVHcloud publié à ce stade",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "ovhcloud indique poursuivre l'analyse du binaire et prévoit de publier un post-mortem détaillé",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "v0.11.0 publiée en avril 2026 (versions déjà publiées modifiées)",
+  "url": "https://github.com/ovh/ovhcloud-cli/releases",
+  "extrait": "0.11.0 (April 14, 2026)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (GitHub renvoie 403 au robot) ; lue avec WebFetch : v0.11.0 du 14 avril 2026, v0.15.0 du 16 septembre 2026, aucune mention de l'incident dans les notes.",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "v0.15.0 publiée en septembre 2026",
+  "url": "https://github.com/ovh/ovhcloud-cli/releases",
+  "extrait": "0.15.0 (September 16, 2026)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (GitHub renvoie 403 au robot) ; lue avec WebFetch : v0.11.0 du 14 avril 2026, v0.15.0 du 16 septembre 2026, aucune mention de l'incident dans les notes.",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Fichiers d'anciennes versions remplacés plusieurs semaines après publication",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "les fichiers associés aux anciennes versions du cli avaient été remplacés plusieurs semaines après leur publication",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Le 19 octobre, environ une heure et demie, versions téléchargées depuis le dépôt GitHub officiel",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "pendant environ une heure et demie le 19 octobre 2026, plusieurs versions du cli distribuées depuis le dépôt github officiel ont embarqué un binaire malveillant",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda",
+  "sujet": "Chaîne d’approvisionnement : OVHcloud et GhostAction"
+ },
+ {
+  "affirmation": "Versions 0.11 à 0.15 compromises, 0.10 non touchée, 0.16 publiée",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "la v0.10.0 n'est pas concernée et une nouvelle v0.16.0 a depuis été publiée",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda",
+  "sujet": "Chaîne d’approvisionnement : OVHcloud et GhostAction"
+ },
+ {
+  "affirmation": "Klaba : compte GitHub d'un des développeurs",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "le hacker a utilisé le compte github d'un des développeurs",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda",
+  "sujet": "Chaîne d’approvisionnement : OVHcloud et GhostAction"
+ },
+ {
+  "affirmation": "Empreinte vérifiée automatiquement, installation échouée, enquête",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "son système d'intégration vérifiait automatiquement l'empreinte sha-256 du binaire téléchargé. celle-ci ayant soudainement changé, l'installation a échoué et déclenché l'enquête",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda",
+  "sujet": "Chaîne d’approvisionnement : OVHcloud et GhostAction"
+ },
+ {
+  "affirmation": "Selon GitGuardian (via THN), plus de 30 000 dépôts de 3 000 utilisateurs et organisations",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "targeting more than 30,000 repositories across 3,000 users and organizations. the spike, according to gitguardian",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Compromission d'environ 1 900 comptes GitHub",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "this resulted from compromising the github accounts of about 1,900 users",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Même chiffre chez GitGuardian",
+  "url": "https://blog.gitguardian.com/ghostaction-github-actions-supply-chain-attack-returns/",
+  "extrait": "the threat actor targeted more than 30,000 repositories across 3,000 users and orgs. this resulted from compromising the github accounts of about 1,900 users",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Nouvelle étape : VS Code exécute un voleur d'identifiants caché dans une fausse police",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "commit a tasks.json file and public/fonts/fa-solid-400.woff2, which makes vs code autorun a credential stealer and install a cron job that runs whatever the attacker's server sends, every five minutes",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "THN, 15 octobre 2026",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "oct 15, 2026 supply chain attack / cloud security the credential-theft campaign known as ghostaction",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Tentative d'extraction de 3 174 secrets",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "it attempted to extract 3,174 secrets from public repositories' ci",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "GitHub empêche le workflow malveillant depuis le 9 octobre",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "github started preventing the malicious workflow from running starting october 9",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "OSM, 16 octobre 2026",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "2026-10-16t05:15:00.000z we've discovered a new element to the ghostaction campaign",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "94 dépôts compromis",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "he found a cluster of 94 compromised repos with the vs code + .woff2 malware",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Copie de PolinRider, faute d'indicateurs communs",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "there's no shared iocs between ghostaction and any other dprk malware we've seen, so at this time we're labeling this a copycat rather than an extension of polinrider",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Selon GitGuardian (THN), plus de 30 000 dépôts",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "targeting more than 30,000 repositories across 3,000 users and organizations",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa",
+  "sujet": "Chaîne d’approvisionnement : GhostAction"
+ },
+ {
+  "affirmation": "Environ 1 900 comptes GitHub compromis",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "this resulted from compromising the github accounts of about 1,900 users",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa",
+  "sujet": "Chaîne d’approvisionnement : GhostAction"
+ },
+ {
+  "affirmation": "Fichier de configuration et fausse police font exécuter par VS Code un voleur d'identifiants",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "which makes vs code autorun a credential stealer",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa",
+  "sujet": "Chaîne d’approvisionnement : GhostAction"
+ },
+ {
+  "affirmation": "Si l'exécution automatique des tâches est autorisée, ouvrir un dépôt piégé dans VS Code peut lancer le programme",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "runon: folderopen is the trigger. vs code runs the task when someone opens the folder",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa",
+  "sujet": "Chaîne d’approvisionnement : GhostAction"
+ },
+ {
+  "affirmation": "Étude de cas OpenSSF du 16 octobre 2026",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "case study: github expands malware advisories across eight ecosystems with openssf by openssf october 16, 2026",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Huit écosystèmes dont npm, PyPI, Maven, crates.io",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "expanding malware advisories from npm to eight package ecosystems: npm, pypi, maven, rubygems, nuget, go, crates.io, and php composer",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Plus de 238 000 signalements",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "it launched in october 2023 and now holds more than 238,000 reports",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Format OSV, lancé en octobre 2023",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "openssf's malicious packages repository is a public, community-driven database of malicious package reports in the open source vulnerability (osv) format. it launched in october 2023",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Plus de 28 000 citent GitHub comme source",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "more than 28,000 reports now list github as a source",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Alertes facultatives pour dépôts avec alertes Dependabot",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "malware alerts are opt-in and available for any repository with dependabot alerts turned on",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Contributeurs : Amazon Inspector, ReversingLabs, Checkmarx, Google",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "contributors include amazon inspector, reversinglabs, checkmarx, google, github",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Billet GitHub d'août 2026",
+  "url": "https://github.blog/security/supply-chain-security/how-we-took-malware-advisories-beyond-npm",
+  "extrait": "ankit kumar honey · @honeyankit august 6, 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "19 mars 2026 : v0.69.4 et actions GitHub diffusent un voleur de secrets",
+  "url": "https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack",
+  "extrait": "on march 19, 2026, threat actors compromised aqua security's trivy vulnerability scanner, injecting credential-stealing malware into official releases and github actions",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy, 19 mars 2026 : la version 0.69.4 "
+ },
+ {
+  "affirmation": "v0.69.4 publiée à 17 h 43 UTC",
+  "url": "https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack",
+  "extrait": "at 17:43:37 utc, the trivy repository's v0.69.4 tag was pushed, triggering a release",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy, 19 mars 2026 : la version 0.69.4 "
+ },
+ {
+  "affirmation": "75 des 76 étiquettes de trivy-action, 7 de setup-trivy",
+  "url": "https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack",
+  "extrait": "75 out of 76 trivy-action tags were force-pushed to malicious versions, and 7 setup-trivy tags were force-pushed as well",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy, 19 mars 2026 : la version 0.69.4 "
+ },
+ {
+  "affirmation": "Binaires sur GitHub, Docker Hub, GHCR, ECR ; artefacts retirés",
+  "url": "https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack",
+  "extrait": "backdoored binaries being published to github releases, docker hub, ghcr, and ecr. the maintainers have since removed these malicious artifacts",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy, 19 mars 2026 : la version 0.69.4 "
+ },
+ {
+  "affirmation": "Wiz recommande de vérifier si la 0.69.4 a été récupérée",
+  "url": "https://www.wiz.io/blog/trivy-compromised-teampcp-supply-chain-attack",
+  "extrait": "check whether your organization pulled or executed trivy v0.69.4 from any source",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy, 19 mars 2026 : la version 0.69.4 "
+ },
+ {
+  "affirmation": "11 mai 2026 : 404 versions malveillantes npm et PyPI",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "a coordinated supply chain attack on may 11, 2026 compromised over 170 npm packages and 2 pypi packages, totaling 404 malicious versions",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "Dont TanStack et Mistral AI",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "the attacker hit the entire tanstack router ecosystem (42 packages), mistral ai's sdk suite (on both npm and pypi)",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "65 paquets UiPath et OpenSearch",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "uipath's automation tooling (65 packages), opensearch (1.3m weekly npm downloads)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "Étendue le 12 mai",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "update (2026-05-12, ~03:05 utc): the campaign expanded beyond npm",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "Vol d'identifiants cloud, GitHub et npm",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "dedicated providers for aws iam, hashicorp vault, github tokens ( ghp_ , gho_ , ghs_ ), npm publish tokens, and github actions oidc tokens",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "PyPI : exécution à l'import",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "trigger : on import , not on pip install",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "npm : exécution à l'installation (preinstall)",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "any project that pulled these versions during the attack window ran the malicious preinstall hook",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "Fichiers de verrouillage, renouvellement des identifiants",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "pin your dependencies to known-good versions and regenerate lockfiles after confirming the compromised versions have been removed from the registries",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "Rechercher les artefacts sur disque",
+  "url": "https://safedep.io/mass-npm-supply-chain-attack-tanstack-mistral",
+  "extrait": "also check for the payload artifact on disk",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Attaque du 11 mai 2026 : 404 versions ma"
+ },
+ {
+  "affirmation": "Conférence des présidents du 13 octobre 2026 : relevé sans le projet de loi (porte sur les semaines de contrôle)",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "la conférence a fixé le calendrier des semaines de contrôle de la session 2026‑2027",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "La conférence du 13 octobre ne l'a pas réinscrit ; la suivante le 20 octobre",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "celle du 13 octobre ne l'a pas réinscrit ; la suivante est fixée au 20 octobre",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Prochaine conférence le 20 octobre",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "prochaine conférence des présidents : mardi 20 octobre 2026 , à 10 heures",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Le projet transpose NIS2, DORA et REC",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "il transpose aussi les directives rec et dora",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Forum des compétences, état au 14 octobre",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "voici l'état de la procédure au 14 octobre 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Texte de la commission du 10 septembre 2025, dernière étape du dossier",
+  "url": "https://www.assemblee-nationale.fr/dyn/17/dossiers/DLR5L17N50731",
+  "extrait": "texte de la commission mercredi 10 septembre 2025 texte de la commission, n° 1779-a0 , déposé le mercredi 10 septembre 2025",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "6 octobre 2026 : retrait de l'examen prévu les 7 et 9 octobre",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "le mardi 6 octobre 2026, la conférence des présidents de l'assemblée nationale a retiré de l'ordre du jour des 7 et 9 octobre le projet de loi",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Bothorel : « d'ici quinze jours ou trois semaines »",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "« j'ai bon espoir qu'on pourra réinscrire le texte d'ici quinze jours ou trois semaines »",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Parlement européen, vote du 16 septembre 2026",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "When it voted on 16 September 2026, the plenary adopted the compromise amendment",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Directive sur les transferts intra-UE de produits de défense (2009/43 et 2009/81)",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "amending Directives 2009/43/EC and 2009/81/EC, as regards the simplification of intra-EU transfers of defence-related products",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Nouvelles licences générales (entreprises certifiées)",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "It is appropriate to introduce a general transfer licence for transfers between certified suppliers and certified recipients",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Licences générales pour projets des programmes industriels de défense",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "Member States shall publish general transfer licences covering all transfers necessary for the implementation of projects funded under a Union defence industrial programme",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Seuils 432 000 € -> 2 000 000 € et 5 404 000 € -> 10 000 000 €",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "in point (a), ‘EUR 432 000’ is replaced by ‘EUR 2 000 000’; (b) in point (b), ‘EUR 5 404 000’ is replaced by ‘EUR 10 000 000’",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Note du Conseil du 18 septembre 2026 ; le Conseil devrait pouvoir approuver",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "The Council should therefore be in a position to approve the Parliament's position",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Exportation hors UE reste de la compétence des États",
+  "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+  "extrait": "that Directive does not affect the discretion of Member States as regards policy on the export of defence-related products",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page illisible par le vérificateur (PDF) ; texte lu après téléchargement et extraction.",
+  "ref": "Omnibus défense : le Parlement européen "
+ },
+ {
+  "affirmation": "Appel EDIP de 180 M€ clos le 13 octobre (instrument Ukraine)",
+  "url": "https://www.zabala.eu/news/edip-defence-industry/",
+  "extrait": "first call , with a deadline of 13th october 2026 : missiles, ammunition and bombs (€180 million)",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "Appel EDIP achats conjoints de 90 M€ clos le 13 octobre",
+  "url": "https://www.welcomeurope.com/en/?p=88015",
+  "extrait": "1st call for proposals for common procurement actions under the programme – 2026 closing 2026-10-13 90 million euros",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "SAFE plafonne à 35 % le coût des composants de pays tiers",
+  "url": "https://cms.law/en/fra/legal-updates/SAFE-program-to-strengthen-European-defence-capabilities",
+  "extrait": "35% cap : the cost of components originating in third countries may not exceed 35% of the total estimated cost of the components of the final product",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "SAFE : jusqu'à 150 Md€ (prêts aux États)",
+  "url": "https://cms.law/en/fra/legal-updates/SAFE-program-to-strengthen-European-defence-capabilities",
+  "extrait": "the overall envelope amounts to €150 billion",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "EDIP 1,5 Md€ pour 2026-2027",
+  "url": "https://www.zabala.eu/news/edip-defence-industry/",
+  "extrait": "with a budget of €1.5 billion for the 2026–2027 period",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "Volet achats conjoints 240 M€",
+  "url": "https://www.zabala.eu/news/edip-defence-industry/",
+  "extrait": "the commission will allocate €240 million to support purchases made by consortia of contracting authorities",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "SAFE : contractants établis dans l'UE, l'EEE-AELE ou l'Ukraine",
+  "url": "https://cms.law/en/fra/legal-updates/SAFE-program-to-strengthen-European-defence-capabilities",
+  "extrait": "contractors and subcontractors must be established in the european union, an eea-efta state or ukraine",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "SAFE et EDIP : deux appels EDIP (180 M€ "
+ },
+ {
+  "affirmation": "Règlement (UE) 2026/1744 en vigueur depuis le 27 juillet (publié au JO le 24 juillet)",
+  "url": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722",
+  "extrait": "regulation (eu) 2026/1744, commonly referred to as the ai omnibus, was published in the official journal on 24 july 2026 and entered into force on 27 july 2026",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "Haut risque annexe III reporté au 2 décembre 2027",
+  "url": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722",
+  "extrait": "stand-alone high-risk systems under annex iii, including ai used in employment, education, credit assessment, law enforcement and critical infrastructure, moves from 2 august 2026 to 2 december 2027",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "Marquage de l'article 50(2) reporté au 2 décembre 2026",
+  "url": "https://www.hoganlovells.com/en/publications/eu-legislators-agree-to-delay-for-highrisk-ai-rules",
+  "extrait": "article 50(2) of the ai act being postponed until december 2, 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "Report limité aux systèmes génératifs déjà sur le marché",
+  "url": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722",
+  "extrait": "a limited four-month grace period applies only to certain machine-readable marking requirements for generative ai systems already on the market before 2 august 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "La plupart des obligations de transparence restent inchangées",
+  "url": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722",
+  "extrait": "delay does not extend to most of the ai act's transparency obligations",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "Rôle renforcé du Bureau de l'IA",
+  "url": "https://www.hoganlovells.com/en/publications/eu-legislators-agree-to-delay-for-highrisk-ai-rules",
+  "extrait": "a stronger role for the ai office in certain areas",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "AI Act exclut les systèmes d'IA à usage exclusivement militaire, de défense ou de sécurité nationale",
+  "url": "https://artificialintelligenceact.eu/article/2/",
+  "extrait": "exclusively for military, defence or national security purposes, regardless of the type of entity carrying out those activities",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act : le règlement (UE) 2026/1744, en"
+ },
+ {
+  "affirmation": "Directive (UE) 2024/2853, transposition au plus tard le 9 décembre 2026",
+  "url": "https://www.ibanet.org/European-Product-Liability-Directive-liability-for-software",
+  "extrait": "a new directive on liability for defective products (2024/2853) [2] ('pld 2024'), which has to be transposed into the national law of the eu member states by 9 december 2026 at the latest",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "Couvre le logiciel (autonome ou combiné)",
+  "url": "https://www.ibanet.org/European-Product-Liability-Directive-liability-for-software",
+  "extrait": "oftware that is placed on the market or put into service, whether standalone or in combination with another product, will be subject to the liability regime set out in pld 2024",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "Responsabilité sans faute",
+  "url": "https://www.ibanet.org/European-Product-Liability-Directive-liability-for-software",
+  "extrait": "the liability under pld 2024 is no-fault liability (strict liability)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "Logiciels libres hors activité commerciale exclus",
+  "url": "https://www.ibanet.org/European-Product-Liability-Directive-liability-for-software",
+  "extrait": "the only exception is open-source software, which is excluded from the scope of application if it is not provided in the course of a business activity",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "Logiciel embarqué et IA inclus",
+  "url": "https://buse.de/en/blog-en/commercial-en/what-will-change-with-the-new-eu-product-liability-directive-eu-2024-2853/",
+  "extrait": "software, including ai systems, as \"products\" within the meaning of the directive",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "Application aux produits mis sur le marché à partir du 9 décembre 2026",
+  "url": "https://svw.no/en/svw-digital-governance-tracker/artificial-intelligence/product-liability-directive/",
+  "extrait": "the directive applies to all products placed on the eu market or put into service as of 9 december 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "Logiciel embarqué dans la notion de produit",
+  "url": "https://svw.no/en/svw-digital-governance-tracker/artificial-intelligence/product-liability-directive/",
+  "extrait": "embedded and standalone software, excluding non-commercial open-source software",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Responsabilité du fait des produits : la"
+ },
+ {
+  "affirmation": "7 octobre 2026, tribunal d'arbitrage de Moscou valide le refus du ministère",
+  "url": "https://dorotenko.pro/free-office-basalt-spo-claims/",
+  "extrait": "on october 7th, 2026 the arbitration court of moscow decided that the expert council arguments were right, and the ministry lawfully rejected basalt spo application",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Free Office de BaseALT refusé au registre",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "the court refused to include \" свободный офис \" ( free office in english) owned by basealt llc in a registry of software that is maintained by the ministry of digital development",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Pas de droits sur LibreOffice, composant central",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "the owner did not own rights on the core component (libre office)",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Demandes rejetées dans leur ensemble",
+  "url": "https://dorotenko.pro/free-office-basalt-spo-claims/",
+  "extrait": "so, the claims were denied in full",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Localisation, dictionnaires, signature électronique insuffisants",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "russian localization, dictionaries, electronic signatures integration were not enough to form an independent basis for ownership",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Cinq des sept programmes sont des développements tiers sous licence ouverte",
+  "url": "https://dorotenko.pro/free-office-basalt-spo-claims/",
+  "extrait": "freeoffice consists of 7 independent programs. 5 out of 7 programs are third-party developments and are used by basalt spo under an open license",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Argument de l'article 1260 du Code civil russe",
+  "url": "https://dorotenko.pro/free-office-basalt-spo-claims/",
+  "extrait": "further use of the entire software package will be deemed unlawful (due to the art. 1260 of the civil code of the russian federation)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Décision de première instance susceptible d'appel",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "this is a lower court opinion that may be appealed",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Meeker : implications possibles pour de futurs litiges en Russie",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "it could have implications for such disputes in russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Procès indiqué par la SFC pour fin 2026",
+  "url": "https://sfconservancy.org/vizio/",
+  "extrait": "trial date: late 2026",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "Cour supérieure de Californie, comté d'Orange",
+  "url": "https://sfconservancy.org/vizio/",
+  "extrait": "court type: orange county superior court",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "Procès devant jury annoncé à partir du 10 août 2026 (PPC Land)",
+  "url": "https://ppc.land/the-vizio-open-source-trial-that-could-shake-the-smart-tv-ad-industry/",
+  "extrait": "a california jury is scheduled to begin hearing arguments on august 10, 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "Question du bénéficiaire, GPL et LGPL",
+  "url": "https://ppc.land/the-vizio-open-source-trial-that-could-shake-the-smart-tv-ad-industry/",
+  "extrait": "whether consumers can enforce gpl obligations as third-party beneficiaries - has not previously been decided in us courts",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "Composants LGPL concernés",
+  "url": "https://ppc.land/the-vizio-open-source-trial-that-could-shake-the-smart-tv-ad-industry/",
+  "extrait": "under the lgplv2.1 , covered components include the gnu c library, ffmpeg",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "Six versions du code source, aucune ne se compilait",
+  "url": "https://ppc.land/the-vizio-open-source-trial-that-could-shake-the-smart-tv-ad-industry/",
+  "extrait": "according to the complaint, none of vizio's six submissions would fully compile",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "Page du dossier SFC non mise à jour depuis février 2026",
+  "url": "https://sfconservancy.org/vizio/",
+  "extrait": "last update: february 27, 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GPL, SFC contre Vizio : le procès est in"
+ },
+ {
+  "affirmation": "SFC, 18 mai 2026, réponse aux violations de l'AGPLv3 par Bambu Lab",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "comprehensive response to bambu's agplv3 violations multi-pronged approach will help users quickly while seeking optimal long-term solutions may 18, 2026",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "Enquête en cours",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "while the investigation is ongoing, two specific agplv3 violations have been confirmed",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "libbambu_networking sans code source correspondant complet",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "bambu's failure to provide ccs and installation information for the libraries known as libbambu_networking.so",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "Menaces envers le développeur d'un fork d'OrcaSlicer",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "bambu demanded that paweł remove the fork of orcaslicer with these changes from github",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "Projet baltobu",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "sfc launches today our baltobu project",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "AGPLv3 interdit des restrictions supplémentaires",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "you may not impose any further restrictions on the exercise of the rights granted or affirmed under this license",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "Objectif de financement de 250 007 dollars",
+  "url": "https://sfconservancy.org/news/2026/may/18/bambu-studio-3d-printer-agpl-violation-response/",
+  "extrait": "a target goal of us$250,007",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AGPLv3 : la SFC a publié le 18 mai 2026 "
+ },
+ {
+  "affirmation": "20 octobre 2026 : conférence des présidents de l'Assemblée nationale",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "prochaine conférence des présidents : mardi 20 octobre 2026 , à 10 heures",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Transposition de NIS2 due avant le 17 octobre 2024",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "dont l'échéance de transposition était fixée au 17 octobre 2024",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Conférence des présidents du 13 octobre fixe le calendrier des semaines de contrôle",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "la conférence a fixé le calendrier des semaines de contrôle de la session 2026‑2027",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Bothorel : réinscription d'ici quinze jours ou trois semaines",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "j'ai bon espoir qu'on pourra réinscrire le texte d'ici quinze jours ou trois semaines",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Aujourd'hui 20 octobre, la conférence des présidents se réunit",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "prochaine conférence des présidents : mardi 20 octobre 2026 , à 10 heures",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére",
+  "sujet": "Date à retenir"
+ },
+ {
+  "affirmation": "Celle du 13 octobre n'a pas réinscrit la loi Résilience",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "celle du 13 octobre ne l'a pas réinscrit",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére",
+  "sujet": "Date à retenir"
+ },
+ {
+  "affirmation": "La loi Résilience transpose NIS2",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "le titre ii transpose la directive (ue) 2022/2555, dite nis2",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére",
+  "sujet": "Date à retenir"
+ },
+ {
+  "affirmation": "Règlement d'exécution (UE) 2026/2333 du 15 octobre 2026",
+  "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+  "extrait": "Council Implementing Regulation (EU) 2026/2333 of 15 October 2026",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex renvoie au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Le Conseil inscrit trois personnes et neuf entités",
+  "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+  "extrait": "three persons and nine entities should be added to the list of natural and legal persons",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex renvoie au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Le 15 octobre, le Conseil inscrit trois personnes et neuf entités liées à l'importation en Russie de biens sanctionnés",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "On 15 October, the Council of the European Union adopted additional restrictive measures against three individuals and nine entities involved in the import of sanctioned goods to Russia",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Dont des sociétés de commerce",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "These are both trade companies based in Türkiye but operating a global network",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Le règlement 2026/2333 met en œuvre le règlement (UE) n° 269/2014",
+  "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+  "extrait": "implementing Regulation (EU) No 269/2014",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex renvoie au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Inscriptions au titre du régime lié à l'Ukraine",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "the latest listings were adopted under the EU's restrictive measures framework targeting actions undermining or threatening Ukraine's territorial integrity, sovereignty and independence",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Movers Group LLC : importation parallèle en Russie de biens soumis aux mesures de l'Union",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "Movers Group LLC, a cargo delivery company based in Russia and involved in the parallel import of goods subject to EU restrictive measures to Russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "DT Inier LLC : solutions d'approvisionnement « clés en main » pour contourner les restrictions",
+  "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+  "extrait": "“turnkey procurement” solutions designed to bypass international trade restrictive measures",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex renvoie au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Begler Tekstil : société de commerce et de logistique",
+  "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+  "extrait": "is a trade and logistics company operating through a global network",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex renvoie au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Ces activités font obstacle de manière significative au règlement (UE) n° 833/2014",
+  "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2333/oj/eng",
+  "extrait": "is significantly frustrating the provisions of Regulation (EU) No 833/2014",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex renvoie au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "22e paquet adopté le 12 octobre 2026 : 1 569 personnes et entités",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "the package adds 1,569 individuals and entities to the EU sanctions lists",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Depuis le 14 octobre 2026, l'ECJU étend l'OGEL dual-use",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "from 14 October 2026, ECJU has increased coverage of the previously announced dual-use OGEL",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Douze nouvelles destinations pour l'OGEL dual-use",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "we are expanding this OGEL to include: Bahrain Botswana Brunei Jordan Kuwait Mauritius Morocco North Macedonia Oman the Philippines Qatar Seychelles",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Les deux OGEL militaires (biens, logiciels, technologies) sont élargies",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "we are also expanding both Military Goods, Software and Technology ( MGST ) OGELs",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "La plus large des OGEL militaires s'ouvre notamment à la Pologne, la Grèce et la Corée du Sud",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "greece, hungary, latvia, liechtenstein, lithuania, luxembourg, poland, portugal, romania, slovakia, slovenia, south korea and switzerland will become eligible under the broader MGST OGEL",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Avis aux exportateurs 2026/23 publié le 14 octobre 2026",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "notice to exporters 2026/23: expansion of military and dual-use open general export licences published 14 october 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "L'OGEL couvre des équipements aéronautiques et maritimes aux technologies de l'information, semi-conducteurs et quantique",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "this OGEL covers items ranging from aviation and maritime equipment to information technology items, and exports of cutting edge technologies in semiconductors and quantum",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Utilisateurs finaux commerciaux, gouvernementaux ou OTAN en Bulgarie, Grèce, Pologne, Portugal, Corée du Sud, Suisse éligibles",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "exports to both commercial and government/ NATO end users for Bulgaria, Croatia, Czechia, Estonia, Greece",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Plus de 800 demandes de licences individuelles évitées par an",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "by potentially removing the need for over 800 low-risk standard individual export licences (SIEL) applications a year",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Le 12 octobre 2026, l'ECJU a suspendu le service CLC",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "ECJU is pausing the CLC service from Monday 12 October",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "22e paquet adopté le 12 octobre 2026",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "on 12 October 2026, the European Union adopted its 22nd package of sanctions against Russia",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Il inscrit 1 569 personnes et entités",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "the package adds 1,569 individuals and entities to the EU sanctions lists",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Dont des fournisseurs de composants du complexe militaro-industriel russe",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "including businesses involved in the production and supply of components used in missiles, drones, military aircraft and related defence technologies",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Décision (PESC) 2026/2279 et règlement d'exécution (UE) 2026/2281",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "the package has been implemented through Council Decision (CFSP) 2026/2279, amending Council Decision 2014/145/CFSP, and Council Implementing Regulation (EU) 2026/2281",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "826 sociétés russes et 743 personnes ; près de 4 600 inscriptions au total",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "comprising 826 Russian companies and 743 individuals, bringing the total number of designations under the Ukraine-related sanctions regime to almost 4,600",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Il s'agit surtout d'inscriptions",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "the latest package is principally a listings package",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Secteurs : semi-conducteurs, microélectronique, communications, radars, navigation",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "the newly designated entities are involved in sectors including semiconductors, microelectronics, communications equipment, radar systems, aviation technology, satellite systems, navigation equipment",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Pas de nouvelles restrictions importantes au titre du règlement 833/2014",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "the package does not appear to introduce any material new restrictions under the separate Council Decision 2014/512/CFSP and Regulation (EU) No 833/2014 framework",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Le 21e paquet (juillet 2026) avait introduit des mesures nouvelles dans la banque, l'énergie, les crypto-actifs",
+  "url": "https://www.penningtonslaw.com/insights/eu-and-uk-sanctions-developments-eus-22nd-sanctions-package-and-latest-uk-measures-targeting-russias-military-industrial-energy-and-shipping-sectors/",
+  "extrait": "unlike the 21st package adopted in July 2026 , which introduced significant new measures affecting banking, energy, crypto-assets, shipping and trade",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "Le 15 octobre, le Conseil a ajouté douze inscriptions (3 + 9) pour contournement",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "three individuals and nine entities involved in the import of sanctioned goods to Russia, and in the circumvention of EU sanctions",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, 22e paquet : adopté le 12 oct"
+ },
+ {
+  "affirmation": "21e paquet adopté le 23 juillet 2026",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "on 23 July 2026, the European Council adopted its 21st package of Russia sanctions",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "Délai jusqu'au 25 octobre pour exécuter certains contrats antérieurs",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "with a wind-down until 25 October 2026 for pre-existing contracts",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "20e paquet adopté le 23 avril 2026",
+  "url": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+  "extrait": "On 23 April 2026, the European Union (EU) adopted its 20th package of sanctions against Russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "Le 20e paquet interdit les services de cybersécurité gérés au gouvernement russe et aux entités établies en Russie",
+  "url": "https://www.dlapiper.com/en-ma/insights/publications/global-sanctions-alert/2026/20th-package-of-eu-sanctions-against-russia",
+  "extrait": "prohibition on the provision of any managed cybersecurity services to the Government of Russia and any entities established in Russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "Le 21e paquet ajoute 216 inscriptions",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "totaling 216 new designations (48 individuals and 168 entities)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "51 entités ajoutées à l'annexe IV (restrictions dual-use renforcées)",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "51 entities are added to Annex IV for tighter dual-use export restrictions",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "Parmi ces entités, des sociétés de Chine, de Turquie et d'Inde",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "including entities in third countries (China and Hong Kong, Turkey, Kyrgyzstan, India, Kazakhstan and the UAE)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions : le 21e paquet de l’UE contre"
+ },
+ {
+  "affirmation": "Service CLC suspendu depuis le 12 octobre 2026",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "ECJU is pausing the CLC service from Monday 12 October",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Sans date de reprise ; point d'étape avant la fin de l'année",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "we will provide you with an update on our progress before the end of the year",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Avis aux exportateurs 2026/22 publié le 12 octobre 2026",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "Notice to exporters 2026/22: temporary pause of the Control List Classification (CLC) service html details",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Avis 2026/22 publié le 12 octobre 2026 (date)",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "published: 12 October 2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Motif : difficulté à fournir le service tout en traitant les licences sans retard",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "it has become increasingly challenging to provide this service whilst processing export licence applications with minimal delay",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Demandes antérieures traitées plus lentement ; nouvelles demandes non traitées",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "ECJU will continue to process requests for CLC advice received prior to the 12 October, but these may take longer to respond to than usual. We request that exporters do not submit new CLC requests during this pause as they will not be processed",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "L'ECJU étudie un service moins gourmand en ressources",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "we are actively looking into options to provide this service in a more resource efficient way in future",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Il appartient à l'exportateur de classer et d'obtenir la licence",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service/notice-to-exporters-202622-temporary-pause-of-the-control-list-classification-clc-service",
+  "extrait": "it is your responsibility to determine whether your goods, software or technology are controlled and to ensure that any required export licence is obtained before an export takes place",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, classement : le service CLC"
+ },
+ {
+  "affirmation": "Règlement délégué adopté le 14 septembre 2026 mettant à jour l'annexe I",
+  "url": "https://policy.trade.ec.europa.eu/news/2026-update-eu-control-list-dual-use-items-2026-09-14_en",
+  "extrait": "on 14 September 2026, the European Commission adopted a delegated regulation updating the EU dual-use export control list in Annex I of Regulation (EU) 2021/821",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "*{en}Dual-use* UE : le règlement délégué"
+ },
+ {
+  "affirmation": "Extension des contrôles sur les logiciels à de nouveaux équipements semi-conducteurs",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "existing software controls are extended to certain newly listed semiconductor equipment",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "*{en}Dual-use* UE : le règlement délégué"
+ },
+ {
+  "affirmation": "Pas encore en vigueur ; publication au JO sauf objection pendant deux mois",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "unless the European Parliament or the Council objects during the two-month scrutiny period, the delegated regulation will be published in the Official Journal of the European Union and enter into force upon publication",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "*{en}Dual-use* UE : le règlement délégué"
+ },
+ {
+  "affirmation": "Pas encore en vigueur",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "although the changes have not yet entered into force",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "*{en}Dual-use* UE : le règlement délégué"
+ },
+ {
+  "affirmation": "L'annexe I liste les biens à double usage soumis à autorisation d'exportation",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "Annex I to the EU Dual-Use Regulation lists dual-use items that require an export authorization",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "*{en}Dual-use* UE : le règlement délégué"
+ },
+ {
+  "affirmation": "Mise à jour périodique par acte délégué",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "the EU Commission periodically, usually at least once a year, updates Annex I by delegated regulation",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "*{en}Dual-use* UE : le règlement délégué"
+ },
+ {
+  "affirmation": "Suspension de la phase 2 décidée le 13 juillet 2026",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "the July 13 memorandum paused the November 10, 2026 transition to C3PAO certification",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Sans date de reprise",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "no reinstatement, no replacement date, no hint of one",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "NIST SP 800-171 et DFARS 252.204-7012 restent applicables",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "baseline compliance with NIST SP 800-171 Revision 2 stays in place under DFARS 252.204-7012",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Phase 2 prévue le 10 novembre 2026",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "the July 13 memorandum paused the November 10, 2026 transition",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Class deviation révision 3 du 3 septembre 2026",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "Revision 3 of Class Deviation 2026-O0025 was released on September 3 and signed by John M. Tenaglia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Les acheteurs doivent retirer ou réviser les exigences CMMC",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "contracting officers must collaborate with requiring activities to remove or revise CMMC requirements in new and existing solicitations and contracts",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Déclaration des incidents sous 72 heures",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "still report cyber incidents to DIBNet within 72 hours of discovery",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Notation SPRS et contrôles de la DCMA",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "summary level scores posted to SPRS",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Selon Wolf Theiss, la phase 1 (auto-évaluation) reste en place",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "requiring activities may include CMMC Level 1 (Self) or Level 2 (Self) assessments in procurement requests and requirement documents",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Les primes répercutent ces exigences sur leurs fournisseurs",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "primes are still asking suppliers to demonstrate NIST SP 800-171 Revision 2 compliance",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Revue engagée par le ministère (task force)",
+  "url": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/",
+  "extrait": "the CMMC Reform Task Force delivers recommendations to the department CIO",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "CMMC : la suspension de la phase 2, déci"
+ },
+ {
+  "affirmation": "Honeywell a chargé 1 000 ingénieurs en Pologne et en Tchéquie de concevoir des technologies non-ITAR",
+  "url": "https://www.bnnbloomberg.ca/business/company-news/2026/07/09/honeywell-aero-to-develop-more-defence-products-for-europe-outside-us-export-controls/",
+  "extrait": "it has tasked a combined 1,000 engineers in Poland and the Czech Republic to design ITAR-free technologies",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "ITAR-free : Honeywell a chargé 1 000 ing"
+ },
+ {
+  "affirmation": "Demande européenne de systèmes sans ITAR par crainte d'un blocage des réexportations",
+  "url": "https://www.bnnbloomberg.ca/business/company-news/2026/07/09/honeywell-aero-to-develop-more-defence-products-for-europe-outside-us-export-controls/",
+  "extrait": "there is increasing demand among European countries for ITAR-free systems due to concerns over Washington potentially blocking the re-export of sensitive U.S. components embedded in foreign weapons",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "ITAR-free : Honeywell a chargé 1 000 ing"
+ },
+ {
+  "affirmation": "En juin 2026, négociations exclusives avec Safran et MBDA pour THUNDART",
+  "url": "https://theatrum-belli.com/lla-dga-retient-le-thundart-de-safran-et-mbda-pour-sa-frappe-longue-portee-terrestre/",
+  "extrait": "le 15 juin 2026, la ministre des Armées Catherine Vautrin a annoncé que la DGA entrait en négociations exclusives avec le consortium Safran-MBDA",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "ITAR-free : Honeywell a chargé 1 000 ing"
+ },
+ {
+  "affirmation": "THUNDART présenté comme ITAR-free",
+  "url": "https://www.thedefensenews.com/France-Selects-MBDA-and-Safrans-THUNDART-System-for-Next-Generation-Long-Range-Artillery/",
+  "extrait": "The system is designed to be fully ITAR-free",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "ITAR-free : Honeywell a chargé 1 000 ing"
+ },
+ {
+  "affirmation": "L'ITAR impose une autorisation du DDTC pour réexporter ou retransférer",
+  "url": "https://www.law.cornell.edu/cfr/text/22/123.9",
+  "extrait": "the written approval of the Directorate of Defense Trade Controls must be obtained before reselling, transferring, reexporting, retransferring, transshipping, or disposing of a defense article",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "ITAR-free : Honeywell a chargé 1 000 ing"
+ },
+ {
+  "affirmation": "Le 15 octobre, le Conseil a inscrit trois personnes et neuf entités qui aident à contourner les sanctions",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "On 15 October, the Council of the European Union adopted additional restrictive measures against three individuals and nine entities",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem",
+  "sujet": "Export et sanctions"
+ },
+ {
+  "affirmation": "Sociétés de commerce et de logistique qui font entrer en Russie des biens soumis aux mesures européennes",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "involved in the parallel import of goods subject to EU restrictive measures to Russia",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem",
+  "sujet": "Export et sanctions"
+ },
+ {
+  "affirmation": "Depuis le 14 octobre, le Royaume-Uni élargit ses licences générales",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "from 14 October 2026, ECJU has increased coverage of the previously announced dual-use OGEL",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis",
+  "sujet": "Export et sanctions"
+ },
+ {
+  "affirmation": "Douze destinations dont Bahreïn, le Maroc, Oman, les Philippines et le Qatar",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "Bahrain Botswana Brunei Jordan Kuwait Mauritius Morocco North Macedonia Oman the Philippines Qatar Seychelles",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis",
+  "sujet": "Export et sanctions"
+ },
+ {
+  "affirmation": "Licences militaires ouvertes à la Pologne, la Grèce, la Corée du Sud",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "poland, portugal, romania, slovakia, slovenia, south korea and switzerland will become eligible under the broader MGST OGEL",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis",
+  "sujet": "Export et sanctions"
+ },
+ {
+  "affirmation": "Plus de huit cents demandes de licences évitées par an",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "over 800 low-risk standard individual export licences (SIEL) applications a year",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis",
+  "sujet": "Export et sanctions"
+ },
+ {
+  "affirmation": "La conférence du 13 octobre fixe le calendrier des semaines de contrôle",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "la Conférence a fixé le calendrier des semaines de contrôle de la session",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Prochaine conférence le mardi 20 octobre 2026 à 10 heures",
+  "url": "https://www2.assemblee-nationale.fr/17/la-conference-des-presidents/releve-de-conclusions/reunion-du-mardi-13-octobre-2026",
+  "extrait": "Prochaine Conférence des présidents : mardi 20 octobre 2026 , à 10 heures",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "La conférence du 13 octobre n'a pas réinscrit le texte",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "celle du 13 octobre ne l'a pas réinscrit ; la suivante est fixée au 20 octobre",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Projet de loi transposant NIS2, DORA et REC",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "le Titre I transpose la directive (UE) 2022/2557 sur la résilience des entités critiques, dite directive REC. Le Titre II transpose la directive (UE) 2022/2555, dite NIS2. Le Titre III transpose la directive (UE) 2022/2556, qui accompagne DORA",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Retiré le 6 octobre de l'ordre du jour des 7 et 9 octobre",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "la conférence des présidents de l'Assemblée nationale a retiré de l'ordre du jour des 7 et 9 octobre le projet de loi relatif à la résilience des infrastructures critiques",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Bothorel espérait une réinscription d'ici quinze jours ou trois semaines",
+  "url": "https://www.leto.legal/news/assemblee-nationale-report-projet-loi-resilience-nis2-octobre-2026",
+  "extrait": "j'ai bon espoir qu'on pourra réinscrire le texte d'ici quinze jours ou trois semaines",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "NIS2 devait être transposée avant le 17 octobre 2024",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "la directive NIS2 devait être transposée au plus tard le 17 octobre 2024",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "Texte non adopté, aucune date d'examen",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "l'Assemblée n'a donc procédé à aucun vote",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "20 octobre 2026 Conférence des président"
+ },
+ {
+  "affirmation": "25 octobre 2026 : fin du délai pour exécuter certains contrats antérieurs (contrôles à l'importation du 21e paquet)",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "new entries under Annex XXI cover copper, nickel, lead and precious-metal ores, unwrought zinc, alkaline-earth metals, zinc and chromium oxides, tall oil, glassware and car parts, with a wind-down until 25 October 2026 for pre-existing contracts",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "25 octobre 2026 Fin du délai du 21e paqu"
+ },
+ {
+  "affirmation": "Le 21e paquet adopté par l'UE",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-adopts-21st-russia-sanctions-package/",
+  "extrait": "on 23 July 2026, the European Council adopted its 21st package of Russia sanctions",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "25 octobre 2026 Fin du délai du 21e paqu"
+ },
+ {
+  "affirmation": "Réimposition automatique le 10 novembre 2026 sauf action du BIS",
+  "url": "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal",
+  "extrait": "the suspension automatically reimposes the affiliates rule on November 10, 2026, unless BIS takes further regulatory action",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "10 novembre 2026 Réimposition automatiqu"
+ },
+ {
+  "affirmation": "Suspendue jusqu'au 9 novembre 2026",
+  "url": "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal",
+  "extrait": "the suspension will last through November 9, 2026, unless extended by BIS",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "10 novembre 2026 Réimposition automatiqu"
+ },
+ {
+  "affirmation": "Suspension d'un an entrée en vigueur le 10 novembre 2025",
+  "url": "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal",
+  "extrait": "on November 10, 2025, BIS suspended the Affiliates Rule, which extended export restrictions to certain foreign entities owned by listed parties, for one year",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "10 novembre 2026 Réimposition automatiqu"
+ },
+ {
+  "affirmation": "Règle des affiliés : entités détenues à 50 % ou plus par des entités inscrites (Entity List)",
+  "url": "https://www.skadden.com/insights/publications/2025/11/bis-suspends-affiliates-rule-for-one-year-as-part-of-the-us-china-trade-deal",
+  "extrait": "extended export restrictions to non-U.S. entities owned 50% or more, directly or indirectly, individually or in aggregate, by listed parties designated on the Entity List",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "10 novembre 2026 Réimposition automatiqu"
+ },
+ {
+  "affirmation": "Règlement délégué adopté le 14 septembre 2026 mettant à jour l'annexe I",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "on September 14, 2026, the EU Commission adopted a delegated regulation updating Annex I to Regulation (EU) 2021/821",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Novembre 2026 Publication au JO attendue"
+ },
+ {
+  "affirmation": "Publication au JO après deux mois d'examen, sauf objection ; entrée en vigueur à la publication",
+  "url": "https://policy.trade.ec.europa.eu/news/2026-update-eu-control-list-dual-use-items-2026-09-14_en",
+  "extrait": "the updated EU control list enters into force upon publication in the Official Journal after the usual two-month scrutiny period for the Council and the European Parliament",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Novembre 2026 Publication au JO attendue"
+ },
+ {
+  "affirmation": "Novembre 2026 attendu (précédent : mise à jour 2025 publiée le 14 novembre 2025)",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "published in the Official Journal on November 14, 2025 as Delegated Regulation (EU) 2025/2003",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Novembre 2026 Publication au JO attendue"
+ },
+ {
+  "affirmation": "Semi-conducteurs, calcul avancé, équipements de fabrication, turbines à gaz",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "the most significant changes concern advanced semiconductor manufacturing equipment and advanced computing integrated circuits, as well as certain technology in the context of gas-turbines",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Novembre 2026 Publication au JO attendue"
+ },
+ {
+  "affirmation": "Données de conception et assistance technique à distance",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "it can already be triggered by sharing design data, process parameters or technical assistance with non-EU affiliates, suppliers or engineers, including by remote access or electronic transfer",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Novembre 2026 Publication au JO attendue"
+ },
+ {
+  "affirmation": "Transferts intra-UE de l'annexe IV potentiellement touchés",
+  "url": "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "extrait": "certain of the outlined changes are expected to flow through to Annex IV of the EU Dual-Use Regulation, which governs intra-Union transfers",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Novembre 2026 Publication au JO attendue"
+ },
+ {
+  "affirmation": "Transposition de la directive (UE) 2024/2853 au plus tard le 9 décembre 2026",
+  "url": "https://www.ibanet.org/European-Product-Liability-Directive-liability-for-software",
+  "extrait": "has to be transposed into the national law of the EU Member States by 9 December 2026 at the latest",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "9 décembre 2026 Transposition de la dire"
+ },
+ {
+  "affirmation": "La directive inclut le logiciel",
+  "url": "https://www.ibanet.org/European-Product-Liability-Directive-liability-for-software",
+  "extrait": "liability for software under the new European Product Liability Directive",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "9 décembre 2026 Transposition de la dire"
+ },
+ {
+  "affirmation": "La directive s'applique aux produits mis sur le marché ou mis en service à partir du 9 décembre 2026 (après le 8 décembre, selon le rectificatif)",
+  "url": "https://www.boe.es/doue/2026/90364/L00001-00001.pdf",
+  "extrait": "La presente Directiva será aplicable a los productos introducidos en el mercado o puestos en servicio después del 8 de diciembre de 2026",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "Formulation corrigée après vérification ; PDF du JO (copie BOE) non lisible par le contrôle automatique",
+  "ref": "9 décembre 2026 Transposition de la dire"
+ },
+ {
+  "affirmation": "11 décembre 2026 : nombre suffisant d'organismes d'évaluation de la conformité dans les États membres",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "11 December 2026 notification of sufficient conformity assessment bodies across Member States",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2026 Nombre suffisant d'orga"
+ },
+ {
+  "affirmation": "Règles de notification des organismes applicables depuis le 11 juin 2026",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "11 June 2026 entry into application of the provisions on the notification of conformity assessment bodies",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2026 Nombre suffisant d'orga"
+ },
+ {
+  "affirmation": "Application complète du CRA le 11 décembre 2027",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "11 December 2027 full application of the Cyber Resilience Act",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2026 Nombre suffisant d'orga"
+ },
+ {
+  "affirmation": "Règles IA à haut risque (annexe III) reportées au 2 décembre 2027 par le règlement (UE) 2026/1744",
+  "url": "https://www.euaiact.com/digital-omnibus-ai",
+  "extrait": "Annex III high-risk obligations apply 2 August 2026 2 December 2027",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "2 décembre 2027 Règles sur les systèmes "
+ },
+ {
+  "affirmation": "Règlement (UE) 2026/1744 en vigueur depuis le 27 juillet 2026",
+  "url": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722",
+  "extrait": "Regulation (EU) 2026/1744, commonly referred to as the AI Omnibus, was published in the Official Journal on 24 July 2026 and entered into force on 27 July 2026",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "2 décembre 2027 Règles sur les systèmes "
+ },
+ {
+  "affirmation": "Annexe I (produits réglementés) reportée au 2 août 2028",
+  "url": "https://www.euaiact.com/digital-omnibus-ai",
+  "extrait": "Annex I product-safety high-risk obligations apply 2 August 2027 2 August 2028",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "2 décembre 2027 Règles sur les systèmes "
+ },
+ {
+  "affirmation": "Reports justifiés par l'absence de normes harmonisées et d'organismes notifiés",
+  "url": "https://www.euaiact.com/digital-omnibus-ai",
+  "extrait": "the infrastructure the deadline depends on, harmonised standards and designated notified bodies, was not ready",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "2 décembre 2027 Règles sur les systèmes "
+ },
+ {
+  "affirmation": "Deux nouvelles interdictions à compter du 2 décembre 2026",
+  "url": "https://www.mondaq.com/eu-digital-omnibus-on-ai-enters-into-force/1825722",
+  "extrait": "these prohibitions apply from 2 December 2026",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "2 décembre 2027 Règles sur les systèmes "
+ },
+ {
+  "affirmation": "L'AI Act exclut les systèmes exclusivement militaires, de défense ou de sécurité nationale",
+  "url": "https://artificialintelligenceact.eu/article/2/",
+  "extrait": "used with or without modification exclusively for military, defence or national security purposes, regardless of the type of entity carrying out those activities",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "2 décembre 2027 Règles sur les systèmes "
+ },
+ {
+  "affirmation": "Application complète du CRA le 11 décembre 2027",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "11 December 2027 full application of the Cyber Resilience Act",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2027 Application complète du"
+ },
+ {
+  "affirmation": "Selon l'ENISA, les stewards open source sont soumis à la déclaration à la même date",
+  "url": "https://www.enisa.europa.eu/news/the-cra-single-reporting-platform-is-launched",
+  "extrait": "these reporting obligations will also apply to open-source software stewards to the extent that they are involved in the development of products with digital elements. This article shall apply from 11 December 2027",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2027 Application complète du"
+ },
+ {
+  "affirmation": "Présomption de conformité liée à l'EUCC attendue au T4 2026",
+  "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+  "extrait": "Q4 2026 delegated act specifying the presumption of conformity for the European Cybersecurity Certification Scheme on Common Critera (EUCC) with the CRA",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2027 Application complète du"
+ },
+ {
+  "affirmation": "Selon l'ENISA, 79 % des organisations comptent être prêtes sur les SBOM avant l'échéance",
+  "url": "https://cadeproject.org/updates/enisa-report-finds-cyber-resilience-act-driving-sbom-adoption-across-europe/",
+  "extrait": "79% of respondents expect to reach the required level of SBOM maturity before the Cyber Resilience Act becomes fully applicable in December 2027",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2027 Application complète du"
+ },
+ {
+  "affirmation": "Diligence raisonnable sur les composants tiers, open source compris",
+  "url": "https://www.springlex.eu/en/packages/cra/cra-regulation/article-13/",
+  "extrait": "manufacturers shall exercise due diligence when integrating components sourced from third parties so that those components do not compromise the cybersecurity of the product with digital elements , including when integrating components of free and open-source software",
+  "ou": "agenda",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "11 décembre 2027 Application complète du"
+ }
+]

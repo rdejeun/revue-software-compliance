@@ -102,6 +102,10 @@
     "texte": "Le Royaume-Uni (ECJU) suspend son service de classement CLC, sans date de reprise"
    },
    {
+    "date": "2026-10-14",
+    "texte": "Le Royaume-Uni (ECJU) élargit ses licences générales d’exportation dual-use et militaires (OGEL)"
+   },
+   {
     "date": "2026-11",
     "libelle": "nov. 2026",
     "texte": "Publication au JO attendue de la nouvelle liste dual-use"
@@ -135,6 +139,14 @@
     "texte": "21e paquet de sanctions de l’UE contre la Russie"
    },
    {
+    "date": "2026-10-12",
+    "texte": "22e paquet de sanctions de l’UE contre la Russie : 1 569 personnes et entités inscrites"
+   },
+   {
+    "date": "2026-10-15",
+    "texte": "Règlement d’exécution (UE) 2026/2333 : douze inscriptions pour contournement des sanctions"
+   },
+   {
     "date": "2026-10-25",
     "texte": "Fin de la période transitoire pour certains contrats conclus avant le 24 juillet (21e paquet)"
    }
@@ -152,10 +164,14 @@
    },
    {
     "date": "2026-10-13",
+    "texte": "La conférence des présidents de l’Assemblée nationale ne réinscrit pas la loi Résilience à l’ordre du jour"
+   },
+   {
+    "date": "2026-10-20",
     "texte": "Conférence des présidents de l’Assemblée nationale"
    }
   ],
-  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, sans nouvelle date"
+  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit le 13 octobre"
  },
  "ai-act": {
   "nom": "AI Act",
@@ -166,6 +182,10 @@
    {
     "date": "2026-07-27",
     "texte": "Entrée en vigueur du règlement (UE) 2026/1744 « Digital Omnibus on AI »"
+   },
+   {
+    "date": "2026-10-19",
+    "texte": "Première norme harmonisée (EN 18286:2026, système de management de la qualité) citée au JO par la décision d’exécution (UE) 2026/2274"
    },
    {
     "date": "2026-12-02",
@@ -193,7 +213,17 @@
   "nom": "Licences open source",
   "titre": "Licences|open source",
   "court": "Licences",
-  "reference": "GPL, AGPL, licences à source disponible ; contentieux"
+  "reference": "GPL, AGPL, licences à source disponible ; contentieux",
+  "chronologie": [
+   {
+    "date": "2026-10-07",
+    "texte": "Moscou : le tribunal d’arbitrage refuse d’inscrire au registre des logiciels russes une suite fondée sur LibreOffice"
+   },
+   {
+    "date": "2026-10-20",
+    "texte": "Les mises à jour d’Oracle JDK 21 passent sous licence OTN (correctif trimestriel d’octobre)"
+   }
+  ]
  },
  "cmmc": {
   "nom": "CMMC",
