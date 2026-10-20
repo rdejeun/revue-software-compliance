@@ -233,8 +233,13 @@ dl.st{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0;
 ul.tl{{list-style:none;margin:0 0 0 16px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;display:grid;grid-template-columns:112px 1fr;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
 ul.tl li.sy-it{{margin-left:-6px;padding:2px 6px 2px 22px;border-radius:6px}} ul.tl li.sy-it::before{{left:-15px;top:9px}}
 ul.it li.sy-it{{margin:0 -8px;padding:10px 8px 12px;border-radius:6px}} ul.it li.sy-it:hover{{border-bottom-color:transparent}}
-ul.tl li.cache{{display:none}} ul.tl.tout li.cache{{display:grid}}
-.tl-p{{margin:-2px 0 0 46px}} .tl-b{{background:none;border:0;border-bottom:1px dotted #9ca3af;padding:0;font:13px/20px {SANS};color:#6b7280;cursor:pointer}} .tl-b:hover,.tl-b:focus-visible{{color:#0f2a4a;border-bottom-color:#0f2a4a;outline:none}}
+ul.tl li[hidden]{{display:none}} ul.tl li.tl-ap{{animation:tlap .35s ease-out}} @keyframes tlap{{from{{opacity:0;transform:translateY(-4px)}}to{{opacity:1;transform:none}}}}
+ul.tl li.tl-pli{{display:block;margin:-4px 0 6px;padding:6px 0 6px 16px}}
+ul.tl li.tl-pli::before{{left:-16px;top:0;bottom:0;width:2px;height:auto;border:0;background:repeating-linear-gradient(to bottom,#fff 0 3px,transparent 3px 7px)}}
+.tl-g{{display:inline-flex;align-items:center;gap:7px;margin:0;padding:2px 10px 2px 3px;background:#fff;border:1px solid #e3ddd0;border-radius:12px;font:12.5px/18px {SANS};color:#6b7280;cursor:pointer}}
+.tl-g .tl-n{{display:inline-block;min-width:18px;padding:0 5px;border-radius:9px;background:#f4efe6;color:#c2410c;font-weight:600;text-align:center}}
+.tl-g:hover,.tl-g:focus-visible{{border-color:#c2410c;color:#0f2a4a;outline:none}} .tl-g:hover .tl-n,.tl-g:focus-visible .tl-n{{background:#c2410c;color:#fff}}
+@media (prefers-reduced-motion:reduce){{ul.tl li.tl-ap{{animation:none}}}}
 ul.tl li::before{{content:"";position:absolute;left:-21px;top:7px;width:8px;height:8px;background:#c2410c;border:2px solid #fff}} ul.tl li.v::before{{background:#fff;border-color:#c2410c}}
 .dt{{display:block;font:600 13px/22px {SANS};color:#c2410c}}
 ul.it{{list-style:none;margin:0;padding:0}} ul.it li{{padding:10px 0 12px;border-bottom:1px solid #eee9de}}
@@ -376,22 +381,35 @@ def main():
             if d_ not in connues:   # échéance de l'agenda absente de la chronologie de themes.json : ajoutée telle quelle
                 connues.add(d_); chrono.append({'date': d_, 'html': it['html']})
         if chrono:
-            li = []
+            li, pli = [], []   # pli : dates masquées consécutives, repliées dans la ligne du temps (README, § 12)
             visibles = chrono_visibles(chrono, today, par_date)
-            caches = len(chrono) - len(visibles)
+            lib = lambda c: c.get('libelle') or fdate_court(c['date'])
+            def replier():
+                if not pli: return
+                g = f'g{len(li)}'
+                a, z = lib(pli[0]), lib(pli[-1])
+                if len(pli) > 1 and a[-4:] == z[-4:] and a[-4:].isdigit(): a = a[:-5]
+                per = a if len(pli) == 1 else f'{a} – {z}'
+                li.append(f'<li class="tl-pli"><button type="button" class="tl-g" data-g="{g}" title="Afficher {"cette date" if len(pli) == 1 else "ces dates"}">'
+                          f'<span class="tl-n">+{len(pli)}</span>date{"s" if len(pli) > 1 else ""} · {E(per)}'
+                          f'<svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></li>')
+                li.extend(x.replace('<li class="', f'<li data-g="{g}" hidden class="', 1) for x in pli_html)
+                pli.clear(); pli_html.clear()
+            pli_html = []
             for c in sorted(chrono, key=lambda c: c["date"]):
                 u = sid_de(*par_date[c['date']]) if c['date'] in par_date else None
-                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '', '' if id(c) in visibles else 'cache') if x)
-                att = f' class="{cl}"' if cl else ''
+                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '') if x)
+                att = f' class="{cl}"' if cl else ' class=""'
                 if u: att += f' data-syn="{u}"'
-                li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
-            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl" id="tl">' + ''.join(li) + '</ul>'
-            if caches:   # dates les moins importantes masquées ; un clic les montre (README, § 12)
-                body += (f'<p class="tl-p"><button type="button" class="tl-b" aria-controls="tl" aria-expanded="false" data-n="{caches}">'
-                         f'Chronologie complète ({len(chrono)} dates)</button></p>'
-                         '<script>(function(){var b=document.querySelector(".tl-b"),l=document.getElementById("tl"),t=b.textContent;'
-                         'b.addEventListener("click",function(){var o=l.classList.toggle("tout");b.setAttribute("aria-expanded",o);'
-                         'b.textContent=o?"Chronologie réduite":t;});})();</script>')
+                h_ = f'<li{att}><span class="dt">{E(lib(c))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>'
+                if id(c) in visibles: replier(); li.append(h_)
+                else: pli.append(c); pli_html.append(h_)
+            replier()
+            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(li).replace(' class=""', '') + '</ul>'
+            if '<li class="tl-pli">' in body:
+                body += ('<script>document.addEventListener("click",function(e){var b=e.target.closest(".tl-g");if(!b)return;'
+                         'var l=document.querySelectorAll(\'li[data-g="\'+b.dataset.g+\'"]\');l.forEach(function(x){x.hidden=false;x.classList.add("tl-ap")});'
+                         'b.parentNode.remove();var f=l[0]&&l[0].querySelector(".sy-b,button,a");if(f)f.focus({preventScroll:true});});</script>')
         if its:
             body += '<div class="r"></div><h2>Informations publiées</h2>'
             cur = None
