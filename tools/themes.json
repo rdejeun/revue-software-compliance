@@ -10,40 +10,49 @@
   "chronologie": [
    {
     "date": "2024-12-10",
-    "texte": "Entrée en vigueur du règlement"
+    "texte": "Entrée en vigueur du règlement",
+    "poids": 3
    },
    {
     "date": "2026-06-11",
-    "texte": "Application des règles sur les organismes d’évaluation de la conformité"
+    "texte": "Application des règles sur les organismes d’évaluation de la conformité",
+    "poids": 3
    },
    {
     "date": "2026-07-27",
-    "texte": "Guidance de la Commission (non contraignante)"
+    "texte": "Guidance de la Commission (non contraignante)",
+    "poids": 1
    },
    {
     "date": "2026-08-13",
-    "texte": "L’ETSI lance l’approbation de 17 projets de normes verticales du CRA (enquête publique jusqu’à mi-novembre)"
+    "texte": "L’ETSI lance l’approbation de 17 projets de normes verticales du CRA (enquête publique jusqu’à mi-novembre)",
+    "poids": 2
    },
    {
     "date": "2026-09-11",
-    "texte": "Déclaration des vulnérabilités activement exploitées et des incidents graves"
+    "texte": "Déclaration des vulnérabilités activement exploitées et des incidents graves",
+    "poids": 3
    },
    {
     "date": "2026-09-23",
-    "texte": "L’ANSSI précise ses rôles d’autorité notifiante et de CSIRT national, et celui de l’ANFR pour la surveillance du marché"
+    "texte": "L’ANSSI précise ses rôles d’autorité notifiante et de CSIRT national, et celui de l’ANFR pour la surveillance du marché",
+    "poids": 2
    },
    {
     "date": "2026-10-06",
-    "texte": "L’OpenSSF publie un guide CRA Readiness pour les éditeurs et mainteneurs"
+    "texte": "L’OpenSSF publie un guide CRA Readiness pour les éditeurs et mainteneurs",
+    "poids": 1
    },
    {
     "date": "2026-12",
     "libelle": "T4 2026",
-    "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC"
+    "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC",
+    "poids": 2
    },
    {
     "date": "2027-12-11",
-    "texte": "Application complète : exigences essentielles, documentation technique, marquage CE"
+    "texte": "Application complète : exigences essentielles, documentation technique, marquage CE",
+    "poids": 3
    }
   ],
   "recherche": "Cyber Resilience Act"
@@ -57,19 +66,23 @@
    {
     "date": "2025-12",
     "libelle": "déc. 2025",
-    "texte": "CycloneDX 1.7 adopté comme ECMA-424, 2e édition"
+    "texte": "CycloneDX 1.7 adopté comme ECMA-424, 2e édition",
+    "poids": 2
    },
    {
     "date": "2026-07-29",
-    "texte": "La CISA publie les « 2026 Minimum Elements » du SBOM"
+    "texte": "La CISA publie les « 2026 Minimum Elements » du SBOM",
+    "poids": 3
    },
    {
     "date": "2026-08-05",
-    "texte": "Annonce de CycloneDX 2.0 (version attendue à l’automne, ratification Ecma en décembre)"
+    "texte": "Annonce de CycloneDX 2.0 (version attendue à l’automne, ratification Ecma en décembre)",
+    "poids": 2
    },
    {
     "date": "2026-10-05",
-    "texte": "L’annuaire SPDX référence quatre nouveaux outils en cinq semaines"
+    "texte": "L’annuaire SPDX référence quatre nouveaux outils en cinq semaines",
+    "poids": 1
    }
   ],
   "recherche": "SBOM et nomenclatures"
@@ -95,20 +108,24 @@
   "chronologie": [
    {
     "date": "2026-09-14",
-    "texte": "Adoption du règlement délégué C(2026)6323 mettant à jour l’annexe I"
+    "texte": "Adoption du règlement délégué C(2026)6323 mettant à jour l’annexe I",
+    "poids": 3
    },
    {
     "date": "2026-10-12",
-    "texte": "Le Royaume-Uni (ECJU) suspend son service de classement CLC, sans date de reprise"
+    "texte": "Le Royaume-Uni (ECJU) suspend son service de classement CLC, sans date de reprise",
+    "poids": 2
    },
    {
     "date": "2026-10-14",
-    "texte": "Le Royaume-Uni (ECJU) élargit ses licences générales d’exportation dual-use et militaires (OGEL)"
+    "texte": "Le Royaume-Uni (ECJU) élargit ses licences générales d’exportation dual-use et militaires (OGEL)",
+    "poids": 2
    },
    {
     "date": "2026-11",
     "libelle": "nov. 2026",
-    "texte": "Publication au JO attendue de la nouvelle liste dual-use"
+    "texte": "Publication au JO attendue de la nouvelle liste dual-use",
+    "poids": 3
    }
   ]
  },
@@ -120,7 +137,8 @@
   "chronologie": [
    {
     "date": "2026-11-10",
-    "texte": "Réimposition automatique de la règle des affiliés du BIS, sauf action du BIS"
+    "texte": "Réimposition automatique de la règle des affiliés du BIS, sauf action du BIS",
+    "poids": 3
    }
   ]
  },
@@ -132,23 +150,28 @@
   "chronologie": [
    {
     "date": "2026-04-23",
-    "texte": "20e paquet de sanctions de l’UE contre la Russie"
+    "texte": "20e paquet de sanctions de l’UE contre la Russie",
+    "poids": 3
    },
    {
     "date": "2026-07-23",
-    "texte": "21e paquet de sanctions de l’UE contre la Russie"
+    "texte": "21e paquet de sanctions de l’UE contre la Russie",
+    "poids": 3
    },
    {
     "date": "2026-10-12",
-    "texte": "22e paquet de sanctions de l’UE contre la Russie : 1 569 personnes et entités inscrites"
+    "texte": "22e paquet de sanctions de l’UE contre la Russie : 1 569 personnes et entités inscrites",
+    "poids": 3
    },
    {
     "date": "2026-10-15",
-    "texte": "Règlement d’exécution (UE) 2026/2333 : douze inscriptions pour contournement des sanctions"
+    "texte": "Règlement d’exécution (UE) 2026/2333 : douze inscriptions pour contournement des sanctions",
+    "poids": 2
    },
    {
     "date": "2026-10-25",
-    "texte": "Fin de la période transitoire pour certains contrats conclus avant le 24 juillet (21e paquet)"
+    "texte": "Fin de la période transitoire pour certains contrats conclus avant le 24 juillet (21e paquet)",
+    "poids": 3
    }
   ]
  },
@@ -160,15 +183,18 @@
   "chronologie": [
    {
     "date": "2026-10-06",
-    "texte": "L’examen de la loi Résilience est retiré de l’ordre du jour de l’Assemblée nationale (7 et 9 octobre), sans nouvelle date"
+    "texte": "L’examen de la loi Résilience est retiré de l’ordre du jour de l’Assemblée nationale (7 et 9 octobre), sans nouvelle date",
+    "poids": 2
    },
    {
     "date": "2026-10-13",
-    "texte": "La conférence des présidents de l’Assemblée nationale ne réinscrit pas la loi Résilience à l’ordre du jour"
+    "texte": "La conférence des présidents de l’Assemblée nationale ne réinscrit pas la loi Résilience à l’ordre du jour",
+    "poids": 2
    },
    {
     "date": "2026-10-20",
-    "texte": "Conférence des présidents de l’Assemblée nationale"
+    "texte": "Conférence des présidents de l’Assemblée nationale",
+    "poids": 2
    }
   ],
   "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit le 13 octobre"
@@ -181,19 +207,23 @@
   "chronologie": [
    {
     "date": "2026-07-27",
-    "texte": "Entrée en vigueur du règlement (UE) 2026/1744 « Digital Omnibus on AI »"
+    "texte": "Entrée en vigueur du règlement (UE) 2026/1744 « Digital Omnibus on AI »",
+    "poids": 3
    },
    {
     "date": "2026-10-19",
-    "texte": "Première norme harmonisée (EN 18286:2026, système de management de la qualité) citée au JO par la décision d’exécution (UE) 2026/2274"
+    "texte": "Première norme harmonisée (EN 18286:2026, système de management de la qualité) citée au JO par la décision d’exécution (UE) 2026/2274",
+    "poids": 2
    },
    {
     "date": "2026-12-02",
-    "texte": "Marquage des contenus générés par IA (article 50, paragraphe 2)"
+    "texte": "Marquage des contenus générés par IA (article 50, paragraphe 2)",
+    "poids": 3
    },
    {
     "date": "2027-12-02",
-    "texte": "Règles sur les systèmes d’IA à haut risque"
+    "texte": "Règles sur les systèmes d’IA à haut risque",
+    "poids": 3
    }
   ]
  },
@@ -205,7 +235,8 @@
   "chronologie": [
    {
     "date": "2026-12-09",
-    "texte": "Date limite de transposition de la directive"
+    "texte": "Date limite de transposition de la directive",
+    "poids": 3
    }
   ]
  },
@@ -217,11 +248,13 @@
   "chronologie": [
    {
     "date": "2026-10-07",
-    "texte": "Moscou : le tribunal d’arbitrage refuse d’inscrire au registre des logiciels russes une suite fondée sur LibreOffice"
+    "texte": "Moscou : le tribunal d’arbitrage refuse d’inscrire au registre des logiciels russes une suite fondée sur LibreOffice",
+    "poids": 2
    },
    {
     "date": "2026-10-20",
-    "texte": "Les mises à jour d’Oracle JDK 21 passent sous licence OTN (correctif trimestriel d’octobre)"
+    "texte": "Les mises à jour d’Oracle JDK 21 passent sous licence OTN (correctif trimestriel d’octobre)",
+    "poids": 2
    }
   ]
  },
@@ -233,7 +266,8 @@
   "chronologie": [
    {
     "date": "2026-07-13",
-    "texte": "Suspension de la phase 2 pour une revue de 60 jours"
+    "texte": "Suspension de la phase 2 pour une revue de 60 jours",
+    "poids": 2
    }
   ]
  },
@@ -245,11 +279,13 @@
   "chronologie": [
    {
     "date": "2026-10-13",
-    "texte": "Échéance de plusieurs appels EDIP"
+    "texte": "Échéance de plusieurs appels EDIP",
+    "poids": 2
    },
    {
     "date": "2027-02-16",
-    "texte": "Échéance d’autres appels EDIP"
+    "texte": "Échéance d’autres appels EDIP",
+    "poids": 2
    }
   ]
  }

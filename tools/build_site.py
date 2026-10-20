@@ -54,6 +54,29 @@ def fdate_court(iso):
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
 
+CHRONO_MAX = 8   # dates affichées dans la chronologie d'un dossier ; les autres sont masquées derrière « Chronologie complète »
+
+
+def chrono_poids(c, today, lie):
+    """Importance d'une date de chronologie : 3 × poids éditorial (champ « poids » de themes.json, 1 à 3, 2 par défaut)
+    + proximité (à venir : +3 sous 90 jours, +2 sous un an, +1 au-delà ; passée : +2 depuis moins de 60 jours, 0 sinon)
+    + 1 si une synthèse publiée s'y rattache."""
+    d = c['date'] if len(c['date']) == 10 else c['date'][:7] + '-15'   # mois seul : milieu du mois
+    ecart = (datetime.date.fromisoformat(d) - datetime.date.fromisoformat(today)).days
+    prox = (3 if ecart <= 90 else 2 if ecart <= 365 else 1) if ecart >= 0 else (2 if ecart >= -60 else 0)
+    return 3 * int(c.get('poids', 2)) + prox + (1 if lie else 0), -abs(ecart)
+
+
+def chrono_visibles(chrono, today, par_date):
+    """Identifiants (id) des CHRONO_MAX dates les plus importantes ; la prochaine échéance est toujours visible."""
+    if len(chrono) <= CHRONO_MAX: return {id(c) for c in chrono}
+    futures = sorted((c for c in chrono if c['date'] >= today), key=lambda c: c['date'])
+    rang = sorted(chrono, key=lambda c: chrono_poids(c, today, c['date'] in par_date), reverse=True)
+    vis = [futures[0]] if futures else []
+    vis += [c for c in rang if c is not (futures[0] if futures else None)][:CHRONO_MAX - len(vis)]
+    return {id(c) for c in vis}
+
+
 def nb_infos(n):
     return f'{n} information{"s" if n > 1 else ""}' if n else 'aucune information publiée'
 
@@ -210,6 +233,8 @@ dl.st{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0;
 ul.tl{{list-style:none;margin:0 0 0 16px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;display:grid;grid-template-columns:112px 1fr;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
 ul.tl li.sy-it{{margin-left:-6px;padding:2px 6px 2px 22px;border-radius:6px}} ul.tl li.sy-it::before{{left:-15px;top:9px}}
 ul.it li.sy-it{{margin:0 -8px;padding:10px 8px 12px;border-radius:6px}} ul.it li.sy-it:hover{{border-bottom-color:transparent}}
+ul.tl li.cache{{display:none}} ul.tl.tout li.cache{{display:grid}}
+.tl-p{{margin:-2px 0 0 46px}} .tl-b{{background:none;border:0;border-bottom:1px dotted #9ca3af;padding:0;font:13px/20px {SANS};color:#6b7280;cursor:pointer}} .tl-b:hover,.tl-b:focus-visible{{color:#0f2a4a;border-bottom-color:#0f2a4a;outline:none}}
 ul.tl li::before{{content:"";position:absolute;left:-21px;top:7px;width:8px;height:8px;background:#c2410c;border:2px solid #fff}} ul.tl li.v::before{{background:#fff;border-color:#c2410c}}
 .dt{{display:block;font:600 13px/22px {SANS};color:#c2410c}}
 ul.it{{list-style:none;margin:0;padding:0}} ul.it li{{padding:10px 0 12px;border-bottom:1px solid #eee9de}}
@@ -352,13 +377,21 @@ def main():
                 connues.add(d_); chrono.append({'date': d_, 'html': it['html']})
         if chrono:
             li = []
-            for c in sorted(chrono, key=lambda c: c['date']):
+            visibles = chrono_visibles(chrono, today, par_date)
+            caches = len(chrono) - len(visibles)
+            for c in sorted(chrono, key=lambda c: c["date"]):
                 u = sid_de(*par_date[c['date']]) if c['date'] in par_date else None
-                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '') if x)
+                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '', '' if id(c) in visibles else 'cache') if x)
                 att = f' class="{cl}"' if cl else ''
                 if u: att += f' data-syn="{u}"'
                 li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
-            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl">' + ''.join(li) + '</ul>'
+            body += '<div class="r"></div><h2>Chronologie</h2><ul class="tl" id="tl">' + ''.join(li) + '</ul>'
+            if caches:   # dates les moins importantes masquées ; un clic les montre (README, § 12)
+                body += (f'<p class="tl-p"><button type="button" class="tl-b" aria-controls="tl" aria-expanded="false" data-n="{caches}">'
+                         f'Chronologie complète ({len(chrono)} dates)</button></p>'
+                         '<script>(function(){var b=document.querySelector(".tl-b"),l=document.getElementById("tl"),t=b.textContent;'
+                         'b.addEventListener("click",function(){var o=l.classList.toggle("tout");b.setAttribute("aria-expanded",o);'
+                         'b.textContent=o?"Chronologie réduite":t;});})();</script>')
         if its:
             body += '<div class="r"></div><h2>Informations publiées</h2>'
             cur = None
