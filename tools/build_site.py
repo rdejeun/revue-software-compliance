@@ -54,7 +54,7 @@ def fdate_court(iso):
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 
 
-CHRONO_MAX = 8   # dates affichées dans la chronologie d’un dossier ; les autres apparaissent avec l’interrupteur « Toutes les dates »
+CHRONO_MAX = 7   # dates affichées dans la chronologie d’un dossier ; les autres apparaissent avec l’interrupteur « Toutes les dates »
 
 
 def chrono_poids(c, today, lie):
@@ -233,6 +233,10 @@ dl.st{{display:grid;grid-template-columns:max-content 1fr;gap:4px 16px;margin:0;
 ul.tl{{list-style:none;margin:0 0 0 16px;padding:0 0 0 14px;border-left:2px solid #e3ddd0}} ul.tl li{{position:relative;display:grid;grid-template-columns:112px 1fr;margin:0 0 10px;padding-left:16px;font-size:15px;line-height:22px}}
 ul.tl li.sy-it{{margin-left:-6px;padding:2px 6px 2px 22px;border-radius:6px}} ul.tl li.sy-it::before{{left:-15px;top:9px}}
 ul.it li.sy-it{{margin:0 -8px;padding:10px 8px 12px;border-radius:6px}} ul.it li.sy-it:hover{{border-bottom-color:transparent}}
+ul.tl li.gap::after{{content:"";position:absolute;left:-16px;top:18px;bottom:-11px;width:2px;background:repeating-linear-gradient(to bottom,#fff 0 3px,transparent 3px 7px)}}
+ul.tl li.sy-it.gap::after{{left:-10px;top:20px}}
+ul.tl.gh{{position:relative;padding-top:14px}} ul.tl.gh::before{{content:"";position:absolute;left:-2px;top:0;height:20px;width:2px;background:repeating-linear-gradient(to top,#fff 0 3px,transparent 3px 7px)}}
+ul.tl.tout li.gap::after,ul.tl.tout.gh::before{{display:none}} ul.tl.tout.gh{{padding-top:0}}
 ul.tl li.cache{{display:none}} ul.tl.tout li.cache{{display:grid;animation:tlap .3s ease-out}} @keyframes tlap{{from{{opacity:0}}to{{opacity:1}}}}
 .tl-h{{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px}} .tl-h h2{{margin:0}}
 .tl-sw{{position:relative;display:inline-flex;align-items:center;gap:8px;font:13px/20px {SANS};color:#6b7280;cursor:pointer;user-select:none;white-space:nowrap}}
@@ -385,9 +389,15 @@ def main():
         if chrono:
             li = []
             visibles = chrono_visibles(chrono, today, par_date)
-            for c in sorted(chrono, key=lambda c: c["date"]):
+            ordre = sorted(chrono, key=lambda c: c["date"])
+            vu = [id(c) in visibles for c in ordre]
+            # trait discontinu entre deux dates visibles qui encadrent des dates masquées (et avant la première, après la dernière)
+            gap = {q for q in range(len(ordre)) if vu[q] and q + 1 < len(ordre) and not vu[q + 1]}
+            haut = next((q for q in range(len(ordre)) if vu[q]), 0) if ordre and not vu[0] else None
+            for q, c in enumerate(ordre):
                 u = sid_de(*par_date[c['date']]) if c['date'] in par_date else None
-                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '', '' if id(c) in visibles else 'cache') if x)
+                cl = ' '.join(x for x in ('v' if c['date'] > today else '', 'sy-it' if u else '', '' if vu[q] else 'cache',
+                                          'gap' if q in gap else '') if x)
                 att = f' class="{cl}"' if cl else ''
                 if u: att += f' data-syn="{u}"'
                 li.append(f'<li{att}><span class="dt">{E(c.get("libelle") or fdate_court(c["date"]))}</span><span>{c["html"] if "html" in c else E(TY(c["texte"]))}{" " + SYN.get("synb", "").format(u) if u else ""}</span></li>')
@@ -395,7 +405,7 @@ def main():
                 body += ('<div class="r"></div><div class="tl-h"><h2>Chronologie</h2><label class="tl-sw">Toutes les dates'
                          f'<input type="checkbox" role="switch" aria-controls="tl" title="{len(chrono)} dates, dont {len(chrono) - len(visibles)} de moindre importance masquées">'
                          '<span class="tl-k" aria-hidden="true"></span></label></div>'
-                         '<ul class="tl" id="tl">' + ''.join(li) + '</ul>'
+                         f'<ul class="tl{" gh" if haut is not None else ""}" id="tl">' + ''.join(li) + '</ul>'
                          '<script>(function(){var c=document.querySelector(".tl-sw input"),l=document.getElementById("tl");'
                          'c.checked=false;c.addEventListener("change",function(){l.classList.toggle("tout",c.checked);});})();</script>')
             else:
