@@ -202,6 +202,18 @@ def visible(h):
     return html.unescape(re.sub(r'<[^>]+>', ' ', h))
 
 
+def check_pdf(d):
+    """Version imprimable (README, § 18) : présente et sur 4 pages ; avertissement seulement."""
+    f = os.path.join(ROOT, '_site', d, f'revue-{d}.pdf')
+    if not os.path.exists(f): WARN.append('Version imprimable (PDF) absente'); return
+    try:
+        from pypdf import PdfReader
+        n = len(PdfReader(f).pages)
+        if n > 4: WARN.append(f'Version imprimable : {n} pages (cahier de {-(-n // 4) * 4}, deux feuilles A3 ou plus) au lieu de 4')
+    except Exception as e:
+        WARN.append(f'Version imprimable illisible : {type(e).__name__}')
+
+
 def check_robots():
     """Diffusion limitée aux personnes qui ont le lien : toute page HTML du site porte noindex, robots.txt bloque tous les robots
     (README, Diffusion et robots)."""
@@ -406,7 +418,7 @@ def main():
         pod, _ = podcast.charger(d)
         perr, _, _ = podcast.controler(pod, meta.get('n'))
         ERR.extend(f'podcast.json : {e}' for e in perr)
-    size, em, web = check_outputs(d); check_robots(); check_recherche()
+    size, em, web = check_outputs(d); check_robots(); check_recherche(); check_pdf(d)
     nl = check_links(web) if '--no-links' not in sys.argv else 0
     nc = check_citations(claims, d) if claims and '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',

@@ -61,6 +61,20 @@ jobs:
             echo "::warning title=Épisode audio::L’édition $d est publiée sans épisode (workflow « Studio » non terminé ou en échec)."
           fi
 
+      # version imprimable (README, § 18) : PDF de 4 pages A4 et A3 imposé ; jamais bloquante
+      - name: Bibliothèques de la version imprimable (non bloquant)
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y -qq libpango-1.0-0 libpangoft2-1.0-0 > /dev/null || true
+          pip install -q weasyprint==70.0 pypdf==5.9.0 qrcode==8.2
+
+      - name: Versions imprimables déjà produites (cache)
+        uses: actions/cache@v4
+        with:
+          path: build/pdf-cache
+          key: pdf-${{ github.run_id }}
+          restore-keys: pdf-
+
       - name: Construire le site et les e-mails
         run: python3 tools/build_site.py
 

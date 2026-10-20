@@ -48,14 +48,15 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X POST "repos/${{ github.repository }}/statuses/${{ github.sha }}" -f state=pending -f context="Répétition" -f description="Répétition en cours" > /dev/null
 
-      - name: ffmpeg et bibliothèques audio (essai à blanc)
+      - name: ffmpeg, bibliothèques audio (essai à blanc) et version imprimable
         if: steps.besoin.outputs.oui == '1'
         continue-on-error: true
         timeout-minutes: 8
         run: |
           A="-o Acquire::Retries=3 -o Acquire::http::Timeout=20 -o Acquire::https::Timeout=20"
-          sudo apt-get $A update -q && sudo apt-get $A install -y -q ffmpeg | grep -E '^(Err|W:|E:)|newly installed' || true
+          sudo apt-get $A update -q && sudo apt-get $A install -y -q ffmpeg libpango-1.0-0 libpangoft2-1.0-0 | grep -E '^(Err|W:|E:)|newly installed' || true
           pip install -q numpy scipy soundfile pyloudnorm pedalboard faster-whisper==1.2.1
+          pip install -q weasyprint==70.0 pypdf==5.9.0 qrcode==8.2 || true   # version imprimable (README, § 18)
 
       - name: Modèle de transcription en cache
         if: steps.besoin.outputs.oui == '1'
