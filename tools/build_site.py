@@ -339,7 +339,8 @@ def main():
         out = run_gen(d)
         lede0 = next((NI(TY(''.join(x['t'] for x in b['i']).strip(' ·'))) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         html0 = open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read()
-        version_imprimable(d)   # PDF produits mais pas encore liés depuis la page : version papier en cours de validation (README, § 18)
+        if os.environ.get('VERSION_IMPRIMABLE', '1') != '0':   # désactivée dans GitHub Actions tant que la version papier n'est pas validée
+            version_imprimable(d)   # PDF produits mais pas encore liés depuis la page (README, § 18)
         html0 = html0.replace('</head>', og(f'Revue de presse – {meta["date"]}', lede0, f'{URL}/{d}/') + '</head>', 1)   # aperçus (Feedly, messageries)
         write(os.path.join(SITE, d, 'index.html'), html0)
         md = to_md(blocks, meta)

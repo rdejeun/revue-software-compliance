@@ -28,6 +28,9 @@ concurrency:
   group: publier
   cancel-in-progress: false
 
+env:
+  VERSION_IMPRIMABLE: '0'   # version papier (PDF) en cours de validation : non produite ici (README, § 18)
+
 jobs:
   publier:
     runs-on: ubuntu-latest

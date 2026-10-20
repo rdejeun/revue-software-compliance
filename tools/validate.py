@@ -205,6 +205,7 @@ def visible(h):
 def check_pdf(d):
     """Version imprimable (README, § 18) : présente et sur 4 pages ; avertissement seulement."""
     f = os.path.join(ROOT, '_site', d, f'revue-{d}.pdf')
+    if os.environ.get('VERSION_IMPRIMABLE', '1') == '0': return   # production désactivée (README, § 18)
     if not os.path.exists(f): WARN.append('Version imprimable (PDF) absente'); return
     try:
         from pypdf import PdfReader

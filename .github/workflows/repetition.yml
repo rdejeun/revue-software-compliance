@@ -19,6 +19,9 @@ concurrency:
   group: repetition-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  VERSION_IMPRIMABLE: '0'   # version papier (PDF) en cours de validation : non produite ici (README, § 18)
+
 jobs:
   repetition:
     runs-on: ubuntu-latest
