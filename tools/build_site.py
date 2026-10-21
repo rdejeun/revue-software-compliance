@@ -116,6 +116,12 @@ def load(d):
     return json.load(open(os.path.join(c, 'blocks.json'), encoding='utf-8')), json.load(open(os.path.join(c, 'meta.json'), encoding='utf-8'))
 
 
+IMPRIMABLE_DEPUIS = '2026-10-20'   # première édition avec le champ « papier » ; les précédentes n'ont pas de version imprimable
+ICO_IMPR = ('<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4.2 5.6V1.8h7.6v3.8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+            '<rect x="1.6" y="5.6" width="12.8" height="6" rx="1.3" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M4.2 9.6h7.6v4.6H4.2z" fill="#fff" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>'
+            '<circle cx="12" cy="7.8" r=".8" fill="currentColor"/></svg>')   # imprimante (version papier)
+
+
 def version_imprimable(d):
     """PDF 4 pages A4 et A3 imposé de l'édition d dans _site/d/ (tools/journal.py, cache build/pdf-cache) ; jamais bloquant."""
     try:
@@ -339,8 +345,8 @@ def main():
         out = run_gen(d)
         lede0 = next((NI(TY(''.join(x['t'] for x in b['i']).strip(' ·'))) for b in blocks if b['k'] == 'p' and ''.join(x['t'] for x in b['i']).strip(' ·')), '')
         html0 = open(os.path.join(out, 'revue-web.html'), encoding='utf-8').read()
-        if os.environ.get('VERSION_IMPRIMABLE', '1') != '0':   # désactivée dans GitHub Actions tant que la version papier n'est pas validée
-            version_imprimable(d)   # PDF produits mais pas encore liés depuis la page (README, § 18)
+        if os.environ.get('VERSION_IMPRIMABLE', '1') != '0' and d >= IMPRIMABLE_DEPUIS and version_imprimable(d):   # icône « Imprimer » avant l'icône RSS (README, § 18)
+            html0 = html0.replace('<a class="rss" href="/feed.xml"', f'<a class="rss" href="/{d}/revue-{d}.pdf" title="Version papier à imprimer : 4 pages A4 (PDF)" aria-label="Version papier à imprimer (PDF)">{ICO_IMPR}</a> &nbsp;<a class="rss" href="/feed.xml"', 1)
         html0 = html0.replace('</head>', og(f'Revue de presse – {meta["date"]}', lede0, f'{URL}/{d}/') + '</head>', 1)   # aperçus (Feedly, messageries)
         write(os.path.join(SITE, d, 'index.html'), html0)
         md = to_md(blocks, meta)

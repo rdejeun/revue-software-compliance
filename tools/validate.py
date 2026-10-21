@@ -66,6 +66,23 @@ def check_sum(sm, where):
     if not 140 <= n <= 275: WARN.append(f'{where} : synthèse de {n} mots (170 à 245 visés)')
 
 
+PAPIER_FAC = re.compile(r'\{\{([123])\|(.*?)\}\}', re.S)
+
+
+def check_papier(sm, texte, where, d):
+    """Champ « papier » des nouveautés (version imprimable, README § 6) : présent à partir du 27 octobre 2026,
+    portions facultatives {{1|…}}, {{2|…}}, {{3|…}} bien formées, 180 mots au plus avec le texte de l'élément."""
+    p = sm.get('papier')
+    if not p:
+        if d >= '2026-10-27': WARN.append(f'{where} : synthèse sans champ « papier » (version imprimable)')
+        return
+    reste = PAPIER_FAC.sub('', p)
+    if '{{' in reste or '}}' in reste or '|' in reste: ERR.append(f'{where} : « papier » : balise de portion facultative mal formée ({{{{1|…}}}}, {{{{2|…}}}} ou {{{{3|…}}}})')
+    n = words(texte) + words(PAPIER_FAC.sub(lambda m: m[2], p))
+    if n > 180: WARN.append(f'{where} : article papier de {n} mots avec le texte de l’élément (180 au plus)')
+    if re.search(r'\(voir (le|les) N°', p): WARN.append(f'{where} : « papier » : renvoi « (voir le N° n) » à retirer')
+
+
 def check_attrs(a, where, themes, need_date=True):
     if a is None: return
     if not isinstance(a, dict): ERR.append(f'{where} : attributs invalides'); return
@@ -159,6 +176,7 @@ def check_content(d, blocks, meta, themes):
                 sm = (b.get('sum') or [None] * len(its))[j] if j < len(b.get('sum') or []) else None
                 check_attrs(a or {}, ww, themes); check_sum(sm, ww)
                 if sec.startswith('Outils'): check_reseau(sm, ww, d)
+                if sm and not (a or {}).get('rappel'): check_papier(sm, ''.join(x.get('t', '') for x in it if not x.get('href') or x.get('type') == 'projet'), ww, d)
                 if sec.startswith('Outils') and d > '2026-10-13' and not (a or {}).get('rappel') and not any(x.get('type') == 'projet' for x in it):
                     WARN.append(f'{ww} : nom de l’outil sans lien vers sa page officielle (segment « type »: « projet », README § 6)')
                 nitems += 1; nsum += bool(sm); nb[sec] = nb.get(sec, 0) + 1
@@ -205,7 +223,7 @@ def visible(h):
 def check_pdf(d):
     """Version imprimable (README, § 18) : présente et sur 4 pages ; avertissement seulement."""
     f = os.path.join(ROOT, '_site', d, f'revue-{d}.pdf')
-    if os.environ.get('VERSION_IMPRIMABLE', '1') == '0': return   # production désactivée (README, § 18)
+    if os.environ.get('VERSION_IMPRIMABLE', '1') == '0' or d < '2026-10-20': return   # production désactivée, ou édition antérieure (README, § 18)
     if not os.path.exists(f): WARN.append('Version imprimable (PDF) absente'); return
     try:
         from pypdf import PdfReader

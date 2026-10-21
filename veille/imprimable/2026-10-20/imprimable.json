@@ -1,0 +1,207 @@
+{
+ "edition": "2026-10-20",
+ "pages": 4,
+ "cahier": 4,
+ "corps_pt": 8.5,
+ "blocs": "44/45",
+ "remplissage": 0.99,
+ "lexique": false,
+ "etat": {
+  "incl": [
+   [
+    "detail",
+    "a0"
+   ],
+   [
+    "detail",
+    "a3"
+   ],
+   [
+    "detail",
+    "a4"
+   ],
+   [
+    "detail",
+    "a6"
+   ],
+   [
+    "detail",
+    "a7"
+   ],
+   [
+    "papier",
+    "e11.0"
+   ],
+   [
+    "papier",
+    "e11.1"
+   ],
+   [
+    "papier",
+    "e11.2"
+   ],
+   [
+    "papier",
+    "e14.0"
+   ],
+   [
+    "papier",
+    "e14.1"
+   ],
+   [
+    "papier",
+    "e14.2"
+   ],
+   [
+    "papier",
+    "e17.0"
+   ],
+   [
+    "papier",
+    "e17.1"
+   ],
+   [
+    "papier",
+    "e20.0"
+   ],
+   [
+    "papier",
+    "e23.0"
+   ],
+   [
+    "papier",
+    "e8.0"
+   ],
+   [
+    "papier1",
+    "e11.0"
+   ],
+   [
+    "papier1",
+    "e11.1"
+   ],
+   [
+    "papier1",
+    "e11.2"
+   ],
+   [
+    "papier1",
+    "e14.0"
+   ],
+   [
+    "papier1",
+    "e14.1"
+   ],
+   [
+    "papier1",
+    "e14.2"
+   ],
+   [
+    "papier1",
+    "e17.0"
+   ],
+   [
+    "papier1",
+    "e17.1"
+   ],
+   [
+    "papier1",
+    "e20.0"
+   ],
+   [
+    "papier1",
+    "e23.0"
+   ],
+   [
+    "papier1",
+    "e8.0"
+   ],
+   [
+    "papier2",
+    "e11.1"
+   ],
+   [
+    "papier2",
+    "e11.2"
+   ],
+   [
+    "papier2",
+    "e14.0"
+   ],
+   [
+    "papier2",
+    "e14.1"
+   ],
+   [
+    "papier2",
+    "e17.0"
+   ],
+   [
+    "papier2",
+    "e17.1"
+   ],
+   [
+    "papier2",
+    "e23.0"
+   ],
+   [
+    "papier3",
+    "e11.0"
+   ],
+   [
+    "papier3",
+    "e11.1"
+   ],
+   [
+    "papier3",
+    "e11.2"
+   ],
+   [
+    "papier3",
+    "e14.0"
+   ],
+   [
+    "papier3",
+    "e14.1"
+   ],
+   [
+    "papier3",
+    "e14.2"
+   ],
+   [
+    "papier3",
+    "e17.0"
+   ],
+   [
+    "papier3",
+    "e17.1"
+   ],
+   [
+    "papier3",
+    "e20.0"
+   ],
+   [
+    "papier3",
+    "e23.0"
+   ]
+  ],
+  "insecables": [],
+  "moins": {},
+  "ess_pt": 12.25,
+  "colo_pt": 7.0,
+  "k_split": 4,
+  "gap_g": 0,
+  "h_suite": 348.29142055241243,
+  "lh_suite": 1.4,
+  "ag_pad": 0.0,
+  "mots_b": 0,
+  "lh_dern": 1.4,
+  "rub_dern": [
+   5
+  ],
+  "lh_rub": {
+   "0": 1.4
+  }
+ },
+ "empreinte": "940a716339e88508"
+}

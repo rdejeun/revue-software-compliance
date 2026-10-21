@@ -34,7 +34,7 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-28'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-33'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -118,10 +118,8 @@ def corps(segs):
 
 
 def accroche(t):
-    """« Accroche : texte » -> accroche en gras sans empattement (comme la version web)."""
-    m = re.match(r'^([^:]{1,90}?)\s:\s(.*)$', t, re.S)
-    if not m: return T(t)
-    return f'<b class="acc">{T(m[1])}</b>\u00a0: {T(m[2])}'
+    """Texte de l'élément, sans début en gras : le titre de l'article joue déjà ce rôle (rappels compris)."""
+    return T(t)
 
 
 def synthese(it, incl, tout=False):
@@ -132,12 +130,29 @@ def synthese(it, incl, tout=False):
     return '<div class="syn">' + ''.join(h) + '</div>' if h else ''
 
 
+FACULTATIF = re.compile(r'\{\{([123])\|(.*?)\}\}', re.S)   # portion facultative du champ « papier » : {{n|…}}, 3 coupée en premier
+
+
+def papier(sm, iid, incl, tout=False):
+    """Paragraphes du champ « papier » (README, § 6) : portions facultatives gardées selon le calage."""
+    out = []
+    for par in re.split(r'\n\s*\n', sm['papier'].strip()):
+        par = FACULTATIF.sub(lambda m: m[2] if tout or (f'papier{m[1]}', iid) in incl else '', par)
+        par = re.sub(r'\s{2,}', ' ', par).strip()
+        if par: out.append(par)
+    return out
+
+
 def morceaux(it, incl, une=False):
-    """Article en morceaux successifs : titre et texte, puis chaque paragraphe retenu de la synthèse."""
+    """Article en morceaux successifs : titre et texte, puis chaque paragraphe retenu (champ « papier » s'il existe,
+    sinon paragraphes de la synthèse)."""
     t, _ = corps(it['segs'])
     sm = it.get('sum') or {}
     tit = sm.get('titre')
     m = [(f'<h3 class="hl">{T(tit)}</h3>' if tit and not une else '') + f'<p class="txt">{accroche(t)}</p>']
+    if sm.get('papier'):
+        if une or ('papier', it['id']) in incl: m += [f'<p class="sp">{T(x)}</p>' for x in papier(sm, it['id'], incl, une)]
+        return m
     for k in ('contexte', 'essentiel', 'impact_avere', 'impact_potentiel'):
         if sm.get(k) and (une or (k, it['id']) in incl): m.append(f'<p class="sp">{T(sm[k])}</p>')
     return m
@@ -187,19 +202,26 @@ def assembler(us):
     return ''.join(h)
 
 
-ETAT = {'insecables': set(), 'moins': {}}   # encadrés « En bref » à ne pas couper d'une page à l'autre, ou à raccourcir
+ETAT = {'insecables': set(), 'moins': {}, 'exclus': set()}   # exclus : blocs retirés pour remonter un « En bref »   # encadrés « En bref » à ne pas couper d'une page à l'autre, ou à raccourcir
 
 
-def rappels(rs, incl):
+def rappels(rs, incl, bande=False):
+    """Encadré « En bref » (rappels). bande : sous la rubrique, sur toute la largeur, les brèves en grille de quatre
+    colonnes (tableau : rien ne se coupe d'une colonne à l'autre) ; sinon, liste (fin de rubrique à droite de l'agenda)."""
     if not rs: return ''
-    li, rid = [], f'rap-{rs[0]["id"]}'
-    rs = rs[:len(rs) - ETAT['moins'].get(rid, 0)] or rs[:1]
+    rid = f'rap-{rs[0]["id"]}'
+    rs = rs[:max(0, len(rs) - ETAT['moins'].get(rid, 0))]
+    if not rs: return ''
+    cases = []
     for r in rs:
         t, _ = corps(r['segs'])
-        res = (r.get('sum') or {}).get('essentiel')   # résumé d'un rappel : bloc facultatif
-        li.append(f'<li><p>{accroche(t)}</p>' + (f'<p class="rap-s">{T(res)}</p>' if res and ('essentiel', r['id']) in incl else '') + '</li>')
-    st = ' style="break-inside:avoid-page"' if rid in ETAT['insecables'] else ''
-    return f'<aside class="rap" id="{rid}"{st}><p class="rap-t">En bref</p><ul>' + ''.join(li) + '</ul></aside>'
+        res = (r.get('sum') or {}).get('essentiel')
+        cases.append(f'<p>{accroche(t)}</p>' + (f'<p class="rap-s">{T(res)}</p>' if res and ('essentiel', r['id']) in incl else ''))
+    if bande:
+        lignes = [cases[k:k + 4] for k in range(0, len(cases), 4)]
+        grille = ''.join('<tr>' + ''.join(f'<td>{c}</td>' for c in l) + '<td></td>' * (4 - len(l)) + '</tr>' for l in lignes)
+        return f'<aside class="rap bande" id="{rid}"><p class="rap-t">En bref</p><table class="brefs">{grille}</table></aside>'
+    return f'<aside class="rap" id="{rid}"><p class="rap-t">En bref</p><ul>' + ''.join(f'<li>{c}</li>' for c in cases) + '</ul></aside>'
 
 
 def demi(mo):
@@ -291,7 +313,10 @@ i {{ font-style:italic }}
 sup {{ font-size:70%; line-height:0 }}
 .kw {{ color:{BRIQUE} }} .nh {{ hyphens:manual }}
 /* manchette */
-.mast {{ text-align:center; padding-bottom:9mm }}
+.mast {{ position:relative; text-align:center; padding-bottom:9mm }}
+.or-g {{ position:absolute; left:0; top:1.5mm; width:17mm; opacity:.4 }} .or-g img {{ display:block; width:17mm; height:17mm }}
+.or-d {{ position:absolute; right:0; top:1.5mm; width:30mm; text-align:right; font:400 7.4pt/1.35 {SANS}; color:#374151; border-top:1.2pt solid {ACC}; padding-top:1.2mm }}
+.or-k {{ font:700 6.6pt {SANS}; letter-spacing:.14em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }} .or-d b {{ color:{NAVY}; font-weight:700 }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
@@ -327,10 +352,13 @@ h3.hl {{ margin:0 0 1.2mm; font:700 1.36em/1.14 {SANS}; color:{NAVY}; text-align
 b.acc {{ font:700 .97em {SANS}; color:{NAVY} }}
 .syn p, p.sp {{ margin:0 0 .6mm; text-indent:1em }} p.cont {{ text-indent:0 }}
 .dern, .rub-c.dern {{ line-height:{lh_dern} }}
-.rap {{ margin:0 0 3mm; padding:1.6mm 2mm 1.2mm; border-top:.8pt solid {ACC}; background:#faf6ef; font-size:{petit}pt; line-height:1.27; text-align:left; hyphens:auto }}
+.rap {{ display:inline-block; width:100%; box-sizing:border-box; margin:0 0 3mm; padding:1.6mm 2mm 1.2mm; border-top:.8pt solid {ACC}; background:#faf6ef; font-size:{petit}pt; line-height:1.27; text-align:left; hyphens:auto }}
 .rap-t {{ font:700 .82em {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:.8mm }}
 .rap ul {{ margin:0; padding:0; list-style:none }} .rap li {{ margin:0 0 1mm }}
 .rap-s {{ margin-top:.4mm; color:#374151 }}
+.rap.bande {{ display:block; width:auto; break-inside:avoid; margin:1.6mm 0 3.2mm; padding:1.6mm 2.4mm 1.2mm }}   /* « En bref » en bandeau : jamais coupé */
+table.brefs {{ width:100%; table-layout:fixed; border-collapse:collapse }}
+table.brefs td {{ width:25%; vertical-align:top; padding:0 2mm 1mm 0; text-align:left }} table.brefs td + td {{ padding-left:2mm; border-left:.4pt solid #e3d9c6 }}
 /* bas de la dernière page : à gauche, fin de la dernière rubrique (deux colonnes) puis crédit ; à droite, agenda */
 .bas {{ display:table; width:100%; table-layout:fixed; break-inside:avoid }}
 .bas > div {{ display:table-cell; vertical-align:top }}
@@ -356,7 +384,7 @@ b.acc {{ font:700 .97em {SANS}; color:{NAVY} }}
 .lex dt {{ font:700 .95em {SANS}; color:{NAVY}; margin-top:.8mm; break-after:avoid }} .lex dd {{ margin:0 }}
 .colo {{ display:table; width:100%; table-layout:fixed }}
 .colo-qr {{ display:table-cell; width:22mm; vertical-align:bottom }} .colo-qr .qr {{ display:block; width:22mm; height:22mm }}
-.colo-t {{ display:table-cell; vertical-align:bottom; padding-right:3mm; font:400 {colo_pt}pt/1.3 {SANS}; color:#4b5563; text-align:left; hyphens:manual }}
+.colo-t {{ display:table-cell; vertical-align:bottom; padding-right:3mm; font:400 {colo_pt}pt/1.3 {SANS}; color:#4b5563; text-align:right; hyphens:manual }}
 .colo-t .mq {{ font:400 1.9em/1 {SERIF}; color:{NAVY}; margin-bottom:.25em }} .colo-t .mq i {{ color:{ACC} }} .colo-t .mq span {{ font:600 .95em/1 {SANS} }} .nw {{ white-space:nowrap }}
 '''
 
@@ -364,7 +392,7 @@ b.acc {{ font:700 .97em {SANS}; color:{NAVY} }}
 def rub_courante(h, lab):
     """Chaque article et chaque encadré porte sa rubrique : l'en-tête courant affiche celle du premier de la page."""
     a = f' data-rub="{html.escape(lab, True)}"'
-    return h.replace('<article class="art', f'<article{a} class="art').replace('<aside class="rap"', f'<aside{a} class="rap"')
+    return h.replace('<article class="art', f'<article{a} class="art').replace('<aside class="rap', f'<aside{a} class="rap')
 
 
 def page_html(ed, fs, incl, espace=0.0, haut_seul=False):
@@ -382,7 +410,11 @@ def page_html(ed, fs, incl, espace=0.0, haut_seul=False):
         som.append(f'<a href="#r{k}">{T(toc[k] if len(toc) == len(autres) else r["label"])}</a>')
     if ed['agenda']: som.append('<a href="#r-agenda">Agenda</a>')
     if avec_lexique: som.append('<a href="#r-lexique">Lexique</a>')
-    h = [f'<header class="mast"><div class="ey">Revue de presse hebdomadaire</div><h1><i>Software</i> <span>Compliance</span></h1>'
+    nn = sum(len(r['items']) for r in rubs); nb = sum(len(r['rappels']) for r in rubs); na = len(ed['agenda'])
+    oreilles = (f'<div class="or-g"><img src="file://{os.path.join(TOOLS, "icon-512.png")}" alt=""></div>'
+                f'<div class="or-d"><div class="or-k">Cette semaine</div><b>{nn}</b> article{"s" if nn > 1 else ""}<br>'
+                f'<b>{nb}</b> brève{"s" if nb > 1 else ""}<br><b>{na}</b> échéance{"s" if na > 1 else ""}</div>')
+    h = [f'<header class="mast">{oreilles}<div class="ey">Revue de presse hebdomadaire</div><h1><i>Software</i> <span>Compliance</span></h1>'
          f'<div class="st">L’essentiel de la conformité des logiciels embarqués dans les produits de défense</div></header>'
          f'<div class="band"><span>N°\u00a0{m["n"]} – {T(m.get("date_long", m["date"]))}</span><span class="r">Revue de presse hebdomadaire, tous les mardis</span></div>'
          f'<div class="top"><div class="ess"><div class="ess-in"><p class="l">{T(ed["chapo"])}</p></div></div><div class="gout"></div>'
@@ -394,7 +426,9 @@ def page_html(ed, fs, incl, espace=0.0, haut_seul=False):
         h.append(f'<div class="une-k">À la une</div><h2 class="une-h">{T(tu[:1].upper() + tu[1:])}</h2>')
         if une['chapo']: h.append(f'<p class="une-c">{T(une["chapo"])}</p>')
         corps_une = ''.join(article(it, incl, une=(j == 0)) for j, it in enumerate(une['items']))
-        h.append(f'<div class="une-cols">{rub_courante(corps_une + rappels(une["rappels"], incl), "À la une")}</div>')
+        h.append(f'<div class="une-cols">{rub_courante(corps_une, "À la une")}</div>')
+        rb = rappels(une['rappels'], incl, bande=True)
+        if rb: h.append(rub_courante(rb, 'À la une'))
     split = ed.get('k_split', 0)   # unités de la dernière rubrique placées à gauche de l'agenda, au-dessus du crédit
     reste_b = []
     for k, r in enumerate(autres):   # une rubrique = un titre sur toute la largeur + son propre bloc de colonnes
@@ -410,7 +444,11 @@ def page_html(ed, fs, incl, espace=0.0, haut_seul=False):
                 if b_: us, reste_b = us[:-1] + [(us[-1][0], a_)], [(us[-1][0], b_)] + reste_b
         dern = ' dern' if k in ed.get('rub_dern', ()) else ''
         st = f' style="line-height:{ed["lh_rub"][k]}"' if k in ed.get('lh_rub', {}) else ''   # remplir le bas d'une page
+        bande = ''
+        if not (k == len(autres) - 1 and split) and us and us[-1][0] is None:   # « En bref » en bandeau sous la rubrique
+            bande = rappels(r['rappels'], incl, bande=True); us = us[:-1]
         if us: h.append(f'<div class="cols{dern}"{st}>' + rub_courante(assembler(us), r['label']) + '</div>')
+        if bande: h.append(rub_courante(bande, r['label']))
     if espace > 0: h.append(f'<div style="height:{espace:.2f}px"></div>')
     gauche = ''
     if reste_b:   # suite de la dernière rubrique : hauteur fixée par caler_fin(), colonne par colonne
@@ -517,9 +555,9 @@ def bas_de_page(ed, fs, incl, cible):
     h_ag = sum(c.margin_height() for c in ag.children); h_colo = colo.margin_height()
     par_col = -(-len(ed['agenda']) // 2)
     blanc = fond - (bas.position_y + bas.margin_height())
-    H = max(h_ag, h_colo) + min(par_col * 6 * 96 / 25.4, max(0.0, 2 * blanc - 2))
+    H = max(h_ag, h_colo)   # l'agenda garde son espacement naturel
     n = len(unites(autres[-1], incl)) if autres else 0
-    ed['ag_pad'] = max(0.0, (H - h_ag) / par_col)
+    ed['ag_pad'] = 0.0
     if not n or H - h_colo - marge < 12 * 96 / 25.4:   # rien à reporter : blanc au-dessus du crédit
         ed['gap_g'] = max(0.0, H - h_colo)
         d2 = rendre(ed, fs, incl)
@@ -572,13 +610,22 @@ def bas_de_page(ed, fs, incl, cible):
 
 
 def bref_coupe(doc):
-    """Identifiants des encadrés « En bref » coupés d'une page à la suivante (une page ne commence pas par leur fin)."""
-    pages = {}
+    """Identifiants des encadrés « En bref » mal placés : coupés d'une page à la suivante, ou seuls de leur rubrique en
+    tête d'une page (la fin de la rubrique déborde sur la page suivante par son seul encadré)."""
+    vus, mal = {}, set()
     for k, pg in enumerate(doc.pages):
+        rubs_art = set()
         for b in boites(pg):
             el = getattr(b, 'element', None)
-            if el is not None and (el.get('id') or '').startswith('rap-'): pages.setdefault(el.get('id'), set()).add(k)
-    return [i for i, p in pages.items() if len(p) > 1]
+            if el is None: continue
+            i = el.get('id') or ''
+            if i.startswith('rap-'): vus.setdefault(i, set()).add(k); vus.setdefault(i + '#rub', el.get('data-rub'))
+            elif (el.tag == 'article' or 'rub' in (el.get('class') or '').split()) and el.get('data-rub'): rubs_art.add(el.get('data-rub'))
+        for i, p in list(vus.items()):
+            if i.endswith('#rub') or k not in p or k == 0: continue
+            if vus.get(i + '#rub') not in rubs_art and min(p) == k: mal.add(i)   # ni article ni titre de sa rubrique sur la page
+    mal |= {i for i, p in vus.items() if not i.endswith('#rub') and len(p) > 1}
+    return sorted(mal)
 
 
 def caler_bas(ed, fs, incl, doc):
@@ -599,18 +646,23 @@ def caler_bas(ed, fs, incl, doc):
 def blocs(ed):
     """Blocs facultatifs, du plus important au moins important : ajoutés dans cet ordre jusqu'à remplir les pages.
     Nouveautés (hors Une, toujours complète) triées par cote décroissante (impact × urgence × certitude) :
-    d'abord leur Résumé, puis Impact (acquis, puis possible), puis Contexte ; ensuite le détail de l'agenda,
-    le résumé des rappels (ordre des rubriques), enfin le lexique."""
+    d'abord leur Résumé (ou le texte de base de leur champ « papier »), puis Impact acquis (ou portions facultatives de
+    niveau 1), Impact possible (niveau 2), Contexte (niveau 3) ; ensuite le détail de l'agenda,
+    enfin le lexique."""
     rubs = ed['rubriques']
     une = rubs[0] if rubs and rubs[0]['label'].lower().startswith('à la une') else None
     nouv = [it for r in rubs if r is not une for it in r['items'] if it.get('sum')]
     if une: nouv += [it for it in une['items'][1:] if it.get('sum')]
     cote = lambda it: -(lambda c: c[0] * c[1] * c[2] if len(c) == 3 else 0)(it['a'].get('cote') or [])
     nouv = sorted(nouv, key=cote)   # tri stable : à cote égale, ordre de l'édition
-    b = [(k, it['id']) for k in ('essentiel', 'impact_avere', 'impact_potentiel', 'contexte') for it in nouv if (it['sum'] or {}).get(k)]
+    pap = lambda it: bool((it['sum'] or {}).get('papier'))
+    niv = lambda it, n: '{{' + str(n) + '|' in it['sum']['papier']
+    b = [('papier', it['id']) if pap(it) else ('essentiel', it['id']) for it in nouv if pap(it) or it['sum'].get('essentiel')]
+    for n, k in ((1, 'impact_avere'), (2, 'impact_potentiel'), (3, 'contexte')):   # champ « papier » : portions 1, puis 2, puis 3
+        b += [(f'papier{n}', it['id']) if pap(it) else (k, it['id']) for it in nouv if (pap(it) and niv(it, n)) or (not pap(it) and it['sum'].get(k))]
     b += [('detail', e['id']) for e in ed['agenda'] if e.get('detail')]
-    b += [('essentiel', it['id']) for r in rubs for it in r['rappels'] if (it.get('sum') or {}).get('essentiel')]
-    return b + [('lexique', '')]
+    b = [x for x in b if x not in ETAT['exclus']]
+    return b + [('lexique', '')]   # pas de résumé des rappels : les encadrés « En bref », insécables, restent courts
 
 
 def remplissage(doc):
@@ -713,16 +765,25 @@ def produire(d, sortie=None):
     c4, c3, cj = (os.path.join(cache, f'{d}-{e}{s}') for s in ('.pdf', '-a3.pdf', '.json'))
     if os.path.exists(c4) and os.path.exists(c3) and os.path.exists(cj):
         shutil.copy(c4, a4); shutil.copy(c3, a3); return json.load(open(cj))
+    v = os.path.join(ROOT, 'veille', 'imprimable', d)   # version déjà produite (répétition, ou production locale) et versée au dépôt
+    vj, v4 = os.path.join(v, 'imprimable.json'), os.path.join(v, f'revue-{d}.pdf')
+    if os.path.exists(vj) and os.path.exists(v4) and json.load(open(vj, encoding='utf-8')).get('empreinte') == e:
+        shutil.copy(v4, a4); imposer(a4, a3)
+        shutil.copy(a4, c4); shutil.copy(a3, c3); shutil.copy(vj, cj)
+        return json.load(open(vj, encoding='utf-8'))
     ed = lire(d)
     taille_essentiel(ed); taille_credit(ed)
-    ETAT['insecables'] = set(); ETAT['moins'] = {}
-    for _tour in range(4):   # une page ne commence pas par la fin d'un « En bref » : encadré insécable, sinon raccourci
+    ETAT['insecables'] = set(); ETAT['moins'] = {}; ETAT['exclus'] = set()
+    for _tour in range(4):   # « En bref » jamais en tête de page sans sa rubrique
         fs, incl, doc, cible = mise_en_page(ed)
         coupes = bref_coupe(doc)
         if not coupes: break
-        for c in coupes:
-            if c in ETAT['insecables']: ETAT['moins'][c] = ETAT['moins'].get(c, 0) + 1
-            else: ETAT['insecables'].add(c)
+        for c in coupes:   # « En bref » mal placé : sa rubrique perd ses portions facultatives les moins utiles, puis une brève
+            rub = next((r for r in ed['rubriques'] if r['rappels'] and f'rap-{r["rappels"][0]["id"]}' == c), None)
+            ids = {it['id'] for it in rub['items']} if rub else set()
+            cand = [x for x in reversed(blocs(ed)) if x[1] in ids and x[0] != 'papier' and x in incl][:2]
+            if cand: ETAT['exclus'] |= set(cand)
+            else: ETAT['moins'][c] = ETAT['moins'].get(c, 0) + 1
     doc, esp = caler_bas(ed, fs, incl, doc)
     doc.write_pdf(a4)
     complet(page_html(ed, fs, incl, esp), a4)
@@ -734,7 +795,9 @@ def produire(d, sortie=None):
             'remplissage': round(remplissage(doc), 2), 'lexique': ('lexique', '') in incl,
             'etat': {'incl': sorted(map(list, incl)), 'insecables': sorted(ETAT['insecables']), 'moins': ETAT['moins'],
                      **{k: (sorted(v) if isinstance(v, set) else v) for k, v in ed.items() if k in ('k_split', 'mots_b', 'h_suite', 'gap_g', 'ag_pad', 'lh_suite', 'lh_dern', 'rub_dern', 'lh_rub', 'ess_pt', 'colo_pt')}}}
+    info['empreinte'] = e
     shutil.copy(a4, c4); shutil.copy(a3, c3); json.dump(info, open(cj, 'w'), ensure_ascii=False)
+    os.makedirs(v, exist_ok=True); shutil.copy(a4, v4); json.dump(info, open(vj, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     return info
 
 
