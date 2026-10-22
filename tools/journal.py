@@ -36,7 +36,7 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-37'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-38'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -319,7 +319,9 @@ W3 = (LARG - 2 * GOUT) / 3   # colonne de la Une (trois colonnes)
 W2 = 2 * W4 + GOUT           # deux colonnes : agenda, crédit
 TITRE_PT = 11.6              # titres d'article
 CREDIT_PT = 7.0   # crédit (taille fixe : cinq lignes à côté du code QR)
-MAST_BAS = 9 * 96 / 25.4 - 6 * 96 / 72   # blanc sous la manchette, au-dessus du bandeau
+# pied de page « Software Compliance – date » (7,5 pt) sur la ligne de base du folio (9 pt, 0,6 mm sous le haut de la marge)
+PIED_PAD = .6 * 72 / 25.4 + 1.024 * (9 - 7.5)
+MAST_BAS = 9 * 96 / 25.4 - 12 * 96 / 72   # blanc sous la manchette, au-dessus du bandeau (remonté deux fois de 6 pt)
 # crédit abaissé (décalage relatif, sans effet sur la composition) pour que sa dernière ligne ait la même ligne de base que
 # le folio : bas du contenu à 284 mm, folio en tête de la marge (285 mm) + 0,6 mm, Source Sans 3 (ascendante 1,024 em,
 # descendante 0,4 em), crédit en interligne 1,3
@@ -344,10 +346,10 @@ def css(meta, ed):
     entete = os.path.join(TOOLS, 'en-tete.webp')
     return polices() + f'''
 @page {{ size:A4; margin:11mm 9.5mm 12mm 9.5mm }}   /* contenu composé sur 273 mm : 1 mm de garde sous la dernière ligne */
-@page :right {{ @bottom-left {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:1mm }}
+@page :right {{ @bottom-left {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:{PIED_PAD:.2f}pt }}
                @bottom-right {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY}; vertical-align:top; padding-top:.6mm }} }}
 @page :left {{ @bottom-left {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY}; vertical-align:top; padding-top:.6mm }}
-              @bottom-right {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:1mm }} }}
+              @bottom-right {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:{PIED_PAD:.2f}pt }} }}
 @page :first {{ @bottom-left {{ content:none }} @bottom-right {{ content:none }} }}
 @page derniere {{ @bottom-right {{ content:none }} }}   /* dernière page : le crédit dit déjà le titre et la date ; folio seul */
 .pg.dern {{ page:derniere }}
@@ -360,12 +362,12 @@ sup {{ font-size:70%; line-height:0 }}
 .pg {{ position:relative; height:{HAUT - .5:.2f}px; break-after:page; overflow:visible }} .pg:last-child {{ break-after:auto }}
 .abs {{ position:absolute }}
 /* manchette : dessin d'en-tête du site (graphe, certificats, circuits) estompé en haut à droite */
-.mast {{ position:relative; text-align:center; padding-bottom:{MAST_BAS:.2f}px }}   /* bandeau remonté de 6 pt */
+.mast {{ position:relative; text-align:center; padding-bottom:{MAST_BAS:.2f}px }}   /* bandeau remonté de 12 pt */
 .mast::before {{ content:""; position:absolute; right:-9.5mm; top:-11mm; width:120mm; height:42mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7 }}
 .mast > * {{ position:relative }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
-.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.22 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
+.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.14 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
 .mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
 /* bandeau « onglet » */
@@ -466,7 +468,7 @@ def credit(ed):
             f'<div class="mq"><i>Software</i> <span>Compliance</span></div>'
             f'<p>Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}.<br>'
             f'Rédigée par une intelligence artificielle ({T(redac)}),<br>'
-            f'qui peut introduire des erreurs\u00a0: pensez à croiser vos sources.<br>'
+            f'qui peut comporter des erreurs\u00a0: pensez à croiser vos sources.<br>'
             f'Édition en ligne avec sources\u00a0: <a href="{html.escape(url)}">{html.escape(re.sub(r"^https?://", "", url).rstrip("/"))}</a><br>'
             f'©\u00a0{d[:4]} Rodolphe\u00a0Dejeunes, publié sous licence CC\u00a0BY\u00a04.0.</p></div>'
             f'<div class="colo-qr">{qr(url)}</div></div>')
@@ -906,7 +908,7 @@ def cout_option(ed, k, r, opt, prec):
     ample (1 par 0,1 pt sous 8,8), régularité d'une rubrique à l'autre."""
     fs, lh, pr, om = opt
     ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
-    c = COUT_PORTION * pr * len(r['items']) + sum(6 if j < nd else 400 for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
+    c = COUT_PORTION * pr * len(r['items']) + sum(6 if j < nd else COUT_BREVE for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
     if prec: c += 15 * abs(fs - prec[0]) + 60 * abs(lh - prec[1])
     return c
 
@@ -993,6 +995,27 @@ def placer(ed, M, st, bloc, cible):
         y0 = y + (G_RUB if y > 1 else 0) + bloc['th'] + G_CHAPO if not titre_fait else y
         if dern_p and bloc['wrap']:
             Lh, Rh = geo['L'] - y0, geo['R'] - y0
+            if Lh < 4 * lh_px and bloc.get('droite') and not titre_fait:
+                # glossaire réduit au minimum : les articles descendent jusqu'à l'agenda sur les quatre colonnes (le reste
+                # de la page s'aère, aerer()) ; le glossaire tient dans les deux colonnes de droite, à hauteur de l'agenda
+                W = geo['L'] - y
+                if W < -.5: return None
+                if W > .5:
+                    plan, dc = aerer(plan, p, W, D)
+                    if dc is None: return None
+                    cout += dc
+                top = HAUT - geo['hag']
+                yg = top + M['agh'] + 2 * MM
+                Rg = geo['R'] - yg
+                if Rg < 4 * lh_px: return None
+                cols, pos2, ok = remplir(us, pos, [Rg, Rg], lh_px)
+                if not ok or any(not c[0] for c in cols): return None
+                cc = cout_cols(us, cols, [Rg, Rg], bloc['nom'], p, D, lh_px)
+                if cc is None: return None
+                cout += cc
+                plan = (plan, ('titre', p, top, bloc['titre'], W2 + GOUT, W2))
+                plan = (plan, ('cols', p, yg, [(2 * (W4 + GOUT), W4, Rg), (3 * (W4 + GOUT), W4, Rg)], cols, us, bloc['fs'], lh_px, 'droite'))
+                return Etat(p, HAUT, cout, plan, D and (st.defauts, D) or st.defauts, st.prec, st.lex, geo, st.choix)
             if Lh < 4 * lh_px: return None
             cols, pos2, ok = remplir(us, pos, [Lh, Lh, Rh, Rh], lh_px)
             if not ok or any(not c[0] for c in cols): return None
@@ -1051,9 +1074,10 @@ def placer(ed, M, st, bloc, cible):
         titre_fait, pos, p, y = True, pos2, p + 1, 0.0
 
 
+COUT_BREVE = float(os.environ.get('JOURNAL_COUT_BREVE', '400'))   # coût d'une brève omise (hors doublons de l'agenda)
 COUT_PORTION = float(os.environ.get('JOURNAL_COUT_PORTION', '8'))   # coût d'un niveau de portions facultatives retiré, par article
 AIR_MAX = 6 * MM   # blanc ajouté au plus au-dessus d'un titre (justification verticale d'une page)
-AIR_HAUT = 14 * MM  # blanc ajouté au plus dans la manchette et l’en-tête de la Une (quatre blancs)
+AIR_HAUT = 14 * MM  # blanc ajouté au plus sous le bandeau et dans l’en-tête de la Une (trois blancs ; manchette et bandeau fixes)
 
 
 def aerer(plan, p, W, D):
@@ -1193,7 +1217,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
         nouv = []
         N = len(ed['sigles'])
         def essai(st, n, longs):
-            b = bloc_lex(ed, M, n, longs); b['wrap'] = True; b['derniere'] = not lex_libre
+            b = bloc_lex(ed, M, n, longs); b['wrap'] = True; b['derniere'] = not lex_libre; b['droite'] = True
             st3 = placer(ed, M, st, b, cible)
             if st3 is None or st3.p != cible - 1: return None
             st3.cout += .5 * (N - n) + .1 * (n - longs)
@@ -1264,16 +1288,20 @@ def html_plan(ed, M, plan, geo, cible):
     for it in plan:
         kind, p = it[0], it[1]
         if kind == 'haut':
-            q = (it[2] if len(it) > 2 else 0) / 4   # air réparti dans les quatre blancs du haut de la page 1
-            st = (f'<style>.mast{{padding-bottom:{MAST_BAS + q:.2f}px}} .band{{margin-bottom:{4.5 * MM + q:.2f}px}} .top{{margin-bottom:{3.5 * MM + q:.2f}px}}'
+            q = (it[2] if len(it) > 2 else 0) / 3   # air réparti dans les trois blancs sous le bandeau (la manchette et le bandeau restent fixes)
+            st = (f'<style>.band{{margin-bottom:{4.5 * MM + q:.2f}px}} .top{{margin-bottom:{3.5 * MM + q:.2f}px}}'
                   f' .une-c{{padding-bottom:{2.6 * MM + q:.2f}px}}</style>') if q else ''
             pages[0].append(f'{st}<div class="abs" style="top:0;left:0;width:{LARG:.2f}px">{haut_html(ed)}</div>')
         elif kind == 'titre':
-            _, p, y, t = it
+            _, p, y, t = it[:4]
+            x, w = it[4:6] if len(it) > 4 else (0, LARG)
             h = titre_html(t[1], autres[t[1]]) if t[0] == 'rub' else '<h2 class="rub" id="r-lexique"><span>Glossaire</span> Sigles et termes cités</h2>'
-            pages[p].append(f'<div class="abs" style="top:{y:.2f}px;left:0;width:{LARG:.2f}px">{h}</div>')
+            pages[p].append(f'<div class="abs" style="top:{y:.2f}px;left:{x:.2f}px;width:{w:.2f}px">{h}</div>')
         elif kind == 'cols':
             _, p, y0, specs, cols, us, fs, lh_px, wrap = it
+            if wrap == 'droite':   # glossaire réduit : filet entre l'agenda et le glossaire, jusqu'au bas de la page
+                pages[p].append(f'<div class="regle" style="top:{y0:.2f}px;left:{specs[0][0] - GOUT / 2:.2f}px;height:{HAUT - y0:.2f}px"></div>')
+                wrap = False
             for c, ((x, w, H), (parts, _y)) in enumerate(zip(specs, cols)):
                 ncol += 1
                 pages[p].append(f'<div class="abs col" id="col-{ncol}" data-h="{H:.2f}" style="top:{y0:.2f}px;left:{x:.2f}px;width:{w:.2f}px;height:{H:.2f}px;'
@@ -1389,14 +1417,14 @@ def empreinte(d):
 
 
 
-CIBLE_GLOSSAIRE = 70 * MM   # hauteur visée du glossaire (pleine largeur) : le reste des quatre pages revient aux articles
+MOTS_ARTICLE = 220   # longueur maximale d'un article imprimé (texte de l'élément et champ « papier »), README § 6, règle 7
 
 
 def mesure_glossaire(M, plan):
     """Hauteur pleine largeur (px) qu'occupe le glossaire dans un plan composé, titre compris."""
     h = 0.0
     for it in plan:
-        if it[0] == 'cols' and it[5] and it[5][0].kind == 'x': h += sum(x[2] for x in it[3]) / len(it[3])
+        if it[0] == 'cols' and it[5] and it[5][0].kind == 'x': h += sum(x[2] for x in it[3]) / 4
         elif it[0] == 'titre' and it[3][0] == 'lex': h += M['h']['lex'] + G_CHAPO
     return h
 
@@ -1412,19 +1440,22 @@ def preparer(d):
 def jauge(d):
     """Jauge de rédaction (README, § 6, règle 9) : compose l'édition avec tout son contenu (aucune portion facultative
     coupée, aucune brève omise sinon celles que l'agenda répète), le glossaire libre de commencer avant la dernière
-    page. Si elle tient, la hauteur du glossaire au-delà de CIBLE_GLOSSAIRE dit combien de texte ajouter aux champs
-    « papier » ; sinon, l'édition déborde, et la jauge dit ce que la composition doit couper."""
+    page. Si elle tient, la hauteur du glossaire au-delà de son minimum (deux colonnes de droite, à hauteur de l'agenda) dit
+    combien de texte ajouter (de préférence en nouveautés) ; sinon, l'édition déborde, et la jauge dit ce que la composition doit couper."""
     ed = preparer(d); M = mesurer(ed)
     res = chercher(ed, M, PAGES, lex_libre=True, complet=True)
     if res:
         best, plan = res
         g = mesure_glossaire(M, plan)
+        geo = best.geo   # cible : le glossaire réduit au minimum, dans les deux colonnes de droite, à hauteur de l'agenda
+        cible_g = M['h']['lex'] + G_CHAPO + (geo['R'] - (HAUT - geo['hag'] + M['agh'] + 2 * MM)) / 2
         ligne = 8.8 * 1.34 * PT
-        manque = max(0.0, g - CIBLE_GLOSSAIRE) * 4 / ligne   # lignes de colonne
-        print(f'{d} : tout le contenu tient ; glossaire de {g / MM:.0f} mm (pleine largeur), cible {CIBLE_GLOSSAIRE / MM:.0f} mm.')
+        manque = max(0.0, g - cible_g) * 4 / ligne   # lignes de colonne
+        print(f'{d} : tout le contenu tient ; glossaire de {g / MM:.0f} mm (pleine largeur), minimum {cible_g / MM:.0f} mm (deux colonnes de droite, à hauteur de l\'agenda).')
         if manque < 8: print('Remplissage atteint : rien à ajouter.')
-        else: print(f'Ajouter environ {manque:.0f} lignes de colonne, soit {manque * 6.5:.0f} mots, aux champs « papier » (nouveautés de forte cote '
-                    f'd\'abord, en portions facultatives {{{{2|…}}}} ou {{{{3|…}}}}), sans répéter ce que disent déjà l\'article, les autres articles ou les brèves.')
+        else: print(f'Place libre : environ {manque:.0f} lignes de colonne, soit {manque * 6.5:.0f} mots, ou {manque * 6.5 / 200:.1f} article(s) de 200 mots. '
+                    f'Ajouter de préférence des nouveautés (réserve, recherche élargie, § 3) plutôt que d\'allonger les articles au-delà de '
+                    f'{MOTS_ARTICLE} mots ; jamais de répétition.')
         return
     res = chercher(ed, M, PAGES, lex_libre=True)
     if not res:

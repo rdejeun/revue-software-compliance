@@ -71,7 +71,7 @@ PAPIER_FAC = re.compile(r'\{\{([123])\|(.*?)\}\}', re.S)
 
 def check_papier(sm, texte, where, d):
     """Champ « papier » des nouveautés (version imprimable, README § 6) : présent à partir du 27 octobre 2026,
-    portions facultatives {{1|…}}, {{2|…}}, {{3|…}} bien formées, 260 mots au plus avec le texte de l'élément."""
+    portions facultatives {{1|…}}, {{2|…}}, {{3|…}} bien formées, 220 mots au plus avec le texte de l'élément (260 jusqu'au 20 octobre 2026)."""
     p = sm.get('papier')
     if not p:
         if d >= '2026-10-27': WARN.append(f'{where} : synthèse sans champ « papier » (version imprimable)')
@@ -79,7 +79,8 @@ def check_papier(sm, texte, where, d):
     reste = PAPIER_FAC.sub('', p)
     if '{{' in reste or '}}' in reste or '|' in reste: ERR.append(f'{where} : « papier » : balise de portion facultative mal formée ({{{{1|…}}}}, {{{{2|…}}}} ou {{{{3|…}}}})')
     n = words(texte) + words(PAPIER_FAC.sub(lambda m: m[2], p))
-    if n > 260: WARN.append(f'{where} : article papier de {n} mots avec le texte de l’élément (260 au plus)')
+    lim = 260 if d <= '2026-10-20' else 220   # 220 mots à partir du 27 octobre 2026 : plutôt plus d'articles que des articles plus longs
+    if n > lim: WARN.append(f'{where} : article papier de {n} mots avec le texte de l’élément ({lim} au plus)')
     if re.search(r'\(voir (le|les) N°', p): WARN.append(f'{where} : « papier » : renvoi « (voir le N° n) » à retirer')
 
 
