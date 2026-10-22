@@ -363,7 +363,7 @@ sup {{ font-size:70%; line-height:0 }}
 .abs {{ position:absolute }}
 /* manchette : dessin d'en-tête du site (graphe, certificats, circuits) estompé en haut à droite */
 .mast {{ position:relative; text-align:center; padding-bottom:{MAST_BAS:.2f}px }}   /* bandeau remonté de 12 pt */
-.mast::before {{ content:""; position:absolute; right:-9.5mm; top:-11mm; width:120mm; height:42mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7 }}
+.mast::before {{ content:""; position:absolute; right:-9.5mm; top:-11mm; width:120mm; height:38mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7; z-index:0 }}   /* s'arrête au-dessus du bandeau */
 .mast > * {{ position:relative }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
@@ -371,7 +371,7 @@ sup {{ font-size:70%; line-height:0 }}
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
 .mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
 /* bandeau « onglet » */
-.band {{ display:flex; justify-content:space-between; align-items:flex-end; border-bottom:.8pt solid {NAVY}; color:{NAVY}; font:600 8.75pt/1.25 {SANS}; letter-spacing:.04em; margin-bottom:4.5mm }}
+.band {{ position:relative; z-index:1; display:flex; justify-content:space-between; align-items:flex-end; border-bottom:.8pt solid {NAVY}; color:{NAVY}; font:600 8.75pt/1.25 {SANS}; letter-spacing:.04em; margin-bottom:4.5mm }}
 .band .n {{ background:{NAVY}; color:#fff; padding:.6mm 3mm .5mm 2.4mm }} .band .r {{ padding-bottom:.6mm }}
 /* essentiel et sommaire */
 .top {{ display:table; width:100%; margin-bottom:3.5mm }}
@@ -468,7 +468,7 @@ def credit(ed):
             f'<div class="mq"><i>Software</i> <span>Compliance</span></div>'
             f'<p>Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}.<br>'
             f'Rédigée par une intelligence artificielle ({T(redac)}),<br>'
-            f'qui peut comporter des erreurs\u00a0: pensez à croiser vos sources.<br>'
+            f'peut comporter des erreurs\u00a0: pensez à croiser vos sources.<br>'
             f'Édition en ligne avec sources\u00a0: <a href="{html.escape(url)}">{html.escape(re.sub(r"^https?://", "", url).rstrip("/"))}</a><br>'
             f'©\u00a0{d[:4]} Rodolphe\u00a0Dejeunes, publié sous licence CC\u00a0BY\u00a04.0.</p></div>'
             f'<div class="colo-qr">{qr(url)}</div></div>')

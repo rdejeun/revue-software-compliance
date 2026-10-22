@@ -183,6 +183,71 @@
    "nom": "SPDX — liste des licences (versions)",
    "type": "github",
    "url": "https://github.com/spdx/license-list-XML/releases.atom"
+  },
+  {
+   "nom": "ONU — comptes rendus et communiqués (Conseil de sécurité, sanctions)",
+   "type": "rss",
+   "url": "https://press.un.org/en/rss.xml",
+   "filtre": "Security Council|sanction|1540|1718|non-proliferation|arms embargo"
+  },
+  {
+   "nom": "OCDE — OECD.AI",
+   "type": "rss",
+   "url": "https://wp.oecd.ai/feed/",
+   "filtre": "Hiroshima|HAIP|AI Act|export|security|incident"
+  },
+  {
+   "nom": "Indonésie — ministère de la Défense (Kemhan)",
+   "type": "rss",
+   "url": "https://www.kemhan.go.id/feed",
+   "filtre": "industri pertahanan|siber|kerja sama|Prancis|offset|alutsista"
+  },
+  {
+   "nom": "Indonésie — KKIP (industrie de défense)",
+   "type": "rss",
+   "url": "https://kkip.go.id/feed"
+  },
+  {
+   "nom": "Brésil — ministère de la Défense",
+   "type": "rss",
+   "url": "https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias/RSS",
+   "filtre": "Base Industrial|produtos de defesa|export|ciber|França"
+  },
+  {
+   "nom": "Qatar — QNA, rubrique Qatar",
+   "type": "rss",
+   "url": "https://qna.org.qa/en/Pages/RSS-Feeds/Qatar",
+   "filtre": "Cyber|NCSA|Barzan|Defen[cs]e|Export|France"
+  },
+  {
+   "nom": "Breaking Defense",
+   "type": "rss",
+   "url": "https://breakingdefense.com/full-rss-feed/?v=2",
+   "filtre": "export|ITAR|software|cyber|supply chain|India|Saudi|UAE|Indonesia|Japan|Korea"
+  },
+  {
+   "nom": "Defense News — Global",
+   "type": "rss",
+   "url": "https://www.defensenews.com/arc/outboundfeeds/rss/category/global/?outputType=xml",
+   "filtre": "export|ITAR|software|cyber|India|Saudi|UAE|Qatar|Indonesia|Brazil|Japan"
+  },
+  {
+   "nom": "Naval News",
+   "type": "rss",
+   "url": "https://www.navalnews.com/feed/",
+   "filtre": "India|Indonesia|UAE|Qatar|Saudi|Egypt|Brazil|Greece|software|combat system"
+  },
+  {
+   "nom": "Asia Times",
+   "type": "rss",
+   "url": "https://asiatimes.com/feed",
+   "filtre": "export control|sanction|chip|cyber|defen[cs]e"
+  },
+  {
+   "nom": "Arab News",
+   "type": "rss",
+   "url": "https://www.arabnews.com/rss.xml",
+   "filtre": "GAMI|NCA|cyber|defen[cs]e|military industr|localization"
   }
  ],
  "manuelles": [
