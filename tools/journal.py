@@ -36,7 +36,7 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-36'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-37'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -155,6 +155,13 @@ def morceaux(it, incl, une=False):
     return m
 
 
+def titre_breve(h):
+    """Brève : son titre (le texte avant le premier deux-points) en sans-serif semi-gras."""
+    m = re.search('\u00a0:', h)
+    if not m or m.start() > 90 or h[:m.start()].count('<') != h[:m.start()].count('>'): return h
+    return f'<span class="rap-k">{h[:m.start()]}</span>{h[m.start():]}'
+
+
 def rappels_html(rs, incl):
     """Encadré « En bref » (rappels retenus) : une seule colonne, en fin de rubrique, jamais coupé."""
     if not rs: return ''
@@ -162,7 +169,7 @@ def rappels_html(rs, incl):
     for r in rs:
         t, _ = corps(r['segs'])
         res = (r.get('sum') or {}).get('essentiel')
-        li.append(f'<li><p>{accroche(t)}</p>' + (f'<p class="rap-s">{T(res)}</p>' if res and ('essentiel', r['id']) in incl else '') + '</li>')
+        li.append(f'<li><p>{titre_breve(accroche(t))}</p>' + (f'<p class="rap-s">{T(res)}</p>' if res and ('essentiel', r['id']) in incl else '') + '</li>')
     return f'<aside class="rap" id="rap-{rs[0]["id"]}"><p class="rap-t">En bref</p><ul>{"".join(li)}</ul></aside>'
 
 
@@ -311,7 +318,12 @@ W4 = (LARG - 3 * GOUT) / 4   # colonne du journal (quatre colonnes)
 W3 = (LARG - 2 * GOUT) / 3   # colonne de la Une (trois colonnes)
 W2 = 2 * W4 + GOUT           # deux colonnes : agenda, crédit
 TITRE_PT = 11.6              # titres d'article
-CREDIT_PT = 7.0              # crédit (taille fixe : cinq lignes à côté du code QR)
+CREDIT_PT = 7.0   # crédit (taille fixe : cinq lignes à côté du code QR)
+MAST_BAS = 9 * 96 / 25.4 - 6 * 96 / 72   # blanc sous la manchette, au-dessus du bandeau
+# crédit abaissé (décalage relatif, sans effet sur la composition) pour que sa dernière ligne ait la même ligne de base que
+# le folio : bas du contenu à 284 mm, folio en tête de la marge (285 mm) + 0,6 mm, Source Sans 3 (ascendante 1,024 em,
+# descendante 0,4 em), crédit en interligne 1,3
+DECAL_CREDIT = 1.6 * 96 / 25.4 + (1.024 * 9 + .4 * CREDIT_PT + (1.3 - 1.424) / 2 * CREDIT_PT) * 96 / 72
 MONO_H = 21 * 96 / 25.4      # monogramme de la manchette
 MONO_X = 2.17 * 96 / 25.4               # décalage à droite : sa marge au bord gauche de la feuille égale sa marge au bord haut
 FS_LIST = (8.5, 8.6, 8.7, 8.8)                  # corps des paragraphes, réglé par rubrique
@@ -348,12 +360,12 @@ sup {{ font-size:70%; line-height:0 }}
 .pg {{ position:relative; height:{HAUT - .5:.2f}px; break-after:page; overflow:visible }} .pg:last-child {{ break-after:auto }}
 .abs {{ position:absolute }}
 /* manchette : dessin d'en-tête du site (graphe, certificats, circuits) estompé en haut à droite */
-.mast {{ position:relative; text-align:center; padding-bottom:9mm }}
+.mast {{ position:relative; text-align:center; padding-bottom:{MAST_BAS:.2f}px }}   /* bandeau remonté de 6 pt */
 .mast::before {{ content:""; position:absolute; right:-9.5mm; top:-11mm; width:120mm; height:42mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7 }}
 .mast > * {{ position:relative }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
-.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.35 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
+.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.22 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
 .mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
 /* bandeau « onglet » */
@@ -390,6 +402,7 @@ p.sp {{ text-indent:1em }} p.cont {{ text-indent:0 }} p.coupe {{ text-align-last
 .rap ul {{ padding:0; list-style:none }} .rap li {{ margin:0 0 1.1mm }} .rap li:last-child {{ margin-bottom:0 }}
 .rap li + li {{ padding-top:1.1mm; border-top:.4pt solid #e6dccb }}
 .rap-s {{ margin-top:.4mm; color:#374151 }}
+.rap-k {{ font-family:{SANS}; font-weight:600; font-size:1.02em; color:{NAVY} }}
 /* agenda */
 .ag-e {{ display:table; width:100%; text-align:left }}
 .ag-e > div {{ display:table-cell; vertical-align:top }}
@@ -403,7 +416,7 @@ p.sp {{ text-indent:1em }} p.cont {{ text-indent:0 }} p.coupe {{ text-align-last
 /* lexique */
 .lx {{ font-size:{PETIT_MIN}pt; line-height:1.32; text-align:left }} .lx b {{ font:700 .95em {SANS}; color:{NAVY} }}
 /* crédit */
-.colo {{ display:table; width:100%; table-layout:fixed }}
+.colo {{ display:table; width:100%; table-layout:fixed; position:relative; top:{DECAL_CREDIT:.2f}px }}
 .colo-qr {{ display:table-cell; width:22mm; vertical-align:bottom }} .colo-qr .qr {{ display:block; width:22mm; height:22mm }}
 .colo-t {{ display:table-cell; vertical-align:bottom; padding-right:3mm; font:400 {colo_pt}pt/1.3 {SANS}; color:#4b5563; text-align:right; hyphens:manual; white-space:nowrap }}
 .colo-t a {{ color:inherit; text-decoration:none }}
@@ -453,7 +466,7 @@ def credit(ed):
             f'<div class="mq"><i>Software</i> <span>Compliance</span></div>'
             f'<p>Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}.<br>'
             f'Rédigée par une intelligence artificielle ({T(redac)}),<br>'
-            f'qui peut faire des erreurs\u00a0: pensez à croiser vos sources.<br>'
+            f'qui peut introduire des erreurs\u00a0: pensez à croiser vos sources.<br>'
             f'Édition en ligne avec sources\u00a0: <a href="{html.escape(url)}">{html.escape(re.sub(r"^https?://", "", url).rstrip("/"))}</a><br>'
             f'©\u00a0{d[:4]} Rodolphe\u00a0Dejeunes, publié sous licence CC\u00a0BY\u00a04.0.</p></div>'
             f'<div class="colo-qr">{qr(url)}</div></div>')
@@ -1252,7 +1265,7 @@ def html_plan(ed, M, plan, geo, cible):
         kind, p = it[0], it[1]
         if kind == 'haut':
             q = (it[2] if len(it) > 2 else 0) / 4   # air réparti dans les quatre blancs du haut de la page 1
-            st = (f'<style>.mast{{padding-bottom:{9 * MM + q:.2f}px}} .band{{margin-bottom:{4.5 * MM + q:.2f}px}} .top{{margin-bottom:{3.5 * MM + q:.2f}px}}'
+            st = (f'<style>.mast{{padding-bottom:{MAST_BAS + q:.2f}px}} .band{{margin-bottom:{4.5 * MM + q:.2f}px}} .top{{margin-bottom:{3.5 * MM + q:.2f}px}}'
                   f' .une-c{{padding-bottom:{2.6 * MM + q:.2f}px}}</style>') if q else ''
             pages[0].append(f'{st}<div class="abs" style="top:0;left:0;width:{LARG:.2f}px">{haut_html(ed)}</div>')
         elif kind == 'titre':
