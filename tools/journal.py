@@ -361,10 +361,11 @@ sup {{ font-size:70%; line-height:0 }}
 .kw {{ color:{BRIQUE} }} .nh {{ hyphens:manual }}
 .pg {{ position:relative; height:{HAUT - .5:.2f}px; break-after:page; overflow:visible }} .pg:last-child {{ break-after:auto }}
 .abs {{ position:absolute }}
-/* manchette : dessin d'en-tête du site (graphe, certificats, circuits) estompé en haut à droite */
+/* manchette : dessin d'en-tête du site (graphe, certificats, circuits) estompé en haut à droite, à 4 mm du coin de la
+   feuille (marges des imprimantes), sous le titre et sous le bandeau */
 .mast {{ position:relative; text-align:center; padding-bottom:{MAST_BAS:.2f}px }}   /* bandeau remonté de 12 pt */
-.mast::before {{ content:""; position:absolute; right:-9.5mm; top:-11mm; width:120mm; height:38mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7; z-index:0 }}   /* s'arrête au-dessus du bandeau */
-.mast > * {{ position:relative }}
+.mast::before {{ content:""; position:absolute; right:-5.5mm; top:-7mm; width:120mm; height:38mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7; z-index:0 }}
+.mast > * {{ position:relative; z-index:1 }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
 .mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.14 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
