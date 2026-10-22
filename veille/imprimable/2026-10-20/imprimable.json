@@ -2,21 +2,17 @@
  "edition": "2026-10-20",
  "pages": 4,
  "cahier": 4,
- "blocs": "41",
+ "blocs": "44",
  "remplissage": 1.0,
  "defauts": [],
- "remarques": [
-  "« SBOM, normes et référentiels » : colonne justifiée de 1.2 mm (page 1)",
-  "« SBOM, normes et référentiels » : colonne justifiée de 5.4 mm (page 1)",
-  "« France et UE » : colonne justifiée de 3.9 mm (page 3)"
- ],
- "glossaire_mm": 202,
+ "remarques": [],
+ "glossaire_mm": 105,
  "etat": {
   "choix": [
    [
     "une",
-    "8.7",
-    "1.38"
+    "8.5",
+    "1.3"
    ],
    [
     "ag",
@@ -25,37 +21,37 @@
    [
     "0",
     "8.5",
-    "1.38",
-    "2",
-    "(1,)"
+    "1.3",
+    "0",
+    "()"
    ],
    [
     "1",
     "8.8",
-    "1.34",
-    "0",
+    "1.3",
+    "2",
     "()"
    ],
    [
     "2",
-    "8.8",
-    "1.34",
-    "0",
+    "8.5",
+    "1.3",
+    "1",
     "()"
    ],
    [
     "3",
-    "8.8",
-    "1.32",
-    "0",
+    "8.5",
+    "1.3",
+    "2",
     "(1, 3)"
    ],
    [
     "4",
-    "8.5",
+    "8.6",
     "1.3",
-    "2",
-    "(2, 3, 1)"
+    "1",
+    "(2, 3)"
    ],
    [
     "5",
@@ -66,13 +62,13 @@
    ],
    [
     "glossaire",
-    "49",
-    "36"
+    "46",
+    "0"
    ]
   ],
-  "cout": 1670.5,
+  "cout": 218.0,
   "ess_pt": 13.25,
   "colo_pt": 7.0
  },
- "empreinte": "d9ef214a696eee5f"
+ "empreinte": "ab2fd647af9926ec"
 }

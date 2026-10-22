@@ -3100,5 +3100,932 @@
   "verifie": "confirmé",
   "raison": "",
   "ref": "11 décembre 2027 Application complète du"
+ },
+ {
+  "affirmation": "Le niveau de sécurité classique est la résistance en bits aux attaques classiques",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "The classical security level is the strength in bits against classical attacks.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Le niveau quantique est la catégorie post-quantique du NIST, de 1 à 5, ou 0 pour un algorithme qui n’en atteint aucune",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "The NIST quantum security level is the NIST post-quantum security category from 1 to 5, or 0 for an algorithm that meets none of the categories.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Les paquets corrigés par Echo sont reconnus dans tous les modes d’analyse, pas seulement dans les images Echo",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "This works in all scan modes and does not depend on the OS: Echo packages are detected not only in Echo-based images.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Echo publie ses propres avis de sécurité",
+  "url": "https://trivy.dev/docs/latest/coverage/os/echo/",
+  "extrait": "Echo offers its own security advisories, and these are utilized when scanning Echo for vulnerabilities.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Les images RapidFort fondées sur Ubuntu, Alpine et Red Hat Enterprise Linux étaient déjà prises en charge",
+  "url": "https://github.com/aquasecurity/trivy/discussions/11409",
+  "extrait": "In addition to Ubuntu-, Alpine- and Red Hat Enterprise Linux-based images, Trivy now scans",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Trivy recueille des données d’usage anonymes",
+  "url": "https://trivy.dev/latest/docs/advanced/telemetry/",
+  "extrait": "Trivy collects anonymous usage data in order to help us improve the product.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Les données de télémétrie comprennent un identifiant d’installation",
+  "url": "https://trivy.dev/latest/docs/advanced/telemetry/",
+  "extrait": "Installation identifier: one-way hash of machine fingerprint, resulting in opaque ID.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "La connexion au serveur de télémétrie et de mise à jour est facultative",
+  "url": "https://trivy.dev/latest/docs/advanced/air-gap/",
+  "extrait": "Connectivity with this domain is entirely optional and is not necessary for the normal operation of Trivy.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Une option, réglable en ligne de commande, en configuration ou par variable d’environnement, désactive la télémétrie",
+  "url": "https://trivy.dev/latest/docs/advanced/telemetry/",
+  "extrait": "Like other Trivy flags, this can be set on the command line, YAML configuration file, or environment variable.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Phrase qui suit, sur la page, « You can disable telemetry altogether using the --disable-telemetry flag. »",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Les bases de Trivy peuvent être hébergées dans son propre registre de conteneurs",
+  "url": "https://trivy.dev/latest/docs/advanced/air-gap/",
+  "extrait": "You can host Trivy's databases in your own container registry.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Trivy 0.76.0 : le scanneur d’Aqua Securi"
+ },
+ {
+  "affirmation": "Le format IPK est celui du gestionnaire opkg et reprend le format des paquets deb",
+  "url": "https://github.com/anchore/syft/pull/5111",
+  "extrait": "IPK packages are used by the opkg package manager, they have the same format as DEB packages",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu.",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Les dates de fin de vie de Grype venaient du projet endoflife.date",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/eol-detection/",
+  "extrait": "EOL dates come from the endoflife.date project and are updated with each Grype database release.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Grype lit la date de fin de support dans les informations de version de la distribution analysée",
+  "url": "https://github.com/anchore/grype/releases/tag/v0.121.0",
+  "extrait": "OS End of life warnings should account for SupportEnd date from the distro release information",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Page github.com illisible par le vérificateur depuis cet environnement (HTTP 403) ; contenu lu avec WebFetch, extrait cité tel que rendu. Le ticket lié (anchore/grype#3230) précise : « Several distros specify SUPPORT_END dates in their release files ».",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Après la fin de vie, Grype ne signale que les vulnérabilités suivies par le mainteneur avant cette date",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/eol-detection/",
+  "extrait": "Grype can only report vulnerabilities that the distribution maintainer tracked before the EOL date.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Anchore diffuse gratuitement la base de vulnérabilités de Grype",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/database/",
+  "extrait": "Anchore collates vulnerability data from common feeds, and publishes that data online, at no cost to users.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Désactiver les alertes de fin de vie masque une couverture d’analyse incomplète",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/eol-detection/",
+  "extrait": "Disabling EOL warnings hides information about incomplete scan coverage.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Sur un système en fin de vie, le nombre de vulnérabilités signalées peut être artificiellement bas",
+  "url": "https://oss.anchore.com/docs/guides/vulnerability/eol-detection/",
+  "extrait": "Recognize that vulnerability counts may be artificially low.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Syft 1.55.0 et Grype 0.121.0 : publiés l"
+ },
+ {
+  "affirmation": "Chaque contrôle est jugé réussi, échoué ou à revoir",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "providing structured assessments and opinions on whether specific security controls pass, fail, or need human review",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Les cas incertains laissent la décision finale à un humain",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "Anything still uncertain gets marked Needs Review, so a human makes the final call.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Contrairement à Privateer, un moteur comme AMPEL bloque les constructions non conformes",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "While policy enforcement engines like AMPEL act as gatekeepers to block non-compliant builds",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Des extensions évaluent dépôts, configurations, infrastructures et systèmes déployés",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "Privateer uses modular plugins to evaluate repositories, configurations, infrastructure, and deployed systems",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "L’évaluation se fait au regard de catalogues de contrôles tenus à part",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "Privateer evaluates against control catalogs maintained separately, as part of the Gemara ecosystem.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "L’extension GitHub lit le fichier Security Insights (contact de sécurité, politique de vulnérabilités)",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "so a security contact, contributing guide, or vulnerability policy declared there can be evaluated",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Les résultats sont des journaux lisibles par machine pour tableaux de bord, audits et attestations",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "Privateer uses Gemara schemas to produce machine-readable evaluation logs that can serve as inputs to compliance dashboards, audit workflows, attestations, and other GRC tooling",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Seules les exigences du premier niveau de maturité sont recommandées pour l’extension GitHub",
+  "url": "https://raw.githubusercontent.com/ossf/pvtr-github-repo-scanner/main/README.md",
+  "extrait": "requirements are the most rigorously tested and are recommended for use.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "Phrase précédée sur la page du lien « maturity-1 ».",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Les niveaux 2 et 3 sont encore en développement et moins éprouvés",
+  "url": "https://raw.githubusercontent.com/ossf/pvtr-github-repo-scanner/main/README.md",
+  "extrait": "Level 2 and Level 3 requirements are undergoing current development and may be less rigorously tested.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Privateer a été développé avec des contributions de Sonatype, de Revanite et de Microsoft",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "Originally developed with engineering contributions from Sonatype, Revanite, and Microsoft",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "L’extension des dépôts GitHub évalue les dépôts au regard de l’OSPS Baseline",
+  "url": "https://openssf.org/blog/2026/10/13/introducing-privateer-ai-assisted-security-compliance-evaluation-framework-joins-the-openssf-sandbox/",
+  "extrait": "scanning the Gemara source repository against OSPS Baseline using the OpenSSF GitHub Repo plugin",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Privateer : l’OpenSSF a annoncé le 13 oc"
+ },
+ {
+  "affirmation": "Le code source principal du CLI n’était pas nécessairement compromis",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "Le code source principal du CLI n’était donc pas nécessairement lui-même compromis : l’attaque a visé la",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Les secrets recherchés peuvent être des clés d’API, jetons d’accès, identifiants cloud ou clés SSH",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "peut notamment correspondre à des clés API, tokens d’accès, identifiants cloud, clés SSH ou autres secrets techniques",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "L’alerte est venue d’un client (remerciement d’Octave Klaba)",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "par un hacker. Nous l’avons détecté et bloqué à 16h21. Merci au client qui nous a remonté le souci.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "La v0.16.0 a un tag GitHub signé et des fichiers de publication désormais déclarés immuables",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "dont le tag GitHub est signé et dont les fichiers de release sont désormais déclarés immuables",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Les clés, jetons et mots de passe techniques des machines ayant exécuté une version piégée sont à révoquer et renouveler",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "consiste donc à révoquer et renouveler les clés API, tokens, mots de passe techniques et autres identifiants sensibles",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Les premières vérifications d’OVHcloud n’ont trouvé aucun autre dépôt GitHub touché",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "Les premières vérifications menées par OVHcloud n’ont identifié aucun autre dépôt GitHub affecté.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "OVHcloud annonce un post-mortem détaillé",
+  "url": "https://www.cyberattaque.org/ovhcloud-un-hacker-piege-plusieurs-versions-de-son-cli-officiel/",
+  "extrait": "OVHcloud indique poursuivre l’analyse du binaire et prévoit de publier un post-mortem détaillé.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "OVHcloud CLI : le 19 octobre 2026, penda"
+ },
+ {
+  "affirmation": "Le workflow malveillant est déguisé en audit de sécurité",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "disguised under deceptive names such as Security Audit (\"security-audit.yml\") or GitHub Actions Security",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Les comptes ont été pris avec des jetons d’accès personnels volés ou des identifiants tirés de journaux d’infostealers",
+  "url": "https://thehackernews.com/2026/10/ghostaction-compromises-about-1900.html",
+  "extrait": "using stolen Personal Access Tokens (PATs) or credentials harvested from infostealer logs and dumps",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "La seconde étape persiste après la suppression du workflow malveillant",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "It now has a second stage that persists even if the victim has removed the malicious workflow.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "La seconde étape se passe de GitHub Actions (aucun runner) et échappe donc au blocage",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "Stage 2 adds a launcher that doesn’t need a runner at all, and it arrived six days after the block.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Les 94 dépôts appartiennent à 66 propriétaires",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "The 94 repos in this cluster belong to 66 owners. We were able to clone 79 of them, and all 79 carried Stage 2.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Des dépôts nettoyés dès le lendemain de l’attaque (9 octobre)",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "Both owners removed the Stage 1 workflow on October 9, the morning after the sweep, and cashpost deleted its entire",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Ils ont reçu la seconde étape le 15 octobre, six jours plus tard",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "Both got Stage 2 anyway on October 15, cashpost at 02:32 UTC and bangcv-flutter at 07:48.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "L’explication la plus simple est que l’accès utilisé n’avait pas été révoqué",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "The simplest reading is that the access that pushed Stage 1 was never revoked",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Le propriétaire d’un dépôt touché doit prévenir ceux qui l’ont cloné",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "Tell everyone who cloned it. Anyone who opened the repo while the files were in it may have run the infostealer.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "Exiger une approbation avant l’exécution des workflows et une revue obligatoire de leurs modifications",
+  "url": "https://opensourcemalware.com/blog/ghostaction-copycats-polinrider-by-hiding-a-stealer-in-a-fake-font-file",
+  "extrait": "Require approval for workflow runs, protect .github/workflows with required reviews, and block force-pushes.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "GhostAction : selon GitGuardian, cité pa"
+ },
+ {
+  "affirmation": "La chaîne d’avis de GitHub était centrée sur npm ; étendre sa détection aux autres écosystèmes aurait pris des années",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "GitHub’s malware advisory pipeline previously focused on npm. Expanding its existing detection capabilities across eight ecosystems would have taken years",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Les avis de logiciels malveillants sont publiés automatiquement, sans relecture humaine, par choix délibéré",
+  "url": "https://github.blog/security/supply-chain-security/how-we-took-malware-advisories-beyond-npm",
+  "extrait": "Malware advisories auto-publish. No human reads each one before it goes out, and that’s deliberate.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "L’import s’arrête entièrement au-delà d’un plafond par lot",
+  "url": "https://github.blog/security/supply-chain-security/how-we-took-malware-advisories-beyond-npm",
+  "extrait": "Blow past it and the run doesn’t trim to fit—it halts completely, publishes nothing, and pages us with the exact count.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Chaque lot peut être annulé d’un bloc",
+  "url": "https://github.blog/security/supply-chain-security/how-we-took-malware-advisories-beyond-npm",
+  "extrait": "Every batch is identifiable and revertible as a unit. One rollback, clean slate.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Les dépôts qui avaient déjà activé les alertes profitent de l’extension sans autre réglage",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "Users who already enabled malware alerts receive the expanded coverage without additional configuration.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Dès l’activation, Dependabot confronte les dépendances aux avis existants",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "Once enabled, Dependabot checks dependencies against existing malware advisories straight away and alerts on new matches",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Une organisation peut déployer les alertes par ses configurations de sécurité",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "in its security settings. Organisations and enterprises can roll them out with security configurations.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Un paquet interne homonyme d’un paquet public malveillant peut déclencher une fausse alerte, écartée par des règles de tri automatique de Dependabot",
+  "url": "https://openssf.org/blog/2026/10/16/case-study-github-expands-malware-advisories-across-eight-ecosystems-with-openssf/",
+  "extrait": "Teams with internal packages that share a name with a malicious public package can reduce false positives with Dependabot auto-triage rules.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Paquets malveillants : selon une étude d"
+ },
+ {
+  "affirmation": "Le règlement d’exécution (UE) 2026/2333 entre en vigueur dès sa publication au Journal officiel",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "This Regulation shall enter into force on the date of its publication in the Official Journal of the European Union.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "DT Inier LLC est un courtier en douane russe",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "DT Inier LLC is a licensed Russian customs broker and full-cycle logistics operator.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "DT Inier LLC organise des routes de transport indirectes par des pays tiers",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "by organising and managing indirect transport routes via third countries",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Dmitry Chudovsky, inscrit, dirige Movers Group LLC",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "Dmitry Chudovsky is the General Director of the cargo delivery company Movers Group LLC",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Ivanna Savchuk, inscrite, est actionnaire majoritaire de DT Inier LLC",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "Ivanna Savchuk is a majority shareholder of DT Inier LLC. That company is a licensed Russian customs broker",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Svetlana Gumenyuk, inscrite, dirige United Stream LLC, entité inscrite",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "Svetlana Gumenyuk is the Director and Founder of PV Bridge LLC and United Stream LLC.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Une entité inscrite est établie aux Émirats arabes unis",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "DIS Logistics DMCC is a company based in Dubai, United Arab Emirates.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Une entité inscrite est établie en Inde",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "Vigor Marine Services LLP is a shipping company based in Mumbai, India.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Une entité inscrite est établie aux Seychelles",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "Shiva Shipping Ltd is a company established in Mahe Island, Seychelles.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Une entité inscrite gère des navires de la flotte fantôme russe qui transportent du pétrole",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "That company manages vessels part of the Russian shadow fleet involved in transporting crude oil or petroleum products",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Le règlement (UE) n° 269/2014 gèle les avoirs des personnes et entités inscrites",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0269",
+  "extrait": "All funds and economic resources belonging to, owned, held or controlled by any natural persons or natural or legal persons, entities or bodies associated with them as listed in Annex I shall be frozen.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Le règlement (UE) n° 269/2014 interdit de mettre, directement ou indirectement, des fonds ou des ressources économiques à la disposition des inscrits",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0269",
+  "extrait": "No funds or economic resources shall be made available, directly or indirectly, to or for the benefit of natural persons or natural or legal persons, entities or bodies associated with them listed in Annex I.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Les ressources économiques comprennent les actifs incorporels",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32014R0269",
+  "extrait": "means assets of every kind, whether tangible or intangible, movable or immovable, which are not funds but may be used to obtain funds, goods or services",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Une autre entité inscrite possède et gère un navire qui transporte du pétrole brut russe",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602333",
+  "extrait": "Therefore, Shiva Shipping Ltd owns and manages a vessel that transports crude oil originating in Russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Une entité inscrite, Movers Group LLC, est établie en Russie",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "Movers Group LLC, a cargo delivery company based in Russia and involved in the parallel import of goods subject to EU restrictive measures to Russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "Deux entités inscrites sont des sociétés de commerce établies en Turquie",
+  "url": "https://euneighbourseast.eu/news/latest-news/closing-loopholes-eu-lists-individuals-and-entities-for-circumventing-eu-sanctions/",
+  "extrait": "These are both trade companies based in Türkiye but operating a global network",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Sanctions, contournement : par le règlem"
+ },
+ {
+  "affirmation": "L’OGEL militaire réservée aux utilisateurs finaux gouvernementaux ou de l’OTAN s’ouvre notamment au Chili, au Monténégro, à la Jordanie, au Koweït et à la Macédoine du Nord",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "end-users where applicable) in Brunei, Chile, Jordan, Kuwait, Montenegro, North Macedonia, and Oman are now eligible",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "L’ECJU compte examiner plus vite les licences les plus sensibles",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "will allow swifter and robust scrutiny on the most sensitive licences.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Ces choix reposent sur l’analyse des licences passées et sur l’avis d’experts de l’administration, dont le ministère de la Défense et le Foreign Office",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202623-expansion-of-military-and-dual-use-open-general-export-licences/notice-to-exporters-202623-expansion-of-the-dual-use-open-general-export-licence",
+  "extrait": "These decisions have been taken on the basis of intensive analysis of historic licensing trends, and subject to expert advisory assessments from across government, including from the Ministry of Defence (MOD) and Foreign, Commonwealth and Development Office (FCDO)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "L’exportateur doit s’enregistrer sur SPIRE avant d’utiliser l’OGEL dual-use",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202614-announcing-the-dual-use-ogel/nte-202614-announcing-the-dual-use-ogel",
+  "extrait": "You must register through SPIRE, the online export licensing system before using this licence.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "L’enregistrement indique où sont tenus les registres d’exportation et où l’ECJU peut les inspecter",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202614-announcing-the-dual-use-ogel/nte-202614-announcing-the-dual-use-ogel",
+  "extrait": "This includes stating where you will keep records of the exports or transfers, and where ECJU may inspect them.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Pour les exportations concernées, la référence de la licence est portée dans la déclaration en douane",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202614-announcing-the-dual-use-ogel/nte-202614-announcing-the-dual-use-ogel",
+  "extrait": "For relevant exports, this code should be input into the UK’s Customs Declarations System",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Royaume-Uni, licences générales : depuis"
+ },
+ {
+  "affirmation": "Le Sénat a adopté le projet de loi en première lecture le 12 mars 2025",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "Le Sénat l’a adopté en première lecture le 12 mars 2025 (texte adopté n° 78).",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "À l’Assemblée, le texte a été arrêté par une commission spéciale le 10 septembre 2025",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "il a été examiné par une commission spéciale, qui a adopté son texte le 10 septembre 2025 (texte n° 1779).",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Selon l’exposé des motifs, le nombre d’entités régulées passerait d’environ 500 à près de 15 000",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "Selon l’exposé des motifs, le nombre d’entités régulées passerait d’environ 500 sous NIS1 à près de 15 000, et le nombre de secteurs de 6 à 18.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Amendes jusqu’à 10 M€ ou 2 % du CA mondial (entité essentielle), 7 M€ ou 1,4 % (entité importante)",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "Les amendes peuvent atteindre 10 millions d’euros ou 2 % du chiffre d’affaires annuel mondial pour une entité essentielle, 7 millions ou 1,4 % pour une entité importante",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Le Référentiel Cyber France est un document de travail de l’ANSSI",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "Le Référentiel Cyber France (ReCyF), mis à disposition par l’ANSSI le 17 mars 2026, est diffusé comme document de travail",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Le ReCyF demande de recenser les prestataires informatiques et de s’assurer, notamment par contrat, de la conformité de leurs prestations",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "Son objectif 3, « Maîtrise de l’écosystème », demande de recenser les prestataires informatiques et de s’assurer, notamment par voie contractuelle, de la conformité de leurs prestations.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "NIS2 devait être transposée au plus tard le 17 octobre 2024",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "La directive NIS2 devait être transposée au plus tard le 17 octobre 2024.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "Le 8 juillet 2026, la Commission a décidé de saisir la Cour de justice de l’UE contre la France",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "Le 8 juillet 2026, la Commission européenne a décidé de saisir la Cour de justice de l’Union européenne contre la France, ainsi que contre l’Irlande, l’Espagne et les Pays-Bas, pour défaut de communication des mesures de transposition.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "La Commission demande une somme forfaitaire et des astreintes journalières",
+  "url": "https://www.forum-des-competences.org/loi-resilience-nis2/",
+  "extrait": "pour défaut de communication des mesures de transposition. Elle demande une somme forfaitaire et des astreintes journalières.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Mise à jour, loi Résilience : la confére"
+ },
+ {
+  "affirmation": "La suite comprend des suites bureautiques, un client de messagerie et le navigateur Chromium adapté à la cryptographie GOST",
+  "url": "https://www.basealt.ru/alt-office",
+  "extrait": "Включает офисные пакеты, почтовый клиент, браузер Chromium с поддержкой ГОСТ-криптографии, инструменты работы с электронной подписью",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Distinct d’un dépôt de droits d’auteur, le registre ouvre des avantages fiscaux sur les licences et cessions de droits et facilite l’accès aux marchés publics",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "This registry is different from a copyright registration. A record in the registry enables special tax breaks (which apply to software licensing and IP rights transfers), and supports participation in government contract tenders.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Le jugement aborde les licences copyleft, la norme d’État russe sur la documentation logicielle et la modification de logiciels",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "The court wrote about copyleft licenses, LibreOffice, the Russian state standard on software documentation, and software modification.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "Selon Heather Meeker, l’affaire n’était pas un litige sur le respect des licences, mais elle pourrait avoir des conséquences pour de tels litiges en Russie",
+  "url": "https://heathermeeker.com/2026/10/17/open-source-licensing-case-in-russia/",
+  "extrait": "This case was not an enforcement dispute, but it could have implications for such disputes in Russia",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Russie, droits sur un logiciel dérivé : "
+ },
+ {
+  "affirmation": "La licence OTN des mises à jour 21.0.13 et suivantes de JDK 21 diffère substantiellement des licences antérieures d’Oracle JDK 21",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "used for JDK 21 updates 21.0.13 and greater is substantially different from prior Oracle JDK 21 licenses",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Certains usages permis par les licences antérieures d’Oracle JDK peuvent ne plus l’être sous l’OTN",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "but other uses authorized under prior Oracle JDK licenses may no longer be available",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Après la période NFTC, les mises à jour de JDK 25 relèveront à leur tour de la licence OTN",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "Subsequent JDK 25 updates will be licensed under the Java SE OTN License (OTN)",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Les abonnés Java SE recevront des mises à jour de JDK 21 au moins jusqu’en septembre 2031",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "Java SE subscribers will receive JDK 21 updates until at least September 2031.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "La licence commerciale et le support sont proposés avec l’abonnement Java SE Universal Subscription",
+  "url": "https://www.oracle.com/java/technologies/downloads/",
+  "extrait": "Commercial license and support are available for a low cost with Java SE Universal Subscription.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "Le prochain correctif trimestriel d’Oracle est prévu le 19 janvier 2027",
+  "url": "https://www.oracle.com/security-alerts/",
+  "extrait": "Critical Patch Updates are released on the third Tuesday of January, April, July, and October. The next four dates are: 19 January 2027",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "Oracle JDK 21 : les mises à jour publiée"
+ },
+ {
+  "affirmation": "L’EN 18286 répond à la demande de normalisation C(2025) 3871 du 23 juin 2025 adressée par la Commission au CEN et au CENELEC",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602274",
+  "extrait": "Commission Implementing Decision C(2025) 3871 of 23 June 2025 on a standardisation request to the European Committee for",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "La demande de normalisation du 23 juin 2025 comporte un volet sur les systèmes de management de la qualité des fournisseurs, processus de surveillance après commercialisation compris",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602274",
+  "extrait": "on quality management systems for providers of AI systems, including post-market monitoring processes.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "La décision d’exécution (UE) 2026/2274 est datée du 12 octobre 2026",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602274",
+  "extrait": "COMMISSION IMPLEMENTING DECISION (EU) 2026/2274 of 12 October 2026 on the harmonised standards for high-risk AI systems",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "La décision est parue au Journal officiel le 14 octobre 2026",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602274",
+  "extrait": "Official Journal of the European Union EN L series 2026/2274 14.10.2026",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "La décision entre en vigueur le jour de sa publication au Journal officiel",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202602274",
+  "extrait": "shall enter into force on the day of its publication in the Official Journal",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Le système de management de la qualité de l’article 17 couvre la notification des incidents graves",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R1689-20260727",
+  "extrait": "procedures related to the reporting of a serious incident in accordance with Article 73",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Le système de management de la qualité de l’article 17 couvre la gestion des ressources, sécurité d’approvisionnement comprise",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R1689-20260727",
+  "extrait": "systems and procedures for record-keeping of all relevant documentation and information; (l) resource management, including security-of-supply related measures",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page ; les points (k) et (l) sont dans des cellules de tableau distinctes, la jonction du texte est à confirmer",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Un fournisseur déjà soumis à un système qualité au titre d’une législation sectorielle de l’Union peut y intégrer les exigences de l’article 17",
+  "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:02024R1689-20260727",
+  "extrait": "may include the aspects listed in paragraph 1 as part of the quality management systems pursuant to that law",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "EUR-Lex peut renvoyer au vérificateur une page vide (protection anti-robot) ; extrait lu via WebFetch sur cette même page",
+  "ref": "AI Act, première norme harmonisée : la C"
+ },
+ {
+  "affirmation": "Selon le CEN-CENELEC, la norme traduit les exigences de l’article 17 en exigences pratiques, vérifiables par audit",
+  "url": "https://www.cencenelec.eu/news-events/news/2026/en-in-the-spotlight/2026-10-15-en-18286-2026-published-in-ojeu/",
+  "extrait": "translating the quality management system requirements of Article 17 into practical, auditable requirements that providers of high-risk AI systems can readily apply.",
+  "ou": "synthese",
+  "verifie": "confirmé",
+  "raison": "",
+  "ref": "AI Act, première norme harmonisée : la C"
  }
 ]

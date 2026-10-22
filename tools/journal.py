@@ -893,7 +893,7 @@ def cout_option(ed, k, r, opt, prec):
     ample (1 par 0,1 pt sous 8,8), régularité d'une rubrique à l'autre."""
     fs, lh, pr, om = opt
     ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
-    c = 8 * pr * len(r['items']) + sum(6 if j < nd else 400 for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
+    c = COUT_PORTION * pr * len(r['items']) + sum(6 if j < nd else 400 for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
     if prec: c += 15 * abs(fs - prec[0]) + 60 * abs(lh - prec[1])
     return c
 
@@ -1038,6 +1038,7 @@ def placer(ed, M, st, bloc, cible):
         titre_fait, pos, p, y = True, pos2, p + 1, 0.0
 
 
+COUT_PORTION = float(os.environ.get('JOURNAL_COUT_PORTION', '8'))   # coût d'un niveau de portions facultatives retiré, par article
 AIR_MAX = 6 * MM   # blanc ajouté au plus au-dessus d'un titre (justification verticale d'une page)
 AIR_HAUT = 14 * MM  # blanc ajouté au plus dans la manchette et l’en-tête de la Une (quatre blancs)
 
