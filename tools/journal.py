@@ -36,7 +36,7 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-35'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-36'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -353,7 +353,7 @@ sup {{ font-size:70%; line-height:0 }}
 .mast > * {{ position:relative }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
-.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.6 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
+.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.35 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
 .mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
 /* bandeau « onglet » */
@@ -406,6 +406,7 @@ p.sp {{ text-indent:1em }} p.cont {{ text-indent:0 }} p.coupe {{ text-align-last
 .colo {{ display:table; width:100%; table-layout:fixed }}
 .colo-qr {{ display:table-cell; width:22mm; vertical-align:bottom }} .colo-qr .qr {{ display:block; width:22mm; height:22mm }}
 .colo-t {{ display:table-cell; vertical-align:bottom; padding-right:3mm; font:400 {colo_pt}pt/1.3 {SANS}; color:#4b5563; text-align:right; hyphens:manual; white-space:nowrap }}
+.colo-t a {{ color:inherit; text-decoration:none }}
 .colo-t .mq {{ font:400 1.9em/1 {SERIF}; color:{NAVY}; margin-bottom:.25em }} .colo-t .mq i {{ color:{ACC} }} .colo-t .mq span {{ font:600 .95em/1 {SANS} }} .nw {{ white-space:nowrap }}
 '''
 
@@ -452,8 +453,8 @@ def credit(ed):
             f'<div class="mq"><i>Software</i> <span>Compliance</span></div>'
             f'<p>Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}.<br>'
             f'Rédigée par une intelligence artificielle ({T(redac)}),<br>'
-            f'sans garantie d’exactitude\u00a0: pensez à croiser vos sources.<br>'
-            f'Édition en ligne avec sources\u00a0: {html.escape(url)}<br>'
+            f'sans garantie d’exactitude\u00a0: croisez toujours vos sources\u00a0!<br>'
+            f'Édition en ligne avec sources\u00a0: <a href="{html.escape(url)}">{html.escape(re.sub(r"^https?://", "", url).rstrip("/"))}</a><br>'
             f'©\u00a0{d[:4]} Rodolphe\u00a0Dejeunes, publié sous licence CC\u00a0BY\u00a04.0.</p></div>'
             f'<div class="colo-qr">{qr(url)}</div></div>')
 
@@ -966,6 +967,15 @@ def placer(ed, M, st, bloc, cible):
     while True:
         if p >= cible: return None
         dern_p = p == cible - 1
+        if bloc.get('derniere') and not titre_fait and not dern_p:   # le glossaire ne commence jamais avant la dernière page :
+            if p < cible - 2: return None                                # le bas de la page précédente s'aère (aerer())
+            W = HAUT - y
+            if W > .5:
+                plan, dc = aerer(plan, p, W, D)
+                if dc is None: return None
+                cout += dc
+            p, y = p + 1, 0.0
+            continue
         lim = geo['L'] if dern_p else HAUT
         y0 = y + (G_RUB if y > 1 else 0) + bloc['th'] + G_CHAPO if not titre_fait else y
         if dern_p and bloc['wrap']:
@@ -1083,7 +1093,7 @@ def bloc_lex(ed, M, n, longs=0):
             'th': M['h']['lex'], 'titre': ('lex',), 'wrap': False}
 
 
-def chercher(ed, M, cible=PAGES, largeur=200):
+def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False):
     """Recherche en faisceau, rubrique par rubrique, des réglages qui composent le journal sans défaut : Une, puis
     chaque rubrique (corps, interligne, portions facultatives, brèves omises), lexique en appoint, corps de l'agenda."""
     une, autres = une_autres(ed)
@@ -1166,15 +1176,18 @@ def chercher(ed, M, cible=PAGES, largeur=200):
     if lex_fin:
         nouv = []
         N = len(ed['sigles'])
-        for st in etats:
-            for n in range(N, max(5, N - 6), -1):   # tous les termes cités, ou presque
-                for longs in range(n, -1, -1):
-                    b = bloc_lex(ed, M, n, longs); b['wrap'] = True
-                    st3 = placer(ed, M, st, b, cible)
-                    if st3 is None or st3.p != cible - 1: continue
-                    st3.cout += .5 * (N - n) + .1 * (n - longs)
-                    st3.choix = st.choix + (('glossaire', n, longs),)
-                    nouv.append(st3)
+        def essais(ns, pas):
+            for st in etats:
+                for n in ns:
+                    for longs in range(n, -1, -pas):
+                        b = bloc_lex(ed, M, n, longs); b['wrap'] = True; b['derniere'] = not lex_libre
+                        st3 = placer(ed, M, st, b, cible)
+                        if st3 is None or st3.p != cible - 1: continue
+                        st3.cout += .5 * (N - n) + .1 * (n - longs)
+                        st3.choix = st.choix + (('glossaire', n, longs),)
+                        nouv.append(st3)
+        essais(range(N, max(5, N - 6), -1), 1)   # tous les termes cités, ou presque
+        if not nouv: essais(range(max(5, N - 6), 3, -2), 2)   # glossaire réduit à la place de la dernière page
         if os.environ.get('JOURNAL_TRACE'): print(f'  lexique : {len(nouv)} états', file=sys.stderr)
         if not nouv: return None
         etats = nouv
@@ -1372,7 +1385,7 @@ def jauge(d):
     """Jauge de rédaction (README, § 6, règle 9) : compose l'édition et dit combien de texte ajouter aux champs
     « papier » pour que le glossaire ne prenne pas plus de CIBLE_GLOSSAIRE, ou combien en retirer si l'édition déborde."""
     ed = preparer(d); M = mesurer(ed)
-    res = chercher(ed, M, PAGES)
+    res = chercher(ed, M, PAGES, lex_libre=True)   # glossaire libre de commencer avant la dernière page : sa hauteur mesure le manque
     if not res:
         print(f'{d} : l\'édition ne tient pas en {PAGES} pages : raccourcir les champs « papier » (portions facultatives d\'abord).'); return
     best, plan = res

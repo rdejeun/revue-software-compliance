@@ -10,7 +10,7 @@
   "« SBOM, normes et référentiels » : colonne justifiée de 5.4 mm (page 1)",
   "« France et UE » : colonne justifiée de 3.9 mm (page 3)"
  ],
- "glossaire_mm": 231,
+ "glossaire_mm": 202,
  "etat": {
   "choix": [
    [
@@ -46,9 +46,9 @@
    [
     "3",
     "8.8",
-    "1.36",
-    "1",
-    "(1, 3, 5)"
+    "1.32",
+    "0",
+    "(1, 3)"
    ],
    [
     "4",
@@ -60,19 +60,19 @@
    [
     "5",
     "8.8",
-    "1.34",
-    "2",
+    "1.3",
+    "0",
     "()"
    ],
    [
     "glossaire",
-    "50",
-    "46"
+    "49",
+    "36"
    ]
   ],
-  "cout": 1413.4,
+  "cout": 1670.5,
   "ess_pt": 13.25,
   "colo_pt": 7.0
  },
- "empreinte": "aa876131fa5f0a8f"
+ "empreinte": "d9ef214a696eee5f"
 }
