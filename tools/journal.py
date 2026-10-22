@@ -889,11 +889,11 @@ def options_rub(ed, k, r):
 
 
 def cout_option(ed, k, r, opt, prec):
-    """Préférences : contenu complet (portion retirée : 4 ; brève répétée par l'agenda omise : 6, autre : 40), corps
+    """Préférences : contenu complet (portion retirée : 8 par article ; brève répétée par l'agenda omise : 6, autre : 400, plus qu'une composition moins régulière mais sans défaut), corps
     ample (1 par 0,1 pt sous 8,8), régularité d'une rubrique à l'autre."""
     fs, lh, pr, om = opt
     ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
-    c = 8 * pr * len(r['items']) + sum(6 if j < nd else 150 for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
+    c = 8 * pr * len(r['items']) + sum(6 if j < nd else 400 for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
     if prec: c += 15 * abs(fs - prec[0]) + 60 * abs(lh - prec[1])
     return c
 
@@ -1093,7 +1093,7 @@ def bloc_lex(ed, M, n, longs=0):
             'th': M['h']['lex'], 'titre': ('lex',), 'wrap': False}
 
 
-def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False):
+def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
     """Recherche en faisceau, rubrique par rubrique, des réglages qui composent le journal sans défaut : Une, puis
     chaque rubrique (corps, interligne, portions facultatives, brèves omises), lexique en appoint, corps de l'agenda."""
     une, autres = une_autres(ed)
@@ -1158,6 +1158,8 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False):
     for k, r in enumerate(autres):
         nouv = []
         opts = options_rub(ed, k, r)
+        if complet: opts = [o for o in opts if o[2] == 0 and len(o[3]) <= ordre_omission(r['rappels'], ed['agenda'])[1]]   # contenu complet (jauge)
+        if os.environ.get('JOURNAL_SANS_OMISSION'): opts = [o for o in opts if len(o[3]) <= ordre_omission(r['rappels'], ed['agenda'])[1]]
         for st in etats:
             for opt in opts:
                 if REGLAGE_LIBRE == 0 and (opt[0] != st.prec[0] or abs(opt[1] - st.prec[1]) > .041): continue   # même corps partout ; interligne voisin de la rubrique précédente
@@ -1176,18 +1178,30 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False):
     if lex_fin:
         nouv = []
         N = len(ed['sigles'])
-        def essais(ns, pas):
-            for st in etats:
-                for n in ns:
-                    for longs in range(n, -1, -pas):
-                        b = bloc_lex(ed, M, n, longs); b['wrap'] = True; b['derniere'] = not lex_libre
-                        st3 = placer(ed, M, st, b, cible)
-                        if st3 is None or st3.p != cible - 1: continue
-                        st3.cout += .5 * (N - n) + .1 * (n - longs)
-                        st3.choix = st.choix + (('glossaire', n, longs),)
-                        nouv.append(st3)
-        essais(range(N, max(5, N - 6), -1), 1)   # tous les termes cités, ou presque
-        if not nouv: essais(range(max(5, N - 6), 3, -2), 2)   # glossaire réduit à la place de la dernière page
+        def essai(st, n, longs):
+            b = bloc_lex(ed, M, n, longs); b['wrap'] = True; b['derniere'] = not lex_libre
+            st3 = placer(ed, M, st, b, cible)
+            if st3 is None or st3.p != cible - 1: return None
+            st3.cout += .5 * (N - n) + .1 * (n - longs)
+            st3.choix = st.choix + (('glossaire', n, longs),)
+            return st3
+        # le glossaire est l'appoint : il perd ses termes les moins utiles (anciens, peu cités) plutôt que les articles
+        # leurs portions ou les brèves ; pour chaque nombre de termes, le plus grand nombre de définitions complètes qui
+        # tient (recherche dichotomique), et les deux suivants
+        for st in etats:
+            trouves = 0
+            for n in range(N, min(N, 8) - 1, -1):
+                if trouves >= 4: break
+                if essai(st, n, 0) is None: continue
+                lo, hi = 0, n
+                while lo < hi:
+                    mi = (lo + hi + 1) // 2
+                    if essai(st, n, mi) is None: hi = mi - 1
+                    else: lo = mi
+                for longs in range(lo, max(-1, lo - 3), -1):
+                    st3 = essai(st, n, longs)
+                    if st3 is not None: nouv.append(st3)
+                trouves += 1
         if os.environ.get('JOURNAL_TRACE'): print(f'  lexique : {len(nouv)} états', file=sys.stderr)
         if not nouv: return None
         etats = nouv
@@ -1382,20 +1396,43 @@ def preparer(d):
 
 
 def jauge(d):
-    """Jauge de rédaction (README, § 6, règle 9) : compose l'édition et dit combien de texte ajouter aux champs
-    « papier » pour que le glossaire ne prenne pas plus de CIBLE_GLOSSAIRE, ou combien en retirer si l'édition déborde."""
+    """Jauge de rédaction (README, § 6, règle 9) : compose l'édition avec tout son contenu (aucune portion facultative
+    coupée, aucune brève omise sinon celles que l'agenda répète), le glossaire libre de commencer avant la dernière
+    page. Si elle tient, la hauteur du glossaire au-delà de CIBLE_GLOSSAIRE dit combien de texte ajouter aux champs
+    « papier » ; sinon, l'édition déborde, et la jauge dit ce que la composition doit couper."""
     ed = preparer(d); M = mesurer(ed)
-    res = chercher(ed, M, PAGES, lex_libre=True)   # glossaire libre de commencer avant la dernière page : sa hauteur mesure le manque
+    res = chercher(ed, M, PAGES, lex_libre=True, complet=True)
+    if res:
+        best, plan = res
+        g = mesure_glossaire(M, plan)
+        ligne = 8.8 * 1.34 * PT
+        manque = max(0.0, g - CIBLE_GLOSSAIRE) * 4 / ligne   # lignes de colonne
+        print(f'{d} : tout le contenu tient ; glossaire de {g / MM:.0f} mm (pleine largeur), cible {CIBLE_GLOSSAIRE / MM:.0f} mm.')
+        if manque < 8: print('Remplissage atteint : rien à ajouter.')
+        else: print(f'Ajouter environ {manque:.0f} lignes de colonne, soit {manque * 6.5:.0f} mots, aux champs « papier » (nouveautés de forte cote '
+                    f'd\'abord, en portions facultatives {{{{2|…}}}} ou {{{{3|…}}}}), sans répéter ce que disent déjà l\'article, les autres articles ou les brèves.')
+        return
+    res = chercher(ed, M, PAGES, lex_libre=True)
     if not res:
-        print(f'{d} : l\'édition ne tient pas en {PAGES} pages : raccourcir les champs « papier » (portions facultatives d\'abord).'); return
-    best, plan = res
-    g = mesure_glossaire(M, plan)
-    ligne = 8.8 * 1.34 * PT
-    manque = max(0.0, g - CIBLE_GLOSSAIRE) * 4 / ligne   # lignes de colonne
-    print(f'{d} : glossaire de {g / MM:.0f} mm (pleine largeur), cible {CIBLE_GLOSSAIRE / MM:.0f} mm.')
-    if manque < 8: print('Remplissage atteint : rien à ajouter.')
-    else: print(f'Ajouter environ {manque:.0f} lignes de colonne, soit {manque * 6.5:.0f} mots, aux champs « papier » (nouveautés de forte cote '
-                f'd\'abord, en portions facultatives {{{{2|…}}}} ou {{{{3|…}}}}), sans répéter ce que disent déjà l\'article, les autres articles ou les brèves.')
+        print(f'{d} : l\'édition ne tient pas en {PAGES} pages, même réduite : raccourcir le socle des champs « papier ».'); return
+    une, autres = une_autres(ed); var = variantes(ed)
+    mots = lambda t: len(re.findall(r"\w+(?:[’'-]\w+)*", t))
+    coupe, details = 0, []
+    for c in res[0].choix:
+        if not isinstance(c[0], int): continue
+        k, fs, lh, pr, om = c; r = autres[k]
+        for it in r['items']:
+            v = var.get(it['id'], []); garde = max(min(1, len(v)), len(v) - pr)
+            for (nom, _) in v[garde:]:
+                n = int(nom[-1]) if nom[-1].isdigit() else 0
+                w = sum(mots(x) for x in re.findall(r'\{\{' + str(n) + r'\|(.*?)\}\}', it['sum'].get('papier', ''), re.S)) if n else 0
+                if w: coupe += w; details.append(f'{it["sum"]["titre"][:50]} : niveau {n}, {w} mots')
+        ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
+        for j in om[nd:]: details.append(f'brève omise ({r["label"]}) : « {accroche(corps(r["rappels"][j]["segs"])[0])[:60]}… »')
+    print(f'{d} : l\'édition déborde : pour tenir en {PAGES} pages, la composition coupe {coupe} mots de portions facultatives.')
+    for x in details: print('  - ' + x)
+    print('Rien à ajouter. Ces portions sont coupées à l\'impression (elles restent possibles) ; si une brève est omise, '
+          f'raccourcir les champs « papier » d\'environ {coupe // 2} mots (portions de niveau 3 d\'abord).')
 
 
 def produire(d, sortie=None):
