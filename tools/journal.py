@@ -453,7 +453,7 @@ def credit(ed):
             f'<div class="mq"><i>Software</i> <span>Compliance</span></div>'
             f'<p>Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}.<br>'
             f'Rédigée par une intelligence artificielle ({T(redac)}),<br>'
-            f'qui peut se tromper\u00a0: pensez à croiser vos sources.<br>'
+            f'qui peut faire des erreurs\u00a0: pensez à croiser vos sources.<br>'
             f'Édition en ligne avec sources\u00a0: <a href="{html.escape(url)}">{html.escape(re.sub(r"^https?://", "", url).rstrip("/"))}</a><br>'
             f'©\u00a0{d[:4]} Rodolphe\u00a0Dejeunes, publié sous licence CC\u00a0BY\u00a04.0.</p></div>'
             f'<div class="colo-qr">{qr(url)}</div></div>')
