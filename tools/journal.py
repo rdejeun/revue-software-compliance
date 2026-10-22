@@ -11,6 +11,7 @@ recherche en faisceau choisit, rubrique par rubrique, corps (8,5 à 8,8 pt), int
 facultatives et brèves (d'abord celles que l'agenda répète), et l'étendue du glossaire.
 
 Usage : python3 tools/journal.py [AAAA-MM-JJ …]   (défaut : dernière édition)
+        python3 tools/journal.py --jauge [AAAA-MM-JJ]   (rédaction : texte à ajouter aux champs « papier » pour remplir les pages)
 Écrit build/AAAA-MM-JJ/revue-AAAA-MM-JJ.pdf (A4, 4 pages) et revue-AAAA-MM-JJ-a3.pdf (A3 imposé : recto 4|1, verso 2|3).
 Dépendances : weasyprint, pypdf ; qrcode (code QR du crédit).
 """
@@ -228,16 +229,33 @@ def court(de):
     return de
 
 
-def sigles(texte_html):
-    """Sigles et termes du glossaire cités dans le texte : [(nom, définition courte, nombre de citations, définition complète)] ; pour une entrée
-    nommée en toutes lettres mais repérée par son sigle (« CRA » : Cyber Resilience Act), le sigle et son nom."""
+def texte_anterieur(d):
+    """Texte de toutes les éditions antérieures à d (éléments et synthèses), pour savoir si un terme y figurait déjà."""
+    out = []
+    def walk(x):
+        if isinstance(x, str): out.append(x)
+        elif isinstance(x, dict):
+            for k, v in x.items():
+                if k not in ('href', 'type', 'k', 'attrs'): walk(v)
+        elif isinstance(x, list):
+            for v in x: walk(v)
+    for p_ in sorted(glob.glob(os.path.join(CONTENT, '*', 'blocks.json'))):
+        if os.path.basename(os.path.dirname(p_)) < d: walk(json.load(open(p_, encoding='utf-8')))
+    return ' '.join(out)
+
+
+def sigles(texte_html, avant=''):
+    """Sigles et termes du glossaire cités dans le texte : [(nom, définition courte, nombre de citations, définition
+    complète, nouveau)] ; nouveau : le terme n'apparaissait dans aucune édition antérieure (avant : leur texte). Pour une
+    entrée nommée en toutes lettres mais repérée par son sigle (« CRA » : Cyber Resilience Act), le sigle et son nom."""
     plain = re.sub(r'<[^>]+>', ' ', texte_html)
+    neuf = lambda rx: not re.search(r'(?<![\w-])(' + rx + r')(?![\w])', avant)
     vus, h = set(), []
     sig = lambda x: re.fullmatch(r'[A-Z][A-Z0-9-]{1,9}', x)
     for rx, lab, de, _u in G:
         if not sig(rx):   # terme nommé en toutes lettres (outil, organisation, texte)
             n = len(re.findall(r'(?<![\w-])(' + rx + r')(?![\w])', plain))
-            if n and lab not in vus: vus.add(lab); h.append((lab, court(de), n, sans_ital(de).strip()))
+            if n and lab not in vus: vus.add(lab); h.append((lab, court(de), n, sans_ital(de).strip(), neuf(rx)))
             continue
         nom, dfn = (lab, court(de)) if sig(lab) else (rx, re.sub(r'\s*\(' + rx + r'\)', '', lab))   # « Norme européenne (EN) »
         if re.search(r'\b' + rx + r'\b', dfn) and not sig(lab): dfn = court(de)   # « Licence OTN » : sa définition
@@ -245,7 +263,7 @@ def sigles(texte_html):
         n = len(re.findall(r'(?<![\w-])(' + rx + r')(?![\w])', plain))
         long_ = sans_ital(de).strip()
         if not sig(lab) and not long_.lower().startswith(dfn.lower()[:12]): long_ = f'{dfn}. {long_}'
-        if n: vus.add(nom); h.append((nom, dfn, n, long_))
+        if n: vus.add(nom); h.append((nom, dfn, n, long_, neuf(rx)))
     return h
 
 
@@ -293,11 +311,14 @@ W4 = (LARG - 3 * GOUT) / 4   # colonne du journal (quatre colonnes)
 W3 = (LARG - 2 * GOUT) / 3   # colonne de la Une (trois colonnes)
 W2 = 2 * W4 + GOUT           # deux colonnes : agenda, crédit
 TITRE_PT = 11.6              # titres d'article
+CREDIT_PT = 7.0              # crédit (taille fixe : cinq lignes à côté du code QR)
+MONO_H = 21 * 96 / 25.4      # monogramme de la manchette
+MONO_X = 2.17 * 96 / 25.4               # décalage à droite : sa marge au bord gauche de la feuille égale sa marge au bord haut
 FS_LIST = (8.5, 8.6, 8.7, 8.8)                  # corps des paragraphes, réglé par rubrique
 LH_LIST = (1.30, 1.32, 1.34, 1.36, 1.38)  # interligne de base, réglé par rubrique
 LH_MAX = 1.40   # interligne maximal, justification verticale comprise
 REGLAGE_LIBRE = int(os.environ.get("JOURNAL_LIBRE", "1"))   # 1 : corps et interligne réglés rubrique par rubrique
-AG_PT = (8.0, 8.25, 8.5, 8.75)                  # corps de l'agenda
+AG_PT = (8.0, 8.25, 8.5, 8.75, 9.0, 9.25)      # corps de l'agenda
 ECART = {'titre': 0.0, 'par': 0.0, 'art': 4.4 * MM, 'bref': 2 * MM, 'lex': .8 * MM}   # blancs avant un élément (voir blanc())
 EXTENSIBLE = {'par', 'art', 'bref', 'lex'}       # blancs que la justification verticale peut agrandir
 G_RUB, G_CHAPO, G_BAS, G_AG = 4.2 * MM, 2.6 * MM, 4.2 * MM, 1.8 * MM
@@ -316,6 +337,8 @@ def css(meta, ed):
 @page :left {{ @bottom-left {{ content:counter(page); font:700 9pt {SANS}; color:{NAVY}; vertical-align:top; padding-top:.6mm }}
               @bottom-right {{ content:"{pied}"; font:400 7.5pt {SANS}; color:#6b7280; vertical-align:top; padding-top:1mm }} }}
 @page :first {{ @bottom-left {{ content:none }} @bottom-right {{ content:none }} }}
+@page derniere {{ @bottom-right {{ content:none }} }}   /* dernière page : le crédit dit déjà le titre et la date ; folio seul */
+.pg.dern {{ page:derniere }}
 html {{ font-family:{SERIF}; font-size:8.5pt; line-height:1.3; color:#1b1f27; hyphens:auto; -webkit-hyphens:auto; orphans:1; widows:1 }}
 body {{ margin:0 }}
 p, h1, h2, h3, ul {{ margin:0 }}
@@ -330,7 +353,7 @@ sup {{ font-size:70%; line-height:0 }}
 .mast > * {{ position:relative }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
-.mast .mono {{ position:absolute; left:0; top:{(38 * PT - 16 * MM) / 2:.2f}px; height:16mm; width:auto }}   /* monogramme « SC », sans fond, centré sur la ligne du titre */
+.mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.6 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
 .mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
 /* bandeau « onglet » */
@@ -348,11 +371,11 @@ sup {{ font-size:70%; line-height:0 }}
 .som a::after {{ content:leader(".") target-counter(attr(href), page); color:{ACC}; font-weight:600 }}
 /* Une */
 .une-h {{ margin:0 0 1.2mm; font:700 24pt/1.08 {SERIF}; color:{NAVY}; letter-spacing:-.01em; hyphens:manual }}
-.une-k {{ font:700 7.5pt {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:1mm }}
+.une-k {{ font:700 8.2pt {SANS}; letter-spacing:.18em; text-transform:uppercase; color:{ACC}; margin-bottom:1mm }}
 .une-c {{ font:11pt/1.35 {SERIF}; color:#374151; padding-bottom:2.6mm; hyphens:manual }}
 /* titres de rubrique */
 h2.rub {{ padding-top:1.4mm; border-top:1.6pt solid {NAVY}; font:700 13pt/1.15 {SERIF}; color:{NAVY}; text-align:left; hyphens:manual }}
-h2.rub span {{ display:inline-block; margin-right:2mm; padding:.4mm 1.6mm; background:{ACC}; color:#fff; font:700 7.2pt/1.3 {SANS}; letter-spacing:.14em; text-transform:uppercase; vertical-align:2pt }}
+h2.rub span {{ display:inline-block; margin-right:2mm; padding:.4mm 1.6mm; background:{ACC}; color:#fff; font:700 7.9pt/1.3 {SANS}; letter-spacing:.14em; text-transform:uppercase; vertical-align:2pt }}
 .rub-c {{ font:italic 9.6pt/1.32 {SERIF}; color:#4b5563; margin-top:1.4mm; text-align:left; hyphens:manual }}
 /* colonnes */
 .col {{ text-align:justify }}
@@ -378,11 +401,11 @@ p.sp {{ text-indent:1em }} p.cont {{ text-indent:0 }} p.coupe {{ text-align-last
 .ag-th {{ font-weight:700; font-family:{SANS}; line-height:1.2; letter-spacing:.1em; text-transform:uppercase; color:#7d6c47; margin-bottom:.4mm; hyphens:manual }}
 .ag-q {{ line-height:1.25 }}
 /* lexique */
-.lx {{ font-size:{PETIT_MIN}pt; line-height:1.26; text-align:left; padding-left:1.2em; text-indent:-1.2em }} .lx b {{ font:700 .95em {SANS}; color:{NAVY} }}
+.lx {{ font-size:{PETIT_MIN}pt; line-height:1.32; text-align:left }} .lx b {{ font:700 .95em {SANS}; color:{NAVY} }}
 /* crédit */
 .colo {{ display:table; width:100%; table-layout:fixed }}
 .colo-qr {{ display:table-cell; width:22mm; vertical-align:bottom }} .colo-qr .qr {{ display:block; width:22mm; height:22mm }}
-.colo-t {{ display:table-cell; vertical-align:bottom; padding-right:3mm; font:400 {colo_pt}pt/1.3 {SANS}; color:#4b5563; text-align:right; hyphens:manual }}
+.colo-t {{ display:table-cell; vertical-align:bottom; padding-right:3mm; font:400 {colo_pt}pt/1.3 {SANS}; color:#4b5563; text-align:right; hyphens:manual; white-space:nowrap }}
 .colo-t .mq {{ font:400 1.9em/1 {SERIF}; color:{NAVY}; margin-bottom:.25em }} .colo-t .mq i {{ color:{ACC} }} .colo-t .mq span {{ font:600 .95em/1 {SANS} }} .nw {{ white-space:nowrap }}
 '''
 
@@ -421,13 +444,17 @@ def titre_html(k, r):
 
 
 def credit(ed):
+    """Crédit, en cinq lignes, à gauche du code QR de l'édition en ligne."""
     m = ed['meta']; d = m['date_iso']
     url = f'{m.get("site", "https://revue.dejeun.es/").rstrip("/")}/{d}/'
+    redac = re.sub(r'^Anthropic\s+', '', m.get('redaction', 'Claude'))
     return (f'<div class="colo" id="colo"><div class="colo-t" id="colo-t">'
             f'<div class="mq"><i>Software</i> <span>Compliance</span></div>'
-            f'<p>Revue de presse hebdomadaire, N° {m["n"]} du {T(m["date"])}. Rédigée par une intelligence artificielle '
-            f'({T(m.get("redaction", "Anthropic Claude"))}) à partir des sources citées ; des erreurs sont possibles. '
-            f'Édition en ligne, liens et sources : {html.escape(url)} · <span class="nw">© {d[:4]} Rodolphe Dejeunes</span> · CC BY 4.0</p></div>'
+            f'<p>Revue de presse hebdomadaire, N°\u00a0{m["n"]} du {T(m["date"])}.<br>'
+            f'Rédigée par une intelligence artificielle ({T(redac)}),<br>'
+            f'sans garantie d’exactitude\u00a0: pensez à croiser vos sources.<br>'
+            f'Édition en ligne avec sources\u00a0: {html.escape(url)}<br>'
+            f'©\u00a0{d[:4]} Rodolphe\u00a0Dejeunes, publié sous licence CC\u00a0BY\u00a04.0.</p></div>'
             f'<div class="colo-qr">{qr(url)}</div></div>')
 
 
@@ -594,7 +621,7 @@ def mesurer(ed):
             parts.append(f'<div style="width:{w:.3f}px">' + rappels_html(garde, set()).replace('<aside class="rap"', f'<aside class="rap" data-b="{k}|{d}"', 1) + '</div>')
         if k != 'une': parts.append(f'<div data-h="{k}" style="width:{LARG:.3f}px">{titre_html(k, r)}</div>')
     parts.append(f'<div data-h="lex" style="width:{LARG:.3f}px"><h2 class="rub" id="r-lexique"><span>Glossaire</span> Sigles et termes cités</h2></div>')
-    for i, (lab, de, _n, lg) in enumerate(ed.get('sigles') or []):
+    for i, (lab, de, _n, lg, _neuf) in enumerate(ed.get('sigles') or []):
         parts.append(f'<div style="width:{W4:.3f}px"><p class="lx" data-x="c{i}"><b>{T(lab)}</b> {T(de)}</p></div>')
         parts.append(f'<div style="width:{W4:.3f}px"><p class="lx" data-x="l{i}"><b>{T(lab)}</b> {T(lg)}</p></div>')
     for pt in AG_PT:
@@ -685,9 +712,10 @@ def unites_rub(ed, M, k, r, fs, prof, omis):
 
 
 def unites_lex(ed, M, n, longs=0):
-    """Entrées du glossaire : les n termes les plus cités, dans l'ordre alphabétique ; les « longs » plus cités d'entre
-    eux avec leur définition complète, les autres avec leur développement ou une définition courte."""
-    sg = sorted(enumerate(ed.get('sigles') or []), key=lambda x: (-x[1][2], x[1][0]))[:n]
+    """Entrées du glossaire : n termes, d'abord ceux qui apparaissent pour la première fois dans ce numéro, puis les
+    plus cités ; présentés dans l'ordre alphabétique ; les « longs » premiers avec leur définition complète, les autres
+    avec leur développement ou une définition courte."""
+    sg = sorted(enumerate(ed.get('sigles') or []), key=lambda x: (not x[1][4], -x[1][2], x[1][0]))[:n]
     lg = {i for i, _x in sg[:longs]}
     garde = sorted(sg, key=lambda x: x[1][0].lower())
     us = ListeU(Unite('x', f'<p class="lx"><b>{T(x[0])}</b> {T(x[3] if i in lg else x[1])}</p>', h=M['x'][f'{"l" if i in lg else "c"}{i}'], ecart='lex') for i, x in garde)
@@ -838,6 +866,8 @@ def penalite_col(us, parts, H, y, lh_px):
     if not g and not nl and not bref_bas(us, parts): return 40 * s / MM, s
     b, e, f = partage_col(us, parts, s, lh_px)
     fm = fmax(us, lh_px)
+    if us[0].kind == 'x' and g:   # glossaire : le blanc entre les entrées peut s'ouvrir jusqu'à 2 mm sans se voir
+        return .4 * s / MM + (30 * (e / MM - 2) * g if e > 2 * MM else 0), s
     pen = .8 * s / MM + .3 * b / MM + (40 * (b / MM - 3) if b > B_SOUPLE + .5 else 0)
     pen += (30 * (e / MM - .6) * g if e > G_SOUPLE else 0) + (300 * (f - fm) / MM * nl if f > fm + .01 else 0)
     return pen, s
@@ -919,7 +949,7 @@ def cout_cols(us, cols, cibles, nom, p, D, lh_px):
         c += pen
         if s > .5:
             b, e, f = partage_col(us, parts, s, lh_px)
-            if e > 1.5 * MM or f > fmax(us, lh_px) + .08 * MM or b > B_SOUPLE + .5 * MM:   # au-delà, la justification verticale se voit
+            if e > (2.2 if us[0].kind == 'x' else 1.5) * MM or f > fmax(us, lh_px) + .08 * MM or b > B_SOUPLE + .5 * MM:   # au-delà, la justification verticale se voit
                 D.append(f'{nom} : colonne justifiée de {s / MM:.1f} mm (page {p + 1})')
     return c
 
@@ -1049,7 +1079,7 @@ _CACHE_LU = {}
 def bloc_lex(ed, M, n, longs=0):
     if (n, longs) not in _CACHE_LU: _CACHE_LU[(n, longs)] = unites_lex(ed, M, n, longs)
     us = _CACHE_LU[(n, longs)]
-    return {'cle': ('lex', n, longs), 'nom': 'Lexique', 'us': us, 'lh_px': 1.26 * PETIT_MIN * PT, 'fs': PETIT_MIN,
+    return {'cle': ('lex', n, longs), 'nom': 'Lexique', 'us': us, 'lh_px': 1.32 * PETIT_MIN * PT, 'fs': PETIT_MIN,
             'th': M['h']['lex'], 'titre': ('lex',), 'wrap': False}
 
 
@@ -1228,7 +1258,7 @@ def html_plan(ed, M, plan, geo, cible):
         elif kind == 'credit':
             pages[p].append(f'<div class="abs" style="top:{HAUT - M["colo"]:.2f}px;left:{W2 + GOUT:.2f}px;width:{W2:.2f}px">{credit(ed)}</div>')
     m = ed['meta']
-    return doc_html(ed, ''.join(f'<section class="pg">{"".join(x)}</section>' for x in pages), f'Software Compliance – N° {m["n"]} – {m["date"]}')
+    return doc_html(ed, ''.join(f'<section class="pg{" dern" if n == len(pages) - 1 else ""}">{"".join(x)}</section>' for n, x in enumerate(pages)), f'Software Compliance – N° {m["n"]} – {m["date"]}')
 
 
 def verifier(doc, cible):
@@ -1318,6 +1348,43 @@ def empreinte(d):
 
 
 
+CIBLE_GLOSSAIRE = 70 * MM   # hauteur visée du glossaire (pleine largeur) : le reste des quatre pages revient aux articles
+
+
+def mesure_glossaire(M, plan):
+    """Hauteur pleine largeur (px) qu'occupe le glossaire dans un plan composé, titre compris."""
+    h = 0.0
+    for it in plan:
+        if it[0] == 'cols' and it[5] and it[5][0].kind == 'x': h += sum(x[2] for x in it[3]) / len(it[3])
+        elif it[0] == 'titre' and it[3][0] == 'lex': h += M['h']['lex'] + G_CHAPO
+    return h
+
+
+def preparer(d):
+    ed = lire(d)
+    ed['sigles'] = sigles(''.join(x for r in ed['rubriques'] for it in r['items'] for x in morceaux(it, set(blocs(ed))))
+                          + ''.join(corps(x['segs'])[0] for r in ed['rubriques'] for x in r['rappels']), texte_anterieur(d))
+    taille_essentiel(ed); ed['colo_pt'] = CREDIT_PT
+    return ed
+
+
+def jauge(d):
+    """Jauge de rédaction (README, § 6, règle 9) : compose l'édition et dit combien de texte ajouter aux champs
+    « papier » pour que le glossaire ne prenne pas plus de CIBLE_GLOSSAIRE, ou combien en retirer si l'édition déborde."""
+    ed = preparer(d); M = mesurer(ed)
+    res = chercher(ed, M, PAGES)
+    if not res:
+        print(f'{d} : l\'édition ne tient pas en {PAGES} pages : raccourcir les champs « papier » (portions facultatives d\'abord).'); return
+    best, plan = res
+    g = mesure_glossaire(M, plan)
+    ligne = 8.8 * 1.34 * PT
+    manque = max(0.0, g - CIBLE_GLOSSAIRE) * 4 / ligne   # lignes de colonne
+    print(f'{d} : glossaire de {g / MM:.0f} mm (pleine largeur), cible {CIBLE_GLOSSAIRE / MM:.0f} mm.')
+    if manque < 8: print('Remplissage atteint : rien à ajouter.')
+    else: print(f'Ajouter environ {manque:.0f} lignes de colonne, soit {manque * 6.5:.0f} mots, aux champs « papier » (nouveautés de forte cote '
+                f'd\'abord, en portions facultatives {{{{2|…}}}} ou {{{{3|…}}}}), sans répéter ce que disent déjà l\'article, les autres articles ou les brèves.')
+
+
 def produire(d, sortie=None):
     """Produit les deux PDF de l'édition d dans sortie (défaut build/d) ; cache dans build/pdf-cache. Renvoie un résumé ;
     sa clé « defauts » liste les défauts de mise en page qui subsistent (la page de l'édition ne propose alors pas le PDF)."""
@@ -1337,10 +1404,7 @@ def produire(d, sortie=None):
         shutil.copy(a4, c4); shutil.copy(a3, c3); shutil.copy(vj, cj)
         return json.load(open(vj, encoding='utf-8'))
     t0 = time.time()
-    ed = lire(d)
-    ed['sigles'] = sigles(''.join(x for r in ed['rubriques'] for it in r['items'] for x in morceaux(it, set(blocs(ed))))
-                          + ''.join(corps(x['segs'])[0] for r in ed['rubriques'] for x in r['rappels']))
-    taille_essentiel(ed); taille_credit(ed)
+    ed = preparer(d)
     M = mesurer(ed)
     t1 = time.time()
     res, cible = None, PAGES
@@ -1362,14 +1426,18 @@ def produire(d, sortie=None):
     choix = [list(map(str, c)) for c in best.choix]
     print(f'  mesures {t1 - t0:.0f} s, composition {time.time() - t1:.0f} s, coût {best.cout:.0f} ; réglages {best.choix}', file=sys.stderr)
     info = {'edition': d, 'pages': len(doc.pages), 'cahier': cible, 'blocs': f'{sum(len(variantes(ed).get(it["id"], [])) for r in ed["rubriques"] for it in r["items"])}',
-            'remplissage': 1.0, 'defauts': defauts, 'remarques': remarques, 'etat': {'choix': choix, 'cout': round(best.cout, 1), 'ess_pt': ed['ess_pt'], 'colo_pt': ed['colo_pt']}, 'empreinte': e}
+            'remplissage': 1.0, 'defauts': defauts, 'remarques': remarques, 'glossaire_mm': round(mesure_glossaire(M, plan) / MM), 'etat': {'choix': choix, 'cout': round(best.cout, 1), 'ess_pt': ed['ess_pt'], 'colo_pt': ed['colo_pt']}, 'empreinte': e}
     shutil.copy(a4, c4); shutil.copy(a3, c3); json.dump(info, open(cj, 'w'), ensure_ascii=False)
     os.makedirs(v, exist_ok=True); shutil.copy(a4, v4); json.dump(info, open(vj, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     return info
 
 
 def main():
-    eds = sys.argv[1:] or sorted(x for x in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', x))[-1:]
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    eds = args or sorted(x for x in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', x))[-1:]
+    if '--jauge' in sys.argv:
+        for d in eds: jauge(d)
+        return
     for d in eds:
         i = produire(d)
         print(f"{d} : {i['pages']} pages (cahier de {i['cahier']}) ; défauts : {'; '.join(i.get('defauts') or []) or 'aucun'} ; remarques : {'; '.join(i.get('remarques') or []) or 'aucune'}")
