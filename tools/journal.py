@@ -330,6 +330,7 @@ sup {{ font-size:70%; line-height:0 }}
 .mast > * {{ position:relative }}
 .mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
+.mast .mono {{ position:absolute; left:0; top:{(38 * PT - 16 * MM) / 2:.2f}px; height:16mm; width:auto }}   /* monogramme « SC », sans fond, centré sur la ligne du titre */
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
 .mast .st {{ margin-top:2mm; font:italic 9.5pt {SERIF}; color:#374151 }}
 /* bandeau « onglet » */
@@ -399,7 +400,9 @@ def haut_html(ed):
     som = [f'<a href="#r{k}">{T(toc[k] if len(toc) == len(autres) else r["label"])}</a>' for k, r in enumerate(autres)]
     if ed.get('sigles'): som.append('<a href="#r-lexique">Glossaire</a>')
     if ed['agenda']: som.append('<a href="#r-agenda">Agenda</a>')
-    h = (f'<header class="mast"><div class="ey">Revue de presse hebdomadaire</div><h1><i>Software</i> <span>Compliance</span></h1>'
+    mono = os.path.join(TOOLS, 'monogramme.png')
+    h = (f'<header class="mast"><div class="ey">Revue de presse hebdomadaire</div>'
+         f'<div class="tl"><img class="mono" src="file://{mono}" alt=""><h1><i>Software</i> <span>Compliance</span></h1></div>'
          f'<div class="st">L’essentiel de la conformité des logiciels embarqués dans les produits de défense</div></header>'
          f'<div class="band"><span class="n">N° {m["n"]} – {T(m.get("date_long", m["date"]))}</span><span class="r">Revue de presse hebdomadaire, tous les mardis</span></div>'
          f'<div class="top"><div class="ess"><div class="ess-in"><p class="l">{T(ed["chapo"])}</p></div></div><div class="gout"></div>'
@@ -1308,7 +1311,8 @@ def complet(h, pdf):
 def empreinte(d):
     hsh = hashlib.sha256(VERSION.encode())
     for f in [os.path.join(CONTENT, d, 'blocks.json'), os.path.join(CONTENT, d, 'meta.json'), __file__,
-              os.path.join(TOOLS, 'commun.py'), os.path.join(TOOLS, 'glossary.py'), os.path.join(TOOLS, 'en-tete.webp')]:
+              os.path.join(TOOLS, 'commun.py'), os.path.join(TOOLS, 'glossary.py'), os.path.join(TOOLS, 'en-tete.webp'),
+              os.path.join(TOOLS, 'monogramme.png')]:
         hsh.update(open(f, 'rb').read())
     return hsh.hexdigest()[:16]
 
@@ -1347,14 +1351,18 @@ def produire(d, sortie=None):
     best, plan = res
     h = html_plan(ed, M, plan, best.geo, cible)
     doc = rendu(h)
-    defauts = list(dict.fromkeys(x for lot in liste(best.defauts) for x in lot)) + verifier(doc, cible)
+    tous = list(dict.fromkeys(x for lot in liste(best.defauts) for x in lot)) + verifier(doc, cible)
+    def mineur(t):   # justification verticale de moins d'une ligne : remarque, pas défaut
+        m = re.search(r'colonne justifiée de ([\d.]+) mm', t)
+        return bool(m and float(m[1]) <= 6) or t.startswith('agenda : interligne')
+    defauts, remarques = [t for t in tous if not mineur(t)], [t for t in tous if mineur(t)]
     doc.write_pdf(a4)
     complet(h, a4)
     imposer(a4, a3)
     choix = [list(map(str, c)) for c in best.choix]
     print(f'  mesures {t1 - t0:.0f} s, composition {time.time() - t1:.0f} s, coût {best.cout:.0f} ; réglages {best.choix}', file=sys.stderr)
     info = {'edition': d, 'pages': len(doc.pages), 'cahier': cible, 'blocs': f'{sum(len(variantes(ed).get(it["id"], [])) for r in ed["rubriques"] for it in r["items"])}',
-            'remplissage': 1.0, 'defauts': defauts, 'etat': {'choix': choix, 'cout': round(best.cout, 1), 'ess_pt': ed['ess_pt'], 'colo_pt': ed['colo_pt']}, 'empreinte': e}
+            'remplissage': 1.0, 'defauts': defauts, 'remarques': remarques, 'etat': {'choix': choix, 'cout': round(best.cout, 1), 'ess_pt': ed['ess_pt'], 'colo_pt': ed['colo_pt']}, 'empreinte': e}
     shutil.copy(a4, c4); shutil.copy(a3, c3); json.dump(info, open(cj, 'w'), ensure_ascii=False)
     os.makedirs(v, exist_ok=True); shutil.copy(a4, v4); json.dump(info, open(vj, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     return info
@@ -1364,7 +1372,7 @@ def main():
     eds = sys.argv[1:] or sorted(x for x in os.listdir(CONTENT) if re.fullmatch(r'\d{4}-\d{2}-\d{2}', x))[-1:]
     for d in eds:
         i = produire(d)
-        print(f"{d} : {i['pages']} pages (cahier de {i['cahier']}) ; défauts : {'; '.join(i.get('defauts') or []) or 'aucun'}")
+        print(f"{d} : {i['pages']} pages (cahier de {i['cahier']}) ; défauts : {'; '.join(i.get('defauts') or []) or 'aucun'} ; remarques : {'; '.join(i.get('remarques') or []) or 'aucune'}")
 
 
 if __name__ == '__main__':

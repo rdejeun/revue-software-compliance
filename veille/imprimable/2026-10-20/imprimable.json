@@ -4,7 +4,8 @@
  "cahier": 4,
  "blocs": "41",
  "remplissage": 1.0,
- "defauts": [
+ "defauts": [],
+ "remarques": [
   "« SBOM, normes et référentiels » : colonne justifiée de 1.2 mm (page 1)",
   "« SBOM, normes et référentiels » : colonne justifiée de 5.4 mm (page 1)",
   "« France et UE » : colonne justifiée de 3.9 mm (page 3)"
@@ -72,5 +73,5 @@
   "ess_pt": 13.25,
   "colo_pt": 7.0
  },
- "empreinte": "85e133d74eaa3ead"
+ "empreinte": "61856a8f0c9198c2"
 }
