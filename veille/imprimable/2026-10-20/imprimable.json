@@ -3,30 +3,15 @@
  "pages": 4,
  "cahier": 4,
  "corps_pt": 8.5,
- "blocs": "44/45",
+ "blocs": "41/41",
  "remplissage": 0.99,
- "lexique": false,
+ "lexique": true,
+ "defauts": [],
  "etat": {
   "incl": [
    [
-    "detail",
-    "a0"
-   ],
-   [
-    "detail",
-    "a3"
-   ],
-   [
-    "detail",
-    "a4"
-   ],
-   [
-    "detail",
-    "a6"
-   ],
-   [
-    "detail",
-    "a7"
+    "lexique",
+    ""
    ],
    [
     "papier",
@@ -145,6 +130,10 @@
     "e23.0"
    ],
    [
+    "papier2",
+    "e8.0"
+   ],
+   [
     "papier3",
     "e11.0"
    ],
@@ -183,25 +172,65 @@
    [
     "papier3",
     "e23.0"
+   ],
+   [
+    "papier3",
+    "e8.0"
    ]
   ],
-  "insecables": [],
-  "moins": {},
+  "reglages": {
+   "une": [
+    1.38,
+    8.8,
+    3
+   ],
+   "0": [
+    1.4,
+    8.8,
+    3
+   ],
+   "1": [
+    1.35,
+    8.65,
+    4
+   ],
+   "2": [
+    1.4,
+    8.8,
+    3
+   ],
+   "3": [
+    1.4,
+    8.8,
+    4
+   ],
+   "4": [
+    1.4,
+    8.8,
+    3
+   ],
+   "5": [
+    1.4,
+    8.8,
+    2
+   ],
+   "ag": [
+    0.75
+   ],
+   "bd": [
+    0,
+    2,
+    3,
+    4
+   ]
+  },
+  "ag_coupe": 4,
+  "espace_mm": 1.9,
+  "gap_d_mm": 0.0,
   "ess_pt": 12.25,
   "colo_pt": 7.0,
-  "k_split": 4,
-  "gap_g": 0,
-  "h_suite": 348.29142055241243,
-  "lh_suite": 1.4,
-  "ag_pad": 0.0,
-  "mots_b": 0,
-  "lh_dern": 1.4,
-  "rub_dern": [
-   5
-  ],
-  "lh_rub": {
-   "0": 1.4
-  }
+  "lex_apres": 3,
+  "lex_n": 28
  },
- "empreinte": "940a716339e88508"
+ "empreinte": "9c151fc68231637e"
 }

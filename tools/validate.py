@@ -231,6 +231,11 @@ def check_pdf(d):
         if n > 4: WARN.append(f'Version imprimable : {n} pages (cahier de {-(-n // 4) * 4}, deux feuilles A3 ou plus) au lieu de 4')
     except Exception as e:
         WARN.append(f'Version imprimable illisible : {type(e).__name__}')
+    try:   # contrôle de mise en page (tools/journal.py) : le PDF n'est alors pas proposé sur la page de l'édition
+        info = json.load(open(os.path.join(ROOT, 'veille', 'imprimable', d, 'imprimable.json'), encoding='utf-8'))
+        if info.get('defauts'): WARN.append('Version imprimable non proposée, défauts de mise en page : ' + '; '.join(info['defauts'])[:300])
+    except (OSError, ValueError):
+        pass
 
 
 def check_robots():

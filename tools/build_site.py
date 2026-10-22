@@ -129,6 +129,9 @@ def version_imprimable(d):
         i = journal.produire(d, os.path.join(SITE, d))
         print(f'[{d}] version imprimable : {i["pages"]} pages (cahier de {i["cahier"]}), corps {i["corps_pt"]} pt, '
               f'blocs facultatifs {i["blocs"]}, dernière page remplie à {round(100 * i["remplissage"])} %')
+        if i.get('defauts') is None or i['defauts']:   # contrôle qualité (README, § 18) : un PDF mal mis en page n'est pas proposé
+            print(f'::warning::[{d}] version imprimable non proposée (défauts de mise en page) : {"; ".join(i.get("defauts") or ["contrôle absent"])[:400]}')
+            return False
         return True
     except Exception as e:
         print(f'::warning::[{d}] version imprimable non produite : {type(e).__name__} : {str(e)[:200]}')
