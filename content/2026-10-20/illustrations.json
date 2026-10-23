@@ -3,14 +3,14 @@
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La tasse Java reçoit un monnayeur.",
-  "brief": "The Java programming language logo redrawn large in the centre: a coffee cup on a saucer with three flame-shaped wisps of orange steam rising from it; no tea bag, no spoon. A big shop price tag with a euro sign hangs from the cup handle on a short string, overlapping the saucer. The cup has a wide blank white band across its front. Nothing else.",
-  "alt": "Le logo de Java, une tasse de café fumante marquée « JDK 21 », porte une étiquette de prix en euros.",
+  "brief": "The Java programming language logo redrawn large: a coffee cup on a saucer with three flame-shaped wisps of orange steam rising; the cup body is plain white with no decoration. A big heavy padlock hangs from the cup handle, locking it, and the padlock bears a large euro sign. Nothing else.",
+  "alt": "Le logo de Java, une tasse de café fumante marquée « JDK 21 », fermée par un cadenas frappé de l’euro.",
   "fichier": null,
   "format": "1:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "le logo Java (tasse de café fumante), étiquette « JDK 21 » ajoutée par nous",
-  "action": "la tasse Java porte une étiquette de prix",
+  "action": "la tasse Java est cadenassée, cadenas marqué de l'euro",
   "legendes": [],
   "candidats": 2,
   "source": "e5.0-6.svg"
@@ -51,11 +51,20 @@
   "format": "1:1",
   "texte": false,
   "candidats": 2,
-  "legendes": [],
-  "fichier": null,
+  "legendes": [
+   {
+    "texte": "EOL",
+    "x": 0.42,
+    "y": 0.84,
+    "taille": 0.1,
+    "angle": 0,
+    "couleur": "navy"
+   }
+  ],
+  "fichier": "illustrations/e11.1.svg",
   "idee": "Le pingouin Linux assis sur sa tombe « EOL », sous la loupe qui sonne l'alarme.",
-  "alt": "Le pingouin de Linux assis sur une pierre tombale « EOL », sous une loupe.",
-  "source": "e11.1-1.svg"
+  "alt": "Une loupe penchée sur une pierre tombale « EOL » gravée du pingouin de Linux.",
+  "source": "e11.1-4.svg"
  },
  {
   "id": "e11.2",
@@ -80,6 +89,21 @@
   "alt": "Un gardien cadenasse la porte d’entrée pendant qu’un fantôme à capuche s’échappe par la fenêtre avec un sac de clés.",
   "fichier": "illustrations/e14.1.svg",
   "source": "e14.1-2.svg"
+ },
+ {
+  "id": "e14.2",
+  "article": "GitHub : alertes de paquets malveillants étendues à huit écosystèmes",
+  "message": "GitHub alerte désormais sur les paquets malveillants dans huit écosystèmes, et plus seulement npm.",
+  "repere": "l'Octocat, mascotte de GitHub, redessiné dans notre style",
+  "action": "l'Octocat, en vigie, pointe du doigt un colis à tête de mort parmi les colis sains",
+  "brief": "The GitHub Octocat mascot (a cat-like character with octopus tentacles) redrawn simply, standing like a lookout with binoculars hanging from its neck, sounding a big hand bell and pointing at one cardboard parcel bearing a large skull sticker, standing in a short row of plain parcels. Nothing else.",
+  "format": "4:3",
+  "texte": false,
+  "candidats": 2,
+  "legendes": [],
+  "fichier": null,
+  "idee": "L'Octocat en vigie sonne l'alarme devant un colis à tête de mort.",
+  "alt": "La mascotte de GitHub, en vigie, sonne la cloche et désigne un colis marqué d’une tête de mort parmi des colis ordinaires."
  },
  {
   "id": "e17.0",
