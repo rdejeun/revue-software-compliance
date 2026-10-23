@@ -922,7 +922,7 @@ def repartir(s, g, nl, fm):
     return e, f
 
 
-ILL_SOUPLE = .8 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
+ILL_SOUPLE = 1.5 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
 
 
 def absorbe_ill(us, parts, s):
