@@ -25,6 +25,7 @@ STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no sh
          'no background decor, readable at 4 cm wide. Scene: ')
 SANS_TEXTE = ' No text, no letters.'
 NEGATIF = 'watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border, background scenery, abstract shapes'
+REFERENCES = sorted(os.path.relpath(f, ROOT) for f in __import__('glob').glob(os.path.join(HERE, 'illustrations-references', '*.png')))   # style de la revue (dessins retenus)
 TAILLES = {'1:1': '1024x1024', '4:3': '1365x1024', '3:2': '1536x1024'}   # format du brief (carré par défaut)
 
 
@@ -156,7 +157,7 @@ def encre_texte(texte):
     return chemins, bb, upm
 
 
-def texte_zone(texte, zone, vb, angle=0.0, couleur='#0f2a4a', epaisseur=None, remplissage=(.82, .62)):
+def texte_zone(texte, zone, vb, angle=0.0, couleur='#0f2a4a', epaisseur=None, remplissage=(.82, .72)):
     """Texte centré **sur son encre** dans une zone [x0, y0, x1, y1] (fraction du dessin, repère de la zone tourné de
     « angle » autour de son centre), au plus grand corps qui tienne dans remplissage (largeur, hauteur) de la zone."""
     chemins, bb, upm = encre_texte(texte)
@@ -220,7 +221,7 @@ def retenir(d, ident, fichier):
     ajout = ''
     for L in b.get('legendes') or []:
         coul = '#c2410c' if L.get('couleur') == 'orange' else ('#ffffff' if L.get('couleur') == 'blanc' else '#0f2a4a')
-        if 'zone' in L: ajout += texte_zone(L['texte'], L['zone'], vb, L.get('angle', 0), coul, ep)
+        if 'zone' in L: ajout += texte_zone(L['texte'], L['zone'], vb, L.get('angle', 0), coul, ep, tuple(L.get('remplissage', (.82, .72))))
         else: ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .1) * vb[2], L.get('angle', 0), coul, ep)
     svg = svg.replace('</svg>', ajout + '</svg>')
     x0, y0, x1, y1 = boite_contenu(svg, marge=0)
@@ -260,7 +261,7 @@ def main():
     if len(sys.argv) > 1 and sys.argv[1] == '--grille': return grille(sys.argv[2])
     ap = argparse.ArgumentParser()
     ap.add_argument('date'); ap.add_argument('--candidats', type=int, default=1); ap.add_argument('--seulement', default='')
-    ap.add_argument('--modele', default='recraftv3_vector'); ap.add_argument('--style', default='Line art')
+    ap.add_argument('--modele', default='recraftv4_styles_vector'); ap.add_argument('--style', default='Line art')
     ap.add_argument('--budget', type=float, default=1.5); ap.add_argument('--simuler', action='store_true')
     a = ap.parse_args()
     cle = os.environ.get('RECRAFT_API_KEY')
@@ -283,8 +284,9 @@ def main():
         texte = bool(b.get('texte'))   # un mot court ou un sigle, écrit dans le brief, éclaire parfois le dessin (README, § 18)
         prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)   # message, repère et action sont dans le brief (README, § 18)
         modele = b.get('modele') or a.modele
+        refs = b.get('references') or (REFERENCES if modele.startswith('recraftv4_styles') else None)
         try:
-            if b.get('references'): rep = demander_v4(cle, prompt, modele, nb(b), b['references'], b.get('format', '1:1'))   # V4 : taille en rapport
+            if refs and modele.startswith('recraftv4'): rep = demander_v4(cle, prompt, modele, nb(b), refs, b.get('format', '1:1'))   # V4 : taille en rapport
             else: rep = demander(cle, prompt, modele, a.style, nb(b), b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
         except Exception as e:   # noqa
             corps_err = e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else ''

@@ -4,16 +4,31 @@
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La machine à café Java devient payante : le développeur retourne sa poche vide.",
   "brief": "An office coffee machine whose front shows a big Java logo (a coffee cup with flame-shaped orange steam) above a wide blank plate. A big coin slot with a euro sign has just been bolted onto the machine. A developer with a lanyard stands next to it, holding an empty mug, staring at the coin slot in dismay and pulling out his empty trouser pocket. Nothing else.",
-  "alt": "Devant la machine à café au logo Java, désormais équipée d’un monnayeur, un développeur tasse vide en main retourne sa poche.",
-  "fichier": null,
+  "alt": "Devant la machine à café au logo Java, marquée « JDK 21 » et désormais équipée d’un monnayeur, un développeur tasse vide en main fait grise mine.",
+  "fichier": "illustrations/e5.0.svg",
   "format": "4:3",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "la machine à café frappée du logo Java (tasse fumante), plaque « JDK 21 » ajoutée par nous",
   "action": "le développeur, tasse vide à la main, découvre le monnayeur tout neuf et retourne sa poche vide",
-  "legendes": [],
+  "legendes": [
+   {
+    "texte": "JDK 21",
+    "zone": [
+     0.555,
+     0.637,
+     0.905,
+     0.733
+    ],
+    "couleur": "navy",
+    "remplissage": [
+     0.8,
+     0.82
+    ]
+   }
+  ],
   "candidats": 1,
-  "source": "e5.0-12.svg",
+  "source": "e5.0-16.svg",
   "modele": "recraftv4_styles_vector",
   "references": [
    "content/2026-10-20/illustrations/e14.1.png",
@@ -56,11 +71,26 @@
   "format": "4:3",
   "texte": false,
   "candidats": 2,
-  "legendes": [],
-  "fichier": null,
+  "legendes": [
+   {
+    "texte": "EOL",
+    "zone": [
+     0.475,
+     0.095,
+     0.625,
+     0.215
+    ],
+    "couleur": "navy",
+    "remplissage": [
+     0.8,
+     0.85
+    ]
+   }
+  ],
+  "fichier": "illustrations/e11.1.svg",
   "idee": "Le contrôleur montre au vieux pingouin Linux que son billet est périmé.",
-  "alt": "Un contrôleur montre à un vieux pingouin Linux, canne à la main, que son billet « EOL » est périmé.",
-  "source": "e11.1-4.svg",
+  "alt": "Un contrôleur montre à un vieux pingouin Linux, voûté sur sa canne, un billet « EOL » périmé.",
+  "source": "e11.1-8.svg",
   "modele": "recraftv4_styles_vector",
   "references": [
    "content/2026-10-20/illustrations/e14.1.png",
@@ -117,15 +147,30 @@
   "idee": "Le douanier ouvre l'imperméable du passeur, doublé de puces, en route vers Moscou.",
   "brief": "At a simple border post with a small European Union flag (navy blue with a circle of orange stars), a customs officer pulls open the long trench coat of a sly man in a hat: the inside of the coat is lined with a few big electronic chips. The man freezes, caught. Behind them a signpost arrow with a blank board points to the right. Few lines, large shapes. Nothing else.",
   "alt": "À la frontière européenne, un douanier ouvre l’imperméable d’un passeur doublé de puces électroniques, sous une flèche « MOSCOU ».",
-  "fichier": null,
+  "fichier": "illustrations/e17.0.svg",
   "format": "4:3",
   "texte": false,
   "message": "L'UE sanctionne les intermédiaires de pays tiers qui aident la Russie à contourner ses sanctions.",
   "repere": "le douanier au drapeau européen, la flèche « MOSCOU » (ajoutée par nous)",
   "action": "le douanier ouvre l'imperméable du passeur : il est doublé de puces électroniques",
-  "legendes": [],
+  "legendes": [
+   {
+    "texte": "MOSCOU",
+    "zone": [
+     0.3,
+     0.035,
+     0.82,
+     0.128
+    ],
+    "couleur": "navy",
+    "remplissage": [
+     0.8,
+     0.92
+    ]
+   }
+  ],
   "candidats": 2,
-  "source": "e17.0-6.svg",
+  "source": "e17.0-12.svg",
   "modele": "recraftv4_styles_vector",
   "references": [
    "content/2026-10-20/illustrations/e14.1.png",

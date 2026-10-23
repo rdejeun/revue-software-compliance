@@ -130,17 +130,18 @@ def accroche(t):
 FACULTATIF = re.compile(r'\{\{([123])\|(.*?)\}\}', re.S)   # portion facultative du champ « papier » : {{n|…}}, 3 coupée en premier
 
 
-def papier(sm, iid, incl, tout=False):
-    """Paragraphes du champ « papier » (README, § 6) : portions facultatives gardées selon le calage."""
+def papier(sm, iid, incl, tout=False, niv=3):
+    """Paragraphes du champ « papier » (README, § 6) : portions facultatives gardées selon le calage (tout : toutes
+    celles de niveau niv ou moins, pour la Une)."""
     out = []
     for par in re.split(r'\n\s*\n', sm['papier'].strip()):
-        par = FACULTATIF.sub(lambda m: m[2] if tout or (f'papier{m[1]}', iid) in incl else '', par)
+        par = FACULTATIF.sub(lambda m: m[2] if (tout and int(m[1]) <= niv) or (f'papier{m[1]}', iid) in incl else '', par)
         par = re.sub(r'\s{2,}', ' ', par).strip()
         if par: out.append(par)
     return out
 
 
-def morceaux(it, incl, une=False):
+def morceaux(it, incl, une=False, une_niv=3):
     """Article en morceaux successifs : titre et texte, puis chaque paragraphe retenu (champ « papier » s'il existe,
     sinon paragraphes de la synthèse)."""
     t, _ = corps(it['segs'])
@@ -148,7 +149,7 @@ def morceaux(it, incl, une=False):
     tit = sm.get('titre')
     m = [(f'<h3 class="hl">{T(tit)}</h3>' if tit and not une else '') + f'<p class="txt">{accroche(t)}</p>']
     if sm.get('papier'):
-        if une or ('papier', it['id']) in incl: m += [f'<p class="sp">{T(x)}</p>' for x in papier(sm, it['id'], incl, une)]
+        if une or ('papier', it['id']) in incl: m += [f'<p class="sp">{T(x)}</p>' for x in papier(sm, it['id'], incl, une, une_niv)]
         return m
     for k in ('contexte', 'essentiel', 'impact_avere', 'impact_potentiel'):
         if sm.get(k) and (une or (k, it['id']) in incl): m.append(f'<p class="sp">{T(sm[k])}</p>')
@@ -614,7 +615,8 @@ def mesurer(ed):
         for r, w in ([(une, W3)] if une else []) + [(r, W4) for r in autres]:
             for it in r['items']:
                 est_une = r is une and it is une['items'][0]
-                gen = [(0, j, x) for j, x in enumerate(morceaux(it, set(), une=True))] if est_une else art_units(it, False)
+                gen = ([(v, j, x) for v in range(3) for j, x in enumerate(morceaux(it, set(), une=True, une_niv=3 - v))]   # la Une : portions 3, puis 2, coupables
+                       if est_une else art_units(it, False))
                 html_u = []
                 for v, j, x in gen:
                     for n_, sub in enumerate(re.findall(r'<h3 class="hl">.*?</h3>|<p class="[^"]*">.*?</p>', x, re.S)):
@@ -703,7 +705,7 @@ def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=(), pos_une=0):
     us = ListeU(); us.fs = fs
     for j, it in enumerate(r['items']):
         est_une = k == 'une' and j == 0
-        v = 0 if est_une else max(min(1, len(var.get(it['id'], []))), len(var.get(it['id'], [])) - prof)
+        v = min(prof, 2) if est_une else max(min(1, len(var.get(it['id'], []))), len(var.get(it['id'], [])) - prof)
         incl = set() if est_une else set(var.get(it['id'], [])[:v])
         prev_t, premier = False, True
         ill = (ed.get('illustrations') or {}).get(it['id'])
@@ -712,7 +714,7 @@ def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=(), pos_une=0):
             # ou vient après le paragraphe pos_une (meilleure répartition sur la page)
             ill_une = Unite('i', f'<figure class="ill"><img src="file://{html.escape(ill[0])}" alt="{html.escape(ill[1])}"></figure>', h=W3, n=int(round(ill[2] * 1000)), ecart='titre')
             if pos_une == 0: us.append(ill_une); ill_une = None
-        for jj, x in enumerate(morceaux(it, incl, une=est_une)):
+        for jj, x in enumerate(morceaux(it, incl, une=est_une, une_niv=3 - v if est_une else 3)):
             for n_, sub in enumerate(re.findall(r'<h3 class="hl">.*?</h3>|<p class="[^"]*">.*?</p>', x, re.S)):
                 key = f'{it["id"]}|{v}|{jj}|{n_}'
                 ecart = 'art' if (premier and j > 0) else ('titre' if prev_t else 'par')
@@ -779,7 +781,7 @@ G_ILL = 2.8 * MM        # blanc sous une illustration
 G_ILL_HAUT = 2.8 * MM   # blanc au-dessus d'une illustration placée entre deux paragraphes
 # (sous son titre, le dessin prend 1,6 mm de blanc au-dessus, ECART['ill'], qui s'ajoute au blanc du titre, 1,2 mm au moins)
 ILL_HMAX = 48 * MM       # hauteur maximale d'un dessin
-ILL_HMAX_UNE = 40 * MM   # hauteur maximale du dessin de la Une (colonne plus large, page 1 chargée)
+ILL_HMAX_UNE = 46 * MM   # hauteur maximale du dessin de la Une (colonne plus large, page 1 chargée)
 ILL_RETRECI = .85       # un dessin peut perdre jusqu'à 15 % de sa largeur pour tomber sur la grille plutôt que laisser du blanc
 
 
@@ -920,7 +922,7 @@ def repartir(s, g, nl, fm):
     return e, f
 
 
-ILL_SOUPLE = 1.5 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
+ILL_SOUPLE = .8 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
 
 
 def absorbe_ill(us, parts, s):
@@ -1285,14 +1287,14 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
         for fs in FS_LIST:
             for lh in LH_LIST:
                 # la Une : son dessin ouvre la première colonne ou vient après le paragraphe pos_une (répartition sur la page)
-                for pos_une in ((0, 1, 2, 3, 4, 5) if une and une['items'][0]['id'] in (ed.get('illustrations') or {}) else (0,)):
+                for pos_une, pr_une in [(a_, b_) for a_ in ((0, 1, 2, 3, 4, 5) if une and une['items'][0]['id'] in (ed.get('illustrations') or {}) else (0,)) for b_ in (0, 1, 2)]:
                     plan = (None, ('haut', 0, 0.0))
-                    y, cout, D = M['haut'], c_ag + 10 * (FS_LIST[-1] - fs), list(Dg)
+                    y, cout, D = M['haut'], c_ag + 10 * (FS_LIST[-1] - fs) + COUT_PORTION * pr_une, list(Dg)
                     if une:
-                        us = unites_rub(ed, M, 'une', une, fs, 0, (), (), pos_une)
+                        us = unites_rub(ed, M, 'une', une, fs, pr_une, (), (), pos_une)
                         if pos_une and not any(u_.kind == 'i' for u_ in us): continue
                         lh_px = lh * fs * PT
-                        ck = (('une', fs, pos_une), (0, 0))
+                        ck = (('une', fs, pos_une, pr_une), (0, 0))
                         if ck not in _CACHE_EQ: _CACHE_EQ[ck] = equilibrer(us, 3, lh_px)
                         H, cols = _CACHE_EQ[ck]
                         if H is None or y + H > HAUT: continue
@@ -1301,7 +1303,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
                         cout += cc
                         plan = (plan, ('cols', 0, y, [(c * (W3 + GOUT), W3, H) for c in range(3)], cols, us, fs, lh_px, False))
                         y += H + G_APRES_UNE
-                    etats.append(Etat(0, y, cout + cout_repartition(plan), plan, (None, D) if D else None, (fs, lh), False, geo, (('une', fs, lh, pos_une), ('ag', ag))))
+                    etats.append(Etat(0, y, cout + cout_repartition(plan), plan, (None, D) if D else None, (fs, lh), False, geo, (('une', fs, lh, pos_une, pr_une), ('ag', ag))))
     lex_fin = bool(ed.get('sigles'))   # le lexique, en dernier, enveloppe l'agenda ; sans lexique, la dernière rubrique
     def elaguer(xs, k):
         meilleurs = {}
