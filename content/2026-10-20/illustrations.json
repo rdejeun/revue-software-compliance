@@ -2,18 +2,31 @@
  {
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
-  "idee": "La machine à café Java devient payante : le développeur retourne sa poche vide.",
+  "idee": "Le développeur, résigné, glisse une pièce dans la machine à café Java devenue payante.",
   "brief": "Wide scene with only two elements. On the right, an office coffee vending machine with a flat top: on its front a big Java logo (a coffee cup with flame-shaped orange steam), below it a small price display showing a big euro sign, a short horizontal coin slot next to it, and at the bottom an open recess with a drip tray where the cup is served. On the left, a software developer with a badge on a lanyard and a laptop under his arm holds a coin between his fingers, about to drop it into the coin slot. His face is fully drawn (eyes, eyebrows, nose, mouth) and looks resigned: raised eyebrows, mouth turned down. No handle, no other details. Nothing else.",
-  "alt": "Un développeur, ordinateur sous le bras, glisse une pièce dans la machine à café au logo Java marquée « JDK 21 ».",
-  "fichier": null,
+  "alt": "Un développeur au badge, l’air résigné, tend une pièce vers la machine à café au logo Java marquée « JDK 21 », qui affiche un prix en euros.",
+  "fichier": "illustrations/e5.0.svg",
   "format": "2:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "la machine à café frappée du logo Java (tasse fumante), plaque « JDK 21 » ajoutée par nous",
   "action": "le développeur, agacé, se résout à glisser une pièce dans la machine à café Java",
-  "legendes": [],
+  "legendes": [
+   {
+    "texte": "JDK 21",
+    "point": [
+     0.675,
+     0.385
+    ],
+    "couleur": "navy",
+    "remplissage": [
+     0.8,
+     0.6
+    ]
+   }
+  ],
   "candidats": 2,
-  "source": "e5.0-19.svg",
+  "source": "e5.0-24.svg",
   "modele": "recraftv4_styles_vector",
   "references": [
    "content/2026-10-20/illustrations/e14.1.png",
