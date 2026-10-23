@@ -20,7 +20,7 @@ STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no sh
          'named in the scene is redrawn in the same simple line style and two colors, instantly recognizable. '
          'Bold thick outlines (line width about one hundredth of the image width), few large simple shapes, no small details, '
          'no fine patterns or hatching, no tiny objects. It tells a simple story: a plausible everyday situation in which the '
-         'characters act naturally and the two or three elements interact as they would in real life (no symbolic juxtaposition '
+         'characters, with fully drawn faces (eyes, eyebrows, nose, mouth) whose expressions match the situation, act naturally and the two or three elements interact as they would in real life (no symbolic juxtaposition '
          'of unrelated objects). The scene spreads across the whole width of the frame, characters large, no empty margins, '
          'no background decor, readable at 4 cm wide. Scene: ')
 SANS_TEXTE = ' No text, no letters.'

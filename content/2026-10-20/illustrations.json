@@ -3,28 +3,15 @@
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La machine à café Java devient payante : le développeur retourne sa poche vide.",
-  "brief": "Wide scene with only two elements. On the left, a software developer in a plain shirt, with a badge on a lanyard and a laptop under his arm, drops a coin into a narrow vertical coin slot marked with a euro sign. On the right, a simple office coffee machine: in the middle of its front, a big Java logo (a coffee cup with flame-shaped orange steam), directly below it a wide blank plate, and the coin slot beside the logo. No buttons, no other details. Nothing else.",
+  "brief": "Wide scene with only two elements. On the left, a software developer in a plain shirt, with a badge on a lanyard and a laptop under his arm, reluctantly drops a coin into a narrow vertical coin slot on a coffee machine. His face is fully drawn (eyes, eyebrows, nose, mouth) and shows clear annoyance: frowning eyebrows, eyes rolled, mouth turned down. On the right, a simple office coffee machine: in the middle of its front a big Java logo (a coffee cup with flame-shaped orange steam), directly below it a wide blank plate, and the coin slot beside the logo. No buttons, no other details. Nothing else.",
   "alt": "Un développeur, ordinateur sous le bras, glisse une pièce dans la machine à café au logo Java marquée « JDK 21 ».",
-  "fichier": "illustrations/e5.0.svg",
+  "fichier": null,
   "format": "2:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "la machine à café frappée du logo Java (tasse fumante), plaque « JDK 21 » ajoutée par nous",
-  "action": "le développeur glisse une pièce dans la machine à café Java",
-  "legendes": [
-   {
-    "texte": "JDK 21",
-    "point": [
-     0.75,
-     0.785
-    ],
-    "couleur": "navy",
-    "remplissage": [
-     0.8,
-     0.9
-    ]
-   }
-  ],
+  "action": "le développeur, agacé, se résout à glisser une pièce dans la machine à café Java",
+  "legendes": [],
   "candidats": 2,
   "source": "e5.0-19.svg",
   "modele": "recraftv4_styles_vector",
