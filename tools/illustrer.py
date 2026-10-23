@@ -165,7 +165,7 @@ def texte_zone(texte, zone, vb, angle=0.0, couleur='#0f2a4a', epaisseur=None, re
     cx, cy = (zx0 + zx1) / 2, (zy0 + zy1) / 2
     w, h = (bb[2] - bb[0]), (bb[3] - bb[1])
     k = min(remplissage[0] * (zx1 - zx0) / w, remplissage[1] * (zy1 - zy0) / h)
-    sup = max(0.0, (epaisseur or 0) - fut_fonte() * upm * k) if epaisseur else 0.0
+    sup = max(0.0, min(epaisseur or 0, .085 * upm * k) - fut_fonte() * upm * k) if epaisseur else 0.0   # épaisseur du trait du dessin, sans empâter un petit texte
     tr = f' stroke="{couleur}" stroke-width="{sup / k:.1f}" stroke-linejoin="round"' if sup > 0 else ''
     mx, my = (bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2   # centre de l'encre (repère de la police, y vers le haut)
     return (f'<g fill="{couleur}"{tr} transform="translate({cx:.1f} {cy:.1f}) rotate({angle}) scale({k:.5f} {-k:.5f}) translate({-mx:.1f} {-my:.1f})">'
@@ -216,7 +216,7 @@ def texte_point(texte, svg_txt, point, angle=0.0, couleur='#0f2a4a', epaisseur=N
     cx, cy, w, h = zone_libre(svg_txt, point, angle)
     chemins, bb, upm = encre_texte(texte)
     k = min(remplissage[0] * w / (bb[2] - bb[0]), remplissage[1] * h / (bb[3] - bb[1]))
-    sup = max(0.0, (epaisseur or 0) - fut_fonte() * upm * k) if epaisseur else 0.0
+    sup = max(0.0, min(epaisseur or 0, .085 * upm * k) - fut_fonte() * upm * k) if epaisseur else 0.0   # épaisseur du trait du dessin, sans empâter un petit texte
     tr = f' stroke="{couleur}" stroke-width="{sup / k:.1f}" stroke-linejoin="round"' if sup > 0 else ''
     mx, my = (bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2
     return (f'<g fill="{couleur}"{tr} transform="translate({cx:.1f} {cy:.1f}) rotate({angle}) scale({k:.5f} {-k:.5f}) translate({-mx:.1f} {-my:.1f})">'
