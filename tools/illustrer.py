@@ -172,6 +172,57 @@ def texte_zone(texte, zone, vb, angle=0.0, couleur='#0f2a4a', epaisseur=None, re
             + ''.join(chemins) + '</g>')
 
 
+def zone_libre(svg_txt, point, angle=0.0, W=1200):
+    """Zone libre autour d'un point (fraction du dessin) : la surface blanche qui le contient (remplissage par
+    diffusion, dans le repère tourné de « angle »), son centre optique (centre du plateau de la distance aux traits) et
+    son étendue en largeur et en hauteur à ce centre. Renvoie (cx, cy, largeur, hauteur) en unités du viewBox."""
+    import cairosvg, io, math, numpy as np
+    from PIL import Image
+    from scipy import ndimage
+    vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg_txt)[1].split()]
+    H = int(W * vb[3] / vb[2])
+    img = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg_txt.encode(), output_width=W, output_height=H))).convert('RGBA')
+    fond = Image.new('RGB', img.size, 'white'); fond.paste(img, mask=img.split()[3])
+    g = fond.convert('L')
+    px, py = point[0] * W, point[1] * H
+    if angle:   # on redresse : le texte sera horizontal dans ce repère
+        g = g.rotate(angle, center=(W / 2, H / 2), fillcolor=255, resample=Image.BILINEAR)
+        a = math.radians(angle); dx, dy = px - W / 2, py - H / 2
+        px, py = W / 2 + dx * math.cos(a) + dy * math.sin(a), H / 2 - dx * math.sin(a) + dy * math.cos(a)
+    blanc = np.array(g) > 200
+    lab, _ = ndimage.label(blanc)
+    region = lab == lab[int(py), int(px)]
+    d = ndimage.distance_transform_edt(region)
+    plateau = d >= .85 * d[region].max()
+    ys, xs = np.nonzero(plateau)
+    cy_, cx_ = ys.mean(), xs.mean()
+    row = region[int(cy_)]; col = region[:, int(cx_)]
+    x0 = int(cx_); x1 = int(cx_)
+    while x0 > 0 and row[x0 - 1]: x0 -= 1
+    while x1 < W - 1 and row[x1 + 1]: x1 += 1
+    y0 = int(cy_); y1 = int(cy_)
+    while y0 > 0 and col[y0 - 1]: y0 -= 1
+    while y1 < len(col) - 1 and col[y1 + 1]: y1 += 1
+    cx_, cy_ = (x0 + x1) / 2, (y0 + y1) / 2   # centre de l'étendue, au plateau
+    if angle:   # retour au repère du dessin
+        a = math.radians(angle); dx, dy = cx_ - W / 2, cy_ - H / 2
+        cx_, cy_ = W / 2 + dx * math.cos(a) - dy * math.sin(a), H / 2 + dx * math.sin(a) + dy * math.cos(a)
+    k = vb[2] / W
+    return vb[0] + cx_ * k, vb[1] + cy_ * k, (x1 - x0) * k, (y1 - y0) * k
+
+
+def texte_point(texte, svg_txt, point, angle=0.0, couleur='#0f2a4a', epaisseur=None, remplissage=(.8, .72)):
+    """Texte centré sur son encre dans la zone libre qui contient le point (zone_libre()), au plus grand corps qui tienne."""
+    cx, cy, w, h = zone_libre(svg_txt, point, angle)
+    chemins, bb, upm = encre_texte(texte)
+    k = min(remplissage[0] * w / (bb[2] - bb[0]), remplissage[1] * h / (bb[3] - bb[1]))
+    sup = max(0.0, (epaisseur or 0) - fut_fonte() * upm * k) if epaisseur else 0.0
+    tr = f' stroke="{couleur}" stroke-width="{sup / k:.1f}" stroke-linejoin="round"' if sup > 0 else ''
+    mx, my = (bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2
+    return (f'<g fill="{couleur}"{tr} transform="translate({cx:.1f} {cy:.1f}) rotate({angle}) scale({k:.5f} {-k:.5f}) translate({-mx:.1f} {-my:.1f})">'
+            + ''.join(chemins) + '</g>')
+
+
 def texte_chemin(texte, cx, cy, taille, angle=0.0, couleur='#0f2a4a', epaisseur=None):
     """Texte en contours vectoriels (Amatic SC gras, manuscrite étroite), centré en (cx, cy), corps « taille » (unités
     du SVG) ; épaisseur : épaisseur de trait visée (celle du dessin), obtenue en épaississant le contour."""
@@ -221,7 +272,8 @@ def retenir(d, ident, fichier):
     ajout = ''
     for L in b.get('legendes') or []:
         coul = '#c2410c' if L.get('couleur') == 'orange' else ('#ffffff' if L.get('couleur') == 'blanc' else '#0f2a4a')
-        if 'zone' in L: ajout += texte_zone(L['texte'], L['zone'], vb, L.get('angle', 0), coul, ep, tuple(L.get('remplissage', (.82, .72))))
+        if 'point' in L: ajout += texte_point(L['texte'], svg, L['point'], L.get('angle', 0), coul, ep, tuple(L.get('remplissage', (.8, .72))))
+        elif 'zone' in L: ajout += texte_zone(L['texte'], L['zone'], vb, L.get('angle', 0), coul, ep, tuple(L.get('remplissage', (.82, .72))))
         else: ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .1) * vb[2], L.get('angle', 0), coul, ep)
     svg = svg.replace('</svg>', ajout + '</svg>')
     x0, y0, x1, y1 = boite_contenu(svg, marge=0)

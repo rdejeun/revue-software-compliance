@@ -36,6 +36,7 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
+QR_BLEU = '#4b5f77'   # modules du code QR : bleu nuit estompé (les trois repères restent orange)
 VERSION = 'journal-39'   # à changer quand la mise en page change (invalide le cache)
 
 
@@ -287,7 +288,7 @@ def qr(url):
             for x, v in enumerate(ligne):
                 if v: chemins[oreille(y, x)].append(f'M{x} {y}h1v1h-1z')
         svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {n} {n}" shape-rendering="crispEdges">'
-               f'<path fill="{NAVY}" d="{"".join(chemins[False])}"/><path fill="{ACC}" d="{"".join(chemins[True])}"/></svg>')
+               f'<path fill="{QR_BLEU}" d="{"".join(chemins[False])}"/><path fill="{ACC}" d="{"".join(chemins[True])}"/></svg>')
         return f'<img class="qr" src="data:image/svg+xml;base64,{base64.b64encode(svg.encode()).decode()}" alt="">'
     except Exception:
         return ''
