@@ -284,7 +284,7 @@ def main():
         prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)   # message, repère et action sont dans le brief (README, § 18)
         modele = b.get('modele') or a.modele
         try:
-            if b.get('references'): rep = demander_v4(cle, prompt, modele, nb(b), b['references'], TAILLES.get(b.get('format', '1:1'), '1024x1024'))
+            if b.get('references'): rep = demander_v4(cle, prompt, modele, nb(b), b['references'], b.get('format', '1:1'))   # V4 : taille en rapport
             else: rep = demander(cle, prompt, modele, a.style, nb(b), b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
         except Exception as e:   # noqa
             corps_err = e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else ''
