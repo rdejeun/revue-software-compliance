@@ -95,15 +95,15 @@
   "article": "GitHub : alertes de paquets malveillants étendues à huit écosystèmes",
   "message": "GitHub alerte désormais sur les paquets malveillants dans huit écosystèmes, et plus seulement npm.",
   "repere": "l'Octocat, mascotte de GitHub, redessiné dans notre style",
-  "action": "l'Octocat, en vigie, pointe du doigt un colis à tête de mort parmi les colis sains",
-  "brief": "The GitHub Octocat mascot (a cat-like character with octopus tentacles) redrawn simply, standing like a lookout with binoculars hanging from its neck, sounding a big hand bell and pointing at one cardboard parcel bearing a large skull sticker, standing in a short row of plain parcels. Nothing else.",
-  "format": "4:3",
+  "action": "l'Octocat, loupe en main, débusque le colis à tête de mort",
+  "brief": "The GitHub Octocat mascot redrawn simply: a cat head on a round body with five octopus tentacles instead of legs. Frowning, it holds a large magnifying glass over a cardboard parcel marked with a big skull; a large orange exclamation mark floats above the parcel. Nothing else.",
+  "format": "1:1",
   "texte": false,
   "candidats": 2,
   "legendes": [],
   "fichier": null,
   "idee": "L'Octocat en vigie sonne l'alarme devant un colis à tête de mort.",
-  "alt": "La mascotte de GitHub, en vigie, sonne la cloche et désigne un colis marqué d’une tête de mort parmi des colis ordinaires."
+  "alt": "La mascotte de GitHub examine à la loupe un colis marqué d’une tête de mort, sous un point d’exclamation."
  },
  {
   "id": "e17.0",
