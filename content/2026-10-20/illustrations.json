@@ -13,7 +13,7 @@
   "idee": "Le tailleur prend les mesures du robot : la première norme lui va comme un costume.",
   "brief": "A tailor's fitting room. A friendly boxy robot with a small antenna stands very straight on a round fitting podium, arms slightly raised. An elegant tailor with a measuring tape around the neck takes the robot's chest measurement, pins in mouth, while a second person with a clipboard and a large rubber stamp waits beside a half-sewn suit jacket on a mannequin. The measuring tape and the stamp ink are the orange accents.",
   "alt": "Un tailleur prend les mesures d’un robot sur un podium d’essayage, un inspecteur attend avec un tampon.",
-  "fichier": null
+  "fichier": "illustrations/e8.0.svg"
  },
  {
   "id": "e14.0",
@@ -21,7 +21,7 @@
   "idee": "Le colis vient bien de la boutique officielle, mais le client le pèse : la balance ne ment pas.",
   "brief": "A delivery counter. A courier in a cap hands over a neatly wrapped parcel with a big official wax seal; the client, instead of signing, has placed the parcel on an old-fashioned kitchen scale and frowns at the needle, which points far beyond the expected weight. Behind the courier, a tiny cartoon burglar in a striped shirt is hiding inside an identical open parcel, finger on lips. The wax seal and the scale needle are the orange accents.",
   "alt": "Un client pèse un colis scellé sur une balance dont l’aiguille s’affole ; un cambrioleur se cache dans un colis identique.",
-  "fichier": null
+  "fichier": "illustrations/e14.0.svg"
  },
  {
   "id": "e14.1",
@@ -29,7 +29,7 @@
   "idee": "Le gardien verrouille la porte d’entrée pendant que le fantôme ressort par la fenêtre avec le sac de clés.",
   "brief": "A server room drawn like a small bank vault. A security guard proudly padlocks the heavy front door with a huge padlock and a chain. On the other side of the building, a cheerful cartoon ghost in a hoodie floats out of an open side window carrying a bulging sack overflowing with keys and key cards, waving goodbye. A small wall clock shows the time. The padlock and the keys are the orange accents.",
   "alt": "Un gardien cadenasse la porte d’entrée pendant qu’un fantôme à capuche s’échappe par la fenêtre avec un sac de clés.",
-  "fichier": null
+  "fichier": "illustrations/e14.1.svg"
  },
  {
   "id": "e17.0",
@@ -37,7 +37,7 @@
   "idee": "Le colis fait le tour du monde de main en main pour arriver juste à côté de son point de départ.",
   "brief": "A long winding conveyor belt drawn as a loop that leaves a warehouse door, crosses several little cardboard cut-out facades of shops and offices with closed shutters (each with a different roof), passes under a customs barrier that is raised, and comes back to a second door right next to the first one. A single parcel rides the belt. At each facade, a pair of anonymous gloved hands reaches out to re-label the parcel with a new sticker. The stickers and the customs barrier are the orange accents.",
   "alt": "Un colis parcourt un tapis roulant en boucle entre des façades de sociétés écrans avant de revenir à côté de son point de départ.",
-  "fichier": null
+  "fichier": "illustrations/e17.0.svg"
  },
  {
   "id": "e20.0",
@@ -45,7 +45,7 @@
   "idee": "Le gros dossier attend dans la salle d’attente de l’Assemblée avec son ticket, sous l’horloge.",
   "brief": "A parliamentary waiting room with a row of chairs. On one chair sits a huge, thick, dog-eared paper file tied with a ribbon, holding a small numbered queue ticket as if it were a patient. A cobweb links it to the chair. On the wall, a ticket-dispenser display and a big round clock; the display's number is far from the file's ticket. Through an open door, an empty debating chamber with rows of seats. The queue ticket and the ribbon are the orange accents.",
   "alt": "Un gros dossier ficelé attend sur une chaise de salle d’attente avec un ticket numéroté, sous une horloge.",
-  "fichier": null
+  "fichier": "illustrations/e20.0.svg"
  },
  {
   "id": "e23.0",

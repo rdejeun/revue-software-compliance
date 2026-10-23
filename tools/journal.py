@@ -36,7 +36,7 @@ TAILLES = [10.0, 9.8, 9.6, 9.4, 9.2, 9.0, 8.8, 8.6, 8.5]   # corps des paragraph
 MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
-VERSION = 'journal-38'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-39'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -418,6 +418,8 @@ p.sp {{ text-indent:1em }} p.cont {{ text-indent:0 }} p.coupe {{ text-align-last
 .ag-q {{ line-height:1.25 }}
 /* lexique */
 .lx {{ font-size:{PETIT_MIN}pt; line-height:1.32; text-align:left }} .lx b {{ font:700 .95em {SANS}; color:{NAVY} }}
+/* illustration : dessin de presse au trait, sous le titre, sur la colonne */
+.ill {{ margin:0; width:100%; overflow:hidden }} .ill img {{ display:block; width:100%; height:100%; object-fit:contain }}
 /* crédit */
 .colo {{ display:table; width:100%; table-layout:fixed; position:relative; top:{DECAL_CREDIT:.2f}px }}
 .colo-qr {{ display:table-cell; width:22mm; vertical-align:bottom }} .colo-qr .qr {{ display:block; width:22mm; height:22mm }}
@@ -678,8 +680,8 @@ class ListeU(list):
 
 
 class Unite:
-    """Élément d'une colonne : titre d'article ('t'), paragraphe ('p', sécable ligne à ligne), encadré ('b') ou entrée
-    du lexique ('x'). ecart : nature du blanc qui le précède ; filet : filet de séparation d'articles dans ce blanc."""
+    """Élément d'une colonne : titre d'article ('t'), paragraphe ('p', sécable ligne à ligne), encadré ('b'), entrée
+    du lexique ('x') ou illustration ('i', sous le titre, carrée sur la largeur de la colonne, calée sur la grille). ecart : nature du blanc qui le précède ; filet : filet de séparation d'articles dans ce blanc."""
     __slots__ = ('kind', 'html', 'cls', 'n', 'h', 'ecart', 'filet', 'toks', 'debuts', 'coupes', 'suite')
 
     def __init__(self, kind, html_='', cls='', n=0, h=0.0, ecart='par', filet=False, toks=None, debuts=None, coupes=None, suite=False):
@@ -690,10 +692,10 @@ class Unite:
 _CACHE_U = {}
 
 
-def unites_rub(ed, M, k, r, fs, prof, omis):
+def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=()):
     """Unités d'une rubrique (k : rang ou 'une') au corps fs ; prof : portions facultatives retirées à chaque article
     (0 : toutes retenues) ; omis : brèves omises de l'encadré (ordre_omission())."""
-    cle = (k, fs, prof, omis)
+    cle = (k, fs, prof, omis, ecartes)
     if cle in _CACHE_U: return _CACHE_U[cle]
     une, _ = une_autres(ed)
     var = variantes(ed)
@@ -711,6 +713,9 @@ def unites_rub(ed, M, k, r, fs, prof, omis):
                 premier = False
                 if sub.startswith('<h3'):
                     us.append(Unite('t', sub, h=M['t'][key][0], n=M['t'][key][1], ecart=ecart, filet=filet)); prev_t = True
+                    ill = (ed.get('illustrations') or {}).get(it['id'])
+                    if ill and jj == 0 and not est_une and it['id'] not in ecartes:   # dessin de presse sous le titre, sur la colonne (README, § 18)
+                        us.append(Unite('i', f'<figure class="ill"><img src="file://{html.escape(ill[0])}" alt="{html.escape(ill[1])}"></figure>', ecart='titre'))
                     continue
                 cls, inner = re.match(r'<p class="([^"]*)">(.*)</p>$', sub, re.S).groups()
                 textes = M['p'][(fs, key)]
@@ -761,9 +766,13 @@ def blanc(u, lh_px):
     return ECART[u.ecart]
 
 
+G_ILL = 1.6 * MM   # blanc sous une illustration
+
+
 def hauteur_u(u, lh_px, a=0, b=None):
     if u.kind == 'p': return ((u.n if b is None else b) - a) * lh_px
     if u.kind == 't': return lignes_titre(u, lh_px) * lh_px   # titre et son blanc : un nombre entier de lignes du texte
+    if u.kind == 'i': return math.ceil((W4 + G_ILL) / lh_px - 1e-6) * lh_px   # dessin carré sur la colonne, et son blanc, sur la grille
     return u.h
 
 
@@ -790,7 +799,10 @@ def remplir(us, pos, hauteurs, lh_px):
             h = hauteur_u(u, lh_px)
             if u.kind == 't':
                 suiv = us[i + 1] if i + 1 < len(us) else None
-                h_suiv = min(2, suiv.n) * lh_px if suiv is not None and suiv.kind == 'p' else 0
+                if suiv is not None and suiv.kind == 'i':   # le dessin reste sous son titre, avec deux lignes de texte
+                    s2 = us[i + 2] if i + 2 < len(us) else None
+                    h_suiv = hauteur_u(suiv, lh_px) + (min(2, s2.n) * lh_px if s2 is not None and s2.kind == 'p' else 0)
+                else: h_suiv = min(2, suiv.n) * lh_px if suiv is not None and suiv.kind == 'p' else 0
                 if y + g + h + h_suiv > H + .01: break
             elif y + g + h > H + .01: break
             parts.append((i, 0, u.n if u.kind == 'p' else None, g)); y += g + h; i += 1; l = 0
@@ -893,7 +905,7 @@ def penalite_col(us, parts, H, y, lh_px):
 # ---------------------------------------------------------------- composition des pages (recherche en faisceau)
 
 def options_rub(ed, k, r):
-    """Réglages possibles d'une rubrique : (corps, interligne, portions retirées, brèves omises)."""
+    """Réglages possibles d'une rubrique : (corps, interligne, portions retirées, brèves omises, dessins écartés)."""
     var = variantes(ed)
     pmax = max([len(var.get(it['id'], [])) - 1 for it in r['items']] + [0])
     ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
@@ -901,15 +913,17 @@ def options_rub(ed, k, r):
     if nd: oms.append(tuple(ordre[:nd]))
     for x in (1, 2):   # brèves omises au-delà des doublons de l'agenda (coûteux) ; une au moins reste
         if r['rappels'] and len(r['rappels']) - nd - x >= 1: oms.append(tuple(ordre[:nd + x]))
-    return [(fs, lh, pr, om) for fs in FS_LIST for lh in LH_LIST for pr in range(min(pmax, 2) + 1) for om in oms]
+    ills = [it['id'] for it in r['items'] if it['id'] in (ed.get('illustrations') or {})]
+    ecs = [()] + [tuple(ills[-x:]) for x in range(1, len(ills) + 1)]   # dessins écartés, les derniers de la rubrique d'abord
+    return [(fs, lh, pr, om, ec) for fs in FS_LIST for lh in LH_LIST for pr in range(min(pmax, 3) + 1) for om in oms for ec in ecs]
 
 
 def cout_option(ed, k, r, opt, prec):
     """Préférences : contenu complet (portion retirée : 8 par article ; brève répétée par l'agenda omise : 6, autre : 400, plus qu'une composition moins régulière mais sans défaut), corps
     ample (1 par 0,1 pt sous 8,8), régularité d'une rubrique à l'autre."""
-    fs, lh, pr, om = opt
+    fs, lh, pr, om, ec = opt
     ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
-    c = COUT_PORTION * pr * len(r['items']) + sum(6 if j < nd else COUT_BREVE for j in range(len(om))) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
+    c = COUT_PORTION * pr * len(r['items']) + sum(6 if j < nd else COUT_BREVE for j in range(len(om))) + COUT_ILL * len(ec) + 10 * (FS_LIST[-1] - fs) + 10 * abs(lh - 1.34)
     if prec: c += 15 * abs(fs - prec[0]) + 60 * abs(lh - prec[1])
     return c
 
@@ -1076,6 +1090,7 @@ def placer(ed, M, st, bloc, cible):
 
 
 COUT_BREVE = float(os.environ.get('JOURNAL_COUT_BREVE', '400'))   # coût d'une brève omise (hors doublons de l'agenda)
+COUT_ILL = float(os.environ.get('JOURNAL_COUT_ILL', '150'))   # coût d'un dessin écarté
 COUT_PORTION = float(os.environ.get('JOURNAL_COUT_PORTION', '8'))   # coût d'un niveau de portions facultatives retiré, par article
 AIR_MAX = 6 * MM   # blanc ajouté au plus au-dessus d'un titre (justification verticale d'une page)
 AIR_HAUT = 14 * MM  # blanc ajouté au plus sous le bandeau et dans l’en-tête de la Une (trois blancs ; manchette et bandeau fixes)
@@ -1116,8 +1131,8 @@ def aerer(plan, p, W, D):
 
 
 def bloc_rub(ed, M, k, r, opt):
-    fs, lh, pr, om = opt
-    us = unites_rub(ed, M, k, r, fs, pr, om)
+    fs, lh, pr, om, ec = opt
+    us = unites_rub(ed, M, k, r, fs, pr, om, ec)
     return {'cle': ('r', k, opt), 'nom': f'« {r["label"]} »', 'us': us, 'lh_px': lh * fs * PT, 'fs': fs,
             'th': M['h'][str(k)], 'titre': ('rub', k), 'wrap': False}
 
@@ -1197,7 +1212,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
     for k, r in enumerate(autres):
         nouv = []
         opts = options_rub(ed, k, r)
-        if complet: opts = [o for o in opts if o[2] == 0 and len(o[3]) <= ordre_omission(r['rappels'], ed['agenda'])[1]]   # contenu complet (jauge)
+        if complet: opts = [o for o in opts if o[2] == 0 and not o[4] and len(o[3]) <= ordre_omission(r['rappels'], ed['agenda'])[1]]   # contenu complet (jauge)
         if os.environ.get('JOURNAL_SANS_OMISSION'): opts = [o for o in opts if len(o[3]) <= ordre_omission(r['rappels'], ed['agenda'])[1]]
         for st in etats:
             for opt in opts:
@@ -1278,6 +1293,7 @@ def html_colonne(us, parts, H, lh_px):
             pb = hauteur_u(u, lh_px) - lt * u.n
             out.append(u.html.replace('<h3 class="hl"', f'<h3 class="hl{fc}" style="{st};line-height:{lt:.3f}px;padding-bottom:{pb:.2f}px"', 1))
         elif u.kind == 'b': out.append(u.html.replace('<aside class="rap"', f'<aside class="rap{fc}" style="{st}"', 1))
+        elif u.kind == 'i': out.append(u.html.replace('<figure class="ill"', f'<figure class="ill" style="{st};height:{hauteur_u(u, lh_px) - G_ILL:.2f}px"', 1))
         else: out.append(u.html.replace('<p class="lx"', f'<p class="lx{fc}" style="{st}"', 1))
     return ''.join(out)
 
@@ -1414,6 +1430,10 @@ def empreinte(d):
               os.path.join(TOOLS, 'commun.py'), os.path.join(TOOLS, 'glossary.py'), os.path.join(TOOLS, 'en-tete.webp'),
               os.path.join(TOOLS, 'monogramme.png')]:
         hsh.update(open(f, 'rb').read())
+    pi = os.path.join(CONTENT, d, 'illustrations.json')
+    if os.path.exists(pi):
+        hsh.update(open(pi, 'rb').read())
+        for f in sorted(glob.glob(os.path.join(CONTENT, d, 'illustrations', '*'))): hsh.update(open(f, 'rb').read())
     return hsh.hexdigest()[:16]
 
 
@@ -1435,7 +1455,19 @@ def preparer(d):
     ed['sigles'] = sigles(''.join(x for r in ed['rubriques'] for it in r['items'] for x in morceaux(it, set(blocs(ed))))
                           + ''.join(corps(x['segs'])[0] for r in ed['rubriques'] for x in r['rappels']), texte_anterieur(d))
     taille_essentiel(ed); ed['colo_pt'] = CREDIT_PT
+    ed['illustrations'] = illustrations(d)
     return ed
+
+
+def illustrations(d):
+    """Dessins retenus (content/d/illustrations.json, champ « fichier » renseigné) : {id d'élément: (chemin, alt)}."""
+    p = os.path.join(CONTENT, d, 'illustrations.json')
+    if not os.path.exists(p) or os.environ.get('JOURNAL_SANS_ILLUSTRATION'): return {}
+    out = {}
+    for x in json.load(open(p, encoding='utf-8')):
+        f = x.get('fichier')
+        if f and os.path.exists(os.path.join(CONTENT, d, f)): out[x['id']] = (os.path.join(CONTENT, d, f), x.get('alt', ''))
+    return out
 
 
 def jauge(d):
@@ -1466,7 +1498,7 @@ def jauge(d):
     coupe, details = 0, []
     for c in res[0].choix:
         if not isinstance(c[0], int): continue
-        k, fs, lh, pr, om = c; r = autres[k]
+        k, fs, lh, pr, om, ec = c; r = autres[k]
         for it in r['items']:
             v = var.get(it['id'], []); garde = max(min(1, len(v)), len(v) - pr)
             for (nom, _) in v[garde:]:
@@ -1475,6 +1507,7 @@ def jauge(d):
                 if w: coupe += w; details.append(f'{it["sum"]["titre"][:50]} : niveau {n}, {w} mots')
         ordre, nd = ordre_omission(r['rappels'], ed['agenda']) if r['rappels'] else ([], 0)
         for j in om[nd:]: details.append(f'brève omise ({r["label"]}) : « {accroche(corps(r["rappels"][j]["segs"])[0])[:60]}… »')
+        for x in ec: details.append(f'dessin écarté ({r["label"]}) : {x}')
     print(f'{d} : l\'édition déborde : pour tenir en {PAGES} pages, la composition coupe {coupe} mots de portions facultatives.')
     for x in details: print('  - ' + x)
     print('Rien à ajouter. Ces portions sont coupées à l\'impression (elles restent possibles) ; si une brève est omise, '

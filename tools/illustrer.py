@@ -64,6 +64,15 @@ def charte(svg):
     return svg
 
 
+def apercu(svg):
+    """Aperçu PNG (512 px) du SVG, pour la relecture par la rédaction (cairosvg s'il est installé)."""
+    try:
+        import cairosvg
+        cairosvg.svg2png(url=svg, write_to=svg[:-4] + '.png', output_width=512, output_height=512)
+    except Exception as e:   # noqa
+        print(f'aperçu impossible ({os.path.basename(svg)}) : {e}', file=sys.stderr)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('date'); ap.add_argument('--candidats', type=int, default=1); ap.add_argument('--seulement', default='')
@@ -83,6 +92,9 @@ def main():
     fiche_p = os.path.join(sortie, 'illustrations.json')
     fiche = json.load(open(fiche_p, encoding='utf-8')) if os.path.exists(fiche_p) else []
     deja = {f['fichier'] for f in fiche}
+    briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id']) < a.candidats]   # déjà servis : rien à redemander
+    total = len(briefs) * a.candidats * PRIX.get(a.modele, .08)
+    print(f'{len(briefs)} brief(s) à servir : {total:.2f} $', file=sys.stderr)
     for b in briefs:
         prompt = STYLE + b['brief']
         try: rep = demander(cle, prompt, a.modele, a.style, a.candidats, b.get('graine'))
@@ -97,6 +109,7 @@ def main():
             open(os.path.join(sortie, nom), 'wb').write(data)
             if ext == 'svg':
                 open(os.path.join(sortie, nom.replace('.svg', '-charte.svg')), 'w', encoding='utf-8').write(charte(data.decode('utf-8', 'replace')))
+                apercu(os.path.join(sortie, nom))
             fiche.append({'id': b['id'], 'fichier': nom, 'modele': a.modele, 'style': a.style, 'image_id': img.get('image_id'),
                           'date': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'credits': rep.get('credits')})
             deja.add(nom)

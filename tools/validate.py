@@ -221,6 +221,23 @@ def visible(h):
     return html.unescape(re.sub(r'<[^>]+>', ' ', h))
 
 
+def check_illustrations(d):
+    """Dessins de la version imprimable (README, § 18) : content/d/illustrations.json bien formé, fichiers retenus présents."""
+    p = os.path.join(ROOT, 'content', d, 'illustrations.json')
+    if not os.path.exists(p): return
+    try: xs = json.load(open(p, encoding='utf-8'))
+    except ValueError as e: ERR.append(f'illustrations.json illisible : {e}'); return
+    if not isinstance(xs, list): ERR.append('illustrations.json : une liste est attendue'); return
+    for x in xs:
+        w = f'illustrations.json, {x.get("id", "?")}'
+        for k in ('id', 'brief', 'alt'):
+            if not x.get(k): ERR.append(f'{w} : champ « {k} » manquant')
+        if x.get('brief') and len(x['brief']) > 900: WARN.append(f'{w} : brief de plus de 900 caractères')
+        f = x.get('fichier')
+        if f and not os.path.exists(os.path.join(ROOT, 'content', d, f)): ERR.append(f'{w} : fichier « {f} » introuvable')
+        if f and not f.startswith('illustrations/'): WARN.append(f'{w} : le dessin retenu devrait être copié dans content/{d}/illustrations/')
+
+
 def check_pdf(d):
     """Version imprimable (README, § 18) : présente et sur 4 pages ; avertissement seulement."""
     f = os.path.join(ROOT, '_site', d, f'revue-{d}.pdf')
@@ -443,7 +460,7 @@ def main():
         pod, _ = podcast.charger(d)
         perr, _, _ = podcast.controler(pod, meta.get('n'))
         ERR.extend(f'podcast.json : {e}' for e in perr)
-    size, em, web = check_outputs(d); check_robots(); check_recherche(); check_pdf(d)
+    size, em, web = check_outputs(d); check_robots(); check_recherche(); check_illustrations(d); check_pdf(d)
     nl = check_links(web) if '--no-links' not in sys.argv else 0
     nc = check_citations(claims, d) if claims and '--no-links' not in sys.argv else 0
     rep = [f'## Contrôle de l’édition {d} (N° {meta.get("n")}{", démonstration" if meta.get("demo") else ""})', '',
