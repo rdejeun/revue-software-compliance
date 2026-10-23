@@ -6,7 +6,7 @@ charte, et les dépose dans veille/illustrations/AAAA-MM-JJ/ (SVG brut, SVG rame
 Usage : python3 tools/illustrer.py AAAA-MM-JJ [--candidats N] [--seulement id,id] [--modele recraftv3_vector] [--style "Line art"]
 Coût : 0,08 $ par image vectorielle (V3) ; le script affiche le total demandé et refuse au-delà de --budget (défaut 1,50 $).
 S'exécute dans le workflow « Illustrations » (la session de rédaction ne peut pas joindre l'API)."""
-import argparse, json, os, re, sys, time, urllib.request
+import argparse, hashlib, json, os, re, sys, time, urllib.request
 
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 API = 'https://external.api.recraft.ai/v1/images/generations'
@@ -94,7 +94,8 @@ def main():
     fiche_p = os.path.join(sortie, 'illustrations.json')
     fiche = json.load(open(fiche_p, encoding='utf-8')) if os.path.exists(fiche_p) else []
     deja = {f['fichier'] for f in fiche}
-    briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id']) < a.candidats]   # déjà servis : rien à redemander
+    emp = lambda b: hashlib.sha256((b['brief'] + b.get('format', '1:1') + str(bool(b.get('texte')))).encode()).hexdigest()[:12]
+    briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id'] and f.get('brief') == emp(b)) < a.candidats]   # ce brief déjà servi : rien à redemander
     total = len(briefs) * a.candidats * PRIX.get(a.modele, .08)
     print(f'{len(briefs)} brief(s) à servir : {total:.2f} $', file=sys.stderr)
     for b in briefs:
@@ -113,7 +114,7 @@ def main():
             if ext == 'svg':
                 open(os.path.join(sortie, nom.replace('.svg', '-charte.svg')), 'w', encoding='utf-8').write(charte(data.decode('utf-8', 'replace')))
                 apercu(os.path.join(sortie, nom))
-            fiche.append({'id': b['id'], 'fichier': nom, 'modele': a.modele, 'style': a.style, 'image_id': img.get('image_id'),
+            fiche.append({'id': b['id'], 'fichier': nom, 'brief': emp(b), 'modele': a.modele, 'style': a.style, 'image_id': img.get('image_id'),
                           'date': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'credits': rep.get('credits')})
             deja.add(nom)
             print(f'{b["id"]} : {nom}', file=sys.stderr)
