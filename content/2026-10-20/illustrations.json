@@ -112,9 +112,9 @@
   "legendes": [
    {
     "texte": "NIS2",
-    "x": 0.54,
-    "y": 0.605,
-    "taille": 0.062,
+    "x": 0.547,
+    "y": 0.612,
+    "taille": 0.088,
     "angle": -12,
     "couleur": "navy"
    }

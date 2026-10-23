@@ -333,7 +333,7 @@ LH_LIST = (1.30, 1.32, 1.34, 1.36, 1.38)  # interligne de base, réglé par rubr
 LH_MAX = 1.40   # interligne maximal, justification verticale comprise
 REGLAGE_LIBRE = int(os.environ.get("JOURNAL_LIBRE", "1"))   # 1 : corps et interligne réglés rubrique par rubrique
 AG_PT = (8.0, 8.25, 8.5, 8.75, 9.0, 9.25)      # corps de l'agenda
-ECART = {'titre': 0.0, 'par': 0.0, 'art': 4.4 * MM, 'bref': 2 * MM, 'lex': .8 * MM}   # blancs avant un élément (voir blanc())
+ECART = {'ill': 1.6 * MM, 'titre': 0.0, 'par': 0.0, 'art': 4.4 * MM, 'bref': 2 * MM, 'lex': .8 * MM}   # blancs avant un élément (voir blanc())
 EXTENSIBLE = {'par', 'art', 'bref', 'lex'}       # blancs que la justification verticale peut agrandir
 G_RUB, G_CHAPO, G_BAS, G_AG = 4.2 * MM, 2.6 * MM, 4.2 * MM, 1.8 * MM
 MIN_QUEUE = 4   # lignes au moins d'une fin de rubrique en tête de page
@@ -722,7 +722,7 @@ def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=(), pos_une=0):
                     ill = (ed.get('illustrations') or {}).get(it['id'])
                     if ill and jj == 0 and it['id'] not in ecartes:   # dessin de presse sous le titre (ou entre deux paragraphes), sur la colonne (README, § 18)
                         us.append(Unite('i', f'<figure class="ill"><img src="file://{html.escape(ill[0])}" alt="{html.escape(ill[1])}"></figure>',
-                                        h=W3 if k == 'une' else W4, n=int(round(ill[2] * 1000)), ecart='titre'))
+                                        h=W3 if k == 'une' else W4, n=int(round(ill[2] * 1000)), ecart='ill'))
                     continue
                 cls, inner = re.match(r'<p class="([^"]*)">(.*)</p>$', sub, re.S).groups()
                 textes = M['p'][(fs, key)]
@@ -774,8 +774,9 @@ def blanc(u, lh_px):
     return ECART[u.ecart]
 
 
-G_ILL = 1.4 * MM        # blanc sous une illustration
-G_ILL_HAUT = 1.4 * MM   # blanc au-dessus d'une illustration placée entre deux paragraphes (sous un titre, le blanc du titre suffit)
+G_ILL = 2.8 * MM        # blanc sous une illustration
+G_ILL_HAUT = 2.8 * MM   # blanc au-dessus d'une illustration placée entre deux paragraphes
+# (sous son titre, le dessin prend 1,6 mm de blanc au-dessus, ECART['ill'], qui s'ajoute au blanc du titre, 1,2 mm au moins)
 ILL_HMAX = 48 * MM       # hauteur maximale d'un dessin
 ILL_HMAX_UNE = 40 * MM   # hauteur maximale du dessin de la Une (colonne plus large, page 1 chargée)
 ILL_RETRECI = .88       # un dessin peut perdre jusqu'à 12 % de sa largeur pour tomber sur la grille plutôt que laisser du blanc
