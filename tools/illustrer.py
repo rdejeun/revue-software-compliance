@@ -13,9 +13,11 @@ API = 'https://external.api.recraft.ai/v1/images/generations'
 NAVY, ACC = (15, 42, 74), (194, 65, 12)   # charte : bleu nuit, orange brique (journal.py)
 PRIX = {'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .08, 'recraftv4_styles_vector': .05, 'recraftv2_vector': .044}
 STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no shading, no gradients. Exactly two spot colors: '
-         'dark navy blue lines and fills, with a few orange accents, on a plain white background. No text, no letters, no logos, '
-         'no brand marks, no real people. One simple scene, readable at 4 cm wide, generous white space. Scene: ')
-NEGATIF = 'text, letters, words, logo, watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border'
+         'dark navy blue lines and fills, with a few orange accents, on a plain white background. No logos, no brand marks. '
+         'One simple scene that fills the frame, readable at 4 cm wide. Scene: ')
+SANS_TEXTE = ' No text, no letters.'
+NEGATIF = 'logo, watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border'
+TAILLES = {'1:1': '1024x1024', '4:3': '1365x1024', '3:2': '1536x1024'}   # format du brief (carré par défaut)
 
 
 def lire_briefs(d):
@@ -23,11 +25,11 @@ def lire_briefs(d):
     return json.load(open(p, encoding='utf-8')), p
 
 
-def demander(cle, prompt, modele, style, n, graine=None):
-    corps = {'prompt': prompt[:1000], 'model': modele, 'style': style, 'n': n, 'size': '1024x1024', 'response_format': 'url',
-             'negative_prompt': NEGATIF,
+def demander(cle, prompt, modele, style, n, graine=None, taille='1024x1024', texte=False):
+    corps = {'prompt': prompt[:1000], 'model': modele, 'style': style, 'n': n, 'size': taille, 'response_format': 'url',
+             'negative_prompt': NEGATIF + ('' if texte else ', text, letters, words'),
              'controls': {'colors': [{'rgb': list(NAVY), 'weight': .75}, {'rgb': list(ACC), 'weight': .25}],
-                          'background_color': {'rgb': [255, 255, 255]}, 'artistic_level': 2, 'no_text': True}}
+                          'background_color': {'rgb': [255, 255, 255]}, 'artistic_level': 2, 'no_text': not texte}}
     if graine is not None: corps['random_seed'] = graine
     req = urllib.request.Request(API, data=json.dumps(corps).encode(), method='POST',
                                  headers={'Authorization': f'Bearer {cle}', 'Content-Type': 'application/json'})
@@ -96,8 +98,9 @@ def main():
     total = len(briefs) * a.candidats * PRIX.get(a.modele, .08)
     print(f'{len(briefs)} brief(s) à servir : {total:.2f} $', file=sys.stderr)
     for b in briefs:
-        prompt = STYLE + b['brief']
-        try: rep = demander(cle, prompt, a.modele, a.style, a.candidats, b.get('graine'))
+        texte = bool(b.get('texte'))   # un mot court ou un sigle, écrit dans le brief, éclaire parfois le dessin (README, § 18)
+        prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)
+        try: rep = demander(cle, prompt, a.modele, a.style, a.candidats, b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
         except Exception as e:   # noqa
             print(f'{b["id"]} : échec {e}', file=sys.stderr); continue
         k0 = sum(1 for f in fiche if f['id'] == b['id'])

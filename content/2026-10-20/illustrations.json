@@ -2,26 +2,32 @@
  {
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
-  "idee": "La machine à café gratuite reçoit un monnayeur : les développeurs font la queue, tasse vide à la main.",
-  "brief": "A tall office coffee vending machine with a steaming cup in its dispenser. A technician on a small stepladder is bolting a brand-new coin slot box onto the side of the machine with a wrench, screws flying. In front of the machine, a short queue of three software developers (lanyards, laptops under the arm) wait holding empty mugs, one of them turning his pockets inside out. The coin slot and the steam are the orange accents.",
-  "alt": "Un technicien visse un monnayeur sur une machine à café devant une file de développeurs aux tasses vides.",
-  "fichier": null
+  "idee": "La tasse de café reçoit un monnayeur : le développeur attend avec sa tasse vide.",
+  "brief": "A large steaming coffee mug, drawn as a simple emblem, sits on a counter; a technician on a stepladder is bolting a coin slot box with a big euro sign onto the side of the mug, screws flying. A developer waits with an empty cup, showing an empty turned-out pocket.",
+  "alt": "Un technicien visse un monnayeur sur une grande tasse de café fumante ; un développeur attend avec une tasse vide.",
+  "fichier": null,
+  "format": "4:3",
+  "texte": true
  },
  {
   "id": "e8.0",
   "article": "AI Act : l’EN 18286, première norme harmonisée citée au Journal officiel",
-  "idee": "Le tailleur prend les mesures du robot : la première norme lui va comme un costume.",
-  "brief": "A tailor's fitting room. A friendly boxy robot with a small antenna stands very straight on a round fitting podium, arms slightly raised. An elegant tailor with a measuring tape around the neck takes the robot's chest measurement, pins in mouth, while a second person with a clipboard and a large rubber stamp waits beside a half-sewn suit jacket on a mannequin. The measuring tape and the stamp ink are the orange accents.",
-  "alt": "Un tailleur prend les mesures d’un robot sur un podium d’essayage, un inspecteur attend avec un tampon.",
-  "fichier": "illustrations/e8.0.svg"
+  "idee": "Le robot passe le portique ; l'inspecteur coche et tamponne « EN 18286 ».",
+  "brief": "A simple inspection gate like an airport metal detector; a friendly boxy robot walks through it. Beside the gate, an inspector with a clipboard ticks boxes and holds up a big round rubber stamp that reads \"EN 18286\". Nothing else.",
+  "alt": "Un robot franchit un portique d’inspection ; un inspecteur coche une liste et tient un tampon « EN 18286 ».",
+  "fichier": null,
+  "format": "4:3",
+  "texte": true
  },
  {
   "id": "e14.0",
   "article": "OVHcloud : versions du CLI officiel piégées sur GitHub",
-  "idee": "Le colis vient bien de la boutique officielle, mais le client le pèse : la balance ne ment pas.",
-  "brief": "A delivery counter. A courier in a cap hands over a neatly wrapped parcel with a big official wax seal; the client, instead of signing, has placed the parcel on an old-fashioned kitchen scale and frowns at the needle, which points far beyond the expected weight. Behind the courier, a tiny cartoon burglar in a striped shirt is hiding inside an identical open parcel, finger on lips. The wax seal and the scale needle are the orange accents.",
-  "alt": "Un client pèse un colis scellé sur une balance dont l’aiguille s’affole ; un cambrioleur se cache dans un colis identique.",
-  "fichier": "illustrations/e14.0.svg"
+  "idee": "Le colis officiel projette l'ombre d'un cambrioleur.",
+  "brief": "A courier in an official-looking uniform with a cap proudly hands a neatly wrapped parcel with a big wax seal to a customer at a door. On the wall behind them, the parcel's shadow has the shape of a burglar with a mask and a sack. Nothing else.",
+  "alt": "Un coursier en uniforme remet un colis scellé dont l’ombre, sur le mur, est celle d’un cambrioleur.",
+  "fichier": null,
+  "format": "4:3",
+  "texte": false
  },
  {
   "id": "e14.1",
@@ -34,25 +40,31 @@
  {
   "id": "e17.0",
   "article": "UE : sanctions contre des intermédiaires qui contournent les mesures visant la Russie",
-  "idee": "Le colis fait le tour du monde de main en main pour arriver juste à côté de son point de départ.",
-  "brief": "A long winding conveyor belt drawn as a loop that leaves a warehouse door, crosses several little cardboard cut-out facades of shops and offices with closed shutters (each with a different roof), passes under a customs barrier that is raised, and comes back to a second door right next to the first one. A single parcel rides the belt. At each facade, a pair of anonymous gloved hands reaches out to re-label the parcel with a new sticker. The stickers and the customs barrier are the orange accents.",
-  "alt": "Un colis parcourt un tapis roulant en boucle entre des façades de sociétés écrans avant de revenir à côté de son point de départ.",
-  "fichier": "illustrations/e17.0.svg"
+  "idee": "Un colis déguisé contourne la barrière de la douane.",
+  "brief": "A customs checkpoint with a lowered barrier and a bored customs officer in a booth. A queue of parcels on little legs waits in line; one parcel wearing a fake nose, moustache and glasses disguise tiptoes around the barrier through a side gap. Nothing else.",
+  "alt": "Devant une barrière de douane, un colis affublé de fausses lunettes et d’une fausse moustache contourne le poste.",
+  "fichier": null,
+  "format": "3:2",
+  "texte": false
  },
  {
   "id": "e20.0",
   "article": "Loi Résilience : pas de réinscription le 13 octobre 2026",
   "idee": "Le gros dossier attend dans la salle d’attente de l’Assemblée avec son ticket, sous l’horloge.",
-  "brief": "A parliamentary waiting room with a row of chairs. On one chair sits a huge, thick, dog-eared paper file tied with a ribbon, holding a small numbered queue ticket as if it were a patient. A cobweb links it to the chair. On the wall, a ticket-dispenser display and a big round clock; the display's number is far from the file's ticket. Through an open door, an empty debating chamber with rows of seats. The queue ticket and the ribbon are the orange accents.",
+  "brief": "A waiting room. On a single chair sits an enormous thick paper file tied with a ribbon, labelled \"NIS2\" in big letters on its cover, holding a small numbered queue ticket in a paper hand as if it were a patient. A cobweb links the file to the chair; a round wall clock above. Nothing else.",
   "alt": "Un gros dossier ficelé attend sur une chaise de salle d’attente avec un ticket numéroté, sous une horloge.",
-  "fichier": "illustrations/e20.0.svg"
+  "fichier": null,
+  "texte": true,
+  "format": "1:1"
  },
  {
   "id": "e23.0",
   "article": "Russie : une suite fondée sur LibreOffice refusée au registre des logiciels nationaux",
-  "idee": "Le tailleur présente son manteau « fait maison » ; l’inspecteur soulève la doublure et découvre les étiquettes des autres.",
-  "brief": "A registry office counter. A proud tailor presents a long overcoat on a hanger to an official behind the counter. The official, with round glasses, lifts the lining of the coat with two fingers and discovers a dozen sewn-in care labels from different makers stitched one over the other; the tailor's only contribution is a tiny bow tie pinned on the collar. The official's other hand hovers over a large stamp marked with a cross. The labels and the bow tie are the orange accents.",
-  "alt": "Un fonctionnaire soulève la doublure d’un manteau et découvre une dizaine d’étiquettes de fabricants différents.",
-  "fichier": null
+  "idee": "La poupée gigogne « nationale » contient des poupées d'autres fabricants.",
+  "brief": "A registry counter. An applicant proudly presents a large nesting doll. The official behind the counter has opened it: the smaller dolls lined up on the counter each carry a different sewn-on maker's label, and the official points at them with raised eyebrows. Nothing else.",
+  "alt": "Au guichet, un fonctionnaire a ouvert une poupée gigogne dont chaque poupée intérieure porte l’étiquette d’un autre fabricant.",
+  "fichier": null,
+  "format": "4:3",
+  "texte": false
  }
 ]
