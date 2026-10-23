@@ -4,7 +4,7 @@ name: Illustrations
 # tools/illustrer.py demande à Recraft des dessins vectoriels au trait (clé RECRAFT_API_KEY, secret du dépôt ; 0,08 $ par
 # image) et dépose les candidats dans veille/illustrations/<date>/, que la rédaction regarde avant d'en retenir un par
 # brief. Lancement manuel (avec ses réglages), ou push d'une branche illustrations/<date> (réglages par défaut : un
-# candidat par brief, 0,70 $ au plus) ou de la branche edition/<date> de la routine A (mêmes réglages ; un brief déjà servi
+# candidat par brief, ou le nombre fixé par le brief, 1 $ au plus) ou de la branche edition/<date> de la routine A (mêmes réglages ; un brief déjà servi
 # n'est pas redemandé) ; les candidats (SVG et aperçu PNG) sont versés sur la branche poussée (ou sur main au lancement manuel).
 
 on:
@@ -50,7 +50,7 @@ jobs:
         run: |
           d="${{ inputs.date }}"; [ -z "$d" ] && d="${GITHUB_REF_NAME#*/}"
           python3 tools/illustrer.py "$d" --candidats "${{ inputs.candidats || '1' }}" --seulement "${{ inputs.seulement }}" \
-            --modele "${{ inputs.modele || 'recraftv3_vector' }}" --style "${{ inputs.style || 'Line art' }}" --budget "${{ inputs.budget || '0.7' }}"
+            --modele "${{ inputs.modele || 'recraftv3_vector' }}" --style "${{ inputs.style || 'Line art' }}" --budget "${{ inputs.budget || '1.0' }}"
           echo "EDITION=$d" >> "$GITHUB_ENV"
       - name: Enregistrer les candidats
         run: |

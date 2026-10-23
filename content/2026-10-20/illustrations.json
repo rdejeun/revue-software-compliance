@@ -2,22 +2,32 @@
  {
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
-  "idee": "La tasse de café reçoit un monnayeur : le développeur attend avec sa tasse vide.",
-  "brief": "A large steaming coffee mug, drawn as a simple emblem, sits on a counter; a technician on a stepladder is bolting a coin slot box with a big euro sign onto the side of the mug, screws flying. A developer waits with an empty cup, showing an empty turned-out pocket.",
-  "alt": "Un technicien visse un monnayeur sur une grande tasse de café fumante ; un développeur attend avec une tasse vide.",
-  "fichier": "illustrations/e5.0.svg",
+  "idee": "La tasse Java reçoit un monnayeur.",
+  "brief": "The Java logo, a steaming coffee cup with two curling ribbons of steam, drawn large on the left. A coin-operated slot box with a big euro sign is bolted onto the side of the cup, like on a parking meter, and a hand on the right is inserting a coin into the slot. The cup has a blank white rectangular label on its front. Nothing else.",
+  "alt": "Le logo Java, une tasse de café fumante étiquetée « JDK 21 », équipé d’un monnayeur dans lequel une main glisse une pièce.",
+  "fichier": null,
   "format": "4:3",
-  "texte": true
+  "texte": false,
+  "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
+  "repere": "le logo Java (tasse de café fumante), étiquette « JDK 21 » ajoutée par nous",
+  "action": "on paie pour s'en servir : monnayeur et pièce",
+  "legendes": [],
+  "candidats": 2
  },
  {
   "id": "e8.0",
   "article": "AI Act : l’EN 18286, première norme harmonisée citée au Journal officiel",
-  "idee": "Le robot passe le portique ; l'inspecteur coche et tamponne « EN 18286 ».",
-  "brief": "Centre of the picture: a friendly boxy robot with an antenna walks through an airport-style inspection gate. An inspector beside the gate holds a clipboard and a big round rubber stamp; the gate's display panel shows the letters EN 18286 in large clear capitals. Nothing else.",
-  "alt": "Un robot franchit un portique d’inspection ; un inspecteur coche une liste et tient un tampon « EN 18286 ».",
-  "fichier": "illustrations/e8.0.svg",
-  "format": "4:3",
-  "texte": true
+  "idee": "L'UE tamponne le robot : sceau « EN 18286 ».",
+  "brief": "A friendly boxy robot with an antenna stands straight and proud, smiling. A big hand coming from the right, with a shirt cuff decorated with the European Union circle of twelve stars, presses a large rubber stamp onto the robot's chest, leaving a big round blank seal with a ribbon. Nothing else.",
+  "alt": "Une main aux manchettes étoilées de l’Union européenne appose sur la poitrine d’un robot un sceau « EN 18286 ».",
+  "fichier": null,
+  "format": "1:1",
+  "texte": false,
+  "message": "L'EN 18286, première norme harmonisée de l'AI Act, vaut présomption de conformité pour le système qualité des fournisseurs d'IA.",
+  "repere": "un robot (l'IA), la couronne d'étoiles de l'UE, le sceau « EN 18286 » ajouté par nous",
+  "action": "l'UE tamponne le robot : conformité reconnue",
+  "legendes": [],
+  "candidats": 2
  },
  {
   "id": "e14.0",
@@ -25,9 +35,24 @@
   "idee": "Le colis officiel projette l'ombre d'un cambrioleur.",
   "brief": "Close-up. A hand holds up a neatly wrapped parcel with a big wax seal in front of a wall. Cast on the wall by a lamp, the parcel's shadow is the silhouette of a crouching burglar with a mask and a sack. Nothing else.",
   "alt": "Un coursier en uniforme remet un colis scellé dont l’ombre, sur le mur, est celle d’un cambrioleur.",
-  "fichier": "illustrations/e14.0.svg",
+  "fichier": null,
   "format": "3:2",
   "texte": false
+ },
+ {
+  "id": "e11.2",
+  "article": "Privateer : évaluation automatisée de la sécurité et de la conformité",
+  "message": "Privateer, outil de l'OpenSSF, passe les dépôts open source au crible d'une liste de contrôles de sécurité et de conformité.",
+  "repere": "un corsaire (privateer), un coffre « open source » (étiquette ajoutée par nous)",
+  "action": "il inspecte et coche sa liste",
+  "brief": "A friendly privateer captain with a tricorn hat and a long coat leans over an open treasure chest full of paper sheets marked with curly braces { }. He holds a long checklist with tick marks and one cross, and a magnifying glass. The chest front has a blank white label. Nothing else.",
+  "format": "4:3",
+  "texte": false,
+  "fichier": null,
+  "legendes": [],
+  "idee": "Le corsaire inspecte le coffre « open source », liste de contrôle en main.",
+  "alt": "Un corsaire en tricorne inspecte à la loupe un coffre « open source » rempli de code, une liste de contrôle à la main.",
+  "candidats": 2
  },
  {
   "id": "e14.1",
@@ -40,12 +65,17 @@
  {
   "id": "e17.0",
   "article": "UE : sanctions contre des intermédiaires qui contournent les mesures visant la Russie",
-  "idee": "Un colis déguisé contourne la barrière de la douane.",
-  "brief": "A long row of identical cardboard parcels with little legs queue at a customs window where an officer stamps papers without looking up. In the middle of the queue, one parcel wears a disguise: big fake nose, moustache and glasses. Nothing else.",
-  "alt": "Devant une barrière de douane, un colis affublé de fausses lunettes et d’une fausse moustache contourne le poste.",
+  "idee": "La main de l'UE attrape l'intermédiaire qui contourne la barrière.",
+  "brief": "On the right, the Kremlin towers with onion domes. In the middle, a closed border barrier. A sly middleman in a trench coat and hat tiptoes around the end of the barrier carrying a wooden crate towards the Kremlin. A giant hand coming from the top left, with a shirt cuff decorated with the European Union circle of twelve stars, grabs the middleman by the collar and lifts him off the ground. Nothing else.",
+  "alt": "Une main aux manchettes étoilées de l’Union européenne attrape par le col un intermédiaire qui contourne une barrière avec une caisse, vers le Kremlin.",
   "fichier": null,
   "format": "3:2",
-  "texte": false
+  "texte": false,
+  "message": "L'UE sanctionne les intermédiaires de pays tiers qui aident la Russie à contourner ses sanctions.",
+  "repere": "les bulbes du Kremlin, la couronne d'étoiles de l'UE, une barrière fermée",
+  "action": "la main de l'UE attrape l'intermédiaire qui contourne la barrière",
+  "legendes": [],
+  "candidats": 2
  },
  {
   "id": "e20.0",
@@ -55,16 +85,34 @@
   "alt": "Un gros dossier ficelé attend sur une chaise de salle d’attente avec un ticket numéroté, sous une horloge.",
   "fichier": "illustrations/e20.0.svg",
   "texte": true,
-  "format": "1:1"
+  "format": "1:1",
+  "message": "La loi qui transpose NIS2 en France attend toujours d'être réinscrite à l'Assemblée.",
+  "repere": "le dossier étiqueté « NIS2 » (ajouté par nous), la salle d'attente",
+  "action": "le dossier attend sur sa chaise, sous l'horloge",
+  "legendes": [
+   {
+    "texte": "NIS2",
+    "x": 0.515,
+    "y": 0.6,
+    "taille": 0.075,
+    "angle": -12,
+    "couleur": "navy"
+   }
+  ]
  },
  {
   "id": "e23.0",
   "article": "Russie : une suite fondée sur LibreOffice refusée au registre des logiciels nationaux",
-  "idee": "La poupée gigogne « nationale » contient des poupées d'autres fabricants.",
-  "brief": "A registry counter. An applicant proudly presents a large nesting doll. The official behind the counter has opened it: the smaller dolls lined up on the counter each carry a different sewn-on maker's label, and the official points at them with raised eyebrows. Nothing else.",
-  "alt": "Au guichet, un fonctionnaire a ouvert une poupée gigogne dont chaque poupée intérieure porte l’étiquette d’un autre fabricant.",
-  "fichier": "illustrations/e23.0.svg",
+  "idee": "Le juge ouvre la matriochka : dedans, LibreOffice.",
+  "brief": "A judge in a robe sits behind a bench and has just opened a large Russian matryoshka doll: inside, instead of a smaller doll, stands the LibreOffice logo, a simple document sheet with a folded top corner. The judge raises a gavel with a stern look. The outer doll's belly has a blank white label. Nothing else.",
+  "alt": "Un juge ouvre une matriochka « Free Office » : à l’intérieur, le logo de LibreOffice.",
+  "fichier": null,
   "format": "4:3",
-  "texte": false
+  "texte": false,
+  "message": "La justice russe refuse d'inscrire comme logiciel national une suite bureautique qui n'est, au fond, que LibreOffice.",
+  "repere": "la matriochka (Russie), le logo de LibreOffice (feuille à coin plié), « Free Office » ajouté par nous",
+  "action": "le juge ouvre la poupée : dedans, LibreOffice ; coup de marteau",
+  "legendes": [],
+  "candidats": 2
  }
 ]

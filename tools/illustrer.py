@@ -4,6 +4,9 @@ demande à Recraft (API, clé RECRAFT_API_KEY) des dessins de presse au trait, v
 charte, et les dépose dans veille/illustrations/AAAA-MM-JJ/ (SVG brut, SVG ramené à la charte, fiche JSON).
 
 Usage : python3 tools/illustrer.py AAAA-MM-JJ [--candidats N] [--seulement id,id] [--modele recraftv3_vector] [--style "Line art"]
+        python3 tools/illustrer.py --retenir AAAA-MM-JJ ID FICHIER   (dessin retenu : recadré sur son contenu, légendes du
+        brief ajoutées en vectoriel, copié dans content/AAAA-MM-JJ/illustrations/ID.svg, champ « fichier » renseigné)
+        python3 tools/illustrer.py --grille FICHIER.svg   (aperçu PNG quadrillé au dixième, pour placer une légende)
 Coût : 0,08 $ par image vectorielle (V3) ; le script affiche le total demandé et refuse au-delà de --budget (défaut 1,50 $).
 S'exécute dans le workflow « Illustrations » (la session de rédaction ne peut pas joindre l'API)."""
 import argparse, hashlib, json, os, re, sys, time, urllib.request
@@ -13,10 +16,11 @@ API = 'https://external.api.recraft.ai/v1/images/generations'
 NAVY, ACC = (15, 42, 74), (194, 65, 12)   # charte : bleu nuit, orange brique (journal.py)
 PRIX = {'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .08, 'recraftv4_styles_vector': .05, 'recraftv2_vector': .044}
 STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no shading, no gradients. Exactly two spot colors: '
-         'dark navy blue lines and fills, with a few orange accents, on a plain white background. No logos, no brand marks. '
-         'One simple scene that fills the frame, readable at 4 cm wide. Scene: ')
+         'dark navy blue lines and fills, with a few orange accents, on a plain white background. Any logo, emblem or public figure '
+         'named in the scene is redrawn in the same simple line style and two colors, instantly recognizable. '
+         'One simple scene, main subject large and centered, filling the frame, no background decor, readable at 4 cm wide. Scene: ')
 SANS_TEXTE = ' No text, no letters.'
-NEGATIF = 'logo, watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border'
+NEGATIF = 'watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border, background scenery, abstract shapes'
 TAILLES = {'1:1': '1024x1024', '4:3': '1365x1024', '3:2': '1536x1024'}   # format du brief (carré par défaut)
 
 
@@ -75,7 +79,83 @@ def apercu(svg):
         print(f'aperçu impossible ({os.path.basename(svg)}) : {e}', file=sys.stderr)
 
 
+FONTE = os.path.join(HERE, 'vendor', 'fonts', 'source-sans-3', 'source-sans-3-latin-700-normal.woff2')
+
+
+def texte_chemin(texte, cx, cy, taille, angle=0.0, couleur='#0f2a4a'):
+    """Texte en contours vectoriels (Source Sans 3 gras), centré en (cx, cy), corps « taille » (unités du SVG)."""
+    from fontTools.ttLib import TTFont
+    from fontTools.pens.svgPathPen import SVGPathPen
+    f = TTFont(FONTE); gs = f.getGlyphSet(); cmap = f.getBestCmap(); upm = f['head'].unitsPerEm
+    x, chemins = 0, []
+    for ch in texte:
+        g = cmap.get(ord(ch))
+        if g is None: x += upm * .3; continue
+        pen = SVGPathPen(gs); gs[g].draw(pen)
+        chemins.append(f'<path transform="translate({x} 0)" d="{pen.getCommands()}"/>'); x += gs[g].width
+    k = taille / upm; cap = f['OS/2'].sCapHeight if hasattr(f['OS/2'], 'sCapHeight') else upm * .66
+    return (f'<g fill="{couleur}" transform="translate({cx} {cy}) rotate({angle}) scale({k} {-k}) translate({-x / 2} {-cap / 2})">'
+            + ''.join(chemins) + '</g>')
+
+
+def boite_contenu(svg_txt, marge=.02):
+    """Boîte (unités du viewBox) de ce qui n'est pas blanc dans le dessin, marge comprise."""
+    import cairosvg, io
+    from PIL import Image
+    vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg_txt)[1].split()]
+    W = 800; img = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg_txt.encode(), output_width=W, output_height=int(W * vb[3] / vb[2]))))
+    fond = Image.new('RGB', img.size, 'white'); fond.paste(img.convert('RGBA'), mask=img.convert('RGBA').split()[3])
+    gris = fond.convert('L').point(lambda v: 255 if v < 235 else 0)
+    bb = gris.getbbox() or (0, 0, img.width, img.height)
+    sx = vb[2] / img.width; sy = vb[3] / img.height
+    x0, y0, x1, y1 = vb[0] + bb[0] * sx, vb[1] + bb[1] * sy, vb[0] + bb[2] * sx, vb[1] + bb[3] * sy
+    m = marge * max(x1 - x0, y1 - y0)
+    return max(vb[0], x0 - m), max(vb[1], y0 - m), min(vb[0] + vb[2], x1 + m), min(vb[1] + vb[3], y1 + m)
+
+
+def retenir(d, ident, fichier):
+    """Dessin retenu : légendes du brief (champ « legendes » : texte, x, y en fraction du dessin, taille en fraction de sa
+    largeur, angle, couleur navy|orange) ajoutées en contours vectoriels, recadrage sur le contenu, copie dans content/."""
+    briefs, p = lire_briefs(d)
+    b = next(x for x in briefs if x['id'] == ident)
+    src = fichier if os.path.exists(fichier) else os.path.join(ROOT, 'veille', 'illustrations', d, fichier)
+    svg = open(src, encoding='utf-8').read()
+    vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg)[1].split()]
+    ajout = ''
+    for L in b.get('legendes') or []:
+        coul = '#c2410c' if L.get('couleur') == 'orange' else ('#ffffff' if L.get('couleur') == 'blanc' else '#0f2a4a')
+        ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .08) * vb[2], L.get('angle', 0), coul)
+    svg = svg.replace('</svg>', ajout + '</svg>')
+    x0, y0, x1, y1 = boite_contenu(svg)
+    svg = re.sub(r'viewBox="[^"]+"', f'viewBox="{x0:.1f} {y0:.1f} {x1 - x0:.1f} {y1 - y0:.1f}"', svg, count=1)
+    svg = re.sub(r'(<svg[^>]*?)\swidth="[^"]*"', r'\1', svg, count=1)
+    svg = re.sub(r'(<svg[^>]*?)\sheight="[^"]*"', r'\1', svg, count=1)
+    svg = re.sub(r'preserveAspectRatio="[^"]*"', 'preserveAspectRatio="xMidYMid meet"', svg, count=1)
+    svg = svg.replace('<svg ', f'<svg width="{x1 - x0:.0f}" height="{y1 - y0:.0f}" ', 1)
+    os.makedirs(os.path.join(ROOT, 'content', d, 'illustrations'), exist_ok=True)
+    dest = os.path.join('illustrations', f'{ident}.svg')
+    open(os.path.join(ROOT, 'content', d, dest), 'w', encoding='utf-8').write(svg)
+    b['fichier'] = dest; b['source'] = os.path.basename(src)
+    json.dump(briefs, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1); open(p, 'a').write('\n')
+    apercu(os.path.join(ROOT, 'content', d, dest))
+    print(f'{ident} : {dest} (recadré {x1 - x0:.0f} × {y1 - y0:.0f}, rapport {(y1 - y0) / (x1 - x0):.2f})', file=sys.stderr)
+
+
+def grille(f):
+    """Aperçu PNG quadrillé au dixième, pour placer une légende (coordonnées en fraction du dessin)."""
+    import cairosvg, io
+    from PIL import Image, ImageDraw
+    img = Image.open(io.BytesIO(cairosvg.svg2png(url=f, output_width=800))).convert('RGB')
+    dr = ImageDraw.Draw(img)
+    for k in range(1, 10):
+        dr.line([(img.width * k / 10, 0), (img.width * k / 10, img.height)], fill=(0, 170, 0)); dr.text((img.width * k / 10 + 2, 2), f'.{k}', fill=(0, 140, 0))
+        dr.line([(0, img.height * k / 10), (img.width, img.height * k / 10)], fill=(0, 170, 0)); dr.text((2, img.height * k / 10 + 2), f'.{k}', fill=(0, 140, 0))
+    out = f[:-4] + '-grille.png'; img.save(out); print(out)
+
+
 def main():
+    if len(sys.argv) > 1 and sys.argv[1] == '--retenir': return retenir(*sys.argv[2:5])
+    if len(sys.argv) > 1 and sys.argv[1] == '--grille': return grille(sys.argv[2])
     ap = argparse.ArgumentParser()
     ap.add_argument('date'); ap.add_argument('--candidats', type=int, default=1); ap.add_argument('--seulement', default='')
     ap.add_argument('--modele', default='recraftv3_vector'); ap.add_argument('--style', default='Line art')
@@ -85,23 +165,22 @@ def main():
     briefs, _ = lire_briefs(a.date)
     seuls = {x for x in a.seulement.split(',') if x}
     briefs = [b for b in briefs if not seuls or b['id'] in seuls]
-    total = len(briefs) * a.candidats * PRIX.get(a.modele, .08)
-    print(f'{len(briefs)} brief(s) × {a.candidats} candidat(s), modèle {a.modele}, style « {a.style} » : {total:.2f} $', file=sys.stderr)
-    if total > a.budget: sys.exit(f'au-delà du budget de {a.budget:.2f} $ : rien demandé')
-    if a.simuler: return
-    if not cle: sys.exit('RECRAFT_API_KEY absente')
     sortie = os.path.join(ROOT, 'veille', 'illustrations', a.date); os.makedirs(sortie, exist_ok=True)
     fiche_p = os.path.join(sortie, 'illustrations.json')
     fiche = json.load(open(fiche_p, encoding='utf-8')) if os.path.exists(fiche_p) else []
     deja = {f['fichier'] for f in fiche}
     emp = lambda b: hashlib.sha256((b['brief'] + b.get('format', '1:1') + str(bool(b.get('texte')))).encode()).hexdigest()[:12]
-    briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id'] and f.get('brief') == emp(b)) < a.candidats]   # ce brief déjà servi : rien à redemander
-    total = len(briefs) * a.candidats * PRIX.get(a.modele, .08)
+    nb = lambda b: max(a.candidats, int(b.get('candidats', 1)))   # candidats par brief (champ « candidats » du brief, sinon --candidats)
+    briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id'] and f.get('brief') == emp(b)) < nb(b)]   # ce brief déjà servi : rien à redemander
+    total = sum(nb(b) for b in briefs) * PRIX.get(a.modele, .08)
+    if total > a.budget: sys.exit(f'au-delà du budget de {a.budget:.2f} $ : rien demandé')
     print(f'{len(briefs)} brief(s) à servir : {total:.2f} $', file=sys.stderr)
+    if a.simuler: print('  ' + ', '.join(f"{b['id']} × {nb(b)}" for b in briefs), file=sys.stderr); return
+    if not cle: sys.exit('RECRAFT_API_KEY absente')
     for b in briefs:
         texte = bool(b.get('texte'))   # un mot court ou un sigle, écrit dans le brief, éclaire parfois le dessin (README, § 18)
-        prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)
-        try: rep = demander(cle, prompt, a.modele, a.style, a.candidats, b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
+        prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)   # message, repère et action sont dans le brief (README, § 18)
+        try: rep = demander(cle, prompt, a.modele, a.style, nb(b), b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
         except Exception as e:   # noqa
             print(f'{b["id"]} : échec {e}', file=sys.stderr); continue
         k0 = sum(1 for f in fiche if f['id'] == b['id'])
