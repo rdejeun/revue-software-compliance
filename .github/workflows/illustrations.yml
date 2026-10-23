@@ -3,9 +3,13 @@ name: Illustrations
 # Dessins de presse de la version imprimable (README, § 18) : à partir des briefs de content/<date>/illustrations.json,
 # tools/illustrer.py demande à Recraft des dessins vectoriels au trait (clé RECRAFT_API_KEY, secret du dépôt ; 0,08 $ par
 # image) et dépose les candidats dans veille/illustrations/<date>/, que la rédaction regarde avant d'en retenir un par
-# brief. Lancement manuel seulement ; le dossier veille/ ne déclenche pas la publication.
+# brief. Lancement manuel (avec ses réglages), ou push d'une branche illustrations/<date> (réglages par défaut : un
+# candidat par brief, 0,70 $ au plus) ; les candidats sont versés sur la branche poussée (ou sur main au lancement manuel).
 
 on:
+  push:
+    branches: ['illustrations/**']
+    paths: ['content/**/illustrations.json', 'tools/illustrer.py', '.github/workflows/illustrations.yml']
   workflow_dispatch:
     inputs:
       date:
@@ -42,13 +46,15 @@ jobs:
         env:
           RECRAFT_API_KEY: ${{ secrets.RECRAFT_API_KEY }}
         run: |
-          python3 tools/illustrer.py "${{ inputs.date }}" --candidats "${{ inputs.candidats }}" --seulement "${{ inputs.seulement }}" \
-            --modele "${{ inputs.modele }}" --style "${{ inputs.style }}" --budget "${{ inputs.budget }}"
+          d="${{ inputs.date }}"; [ -z "$d" ] && d="${GITHUB_REF_NAME#illustrations/}"
+          python3 tools/illustrer.py "$d" --candidats "${{ inputs.candidats || '1' }}" --seulement "${{ inputs.seulement }}" \
+            --modele "${{ inputs.modele || 'recraftv3_vector' }}" --style "${{ inputs.style || 'Line art' }}" --budget "${{ inputs.budget || '0.7' }}"
+          echo "EDITION=$d" >> "$GITHUB_ENV"
       - name: Enregistrer les candidats
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add veille/illustrations
           git diff --cached --quiet && exit 0
-          git commit -m "Illustrations ${{ inputs.date }} : candidats [skip ci]"
-          git pull --rebase origin main && git push origin HEAD:main
+          git commit -m "Illustrations $EDITION : candidats [skip ci]"
+          git pull --rebase origin "$GITHUB_REF_NAME" && git push origin HEAD:"$GITHUB_REF_NAME"
