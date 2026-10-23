@@ -1,0 +1,5 @@
+4 brief(s) à servir : 0.20 $
+e5.0 : échec HTTP Error 400: Bad Request {"code":"invalid_request_parameter","message":"Recraft V4 Styles Vector doesn't support 1365x1024 image size"}
+e11.1 : échec HTTP Error 400: Bad Request {"code":"invalid_request_parameter","message":"Recraft V4 Styles Vector doesn't support 1365x1024 image size"}
+e14.2 : échec HTTP Error 400: Bad Request {"code":"invalid_request_parameter","message":"Recraft V4 Styles Vector doesn't support 1365x1024 image size"}
+e17.0 : échec HTTP Error 400: Bad Request {"code":"invalid_request_parameter","message":"Recraft V4 Styles Vector doesn't support 1365x1024 image size"}
