@@ -335,6 +335,7 @@ REGLAGE_LIBRE = int(os.environ.get("JOURNAL_LIBRE", "1"))   # 1 : corps et inter
 AG_PT = (8.0, 8.25, 8.5, 8.75, 9.0, 9.25)      # corps de l'agenda
 ECART = {'ill': 1.6 * MM, 'titre': 0.0, 'par': 0.0, 'art': 4.4 * MM, 'bref': 2 * MM, 'lex': .8 * MM}   # blancs avant un élément (voir blanc())
 EXTENSIBLE = {'par', 'art', 'bref', 'lex'}       # blancs que la justification verticale peut agrandir
+G_APRES_UNE = 3 * 96 / 25.4   # blanc supplémentaire entre la Une et la rubrique suivante (filet de rubrique moins serré)
 G_RUB, G_CHAPO, G_BAS, G_AG = 4.2 * MM, 2.6 * MM, 4.2 * MM, 1.8 * MM
 MIN_QUEUE = 4   # lignes au moins d'une fin de rubrique en tête de page
 MIN_TETE = 6    # lignes au moins d’un début de rubrique en bas de page
@@ -779,7 +780,7 @@ G_ILL_HAUT = 2.8 * MM   # blanc au-dessus d'une illustration placée entre deux 
 # (sous son titre, le dessin prend 1,6 mm de blanc au-dessus, ECART['ill'], qui s'ajoute au blanc du titre, 1,2 mm au moins)
 ILL_HMAX = 48 * MM       # hauteur maximale d'un dessin
 ILL_HMAX_UNE = 40 * MM   # hauteur maximale du dessin de la Une (colonne plus large, page 1 chargée)
-ILL_RETRECI = .88       # un dessin peut perdre jusqu'à 12 % de sa largeur pour tomber sur la grille plutôt que laisser du blanc
+ILL_RETRECI = .85       # un dessin peut perdre jusqu'à 15 % de sa largeur pour tomber sur la grille plutôt que laisser du blanc
 
 
 def dims_ill(u, lh_px):
@@ -919,7 +920,7 @@ def repartir(s, g, nl, fm):
     return e, f
 
 
-ILL_SOUPLE = 3 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
+ILL_SOUPLE = 1.5 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
 
 
 def absorbe_ill(us, parts, s):
@@ -1299,7 +1300,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
                         if cc is None: continue
                         cout += cc
                         plan = (plan, ('cols', 0, y, [(c * (W3 + GOUT), W3, H) for c in range(3)], cols, us, fs, lh_px, False))
-                        y += H
+                        y += H + G_APRES_UNE
                     etats.append(Etat(0, y, cout + cout_repartition(plan), plan, (None, D) if D else None, (fs, lh), False, geo, (('une', fs, lh, pos_une), ('ag', ag))))
     lex_fin = bool(ed.get('sigles'))   # le lexique, en dernier, enveloppe l'agenda ; sans lexique, la dernière rubrique
     def elaguer(xs, k):

@@ -19,8 +19,10 @@ STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no sh
          'dark navy blue lines and fills, with a few orange accents, on a plain white background. Any logo, emblem or public figure '
          'named in the scene is redrawn in the same simple line style and two colors, instantly recognizable. '
          'Bold thick outlines (line width about one hundredth of the image width), few large simple shapes, no small details, '
-         'no fine patterns or hatching, no tiny objects. The two or three elements of the scene may overlap and interact. '
-         'One simple scene, main subject large and centered, filling the frame, no background decor, readable at 4 cm wide. Scene: ')
+         'no fine patterns or hatching, no tiny objects. It tells a simple story: a plausible everyday situation in which the '
+         'characters act naturally and the two or three elements interact as they would in real life (no symbolic juxtaposition '
+         'of unrelated objects). The scene spreads across the whole width of the frame, characters large, no empty margins, '
+         'no background decor, readable at 4 cm wide. Scene: ')
 SANS_TEXTE = ' No text, no letters.'
 NEGATIF = 'watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border, background scenery, abstract shapes'
 TAILLES = {'1:1': '1024x1024', '4:3': '1365x1024', '3:2': '1536x1024'}   # format du brief (carré par défaut)
@@ -118,6 +120,39 @@ def trait_dessin(svg_txt):
     return float(np.median(v) * 2 / W * vb[2]) if len(v) else .008 * vb[2]
 
 
+def encre_texte(texte):
+    """(chemins, boîte de l'encre xmin, ymin, xmax, ymax en unités de la police, upm) du texte composé."""
+    from fontTools.ttLib import TTFont
+    from fontTools.pens.svgPathPen import SVGPathPen
+    from fontTools.pens.boundsPen import BoundsPen
+    f = TTFont(FONTE); gs = f.getGlyphSet(); cmap = f.getBestCmap(); upm = f['head'].unitsPerEm
+    x, chemins, bb = 0, [], None
+    for ch in texte:
+        g = cmap.get(ord(ch))
+        if g is None: x += upm * .3; continue
+        pen = SVGPathPen(gs); gs[g].draw(pen); bp = BoundsPen(gs); gs[g].draw(bp)
+        if bp.bounds:
+            b = (bp.bounds[0] + x, bp.bounds[1], bp.bounds[2] + x, bp.bounds[3])
+            bb = b if bb is None else (min(bb[0], b[0]), min(bb[1], b[1]), max(bb[2], b[2]), max(bb[3], b[3]))
+        chemins.append(f'<path transform="translate({x} 0)" d="{pen.getCommands()}"/>'); x += gs[g].width
+    return chemins, bb, upm
+
+
+def texte_zone(texte, zone, vb, angle=0.0, couleur='#0f2a4a', epaisseur=None, remplissage=(.82, .62)):
+    """Texte centré **sur son encre** dans une zone [x0, y0, x1, y1] (fraction du dessin, repère de la zone tourné de
+    « angle » autour de son centre), au plus grand corps qui tienne dans remplissage (largeur, hauteur) de la zone."""
+    chemins, bb, upm = encre_texte(texte)
+    zx0, zy0, zx1, zy1 = vb[0] + zone[0] * vb[2], vb[1] + zone[1] * vb[3], vb[0] + zone[2] * vb[2], vb[1] + zone[3] * vb[3]
+    cx, cy = (zx0 + zx1) / 2, (zy0 + zy1) / 2
+    w, h = (bb[2] - bb[0]), (bb[3] - bb[1])
+    k = min(remplissage[0] * (zx1 - zx0) / w, remplissage[1] * (zy1 - zy0) / h)
+    sup = max(0.0, (epaisseur or 0) - fut_fonte() * upm * k) if epaisseur else 0.0
+    tr = f' stroke="{couleur}" stroke-width="{sup / k:.1f}" stroke-linejoin="round"' if sup > 0 else ''
+    mx, my = (bb[0] + bb[2]) / 2, (bb[1] + bb[3]) / 2   # centre de l'encre (repère de la police, y vers le haut)
+    return (f'<g fill="{couleur}"{tr} transform="translate({cx:.1f} {cy:.1f}) rotate({angle}) scale({k:.5f} {-k:.5f}) translate({-mx:.1f} {-my:.1f})">'
+            + ''.join(chemins) + '</g>')
+
+
 def texte_chemin(texte, cx, cy, taille, angle=0.0, couleur='#0f2a4a', epaisseur=None):
     """Texte en contours vectoriels (Amatic SC gras, manuscrite étroite), centré en (cx, cy), corps « taille » (unités
     du SVG) ; épaisseur : épaisseur de trait visée (celle du dessin), obtenue en épaississant le contour."""
@@ -167,9 +202,12 @@ def retenir(d, ident, fichier):
     ajout = ''
     for L in b.get('legendes') or []:
         coul = '#c2410c' if L.get('couleur') == 'orange' else ('#ffffff' if L.get('couleur') == 'blanc' else '#0f2a4a')
-        ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .1) * vb[2], L.get('angle', 0), coul, ep)
+        if 'zone' in L: ajout += texte_zone(L['texte'], L['zone'], vb, L.get('angle', 0), coul, ep)
+        else: ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .1) * vb[2], L.get('angle', 0), coul, ep)
     svg = svg.replace('</svg>', ajout + '</svg>')
     x0, y0, x1, y1 = boite_contenu(svg, marge=0)
+    utile = (x1 - x0) / vb[2]   # largeur occupée par le dessin : un sujet étroit dans un cadre large laisse du vide sur les côtés
+    if utile < .85: print(f'  ! {ident} : le dessin n\'occupe que {utile:.0%} de la largeur (vide sur les côtés) : à redemander', file=sys.stderr)
     x0, x1 = vb[0], vb[0] + vb[2]   # largeur intacte
     svg = re.sub(r'viewBox="[^"]+"', f'viewBox="{x0:.1f} {y0:.1f} {x1 - x0:.1f} {y1 - y0:.1f}"', svg, count=1)
     svg = re.sub(r'(<svg[^>]*?)\swidth="[^"]*"', r'\1', svg, count=1)
@@ -183,7 +221,7 @@ def retenir(d, ident, fichier):
     for k in ('recadrage',): b.pop(k, None)
     json.dump(briefs, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1); open(p, 'a').write('\n')
     apercu(os.path.join(ROOT, 'content', d, dest))
-    print(f'{ident} : {dest} ({x1 - x0:.0f} × {y1 - y0:.0f}, rapport {(y1 - y0) / (x1 - x0):.2f} ; trait {ep / vb[2] * 100:.2f} % de la largeur)', file=sys.stderr)
+    print(f'{ident} : {dest} ({x1 - x0:.0f} × {y1 - y0:.0f}, rapport {(y1 - y0) / (x1 - x0):.2f} ; trait {ep / vb[2] * 100:.2f} % de la largeur ; largeur occupée {utile:.0%})', file=sys.stderr)
 
 
 def grille(f):
@@ -192,9 +230,10 @@ def grille(f):
     from PIL import Image, ImageDraw
     img = Image.open(io.BytesIO(cairosvg.svg2png(url=f, output_width=800))).convert('RGB')
     dr = ImageDraw.Draw(img)
-    for k in range(1, 10):
-        dr.line([(img.width * k / 10, 0), (img.width * k / 10, img.height)], fill=(0, 170, 0)); dr.text((img.width * k / 10 + 2, 2), f'.{k}', fill=(0, 140, 0))
-        dr.line([(0, img.height * k / 10), (img.width, img.height * k / 10)], fill=(0, 170, 0)); dr.text((2, img.height * k / 10 + 2), f'.{k}', fill=(0, 140, 0))
+    for k in range(1, 20):
+        c = (0, 170, 0) if k % 2 == 0 else (170, 230, 170)
+        dr.line([(img.width * k / 20, 0), (img.width * k / 20, img.height)], fill=c); dr.line([(0, img.height * k / 20), (img.width, img.height * k / 20)], fill=c)
+        if k % 2 == 0: dr.text((img.width * k / 20 + 2, 2), f'.{k // 2}', fill=(0, 140, 0)); dr.text((2, img.height * k / 20 + 2), f'.{k // 2}', fill=(0, 140, 0))
     out = f[:-4] + '-grille.png'; img.save(out); print(out)
 
 
