@@ -60,7 +60,8 @@
   "idee": "Le gardien verrouille la porte d’entrée pendant que le fantôme ressort par la fenêtre avec le sac de clés.",
   "brief": "A server room drawn like a small bank vault. A security guard proudly padlocks the heavy front door with a huge padlock and a chain. On the other side of the building, a cheerful cartoon ghost in a hoodie floats out of an open side window carrying a bulging sack overflowing with keys and key cards, waving goodbye. A small wall clock shows the time. The padlock and the keys are the orange accents.",
   "alt": "Un gardien cadenasse la porte d’entrée pendant qu’un fantôme à capuche s’échappe par la fenêtre avec un sac de clés.",
-  "fichier": "illustrations/e14.1.svg"
+  "fichier": "illustrations/e14.1.svg",
+  "source": "e14.1-2.svg"
  },
  {
   "id": "e17.0",
@@ -92,13 +93,14 @@
   "legendes": [
    {
     "texte": "NIS2",
-    "x": 0.515,
-    "y": 0.6,
-    "taille": 0.075,
+    "x": 0.54,
+    "y": 0.605,
+    "taille": 0.062,
     "angle": -12,
     "couleur": "navy"
    }
-  ]
+  ],
+  "source": "e20.0-2.svg"
  },
  {
   "id": "e23.0",

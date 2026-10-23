@@ -46,10 +46,13 @@ def telecharger(url):
 
 def couleur_proche(hexa):
     """Ramène une couleur à la charte : blanc, bleu nuit ou orange (les teintes chaudes vont à l'orange, le très clair au blanc)."""
-    h = hexa.lstrip('#')
-    if len(h) == 3: h = ''.join(c * 2 for c in h)
-    try: r, g, b = int(h[:2], 16), int(h[2:4], 16), int(h[4:6], 16)
-    except ValueError: return hexa
+    m = re.match(r'rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)', hexa)
+    if m: r, g, b = map(int, m.groups())
+    else:
+        h = hexa.lstrip('#')
+        if len(h) == 3: h = ''.join(c * 2 for c in h)
+        try: r, g, b = int(h[:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+        except ValueError: return hexa
     lum = (.299 * r + .587 * g + .114 * b) / 255
     if lum > .88: return '#ffffff'
     if r > g + 25 and r > b + 25: return '#c2410c'
@@ -63,7 +66,7 @@ def charte(svg):
         v = m.group(2).strip().lower()
         if v in ('none', 'transparent', 'currentcolor') or v.startswith('url('): return m.group(0)
         v = noms.get(v, v)
-        if not v.startswith('#'): return m.group(0)
+        if not (v.startswith('#') or v.startswith('rgb')): return m.group(0)
         return f'{m.group(1)}{couleur_proche(v)}{m.group(3)}'
     svg = re.sub(r'((?:fill|stroke)=")([^"]*)(")', rempl, svg)
     svg = re.sub(r'((?:fill|stroke)\s*:\s*)([^;"}]*)([;"}])', rempl, svg)
@@ -119,7 +122,7 @@ def retenir(d, ident, fichier):
     briefs, p = lire_briefs(d)
     b = next(x for x in briefs if x['id'] == ident)
     src = fichier if os.path.exists(fichier) else os.path.join(ROOT, 'veille', 'illustrations', d, fichier)
-    svg = open(src, encoding='utf-8').read()
+    svg = charte(open(src, encoding='utf-8').read())   # couleurs exactes de la charte
     vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg)[1].split()]
     ajout = ''
     for L in b.get('legendes') or []:

@@ -419,7 +419,7 @@ p.sp {{ text-indent:1em }} p.cont {{ text-indent:0 }} p.coupe {{ text-align-last
 /* lexique */
 .lx {{ font-size:{PETIT_MIN}pt; line-height:1.32; text-align:left }} .lx b {{ font:700 .95em {SANS}; color:{NAVY} }}
 /* illustration : dessin de presse au trait, sous le titre, sur la colonne */
-.ill {{ margin:0; width:100%; overflow:hidden }} .ill img {{ display:block; width:100%; height:100%; object-fit:contain }}
+.ill {{ margin:0; width:100%; overflow:hidden; display:flex; align-items:center; justify-content:center }} .ill img {{ display:block; object-fit:contain }}
 /* crédit */
 .colo {{ display:table; width:100%; table-layout:fixed; position:relative; top:{DECAL_CREDIT:.2f}px }}
 .colo-qr {{ display:table-cell; width:22mm; vertical-align:bottom }} .colo-qr .qr {{ display:block; width:22mm; height:22mm }}
@@ -774,7 +774,19 @@ def blanc(u, lh_px):
     return ECART[u.ecart]
 
 
-G_ILL = 1.6 * MM   # blanc sous une illustration
+G_ILL = 1.4 * MM        # blanc sous une illustration
+G_ILL_HAUT = 1.4 * MM   # blanc au-dessus d'une illustration placée entre deux paragraphes (sous un titre, le blanc du titre suffit)
+ILL_RETRECI = .88       # un dessin peut perdre jusqu'à 12 % de sa largeur pour tomber sur la grille plutôt que laisser du blanc
+
+
+def dims_ill(u, lh_px):
+    """(hauteur sur la grille, hauteur et largeur du dessin) : le dessin occupe la largeur de la colonne (u.h), rapport
+    u.n / 1000 ; s'il dépasse la ligne d'un peu, il rétrécit (ILL_RETRECI au plus) plutôt que d'ajouter une ligne blanche."""
+    h = u.h * u.n / 1000
+    k = math.floor((h + G_ILL) / lh_px + 1e-6)
+    if k * lh_px - G_ILL >= ILL_RETRECI * h and k >= 2: return k * lh_px, k * lh_px - G_ILL, u.h * (k * lh_px - G_ILL) / h
+    k = math.ceil((h + G_ILL) / lh_px - 1e-6)
+    return k * lh_px, h, u.h
 
 
 def hauteur_u(u, lh_px, a=0, b=None):
@@ -782,7 +794,7 @@ def hauteur_u(u, lh_px, a=0, b=None):
     if u.kind == 't': return lignes_titre(u, lh_px) * lh_px   # titre et son blanc : un nombre entier de lignes du texte
     if u.kind == 'i':
         if b == -1: return 0.0   # dessin écarté faute de place dans son article
-        return math.ceil((u.h * u.n / 1000 + G_ILL) / lh_px - 1e-6) * lh_px   # dessin sur la largeur de la colonne (h), ratio n/1000, et son blanc, sur la grille
+        return dims_ill(u, lh_px)[0]   # dessin sur la largeur de la colonne (h), rapport n/1000, et son blanc, sur la grille
     return u.h
 
 
@@ -795,7 +807,7 @@ def remplir(us, pos, hauteurs, lh_px):
     att = None   # dessin en attente : il n'a pas tenu sous son titre, il se placera entre deux paragraphes de son article
     def tient_ill(j, y, H, parts):
         """Le dessin j tient-il ici, suivi de deux lignes du paragraphe suivant (ou de la suite de l'article) ?"""
-        g = blanc(us[j], lh_px) if parts else 0.0
+        g = G_ILL_HAUT if parts else 0.0
         return y + g + hauteur_u(us[j], lh_px) + 2 * lh_px <= H + .01
     for H in hauteurs:
         y, parts = 0.0, []
@@ -812,7 +824,7 @@ def remplir(us, pos, hauteurs, lh_px):
                 if place >= reste:
                     parts.append((i, l, u.n, g)); y += g + reste * lh_px; i += 1; l = 0
                     if att is not None and i < len(us) and us[i].kind == 'p' and tient_ill(att, y, H, parts):   # entre deux paragraphes
-                        ga = blanc(us[att], lh_px); parts.append((att, 0, None, ga)); y += ga + hauteur_u(us[att], lh_px); att = None
+                        ga = G_ILL_HAUT; parts.append((att, 0, None, ga)); y += ga + hauteur_u(us[att], lh_px); att = None
                     continue
                 k = min(place, reste - 2)
                 if k >= 2:
@@ -990,7 +1002,7 @@ class Etat:
 
 
 def positions_ill(plan):
-    """Dessins placés : [(page, colonne, ordonnée du centre)] d'après le plan."""
+    """Dessins placés : [(page, colonne, ordonnée du centre, sous son titre)] d'après le plan."""
     out = []
     for it in liste(plan):
         if it[0] != 'cols': continue
@@ -999,24 +1011,34 @@ def positions_ill(plan):
             y = 0.0
             for k, (i, a, b, g) in enumerate(parts):
                 h = hauteur_u(us[i], lh_px, a, b)
-                if us[i].kind == 'i' and b != -1: out.append((p, int(round(x / (W4 + GOUT))), y0 + y + (g if k else 0) + h / 2))
+                if us[i].kind == 'i' and b != -1:
+                    sous_titre = k == 0 and p == 0 and y0 < 200 * MM or (k > 0 and us[parts[k - 1][0]].kind == 't')
+                    out.append((p, int(round(x / (W4 + GOUT))) + (4 if p == 2 else 0), y0 + y + (g if k else 0) + h / 2, sous_titre))
                 y += (g if k else 0) + h
     return out
 
 
 def cout_repartition(plan):
-    """Répartition des dessins : deux dessins d'une même page ne partagent ni la colonne ni la bande horizontale ;
-    sur la double page 2-3, pas non plus la même bande (README, § 18)."""
+    """Répartition des dessins (README, § 18) : deux dessins d'une même page ne partagent ni la colonne ni la bande
+    horizontale ; la double page 2-3 se lit comme un seul espace (huit colonnes) : ses dessins s'étagent du haut en bas ;
+    deux dessins au plus par page, trois sur la double page ; un dessin hors de son titre coûte un peu."""
     ps = positions_ill(plan)
-    c = 0.0
+    c = sum(8 for x in ps if not x[3])
     for a in range(len(ps)):
         for b in range(a + 1, len(ps)):
-            (p1, c1, y1), (p2, c2, y2) = ps[a], ps[b]
+            (p1, c1, y1, _), (p2, c2, y2, _) = ps[a], ps[b]
+            proche = abs(y1 - y2) < 70 * MM
             if p1 == p2:
                 if c1 == c2: c += 120
-                if abs(y1 - y2) < 70 * MM: c += 50
-                if abs(c1 - c2) == 1 and abs(y1 - y2) < 70 * MM: c += 20
-            elif {p1, p2} == {1, 2} and abs(y1 - y2) < 70 * MM: c += 25
+                if proche: c += 50
+                if abs(c1 - c2) == 1 and proche: c += 20
+            elif {p1, p2} == {1, 2}:
+                if proche: c += 40
+                if abs(c1 - c2) == 1 and proche: c += 20
+    par_page = {}
+    for x in ps: par_page[x[0]] = par_page.get(x[0], 0) + 1
+    c += sum(80 * max(0, n - 2) for n in par_page.values())
+    c += 100 * max(0, par_page.get(1, 0) + par_page.get(2, 0) - 3)
     return c
 
 
@@ -1354,7 +1376,10 @@ def html_colonne(us, parts, H, lh_px):
             out.append(u.html.replace('<h3 class="hl"', f'<h3 class="hl{fc}" style="{st};line-height:{lt:.3f}px;padding-bottom:{pb:.2f}px"', 1))
         elif u.kind == 'b': out.append(u.html.replace('<aside class="rap"', f'<aside class="rap{fc}" style="{st}"', 1))
         elif u.kind == 'i' and b == -1: continue
-        elif u.kind == 'i': out.append(u.html.replace('<figure class="ill"', f'<figure class="ill" style="{st};height:{hauteur_u(u, lh_px) - G_ILL:.2f}px"', 1))
+        elif u.kind == 'i':
+            H_, hi, wi = dims_ill(u, lh_px)
+            out.append(u.html.replace('<figure class="ill"', f'<figure class="ill" style="{st};height:{H_ - G_ILL:.2f}px"', 1)
+                       .replace('<img ', f'<img style="width:{wi:.2f}px;height:{hi:.2f}px" ', 1))
         else: out.append(u.html.replace('<p class="lx"', f'<p class="lx{fc}" style="{st}"', 1))
     return ''.join(out)
 
@@ -1542,6 +1567,33 @@ def ratio_svg(f):
     return 1.0
 
 
+def plan_articles(ed, plan):
+    """Où tombent les articles : [(page, bande, titre)], bande haut / milieu / bas de la page (Une comprise)."""
+    out, vus = [], set()
+    une, _ = une_autres(ed)
+    if une: out.append((0, 'haut', une['items'][0]['sum']['titre'] if une['items'][0].get('sum') else 'la Une')); vus.add('une')
+    for it in liste(plan):
+        if it[0] != 'cols': continue
+        _, p, y0, specs, cols, us, fs, lh_px, wrap = it
+        for (x, w, H), (parts, _y) in zip(specs, cols):
+            y = 0.0
+            for k, (i, a, b, g) in enumerate(parts):
+                if us[i].kind == 't':
+                    t = re.sub(r'<[^>]+>', '', us[i].html).strip()
+                    if t not in vus:
+                        vus.add(t); yy = y0 + y
+                        out.append((p, 'haut' if yy < HAUT / 3 else ('milieu' if yy < 2 * HAUT / 3 else 'bas'), html.unescape(t)))
+                y += (g if k else 0) + hauteur_u(us[i], lh_px, a, b)
+    return sorted(out, key=lambda x: (x[0], ['haut', 'milieu', 'bas'].index(x[1])))
+
+
+def conseil_dessins(ed, plan):
+    """Articles à illustrer (README, § 18) : la Une et un autre en page 1, trois sur la double page 2-3 étagés du haut en
+    bas, un ou deux en page 4."""
+    print('Place des articles (pour choisir les dessins : Une + 1 en page 1, 3 sur la double page 2-3 étagés haut / milieu / bas, 1 ou 2 en page 4) :')
+    for p, bande, t in plan_articles(ed, plan): print(f'  p. {p + 1}, {bande} : {t}')
+
+
 def jauge(d):
     """Jauge de rédaction (README, § 6, règle 9) : compose l'édition avec tout son contenu (aucune portion facultative
     coupée, aucune brève omise sinon celles que l'agenda répète), le glossaire libre de commencer avant la dernière
@@ -1551,6 +1603,7 @@ def jauge(d):
     res = chercher(ed, M, PAGES, lex_libre=True, complet=True)
     if res:
         best, plan = res
+        conseil_dessins(ed, plan)
         g = mesure_glossaire(M, plan)
         geo = best.geo   # cible : le glossaire réduit au minimum, dans les deux colonnes de droite, à hauteur de l'agenda
         cible_g = M['h']['lex'] + G_CHAPO + (geo['R'] - (HAUT - geo['hag'] + M['agh'] + 2 * MM)) / 2
@@ -1565,6 +1618,7 @@ def jauge(d):
     res = chercher(ed, M, PAGES, lex_libre=True)
     if not res:
         print(f'{d} : l\'édition ne tient pas en {PAGES} pages, même réduite : raccourcir le socle des champs « papier ».'); return
+    conseil_dessins(ed, res[1])
     une, autres = une_autres(ed); var = variantes(ed)
     mots = lambda t: len(re.findall(r"\w+(?:[’'-]\w+)*", t))
     coupe, details = 0, []
