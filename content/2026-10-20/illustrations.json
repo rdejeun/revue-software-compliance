@@ -4,16 +4,25 @@
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La tasse Java reçoit un monnayeur.",
   "brief": "The Java programming language logo redrawn large: a coffee cup on a saucer with three flame-shaped wisps of orange steam rising; the cup body is plain white with no decoration. A big heavy padlock hangs from the cup handle, locking it, and the padlock bears a large euro sign. Nothing else.",
-  "alt": "Le logo de Java, une tasse de café fumante marquée « JDK 21 », fermée par un cadenas frappé de l’euro.",
-  "fichier": null,
+  "alt": "Le logo de Java, une tasse de café fumante marquée « JDK 21 », dans laquelle trempe un gros cadenas.",
+  "fichier": "illustrations/e5.0.svg",
   "format": "1:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "le logo Java (tasse de café fumante), étiquette « JDK 21 » ajoutée par nous",
   "action": "la tasse Java est cadenassée, cadenas marqué de l'euro",
-  "legendes": [],
+  "legendes": [
+   {
+    "texte": "JDK 21",
+    "x": 0.405,
+    "y": 0.725,
+    "taille": 0.12,
+    "angle": 0,
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2,
-  "source": "e5.0-6.svg"
+  "source": "e5.0-12.svg"
  },
  {
   "id": "e8.0",
