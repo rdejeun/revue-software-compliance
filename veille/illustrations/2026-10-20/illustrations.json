@@ -384,5 +384,25 @@
   "image_id": "e5f34bc4-4ff1-4c97-a85c-6daf4fb41b6d",
   "date": "2026-10-23T10:44:37Z",
   "credits": 160
+ },
+ {
+  "id": "e5.0",
+  "fichier": "e5.0-6.svg",
+  "brief": "b67f07e7308e",
+  "modele": "recraftv3_vector",
+  "style": "Line art",
+  "image_id": "6bcb0468-adc0-43e9-991c-dd0e467b567c",
+  "date": "2026-10-23T10:46:02Z",
+  "credits": 160
+ },
+ {
+  "id": "e5.0",
+  "fichier": "e5.0-7.svg",
+  "brief": "b67f07e7308e",
+  "modele": "recraftv3_vector",
+  "style": "Line art",
+  "image_id": "a5c6da8e-f652-45df-b039-6052a883ab72",
+  "date": "2026-10-23T10:46:02Z",
+  "credits": 160
  }
 ]
