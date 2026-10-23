@@ -3,14 +3,14 @@
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La tasse Java reçoit un monnayeur.",
-  "brief": "On the left, the Java programming language logo redrawn large: a coffee cup on a saucer with two tall curling flame-like wisps of steam rising from it, the steam in orange. The cup has a blank white band around it. On the right, a coffee vending machine with a big coin slot and a euro sign; a hand is pushing banknotes into the slot. Nothing else.",
+  "brief": "The Java programming language logo redrawn large and centered: a coffee cup on a saucer with two tall curling flame-like wisps of orange steam. A big paper price tag hangs from the cup handle on a string, the tag bearing a large euro sign. The cup has a blank white band around it. Nothing else.",
   "alt": "Le logo Java, une tasse de café fumante étiquetée « JDK 21 », équipé d’un monnayeur dans lequel une main glisse une pièce.",
   "fichier": null,
-  "format": "4:3",
+  "format": "1:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "le logo Java (tasse de café fumante), étiquette « JDK 21 » ajoutée par nous",
-  "action": "on paie pour s'en servir : monnayeur et pièce",
+  "action": "la tasse Java porte une étiquette de prix",
   "legendes": [],
   "candidats": 2
  },
@@ -38,6 +38,21 @@
   "fichier": null,
   "format": "3:2",
   "texte": false
+ },
+ {
+  "id": "e11.1",
+  "article": "Syft 1.55.0 et Grype 0.121.0 : paquets IPK et fin de support des distributions",
+  "message": "Grype signale désormais les distributions Linux arrivées en fin de vie, dont les failles ne sont plus suivies.",
+  "repere": "le pingouin Tux (Linux), une pierre tombale « EOL » (ajouté par nous)",
+  "action": "le scanner pointe le pingouin assis sur sa tombe et donne l'alerte",
+  "brief": "The Linux penguin Tux sits glumly on a small gravestone that has a blank white plaque. A large magnifying glass hovers over the penguin, with an orange alarm bell ringing on its handle. Nothing else.",
+  "format": "1:1",
+  "texte": false,
+  "candidats": 2,
+  "legendes": [],
+  "fichier": null,
+  "idee": "Le pingouin Linux assis sur sa tombe « EOL », sous la loupe qui sonne l'alarme.",
+  "alt": "Le pingouin de Linux assis sur une pierre tombale « EOL », sous une loupe qui sonne l’alarme."
  },
  {
   "id": "e11.2",
@@ -69,14 +84,15 @@
   "idee": "La main de l'UE attrape l'intermédiaire qui contourne la barrière.",
   "brief": "On the right, the Kremlin towers with onion domes. In the middle, a closed border barrier. A sly middleman in a trench coat and hat tiptoes around the end of the barrier carrying a wooden crate towards the Kremlin. A giant hand coming from the top left, with a shirt cuff decorated with the European Union circle of twelve stars, grabs the middleman by the collar and lifts him off the ground. Nothing else.",
   "alt": "Une main aux manchettes étoilées de l’Union européenne attrape par le col un intermédiaire qui contourne une barrière avec une caisse, vers le Kremlin.",
-  "fichier": null,
+  "fichier": "illustrations/e17.0.svg",
   "format": "3:2",
   "texte": false,
   "message": "L'UE sanctionne les intermédiaires de pays tiers qui aident la Russie à contourner ses sanctions.",
   "repere": "les bulbes du Kremlin, la couronne d'étoiles de l'UE, une barrière fermée",
   "action": "la main de l'UE attrape l'intermédiaire qui contourne la barrière",
   "legendes": [],
-  "candidats": 2
+  "candidats": 2,
+  "source": "e17.0-6.svg"
  },
  {
   "id": "e20.0",
