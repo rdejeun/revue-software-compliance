@@ -49,8 +49,10 @@ jobs:
           RECRAFT_API_KEY: ${{ secrets.RECRAFT_API_KEY }}
         run: |
           d="${{ inputs.date }}"; [ -z "$d" ] && d="${GITHUB_REF_NAME#*/}"
+          mkdir -p "veille/illustrations/$d"
+          set -o pipefail
           python3 tools/illustrer.py "$d" --candidats "${{ inputs.candidats || '1' }}" --seulement "${{ inputs.seulement }}" \
-            --modele "${{ inputs.modele || 'recraftv3_vector' }}" --style "${{ inputs.style || 'Line art' }}" --budget "${{ inputs.budget || '1.0' }}"
+            --modele "${{ inputs.modele || 'recraftv3_vector' }}" --style "${{ inputs.style || 'Line art' }}" --budget "${{ inputs.budget || '1.0' }}" 2>&1 | tee -a "veille/illustrations/$d/journal.log"
           echo "EDITION=$d" >> "$GITHUB_ENV"
       - name: Enregistrer les candidats
         run: |
