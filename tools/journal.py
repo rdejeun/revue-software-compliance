@@ -37,7 +37,7 @@ MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
 QR_BLEU = '#4b5f77'   # modules du code QR : bleu nuit estompé (les trois repères restent orange)
-VERSION = 'journal-39'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-40'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -369,7 +369,7 @@ sup {{ font-size:70%; line-height:0 }}
 .mast {{ position:relative; text-align:center; padding-bottom:{MAST_BAS:.2f}px }}   /* bandeau remonté de 12 pt */
 .mast::before {{ content:""; position:absolute; right:-5.5mm; top:-7mm; width:114mm; height:36.1mm; background:url('file://{entete}') no-repeat right top / auto 100%; opacity:.7; z-index:0 }}
 .mast > * {{ position:relative; z-index:1 }}
-.mast .ey {{ font:600 7.7pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
+.mast .ey {{ font:600 8.4pt {SANS}; letter-spacing:.3em; text-transform:uppercase; color:{ACC}; margin-bottom:.6mm }}
 .mast h1 {{ margin:0; font:400 38pt/1 {SERIF}; color:{NAVY}; letter-spacing:-.01em }}
 .mast .mono {{ position:absolute; left:{MONO_X:.2f}px; top:{(38 * PT - MONO_H) / 2:.2f}px; height:{MONO_H:.2f}px; width:auto; opacity:.14 }}   /* monogramme « SC », sans fond, estompé, centré sur la ligne du titre */
 .mast h1 i {{ color:{ACC} }} .mast h1 span {{ font:600 36pt/1 {SANS}; letter-spacing:-.03em }}
@@ -393,7 +393,7 @@ sup {{ font-size:70%; line-height:0 }}
 .une-c {{ font:11pt/1.35 {SERIF}; color:#374151; padding-bottom:2.6mm; hyphens:manual }}
 /* titres de rubrique */
 h2.rub {{ padding-top:1.4mm; border-top:1.6pt solid {NAVY}; font:700 13pt/1.15 {SERIF}; color:{NAVY}; text-align:left; hyphens:manual }}
-h2.rub span {{ display:inline-block; margin-right:2mm; padding:.4mm 1.6mm; background:{ACC}; color:#fff; font:700 7.9pt/1.3 {SANS}; letter-spacing:.14em; text-transform:uppercase; vertical-align:2pt }}
+h2.rub span {{ display:inline-block; margin-right:2mm; padding:.4mm 1.6mm; background:{ACC}; color:#fff; font:700 8.6pt/1.3 {SANS}; letter-spacing:.14em; text-transform:uppercase; vertical-align:2pt }}
 .rub-c {{ font:italic 9.6pt/1.32 {SERIF}; color:#4b5563; margin-top:1.4mm; text-align:left; hyphens:manual }}
 /* colonnes */
 .col {{ text-align:justify }}
