@@ -14,7 +14,7 @@ import argparse, hashlib, json, os, re, sys, time, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 API = 'https://external.api.recraft.ai/v1/images/generations'
 NAVY, ACC = (15, 42, 74), (194, 65, 12)   # charte : bleu nuit, orange brique (journal.py)
-PRIX = {'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .08, 'recraftv4_styles_vector': .05, 'recraftv2_vector': .044}
+PRIX = {'recraftv4_styles_vector': .05, 'recraftv4_1_vector': .08, 'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .08, 'recraftv4_styles_vector': .05, 'recraftv2_vector': .044}
 STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no shading, no gradients. Exactly two spot colors: '
          'dark navy blue lines and fills, with a few orange accents, on a plain white background. Any logo, emblem or public figure '
          'named in the scene is redrawn in the same simple line style and two colors, instantly recognizable. '
@@ -31,6 +31,24 @@ TAILLES = {'1:1': '1024x1024', '4:3': '1365x1024', '3:2': '1536x1024'}   # forma
 def lire_briefs(d):
     p = os.path.join(ROOT, 'content', d, 'illustrations.json')
     return json.load(open(p, encoding='utf-8')), p
+
+
+def references_data(refs):
+    """Dessins de référence (chemins du dépôt, PNG) en URL de données, pour le style des modèles V4 Styles."""
+    import base64
+    return ['data:image/png;base64,' + base64.b64encode(open(os.path.join(ROOT, r), 'rb').read()).decode() for r in refs]
+
+
+def demander_v4(cle, prompt, modele, n, refs, taille='1024x1024'):
+    """Recraft V4 Styles : le style est donné par des dessins de référence déjà retenus (meilleure tenue du brief que le
+    style « Line art » de V3, qui laisse tomber les actions des personnages)."""
+    corps = {'prompt': prompt, 'model': modele, 'n': n, 'size': taille, 'response_format': 'url',
+             'style_reference_urls': references_data(refs), 'style_match': 'precise',
+             'controls': {'colors': [{'rgb': list(NAVY), 'weight': .75}, {'rgb': list(ACC), 'weight': .25}],
+                          'background_color': {'rgb': [255, 255, 255]}}}
+    req = urllib.request.Request(API, data=json.dumps(corps).encode(), method='POST',
+                                 headers={'Authorization': f'Bearer {cle}', 'Content-Type': 'application/json'})
+    with urllib.request.urlopen(req, timeout=300) as r: return json.loads(r.read())
 
 
 def demander(cle, prompt, modele, style, n, graine=None, taille='1024x1024', texte=False):
@@ -253,10 +271,10 @@ def main():
     fiche_p = os.path.join(sortie, 'illustrations.json')
     fiche = json.load(open(fiche_p, encoding='utf-8')) if os.path.exists(fiche_p) else []
     deja = {f['fichier'] for f in fiche}
-    emp = lambda b: hashlib.sha256((b['brief'] + b.get('format', '1:1') + str(bool(b.get('texte')))).encode()).hexdigest()[:12]
+    emp = lambda b: hashlib.sha256((b['brief'] + b.get('format', '1:1') + str(bool(b.get('texte'))) + (b.get('modele') or '') + ','.join(b.get('references') or [])).encode()).hexdigest()[:12]
     nb = lambda b: max(a.candidats, int(b.get('candidats', 1)))   # candidats par brief (champ « candidats » du brief, sinon --candidats)
     briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id'] and f.get('brief') == emp(b)) < nb(b)]   # ce brief déjà servi : rien à redemander
-    total = sum(nb(b) for b in briefs) * PRIX.get(a.modele, .08)
+    total = sum(nb(b) * PRIX.get(b.get('modele') or a.modele, .08) for b in briefs)
     if total > a.budget: sys.exit(f'au-delà du budget de {a.budget:.2f} $ : rien demandé')
     print(f'{len(briefs)} brief(s) à servir : {total:.2f} $', file=sys.stderr)
     if a.simuler: print('  ' + ', '.join(f"{b['id']} × {nb(b)}" for b in briefs), file=sys.stderr); return
@@ -264,9 +282,13 @@ def main():
     for b in briefs:
         texte = bool(b.get('texte'))   # un mot court ou un sigle, écrit dans le brief, éclaire parfois le dessin (README, § 18)
         prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)   # message, repère et action sont dans le brief (README, § 18)
-        try: rep = demander(cle, prompt, a.modele, a.style, nb(b), b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
+        modele = b.get('modele') or a.modele
+        try:
+            if b.get('references'): rep = demander_v4(cle, prompt, modele, nb(b), b['references'], TAILLES.get(b.get('format', '1:1'), '1024x1024'))
+            else: rep = demander(cle, prompt, modele, a.style, nb(b), b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
         except Exception as e:   # noqa
-            print(f'{b["id"]} : échec {e}', file=sys.stderr); continue
+            corps_err = e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else ''
+            print(f'{b["id"]} : échec {e} {corps_err}', file=sys.stderr); continue
         k0 = sum(1 for f in fiche if f['id'] == b['id'])
         for k, img in enumerate(rep.get('data', []), k0 + 1):
             ext = 'svg' if 'vector' in a.modele else 'png'
@@ -277,7 +299,7 @@ def main():
             if ext == 'svg':
                 open(os.path.join(sortie, nom.replace('.svg', '-charte.svg')), 'w', encoding='utf-8').write(charte(data.decode('utf-8', 'replace')))
                 apercu(os.path.join(sortie, nom))
-            fiche.append({'id': b['id'], 'fichier': nom, 'brief': emp(b), 'modele': a.modele, 'style': a.style, 'image_id': img.get('image_id'),
+            fiche.append({'id': b['id'], 'fichier': nom, 'brief': emp(b), 'modele': modele, 'style': a.style, 'image_id': img.get('image_id'),
                           'date': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'credits': rep.get('credits')})
             deja.add(nom)
             print(f'{b["id"]} : {nom}', file=sys.stderr)
