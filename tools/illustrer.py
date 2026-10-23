@@ -18,6 +18,8 @@ PRIX = {'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .0
 STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no shading, no gradients. Exactly two spot colors: '
          'dark navy blue lines and fills, with a few orange accents, on a plain white background. Any logo, emblem or public figure '
          'named in the scene is redrawn in the same simple line style and two colors, instantly recognizable. '
+         'Bold thick outlines (line width about one hundredth of the image width), few large simple shapes, no small details, '
+         'no fine patterns or hatching, no tiny objects. The two or three elements of the scene may overlap and interact. '
          'One simple scene, main subject large and centered, filling the frame, no background decor, readable at 4 cm wide. Scene: ')
 SANS_TEXTE = ' No text, no letters.'
 NEGATIF = 'watermark, photo, realistic, gradient, shading, 3d, many colors, frame, border, background scenery, abstract shapes'
@@ -74,19 +76,51 @@ def charte(svg):
 
 
 def apercu(svg):
-    """Aperçu PNG (512 px) du SVG, pour la relecture par la rédaction (cairosvg s'il est installé)."""
+    """Aperçus PNG du SVG pour la relecture : 512 px, et 180 px (le dessin imprimé sur une colonne de 45 mm)."""
     try:
         import cairosvg
         cairosvg.svg2png(url=svg, write_to=svg[:-4] + '.png', output_width=512)
+        cairosvg.svg2png(url=svg, write_to=svg[:-4] + '-45mm.png', output_width=180)
     except Exception as e:   # noqa
         print(f'aperçu impossible ({os.path.basename(svg)}) : {e}', file=sys.stderr)
 
 
-FONTE = os.path.join(HERE, 'vendor', 'fonts', 'source-sans-3', 'source-sans-3-latin-700-normal.woff2')
+FONTE = os.path.join(HERE, 'vendor', 'fonts', 'amatic-sc', 'amatic-sc-latin-700-normal.woff2')   # manuscrite étroite (OFL)
+_FUT = {}
 
 
-def texte_chemin(texte, cx, cy, taille, angle=0.0, couleur='#0f2a4a'):
-    """Texte en contours vectoriels (Source Sans 3 gras), centré en (cx, cy), corps « taille » (unités du SVG)."""
+def fut_fonte():
+    """Épaisseur du fût de la police, en fraction du corps (mesurée sur un « H » rendu)."""
+    if 'f' not in _FUT:
+        import cairosvg, io, numpy as np
+        from PIL import Image
+        from scipy import ndimage
+        corps = 400
+        svg = ('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600"><rect width="600" height="600" fill="white"/>'
+               + texte_chemin('H', 300, 300, corps, epaisseur=0) + '</svg>')
+        a = np.array(Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg.encode()))).convert('L')) < 128
+        d = ndimage.distance_transform_edt(a); v = d[(ndimage.maximum_filter(d, 3) == d) & a & (d > 1)]
+        _FUT['f'] = float(np.median(v) * 2 / corps) if len(v) else .08
+    return _FUT['f']
+
+
+def trait_dessin(svg_txt):
+    """Épaisseur médiane du trait du dessin, en unités du viewBox."""
+    import cairosvg, io, numpy as np
+    from PIL import Image
+    from scipy import ndimage
+    vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg_txt)[1].split()]
+    W = 1000
+    img = Image.open(io.BytesIO(cairosvg.svg2png(bytestring=svg_txt.encode(), output_width=W))).convert('RGBA')
+    fond = Image.new('RGB', img.size, 'white'); fond.paste(img, mask=img.split()[3])
+    a = np.array(fond.convert('L')) < 200
+    d = ndimage.distance_transform_edt(a); v = d[(ndimage.maximum_filter(d, 3) == d) & a & (d > 1)]
+    return float(np.median(v) * 2 / W * vb[2]) if len(v) else .008 * vb[2]
+
+
+def texte_chemin(texte, cx, cy, taille, angle=0.0, couleur='#0f2a4a', epaisseur=None):
+    """Texte en contours vectoriels (Amatic SC gras, manuscrite étroite), centré en (cx, cy), corps « taille » (unités
+    du SVG) ; épaisseur : épaisseur de trait visée (celle du dessin), obtenue en épaississant le contour."""
     from fontTools.ttLib import TTFont
     from fontTools.pens.svgPathPen import SVGPathPen
     f = TTFont(FONTE); gs = f.getGlyphSet(); cmap = f.getBestCmap(); upm = f['head'].unitsPerEm
@@ -96,8 +130,10 @@ def texte_chemin(texte, cx, cy, taille, angle=0.0, couleur='#0f2a4a'):
         if g is None: x += upm * .3; continue
         pen = SVGPathPen(gs); gs[g].draw(pen)
         chemins.append(f'<path transform="translate({x} 0)" d="{pen.getCommands()}"/>'); x += gs[g].width
-    k = taille / upm; cap = f['OS/2'].sCapHeight if hasattr(f['OS/2'], 'sCapHeight') else upm * .66
-    return (f'<g fill="{couleur}" transform="translate({cx} {cy}) rotate({angle}) scale({k} {-k}) translate({-x / 2} {-cap / 2})">'
+    k = taille / upm; cap = getattr(f['OS/2'], 'sCapHeight', 0) or upm * .66
+    sup = max(0.0, (epaisseur or 0) - fut_fonte() * taille) if epaisseur else 0.0   # épaississement (unités du SVG)
+    tr = f' stroke="{couleur}" stroke-width="{sup / k:.1f}" stroke-linejoin="round"' if sup > 0 else ''
+    return (f'<g fill="{couleur}"{tr} transform="translate({cx} {cy}) rotate({angle}) scale({k} {-k}) translate({-x / 2} {-cap / 2})">'
             + ''.join(chemins) + '</g>')
 
 
@@ -118,35 +154,23 @@ def boite_contenu(svg_txt, marge=.02):
 
 def retenir(d, ident, fichier):
     """Dessin retenu : légendes du brief (champ « legendes » : texte, x, y en fraction du dessin, taille en fraction de sa
-    largeur, angle, couleur navy|orange) ajoutées en contours vectoriels, recadrage éventuel (champ « recadrage »), puis
-    recadrage sur le contenu, copie dans content/."""
+    largeur, angle, couleur navy|orange) ajoutées en contours vectoriels, dans une manuscrite étroite à l'épaisseur du
+    trait du dessin ; marges blanches haute et basse retirées (la largeur, et donc l'équilibre horizontal, reste
+    intacte) ; copie dans content/ et champ « fichier » renseigné. Aucun recadrage latéral, aucun masque : un dessin
+    qu'il faudrait couper se redemande (README, § 18)."""
     briefs, p = lire_briefs(d)
     b = next(x for x in briefs if x['id'] == ident)
     src = fichier if os.path.exists(fichier) else os.path.join(ROOT, 'veille', 'illustrations', d, fichier)
     svg = charte(open(src, encoding='utf-8').read())   # couleurs exactes de la charte
     vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg)[1].split()]
+    ep = trait_dessin(svg)
     ajout = ''
     for L in b.get('legendes') or []:
-        X = lambda v: vb[0] + v * vb[2]; Y = lambda v: vb[1] + v * vb[3]; ep = .006 * vb[2]
-        if L.get('type') == 'masque':   # efface une partie du dessin (rectangle blanc, en fraction du dessin)
-            ajout += f'<rect x="{X(L["x0"]):.1f}" y="{Y(L["y0"]):.1f}" width="{(L["x1"] - L["x0"]) * vb[2]:.1f}" height="{(L["y1"] - L["y0"]) * vb[3]:.1f}" fill="#ffffff"/>'
-            continue
-        if L.get('type') == 'etiquette':   # étiquette de prix suspendue par une ficelle à un point d'ancrage, avec son texte
-            cx, cy, w, h = X(L['x']), Y(L['y']), L['w'] * vb[2], L['h'] * vb[2]
-            ax, ay = X(L['ancre'][0]), Y(L['ancre'][1])
-            pts = [(-w / 2, -h / 2), (w / 2, -h / 2), (w / 2, h / 2), (-w / 2, h / 2), (-w / 2 - h / 2, 0)]
-            ajout += (f'<path d="M {ax:.1f} {ay:.1f} Q {(ax + cx - w / 2) / 2:.1f} {max(ay, cy) + h * .6:.1f} {cx - w / 2 - h * .25:.1f} {cy:.1f}" fill="none" stroke="#0f2a4a" stroke-width="{ep * .7:.1f}"/>'
-                      f'<g transform="translate({cx:.1f} {cy:.1f}) rotate({L.get("angle", 0)})"><polygon points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="#ffffff" stroke="#0f2a4a" stroke-width="{ep:.1f}" stroke-linejoin="round"/>'
-                      f'<circle cx="{-w / 2 - h * .1:.1f}" cy="0" r="{h * .09:.1f}" fill="#ffffff" stroke="#0f2a4a" stroke-width="{ep * .7:.1f}"/></g>')
-            if L.get('texte'): ajout += texte_chemin(L['texte'], cx + h * .1, cy, L.get('taille', .06) * vb[2], L.get('angle', 0), '#c2410c' if L.get('couleur', 'orange') == 'orange' else '#0f2a4a')
-            continue
         coul = '#c2410c' if L.get('couleur') == 'orange' else ('#ffffff' if L.get('couleur') == 'blanc' else '#0f2a4a')
-        ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .08) * vb[2], L.get('angle', 0), coul)
+        ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .1) * vb[2], L.get('angle', 0), coul, ep)
     svg = svg.replace('</svg>', ajout + '</svg>')
-    if b.get('recadrage'):   # [x0, y0, x1, y1] en fraction du dessin : on n'en garde que cette partie
-        r = b['recadrage']
-        svg = re.sub(r'viewBox="[^"]+"', f'viewBox="{vb[0] + r[0] * vb[2]:.1f} {vb[1] + r[1] * vb[3]:.1f} {(r[2] - r[0]) * vb[2]:.1f} {(r[3] - r[1]) * vb[3]:.1f}"', svg, count=1)
-    x0, y0, x1, y1 = boite_contenu(svg)
+    x0, y0, x1, y1 = boite_contenu(svg, marge=0)
+    x0, x1 = vb[0], vb[0] + vb[2]   # largeur intacte
     svg = re.sub(r'viewBox="[^"]+"', f'viewBox="{x0:.1f} {y0:.1f} {x1 - x0:.1f} {y1 - y0:.1f}"', svg, count=1)
     svg = re.sub(r'(<svg[^>]*?)\swidth="[^"]*"', r'\1', svg, count=1)
     svg = re.sub(r'(<svg[^>]*?)\sheight="[^"]*"', r'\1', svg, count=1)
@@ -156,9 +180,10 @@ def retenir(d, ident, fichier):
     dest = os.path.join('illustrations', f'{ident}.svg')
     open(os.path.join(ROOT, 'content', d, dest), 'w', encoding='utf-8').write(svg)
     b['fichier'] = dest; b['source'] = os.path.basename(src)
+    for k in ('recadrage',): b.pop(k, None)
     json.dump(briefs, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1); open(p, 'a').write('\n')
     apercu(os.path.join(ROOT, 'content', d, dest))
-    print(f'{ident} : {dest} (recadré {x1 - x0:.0f} × {y1 - y0:.0f}, rapport {(y1 - y0) / (x1 - x0):.2f})', file=sys.stderr)
+    print(f'{ident} : {dest} ({x1 - x0:.0f} × {y1 - y0:.0f}, rapport {(y1 - y0) / (x1 - x0):.2f} ; trait {ep / vb[2] * 100:.2f} % de la largeur)', file=sys.stderr)
 
 
 def grille(f):

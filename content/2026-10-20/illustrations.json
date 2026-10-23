@@ -3,46 +3,15 @@
   "id": "e5.0",
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La tasse Java reçoit un monnayeur.",
-  "brief": "The Java programming language logo redrawn large and centered: a coffee cup on a saucer with two tall curling flame-like wisps of orange steam. A big paper price tag hangs from the cup handle on a string, the tag bearing a large euro sign. The cup has a blank white band around it. Nothing else.",
+  "brief": "The Java programming language logo redrawn large in the centre: a coffee cup on a saucer with three flame-shaped wisps of orange steam rising from it; no tea bag, no spoon. A big shop price tag with a euro sign hangs from the cup handle on a short string, overlapping the saucer. The cup has a wide blank white band across its front. Nothing else.",
   "alt": "Le logo de Java, une tasse de café fumante marquée « JDK 21 », porte une étiquette de prix en euros.",
-  "fichier": "illustrations/e5.0.svg",
+  "fichier": null,
   "format": "1:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "le logo Java (tasse de café fumante), étiquette « JDK 21 » ajoutée par nous",
   "action": "la tasse Java porte une étiquette de prix",
-  "legendes": [
-   {
-    "type": "masque",
-    "x0": 0.51,
-    "y0": 0.2,
-    "x1": 0.85,
-    "y1": 0.95
-   },
-   {
-    "type": "etiquette",
-    "x": 0.56,
-    "y": 0.74,
-    "w": 0.13,
-    "h": 0.075,
-    "angle": -8,
-    "ancre": [
-     0.405,
-     0.62
-    ],
-    "texte": "€",
-    "taille": 0.06,
-    "couleur": "orange"
-   },
-   {
-    "texte": "JDK 21",
-    "x": 0.298,
-    "y": 0.735,
-    "taille": 0.05,
-    "angle": 0,
-    "couleur": "navy"
-   }
-  ],
+  "legendes": [],
   "candidats": 2,
   "source": "e5.0-6.svg"
  },
@@ -52,30 +21,15 @@
   "idee": "L'UE tamponne le robot : sceau « EN 18286 ».",
   "brief": "A friendly boxy robot with an antenna stands on a small podium and proudly holds up, with both hands, a large framed certificate. The certificate shows a ring of twelve stars at the top and, below it, a wide blank white band. Nothing else.",
   "alt": "Une main aux manchettes étoilées de l’Union européenne appose sur la poitrine d’un robot un sceau « EN 18286 ».",
-  "fichier": "illustrations/e8.0.svg",
+  "fichier": null,
   "format": "1:1",
   "texte": false,
   "message": "L'EN 18286, première norme harmonisée de l'AI Act, vaut présomption de conformité pour le système qualité des fournisseurs d'IA.",
   "repere": "un robot (l'IA), la couronne d'étoiles de l'UE, le sceau « EN 18286 » ajouté par nous",
   "action": "le robot brandit son certificat européen",
-  "legendes": [
-   {
-    "texte": "EN 18286",
-    "x": 0.5,
-    "y": 0.25,
-    "taille": 0.095,
-    "angle": 0,
-    "couleur": "orange"
-   }
-  ],
+  "legendes": [],
   "candidats": 2,
-  "source": "e8.0-8-sans-sol.svg",
-  "recadrage": [
-   0,
-   0,
-   1,
-   0.8
-  ]
+  "source": "e8.0-8-sans-sol.svg"
  },
  {
   "id": "e14.0",
@@ -92,32 +46,15 @@
   "article": "Syft 1.55.0 et Grype 0.121.0 : paquets IPK et fin de support des distributions",
   "message": "Grype signale désormais les distributions Linux arrivées en fin de vie, dont les failles ne sont plus suivies.",
   "repere": "le pingouin Tux (Linux), une pierre tombale « EOL » (ajouté par nous)",
-  "action": "le scanner pointe le pingouin assis sur sa tombe et donne l'alerte",
-  "brief": "The Linux penguin Tux sits glumly on a small gravestone that has a blank white plaque. A large magnifying glass hovers over the penguin, with an orange alarm bell ringing on its handle. Nothing else.",
+  "action": "la loupe grossit le pingouin inquiet, assis sur sa tombe",
+  "brief": "A large magnifying glass is held over the Linux penguin Tux: through the round lens, the penguin's worried face appears enlarged. The penguin sits on a small rounded gravestone with a wide blank plaque. Nothing else.",
   "format": "1:1",
   "texte": false,
   "candidats": 2,
-  "legendes": [
-   {
-    "type": "masque",
-    "x0": 0.825,
-    "y0": 0.75,
-    "x1": 1,
-    "y1": 1
-   },
-   {
-    "texte": "EOL",
-    "x": 0.665,
-    "y": 0.835,
-    "taille": 0.1,
-    "angle": 0,
-    "couleur": "navy"
-   }
-  ],
-  "fichier": "illustrations/e11.1.svg",
+  "legendes": [],
+  "fichier": null,
   "idee": "Le pingouin Linux assis sur sa tombe « EOL », sous la loupe qui sonne l'alarme.",
   "alt": "Le pingouin de Linux assis sur une pierre tombale « EOL », sous une loupe.",
-  "recadrage": null,
   "source": "e11.1-1.svg"
  },
  {
@@ -148,9 +85,9 @@
   "id": "e17.0",
   "article": "UE : sanctions contre des intermédiaires qui contournent les mesures visant la Russie",
   "idee": "La main de l'UE attrape l'intermédiaire qui contourne la barrière.",
-  "brief": "On the right, the Kremlin towers with onion domes. In the middle, a closed border barrier. A sly middleman in a trench coat and hat tiptoes around the end of the barrier carrying a wooden crate towards the Kremlin. A giant hand coming from the top left, with a shirt cuff decorated with the European Union circle of twelve stars, grabs the middleman by the collar and lifts him off the ground. Nothing else.",
+  "brief": "A sly businessman with a briefcase squeezes sideways through a narrow gap between two big European Union flags (plain blue with a circle of stars), heading towards three large simple onion domes on the right. Nothing else.",
   "alt": "Une main aux manchettes étoilées de l’Union européenne attrape par le col un intermédiaire qui contourne une barrière avec une caisse, vers le Kremlin.",
-  "fichier": "illustrations/e17.0.svg",
+  "fichier": null,
   "format": "3:2",
   "texte": false,
   "message": "L'UE sanctionne les intermédiaires de pays tiers qui aident la Russie à contourner ses sanctions.",
