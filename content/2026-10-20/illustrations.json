@@ -5,7 +5,7 @@
   "idee": "La tasse de café reçoit un monnayeur : le développeur attend avec sa tasse vide.",
   "brief": "A large steaming coffee mug, drawn as a simple emblem, sits on a counter; a technician on a stepladder is bolting a coin slot box with a big euro sign onto the side of the mug, screws flying. A developer waits with an empty cup, showing an empty turned-out pocket.",
   "alt": "Un technicien visse un monnayeur sur une grande tasse de café fumante ; un développeur attend avec une tasse vide.",
-  "fichier": null,
+  "fichier": "illustrations/e5.0.svg",
   "format": "4:3",
   "texte": true
  },
@@ -15,7 +15,7 @@
   "idee": "Le robot passe le portique ; l'inspecteur coche et tamponne « EN 18286 ».",
   "brief": "Centre of the picture: a friendly boxy robot with an antenna walks through an airport-style inspection gate. An inspector beside the gate holds a clipboard and a big round rubber stamp; the gate's display panel shows the letters EN 18286 in large clear capitals. Nothing else.",
   "alt": "Un robot franchit un portique d’inspection ; un inspecteur coche une liste et tient un tampon « EN 18286 ».",
-  "fichier": null,
+  "fichier": "illustrations/e8.0.svg",
   "format": "4:3",
   "texte": true
  },
@@ -25,7 +25,7 @@
   "idee": "Le colis officiel projette l'ombre d'un cambrioleur.",
   "brief": "Close-up. A hand holds up a neatly wrapped parcel with a big wax seal in front of a wall. Cast on the wall by a lamp, the parcel's shadow is the silhouette of a crouching burglar with a mask and a sack. Nothing else.",
   "alt": "Un coursier en uniforme remet un colis scellé dont l’ombre, sur le mur, est celle d’un cambrioleur.",
-  "fichier": null,
+  "fichier": "illustrations/e14.0.svg",
   "format": "3:2",
   "texte": false
  },
@@ -53,7 +53,7 @@
   "idee": "Le gros dossier attend dans la salle d’attente de l’Assemblée avec son ticket, sous l’horloge.",
   "brief": "A waiting room. On a single chair sits an enormous thick paper file tied with a ribbon, labelled \"NIS2\" in big letters on its cover, holding a small numbered queue ticket in a paper hand as if it were a patient. A cobweb links the file to the chair; a round wall clock above. Nothing else.",
   "alt": "Un gros dossier ficelé attend sur une chaise de salle d’attente avec un ticket numéroté, sous une horloge.",
-  "fichier": null,
+  "fichier": "illustrations/e20.0.svg",
   "texte": true,
   "format": "1:1"
  },
@@ -63,7 +63,7 @@
   "idee": "La poupée gigogne « nationale » contient des poupées d'autres fabricants.",
   "brief": "A registry counter. An applicant proudly presents a large nesting doll. The official behind the counter has opened it: the smaller dolls lined up on the counter each carry a different sewn-on maker's label, and the official points at them with raised eyebrows. Nothing else.",
   "alt": "Au guichet, un fonctionnaire a ouvert une poupée gigogne dont chaque poupée intérieure porte l’étiquette d’un autre fabricant.",
-  "fichier": null,
+  "fichier": "illustrations/e23.0.svg",
   "format": "4:3",
   "texte": false
  }

@@ -692,10 +692,10 @@ class Unite:
 _CACHE_U = {}
 
 
-def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=()):
+def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=(), pos_une=0):
     """Unités d'une rubrique (k : rang ou 'une') au corps fs ; prof : portions facultatives retirées à chaque article
     (0 : toutes retenues) ; omis : brèves omises de l'encadré (ordre_omission())."""
-    cle = (k, fs, prof, omis, ecartes)
+    cle = (k, fs, prof, omis, ecartes, pos_une)
     if cle in _CACHE_U: return _CACHE_U[cle]
     une, _ = une_autres(ed)
     var = variantes(ed)
@@ -705,6 +705,12 @@ def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=()):
         v = 0 if est_une else max(min(1, len(var.get(it['id'], []))), len(var.get(it['id'], [])) - prof)
         incl = set() if est_une else set(var.get(it['id'], [])[:v])
         prev_t, premier = False, True
+        ill = (ed.get('illustrations') or {}).get(it['id'])
+        ill_une = None
+        if est_une and ill and it['id'] not in ecartes:   # la Une n'a pas de titre d'article dans ses colonnes : le dessin ouvre la première,
+            # ou vient après le paragraphe pos_une (meilleure répartition sur la page)
+            ill_une = Unite('i', f'<figure class="ill"><img src="file://{html.escape(ill[0])}" alt="{html.escape(ill[1])}"></figure>', h=W3, n=int(round(ill[2] * 1000)), ecart='titre')
+            if pos_une == 0: us.append(ill_une); ill_une = None
         for jj, x in enumerate(morceaux(it, incl, une=est_une)):
             for n_, sub in enumerate(re.findall(r'<h3 class="hl">.*?</h3>|<p class="[^"]*">.*?</p>', x, re.S)):
                 key = f'{it["id"]}|{v}|{jj}|{n_}'
@@ -714,8 +720,9 @@ def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=()):
                 if sub.startswith('<h3'):
                     us.append(Unite('t', sub, h=M['t'][key][0], n=M['t'][key][1], ecart=ecart, filet=filet)); prev_t = True
                     ill = (ed.get('illustrations') or {}).get(it['id'])
-                    if ill and jj == 0 and not est_une and it['id'] not in ecartes:   # dessin de presse sous le titre, sur la colonne (README, § 18)
-                        us.append(Unite('i', f'<figure class="ill"><img src="file://{html.escape(ill[0])}" alt="{html.escape(ill[1])}"></figure>', ecart='titre'))
+                    if ill and jj == 0 and it['id'] not in ecartes:   # dessin de presse sous le titre (ou entre deux paragraphes), sur la colonne (README, § 18)
+                        us.append(Unite('i', f'<figure class="ill"><img src="file://{html.escape(ill[0])}" alt="{html.escape(ill[1])}"></figure>',
+                                        h=W3 if k == 'une' else W4, n=int(round(ill[2] * 1000)), ecart='titre'))
                     continue
                 cls, inner = re.match(r'<p class="([^"]*)">(.*)</p>$', sub, re.S).groups()
                 textes = M['p'][(fs, key)]
@@ -723,6 +730,7 @@ def unites_rub(ed, M, k, r, fs, prof, omis, ecartes=()):
                 if dl is None: print(f'  ! découpe impossible ({key}) : paragraphe insécable', file=sys.stderr)
                 us.append(Unite('p', inner, cls, n=len(textes), ecart=ecart, filet=filet, toks=dl and dl[0], debuts=dl and dl[1], coupes=dl and dl[2]))
                 prev_t = False
+                if ill_une is not None and sum(1 for u_ in us if u_.kind == 'p') == pos_une: us.append(ill_une); ill_une = None
     if r['rappels']:
         d = len(omis)
         hb = M['b'].get(f'{k}|{d}')
@@ -772,7 +780,9 @@ G_ILL = 1.6 * MM   # blanc sous une illustration
 def hauteur_u(u, lh_px, a=0, b=None):
     if u.kind == 'p': return ((u.n if b is None else b) - a) * lh_px
     if u.kind == 't': return lignes_titre(u, lh_px) * lh_px   # titre et son blanc : un nombre entier de lignes du texte
-    if u.kind == 'i': return math.ceil((W4 + G_ILL) / lh_px - 1e-6) * lh_px   # dessin carré sur la colonne, et son blanc, sur la grille
+    if u.kind == 'i':
+        if b == -1: return 0.0   # dessin écarté faute de place dans son article
+        return math.ceil((u.h * u.n / 1000 + G_ILL) / lh_px - 1e-6) * lh_px   # dessin sur la largeur de la colonne (h), ratio n/1000, et son blanc, sur la grille
     return u.h
 
 
@@ -782,16 +792,28 @@ def remplir(us, pos, hauteurs, lh_px):
     encadré ou une entrée ne se coupe pas. Renvoie (colonnes, pos final, tout placé) ; colonne = ([(i, a, b, blanc)], hauteur)."""
     i, l = pos
     cols = []
+    att = None   # dessin en attente : il n'a pas tenu sous son titre, il se placera entre deux paragraphes de son article
+    def tient_ill(j, y, H, parts):
+        """Le dessin j tient-il ici, suivi de deux lignes du paragraphe suivant (ou de la suite de l'article) ?"""
+        g = blanc(us[j], lh_px) if parts else 0.0
+        return y + g + hauteur_u(us[j], lh_px) + 2 * lh_px <= H + .01
     for H in hauteurs:
         y, parts = 0.0, []
+        if att is not None and l == 0 and i < len(us) and us[i].kind == 'p':   # en tête de colonne, entre deux paragraphes
+            if tient_ill(att, y, H, parts): parts.append((att, 0, None, 0.0)); y += hauteur_u(us[att], lh_px); att = None
         while i < len(us):
             u = us[i]
             g = blanc(u, lh_px) if parts else 0.0
+            if att is not None and u.kind != 'p':   # fin de l'article sans place pour son dessin : écarté (coût dans penalite_col)
+                parts.append((att, 0, -1, 0.0)); att = None
             if u.kind == 'p' and u.toks is not None:
                 reste = u.n - l
                 place = int((H - y - g + .01) // lh_px) if H - y - g > 0 else 0
                 if place >= reste:
-                    parts.append((i, l, u.n, g)); y += g + reste * lh_px; i += 1; l = 0; continue
+                    parts.append((i, l, u.n, g)); y += g + reste * lh_px; i += 1; l = 0
+                    if att is not None and i < len(us) and us[i].kind == 'p' and tient_ill(att, y, H, parts):   # entre deux paragraphes
+                        ga = blanc(us[att], lh_px); parts.append((att, 0, None, ga)); y += ga + hauteur_u(us[att], lh_px); att = None
+                    continue
                 k = min(place, reste - 2)
                 if k >= 2:
                     parts.append((i, l, l + k, g)); y += g + k * lh_px; l += k
@@ -799,17 +821,19 @@ def remplir(us, pos, hauteurs, lh_px):
             h = hauteur_u(u, lh_px)
             if u.kind == 't':
                 suiv = us[i + 1] if i + 1 < len(us) else None
-                if suiv is not None and suiv.kind == 'i':   # le dessin reste sous son titre, avec deux lignes de texte
-                    s2 = us[i + 2] if i + 2 < len(us) else None
-                    h_suiv = hauteur_u(suiv, lh_px) + (min(2, s2.n) * lh_px if s2 is not None and s2.kind == 'p' else 0)
-                else: h_suiv = min(2, suiv.n) * lh_px if suiv is not None and suiv.kind == 'p' else 0
+                if suiv is not None and suiv.kind == 'i': suiv = us[i + 2] if i + 2 < len(us) else None
+                h_suiv = min(2, suiv.n) * lh_px if suiv is not None and suiv.kind == 'p' else 0
                 if y + g + h + h_suiv > H + .01: break
+            elif u.kind == 'i':
+                if y + g + h + 2 * lh_px > H + .01 or att is not None:   # pas la place sous le titre : le dessin attend
+                    att = i; i += 1; continue
             elif y + g + h > H + .01: break
             parts.append((i, 0, u.n if u.kind == 'p' else None, g)); y += g + h; i += 1; l = 0
         if parts and us[parts[-1][0]].kind == 't' and parts[-1][0] == i - 1 and l == 0 and i < len(us):   # titre seul en bas de colonne
             t = parts.pop(); i = t[0]; y -= t[3] + hauteur_u(us[t[0]], lh_px)
         cols.append((parts, y))
         if not parts and i < len(us): return cols, (i, l), False
+    if att is not None and i >= len(us) and cols: cols[-1][0].append((att, 0, -1, 0.0))   # jamais placé
     return cols, (i, l), i >= len(us)
 
 
@@ -890,14 +914,15 @@ def penalite_col(us, parts, H, y, lh_px):
     """Coût d'une colonne de hauteur cible H remplie sur y : le reste est réparti (partage_col()) ; il se voit
     au-delà de 0,6 mm par blanc, de l'interligne 1,40, ou de 3 mm au-dessus d'un « En bref »."""
     s = H - y
-    if s < .5: return 0.0, s
+    ec = COUT_ILL * sum(1 for i_, a_, b_, e_ in parts if us[i_].kind == 'i' and b_ == -1)   # dessins écartés
+    if s < .5: return ec, s
     g, nl = ecart_col(us, parts)
-    if not g and not nl and not bref_bas(us, parts): return 40 * s / MM, s
+    if not g and not nl and not bref_bas(us, parts): return ec + 40 * s / MM, s
     b, e, f = partage_col(us, parts, s, lh_px)
     fm = fmax(us, lh_px)
     if us[0].kind == 'x' and g:   # glossaire : le blanc entre les entrées peut s'ouvrir jusqu'à 2 mm sans se voir
-        return .4 * s / MM + (30 * (e / MM - 2) * g if e > 2 * MM else 0), s
-    pen = .8 * s / MM + .3 * b / MM + (40 * (b / MM - 3) if b > B_SOUPLE + .5 else 0)
+        return ec + .4 * s / MM + (30 * (e / MM - 2) * g if e > 2 * MM else 0), s
+    pen = ec + .8 * s / MM + .3 * b / MM + (40 * (b / MM - 3) if b > B_SOUPLE + .5 else 0)
     pen += (30 * (e / MM - .6) * g if e > G_SOUPLE else 0) + (300 * (f - fm) / MM * nl if f > fm + .01 else 0)
     return pen, s
 
@@ -962,6 +987,37 @@ class Etat:
 
     def __init__(self, p, y, cout, plan, defauts, prec, lex, geo, choix):
         self.p, self.y, self.cout, self.plan, self.defauts, self.prec, self.lex, self.geo, self.choix = p, y, cout, plan, defauts, prec, lex, geo, choix
+
+
+def positions_ill(plan):
+    """Dessins placés : [(page, colonne, ordonnée du centre)] d'après le plan."""
+    out = []
+    for it in liste(plan):
+        if it[0] != 'cols': continue
+        _, p, y0, specs, cols, us, fs, lh_px, wrap = it
+        for (x, w, H), (parts, _y) in zip(specs, cols):
+            y = 0.0
+            for k, (i, a, b, g) in enumerate(parts):
+                h = hauteur_u(us[i], lh_px, a, b)
+                if us[i].kind == 'i' and b != -1: out.append((p, int(round(x / (W4 + GOUT))), y0 + y + (g if k else 0) + h / 2))
+                y += (g if k else 0) + h
+    return out
+
+
+def cout_repartition(plan):
+    """Répartition des dessins : deux dessins d'une même page ne partagent ni la colonne ni la bande horizontale ;
+    sur la double page 2-3, pas non plus la même bande (README, § 18)."""
+    ps = positions_ill(plan)
+    c = 0.0
+    for a in range(len(ps)):
+        for b in range(a + 1, len(ps)):
+            (p1, c1, y1), (p2, c2, y2) = ps[a], ps[b]
+            if p1 == p2:
+                if c1 == c2: c += 120
+                if abs(y1 - y2) < 70 * MM: c += 50
+                if abs(c1 - c2) == 1 and abs(y1 - y2) < 70 * MM: c += 20
+            elif {p1, p2} == {1, 2} and abs(y1 - y2) < 70 * MM: c += 25
+    return c
 
 
 def liste(ch):
@@ -1186,21 +1242,24 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
         Dg = [f'agenda : interligne augmenté de {ex / MM:.2f} mm dans une colonne pour l\'égaler à l\'autre'] if ex > .1 * MM else []
         for fs in FS_LIST:
             for lh in LH_LIST:
-                plan = (None, ('haut', 0, 0.0))
-                y, cout, D = M['haut'], c_ag + 10 * (FS_LIST[-1] - fs), list(Dg)
-                if une:
-                    us = unites_rub(ed, M, 'une', une, fs, 0, ())
-                    lh_px = lh * fs * PT
-                    ck = (('une', fs), (0, 0))
-                    if ck not in _CACHE_EQ: _CACHE_EQ[ck] = equilibrer(us, 3, lh_px)
-                    H, cols = _CACHE_EQ[ck]
-                    if H is None or y + H > HAUT: continue
-                    cc = cout_cols(us, cols, [H] * 3, 'la Une', 0, D, lh_px)
-                    if cc is None: continue
-                    cout += cc
-                    plan = (plan, ('cols', 0, y, [(c * (W3 + GOUT), W3, H) for c in range(3)], cols, us, fs, lh_px, False))
-                    y += H
-                etats.append(Etat(0, y, cout, plan, (None, D) if D else None, (fs, lh), False, geo, (('une', fs, lh), ('ag', ag))))
+                # la Une : son dessin ouvre la première colonne ou vient après le paragraphe pos_une (répartition sur la page)
+                for pos_une in ((0, 1, 2, 3, 4, 5) if une and une['items'][0]['id'] in (ed.get('illustrations') or {}) else (0,)):
+                    plan = (None, ('haut', 0, 0.0))
+                    y, cout, D = M['haut'], c_ag + 10 * (FS_LIST[-1] - fs), list(Dg)
+                    if une:
+                        us = unites_rub(ed, M, 'une', une, fs, 0, (), (), pos_une)
+                        if pos_une and not any(u_.kind == 'i' for u_ in us): continue
+                        lh_px = lh * fs * PT
+                        ck = (('une', fs, pos_une), (0, 0))
+                        if ck not in _CACHE_EQ: _CACHE_EQ[ck] = equilibrer(us, 3, lh_px)
+                        H, cols = _CACHE_EQ[ck]
+                        if H is None or y + H > HAUT: continue
+                        cc = cout_cols(us, cols, [H] * 3, 'la Une', 0, D, lh_px)
+                        if cc is None: continue
+                        cout += cc
+                        plan = (plan, ('cols', 0, y, [(c * (W3 + GOUT), W3, H) for c in range(3)], cols, us, fs, lh_px, False))
+                        y += H
+                    etats.append(Etat(0, y, cout + cout_repartition(plan), plan, (None, D) if D else None, (fs, lh), False, geo, (('une', fs, lh, pos_une), ('ag', ag))))
     lex_fin = bool(ed.get('sigles'))   # le lexique, en dernier, enveloppe l'agenda ; sans lexique, la dernière rubrique
     def elaguer(xs, k):
         meilleurs = {}
@@ -1222,6 +1281,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
                 st2 = placer(ed, M, st, b, cible)
                 if st2 is None: continue
                 st2.cout += cout_option(ed, k, r, opt, st.prec)
+                if opt[4] != () or any(it_['id'] in (ed.get('illustrations') or {}) for it_ in r['items']): st2.cout += cout_repartition(st2.plan) - cout_repartition(st.plan)
                 st2.prec, st2.choix = (opt[0], opt[1]), st.choix + ((k,) + opt,)
                 nouv.append(st2)
         if k == K - 1 and not lex_fin: nouv = [s_ for s_ in nouv if s_.p == cible - 1]
@@ -1293,6 +1353,7 @@ def html_colonne(us, parts, H, lh_px):
             pb = hauteur_u(u, lh_px) - lt * u.n
             out.append(u.html.replace('<h3 class="hl"', f'<h3 class="hl{fc}" style="{st};line-height:{lt:.3f}px;padding-bottom:{pb:.2f}px"', 1))
         elif u.kind == 'b': out.append(u.html.replace('<aside class="rap"', f'<aside class="rap{fc}" style="{st}"', 1))
+        elif u.kind == 'i' and b == -1: continue
         elif u.kind == 'i': out.append(u.html.replace('<figure class="ill"', f'<figure class="ill" style="{st};height:{hauteur_u(u, lh_px) - G_ILL:.2f}px"', 1))
         else: out.append(u.html.replace('<p class="lx"', f'<p class="lx{fc}" style="{st}"', 1))
     return ''.join(out)
@@ -1466,8 +1527,19 @@ def illustrations(d):
     out = {}
     for x in json.load(open(p, encoding='utf-8')):
         f = x.get('fichier')
-        if f and os.path.exists(os.path.join(CONTENT, d, f)): out[x['id']] = (os.path.join(CONTENT, d, f), x.get('alt', ''))
+        if f and os.path.exists(os.path.join(CONTENT, d, f)): out[x['id']] = (os.path.join(CONTENT, d, f), x.get('alt', ''), ratio_svg(os.path.join(CONTENT, d, f)))
     return out
+
+
+def ratio_svg(f):
+    """Hauteur / largeur d'un dessin (viewBox, sinon width et height du SVG ; 1 à défaut)."""
+    try:
+        tete = open(f, encoding='utf-8', errors='replace').read(4000)
+        m = re.search(r'viewBox="\s*[\d.\-]+\s+[\d.\-]+\s+([\d.]+)\s+([\d.]+)', tete)
+        if not m: m = re.search(r'width="([\d.]+)(?:px)?"\s+height="([\d.]+)', tete)
+        if m and float(m[1]) > 0: return float(m[2]) / float(m[1])
+    except OSError: pass
+    return 1.0
 
 
 def jauge(d):
