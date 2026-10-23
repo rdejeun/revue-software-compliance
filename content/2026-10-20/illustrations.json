@@ -4,15 +4,47 @@
   "article": "Oracle JDK 21 : fin de la licence gratuite NFTC pour les mises à jour",
   "idee": "La tasse Java reçoit un monnayeur.",
   "brief": "The Java programming language logo redrawn large and centered: a coffee cup on a saucer with two tall curling flame-like wisps of orange steam. A big paper price tag hangs from the cup handle on a string, the tag bearing a large euro sign. The cup has a blank white band around it. Nothing else.",
-  "alt": "Le logo Java, une tasse de café fumante étiquetée « JDK 21 », équipé d’un monnayeur dans lequel une main glisse une pièce.",
-  "fichier": null,
+  "alt": "Le logo de Java, une tasse de café fumante marquée « JDK 21 », porte une étiquette de prix en euros.",
+  "fichier": "illustrations/e5.0.svg",
   "format": "1:1",
   "texte": false,
   "message": "Les mises à jour d'Oracle JDK 21 deviennent payantes en production.",
   "repere": "le logo Java (tasse de café fumante), étiquette « JDK 21 » ajoutée par nous",
   "action": "la tasse Java porte une étiquette de prix",
-  "legendes": [],
-  "candidats": 2
+  "legendes": [
+   {
+    "type": "masque",
+    "x0": 0.51,
+    "y0": 0.2,
+    "x1": 0.85,
+    "y1": 0.95
+   },
+   {
+    "type": "etiquette",
+    "x": 0.56,
+    "y": 0.74,
+    "w": 0.13,
+    "h": 0.075,
+    "angle": -8,
+    "ancre": [
+     0.405,
+     0.62
+    ],
+    "texte": "€",
+    "taille": 0.06,
+    "couleur": "orange"
+   },
+   {
+    "texte": "JDK 21",
+    "x": 0.298,
+    "y": 0.735,
+    "taille": 0.05,
+    "angle": 0,
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "source": "e5.0-6.svg"
  },
  {
   "id": "e8.0",
@@ -20,14 +52,30 @@
   "idee": "L'UE tamponne le robot : sceau « EN 18286 ».",
   "brief": "A friendly boxy robot with an antenna stands on a small podium and proudly holds up, with both hands, a large framed certificate. The certificate shows a ring of twelve stars at the top and, below it, a wide blank white band. Nothing else.",
   "alt": "Une main aux manchettes étoilées de l’Union européenne appose sur la poitrine d’un robot un sceau « EN 18286 ».",
-  "fichier": null,
+  "fichier": "illustrations/e8.0.svg",
   "format": "1:1",
   "texte": false,
   "message": "L'EN 18286, première norme harmonisée de l'AI Act, vaut présomption de conformité pour le système qualité des fournisseurs d'IA.",
   "repere": "un robot (l'IA), la couronne d'étoiles de l'UE, le sceau « EN 18286 » ajouté par nous",
   "action": "le robot brandit son certificat européen",
-  "legendes": [],
-  "candidats": 2
+  "legendes": [
+   {
+    "texte": "EN 18286",
+    "x": 0.5,
+    "y": 0.25,
+    "taille": 0.095,
+    "angle": 0,
+    "couleur": "orange"
+   }
+  ],
+  "candidats": 2,
+  "source": "e8.0-8-sans-sol.svg",
+  "recadrage": [
+   0,
+   0,
+   1,
+   0.8
+  ]
  },
  {
   "id": "e14.0",
@@ -49,10 +97,28 @@
   "format": "1:1",
   "texte": false,
   "candidats": 2,
-  "legendes": [],
-  "fichier": null,
+  "legendes": [
+   {
+    "type": "masque",
+    "x0": 0.825,
+    "y0": 0.75,
+    "x1": 1,
+    "y1": 1
+   },
+   {
+    "texte": "EOL",
+    "x": 0.665,
+    "y": 0.835,
+    "taille": 0.1,
+    "angle": 0,
+    "couleur": "navy"
+   }
+  ],
+  "fichier": "illustrations/e11.1.svg",
   "idee": "Le pingouin Linux assis sur sa tombe « EOL », sous la loupe qui sonne l'alarme.",
-  "alt": "Le pingouin de Linux assis sur une pierre tombale « EOL », sous une loupe qui sonne l’alarme."
+  "alt": "Le pingouin de Linux assis sur une pierre tombale « EOL », sous une loupe.",
+  "recadrage": null,
+  "source": "e11.1-1.svg"
  },
  {
   "id": "e11.2",

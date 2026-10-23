@@ -77,7 +77,7 @@ def apercu(svg):
     """Aperçu PNG (512 px) du SVG, pour la relecture par la rédaction (cairosvg s'il est installé)."""
     try:
         import cairosvg
-        cairosvg.svg2png(url=svg, write_to=svg[:-4] + '.png', output_width=512, output_height=512)
+        cairosvg.svg2png(url=svg, write_to=svg[:-4] + '.png', output_width=512)
     except Exception as e:   # noqa
         print(f'aperçu impossible ({os.path.basename(svg)}) : {e}', file=sys.stderr)
 
@@ -118,7 +118,8 @@ def boite_contenu(svg_txt, marge=.02):
 
 def retenir(d, ident, fichier):
     """Dessin retenu : légendes du brief (champ « legendes » : texte, x, y en fraction du dessin, taille en fraction de sa
-    largeur, angle, couleur navy|orange) ajoutées en contours vectoriels, recadrage sur le contenu, copie dans content/."""
+    largeur, angle, couleur navy|orange) ajoutées en contours vectoriels, recadrage éventuel (champ « recadrage »), puis
+    recadrage sur le contenu, copie dans content/."""
     briefs, p = lire_briefs(d)
     b = next(x for x in briefs if x['id'] == ident)
     src = fichier if os.path.exists(fichier) else os.path.join(ROOT, 'veille', 'illustrations', d, fichier)
@@ -126,9 +127,25 @@ def retenir(d, ident, fichier):
     vb = [float(v) for v in re.search(r'viewBox="([^"]+)"', svg)[1].split()]
     ajout = ''
     for L in b.get('legendes') or []:
+        X = lambda v: vb[0] + v * vb[2]; Y = lambda v: vb[1] + v * vb[3]; ep = .006 * vb[2]
+        if L.get('type') == 'masque':   # efface une partie du dessin (rectangle blanc, en fraction du dessin)
+            ajout += f'<rect x="{X(L["x0"]):.1f}" y="{Y(L["y0"]):.1f}" width="{(L["x1"] - L["x0"]) * vb[2]:.1f}" height="{(L["y1"] - L["y0"]) * vb[3]:.1f}" fill="#ffffff"/>'
+            continue
+        if L.get('type') == 'etiquette':   # étiquette de prix suspendue par une ficelle à un point d'ancrage, avec son texte
+            cx, cy, w, h = X(L['x']), Y(L['y']), L['w'] * vb[2], L['h'] * vb[2]
+            ax, ay = X(L['ancre'][0]), Y(L['ancre'][1])
+            pts = [(-w / 2, -h / 2), (w / 2, -h / 2), (w / 2, h / 2), (-w / 2, h / 2), (-w / 2 - h / 2, 0)]
+            ajout += (f'<path d="M {ax:.1f} {ay:.1f} Q {(ax + cx - w / 2) / 2:.1f} {max(ay, cy) + h * .6:.1f} {cx - w / 2 - h * .25:.1f} {cy:.1f}" fill="none" stroke="#0f2a4a" stroke-width="{ep * .7:.1f}"/>'
+                      f'<g transform="translate({cx:.1f} {cy:.1f}) rotate({L.get("angle", 0)})"><polygon points="{" ".join(f"{x:.1f},{y:.1f}" for x, y in pts)}" fill="#ffffff" stroke="#0f2a4a" stroke-width="{ep:.1f}" stroke-linejoin="round"/>'
+                      f'<circle cx="{-w / 2 - h * .1:.1f}" cy="0" r="{h * .09:.1f}" fill="#ffffff" stroke="#0f2a4a" stroke-width="{ep * .7:.1f}"/></g>')
+            if L.get('texte'): ajout += texte_chemin(L['texte'], cx + h * .1, cy, L.get('taille', .06) * vb[2], L.get('angle', 0), '#c2410c' if L.get('couleur', 'orange') == 'orange' else '#0f2a4a')
+            continue
         coul = '#c2410c' if L.get('couleur') == 'orange' else ('#ffffff' if L.get('couleur') == 'blanc' else '#0f2a4a')
         ajout += texte_chemin(L['texte'], vb[0] + L['x'] * vb[2], vb[1] + L['y'] * vb[3], L.get('taille', .08) * vb[2], L.get('angle', 0), coul)
     svg = svg.replace('</svg>', ajout + '</svg>')
+    if b.get('recadrage'):   # [x0, y0, x1, y1] en fraction du dessin : on n'en garde que cette partie
+        r = b['recadrage']
+        svg = re.sub(r'viewBox="[^"]+"', f'viewBox="{vb[0] + r[0] * vb[2]:.1f} {vb[1] + r[1] * vb[3]:.1f} {(r[2] - r[0]) * vb[2]:.1f} {(r[3] - r[1]) * vb[3]:.1f}"', svg, count=1)
     x0, y0, x1, y1 = boite_contenu(svg)
     svg = re.sub(r'viewBox="[^"]+"', f'viewBox="{x0:.1f} {y0:.1f} {x1 - x0:.1f} {y1 - y0:.1f}"', svg, count=1)
     svg = re.sub(r'(<svg[^>]*?)\swidth="[^"]*"', r'\1', svg, count=1)

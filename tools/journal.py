@@ -776,17 +776,22 @@ def blanc(u, lh_px):
 
 G_ILL = 1.4 * MM        # blanc sous une illustration
 G_ILL_HAUT = 1.4 * MM   # blanc au-dessus d'une illustration placée entre deux paragraphes (sous un titre, le blanc du titre suffit)
+ILL_HMAX = 48 * MM       # hauteur maximale d'un dessin
+ILL_HMAX_UNE = 40 * MM   # hauteur maximale du dessin de la Une (colonne plus large, page 1 chargée)
 ILL_RETRECI = .88       # un dessin peut perdre jusqu'à 12 % de sa largeur pour tomber sur la grille plutôt que laisser du blanc
 
 
 def dims_ill(u, lh_px):
     """(hauteur sur la grille, hauteur et largeur du dessin) : le dessin occupe la largeur de la colonne (u.h), rapport
     u.n / 1000 ; s'il dépasse la ligne d'un peu, il rétrécit (ILL_RETRECI au plus) plutôt que d'ajouter une ligne blanche."""
-    h = u.h * u.n / 1000
+    w = u.h
+    h = w * u.n / 1000
+    hmax = ILL_HMAX_UNE if u.h > W4 + 1 else ILL_HMAX
+    if h > hmax: w, h = w * hmax / h, hmax   # un dessin haut (ou celui de la Une) ne dépasse pas sa hauteur maximale
     k = math.floor((h + G_ILL) / lh_px + 1e-6)
-    if k * lh_px - G_ILL >= ILL_RETRECI * h and k >= 2: return k * lh_px, k * lh_px - G_ILL, u.h * (k * lh_px - G_ILL) / h
+    if k * lh_px - G_ILL >= ILL_RETRECI * h and k >= 2: return k * lh_px, k * lh_px - G_ILL, w * (k * lh_px - G_ILL) / h
     k = math.ceil((h + G_ILL) / lh_px - 1e-6)
-    return k * lh_px, h, u.h
+    return k * lh_px, h, w
 
 
 def hauteur_u(u, lh_px, a=0, b=None):
@@ -913,6 +918,17 @@ def repartir(s, g, nl, fm):
     return e, f
 
 
+ILL_SOUPLE = 3 * MM   # blanc qu'un dessin peut prendre autour de lui (centré) pour justifier sa colonne
+
+
+def absorbe_ill(us, parts, s):
+    """Part du reste s d'une colonne que prennent ses dessins (ILL_SOUPLE chacun, centré autour du dessin) : (par dessin, reste)."""
+    n = sum(1 for i, a, b, e in parts if us[i].kind == 'i' and b != -1)
+    if not n or s <= 0: return 0.0, s
+    a = min(ILL_SOUPLE, s / n)
+    return a, s - a * n
+
+
 def partage_col(us, parts, s, lh_px):
     """(blanc au-dessus de l'« En bref » calé en bas, ajout par blanc, ajout par ligne) pour un reste s."""
     b = min(s, B_SOUPLE) if bref_bas(us, parts) else 0.0
@@ -927,6 +943,8 @@ def penalite_col(us, parts, H, y, lh_px):
     au-delà de 0,6 mm par blanc, de l'interligne 1,40, ou de 3 mm au-dessus d'un « En bref »."""
     s = H - y
     ec = COUT_ILL * sum(1 for i_, a_, b_, e_ in parts if us[i_].kind == 'i' and b_ == -1)   # dessins écartés
+    ai, s2 = absorbe_ill(us, parts, s)
+    if ai: ec += .6 * (s - s2) / MM; s = s2   # le blanc autour d'un dessin se voit peu
     if s < .5: return ec, s
     g, nl = ecart_col(us, parts)
     if not g and not nl and not bref_bas(us, parts): return ec + 40 * s / MM, s
@@ -1353,6 +1371,7 @@ def html_colonne(us, parts, H, lh_px):
     for k, (i, a, b, g) in enumerate(parts):
         used += (g if k else 0) + hauteur_u(us[i], lh_px, a, b if b is not None else None)
     s = max(0.0, H - used)
+    ai, s = absorbe_ill(us, parts, s)
     sb, ext, feather = partage_col(us, parts, s, lh_px)
     out = []
     for k, (i, a, b, g) in enumerate(parts):
@@ -1378,7 +1397,7 @@ def html_colonne(us, parts, H, lh_px):
         elif u.kind == 'i' and b == -1: continue
         elif u.kind == 'i':
             H_, hi, wi = dims_ill(u, lh_px)
-            out.append(u.html.replace('<figure class="ill"', f'<figure class="ill" style="{st};height:{H_ - G_ILL:.2f}px"', 1)
+            out.append(u.html.replace('<figure class="ill"', f'<figure class="ill" style="{st};height:{H_ - G_ILL + ai:.2f}px;margin-bottom:{G_ILL:.2f}px"', 1)
                        .replace('<img ', f'<img style="width:{wi:.2f}px;height:{hi:.2f}px" ', 1))
         else: out.append(u.html.replace('<p class="lx"', f'<p class="lx{fc}" style="{st}"', 1))
     return ''.join(out)
