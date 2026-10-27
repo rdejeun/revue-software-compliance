@@ -560,7 +560,7 @@
  {
   "affirmation": "Un client non authentifié pouvait faire exécuter les scripts de construction du projet analysé",
   "url": "https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53",
-  "extrait": "An unauthenticated client of the cdxgen HTTP server (cdxgen --server) could get past the git host allowlist",
+  "extrait": "could get past the git host allowlist",
   "ou": "article",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
