@@ -1,10 +1,10 @@
 {
  "date": "2026-10-27",
- "commit": "488bdcbe84f87a021d0789182e2e0329b81f06e5",
- "le": "2026-10-27T02:51:04Z",
+ "commit": "7bf0318a83af43687e995c221da996b454c3d0ae",
+ "le": "2026-10-27T03:38:14Z",
  "verdict": "rouge",
  "motifs": [
-  "7 affirmation(s) en échec (extrait introuvable ou non confirmée) : 3 élément(s) seraient écartés"
+  "1 affirmation(s) en échec (extrait introuvable ou non confirmée) : 1 élément(s) seraient écartés"
  ],
  "script": "e1ac636abc8f2bf98e661d6ddad03d79d37fff36e62b51517ad38f8dfc079ea4",
  "sources": "b8bd4595f86703eeb8944772749512c4434481a01004e4cb98c26ff28a768843",
@@ -78,19 +78,13 @@
    "Citation non vérifiable automatiquement (PDF) : affirmation 397, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 399, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 431, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 63 « An unauthenticated client of the cdxgen HTTP server (`cdxgen --server`… » (https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 69 « a request could turn on `deep` or `installDeps` even in secure mode or… » (https://github.com/CycloneDX/cdxgen/releases/tag/v12.8.7)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 74 « The `hbom` command now inventories Windows machines.… » (https://github.com/CycloneDX/cdxgen/releases/tag/v13.5.0)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 86 « Backport: Fix ineffective ACL check for `/v1/finding/project/{uuid}/an… » (https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 88 « Backport: Fix ineffective ACL check for `/v1/finding/project/{uuid}/an… » (https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 97 « evaluator: Enhance the rule API by a `SnippetFindingRule`… » (https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 98 « model: Enable the `GitHubAction` package manager by default… » (https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0)"
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 63 « An unauthenticated client of the cdxgen HTTP server (cdxgen --server) … » (https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53)"
   ]
  },
  "ecarter": {
   "date": "2026-10-27",
-  "echecs": 7,
-  "extraits_retrouves": 389,
+  "echecs": 1,
+  "extraits_retrouves": 395,
   "illisibles": [
    {
     "affirmation": 25,
@@ -324,60 +318,6 @@
       "affirmation": "Un client non authentifié pouvait faire exécuter les scripts de construction du projet analysé",
       "url": "https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53",
       "ou": "article"
-     },
-     {
-      "n": 69,
-      "raison": "extrait introuvable",
-      "affirmation": "Une requête pouvait activer l’installation des dépendances même en mode sécurisé",
-      "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v12.8.7",
-      "ou": "synthese"
-     },
-     {
-      "n": 74,
-      "raison": "extrait introuvable",
-      "affirmation": "La 13.5.0 ajoute l’inventaire matériel (HBOM) des postes Windows",
-      "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.5.0",
-      "ou": "synthese"
-     }
-    ]
-   },
-   {
-    "kind": "ul",
-    "texte": "dependency-track 5.2.1 et 4.14.6 : publiées le 25 octobre 2026, ces versions correctives de la plateforme d'analyse de sbom de l'owasp corrigent un échec de val",
-    "affirmations": [
-     {
-      "n": 86,
-      "raison": "extrait introuvable",
-      "affirmation": "La 5.2.1 corrige un contrôle d’accès inopérant",
-      "url": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1",
-      "ou": "article"
-     },
-     {
-      "n": 88,
-      "raison": "extrait introuvable",
-      "affirmation": "Contrôle d’accès inopérant sur l’interface d’analyse des constats d’un projet",
-      "url": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1",
-      "ou": "synthese"
-     }
-    ]
-   },
-   {
-    "kind": "ul",
-    "texte": "ort 97.1.0 : publiée le 22 octobre 2026, la boîte à outils d'analyse des composants et des licences permet d'écrire des règles sur les correspondances de fragme",
-    "affirmations": [
-     {
-      "n": 97,
-      "raison": "extrait introuvable",
-      "affirmation": "Règles sur les correspondances de fragments de code (SnippetFindingRule)",
-      "url": "https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0",
-      "ou": "article"
-     },
-     {
-      "n": 98,
-      "raison": "extrait introuvable",
-      "affirmation": "Inventaire par défaut des actions GitHub (gestionnaire GitHubAction activé par défaut)",
-      "url": "https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0",
-      "ou": "article"
      }
     ]
    }
@@ -403,5 +343,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 481
+ "duree_s": 377
 }
