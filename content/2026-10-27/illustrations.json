@@ -9,9 +9,10 @@
   "alt": "Un ingénieur découvre l’éléphant de PHP caché dans la caisse d’un équipement et part aussitôt, formulaire à la main, le déclarer.",
   "format": "3:2",
   "texte": false,
-  "legendes": [{"texte": "PHP", "point": [0.27, 0.5], "couleur": "navy"}],
+  "legendes": [],
   "candidats": 2,
-  "fichier": null
+  "fichier": "illustrations/e5.0.svg",
+  "source": "e5.0-2.svg"
  },
  {
   "id": "e8.0",
@@ -23,9 +24,19 @@
   "alt": "Un contrôleur examine à la loupe la liste « SBOM » collée sur une boîte et scellée d’un cachet de cire.",
   "format": "1:1",
   "texte": false,
-  "legendes": [{"texte": "SBOM", "point": [0.6, 0.2], "couleur": "navy"}],
+  "legendes": [
+   {
+    "texte": "SBOM",
+    "point": [
+     0.6,
+     0.2
+    ],
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2,
-  "fichier": null
+  "fichier": "illustrations/e8.0.svg",
+  "source": "e8.0-2.svg"
  },
  {
   "id": "e14.0",
@@ -33,11 +44,20 @@
   "message": "Un paquet Python officiel a livré un voleur d’identifiants pendant deux heures.",
   "repere": "le serpent Python (logo du langage) en livreur ; étiquette « 1.107.0 » ajoutée par nous",
   "action": "pendant que le développeur signe le bon de livraison, une main sortie du colis lui subtilise ses clés",
-  "brief": "Wide scene. On the left, a delivery courier who is a big friendly-looking snake (the Python logo snake) wearing a courier cap hands a cardboard parcel with a blank white label to a developer. On the right, the developer, smiling and unaware, signs the delivery slip on the parcel. From a slit in the parcel, a sneaky gloved hand reaches out and pulls a bunch of keys from the developer's back pocket. Faces fully drawn. Orange accents on the keys and the courier cap. Nothing else.",
+  "brief": "Wide scene, only two characters and one parcel, huge simple shapes. On the left, a smiling delivery courier snake (the Python logo snake) in a courier cap holds out a cardboard parcel with a blank white label. On the right, a developer, face fully drawn, eyes wide and mouth open in shock, clutches a bunch of keys that the snake's parcel has just grabbed: a big gloved hand stretches out from the open top of the parcel, closing on the keys in the developer's hand, both pulling. Orange on the keys and the courier cap. Nothing else, no pen, no slip, no bag.",
   "alt": "Un serpent livreur, aux couleurs de Python, remet un colis « 1.107.0 » ; pendant que le développeur signe, une main sortie du colis lui prend ses clés.",
   "format": "3:2",
   "texte": false,
-  "legendes": [{"texte": "1.107.0", "point": [0.45, 0.55], "couleur": "navy"}],
+  "legendes": [
+   {
+    "texte": "1.107.0",
+    "point": [
+     0.45,
+     0.55
+    ],
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2,
   "fichier": null
  },
@@ -47,11 +67,20 @@
   "message": "Les clés de huit autorités de certification sont tombées : les logiciels qui leur font confiance doivent être mis à jour.",
   "repere": "le trousseau de clés officiel avec son cadenas de certificat (cadenas des navigateurs), étiquette « CA » ajoutée par nous",
   "action": "un cambrioleur ressort, satisfait, de chez le serrurier avec un trousseau de huit clés copiées",
-  "brief": "Wide scene. A key-cutting kiosk with a big key-cutting machine on the counter. A burglar in a striped shirt and eye mask walks away from the counter to the right, grinning, holding up a large ring with eight identical big keys. On the counter, an open big padlock with a blank white tag. The burglar's face is fully drawn. Orange accents on the keys. Nothing else.",
+  "brief": "Wide scene, two simple big objects and one character. On the left, a very large padlock hanging wide open, its shackle broken, with a blank white tag. On the right, a burglar in an eye mask and striped shirt, face fully drawn, grinning, walks away holding up one big ring with a few (about five) large simple keys. No kiosk, no machine, no counter. Orange on the keys. Nothing else.",
   "alt": "Un cambrioleur quitte, l’air réjoui, le comptoir d’un serrurier avec un trousseau de huit clés copiées ; un cadenas « CA » est resté ouvert sur le comptoir.",
   "format": "3:2",
   "texte": false,
-  "legendes": [{"texte": "CA", "point": [0.25, 0.55], "couleur": "navy"}],
+  "legendes": [
+   {
+    "texte": "CA",
+    "point": [
+     0.2,
+     0.5
+    ],
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2,
   "fichier": null
  },
@@ -61,11 +90,20 @@
   "message": "Le Royaume-Uni mettra à jour début décembre ses listes de contrôle des biens, logiciels et technologies.",
   "repere": "le douanier britannique au chapeau melon et au drapeau de l’Union (Union Jack) sur le bras ; « DÉC. » ajouté par nous",
   "action": "le douanier punaise une nouvelle page sur le grand tableau des listes de contrôle",
-  "brief": "A British customs officer wearing a bowler hat, with a small Union Jack patch on his sleeve, stands on a small step and pins a new sheet with a blank white header onto a large notice board covered with lists. He looks focused, face fully drawn, a pushpin in his other hand. Orange accents on the new sheet's header and the Union Jack. Nothing else.",
+  "brief": "Square scene, thick lines, few large shapes. A British customs officer in a bowler hat, with a clearly visible Union Jack patch on his sleeve, face fully drawn, calm and serious expression, holds a large sheet with a thick orange header band (blank white title area) against a big plain notice board that has only three thick horizontal bars as lists; he pins it with a large pushpin. Orange on the sheet header and pushpin. No small print lines. Nothing else.",
   "alt": "Un douanier britannique au chapeau melon punaise une nouvelle feuille « DÉC. » sur le tableau des listes de contrôle.",
   "format": "1:1",
   "texte": false,
-  "legendes": [{"texte": "DÉC.", "point": [0.62, 0.3], "couleur": "navy"}],
+  "legendes": [
+   {
+    "texte": "DÉC.",
+    "point": [
+     0.62,
+     0.3
+    ],
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2,
   "fichier": null
  },
@@ -75,11 +113,20 @@
   "message": "La nouvelle mise à jour de JDK 21 ne peut plus être redistribuée dans un produit livré.",
   "repere": "la tasse fumante de Java ; panneau « 21.0.13 » ajouté par nous",
   "action": "le serveur de café retient le livreur qui veut emporter la tasse Java dans son colis : à consommer sur place",
-  "brief": "Wide scene in a café. On the right, a delivery man in a cap tries to slip a big steaming coffee cup (the Java logo cup with flame-shaped steam) into an open cardboard delivery box. On the left, a waiter in an apron firmly holds the cup by its handle with one hand and raises the other hand in a stop gesture. A small standing sign with a blank white panel sits on the counter between them. Both faces fully drawn: the waiter stern, the delivery man surprised. Orange accents on the steam and the stop hand. Nothing else.",
+  "brief": "Wide scene, two characters and one big cup only. On the left, a waiter in an apron, face fully drawn and stern, holds the big steaming Java coffee cup (flame-shaped steam, big handle) tight with one hand and raises the other hand in a large orange stop gesture. On the right, a delivery man in a cap, face fully drawn and disappointed, holds an empty open cardboard box and looks at the cup he cannot take. Beside them on the counter a blank white square label. No signboard on a tripod, no trophy. Orange on the stop hand and the steam. Nothing else.",
   "alt": "Un serveur empêche un livreur d’emporter la tasse Java dans son colis ; un chevalet « 21.0.13 » est posé sur le comptoir.",
   "format": "3:2",
   "texte": false,
-  "legendes": [{"texte": "21.0.13", "point": [0.5, 0.62], "couleur": "navy"}],
+  "legendes": [
+   {
+    "texte": "21.0.13",
+    "point": [
+     0.5,
+     0.62
+    ],
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2,
   "fichier": null
  }
