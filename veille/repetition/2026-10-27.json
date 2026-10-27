@@ -1,0 +1,407 @@
+{
+ "date": "2026-10-27",
+ "commit": "488bdcbe84f87a021d0789182e2e0329b81f06e5",
+ "le": "2026-10-27T02:51:04Z",
+ "verdict": "rouge",
+ "motifs": [
+  "7 affirmation(s) en échec (extrait introuvable ou non confirmée) : 3 élément(s) seraient écartés"
+ ],
+ "script": "e1ac636abc8f2bf98e661d6ddad03d79d37fff36e62b51517ad38f8dfc079ea4",
+ "sources": "b8bd4595f86703eeb8944772749512c4434481a01004e4cb98c26ff28a768843",
+ "controle": {
+  "code": 0,
+  "erreurs": [],
+  "avertissements": [
+   "agenda, ligne 4 : synthèse de 139 mots (170 à 245 visés)",
+   "Lien non vérifiable (403) : https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+   "Lien non vérifiable (403) : https://digital-strategy.ec.europa.eu/en/policies/nis2-directive",
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Lien non vérifiable (403) : https://www.cisa.gov/",
+   "Lien non vérifiable (403) : https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security",
+   "Lien non vérifiable (403) : https://www.cisa.gov/sbom",
+   "Lien non vérifiable (403) : https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf",
+   "Lien non vérifiable (403) : https://www.consilium.europa.eu/en/press/press-releases/2026/10/21/digital-rulebook-council-agrees-position-to-simplify-data-protection-privacy-and-cyber-reporting-rules/",
+   "Lien non vérifiable (403) : https://www.npmjs.com",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 25, https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 35, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 36, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 37, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 39, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 40, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 41, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 42, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 43, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 44, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 45, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 46, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 47, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 48, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 49, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 92, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 122, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 138, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 139, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 140, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 141, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 142, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 143, https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 168, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 169, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 180, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 183, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 184, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 185, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 188, https://thehackernews.com/2026/10/eight-emudhra-ca-keys-compromised.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 196, https://thehackernews.com/2026/10/hackers-hijack-five-ovhcloud-cli.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 199, https://thehackernews.com/2026/10/hackers-hijack-five-ovhcloud-cli.html",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 200, https://thehackernews.com/2026/10/hackers-hijack-five-ovhcloud-cli.html",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 217, https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 218, https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 219, https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 220, https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 221, https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 222, https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 223, https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 224, https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 225, https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 226, https://www.cisa.gov/securebydesign",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 310, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 311, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 312, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 313, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 314, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 315, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 316, https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 371, https://www.boe.es/doue/2026/90364/L00001-00001.pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 377, https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 396, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 397, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 399, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 431, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 63 « An unauthenticated client of the cdxgen HTTP server (`cdxgen --server`… » (https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 69 « a request could turn on `deep` or `installDeps` even in secure mode or… » (https://github.com/CycloneDX/cdxgen/releases/tag/v12.8.7)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 74 « The `hbom` command now inventories Windows machines.… » (https://github.com/CycloneDX/cdxgen/releases/tag/v13.5.0)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 86 « Backport: Fix ineffective ACL check for `/v1/finding/project/{uuid}/an… » (https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 88 « Backport: Fix ineffective ACL check for `/v1/finding/project/{uuid}/an… » (https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 97 « evaluator: Enhance the rule API by a `SnippetFindingRule`… » (https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 98 « model: Enable the `GitHubAction` package manager by default… » (https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0)"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-10-27",
+  "echecs": 7,
+  "extraits_retrouves": 389,
+  "illisibles": [
+   {
+    "affirmation": 25,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
+   },
+   {
+    "affirmation": 35,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 36,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 37,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 39,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 40,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 41,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 42,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 43,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 44,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 45,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 46,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 47,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 48,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 49,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 138,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 139,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 140,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 141,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 142,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 143,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-10/ENISA%20Technical%20Advisory%20-%20Software%20Bill%20of%20Materials%20-%20v1.10.pdf"
+   },
+   {
+    "affirmation": 217,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security"
+   },
+   {
+    "affirmation": 218,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf"
+   },
+   {
+    "affirmation": 219,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf"
+   },
+   {
+    "affirmation": 220,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security"
+   },
+   {
+    "affirmation": 221,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/sites/default/files/2026-10/CISA-Strategy-2026-508c.pdf"
+   },
+   {
+    "affirmation": 222,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security"
+   },
+   {
+    "affirmation": 223,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security"
+   },
+   {
+    "affirmation": 224,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/news-events/news/cisa-unveils-new-strategy-strengthen-national-cyber-defense-and-critical-infrastructure-security"
+   },
+   {
+    "affirmation": 225,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom"
+   },
+   {
+    "affirmation": 226,
+    "raison": "HTTPError",
+    "url": "https://www.cisa.gov/securebydesign"
+   },
+   {
+    "affirmation": 310,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 311,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 312,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 313,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 314,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 315,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 316,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/ST-13127-2026-INIT/en/pdf"
+   },
+   {
+    "affirmation": 371,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/90364/L00001-00001.pdf"
+   },
+   {
+    "affirmation": 377,
+    "raison": "HTTPError",
+    "url": "https://digital-strategy.ec.europa.eu/en/factpages/cyber-resilience-act-implementation"
+   },
+   {
+    "affirmation": 396,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf"
+   },
+   {
+    "affirmation": 397,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf"
+   },
+   {
+    "affirmation": 399,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf"
+   },
+   {
+    "affirmation": 431,
+    "raison": "PDF",
+    "url": "https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf"
+   }
+  ],
+  "elements": [
+   {
+    "kind": "ul",
+    "texte": "cdxgen : le générateur de sbom du projet cyclonedx corrige, à partir des versions 12.8.7 et 13.5.0, une faille critique de son mode serveur qui permettait à un ",
+    "affirmations": [
+     {
+      "n": 63,
+      "raison": "extrait introuvable",
+      "affirmation": "Un client non authentifié pouvait faire exécuter les scripts de construction du projet analysé",
+      "url": "https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53",
+      "ou": "article"
+     },
+     {
+      "n": 69,
+      "raison": "extrait introuvable",
+      "affirmation": "Une requête pouvait activer l’installation des dépendances même en mode sécurisé",
+      "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v12.8.7",
+      "ou": "synthese"
+     },
+     {
+      "n": 74,
+      "raison": "extrait introuvable",
+      "affirmation": "La 13.5.0 ajoute l’inventaire matériel (HBOM) des postes Windows",
+      "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.5.0",
+      "ou": "synthese"
+     }
+    ]
+   },
+   {
+    "kind": "ul",
+    "texte": "dependency-track 5.2.1 et 4.14.6 : publiées le 25 octobre 2026, ces versions correctives de la plateforme d'analyse de sbom de l'owasp corrigent un échec de val",
+    "affirmations": [
+     {
+      "n": 86,
+      "raison": "extrait introuvable",
+      "affirmation": "La 5.2.1 corrige un contrôle d’accès inopérant",
+      "url": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1",
+      "ou": "article"
+     },
+     {
+      "n": 88,
+      "raison": "extrait introuvable",
+      "affirmation": "Contrôle d’accès inopérant sur l’interface d’analyse des constats d’un projet",
+      "url": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1",
+      "ou": "synthese"
+     }
+    ]
+   },
+   {
+    "kind": "ul",
+    "texte": "ort 97.1.0 : publiée le 22 octobre 2026, la boîte à outils d'analyse des composants et des licences permet d'écrire des règles sur les correspondances de fragme",
+    "affirmations": [
+     {
+      "n": 97,
+      "raison": "extrait introuvable",
+      "affirmation": "Règles sur les correspondances de fragments de code (SnippetFindingRule)",
+      "url": "https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0",
+      "ou": "article"
+     },
+     {
+      "n": 98,
+      "raison": "extrait introuvable",
+      "affirmation": "Inventaire par défaut des actions GitHub (gestionnaire GitHubAction activé par défaut)",
+      "url": "https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0",
+      "ou": "article"
+     }
+    ]
+   }
+  ],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-10-27 : 42 répliques, 1239 mots (≈ 8 min)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-10-27 : 42 répliques, 1239 mots, 5 requête(s) (essai à blanc)\n  requête 1/5 (1607 caractères) : Ouverture, CRA : les failles de PHP\n  requête 2/5 (1603 caractères) : CRA : et pour nous ?, Chaîne d’approvisionnement : LiteLLM et eMudhra\n  requête 3/5 (1436 caractères) : Chaîne d’approvisionnement : les clés eMudhra, Licences : Oracle JDK 21\n  requête 4/5 (1417 caractères) : Export : les listes de contrôle britanniques, SBOM : le guide de l’ENISA\n  requête 5/5 (1587 caractères) : Europe : déclarer les incidents, Date à retenir, Clôture\n2026-10-27 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-10-27/out/episode.m4a (8.9 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-10-27/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-10-27",
+  "besoin": 9250,
+  "reste": 21480,
+  "raz": "04/11/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 481
+}
