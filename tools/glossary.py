@@ -1,5 +1,14 @@
 # terme (regex) : (libellé, définition ≤30 mots, URL officielle vérifiée ou None)
 G = [
+(r"PHP", "PHP", "Langage de programmation très utilisé pour les sites et les applications web, y compris les interfaces d'administration intégrées à des équipements.", "https://www.php.net/"),
+(r"CERT-FR", "CERT-FR", "Centre gouvernemental de veille, d'alerte et de réponse aux attaques informatiques, rattaché à l'ANSSI.", "https://www.cert.ssi.gouv.fr/"),
+(r"CERT-EU", "CERT-EU", "Service de cybersécurité des institutions, organes et agences de l'Union européenne.", "https://cert.europa.eu/"),
+(r"LiteLLM", "LiteLLM", "Bibliothèque Python open source et passerelle qui donnent accès à de nombreux modèles d'IA par une interface commune.", "https://github.com/BerriAI/litellm"),
+(r"eMudhra", "eMudhra", "Autorité de certification indienne qui délivre des certificats TLS et de signature, dont des autorités intermédiaires reconnues par les navigateurs.", None),
+(r"cdxgen", "cdxgen", "Outil open source du projet CycloneDX qui génère des SBOM pour de nombreux langages et peut fonctionner comme service HTTP.", "https://github.com/CycloneDX/cdxgen"),
+(r"HBOM", "HBOM", "Hardware Bill of Materials : nomenclature des composants matériels d'un produit.", None),
+(r"USML", "USML", "United States Munitions List : liste des articles et services de défense soumis à l'ITAR, données techniques et logiciels compris.", "https://www.ecfr.gov/current/title-22/chapter-I/subchapter-M/part-121"),
+(r"Digital Omnibus", "Digital Omnibus", "Ensemble de propositions de la Commission de novembre 2025 visant à simplifier les règles numériques de l'UE, dont la déclaration des incidents.", None),
 (r"CRA", "Cyber Resilience Act", "Règlement européen 2024/2847 imposant des exigences de cybersécurité aux produits comportant des éléments numériques, avec déclaration des vulnérabilités exploitées depuis le 11 septembre 2026.", "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"),
 (r"ANFR", "ANFR", "Agence nationale des fréquences ; désignée par l'ANSSI comme autorité de surveillance des produits numériques mis sur le marché dans le cadre du CRA.", "https://cyber.gouv.fr/actualites/cra-lanssi-lanfr-et-la-dge-accompagnent-les-fabricants-dans-la-conformite-des-produits-numeriques/"),
 (r"DGE", "DGE", "Direction générale des entreprises : service du ministère de l'Économie qui accompagne les entreprises, ici pour la mise en conformité au CRA.", None),

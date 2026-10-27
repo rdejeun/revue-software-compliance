@@ -1027,7 +1027,7 @@ class Etat:
 def positions_ill(plan):
     """Dessins placés : [(page, colonne, ordonnée du centre, sous son titre)] d'après le plan."""
     out = []
-    for it in liste(plan):
+    for it in (plan if isinstance(plan, list) else liste(plan)):
         if it[0] != 'cols': continue
         _, p, y0, specs, cols, us, fs, lh_px, wrap = it
         for (x, w, H), (parts, _y) in zip(specs, cols):
@@ -1596,7 +1596,7 @@ def plan_articles(ed, plan):
     out, vus = [], set()
     une, _ = une_autres(ed)
     if une: out.append((0, 'haut', une['items'][0]['sum']['titre'] if une['items'][0].get('sum') else 'la Une')); vus.add('une')
-    for it in liste(plan):
+    for it in (plan if isinstance(plan, list) else liste(plan)):
         if it[0] != 'cols': continue
         _, p, y0, specs, cols, us, fs, lh_px, wrap = it
         for (x, w, H), (parts, _y) in zip(specs, cols):
