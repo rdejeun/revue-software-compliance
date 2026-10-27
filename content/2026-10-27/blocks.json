@@ -1582,23 +1582,6 @@
    [
     [
      {
-      "t": "11 décembre 2026"
-     }
-    ],
-    [
-     {
-      "t": "Nombre suffisant d'organismes d'évaluation de la conformité attendu dans les États membres (CRA)"
-     }
-    ],
-    [
-     {
-      "t": "CRA"
-     }
-    ]
-   ],
-   [
-    [
-     {
       "t": "2 décembre 2027"
      }
     ],
@@ -1655,11 +1638,6 @@
    {
     "themes": [
      "pld"
-    ]
-   },
-   {
-    "themes": [
-     "cra"
     ]
    },
    {
@@ -1743,20 +1721,6 @@
     ]
    },
    {
-    "titre": "Organismes d'évaluation de la conformité du CRA opérationnels",
-    "statut": "Échéance prévue par la Commission au 11 décembre 2026",
-    "fonctions": "Qualité et certification, juridique, ingénierie produit, achats",
-    "essentiel": "La page de mise en œuvre du CRA de la Commission européenne indique que, au 11 décembre 2026, un nombre suffisant d'organismes d'évaluation de la conformité doit être opérationnel dans les États membres. Les règles de notification de ces organismes s'appliquent depuis le 11 juin 2026.",
-    "contexte": "Le CRA prévoit une évaluation par un tiers pour certaines catégories de produits importants ou critiques. La Commission fixe ce jalon avant l'application complète du règlement, le 11 décembre 2027.",
-    "impact_avere": "L'échéance concerne les organismes, non les fabricants. Elle conditionne néanmoins la disponibilité d'évaluateurs tiers pour les produits civils ou à double usage soumis à ces procédures, dont les composants logiciels tiers font partie.",
-    "impact_potentiel": "Si le nombre d'organismes notifiés restait insuffisant, des délais d'évaluation pourraient apparaître en 2027. Un industriel dont certaines gammes civiles entrent dans le champ pourrait devoir anticiper ses demandes de certification.",
-    "a_verifier": [
-     "Certains produits relèvent-ils des catégories soumises à évaluation par un tiers ?",
-     "Quels organismes notifiés sont disponibles pour nos produits ?",
-     "Notre documentation technique est-elle prête pour une évaluation ?"
-    ]
-   },
-   {
     "titre": "2 décembre 2027 : règles sur les systèmes d'IA à haut risque",
     "statut": "Report applicable ; règlement (UE) 2026/1744 en vigueur depuis le 27 juillet 2026",
     "fonctions": "Juridique, ingénierie logicielle, qualité, achats",
@@ -1791,7 +1755,6 @@
    "Projet publié le 1er octobre 2026 : retrait de certains articles de la liste, définitions révisées, nouvelle exemption de licence",
    "Mise à jour des listes militaire et dual-use (biens, logiciels, technologies) annoncée par l’avis aux exportateurs 2026/24",
    "Transposition de la directive (UE) 2024/2853, qui inclut le logiciel ; elle s'applique aux produits mis sur le marché à partir de cette date",
-   null,
    "Règles sur les systèmes d'IA à haut risque de l'annexe III, reportées à cette date par le règlement (UE) 2026/1744",
    "Application complète du CRA ; selon l'ENISA, les gestionnaires de logiciels open source sont soumis à la déclaration à la même date"
   ]
