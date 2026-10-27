@@ -560,7 +560,7 @@
  {
   "affirmation": "Un client non authentifié pouvait faire exécuter les scripts de construction du projet analysé",
   "url": "https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53",
-  "extrait": "An unauthenticated client of the cdxgen HTTP server (`cdxgen --server`) could get past the git host allowlist",
+  "extrait": "An unauthenticated client of the cdxgen HTTP server (cdxgen --server) could get past the git host allowlist",
   "ou": "article",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
@@ -614,7 +614,7 @@
  {
   "affirmation": "Une requête pouvait activer l’installation des dépendances même en mode sécurisé",
   "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v12.8.7",
-  "extrait": "a request could turn on `deep` or `installDeps` even in secure mode or with `--no-install-deps`",
+  "extrait": "a request could turn on deep or installDeps even in secure mode or with --no-install-deps",
   "ou": "synthese",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
@@ -659,7 +659,7 @@
  {
   "affirmation": "La 13.5.0 ajoute l’inventaire matériel (HBOM) des postes Windows",
   "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.5.0",
-  "extrait": "The `hbom` command now inventories Windows machines.",
+  "extrait": "The hbom command now inventories Windows machines.",
   "ou": "synthese",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
@@ -767,7 +767,7 @@
  {
   "affirmation": "La 5.2.1 corrige un contrôle d’accès inopérant",
   "url": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1",
-  "extrait": "Backport: Fix ineffective ACL check for `/v1/finding/project/{uuid}/analyze`",
+  "extrait": "Backport: Fix ineffective ACL check for /v1/finding/project/{uuid}/analyze",
   "ou": "article",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
@@ -785,7 +785,7 @@
  {
   "affirmation": "Contrôle d’accès inopérant sur l’interface d’analyse des constats d’un projet",
   "url": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1",
-  "extrait": "Backport: Fix ineffective ACL check for `/v1/finding/project/{uuid}/analyze`",
+  "extrait": "Backport: Fix ineffective ACL check for /v1/finding/project/{uuid}/analyze",
   "ou": "synthese",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
@@ -866,7 +866,7 @@
  {
   "affirmation": "Règles sur les correspondances de fragments de code (SnippetFindingRule)",
   "url": "https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0",
-  "extrait": "evaluator: Enhance the rule API by a `SnippetFindingRule`",
+  "extrait": "evaluator: Enhance the rule API by a SnippetFindingRule",
   "ou": "article",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
@@ -875,7 +875,7 @@
  {
   "affirmation": "Inventaire par défaut des actions GitHub (gestionnaire GitHubAction activé par défaut)",
   "url": "https://github.com/oss-review-toolkit/ort/releases/tag/97.1.0",
-  "extrait": "model: Enable the `GitHubAction` package manager by default",
+  "extrait": "model: Enable the GitHubAction package manager by default",
   "ou": "article",
   "verifie": "confirmé",
   "raison": "Page github.com lue avec WebFetch (non lisible par curl depuis cette session) ; extrait cité tel que rendu.",
