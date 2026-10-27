@@ -1,11 +1,9 @@
 {
  "date": "2026-10-27",
- "commit": "7bf0318a83af43687e995c221da996b454c3d0ae",
- "le": "2026-10-27T03:38:14Z",
- "verdict": "rouge",
- "motifs": [
-  "1 affirmation(s) en échec (extrait introuvable ou non confirmée) : 1 élément(s) seraient écartés"
- ],
+ "commit": "43cea44b8af6c4b5a46ad0c56f3ae8155c131847",
+ "le": "2026-10-27T03:48:10Z",
+ "verdict": "verte",
+ "motifs": [],
  "script": "e1ac636abc8f2bf98e661d6ddad03d79d37fff36e62b51517ad38f8dfc079ea4",
  "sources": "b8bd4595f86703eeb8944772749512c4434481a01004e4cb98c26ff28a768843",
  "controle": {
@@ -77,14 +75,13 @@
    "Citation non vérifiable automatiquement (PDF) : affirmation 396, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 397, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 399, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
-   "Citation non vérifiable automatiquement (PDF) : affirmation 431, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 63 « An unauthenticated client of the cdxgen HTTP server (cdxgen --server) … » (https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53)"
+   "Citation non vérifiable automatiquement (PDF) : affirmation 431, https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf"
   ]
  },
  "ecarter": {
   "date": "2026-10-27",
-  "echecs": 1,
-  "extraits_retrouves": 395,
+  "echecs": 0,
+  "extraits_retrouves": 396,
   "illisibles": [
    {
     "affirmation": 25,
@@ -307,21 +304,7 @@
     "url": "https://data.consilium.europa.eu/doc/document/WK-16586-2025-INIT/en/pdf"
    }
   ],
-  "elements": [
-   {
-    "kind": "ul",
-    "texte": "cdxgen : le générateur de sbom du projet cyclonedx corrige, à partir des versions 12.8.7 et 13.5.0, une faille critique de son mode serveur qui permettait à un ",
-    "affirmations": [
-     {
-      "n": 63,
-      "raison": "extrait introuvable",
-      "affirmation": "Un client non authentifié pouvait faire exécuter les scripts de construction du projet analysé",
-      "url": "https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-259h-c659-9x53",
-      "ou": "article"
-     }
-    ]
-   }
-  ],
+  "elements": [],
   "sans_element": [],
   "podcast_affirmations": [],
   "sujets_podcast": []
@@ -343,5 +326,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 377
+ "duree_s": 394
 }
