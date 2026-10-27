@@ -44,6 +44,11 @@
     "poids": 1
    },
    {
+    "date": "2026-10-21",
+    "texte": "Failles critiques de PHP : la Commission, l’ENISA et les CSIRT rappellent l’obligation de déclarer les vulnérabilités activement exploitées",
+    "poids": 1
+   },
+   {
     "date": "2026-12",
     "libelle": "T4 2026",
     "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC",
@@ -83,6 +88,11 @@
     "date": "2026-10-05",
     "texte": "L’annuaire SPDX référence quatre nouveaux outils en cinq semaines",
     "poids": 1
+   },
+   {
+    "date": "2026-10-22",
+    "texte": "L’ENISA publie un guide technique pour l’adoption du SBOM, non contraignant",
+    "poids": 1
    }
   ],
   "recherche": "SBOM et nomenclatures"
@@ -98,7 +108,14 @@
   "nom": "Sécurité de la chaîne d’approvisionnement logicielle",
   "titre": "Sécurité de la|supply chain",
   "court": "Supply chain",
-  "reference": "Registres de paquets, intégrité des builds (SLSA), attaques de référence"
+  "reference": "Registres de paquets, intégrité des builds (SLSA), attaques de référence",
+  "chronologie": [
+   {
+    "date": "2026-10-21",
+    "texte": "LiteLLM 1.107.0 : une version piégée publiée sur PyPI et Docker",
+    "poids": 1
+   }
+  ]
  },
  "export-ue": {
   "nom": "Contrôle des exportations (UE et France)",
@@ -122,9 +139,20 @@
     "poids": 2
    },
    {
+    "date": "2026-10-23",
+    "texte": "Royaume-Uni : l’avis aux exportateurs 2026/24 annonce la mise à jour des listes de contrôle militaire et dual-use",
+    "poids": 2
+   },
+   {
     "date": "2026-11",
     "libelle": "nov. 2026",
     "texte": "Publication au JO attendue de la nouvelle liste dual-use",
+    "poids": 3
+   },
+   {
+    "date": "2026-12",
+    "libelle": "Début décembre 2026",
+    "texte": "Royaume-Uni : entrée en vigueur prévue des listes de contrôle mises à jour",
     "poids": 3
    }
   ]
@@ -139,6 +167,11 @@
     "date": "2026-11-10",
     "texte": "Réimposition automatique de la règle des affiliés du BIS, sauf action du BIS",
     "poids": 3
+   },
+   {
+    "date": "2026-11-30",
+    "texte": "Fin des commentaires sur la révision de la liste USML proposée par le département d’État (ITAR)",
+    "poids": 2
    }
   ]
  },
@@ -193,11 +226,16 @@
    },
    {
     "date": "2026-10-20",
-    "texte": "Conférence des présidents de l’Assemblée nationale",
+    "texte": "La conférence des présidents de l’Assemblée nationale ne réinscrit toujours pas la loi Résilience",
+    "poids": 2
+   },
+   {
+    "date": "2026-10-21",
+    "texte": "Digital Omnibus : le Conseil arrête sa position et retient des points d’entrée nationaux pour la déclaration des incidents",
     "poids": 2
    }
   ],
-  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit le 13 octobre"
+  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit les 13 et 20 octobre"
  },
  "ai-act": {
   "nom": "AI Act",
@@ -254,6 +292,11 @@
    {
     "date": "2026-10-20",
     "texte": "Les mises à jour d’Oracle JDK 21 passent sous licence OTN (correctif trimestriel d’octobre)",
+    "poids": 2
+   },
+   {
+    "date": "2026-10-20",
+    "texte": "Oracle JDK 21.0.13, première mise à jour sous licence OTN, qui ne permet pas la redistribution",
     "poids": 2
    }
   ]

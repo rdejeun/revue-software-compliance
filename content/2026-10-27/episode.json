@@ -1,0 +1,89 @@
+{
+ "duree_s": 420,
+ "octets": 3487179,
+ "mots": 1239,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-10-27T04:05:19Z",
+ "sha_script": "c5abbcde7462162e4c78678e3d1334ac14f59f51036b6cb1d7e395941750895a",
+ "extrait": false,
+ "repliques": 42,
+ "prononciation": "dictionnaire ElevenLabs lsnti7jyA8XC18syXrH5",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.0 → 1.2 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 82 → 28 ms, B 22 → 21 ms",
+  "Durée": "407.9 s (blocs : 408.2 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "8.5 % de mots différents sur 1294"
+ },
+ "requetes": 5,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "CRA : les failles de PHP",
+   "court": "CRA",
+   "debut_s": 29.9,
+   "long": "CRA : failles de PHP"
+  },
+  {
+   "titre": "Chaîne d’approvisionnement : LiteLLM et eMudhra",
+   "court": "Supply chain",
+   "debut_s": 125.0,
+   "long": "Chaîne d’approvisionnement"
+  },
+  {
+   "titre": "Licences : Oracle JDK 21",
+   "court": "Java",
+   "debut_s": 212.2,
+   "long": "Oracle JDK 21"
+  },
+  {
+   "titre": "Export : les listes de contrôle britanniques",
+   "court": "Export",
+   "debut_s": 255.2,
+   "long": "Export Royaume-Uni"
+  },
+  {
+   "titre": "SBOM : le guide de l’ENISA",
+   "court": "SBOM",
+   "debut_s": 294.7,
+   "long": "SBOM : guide de l’ENISA"
+  },
+  {
+   "titre": "Europe : déclarer les incidents",
+   "court": "Europe",
+   "debut_s": 330.6,
+   "long": "Digital Omnibus"
+  },
+  {
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 380.5,
+   "long": "Date à retenir"
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 407.2
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "43cea44b8af6"
+}

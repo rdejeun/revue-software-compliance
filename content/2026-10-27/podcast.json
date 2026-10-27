@@ -1,0 +1,245 @@
+{
+ "titre": "Revue Software Compliance, numéro 4 : PHP et la déclaration du CRA, LiteLLM piégé, clés eMudhra compromises et Java qu’on ne peut plus redistribuer",
+ "description": "Numéro quatre : deux failles de PHP mettent à l’épreuve la déclaration des vulnérabilités du CRA, LiteLLM piégé sur PyPI, des clés d’autorités de certification compromises, la licence de JDK 21.0.13, les listes de contrôle britanniques et le guide SBOM de l’ENISA.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi vingt-sept octobre deux mille vingt-six, et voici le numéro quatre."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Au programme : deux failles de PHP qui servent de premier cas pratique pour le règlement européen sur la cybersécurité des produits, une bibliothèque Python piégée, des clés de certificats compromises, et une licence Java qui ne permet plus de livrer le logiciel."
+  },
+  {
+   "sujet": "CRA : les failles de PHP",
+   "court": "CRA",
+   "long": "CRA : failles de PHP",
+   "elements": [
+    "Failles critiques de PHP : le 21 octobre"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Commençons par PHP. Qu’est-ce qui s’est passé ?"
+  },
+  {
+   "v": "B",
+   "t": "PHP, c’est un langage très utilisé pour les sites et les applications web, y compris les petites interfaces d’administration qu’on trouve dans des équipements. Le vingt et un octobre, la Commission, l’ENISA, l’agence européenne de cybersécurité, et les équipes nationales de réponse aux incidents ont appelé à corriger deux failles critiques. Elles permettent d’exécuter du code à distance, sans même s’authentifier."
+  },
+  {
+   "v": "A",
+   "t": "Et les correctifs existent ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, l’équipe de sécurité de PHP les a publiés le jour même. Mais le CERT-FR, le centre d’alerte de l’ANSSI, constate déjà des tentatives d’exploitation. Et il rappelle que les vieilles branches, les versions cinq, sept, huit zéro et huit un, ne sont plus maintenues."
+  },
+  {
+   "v": "A",
+   "t": "[curious] Pourquoi on en parle dans une revue de conformité, et pas seulement de sécurité ?"
+  },
+  {
+   "v": "B",
+   "t": "Parce que la déclaration européenne le dit noir sur blanc : depuis le onze septembre, les fabricants de produits matériels et logiciels doivent déclarer les vulnérabilités activement exploitées sur la plateforme unique du règlement, le Cyber Resilience Act. Et elle ajoute que beaucoup de produits utilisent PHP sans que ça se voie."
+  },
+  {
+   "sujet": "CRA : et pour nous ?",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Il faut d’abord savoir où PHP se cache dans nos produits, y compris dans les composants achetés. C’est là que sert le SBOM, la liste des ingrédients du logiciel. Si une exploitation était constatée dans l’un de nos produits, l’alerte précoce prévue par le règlement se déclencherait, puis la notification complète."
+  },
+  {
+   "v": "A",
+   "t": "Et si l’exploitation avait commencé avant le onze septembre ?"
+  },
+  {
+   "v": "B",
+   "t": "Selon la foire aux questions de l’ENISA, la déclaration n’est pas rétroactive pour une exploitation déjà connue avant cette date. En revanche, elle s’impose dès que le fabricant en apprend une après le onze septembre."
+  },
+  {
+   "sujet": "Chaîne d’approvisionnement : LiteLLM et eMudhra",
+   "court": "Supply chain",
+   "long": "Chaîne d’approvisionnement",
+   "elements": [
+    "LiteLLM : le 21 octobre 2026, une versio",
+    "Autorités de certification eMudhra : les"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Deuxième sujet, la chaîne d’approvisionnement. On parle d’une bibliothèque Python piégée ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, LiteLLM, une bibliothèque qui donne accès à de nombreux modèles d’intelligence artificielle. Le vingt et un octobre, une version piégée, la un point cent sept point zéro, a été publiée sur PyPI, le dépôt officiel des paquets Python. Elle y est restée environ deux heures, et des images Docker piégées ont aussi été servies."
+  },
+  {
+   "v": "A",
+   "t": "Deux heures, ce n’est pas très long."
+  },
+  {
+   "v": "B",
+   "t": "Non, mais le code volait des identifiants dès le démarrage de Python, même si l’application ne chargeait pas LiteLLM. Selon l’éditeur, tout part d’une clé maître publiée par erreur en mai dans un dépôt public."
+  },
+  {
+   "v": "A",
+   "t": "Que doit faire une équipe qui utilise cette bibliothèque ?"
+  },
+  {
+   "v": "B",
+   "t": "Chercher la version piégée dans ses SBOM, ses fichiers de dépendances et ses images, et révoquer les identifiants exposés. La bonne pratique, c’est d’épingler ses dépendances par empreinte : on vérifie que le fichier téléchargé est exactement celui qu’on attend."
+  },
+  {
+   "sujet": "Chaîne d’approvisionnement : les clés eMudhra",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et cette histoire de clés compromises, chez eMudhra ?"
+  },
+  {
+   "v": "B",
+   "t": "eMudhra est une autorité de certification : elle garantit, en quelque sorte, l’identité des sites et des services. Les clés privées de huit de ses autorités intermédiaires ont été compromises. Les navigateurs les bloquent déjà."
+  },
+  {
+   "v": "A",
+   "t": "Alors où est le problème ?"
+  },
+  {
+   "v": "B",
+   "t": "Dans tous les logiciels qui embarquent leur propre liste d’autorités de confiance, comme les programmes écrits en Go ou les programmes Python qui utilisent certifi. Eux continuent de faire confiance aux clés compromises tant qu’on ne les a pas reconstruits ou mis à jour. Pour un équipement livré chez un client, ça veut dire préparer une mise à jour."
+  },
+  {
+   "sujet": "Licences : Oracle JDK 21",
+   "court": "Java",
+   "long": "Oracle JDK 21",
+   "elements": [
+    "Mise à jour, Oracle JDK 21 : publiée le "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On revient sur Java, dont on parlait la semaine dernière. Du nouveau ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. La version vingt et un point zéro point treize, publiée le vingt octobre, est la première mise à jour de JDK 21 proposée sous la licence OTN d’Oracle. Et la foire aux questions d’Oracle précise un point essentiel : cette licence ne permet pas la redistribution."
+  },
+  {
+   "v": "A",
+   "t": "Redistribuer, c’est-à-dire livrer Java dans nos équipements ?"
+  },
+  {
+   "v": "B",
+   "t": "Exactement. Un industriel qui livre Java dans ses produits ne peut pas intégrer cette version, ni les suivantes, sans contrat avec Oracle. Il faut donc vérifier, dans ses SBOM et dans ceux de ses fournisseurs, quel Java est embarqué. [thoughtful] Le piège, c’est le fournisseur de sous-ensemble qui applique le dernier correctif sans mesurer l’effet sur la licence du produit final."
+  },
+  {
+   "sujet": "Export : les listes de contrôle britanniques",
+   "court": "Export",
+   "long": "Export Royaume-Uni",
+   "elements": [
+    "Royaume-Uni, listes de contrôle : selon "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Passons à l’export. Que prépare le Royaume-Uni ?"
+  },
+  {
+   "v": "B",
+   "t": "Le service britannique du contrôle des exportations a publié le vingt-trois octobre un avis aux exportateurs. Il annonce, pour le début de décembre, la mise à jour des contrôles sur les biens, les logiciels et les technologies militaires et à double usage, pour reprendre les décisions prises en deux mille vingt-cinq par les régimes internationaux, dont l’Arrangement de Wassenaar."
+  },
+  {
+   "v": "A",
+   "t": "Et le détail des changements ?"
+  },
+  {
+   "v": "B",
+   "t": "Il n’est pas encore publié. Le texte doit passer devant le Parlement en novembre. Une filiale ou un site au Royaume-Uni devra suivre ces textes pour revoir ses classements. Et comme le service de classement britannique est suspendu depuis le douze octobre, ce travail pourrait reposer sur l’exportateur seul."
+  },
+  {
+   "sujet": "SBOM : le guide de l’ENISA",
+   "court": "SBOM",
+   "long": "SBOM : guide de l’ENISA",
+   "elements": [
+    "Guide SBOM de l’ENISA : publié le 22 oct"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Un mot sur le SBOM, justement. L’ENISA a publié un guide ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, le vingt-deux octobre, un guide technique pour adopter le SBOM. Il décrit son cycle de vie, les menaces qui le visent et les mesures pour le protéger. Il tient compte des exigences du règlement, mais il n’est pas contraignant."
+  },
+  {
+   "v": "A",
+   "t": "Qu’est-ce qu’on peut en tirer ?"
+  },
+  {
+   "v": "B",
+   "t": "Une liste de contrôle. Par exemple : ne prendre ses dépendances que dans des registres authentifiés, vérifier les outils qui fabriquent les SBOM avant de les lancer, lier chaque SBOM au logiciel qu’il décrit et le conserver dans un dépôt qu’on ne peut pas modifier. Chaque industriel peut comparer sa propre chaîne à cette liste."
+  },
+  {
+   "sujet": "Europe : déclarer les incidents",
+   "court": "Europe",
+   "long": "Digital Omnibus",
+   "elements": [
+    "Digital Omnibus, déclaration des inciden"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Toujours sur les déclarations, il y a du nouveau à Bruxelles ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Dans le paquet de simplification appelé Digital Omnibus, la Commission proposait un point d’entrée unique pour toute l’Union, pour déclarer les incidents prévus par plusieurs textes, dont la directive NIS2. Le vingt et un octobre, le Conseil, c’est-à-dire les États membres, a arrêté sa position : il préfère un point d’entrée national dans chaque État membre, avec un point d’information au niveau européen."
+  },
+  {
+   "v": "A",
+   "t": "Ça change quelque chose dès maintenant ?"
+  },
+  {
+   "v": "B",
+   "t": "Non. Le Parlement européen n’a pas encore adopté sa position, et les négociations ne commenceront qu’après. D’ici là, les délais de notification de NIS2 restent en vigueur, et les déclarations du Cyber Resilience Act passent toujours par la plateforme unique de l’ENISA. Mais si la position du Conseil l’emporte, une entreprise présente dans plusieurs pays pourrait devoir déclarer ses incidents auprès de plusieurs guichets nationaux."
+  },
+  {
+   "sujet": "Date à retenir",
+   "court": "Agenda",
+   "long": "Date à retenir",
+   "elements": [
+    "10 novembre 2026 Réimposition automatiqu"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu’une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Le dix novembre. Ce jour-là, la règle américaine dite des affiliés se réimposera automatiquement, sauf prolongation : les restrictions de la liste américaine des entités, l’Entity List, s’étendront aux entités détenues à cinquante pour cent ou plus par des entités inscrites. Pour un industriel dont un produit ou une mise à jour relève des règles américaines d’exportation, l’EAR, le filtrage des clients devra alors couvrir leur chaîne de détention."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "C’est tout pour ce numéro quatre. Retrouvez les sources et les synthèses sur le site de la revue."
+  },
+  {
+   "v": "B",
+   "t": "Merci de nous avoir écoutés, et à mardi prochain."
+  }
+ ]
+}
