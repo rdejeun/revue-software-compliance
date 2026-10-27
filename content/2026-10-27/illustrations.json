@@ -71,18 +71,10 @@
   "alt": "Un cambrioleur quitte, l’air réjoui, le comptoir d’un serrurier avec un trousseau de huit clés copiées ; un cadenas « CA » est resté ouvert sur le comptoir.",
   "format": "3:2",
   "texte": false,
-  "legendes": [
-   {
-    "texte": "CA",
-    "point": [
-     0.2,
-     0.5
-    ],
-    "couleur": "navy"
-   }
-  ],
+  "legendes": [],
   "candidats": 2,
-  "fichier": null
+  "fichier": "illustrations/e14.1.svg",
+  "source": "e14.1-4.svg"
  },
  {
   "id": "e17.0",
@@ -94,16 +86,7 @@
   "alt": "Un douanier britannique au chapeau melon punaise une nouvelle feuille « DÉC. » sur le tableau des listes de contrôle.",
   "format": "1:1",
   "texte": false,
-  "legendes": [
-   {
-    "texte": "DÉC.",
-    "point": [
-     0.62,
-     0.3
-    ],
-    "couleur": "navy"
-   }
-  ],
+  "legendes": [],
   "candidats": 2,
   "fichier": null
  },
