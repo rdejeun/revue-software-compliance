@@ -37,7 +37,7 @@ MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
 QR_BLEU = '#4b5f77'   # modules du code QR : bleu nuit estompé (les trois repères restent orange)
-VERSION = 'journal-40'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-41'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -1065,6 +1065,20 @@ def cout_repartition(plan):
     return c
 
 
+def mineur(t):
+    """Justification verticale de moins d'une ligne ou interligne d'agenda ajusté : remarque, pas défaut."""
+    m = re.search(r'colonne justifiée de ([\d.]+) mm', t)
+    return bool(m and float(m[1]) <= 6) or t.startswith('agenda : interligne')
+
+
+COUT_DEFAUT = float(os.environ.get('JOURNAL_COUT_DEFAUT', 400))   # par défaut bloquant : la page ne proposerait pas le PDF
+
+
+def graves(st):
+    """Nombre de défauts bloquants (non mineurs) d'un état de la recherche."""
+    return sum(1 for lot in liste(st.defauts) for x in lot if not mineur(x))
+
+
 def liste(ch):
     out = []
     while ch: ch, x = ch; out.append(x)
@@ -1308,7 +1322,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
     lex_fin = bool(ed.get('sigles'))   # le lexique, en dernier, enveloppe l'agenda ; sans lexique, la dernière rubrique
     def elaguer(xs, k):
         meilleurs = {}
-        rang = lambda s_: s_.cout + (estime(s_, k) if k < K - 1 or lex_fin else 0)
+        rang = lambda s_: s_.cout + COUT_DEFAUT * graves(s_) + (estime(s_, k) if k < K - 1 or lex_fin else 0)
         for s_ in sorted(xs, key=rang):
             cle = (s_.p, round(s_.y / MM))
             if len(meilleurs.setdefault(cle, [])) < 2: meilleurs[cle].append(s_)
@@ -1364,7 +1378,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
         if os.environ.get('JOURNAL_TRACE'): print(f'  lexique : {len(nouv)} états', file=sys.stderr)
         if not nouv: return None
         etats = nouv
-    best = min(etats, key=lambda s_: s_.cout)
+    best = min(etats, key=lambda s_: s_.cout + COUT_DEFAUT * graves(s_))   # une composition sans défaut bloquant d'abord
     plan = liste(best.plan) + [('agenda', cible - 1), ('credit', cible - 1)]
     return best, plan
 
@@ -1695,9 +1709,6 @@ def produire(d, sortie=None):
     h = html_plan(ed, M, plan, best.geo, cible)
     doc = rendu(h)
     tous = list(dict.fromkeys(x for lot in liste(best.defauts) for x in lot)) + verifier(doc, cible)
-    def mineur(t):   # justification verticale de moins d'une ligne : remarque, pas défaut
-        m = re.search(r'colonne justifiée de ([\d.]+) mm', t)
-        return bool(m and float(m[1]) <= 6) or t.startswith('agenda : interligne')
     defauts, remarques = [t for t in tous if not mineur(t)], [t for t in tous if mineur(t)]
     doc.write_pdf(a4)
     complet(h, a4)
