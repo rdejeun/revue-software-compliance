@@ -1,11 +1,9 @@
 {
  "date": "2026-11-03",
- "commit": "adeb5f7e18cd980b8d03b1677128edb05d8eb8a1",
- "le": "2026-11-03T03:23:17Z",
- "verdict": "rouge",
- "motifs": [
-  "1 affirmation(s) en échec (extrait introuvable ou non confirmée) : 1 élément(s) seraient écartés"
- ],
+ "commit": "bc5a86ba2e1a374a951be3288813ccb70378e340",
+ "le": "2026-11-03T03:39:23Z",
+ "verdict": "verte",
+ "motifs": [],
  "script": "623e44bc43e744afa2bc2c21d96da62513cb757f6b6720bb30847d97c57eec42",
  "sources": "7d38a0c658f090510382eba36087136c7e39e1c93e0e1c63ee2519e78c27ccda",
  "controle": {
@@ -44,14 +42,13 @@
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 363, https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau&conditions%5Bpublication_date%5D%5Bgte%5D=2026-10-20&fields%5B%5D=title&fields%5B%5D=publication_date",
    "Citation non vérifiable automatiquement (PDF) : affirmation 366, https://ofac.treasury.gov/media/937281/download?inline",
    "Citation non vérifiable automatiquement (PDF) : affirmation 367, https://ofac.treasury.gov/media/937281/download?inline",
-   "Citation non vérifiable automatiquement (PDF) : affirmation 368, https://ofac.treasury.gov/media/937281/download?inline",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 63 « VS Code and every fork actually install extensions into `<home>/<dataF… » (https://github.com/CycloneDX/cdxgen/releases/tag/v13.6.0)"
+   "Citation non vérifiable automatiquement (PDF) : affirmation 368, https://ofac.treasury.gov/media/937281/download?inline"
   ]
  },
  "ecarter": {
   "date": "2026-11-03",
-  "echecs": 1,
-  "extraits_retrouves": 350,
+  "echecs": 0,
+  "extraits_retrouves": 351,
   "illisibles": [
    {
     "affirmation": 18,
@@ -174,28 +171,10 @@
     "url": "https://ofac.treasury.gov/media/937281/download?inline"
    }
   ],
-  "elements": [
-   {
-    "kind": "ul",
-    "texte": "cdxgen 13.6.0 : publiée le 31 octobre 2026, cette version du générateur de sbom détecte les décodeurs brotli intégrés aux environnements d'exécution et aux bina",
-    "affirmations": [
-     {
-      "n": 63,
-      "raison": "extrait introuvable",
-      "affirmation": "L’analyse des éditeurs lit les emplacements où VS Code et ses dérivés installent réellement les extensions, sur chaque plateforme.",
-      "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.6.0",
-      "ou": "synthese"
-     }
-    ]
-   }
-  ],
+  "elements": [],
   "sans_element": [],
-  "podcast_affirmations": [
-   343
-  ],
-  "sujets_podcast": [
-   "Brotli : une faille invisible"
-  ]
+  "podcast_affirmations": [],
+  "sujets_podcast": []
  },
  "podcast": {
   "code": 0,
@@ -214,5 +193,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 454
+ "duree_s": 392
 }
