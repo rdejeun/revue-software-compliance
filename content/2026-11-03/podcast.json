@@ -1,0 +1,230 @@
+{
+ "titre": "Revue Software Compliance, numéro 5 : Brotli, une faille dans un composant invisible, Linux et une extension piégée, et la règle des affiliés du BIS",
+ "description": "Numéro cinq : une faille critique et exploitée de la bibliothèque de compression Brotli, souvent cachée dans les binaires, une faille du noyau Linux, une extension d’éditeur de code piégée, le retour annoncé de la règle des affiliés du BIS et une sanction de l’OFAC pour des livraisons de logiciels.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi trois novembre deux mille vingt-six, et voici le numéro cinq."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Au programme : une faille critique dans un petit composant de compression que presque personne ne voit dans ses logiciels, une faille du noyau Linux, une extension d’outil de développement piégée, et deux sujets d’exportation et de sanctions venus des États-Unis."
+  },
+  {
+   "sujet": "Brotli : une faille invisible",
+   "court": "Brotli",
+   "long": "Brotli : faille exploitée",
+   "elements": [
+    "Brotli : le 27 octobre 2026, la CISA a in"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On commence par Brotli. Je ne connaissais pas ce nom. Qu’est-ce que c’est ?"
+  },
+  {
+   "v": "B",
+   "t": "Brotli, c’est une bibliothèque de compression créée par Google. Elle sert à rendre des données plus petites, puis à les décompresser à l’arrivée. On la trouve dans Node.js et dans des logiciels de grands éditeurs. Le CERT-FR, le centre d’alerte de l’ANSSI, cite par exemple Microsoft, Cisco et VMware parmi les éditeurs qui l’utilisent."
+  },
+  {
+   "v": "A",
+   "t": "Et qu’est-ce qui s’est passé ?"
+  },
+  {
+   "v": "B",
+   "t": "Une faille critique a été trouvée dans la partie qui décompresse. Avec un fichier compressé piégé, un attaquant à distance, sans mot de passe, peut corrompre la mémoire, lire des données sensibles, faire planter le programme, voire exécuter son propre code. Le vingt-sept octobre, la CISA, l’agence américaine de cybersécurité, l’a inscrite dans son catalogue des failles activement exploitées."
+  },
+  {
+   "v": "A",
+   "t": "Activement exploitée, ça veut dire que des attaquants s’en servent déjà ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, c’est le sens de ce catalogue. Les versions un point zéro point trois à un point deux point zéro sont touchées, et des versions corrigées existent. Le problème, c’est de savoir où se cache la bibliothèque."
+  },
+  {
+   "v": "A",
+   "t": "Pourquoi ce serait difficile ? On a des listes de composants, maintenant, non ?"
+  },
+  {
+   "v": "B",
+   "t": "[thoughtful] On a des SBOM, oui, la liste des ingrédients d’un logiciel. Mais Brotli arrive souvent caché : par une dépendance d’une dépendance, ou recopié directement dans un programme compilé. Imaginez une recette où un ingrédient est déjà mélangé dans une sauce toute prête : il n’apparaît pas sur la liste. Selon la société JFrog, des versions publiées peuvent rester vulnérables même une fois le code source corrigé."
+  },
+  {
+   "sujet": "Brotli : et pour nous ?",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Deux choses. D’abord, chercher la bibliothèque dans les programmes livrés eux-mêmes, pas seulement dans la liste des paquets. L’outil open source cdxgen vient justement de sortir une version, le trente et un octobre, qui repère ces décodeurs cachés dans les binaires et lit directement s’ils sont corrigés."
+  },
+  {
+   "v": "A",
+   "t": "Et la deuxième chose ?"
+  },
+  {
+   "v": "B",
+   "t": "Le règlement européen sur la cybersécurité des produits, le CRA. Depuis le onze septembre, un fabricant qui apprend qu’une faille activement exploitée touche l’un de ses produits doit la déclarer sur la plateforme de l’ENISA, l’agence européenne de cybersécurité. Si un produit concerné embarque une version vulnérable de Brotli, la question se pose."
+  },
+  {
+   "v": "A",
+   "t": "Et si le produit reçoit des données du réseau qu’il décompresse ?"
+  },
+  {
+   "v": "B",
+   "t": "Alors il pourrait être attaqué à distance, et sa correction pourrait demander de livrer une nouvelle version du logiciel aux clients."
+  },
+  {
+   "sujet": "Chaîne d’approvisionnement : Linux et une extension piégée",
+   "court": "Supply chain",
+   "long": "Chaîne d’approvisionnement",
+   "elements": [
+    "Noyau Linux : le 28 octobre 2026, la CIS",
+    "Extension piégée : le 29 octobre 2026, u"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Le même catalogue de la CISA a reçu une autre faille, cette fois dans Linux ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, le vingt-huit octobre. Une faille du noyau Linux, surnommée Fragnesia, divulguée en mai. Seule, elle permet à quelqu’un qui a déjà un pied dans la machine de devenir administrateur. Mais la CISA explique qu’elle peut être enchaînée avec deux failles de PHP déjà exploitées."
+  },
+  {
+   "v": "A",
+   "t": "Enchaînée, c’est-à-dire ?"
+  },
+  {
+   "v": "B",
+   "t": "Avec PHP, l’attaquant entre par l’interface web et y dépose une porte dérobée. Avec la faille du noyau, il prend ensuite la main sur tout le système. Or beaucoup d’équipements tournent sous Linux avec une petite interface d’administration web. Il faut donc comparer les noyaux livrés, y compris ceux fournis par les fabricants de cartes électroniques, aux correctifs disponibles."
+  },
+  {
+   "v": "A",
+   "t": "Et l’extension piégée ?"
+  },
+  {
+   "v": "B",
+   "t": "Le vingt-neuf octobre, pendant environ onze heures, la place de marché d’extensions de Cursor, un éditeur de code, a proposé une version malveillante de l’extension Claude Code. Selon Cursor, ces versions n’ont pas été développées par Anthropic, l’éditeur de l’extension. Elle installait une porte dérobée qui permet d’entrer à distance sur le poste du développeur."
+  },
+  {
+   "v": "A",
+   "t": "Et il suffit de désinstaller l’extension ?"
+  },
+  {
+   "v": "B",
+   "t": "Non, et c’est le point important : selon la société Phorion, qui l’a détectée, la porte dérobée survit à la désinstallation. Il faut nettoyer le poste. Et sur un poste qui construit ou signe des logiciels livrés, une telle porte pourrait servir à les modifier ou à voler des clés."
+  },
+  {
+   "sujet": "Export : la règle des affiliés et une sanction de l’OFAC",
+   "court": "Export",
+   "long": "Export et sanctions",
+   "elements": [
+    "Mise à jour, règle des affiliés du BIS :",
+    "OFAC, Extreme Networks : le 27 octobre 2"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Passons à l’exportation. Il y a une date qui approche aux États-Unis."
+  },
+  {
+   "v": "B",
+   "t": "Oui, la règle des affiliés du BIS, le service américain qui contrôle les exportations. Elle étend les restrictions de sa liste d’entités, l’Entity List, à toutes les sociétés détenues à cinquante pour cent ou plus par une entreprise inscrite, même si elles ne sont pas nommées. Elle était suspendue pour un an, et elle doit revenir le dix novembre."
+  },
+  {
+   "v": "A",
+   "t": "On parlait pourtant d’une prolongation ?"
+  },
+  {
+   "v": "B",
+   "t": "Selon le cabinet Pillsbury, une prolongation de deux mois, jusqu’au dix janvier, a été annoncée. Mais le BIS n’a publié aucun texte. Tant qu’il n’y a rien au journal officiel américain, la date du dix novembre reste celle de la règle en vigueur."
+  },
+  {
+   "v": "A",
+   "t": "Et pour une entreprise française ?"
+  },
+  {
+   "v": "B",
+   "t": "Dès qu’un produit, un logiciel ou une mise à jour relève de la réglementation américaine, il faut regarder qui détient le client, pas seulement son nom. Sinon, des clients aujourd’hui autorisés pourraient demander une licence du jour au lendemain, y compris pour les mises à jour logicielles."
+  },
+  {
+   "sujet": "Export : l’affaire Extreme Networks",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et justement, l’OFAC vient de sanctionner une entreprise sur ce point ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. L’OFAC, le service du Trésor américain chargé des sanctions, a conclu le vingt-sept octobre une transaction avec Extreme Networks, un équipementier réseau américain : un million cinq cent vingt-neuf mille six cent quatre-vingt-cinq dollars. Entre deux mille dix-huit et deux mille vingt-deux, l’entreprise a exporté du matériel et du logiciel vers une société détenue majoritairement par Almaz-Antey, un groupe russe inscrit sur la liste des sanctions."
+  },
+  {
+   "v": "A",
+   "t": "Donc le logiciel compte autant que le matériel."
+  },
+  {
+   "v": "B",
+   "t": "Exactement. Et l’OFAC insiste sur la vérification avant le rachat d’une entreprise, car l’acheteur peut hériter de clients sanctionnés. Pour nous, cela veut dire que les portails de téléchargement et de mise à jour doivent eux aussi filtrer leurs comptes clients."
+  },
+  {
+   "sujet": "Sanctions : de faux informaticiens",
+   "court": "Sanctions",
+   "long": "Sanctions : Corée du Nord",
+   "elements": [
+    "OFAC, Corée du Nord : le 28 octobre 2026"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Toujours côté sanctions, l’OFAC s’intéresse aussi à de faux informaticiens ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Le vingt-huit octobre, l’OFAC a sanctionné dix personnes et une entité liées aux réseaux d’informaticiens nord-coréens. Selon le Trésor américain, la Corée du Nord utilise des documents frauduleux, des identités volées et des profils fabriqués pour faire embaucher ses informaticiens dans des entreprises légitimes, aux États-Unis et dans des pays alliés."
+  },
+  {
+   "v": "A",
+   "t": "Et en quoi ça nous concerne ?"
+  },
+  {
+   "v": "B",
+   "t": "Ces travailleurs à distance financent le régime, mais ils peuvent aussi accéder aux systèmes et au code de leur employeur. Un développeur infiltré chez un sous-traitant pourrait glisser du code malveillant dans un logiciel livré. Le contrôle des sanctions doit donc aller jusqu’aux intervenants des sous-traitants du développement logiciel."
+  },
+  {
+   "sujet": "Date à retenir",
+   "court": "Agenda",
+   "long": "Date à retenir",
+   "elements": [
+    "10 novembre 2026 Réimposition automatiqu"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu’une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Le dix novembre, donc la semaine prochaine : c’est la date de retour de la règle des affiliés prévue par le texte en vigueur. D’ici là, il vaut mieux savoir quels clients sont détenus par des entreprises inscrites et quelles livraisons sont prévues après cette date."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "Merci Guillaume. C’était le numéro cinq de la revue de presse Software Compliance."
+  },
+  {
+   "v": "B",
+   "t": "Toutes les sources et les synthèses sont dans l’édition en ligne. Bonne semaine, et à mardi prochain."
+  }
+ ]
+}

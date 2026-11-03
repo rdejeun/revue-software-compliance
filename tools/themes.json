@@ -49,6 +49,11 @@
     "poids": 1
    },
    {
+    "date": "2026-10-27",
+    "texte": "Brotli : une faille exploitée dans un composant souvent intégré par copie pose la question de la déclaration CRA",
+    "poids": 1
+   },
+   {
     "date": "2026-12",
     "libelle": "T4 2026",
     "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC",
@@ -102,7 +107,14 @@
   "titre": "Analyse de composition|(SCA)",
   "court": "SCA",
   "reference": "Outils d’inventaire des composants, de détection des vulnérabilités et d’analyse des licences",
-  "recherche": "SCA et outils de conformité"
+  "recherche": "SCA et outils de conformité",
+  "chronologie": [
+   {
+    "date": "2026-10-31",
+    "texte": "cdxgen 13.6.0 détecte les décodeurs Brotli intégrés aux binaires",
+    "poids": 1
+   }
+  ]
  },
  "chaine": {
   "nom": "Sécurité de la chaîne d’approvisionnement logicielle",
@@ -113,6 +125,21 @@
    {
     "date": "2026-10-21",
     "texte": "LiteLLM 1.107.0 : une version piégée publiée sur PyPI et Docker",
+    "poids": 1
+   },
+   {
+    "date": "2026-10-27",
+    "texte": "Brotli : une faille critique du décodeur entre au catalogue KEV de la CISA (vulnérabilités activement exploitées)",
+    "poids": 2
+   },
+   {
+    "date": "2026-10-28",
+    "texte": "Noyau Linux : la faille « Fragnesia » entre au catalogue KEV de la CISA",
+    "poids": 2
+   },
+   {
+    "date": "2026-10-29",
+    "texte": "Une version piégée de l’extension Claude Code pour VS Code est servie par la place de marché de Cursor",
     "poids": 1
    }
   ]
@@ -139,6 +166,11 @@
     "poids": 2
    },
    {
+    "date": "2026-10-21",
+    "texte": "Omnibus défense : directive sur les transferts intra-UE signée, après son adoption par le Conseil le 9 octobre",
+    "poids": 3
+   },
+   {
     "date": "2026-10-23",
     "texte": "Royaume-Uni : l’avis aux exportateurs 2026/24 annonce la mise à jour des listes de contrôle militaire et dual-use",
     "poids": 2
@@ -148,6 +180,11 @@
     "libelle": "nov. 2026",
     "texte": "Publication au JO attendue de la nouvelle liste dual-use",
     "poids": 3
+   },
+   {
+    "date": "2026-11-02",
+    "texte": "Inde : l’avis public n° 37/2026-27 de la DGFT étend les autorisations générales SCOMET aux statuts quatre et cinq étoiles",
+    "poids": 1
    },
    {
     "date": "2026-12",
@@ -205,6 +242,16 @@
     "date": "2026-10-25",
     "texte": "Fin de la période transitoire pour certains contrats conclus avant le 24 juillet (21e paquet)",
     "poids": 3
+   },
+   {
+    "date": "2026-10-27",
+    "texte": "OFAC : transaction de 1 529 685 dollars avec Extreme Networks pour des livraisons de matériel et de logiciel à une entité bloquée",
+    "poids": 2
+   },
+   {
+    "date": "2026-10-28",
+    "texte": "OFAC : dix personnes et une entité sanctionnées pour les réseaux de faux informaticiens nord-coréens",
+    "poids": 2
    }
   ]
  },
@@ -233,9 +280,14 @@
     "date": "2026-10-21",
     "texte": "Digital Omnibus : le Conseil arrête sa position et retient des points d’entrée nationaux pour la déclaration des incidents",
     "poids": 2
+   },
+   {
+    "date": "2026-10-27",
+    "texte": "La conférence des présidents de l’Assemblée nationale ne réinscrit pas la loi Résilience",
+    "poids": 2
    }
   ],
-  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit les 13 et 20 octobre"
+  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit les 13, 20 et 27 octobre"
  },
  "ai-act": {
   "nom": "AI Act",
@@ -254,9 +306,19 @@
     "poids": 2
    },
    {
+    "date": "2026-10-28",
+    "texte": "Demande de normalisation révisée : échéance des normes harmonisées fixée à février 2027 (compte rendu publié par le CEN-CENELEC)",
+    "poids": 2
+   },
+   {
     "date": "2026-12-02",
     "texte": "Marquage des contenus générés par IA (article 50, paragraphe 2)",
     "poids": 3
+   },
+   {
+    "date": "2027-02",
+    "texte": "Échéance des normes harmonisées de l’AI Act selon la demande de normalisation révisée",
+    "poids": 2
    },
    {
     "date": "2027-12-02",
@@ -298,6 +360,11 @@
     "date": "2026-10-20",
     "texte": "Oracle JDK 21.0.13, première mise à jour sous licence OTN, qui ne permet pas la redistribution",
     "poids": 2
+   },
+   {
+    "date": "2026-10-30",
+    "texte": "REUSE 6.3.0 rétablit le téléchargement des textes de licence",
+    "poids": 1
    }
   ]
  },
@@ -323,6 +390,11 @@
    {
     "date": "2026-10-13",
     "texte": "Échéance de plusieurs appels EDIP",
+    "poids": 2
+   },
+   {
+    "date": "2026-10-29",
+    "texte": "SAFE : deuxième appel de 21,3 milliards d’euros ouvert à tous les États membres",
     "poids": 2
    },
    {

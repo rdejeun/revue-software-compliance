@@ -1,0 +1,80 @@
+[
+ {
+  "id": "e5.0",
+  "article": "Brotli : une faille critique du décodeur, activement exploitée",
+  "message": "Une bibliothèque vulnérable peut se cacher à l’intérieur d’un logiciel, là où la liste des composants ne la montre pas.",
+  "repere": "un grand pot de sauce toute prête étiqueté « Brotli » (étiquette ajoutée par nous), avec la liste des ingrédients collée à côté",
+  "action": "le cuisinier-inspecteur découvre, en versant la sauce, un intrus caché que la liste ne mentionnait pas",
+  "brief": "Wide kitchen scene. A cook-inspector in a white apron and a tall chef's hat pours a big jar of ready-made sauce into a large pot; the jar has a blank white label. Out of the pouring sauce falls a small grinning bug with big eyes, clearly visible above the pot. On the left, a long ingredients list pinned to the wall, with no bug drawn on it. The cook's face is fully drawn, eyebrows raised in surprise, looking at the bug. Orange accents on the bug and on the jar label border. Nothing else.",
+  "alt": "Un cuisinier verse un pot de sauce toute prête étiqueté « Brotli » et voit tomber un insecte que la liste des ingrédients affichée au mur ne mentionnait pas.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [{"texte": "Brotli", "point": [0.5, 0.45], "couleur": "navy"}],
+  "candidats": 2
+ },
+ {
+  "id": "e8.0",
+  "article": "Akrites SIRT : une autorité CVE pour les projets de la Linux Foundation",
+  "message": "Une nouvelle autorité attribue désormais les numéros de vulnérabilités des projets de la Linux Foundation.",
+  "repere": "un guichet avec un rouleau de tickets numérotés, comme à la poste ; mot « CVE » ajouté par nous sur le panneau du guichet",
+  "action": "l’employée du guichet tend un ticket numéroté à un petit insecte qui fait la queue",
+  "brief": "A friendly clerk behind a counter window tears a numbered ticket from a big ticket dispenser and hands it to a small polite bug standing in front of the counter, holding out its hand. Above the window, a large blank white sign. The clerk smiles, face fully drawn; the bug looks expectant. Orange accents on the ticket and on the dispenser. Nothing else.",
+  "alt": "Au guichet « CVE », une employée remet un ticket numéroté à un insecte qui attend son tour.",
+  "format": "1:1",
+  "texte": false,
+  "legendes": [{"texte": "CVE", "point": [0.5, 0.12], "couleur": "navy"}],
+  "candidats": 2
+ },
+ {
+  "id": "e11.0",
+  "article": "cdxgen 13.6.0 : repérer Brotli dans les binaires et les extensions d’éditeurs",
+  "message": "L’outil sait maintenant trouver une bibliothèque cachée à l’intérieur des programmes compilés.",
+  "repere": "un détecteur de métaux tenu au-dessus d’une grosse boîte de logiciel fermée",
+  "action": "le détecteur sonne au-dessus de la boîte et l’opérateur pointe l’endroit exact",
+  "brief": "Wide scene. An engineer sweeps a large metal detector over a big closed cardboard box lying on the ground; the detector beeps, shown by three short curved lines above its head. Through a round window drawn in the box side, a small coiled bug is visible hiding inside. The engineer points at the spot with the other hand, focused and pleased, face fully drawn. A blank white label on the box. Orange accents on the detector head and the bug. Nothing else.",
+  "alt": "Un ingénieur passe un détecteur de métaux sur une boîte de logiciel fermée et repère l’insecte caché à l’intérieur.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [],
+  "candidats": 2
+ },
+ {
+  "id": "e14.1",
+  "article": "Une extension d’éditeur de code piégée sur la place de marché de Cursor",
+  "message": "Une extension installée par un développeur a laissé une porte ouverte qui reste même après sa désinstallation.",
+  "repere": "un ordinateur portable de développeur avec une petite porte dérobée découpée dans son flanc",
+  "action": "le développeur arrache l’extension, mais un intrus repasse par la petite porte restée ouverte",
+  "brief": "Wide scene. A developer sitting at a desk pulls a big puzzle piece out of the side of an open laptop and holds it up, relieved. Behind the laptop, on its other side, a small hidden door cut into the laptop's back stays ajar, and a sneaky masked burglar with a swag bag tiptoes through it. The developer's face is fully drawn, smiling and unaware; the burglar grins. Orange accents on the small door and the puzzle piece. Nothing else.",
+  "alt": "Un développeur retire une extension de son ordinateur sans voir qu’un cambrioleur entre par une petite porte restée ouverte à l’arrière.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [],
+  "candidats": 2
+ },
+ {
+  "id": "e17.1",
+  "article": "OFAC : transaction avec Extreme Networks pour des livraisons à une entité bloquée",
+  "message": "Livrer du logiciel à une société détenue par une entreprise sanctionnée coûte une amende, comme pour du matériel.",
+  "repere": "les bulbes du Kremlin derrière une grille de douane, et un carton de logiciel",
+  "action": "le livreur tend un carton par-dessus la barrière et le contrôleur lui remet une amende",
+  "brief": "Wide scene. On the right, behind a closed red-and-white striped barrier, the onion domes of the Kremlin. In the middle, a delivery man in a cap holds a cardboard box with a floppy-disk symbol over the barrier toward the domes. On the left, a stern customs inspector in uniform hands him a large ticket with a blank white area, wagging a finger. Both faces are fully drawn: the delivery man embarrassed, the inspector severe. Orange accents on the ticket and on the barrier stripes. Nothing else.",
+  "alt": "Un livreur tend un carton de logiciel par-dessus une barrière, vers les bulbes du Kremlin ; un contrôleur lui remet une amende.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [{"texte": "1,5 M$", "point": [0.18, 0.55], "couleur": "navy"}],
+  "candidats": 2
+ },
+ {
+  "id": "e23.0",
+  "article": "REUSE 6.3.0 : la commande de téléchargement des licences rétablie",
+  "message": "L’outil qui va chercher les textes de licence était en panne ; la nouvelle version le répare.",
+  "repere": "un facteur et une boîte aux lettres dont l’adresse a changé",
+  "action": "le facteur trouve enfin la nouvelle boîte aux lettres et y dépose les textes de licence",
+  "brief": "A cheerful postman holds a thick stack of documents tied with a ribbon and slides it into a large new mailbox; next to it, an old mailbox is crossed out and leaning, with a big arrow pointing to the new one. The postman's face is fully drawn, satisfied. A blank white tag on the document stack. Orange accents on the new mailbox and the arrow. Nothing else.",
+  "alt": "Un facteur dépose une liasse de textes de licence dans la nouvelle boîte aux lettres, l’ancienne étant barrée.",
+  "format": "1:1",
+  "texte": false,
+  "legendes": [{"texte": "Licences", "point": [0.4, 0.5], "couleur": "navy"}],
+  "candidats": 2
+ }
+]
