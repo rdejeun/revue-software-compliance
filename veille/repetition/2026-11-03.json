@@ -1,0 +1,198 @@
+{
+ "date": "2026-11-03",
+ "commit": "522997d1d2b8416e09ab841035230163969ec7a6",
+ "le": "2026-11-03T03:47:53Z",
+ "verdict": "verte",
+ "motifs": [],
+ "script": "623e44bc43e744afa2bc2c21d96da62513cb757f6b6720bb30847d97c57eec42",
+ "sources": "7d38a0c658f090510382eba36087136c7e39e1c93e0e1c63ee2519e78c27ccda",
+ "controle": {
+  "code": 0,
+  "erreurs": [],
+  "avertissements": [
+   "agenda, ligne 4 : synthèse de 139 mots (170 à 245 visés)",
+   "Rubrique « France et UE » : 3 rappels ; un nombre pair équilibre les deux colonnes",
+   "Version imprimable non proposée, défauts de mise en page : « SBOM, normes et référentiels » : colonne justifiée de 9.1 mm (page 2)",
+   "Lien non vérifiable (403) : https://codeberg.org/fsfe/reuse-tool",
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Lien non vérifiable (403) : https://www.cisa.gov/",
+   "Lien non vérifiable (403) : https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+   "Lien non vérifiable (403) : https://www.cisa.gov/sbom",
+   "Lien non vérifiable (403) : https://www.dgft.gov.in/",
+   "Lien non vérifiable (403) : https://www.dgft.gov.in/CP/?opt=public-notice",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 18, https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 27, https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202402847",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 34, https://www.cve.org/Resources/Roles/Cnas/CNA_Rules_v4.2.0.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 45, https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 58, https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202402847",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 193, https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau&conditions%5Bpublication_date%5D%5Bgte%5D=2026-10-28",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 207, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 208, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 209, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 210, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 211, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 212, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 222, https://www.dgft.gov.in/CP/?opt=public-notice",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 223, https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 224, https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 225, https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 226, https://www.dgft.gov.in/CP/?opt=public-notice",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 227, https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf",
+   "Citation non vérifiable automatiquement (HTTPError) : affirmation 228, https://www.dgft.gov.in/CP/?opt=scomet",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 330, https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 363, https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau&conditions%5Bpublication_date%5D%5Bgte%5D=2026-10-20&fields%5B%5D=title&fields%5B%5D=publication_date",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 366, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 367, https://ofac.treasury.gov/media/937281/download?inline",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 368, https://ofac.treasury.gov/media/937281/download?inline"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-11-03",
+  "echecs": 0,
+  "extraits_retrouves": 351,
+  "illisibles": [
+   {
+    "affirmation": 18,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
+   },
+   {
+    "affirmation": 27,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202402847"
+   },
+   {
+    "affirmation": 34,
+    "raison": "PDF",
+    "url": "https://www.cve.org/Resources/Roles/Cnas/CNA_Rules_v4.2.0.pdf"
+   },
+   {
+    "affirmation": 45,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689"
+   },
+   {
+    "affirmation": 58,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202402847"
+   },
+   {
+    "affirmation": 193,
+    "raison": "page vide ou protégée",
+    "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau&conditions%5Bpublication_date%5D%5Bgte%5D=2026-10-28"
+   },
+   {
+    "affirmation": 207,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 208,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 209,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 210,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 211,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 212,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 222,
+    "raison": "HTTPError",
+    "url": "https://www.dgft.gov.in/CP/?opt=public-notice"
+   },
+   {
+    "affirmation": 223,
+    "raison": "PDF",
+    "url": "https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf"
+   },
+   {
+    "affirmation": 224,
+    "raison": "PDF",
+    "url": "https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf"
+   },
+   {
+    "affirmation": 225,
+    "raison": "PDF",
+    "url": "https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf"
+   },
+   {
+    "affirmation": 226,
+    "raison": "HTTPError",
+    "url": "https://www.dgft.gov.in/CP/?opt=public-notice"
+   },
+   {
+    "affirmation": 227,
+    "raison": "PDF",
+    "url": "https://content.dgft.gov.in/Website/dgftprod/28624e0e-f35a-4ec1-9c04-6ece1f9af4f3/Public%20Notice%20No.37%20dated%2002.11.2026%20(English).pdf"
+   },
+   {
+    "affirmation": 228,
+    "raison": "HTTPError",
+    "url": "https://www.dgft.gov.in/CP/?opt=scomet"
+   },
+   {
+    "affirmation": 330,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf"
+   },
+   {
+    "affirmation": 363,
+    "raison": "page vide ou protégée",
+    "url": "https://www.federalregister.gov/api/v1/documents.json?conditions%5Bagencies%5D%5B%5D=industry-and-security-bureau&conditions%5Bpublication_date%5D%5Bgte%5D=2026-10-20&fields%5B%5D=title&fields%5B%5D=publication_date"
+   },
+   {
+    "affirmation": 366,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 367,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   },
+   {
+    "affirmation": 368,
+    "raison": "PDF",
+    "url": "https://ofac.treasury.gov/media/937281/download?inline"
+   }
+  ],
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-11-03 : 42 répliques, 1216 mots (≈ 8 min)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-11-03 : 42 répliques, 1216 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (420 caractères) : Ouverture\n  requête 2/7 (1618 caractères) : Brotli : une faille invisible\n  requête 3/7 (904 caractères) : Brotli : et pour nous ?\n  requête 4/7 (1469 caractères) : Chaîne d’approvisionnement : Linux et une extension piégée\n  requête 5/7 (1028 caractères) : Export : la règle des affiliés et une sanction de l’OFAC\n  requête 6/7 (1643 caractères) : Export : l’affaire Extreme Networks, Sanctions : de faux informaticiens\n  requête 7/7 (489 caractères) : Date à retenir, Clôture\n2026-11-03 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-03/out/episode.m4a (8.9 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-03/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-11-03",
+  "besoin": 9098,
+  "reste": 18359,
+  "raz": "04/11/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 498
+}

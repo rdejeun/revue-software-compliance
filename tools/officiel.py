@@ -4,7 +4,8 @@ from urllib.parse import urlparse
 
 OFFICIEL = ('europa.eu', 'federalregister.gov', 'ecfr.gov', 'govinfo.gov', 'bis.gov', 'bis.doc.gov', 'treasury.gov', 'state.gov',
             'cisa.gov', 'nist.gov', 'defense.gov', 'gouv.fr', 'assemblee-nationale.fr', 'senat.fr', 'gov.uk', 'iso.org', 'etsi.org',
-            'cencenelec.eu', 'bsi.bund.de', 'wassenaar.org', 'curia.europa.eu', 'legifrance.gouv.fr')
+            'cencenelec.eu', 'bsi.bund.de', 'wassenaar.org', 'curia.europa.eu', 'legifrance.gouv.fr',
+            'gov.in')   # gov.in : autorités indiennes (DGFT…), sources officielles d'un pays partenaire (README, § 3, règle 9)
 
 
 def officiel(u):

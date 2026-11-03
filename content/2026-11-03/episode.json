@@ -1,0 +1,77 @@
+{
+ "duree_s": 413,
+ "octets": 3436491,
+ "mots": 1216,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-11-03T04:00:30Z",
+ "sha_script": "4093f463508596a3a31ab83057a127d264baa8a88a564e58673a48121e098673",
+ "extrait": false,
+ "repliques": 42,
+ "prononciation": "dictionnaire ElevenLabs U6wYymsZY4OEq8IyAnfy",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "11.1 → 1.2 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 70 → 23 ms, B 22 → 21 ms",
+  "Durée": "401.4 s (blocs : 401.8 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "8.4 % de mots différents sur 1287"
+ },
+ "requetes": 7,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "Brotli : une faille invisible",
+   "court": "Brotli",
+   "debut_s": 29.6,
+   "long": "Brotli : faille exploitée"
+  },
+  {
+   "titre": "Chaîne d’approvisionnement : Linux et une extension piégée",
+   "court": "Supply chain",
+   "debut_s": 163.1,
+   "long": "Chaîne d’approvisionnement"
+  },
+  {
+   "titre": "Export : la règle des affiliés et une sanction de l’OFAC",
+   "court": "Export",
+   "debut_s": 243.0,
+   "long": "Export et sanctions"
+  },
+  {
+   "titre": "Sanctions : de faux informaticiens",
+   "court": "Sanctions",
+   "debut_s": 340.7,
+   "long": "Sanctions : Corée du Nord"
+  },
+  {
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 383.1,
+   "long": "Date à retenir"
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 398.7
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "522997d1d2b8"
+}
