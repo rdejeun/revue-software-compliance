@@ -560,10 +560,10 @@
  {
   "affirmation": "L’analyse des éditeurs lit les emplacements où VS Code et ses dérivés installent réellement les extensions, sur chaque plateforme.",
   "url": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.6.0",
-  "extrait": "VS Code and every fork actually install extensions into `<home>/<dataFolderName>/extensions` on all three platforms.",
+  "extrait": "VS Code and every fork actually install extensions into",
   "ou": "synthese",
   "verifie": "confirmé",
-  "raison": "page illisible depuis la session, lue avec WebFetch (extrait cité par l’outil, à contrôler)",
+  "raison": "page illisible depuis la session, lue avec WebFetch ; extrait raccourci avant le fragment de code (<home>/<dataFolderName>/extensions) que le serveur ne restitue pas à l’identique",
   "ref": "cdxgen 13.6.0 : publiée le 31 octobre 20"
  },
  {
