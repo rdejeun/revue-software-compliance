@@ -1,7 +1,7 @@
 {
  "date": "2026-11-03",
- "commit": "bc5a86ba2e1a374a951be3288813ccb70378e340",
- "le": "2026-11-03T03:39:23Z",
+ "commit": "522997d1d2b8416e09ab841035230163969ec7a6",
+ "le": "2026-11-03T03:47:53Z",
  "verdict": "verte",
  "motifs": [],
  "script": "623e44bc43e744afa2bc2c21d96da62513cb757f6b6720bb30847d97c57eec42",
@@ -12,6 +12,7 @@
   "avertissements": [
    "agenda, ligne 4 : synthèse de 139 mots (170 à 245 visés)",
    "Rubrique « France et UE » : 3 rappels ; un nombre pair équilibre les deux colonnes",
+   "Version imprimable non proposée, défauts de mise en page : « SBOM, normes et référentiels » : colonne justifiée de 9.1 mm (page 2)",
    "Lien non vérifiable (403) : https://codeberg.org/fsfe/reuse-tool",
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
    "Lien non vérifiable (403) : https://www.cisa.gov/",
@@ -193,5 +194,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 392
+ "duree_s": 498
 }
