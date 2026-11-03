@@ -19,7 +19,9 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "fichier": "illustrations/e5.0.svg",
+  "source": "e5.0-4.svg"
  },
  {
   "id": "e8.0",
