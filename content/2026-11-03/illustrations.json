@@ -3,13 +3,22 @@
   "id": "e5.0",
   "article": "Brotli : une faille critique du décodeur, activement exploitée",
   "message": "Une bibliothèque vulnérable peut se cacher à l’intérieur d’un logiciel, là où la liste des composants ne la montre pas.",
-  "repere": "un grand pot de sauce toute prête étiqueté « Brotli » (étiquette ajoutée par nous), avec la liste des ingrédients collée à côté",
-  "action": "le cuisinier-inspecteur découvre, en versant la sauce, un intrus caché que la liste ne mentionnait pas",
-  "brief": "Wide kitchen scene. A cook-inspector in a white apron and a tall chef's hat pours a big jar of ready-made sauce into a large pot; the jar has a blank white label. Out of the pouring sauce falls a small grinning bug with big eyes, clearly visible above the pot. On the left, a long ingredients list pinned to the wall, with no bug drawn on it. The cook's face is fully drawn, eyebrows raised in surprise, looking at the bug. Orange accents on the bug and on the jar label border. Nothing else.",
-  "alt": "Un cuisinier verse un pot de sauce toute prête étiqueté « Brotli » et voit tomber un insecte que la liste des ingrédients affichée au mur ne mentionnait pas.",
+  "repere": "un grand pot de sauce étiqueté « Brotli » (étiquette ajoutée par nous), un gros insecte qui en tombe",
+  "action": "le cuisinier, bras levés, voit un gros insecte tomber du pot dans la marmite",
+  "brief": "Wide simple scene with very few big shapes and thick bold outlines. A cook in a tall chef's hat holds a big jar tilted over a large pot; the jar has a large blank white label. A single BIG round-bodied bug with a huge grin drops out of the jar, filling a quarter of the picture height, clearly separate from the sauce. The cook's face is large and fully drawn: wide eyes, eyebrows raised, open mouth, arms up in surprise. No wall list, no small objects, no background details. Orange only on the bug and the jar label border. Nothing else.",
+  "alt": "Un cuisinier verse un pot de sauce étiqueté « Brotli » et voit tomber un gros insecte dans la marmite.",
   "format": "3:2",
   "texte": false,
-  "legendes": [{"texte": "Brotli", "point": [0.5, 0.45], "couleur": "navy"}],
+  "legendes": [
+   {
+    "texte": "Brotli",
+    "point": [
+     0.5,
+     0.45
+    ],
+    "couleur": "navy"
+   }
+  ],
   "candidats": 2
  },
  {
@@ -22,17 +31,28 @@
   "alt": "Au guichet « CVE », une employée remet un ticket numéroté à un insecte qui attend son tour.",
   "format": "1:1",
   "texte": false,
-  "legendes": [{"texte": "CVE", "point": [0.5, 0.12], "couleur": "navy"}],
-  "candidats": 2
+  "legendes": [
+   {
+    "texte": "CVE",
+    "point": [
+     0.5,
+     0.12
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "fichier": "illustrations/e8.0.svg",
+  "source": "e8.0-1.svg"
  },
  {
   "id": "e11.0",
   "article": "cdxgen 13.6.0 : repérer Brotli dans les binaires et les extensions d’éditeurs",
   "message": "L’outil sait maintenant trouver une bibliothèque cachée à l’intérieur des programmes compilés.",
-  "repere": "un détecteur de métaux tenu au-dessus d’une grosse boîte de logiciel fermée",
-  "action": "le détecteur sonne au-dessus de la boîte et l’opérateur pointe l’endroit exact",
-  "brief": "Wide scene. An engineer sweeps a large metal detector over a big closed cardboard box lying on the ground; the detector beeps, shown by three short curved lines above its head. Through a round window drawn in the box side, a small coiled bug is visible hiding inside. The engineer points at the spot with the other hand, focused and pleased, face fully drawn. A blank white label on the box. Orange accents on the detector head and the bug. Nothing else.",
-  "alt": "Un ingénieur passe un détecteur de métaux sur une boîte de logiciel fermée et repère l’insecte caché à l’intérieur.",
+  "repere": "une grande boîte de logiciel fermée avec une grosse loupe posée dessus",
+  "action": "l'ingénieur, ravi, tient une grosse loupe au-dessus de la boîte et montre du doigt un gros insecte visible à l'intérieur",
+  "brief": "Wide simple scene with very few big shapes and thick bold outlines. An engineer with a big happy smile holds a HUGE magnifying glass over a large cardboard box; under the lens, a single BIG orange bug is clearly visible inside a large round window in the box. The engineer points at the bug with the other hand. Face large and fully drawn, eyebrows up, delighted. No tiny objects, no cables, no waves, no background. Orange only on the bug and the magnifier rim. Nothing else.",
+  "alt": "Un ingénieur passe une grosse loupe sur une boîte de logiciel fermée et repère l'insecte caché à l'intérieur.",
   "format": "3:2",
   "texte": false,
   "legendes": [],
@@ -49,7 +69,9 @@
   "format": "3:2",
   "texte": false,
   "legendes": [],
-  "candidats": 2
+  "candidats": 2,
+  "fichier": "illustrations/e14.1.svg",
+  "source": "e14.1-2.svg"
  },
  {
   "id": "e17.1",
@@ -61,8 +83,19 @@
   "alt": "Un livreur tend un carton de logiciel par-dessus une barrière, vers les bulbes du Kremlin ; un contrôleur lui remet une amende.",
   "format": "3:2",
   "texte": false,
-  "legendes": [{"texte": "1,5 M$", "point": [0.18, 0.55], "couleur": "navy"}],
-  "candidats": 2
+  "legendes": [
+   {
+    "texte": "1,5 M$",
+    "point": [
+     0.18,
+     0.55
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "fichier": "illustrations/e17.1.svg",
+  "source": "e17.1-1.svg"
  },
  {
   "id": "e23.0",
@@ -74,7 +107,18 @@
   "alt": "Un facteur dépose une liasse de textes de licence dans la nouvelle boîte aux lettres, l’ancienne étant barrée.",
   "format": "1:1",
   "texte": false,
-  "legendes": [{"texte": "Licences", "point": [0.4, 0.5], "couleur": "navy"}],
-  "candidats": 2
+  "legendes": [
+   {
+    "texte": "Licences",
+    "point": [
+     0.4,
+     0.5
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "fichier": "illustrations/e23.0.svg",
+  "source": "e23.0-2.svg"
  }
 ]
