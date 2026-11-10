@@ -1,7 +1,7 @@
 {
  "date": "2026-11-10",
- "commit": "db75572aae39175a718b772a2548c27bf7849f2e",
- "le": "2026-11-10T02:33:05Z",
+ "commit": "94e3957cd6190795312582bd1a427cfcee6c3873",
+ "le": "2026-11-10T03:44:21Z",
  "verdict": "verte",
  "motifs": [],
  "script": "067f350475710244f189140a2c27170ff32b6e86ba331f71e36bca75de3dc8b4",
@@ -14,7 +14,7 @@
    "« Normes IEC 62443 : le 6 novembre 2026, 23 organisations, don… » : fait juridique sans source officielle (README, § 3)",
    "« Sylva : dans un billet de l’OpenSSF du 6 novembre 2026, ce p… » : fait juridique sans source officielle (README, § 3)",
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
-   "Lien non vérifiable ([Errno 104] Connection reset by peer) : https://www.gnu.org/",
+   "Lien non vérifiable ([Errno 101] Network is unreachable) : https://www.gnu.org/",
    "Lien non vérifiable ([Errno 104] Connection reset by peer) : https://www.gnu.org/licenses/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 12, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
@@ -160,5 +160,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 166
+ "duree_s": 307
 }
