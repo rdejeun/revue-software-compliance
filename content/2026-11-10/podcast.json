@@ -1,0 +1,246 @@
+{
+ "titre": "Revue Software Compliance, numéro 6 : réfrigération sabotée et déclaration du CRA, une faille d’OpenSSH dans l’embarqué, la règle des affiliés repoussée et les transferts de défense dans l’UE",
+ "description": "Numéro six : des systèmes de réfrigération sabotés et le rappel de la déclaration du CRA, une faille d’OpenSSH exploitée sur des systèmes embarqués, la règle des affiliés du BIS repoussée au 10 janvier 2027, la directive sur les transferts intra-UE de produits de défense, et Zarf pour livrer des logiciels en milieu isolé.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi dix novembre deux mille vingt-six, et voici le numéro six."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Cette semaine : des frigos de supermarché sabotés et ce que cela rappelle aux fabricants, une faille d’OpenSSH qui vise l’embarqué, une règle américaine repoussée, et une directive européenne sur les transferts de défense."
+  },
+  {
+   "sujet": "Réfrigération sabotée : le CRA rappelé",
+   "court": "Réfrigération",
+   "long": "Réfrigération et CRA",
+   "elements": [
+    "Systèmes de réfrigération : le 4 novembr",
+    "Attribution à l’Iran : le 9 novembre 202"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On commence par une histoire étonnante : des systèmes de réfrigération attaqués. Qu’est-ce qui s’est passé ?"
+  },
+  {
+   "v": "B",
+   "t": "Le quatre novembre, la Commission européenne, l’ENISA, l’agence européenne de cybersécurité, Europol et les équipes nationales de réponse aux incidents ont publié une déclaration commune. Depuis le onze octobre, des systèmes de réfrigération commerciaux ont subi des cyberincidents dans plusieurs États membres."
+  },
+  {
+   "v": "A",
+   "t": "Et en France ?"
+  },
+  {
+   "v": "B",
+   "t": "Le neuf novembre, la France a attribué à l’Iran une campagne de sabotage. Dans la nuit du onze au douze octobre, les contrôleurs de réfrigération de plus de sept cents sites de la grande distribution ont été visés. Selon le ministère des Affaires étrangères, il y a eu des dégâts matériels, des incendies et des pertes de denrées estimées à plusieurs dizaines de millions d’euros."
+  },
+  {
+   "v": "A",
+   "t": "Comment est-ce qu’on sabote un frigo à distance ?"
+  },
+  {
+   "v": "B",
+   "t": "D’après le rapport du CERT-FR, le centre d’alerte de l’ANSSI, les paramètres de dégivrage ont été fixés à de hautes températures. Le rapport décrit aussi des scripts qui scannent et prennent le contrôle d’équipements industriels Schneider Electric, Siemens et Rockwell, avec Modbus, un vieux protocole très répandu dans l’industrie."
+  },
+  {
+   "sujet": "Réfrigération : et pour nous ?",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ? On ne fabrique pas de frigos."
+  },
+  {
+   "v": "B",
+   "t": "Non, mais la déclaration européenne rappelle une règle qui nous concerne. Depuis le onze septembre, le Cyber Resilience Act oblige les fabricants à déclarer, sur la plateforme unique de l’ENISA, les incidents graves et les vulnérabilités activement exploitées de leurs produits. Et c’est le fabricant qui déclare, même si son client signale l’incident de son côté."
+  },
+  {
+   "v": "A",
+   "t": "Donc il faut savoir très vite si l’un de nos produits est touché."
+  },
+  {
+   "v": "B",
+   "t": "Exactement, et savoir qui dépose l’alerte. Le cas montre aussi qu’un contrôleur accessible à distance peut être reprogrammé pour causer des dommages physiques. Le fabricant doit donc vérifier ce qu’un attaquant pourrait modifier sur ses produits, et documenter le durcissement attendu chez le client. Enfin, la France proposera de nouvelles sanctions européennes : si elles sont adoptées, les listes de filtrage devront suivre."
+  },
+  {
+   "sujet": "OpenSSH : une faille dans l’embarqué",
+   "court": "OpenSSH",
+   "long": "OpenSSH : faille exploitée",
+   "elements": [
+    "OpenSSH : le 9 novembre 2026, la CISA a ",
+    "FreeSWITCH : le 9 novembre 2026, la CISA"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Deuxième sujet, une faille dans OpenSSH. Rappelle-moi ce que c’est."
+  },
+  {
+   "v": "B",
+   "t": "OpenSSH, c’est le logiciel qui permet d’administrer une machine à distance de façon chiffrée. On le trouve dans presque tous les systèmes Linux, y compris dans les équipements embarqués. Le neuf novembre, la CISA, l’agence américaine de cybersécurité, a inscrit une de ses failles dans son catalogue des vulnérabilités activement exploitées."
+  },
+  {
+   "v": "A",
+   "t": "Qu’est-ce qu’elle a de particulier ?"
+  },
+  {
+   "v": "B",
+   "t": "[thoughtful] Elle ne touche qu’une configuration précise : Linux avec musl, une bibliothèque de base très légère, et sans PAM, le mécanisme d’authentification habituel. C’est justement une configuration courante des images embarquées, comme Yocto, Buildroot ou Alpine. Dans ce cas, pour un compte verrouillé, un mot de passe de plus de deux cent cinquante-sept caractères suffit pour entrer."
+  },
+  {
+   "v": "A",
+   "t": "Un compte verrouillé qui s’ouvre avec un mot de passe très long… c’est un peu absurde."
+  },
+  {
+   "v": "B",
+   "t": "C’est l’image d’une porte fermée à clé qui s’ouvre si l’on tape assez longtemps sur la serrure. OpenSSH a publié le cinq novembre une version qui contourne le problème, la dix point six p deux."
+  },
+  {
+   "v": "A",
+   "t": "Que doit faire un fabricant ?"
+  },
+  {
+   "v": "B",
+   "t": "D’abord, chercher dans ses SBOM, la liste des ingrédients de ses logiciels, si ses produits associent musl, OpenSSH et l’absence de PAM. Le CERT-FR recommande de désactiver l’authentification par mot de passe ou, à défaut, le service, et rappelle qu’un correctif exige de redémarrer le service. Et pour un produit qui relève du CRA, une vulnérabilité exploitée se déclare à l’ENISA."
+  },
+  {
+   "sujet": "OpenSSH : et FreeSWITCH",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Le même jour, la CISA a ajouté une autre faille à son catalogue, je crois ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, dans FreeSWITCH, une plateforme de téléphonie open source qu’on peut retrouver dans des passerelles de communication. Un correspondant pouvait, par la messagerie, faire exécuter des commandes, y compris du système d’exploitation. La version un point onze point trois la corrige ; en attendant, le projet propose de désactiver la messagerie."
+  },
+  {
+   "v": "A",
+   "t": "Deux failles exploitées dans des composants qu’on n’a pas écrits soi-même, en une seule journée."
+  },
+  {
+   "v": "B",
+   "t": "C’est tout l’intérêt de savoir précisément ce que contiennent ses produits : sans inventaire, on ne peut ni corriger vite, ni décider s’il faut déclarer."
+  },
+  {
+   "sujet": "Export : la règle des affiliés repoussée",
+   "court": "Export",
+   "long": "Export : règle des affiliés",
+   "elements": [
+    "Mise à jour, règle des affiliés du BIS :"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "La semaine dernière, on attendait le retour de la règle des affiliés pour le dix novembre. Finalement ?"
+  },
+  {
+   "v": "B",
+   "t": "Finalement, non. Le BIS, le service américain du contrôle des exportations, a publié le neuf novembre une règle qui prolonge la suspension jusqu’au dix janvier deux mille vingt-sept."
+  },
+  {
+   "v": "A",
+   "t": "Rappelle-nous ce que dit cette règle."
+  },
+  {
+   "v": "B",
+   "t": "Elle étendrait les restrictions de l’Entity List, la liste américaine des entités soumises à restrictions, à toutes les sociétés détenues à cinquante pour cent ou plus par des entités inscrites, même si ces filiales ne figurent pas elles-mêmes sur la liste. Selon les cabinets Baker McKenzie et Nixon Peabody, la prolongation suit celle de la trêve commerciale entre les États-Unis et la Chine."
+  },
+  {
+   "v": "A",
+   "t": "Donc on a deux mois de répit."
+  },
+  {
+   "v": "B",
+   "t": "[exhales] Deux mois, oui, mais l’échéance glisse sans disparaître. Le filtrage des clients, des distributeurs et des sous-traitants doit pouvoir remonter la chaîne de détention. Sans nouvelle prolongation, des livraisons, des mises à jour logicielles ou de l’assistance technique relevant du droit américain des exportations pourraient exiger une licence."
+  },
+  {
+   "sujet": "Défense : les transferts dans l’UE",
+   "court": "Transferts UE",
+   "long": "Transferts de défense dans l’UE",
+   "elements": [
+    "Mise à jour, Omnibus défense : la direct"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On reste sur l’export, mais côté européen, avec une directive publiée."
+  },
+  {
+   "v": "B",
+   "t": "La directive deux mille vingt-six barre deux mille trois cent quatre-vingt-trois a été publiée au Journal officiel le trois novembre. Elle simplifie les transferts de produits de défense entre pays de l’Union, et entre en vigueur le vingt-trois novembre."
+  },
+  {
+   "v": "A",
+   "t": "Qu’est-ce qui change pour le logiciel ?"
+  },
+  {
+   "v": "B",
+   "t": "Les licences générales de transfert s’appliqueront aussi aux transferts immatériels de logiciels et de technologie, par exemple un envoi de code à un partenaire européen. Et une nouvelle licence générale couvre les transferts entre entreprises certifiées."
+  },
+  {
+   "v": "A",
+   "t": "C’est applicable tout de suite ?"
+  },
+  {
+   "v": "B",
+   "t": "Non. Les États membres ont jusqu’au vingt-quatre novembre deux mille vingt-sept pour transposer le texte. D’ici là, le régime français actuel s’applique. L’industriel peut déjà recenser ses transferts de logiciels vers ses partenaires et vérifier s’il est certifié, car cela pourrait lui ouvrir des transferts sans licence individuelle."
+  },
+  {
+   "sujet": "Zarf : livrer en milieu isolé",
+   "court": "Zarf",
+   "long": "Zarf : livraison en milieu isolé",
+   "elements": [
+    "Zarf 1.0 : annoncée le 9 novembre 2026 p"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Un mot d’outil pour finir ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, Zarf. L’OpenSSF, une fondation de la sécurité open source, a annoncé le neuf novembre sa version un point zéro. C’est un outil open source qui sert à livrer des logiciels dans des environnements coupés d’Internet. On prépare le paquet sur un poste connecté, puis on le déploie sans connexion."
+  },
+  {
+   "v": "A",
+   "t": "Ça parle à beaucoup de gens dans la défense, ça."
+  },
+  {
+   "v": "B",
+   "t": "Sans doute. L’outil joint au paquet une liste de ses composants, qui le suit partout où il est déplacé, et il signe les paquets. Attention toutefois : le dix novembre, seule une version candidate était publiée, et le nouveau format des paquets pourrait imposer de convertir les paquets existants."
+  },
+  {
+   "sujet": "Date à retenir",
+   "court": "Agenda",
+   "long": "Date à retenir",
+   "elements": [
+    "Décembre 2026 Application, le 1er décemb"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu’une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Le premier décembre : Singapour applique sa nouvelle liste des biens et technologies stratégiques. Une technologie contrôlée envoyée par courriel depuis Singapour, ou mise à disposition sur un ordinateur là-bas, est un transfert contrôlé : les classements sont à revoir avant cette date."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "C’est tout pour ce numéro six. Toutes les sources sont dans la revue écrite."
+  },
+  {
+   "v": "B",
+   "t": "Merci de nous avoir écoutés, et à mardi prochain."
+  }
+ ]
+}
