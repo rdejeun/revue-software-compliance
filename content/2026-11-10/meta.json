@@ -1,0 +1,28 @@
+{
+ "n": 6,
+ "date_iso": "2026-11-10",
+ "date_long": "Mardi 10 novembre 2026",
+ "date": "10 novembre 2026",
+ "site": "https://revue.dejeun.es/",
+ "toc": [
+  "À la une",
+  "SBOM et normes",
+  "Outils",
+  "Chaîne d’approvisionnement",
+  "Commerce international",
+  "France et UE",
+  "Licences",
+  "Agenda"
+ ],
+ "redaction": "Anthropic Claude Opus 5.5",
+ "agenda_refs": [
+  "https://sanctionsnews.bakermckenzie.com/eu-commission-adopts-2026-delegated-regulation-updating-annex-i-of-the-eu-dual-use-regulation/",
+  "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+  "https://www.federalregister.gov/documents/2026/10/01/2026-20079/international-traffic-in-arms-regulations-itar-review-of-the-us-munitions-list-and-related",
+  "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+  "https://www.gov.uk/government/publications/notice-to-exporters-202624-proposed-amendments-to-uk-strategic-export-controls/notice-to-exporters-202624-proposed-amendments-to-uk-strategic-export-controls",
+  "https://www.wolftheiss.com/insights/software-digital-products-and-ai-stricter-safety-requirements-on-the-horizon/",
+  "https://www.govinfo.gov/content/pkg/FR-2026-11-09/html/2026-22793.htm",
+  "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+ ]
+}

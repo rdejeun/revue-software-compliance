@@ -1,0 +1,83 @@
+{
+ "duree_s": 434,
+ "octets": 3619938,
+ "mots": 1245,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-11-10T03:59:43Z",
+ "sha_script": "4e83f5602c7716e298becda2431128adcf027e4aa692195473fc62eb1441f4d9",
+ "extrait": false,
+ "repliques": 44,
+ "prononciation": "dictionnaire ElevenLabs 4FNIlLfSPW0KgijwpX0d",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "10.7 → 1.0 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 65 → 24 ms, B 23 → 21 ms",
+  "Durée": "421.8 s (blocs : 422.1 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "9.0 % de mots différents sur 1317"
+ },
+ "requetes": 7,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "Réfrigération sabotée : le CRA rappelé",
+   "court": "Réfrigération",
+   "debut_s": 28.2,
+   "long": "Réfrigération et CRA"
+  },
+  {
+   "titre": "OpenSSH : une faille dans l’embarqué",
+   "court": "OpenSSH",
+   "debut_s": 141.9,
+   "long": "OpenSSH : faille exploitée"
+  },
+  {
+   "titre": "Export : la règle des affiliés repoussée",
+   "court": "Export",
+   "debut_s": 258.9,
+   "long": "Export : règle des affiliés"
+  },
+  {
+   "titre": "Défense : les transferts dans l’UE",
+   "court": "Transferts UE",
+   "debut_s": 317.2,
+   "long": "Transferts de défense dans l’UE"
+  },
+  {
+   "titre": "Zarf : livrer en milieu isolé",
+   "court": "Zarf",
+   "debut_s": 367.1,
+   "long": "Zarf : livraison en milieu isolé"
+  },
+  {
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 403.9,
+   "long": "Date à retenir"
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 421.9
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "94e3957cd619"
+}

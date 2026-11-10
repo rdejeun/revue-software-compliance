@@ -1,0 +1,133 @@
+[
+ {
+  "id": "e5.0",
+  "article": "Réfrigération : les autorités européennes rappellent la déclaration du CRA",
+  "message": "Quand un produit est attaqué, son fabricant doit le déclarer aux autorités européennes, même si le client signale aussi l’incident.",
+  "repere": "une grande vitrine réfrigérée de supermarché, d’où s’échappe de la vapeur chaude ; boîte aux lettres européenne (couronne d’étoiles) ; étiquette « CRA » ajoutée par nous",
+  "action": "le fabricant, en blouse, glisse en hâte un formulaire dans la boîte aux lettres européenne devant la vitrine qui fume",
+  "brief": "Very simple wide scene, thick bold outlines, only three huge shapes. Left: one large refrigerated display case drawn from the side, with big orange heat waves rising from its top (no small objects). Right: a big tall mailbox with a large ring of stars on its front. Centre: an engineer in a work coat, face fully drawn with worried eyebrows, pushes one big sheet of paper into the mailbox slot. No background. Orange only on the heat waves and the ring of stars.",
+  "alt": "Un fabricant glisse en hâte une déclaration dans une boîte aux lettres européenne « CRA », devant une vitrine réfrigérée qui fume.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "CRA",
+    "point": [
+     0.8,
+     0.55
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2
+ },
+ {
+  "id": "e8.0",
+  "article": "CRA : l’industrie demande la citation rapide des normes EN IEC 62443",
+  "message": "Les industriels attendent que l’Europe reconnaisse vite les normes qu’ils appliquent déjà.",
+  "repere": "un gros classeur de normes à couverture vierge, légendé « IEC 62443 » par nous ; un guichet avec la couronne d’étoiles de l’UE",
+  "action": "une file d’industriels tend le classeur au guichet européen, l’employé n’a pas encore pris son tampon",
+  "brief": "Simple scene, thick bold outlines. A counter window with a large ring of stars above it. Behind the counter, a clerk holds a big rubber stamp raised but not yet used, thinking. In front, three industrial workers in hard hats queue; the first one holds out a huge thick binder with a large blank white cover. Faces fully drawn: the workers hopeful and a bit impatient, the clerk pensive. No background details. Orange on the stamp and on the ring of stars.",
+  "alt": "Des industriels tendent un classeur « IEC 62443 » au guichet européen, où l’employé tient son tampon sans l’avoir encore apposé.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "IEC 62443",
+    "point": [
+     0.3,
+     0.55
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2
+ },
+ {
+  "id": "e14.0",
+  "article": "OpenSSH : une faille exploitée sur les systèmes embarqués musl sans PAM",
+  "message": "Un compte censé être verrouillé s’ouvre avec un mot de passe très long sur certains équipements embarqués.",
+  "repere": "une porte blindée avec un gros cadenas fermé, étiquette « SSH » ajoutée par nous",
+  "action": "un cambrioleur déroule un mot de passe interminable, comme un ruban de papier, et la porte s’ouvre malgré le cadenas fermé",
+  "brief": "Very simple square scene, thick bold outlines, three big shapes. A big heavy door standing open, with a huge closed padlock hanging on its latch (orange padlock). In front, a masked burglar with a fully drawn grinning face holds up a huge key-shaped long paper strip that reaches from his hand to the door lock, ending in a big orange keyhole. No asterisks, no tiny details, no background.",
+  "alt": "Un cambrioleur déroule un mot de passe interminable et la porte « SSH » s’ouvre, bien que son cadenas reste fermé.",
+  "format": "1:1",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "SSH",
+    "point": [
+     0.5,
+     0.12
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "fichier": "illustrations/e14.0.svg",
+  "source": "e14.0-3.svg"
+ },
+ {
+  "id": "e11.1",
+  "article": "Zarf 1.0 : livrer des logiciels en milieu isolé",
+  "message": "On prépare le logiciel en ligne puis on le livre, avec sa liste de composants, dans un lieu coupé d’Internet.",
+  "repere": "une grande caisse de livraison avec un bordereau (liste de composants) agrafé dessus, devant une porte de bunker ; étiquette « Zarf » ajoutée par nous",
+  "action": "un livreur pousse la caisse sur un diable à travers la porte du bunker, un garde vérifie le bordereau",
+  "brief": "Wide simple scene, thick bold outlines. A thick bunker door open in a concrete wall, no cables, no antenna. A delivery man pushes a hand truck carrying a big wooden crate with a large blank white label and a long checklist sheet stapled to its side. A guard at the door reads the checklist and nods. Faces fully drawn, both calm and satisfied. No background details. Orange on the crate label border and on the checklist.",
+  "alt": "Un livreur fait entrer dans un bunker une caisse « Zarf » accompagnée de sa liste de composants, qu’un garde vérifie.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "Zarf",
+    "point": [
+     0.45,
+     0.5
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "fichier": "illustrations/e11.1.svg",
+  "source": "e11.1-1.svg"
+ },
+ {
+  "id": "e20.0",
+  "article": "Transferts intra-UE de produits de défense : la directive 2026/2383 publiée",
+  "message": "Les logiciels de défense pourront circuler plus facilement entre pays européens, même quand ils voyagent sans support physique.",
+  "repere": "une frontière intérieure européenne avec une barrière levée et la couronne d’étoiles de l’UE",
+  "action": "un ingénieur envoie un avion en papier marqué d’un engrenage au-dessus de la barrière levée vers un collègue qui l’attrape",
+  "brief": "Wide simple scene, thick bold outlines. A border barrier, raised, with a big ring of stars on a post. On the left, an engineer throws a large paper plane with a gear symbol on its wing; on the right, a colleague catches it, smiling. Faces fully drawn, both cheerful. No border guards, no background. Orange on the paper plane and the ring of stars.",
+  "alt": "Au-dessus d’une barrière levée frappée des étoiles de l’UE, un ingénieur lance un avion en papier qu’un collègue attrape.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [],
+  "candidats": 2,
+  "fichier": "illustrations/e20.0.svg",
+  "source": "e20.0-1.svg"
+ },
+ {
+  "id": "e20.1",
+  "article": "Loi Résilience : l’examen en séance commence à l’Assemblée nationale",
+  "message": "Après des mois d’attente, les députés examinent enfin la loi qui transpose NIS2.",
+  "repere": "la tribune de l’Assemblée nationale avec un épais dossier à couverture vierge, légendé « NIS2 » par nous",
+  "action": "un huissier dépoussière le dossier et le pose enfin sur la tribune devant un député qui retrousse ses manches",
+  "brief": "Very simple square scene, thick bold outlines, two big characters. Left: a politician in a suit at a lectern, mouth open mid-speech, with a huge thick orange-bound law book on the lectern. Right: an opponent at a second lectern, fists on the table, frowning, mouth open shouting. Faces fully drawn and expressive. No smoke, no tiny objects, no background. Orange only on the law book.",
+  "alt": "Un huissier dépoussière le dossier « NIS2 » et le pose sur la tribune, où un député retrousse ses manches.",
+  "format": "1:1",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "NIS2",
+    "point": [
+     0.45,
+     0.5
+    ],
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "fichier": "illustrations/e20.1.svg",
+  "source": "e20.1-3.svg"
+ }
+]

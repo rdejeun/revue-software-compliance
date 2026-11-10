@@ -1,1 +1,118 @@
-[]
+[
+ {
+  "sujet": "bee-js : version piégée publiée par la chaîne légitime (Socket)",
+  "mis_en_reserve": "2026-11-10",
+  "rubrique": "Chaîne d’approvisionnement",
+  "cote": [
+   2,
+   1,
+   2
+  ],
+  "fiabilite": "C",
+  "item": [
+   {
+    "t": "bee-js : le 9 novembre 2026, une version 13.3.0 piégée de cette bibliothèque npm du projet Ethersphere a été publiée par la propre chaîne de publication du projet, sans étape d’approbation ; selon Socket, la provenance ne permettait pas de la distinguer d’une version légitime ; npm l’a retirée après environ 75 minutes"
+   },
+   {
+    "t": " ("
+   },
+   {
+    "t": "Socket",
+    "href": "https://socket.dev/blog/bee-js-compromise",
+    "type": "editeur"
+   },
+   {
+    "t": ")."
+   }
+  ],
+  "attrs": {
+   "date": "2026-11-09",
+   "rappel": false,
+   "themes": [
+    "chaine"
+   ],
+   "fiabilite": "C",
+   "cote": [
+    2,
+    1,
+    2
+   ]
+  },
+  "sum": {
+   "titre": "bee-js : une version piégée, publiée par la chaîne légitime",
+   "statut": "Version 13.3.0 retirée de npm environ 75 minutes après sa publication, le 9 novembre 2026",
+   "fonctions": "Ingénierie logicielle, PSIRT, achats",
+   "essentiel": "Selon l’analyse de Socket publiée le 9 novembre 2026, la chaîne de publication d’Ethersphere a produit une version piégée de la bibliothèque bee-js (13.3.0) et de l’application Swarm Desktop (0.56.2). Le flux de travail ne vérifiait pas que le commit publié appartenait à la branche protégée, et le déploiement est passé de la création au succès en 73 secondes, sans étape d’approbation. La version macOS était signée avec l’identifiant de développeur du projet et notariée par Apple. npm a retiré la version 13.3.0 environ 75 minutes après sa publication.",
+   "contexte": "La signature des versions et les attestations de provenance se généralisent dans les registres de paquets. Selon Socket, la publication de confiance (*{en}trusted publishing*) et la provenance signent fidèlement tout ce que le flux de travail construit.",
+   "impact_avere": "La provenance dit d’où vient un paquet, pas qu’il est sain : ==elle ne remplace pas== le contrôle des branches et l’approbation des publications.",
+   "impact_potentiel": "Un fabricant qui accepte automatiquement les composants signés pourrait intégrer une version piégée publiée par la chaîne légitime d’un projet.",
+   "a_verifier": [
+    "Nos règles d’intégration acceptent-elles une version au seul motif qu’elle est signée ?",
+    "Nos propres flux de publication exigent-ils une approbation humaine ?"
+   ],
+   "papier": "L’attaque a aussi touché l’application Swarm Desktop 0.56.2, dont la version macOS était signée avec l’identifiant de développeur du projet et notariée par Apple.\n\nLe défaut tenait au flux de travail : rien ne vérifiait que le commit publié appartenait à la branche protégée, et le déploiement est passé de la création au succès en 73 secondes. {{2|La publication de confiance et la provenance signent fidèlement tout ce que le flux construit.}}\n\nLe fabricant ne doit pas accepter un composant au seul motif qu’il est signé, et doit imposer une approbation dans ses propres publications. {{1|Une version piégée publiée par la chaîne légitime d’un projet pourrait sinon entrer dans un produit.}}"
+  },
+  "motif": "budget de lecture et place de la version imprimable"
+ },
+ {
+  "sujet": "Trivy 0.76.2 : images officielles reconstruites",
+  "mis_en_reserve": "2026-11-10",
+  "rubrique": "Outils",
+  "cote": [
+   1,
+   2,
+   3
+  ],
+  "fiabilite": "B",
+  "item": [
+   {
+    "t": "Trivy",
+    "href": "https://github.com/aquasecurity/trivy",
+    "type": "projet"
+   },
+   {
+    "t": " 0.76.2 : publiée le 5 novembre 2026, cette version corrective du scanneur d’Aqua Security reconstruit ses images officielles sur Alpine 3.24.3, qui corrige musl, et intègre une libcurl corrigée de 24 vulnérabilités"
+   },
+   {
+    "t": " ("
+   },
+   {
+    "t": "Trivy, version 0.76.2",
+    "href": "https://github.com/aquasecurity/trivy/releases/tag/v0.76.2"
+   },
+   {
+    "t": ")."
+   }
+  ],
+  "attrs": {
+   "date": "2026-11-05",
+   "rappel": false,
+   "themes": [
+    "sca"
+   ],
+   "fiabilite": "B",
+   "cote": [
+    1,
+    2,
+    3
+   ]
+  },
+  "sum": {
+   "titre": "Trivy 0.76.2 : des images officielles corrigées",
+   "statut": "Version corrective publiée le 5 novembre 2026",
+   "fonctions": "Ingénierie logicielle, PSIRT",
+   "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — Trivy demande normalement une connexion ; ses bases peuvent être hébergées dans un registre interne et l’option --offline-scan évite les accès au réseau.",
+   "licence": "Open source : Apache-2.0.",
+   "essentiel": "La version 0.76.2 de Trivy, publiée le 5 novembre 2026, reconstruit les images de conteneurs officielles de l’outil sur Alpine 3.24.3, qui corrige les paquets musl et musl-utils. La compilation intègre une libcurl corrigée de 24 vulnérabilités, dont une de gravité haute. La version met aussi à jour la bibliothèque réseau golang.org/x/net.",
+   "contexte": "Trivy est le scanneur open source de vulnérabilités, de configurations et de SBOM d’Aqua Security. Selon sa documentation, il demande normalement une connexion à Internet, mais ses bases peuvent être hébergées dans un registre interne pour un environnement isolé.",
+   "impact_avere": "Une chaîne qui exécute Trivy depuis ses images officielles doit les mettre à jour pour ne pas embarquer les versions vulnérables de musl et de libcurl.",
+   "impact_potentiel": "Un outil d’analyse lui-même vulnérable pourrait devenir un point d’entrée dans la chaîne de construction.",
+   "a_verifier": [
+    "Exécutons-nous Trivy depuis ses images officielles ou depuis un binaire ?",
+    "Nos miroirs internes de bases de vulnérabilités sont-ils à jour ?"
+   ],
+   "papier": "La compilation intègre une libcurl corrigée, dont une vulnérabilité de gravité haute. {{3|La bibliothèque réseau du langage Go est aussi mise à jour.}}\n\nSelon sa documentation, l’outil demande normalement une connexion à Internet, mais ses bases peuvent être hébergées dans un registre interne pour un environnement isolé.\n\nUne chaîne qui exécute l’outil depuis ses images officielles doit les mettre à jour. {{1|Un outil d’analyse vulnérable pourrait devenir un point d’entrée dans la chaîne de construction.}}"
+  },
+  "motif": "budget de lecture et place de la version imprimable"
+ }
+]

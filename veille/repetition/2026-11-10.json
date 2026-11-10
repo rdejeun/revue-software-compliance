@@ -1,0 +1,164 @@
+{
+ "date": "2026-11-10",
+ "commit": "94e3957cd6190795312582bd1a427cfcee6c3873",
+ "le": "2026-11-10T03:44:21Z",
+ "verdict": "verte",
+ "motifs": [],
+ "script": "067f350475710244f189140a2c27170ff32b6e86ba331f71e36bca75de3dc8b4",
+ "sources": "cc4897149271acfe5c4d0ba0a78569903e563e30b585abc00d9282cacb18e7c9",
+ "controle": {
+  "code": 0,
+  "erreurs": [],
+  "avertissements": [
+   "agenda, ligne 5 : synthèse de 139 mots (170 à 245 visés)",
+   "« Normes IEC 62443 : le 6 novembre 2026, 23 organisations, don… » : fait juridique sans source officielle (README, § 3)",
+   "« Sylva : dans un billet de l’OpenSSF du 6 novembre 2026, ce p… » : fait juridique sans source officielle (README, § 3)",
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Lien non vérifiable ([Errno 101] Network is unreachable) : https://www.gnu.org/",
+   "Lien non vérifiable ([Errno 104] Connection reset by peer) : https://www.gnu.org/licenses/",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 12, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 16, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 19, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 23, https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 124, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 126, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 128, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 153, https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 193, https://raw.githubusercontent.com/andybalholm/brotli/master/README.md",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 322, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 323, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 325, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 395, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 428, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 429, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 430, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 431, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 432, https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-11-10",
+  "echecs": 0,
+  "extraits_retrouves": 425,
+  "illisibles": [
+   {
+    "affirmation": 12,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 13,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 16,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 19,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 23,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-09/Terms%20and%20conditions%20CRA%20SRP%20v1.0%2020260910.pdf"
+   },
+   {
+    "affirmation": 124,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 126,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 128,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 153,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf"
+   },
+   {
+    "affirmation": 193,
+    "raison": "page vide ou protégée",
+    "url": "https://raw.githubusercontent.com/andybalholm/brotli/master/README.md"
+   },
+   {
+    "affirmation": 322,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 323,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 325,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 395,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 428,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 429,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 430,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 431,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   },
+   {
+    "affirmation": 432,
+    "raison": "PDF",
+    "url": "https://www.cert.cyber.gouv.fr/uploads/CERTFR-2026-CTI-009.pdf"
+   }
+  ],
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-11-10 : 44 répliques, 1245 mots (≈ 8 min)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-11-10 : 44 répliques, 1245 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (1601 caractères) : Ouverture, Réfrigération sabotée : le CRA rappelé\n  requête 2/7 (914 caractères) : Réfrigération : et pour nous ?\n  requête 3/7 (1525 caractères) : OpenSSH : une faille dans l’embarqué\n  requête 4/7 (669 caractères) : OpenSSH : et FreeSWITCH\n  requête 5/7 (1085 caractères) : Export : la règle des affiliés repoussée\n  requête 6/7 (1675 caractères) : Défense : les transferts dans l’UE, Zarf : livrer en milieu isolé\n  requête 7/7 (452 caractères) : Date à retenir, Clôture\n2026-11-10 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-10/out/episode.m4a (9.3 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-10/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-11-10",
+  "besoin": 9516,
+  "reste": 45326,
+  "raz": "04/12/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 307
+}

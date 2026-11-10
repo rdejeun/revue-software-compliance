@@ -54,6 +54,11 @@
     "poids": 1
    },
    {
+    "date": "2026-11-04",
+    "texte": "Déclaration commune de la Commission, de l’ENISA, d’Europol et des réseaux de crise sur les incidents des systèmes de réfrigération ; rappel de la déclaration CRA",
+    "poids": 1
+   },
+   {
     "date": "2026-12",
     "libelle": "T4 2026",
     "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC",
@@ -98,6 +103,11 @@
     "date": "2026-10-22",
     "texte": "L’ENISA publie un guide technique pour l’adoption du SBOM, non contraignant",
     "poids": 1
+   },
+   {
+    "date": "2026-11-06",
+    "texte": "23 organisations demandent la citation rapide des normes EN IEC 62443 au titre du CRA",
+    "poids": 1
    }
   ],
   "recherche": "SBOM et nomenclatures"
@@ -141,6 +151,11 @@
     "date": "2026-10-29",
     "texte": "Une version piégée de l’extension Claude Code pour VS Code est servie par la place de marché de Cursor",
     "poids": 1
+   },
+   {
+    "date": "2026-11-09",
+    "texte": "La CISA inscrit au catalogue KEV une faille d’OpenSSH propre aux systèmes Linux musl sans PAM",
+    "poids": 2
    }
   ]
  },
@@ -187,9 +202,29 @@
     "poids": 1
    },
    {
+    "date": "2026-11-03",
+    "texte": "Omnibus défense : publication au JO de la directive (UE) 2026/2383 sur les transferts intra-UE de produits de défense",
+    "poids": 3
+   },
+   {
+    "date": "2026-11-23",
+    "texte": "Entrée en vigueur de la directive (UE) 2026/2383 (transferts intra-UE)",
+    "poids": 3
+   },
+   {
     "date": "2026-12",
     "libelle": "Début décembre 2026",
     "texte": "Royaume-Uni : entrée en vigueur prévue des listes de contrôle mises à jour",
+    "poids": 3
+   },
+   {
+    "date": "2026-12-01",
+    "texte": "Singapour : application du Strategic Goods (Control) Order 2026",
+    "poids": 2
+   },
+   {
+    "date": "2027-11-24",
+    "texte": "Date limite de transposition de la directive (UE) 2026/2383",
     "poids": 3
    }
   ]
@@ -201,14 +236,19 @@
   "reference": "EAR (BIS, département du Commerce) et ITAR (DDTC, département d’État)",
   "chronologie": [
    {
-    "date": "2026-11-10",
-    "texte": "Réimposition automatique de la règle des affiliés du BIS, sauf action du BIS",
+    "date": "2026-11-09",
+    "texte": "Le BIS prolonge jusqu’au 10 janvier 2027 la suspension de la règle des affiliés (règle finale publiée au Federal Register)",
     "poids": 3
    },
    {
     "date": "2026-11-30",
     "texte": "Fin des commentaires sur la révision de la liste USML proposée par le département d’État (ITAR)",
     "poids": 2
+   },
+   {
+    "date": "2027-01-10",
+    "texte": "Fin de la suspension de la règle des affiliés du BIS, sauf nouvelle prolongation",
+    "poids": 3
    }
   ]
  },
@@ -285,9 +325,14 @@
     "date": "2026-10-27",
     "texte": "La conférence des présidents de l’Assemblée nationale ne réinscrit pas la loi Résilience",
     "poids": 2
+   },
+   {
+    "date": "2026-11-09",
+    "texte": "Début de l’examen en séance publique de la loi Résilience à l’Assemblée nationale (jusqu’au 13 novembre)",
+    "poids": 2
    }
   ],
-  "statut": "Projet de loi de transposition (NIS2, DORA, REC) adopté par le Sénat le 12 mars 2025 ; examen en séance à l’Assemblée nationale retiré de l’ordre du jour le 6 octobre 2026, non réinscrit les 13, 20 et 27 octobre"
+  "statut": "Projet de loi de transposition adopté par le Sénat le 12 mars 2025 ; en séance publique à l’Assemblée nationale depuis le 9 novembre 2026"
  },
  "ai-act": {
   "nom": "AI Act",
