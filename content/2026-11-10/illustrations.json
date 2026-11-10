@@ -5,7 +5,7 @@
   "message": "Quand un produit est attaqué, son fabricant doit le déclarer aux autorités européennes, même si le client signale aussi l’incident.",
   "repere": "une grande vitrine réfrigérée de supermarché, d’où s’échappe de la vapeur chaude ; boîte aux lettres européenne (couronne d’étoiles) ; étiquette « CRA » ajoutée par nous",
   "action": "le fabricant, en blouse, glisse en hâte un formulaire dans la boîte aux lettres européenne devant la vitrine qui fume",
-  "brief": "Wide simple scene, thick bold outlines, very few big shapes. On the left, a big supermarket refrigerated display case with steam and heat waves rising from it, a melting ice cube on top. On the right, a tall mailbox with a large ring of stars on its front and a big blank white label. Between them, an engineer in a work coat hurries and slides a big sheet of paper into the mailbox slot; his face is fully drawn, worried eyebrows, determined mouth. No background, no small objects. Orange only on the heat waves and the ring of stars.",
+  "brief": "Very simple wide scene, thick bold outlines, only three huge shapes. Left: one large refrigerated display case drawn from the side, with big orange heat waves rising from its top (no small objects). Right: a big tall mailbox with a large ring of stars on its front. Centre: an engineer in a work coat, face fully drawn with worried eyebrows, pushes one big sheet of paper into the mailbox slot. No background. Orange only on the heat waves and the ring of stars.",
   "alt": "Un fabricant glisse en hâte une déclaration dans une boîte aux lettres européenne « CRA », devant une vitrine réfrigérée qui fume.",
   "format": "3:2",
   "texte": false,
@@ -49,7 +49,7 @@
   "message": "Un compte censé être verrouillé s’ouvre avec un mot de passe très long sur certains équipements embarqués.",
   "repere": "une porte blindée avec un gros cadenas fermé, étiquette « SSH » ajoutée par nous",
   "action": "un cambrioleur déroule un mot de passe interminable, comme un ruban de papier, et la porte s’ouvre malgré le cadenas fermé",
-  "brief": "Simple scene, thick bold outlines, few big shapes. A heavy door with a big closed padlock and a large blank white plate above it. The door swings open anyway. In front, a burglar with a mask unrolls a very long paper ribbon covered with simple asterisks that trails on the floor in loops; the burglar looks surprised and pleased. Fully drawn face. No background. Orange on the paper ribbon and on the padlock.",
+  "brief": "Very simple square scene, thick bold outlines, three big shapes. A big heavy door standing open, with a huge closed padlock hanging on its latch (orange padlock). In front, a masked burglar with a fully drawn grinning face holds up a huge key-shaped long paper strip that reaches from his hand to the door lock, ending in a big orange keyhole. No asterisks, no tiny details, no background.",
   "alt": "Un cambrioleur déroule un mot de passe interminable et la porte « SSH » s’ouvre, bien que son cadenas reste fermé.",
   "format": "1:1",
   "texte": false,
@@ -85,7 +85,9 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "fichier": "illustrations/e11.1.svg",
+  "source": "e11.1-1.svg"
  },
  {
   "id": "e20.0",
@@ -98,7 +100,9 @@
   "format": "3:2",
   "texte": false,
   "legendes": [],
-  "candidats": 2
+  "candidats": 2,
+  "fichier": "illustrations/e20.0.svg",
+  "source": "e20.0-1.svg"
  },
  {
   "id": "e20.1",
@@ -106,7 +110,7 @@
   "message": "Après des mois d’attente, les députés examinent enfin la loi qui transpose NIS2.",
   "repere": "la tribune de l’Assemblée nationale avec un épais dossier à couverture vierge, légendé « NIS2 » par nous",
   "action": "un huissier dépoussière le dossier et le pose enfin sur la tribune devant un député qui retrousse ses manches",
-  "brief": "Simple scene, thick bold outlines. A simple wooden speaker's lectern, on which an usher in a formal coat lays a huge thick folder with a large blank white cover, blowing dust off it; dust clouds and a cobweb on the folder. Next to the lectern, a member of parliament rolls up his sleeves, ready to work. Faces fully drawn: the usher relieved, the member determined. No background. Orange on the dust clouds and the folder edge.",
+  "brief": "Very simple square scene, thick bold outlines, two big characters. Left: a politician in a suit at a lectern, mouth open mid-speech, with a huge thick orange-bound law book on the lectern. Right: an opponent at a second lectern, fists on the table, frowning, mouth open shouting. Faces fully drawn and expressive. No smoke, no tiny objects, no background. Orange only on the law book.",
   "alt": "Un huissier dépoussière le dossier « NIS2 » et le pose sur la tribune, où un député retrousse ses manches.",
   "format": "1:1",
   "texte": false,
