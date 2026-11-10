@@ -63,7 +63,9 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "fichier": "illustrations/e14.0.svg",
+  "source": "e14.0-3.svg"
  },
  {
   "id": "e11.1",
@@ -124,6 +126,8 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "fichier": "illustrations/e20.1.svg",
+  "source": "e20.1-3.svg"
  }
 ]
