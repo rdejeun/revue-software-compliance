@@ -44,7 +44,7 @@
   },
   {
    "v": "B",
-   "t": "D’après le rapport du CERT-FR, le centre d’alerte de l’ANSSI, les paramètres de dégivrage ont été fixés à de hautes températures. Le rapport décrit aussi des scripts qui scannent et prennent le contrôle d’équipements industriels Schneider Electric, Siemens et Rockwell, avec Modbus, un vieux protocole très répandu dans l’industrie."
+   "t": "D’après le rapport du CERT-FR, le centre d’alerte de l’ANSSI, les paramètres de dégivrage ont été fixés à de hautes températures. Le rapport décrit aussi des scripts capables de scanner, d’accéder et de contrôler des équipements industriels Schneider Electric, Siemens et Rockwell, et l’usage de Modbus, un protocole industriel, pour des reconnaissances massives."
   },
   {
    "sujet": "Réfrigération : et pour nous ?",
@@ -137,7 +137,7 @@
   },
   {
    "v": "A",
-   "t": "La semaine dernière, on attendait le retour de la règle des affiliés pour le dix novembre. Finalement ?"
+   "t": "La suspension de la règle des affiliés devait prendre fin le neuf novembre. Finalement ?"
   },
   {
    "v": "B",
@@ -181,7 +181,7 @@
   },
   {
    "v": "B",
-   "t": "Les licences générales de transfert s’appliqueront aussi aux transferts immatériels de logiciels et de technologie, par exemple un envoi de code à un partenaire européen. Et une nouvelle licence générale couvre les transferts entre entreprises certifiées."
+   "t": "Les licences générales prévues pour les partenariats industriels entre entreprises de plusieurs pays de l’Union s’appliqueront aussi aux transferts immatériels de logiciels et de technologie. Et une nouvelle licence générale couvre les transferts entre entreprises certifiées."
   },
   {
    "v": "A",

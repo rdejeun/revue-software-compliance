@@ -174,7 +174,7 @@
     "titre": "Contrôleurs de réfrigération sabotés : la France attribue l’attaque à l’Iran",
     "statut": "Déclaration d’attribution du 9 novembre 2026 ; nouvelles sanctions de l’UE annoncées par la France, non adoptées",
     "fonctions": "PSIRT, ingénierie produit, contrôle des exportations et sanctions, direction",
-    "essentiel": "Selon la déclaration du ministère de l’Europe et des Affaires étrangères du 9 novembre 2026, l’attaque a causé d’importants dégâts matériels, des incendies et des pertes de denrées estimées à plusieurs dizaines de millions d’euros. La France l’attribue à une unité liée au centre cyber du Corps des gardiens de la révolution islamique. Le rapport CERTFR-2026-CTI-009 décrit des paramètres de dégivrage fixés à de hautes températures, le ciblage d’équipements Schneider Electric de petites installations hydroélectriques et des scripts qui scannent et contrôlent des équipements industriels Schneider Electric, Siemens et Rockwell par le protocole Modbus.",
+    "essentiel": "Selon la déclaration du ministère de l’Europe et des Affaires étrangères du 9 novembre 2026, l’attaque a causé d’importants dégâts matériels, des incendies et des pertes de denrées estimées à plusieurs dizaines de millions d’euros. La France l’attribue à une unité liée au centre cyber du Corps des gardiens de la révolution islamique. Le rapport CERTFR-2026-CTI-009 décrit des paramètres de dégivrage fixés à de hautes températures, le ciblage d’équipements Schneider Electric de petites installations hydroélectriques, des scripts permettant de scanner, d’accéder et de contrôler des équipements industriels Schneider Electric, Siemens et Rockwell, et l’usage du protocole Modbus pour des reconnaissances massives sur des systèmes Schneider Electric.",
     "contexte": "La France annonce qu’elle proposera à ses partenaires européens l’adoption de nouvelles sanctions contre les entités et les personnes impliquées, et qu’elle convoque l’ambassadeur d’Iran. Le CERT-FR publie le même jour son rapport sur ces activités.",
     "impact_avere": "Le cas montre que des contrôleurs industriels accessibles à distance peuvent être reprogrammés pour causer des dommages physiques : le fabricant doit vérifier ce qu’un attaquant peut modifier sur ses produits et ==documenter le durcissement attendu== chez le client.",
     "impact_potentiel": "Si de nouvelles sanctions de l’UE étaient adoptées, les listes de filtrage des clients, distributeurs et fournisseurs devraient être mises à jour.",
@@ -182,7 +182,7 @@
      "Nos produits acceptent-ils des commandes Modbus ou d’un autre protocole industriel depuis un réseau externe ?",
      "Nos guides de mise en service imposent-ils de modifier la configuration par défaut ?"
     ],
-    "papier": "L’attaque a causé des dégâts matériels, des incendies et des pertes de denrées estimées à plusieurs dizaines de millions d’euros. La France l’attribue à une unité liée au centre cyber du Corps des gardiens de la révolution islamique.\n\nLe rapport du CERT-FR décrit aussi des scripts qui scannent et prennent le contrôle d’équipements industriels Schneider Electric, Siemens et Rockwell par le protocole Modbus. {{2|Des équipements Schneider Electric de petites installations hydroélectriques ont été visés en même temps.}} {{3|La France convoque l’ambassadeur d’Iran.}}\n\nLe fabricant doit vérifier ce qu’un attaquant peut modifier à distance sur ses produits et documenter le durcissement attendu chez le client. {{1|La France proposera de nouvelles sanctions de l’UE ; si elles sont adoptées, les listes de filtrage devront suivre.}}"
+    "papier": "L’attaque a causé des dégâts matériels, des incendies et des pertes de denrées estimées à plusieurs dizaines de millions d’euros. La France l’attribue à une unité liée au centre cyber du Corps des gardiens de la révolution islamique.\n\nLe rapport du CERT-FR décrit aussi des scripts permettant de scanner, d’accéder et de contrôler des équipements industriels Schneider Electric, Siemens et Rockwell, et l’usage du protocole Modbus pour des reconnaissances massives. {{2|Des équipements Schneider Electric de petites installations hydroélectriques ont été visés en même temps.}} {{3|La France convoque l’ambassadeur d’Iran.}}\n\nLe fabricant doit vérifier ce qu’un attaquant peut modifier à distance sur ses produits et documenter le durcissement attendu chez le client. {{1|La France proposera de nouvelles sanctions de l’UE ; si elles sont adoptées, les listes de filtrage devront suivre.}}"
    },
    {
     "titre": "CRA : plateforme unique de déclaration de l’ENISA",
@@ -726,7 +726,7 @@
     "titre": "OSV-Scanner 2.7.1 : un mode hors ligne plus robuste",
     "statut": "Version corrective publiée le 9 novembre 2026",
     "fonctions": "Ingénierie logicielle, PSIRT, juridique (licences)",
-    "reseau": "Déconnecté (air-gapped) : fonctionnement complet sans Internet en mode hors ligne, qui compare le projet à une base locale au lieu d’interroger l’API d’OSV.dev ; la base se télécharge au préalable.",
+    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — en mode hors ligne, le projet est comparé à une base locale téléchargée au préalable ; l’analyse au niveau du commit n’y est pas prise en charge et le contrôle des licences, qui interroge l’API deps.dev, demande une connexion.",
     "licence": "Open source : Apache-2.0.",
     "essentiel": "La version 2.7.1 d’OSV-Scanner, publiée le 9 novembre 2026, continue de rapprocher les paquets des autres écosystèmes quand la base hors ligne de l’un d’eux échoue. Le serveur de rapports HTML lancé par l’option --serve n’écoute plus, par défaut, que l’interface locale (127.0.0.1). Les violations de licence sont désormais affichées pour les sources du système d’exploitation sans vulnérabilité. L’outil ne développe plus les variables d’environnement lues dans des fichiers .npmrc non fiables.",
     "contexte": "OSV-Scanner confronte les inventaires de dépendances à la base OSV. L’analyse hors ligne est une fonction officielle : elle compare le projet à une base locale au lieu d’appeler l’API d’OSV.dev.",
@@ -1007,7 +1007,7 @@
     "titre": "OpenSSH : une faille exploitée sur les systèmes embarqués musl sans PAM",
     "statut": "Vulnérabilité inscrite au catalogue KEV de la CISA le 9 novembre 2026 ; contournement dans OpenSSH portable 10.6p2 du 5 novembre 2026",
     "fonctions": "PSIRT, ingénierie logicielle et système, juridique (déclaration CRA), support client",
-    "essentiel": "La faille CVE-2026-123158 touche sshd dans les versions d’OpenSSH antérieures à 10.6p2, sous Linux, quand la bibliothèque musl est utilisée sans PAM. Selon l’annonce publiée sur oss-security, pour un compte dont le champ de mot de passe vaut « * », un mot de passe de plus de 257 caractères permet de se connecter, car la fonction crypt de musl renvoie alors « * ». La NVD lui attribue un score CVSS de 8,1. OpenSSH a publié le 5 novembre la version portable 10.6p2, qui contient un contournement ; la CISA l’a inscrite le 9 novembre dans son catalogue.",
+    "essentiel": "La faille CVE-2026-123158 touche sshd dans les versions d’OpenSSH antérieures à 10.6p2, sous Linux, quand la bibliothèque musl est utilisée sans PAM. Selon l’annonce publiée sur oss-security, pour un compte dont le champ de mot de passe vaut « * », un mot de passe de plus de 257 caractères permet de se connecter, car la fonction crypt de musl renvoie alors « * ». Le score CVSS publié par MITRE, repris par la NVD, est de 8,1. OpenSSH a publié le 5 novembre la version portable 10.6p2, qui contient un contournement ; la CISA l’a inscrite le 9 novembre dans son catalogue.",
     "contexte": "OpenSSH estime que la cause se trouve hors de sshd, mais qu’elle est exploitable par sshd et peut y être évitée ; le mainteneur de musl indique qu’il n’ajoute pas d’option de compilation pour changer un comportement. Selon Medcrypt, cette configuration est courante dans les images Yocto, Buildroot et Alpine de nombreux dispositifs médicaux connectés.",
     "impact_avere": "Le CERT-FR recommande de désactiver l’authentification par mot de passe ou, à défaut, le service, et rappelle que tout correctif exige un redémarrage de sshd. Pour un produit relevant du CRA, une vulnérabilité activement exploitée se déclare à l’ENISA.",
     "impact_potentiel": "Un équipement livré avec des comptes de service verrouillés et l’authentification par mot de passe active pourrait être ouvert à distance par quiconque atteint son port SSH.",
@@ -1016,13 +1016,13 @@
      "L’authentification par mot de passe est-elle active par défaut sur nos équipements ?",
      "Une alerte précoce est-elle due à l’ENISA pour un produit concerné ?"
     ],
-    "papier": "Pour un compte dont le champ de mot de passe vaut « * », un mot de passe de plus de 257 caractères suffit, car la fonction crypt de musl renvoie alors « * ». {{2|La NVD lui attribue un score de 8,1.}} {{3|OpenSSH situe la cause hors de sshd, mais a choisi de l’y contourner.}}\n\nCette configuration est courante dans les images Yocto, Buildroot et Alpine de nombreux dispositifs médicaux connectés. L’éditeur Medcrypt conseille de chercher dans le SBOM la présence de musl, la version d’OpenSSH et l’état de PAM.\n\nLe CERT-FR recommande de désactiver l’authentification par mot de passe ou, à défaut, le service ; tout correctif exige un redémarrage de sshd. Pour un produit relevant du CRA, la vulnérabilité exploitée se déclare à l’ENISA. {{1|Un équipement dont le port SSH est accessible pourrait être ouvert à distance.}}"
+    "papier": "Pour un compte dont le champ de mot de passe vaut « * », un mot de passe de plus de 257 caractères suffit, car la fonction crypt de musl renvoie alors « * ». {{2|Le score de gravité publié est de 8,1 sur 10.}} {{3|OpenSSH situe la cause hors de sshd, mais a choisi de l’y contourner.}}\n\nCette configuration est courante dans les images Yocto, Buildroot et Alpine de nombreux dispositifs médicaux connectés. L’éditeur Medcrypt conseille de chercher dans le SBOM la présence de musl, la version d’OpenSSH et l’état de PAM.\n\nLe CERT-FR recommande de désactiver l’authentification par mot de passe ou, à défaut, le service ; tout correctif exige un redémarrage de sshd. Pour un produit relevant du CRA, la vulnérabilité exploitée se déclare à l’ENISA. {{1|Un équipement dont le port SSH est accessible pourrait être ouvert à distance.}}"
    },
    {
     "titre": "FreeSWITCH : une faille d’injection de commandes exploitée",
     "statut": "Inscrite au catalogue KEV de la CISA le 9 novembre 2026 ; corrigée dans la version 1.11.3",
     "fonctions": "PSIRT, ingénierie logicielle, achats",
-    "essentiel": "La faille CVE-2026-116779 touche FreeSWITCH, pile de téléphonie logicielle open source. Selon la NVD, le choix du protocole de messagerie « api » menait à la fonction d’exécution des commandes de FreeSWITCH, ce qui permettait à un correspondant dont le message était accepté de lancer des commandes, y compris du système d’exploitation. La NVD indique qu’une exploitation a été observée et lui attribue un score de 9,8. L’avis du projet, publié le 28 octobre 2026, vise les versions 1.11.2 et antérieures et propose, en attendant la mise à jour, de désactiver la messagerie.",
+    "essentiel": "La faille CVE-2026-116779 touche FreeSWITCH, pile de téléphonie logicielle open source. Selon la NVD, le choix du protocole de messagerie « api » menait à la fonction d’exécution des commandes de FreeSWITCH, ce qui permettait à un correspondant dont le message était accepté de lancer des commandes, y compris du système d’exploitation. La description reprise par la NVD indique qu’une exploitation a été observée ; le score publié par GitHub est de 9,8. L’avis du projet, publié le 28 octobre 2026, vise les versions 1.11.2 et antérieures et propose, en attendant la mise à jour, de désactiver la messagerie.",
     "contexte": "Le correctif ajoute un paramètre, désactivé par défaut, qui autorise ce protocole. La CISA a inscrit la faille dans son catalogue le même jour que celle d’OpenSSH.",
     "impact_avere": "Un produit qui intègre FreeSWITCH, par exemple une passerelle de communication, doit être mis à jour ou durci ; ==la messagerie peut être désactivée== en attendant.",
     "impact_potentiel": "Si le composant est présent dans un produit relevant du CRA, son fabricant pourrait devoir déclarer la vulnérabilité exploitée à l’ENISA.",
@@ -1030,7 +1030,7 @@
      "Nos produits de communication intègrent-ils FreeSWITCH ?",
      "La messagerie y est-elle activée ?"
     ],
-    "papier": "Selon la NVD, le choix d’un protocole de messagerie menait à la fonction d’exécution des commandes de l’outil. {{2|Elle lui attribue un score de 9,8 et signale une exploitation observée.}}\n\nL’avis du projet, publié le 28 octobre, vise les versions 1.11.2 et antérieures. En attendant la mise à jour, il propose de désactiver la messagerie ; le correctif ajoute un paramètre, désactivé par défaut, qui autorise ce protocole.\n\nUn fabricant dont une passerelle de communication intègre ce composant doit la mettre à jour ou la durcir. {{1|Pour un produit relevant du CRA, une déclaration à l’ENISA pourrait être due.}}"
+    "papier": "Selon la NVD, le choix d’un protocole de messagerie menait à la fonction d’exécution des commandes de l’outil. {{2|Une exploitation a été observée ; le score de gravité publié est de 9,8 sur 10.}}\n\nL’avis du projet, publié le 28 octobre, vise les versions 1.11.2 et antérieures. En attendant la mise à jour, il propose de désactiver la messagerie ; le correctif ajoute un paramètre, désactivé par défaut, qui autorise ce protocole.\n\nUn fabricant dont une passerelle de communication intègre ce composant doit la mettre à jour ou la durcir. {{1|Pour un produit relevant du CRA, une déclaration à l’ENISA pourrait être due.}}"
    },
    {
     "titre": "zlib 1.4 : des failles corrigées dans une bibliothèque très répandue",
@@ -1333,7 +1333,7 @@
      "href": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
     },
     {
-     "t": " sur la simplification des transferts intra-UE de produits de défense a été publiée au Journal officiel le 3 novembre 2026 ; ses licences générales de transfert s’appliqueront aussi aux ==transferts immatériels de logiciels== et de technologie ; transposition au plus tard le 24 novembre 2027"
+     "t": " sur la simplification des transferts intra-UE de produits de défense a été publiée au Journal officiel le 3 novembre 2026 ; les licences générales prévues pour les partenariats industriels structurés entre entreprises de plusieurs États membres s’appliqueront aussi aux ==transferts immatériels de logiciels== et de technologie ; transposition au plus tard le 24 novembre 2027"
     },
     {
      "t": " ("
@@ -1399,7 +1399,7 @@
    ],
    [
     {
-     "t": "AI Act, normes harmonisées : selon le CEN-CENELEC, la demande de normalisation révisée fixe leur échéance à février 2027"
+     "t": "AI Act, normes harmonisées : selon un compte rendu publié par le CEN-CENELEC, la demande de normalisation révisée fixe leur échéance à février 2027"
     },
     {
      "t": " ("
@@ -1461,7 +1461,7 @@
     "titre": "Transferts intra-UE de produits de défense : la directive 2026/2383 publiée",
     "statut": "Publiée au JO le 3 novembre 2026 ; entrée en vigueur le 23 novembre 2026 ; transposition au plus tard le 24 novembre 2027, application le 24 février 2028",
     "fonctions": "Contrôle des exportations, juridique, programmes en coopération",
-    "essentiel": "La directive (UE) 2026/2383 du Parlement européen et du Conseil du 21 octobre 2026 modifie les directives 2009/43/CE, sur les transferts intra-UE de produits liés à la défense, et 2009/81/CE, sur les marchés publics de défense et de sécurité. Publiée au Journal officiel le 3 novembre 2026, elle entre en vigueur le vingtième jour suivant. Les licences générales de transfert s’appliquent aussi aux transferts immatériels de logiciels et de technologie ; une nouvelle licence générale couvre les transferts entre entreprises certifiées. Les États membres transposent au plus tard le 24 novembre 2027 et appliquent les mesures le 24 février 2028.",
+    "essentiel": "La directive (UE) 2026/2383 du Parlement européen et du Conseil du 21 octobre 2026 modifie les directives 2009/43/CE, sur les transferts intra-UE de produits liés à la défense, et 2009/81/CE, sur les marchés publics de défense et de sécurité. Publiée au Journal officiel le 3 novembre 2026, elle entre en vigueur le vingtième jour suivant. Les licences générales que les États membres publieront pour les transferts au sein d’un partenariat industriel structuré intra-UE s’appliquent aussi aux transferts immatériels de logiciels et de technologie ; une nouvelle licence générale couvre les transferts entre entreprises certifiées. Les États membres transposent au plus tard le 24 novembre 2027 et appliquent les mesures le 24 février 2028.",
     "contexte": "Le texte fait partie de l’Omnibus défense (Omnibus V), présenté par la Commission pour faciliter les investissements de défense ; le Conseil l’avait adopté le 9 octobre 2026. Selon la National Law Review, chaque État membre doit publier des licences générales pour trois catégories supplémentaires.",
     "impact_avere": "Jusqu’à la transposition, les transferts de logiciels et de données techniques de défense vers un autre État membre restent soumis au régime français actuel.",
     "impact_potentiel": "La certification de l’entreprise pourrait gagner en intérêt, puisqu’elle ouvrirait une licence générale pour les transferts entre entreprises certifiées.",
@@ -1475,7 +1475,7 @@
     "titre": "Loi Résilience : l’examen en séance commence à l’Assemblée nationale",
     "statut": "Première lecture à l’Assemblée nationale, en séance à partir du 9 novembre 2026 ; texte adopté par le Sénat le 12 mars 2025",
     "fonctions": "Juridique, sécurité des systèmes d’information, PSIRT, direction",
-    "essentiel": "Le projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité, qui transpose plusieurs directives européennes, dont NIS2, est discuté en séance publique à l’Assemblée nationale depuis le lundi 9 novembre 2026, sur le texte n° 1779-A0 de la commission spéciale ; 407 amendements ont été déposés. Selon LCP, le nombre de secteurs régulés passerait de six à 17, et celui des entités régulées de 500 à près de 15 000 ; les sanctions pourraient atteindre 10 millions d’euros ou 2 % du chiffre d’affaires mondial.",
+    "essentiel": "Le projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité, qui transpose plusieurs directives européennes, dont NIS2, est discuté en séance publique à l’Assemblée nationale depuis le lundi 9 novembre 2026, sur le texte n° 1779-A0 de la commission spéciale ; 407 amendements ont été déposés. Selon LCP, le nombre des entités régulées passerait de 500 à près de 15 000 ; les sanctions pourraient atteindre 10 millions d’euros ou 2 % du chiffre d’affaires mondial.",
     "contexte": "Le Gouvernement a engagé la procédure accélérée le 15 octobre 2024 et le Sénat a adopté le texte le 12 mars 2025. L’examen en séance, prévu en octobre 2026, avait été retiré de l’ordre du jour. Selon le cabinet Leto, l’examen court jusqu’au 13 novembre, hors 11 novembre, avant une éventuelle commission mixte paritaire.",
     "impact_avere": "Le texte n’est pas encore adopté : les obligations de NIS2 ne s’appliquent pas encore en droit français, mais leur contenu se précise au fil des amendements.",
     "impact_potentiel": "Une entreprise de défense régulée devrait appliquer des mesures de sécurité, y compris sur sa chaîne d’approvisionnement, et pourrait répercuter des exigences sur ses fournisseurs de logiciels.",
@@ -1483,7 +1483,7 @@
      "L’entreprise serait-elle entité essentielle ou importante ?",
      "Quelles exigences nos clients opérateurs pourraient-ils répercuter sur nos produits ?"
     ],
-    "papier": "Les députés travaillent sur le texte de leur commission spéciale. Adopté par le Sénat le 12 mars 2025, le projet avait été retiré de l’ordre du jour de l’Assemblée en octobre.\n\nSelon LCP, le nombre de secteurs régulés passerait de six à 17, et celui des entités régulées de 500 à près de 15 000. {{2|Les sanctions pourraient atteindre 10 millions d’euros ou 2 % du chiffre d’affaires mondial.}} {{3|Une éventuelle commission mixte paritaire devra ensuite accorder les deux chambres.}}\n\nL’industriel doit vérifier s’il serait entité essentielle ou importante et suivre les exigences que ses clients opérateurs pourraient lui répercuter. {{1|Les mesures de sécurité de la chaîne d’approvisionnement pourraient atteindre ses produits logiciels.}}"
+    "papier": "Les députés travaillent sur le texte de leur commission spéciale. Adopté par le Sénat le 12 mars 2025, le projet avait été retiré de l’ordre du jour de l’Assemblée en octobre.\n\nSelon LCP, le nombre des entités régulées passerait de 500 à près de 15 000. {{2|Les sanctions pourraient atteindre 10 millions d’euros ou 2 % du chiffre d’affaires mondial.}} {{3|Une éventuelle commission mixte paritaire devra ensuite accorder les deux chambres.}}\n\nL’industriel doit vérifier s’il serait entité essentielle ou importante et suivre les exigences que ses clients opérateurs pourraient lui répercuter. {{1|Les mesures de sécurité de la chaîne d’approvisionnement pourraient atteindre ses produits logiciels.}}"
    },
    {
     "titre": "Directive européenne sur la responsabilité du fait des produits : logiciel inclus",
@@ -1526,7 +1526,7 @@
   "k": "p",
   "i": [
    {
-    "t": "OpenChain publie un cadre de SBOM pour l’automobile qui exige la licence conclue et l’avis de copyright de chaque composant ; les contentieux Vizio et Bambu Lab restent ouverts."
+    "t": "OpenChain publie un cadre de SBOM pour l’automobile qui exige la licence conclue et l’avis de copyright de chaque composant ; le contentieux Vizio reste ouvert."
    }
   ]
  },
@@ -1881,7 +1881,7 @@
     "titre": "Directive (UE) 2026/2383 : entrée en vigueur",
     "statut": "Publiée au JO le 3 novembre 2026 ; entrée en vigueur le 23 novembre 2026 ; transposition au plus tard le 24 novembre 2027",
     "fonctions": "Contrôle des exportations, juridique",
-    "essentiel": "La directive (UE) 2026/2383, qui simplifie les transferts intra-UE de produits liés à la défense, entre en vigueur le vingtième jour suivant sa publication au Journal officiel du 3 novembre 2026, soit le 23 novembre 2026. Ses licences générales de transfert s’appliquent aussi aux transferts immatériels de logiciels et de technologie.",
+    "essentiel": "La directive (UE) 2026/2383, qui simplifie les transferts intra-UE de produits liés à la défense, entre en vigueur le vingtième jour suivant sa publication au Journal officiel du 3 novembre 2026, soit le 23 novembre 2026. Les licences générales prévues pour les partenariats industriels structurés intra-UE s’appliquent aussi aux transferts immatériels de logiciels et de technologie.",
     "contexte": "L’entrée en vigueur ne change pas encore les règles applicables aux entreprises : les États membres ont jusqu’au 24 novembre 2027 pour transposer la directive et doivent appliquer leurs mesures le 24 février 2028. La directive modifie les directives 2009/43/CE, sur les transferts de produits liés à la défense, et 2009/81/CE, sur les marchés publics de défense ; une nouvelle licence générale couvre les transferts entre entreprises certifiées.",
     "impact_avere": "Le régime français actuel des transferts intra-UE reste applicable jusqu’à la transposition.",
     "impact_potentiel": "La transposition française pourrait créer de nouvelles licences générales utiles aux transferts de logiciels et de données techniques entre partenaires européens.",
@@ -1961,7 +1961,7 @@
     "statut": "Date fixée par le règlement : 11 décembre 2027",
     "fonctions": "Ingénierie produit, qualité et certification, juridique, achats",
     "essentiel": "Le 11 décembre 2027, toutes les exigences du CRA deviennent applicables : exigences essentielles de cybersécurité, gestion des vulnérabilités, documentation technique, évaluation de la conformité et marquage CE. Les *{en}stewards* open source deviennent aussi soumis à l'obligation de déclaration.",
-    "contexte": "La Commission prépare des actes d'exécution et délégués. Selon l'ENISA, 79 % des organisations comptent être prêtes sur les SBOM avant l'échéance.",
+    "contexte": "Le règlement habilite la Commission à adopter des actes délégués et d'exécution. Selon l'ENISA, 79 % des organisations comptent être prêtes sur les SBOM avant l'échéance.",
     "impact_avere": "Les produits civils ou à double usage mis sur le marché à partir de cette date doivent être ==conformes dès leur conception==, ce qui concerne les développements en cours.",
     "impact_potentiel": "Les fournisseurs de composants logiciels pourraient devoir prouver leur propre conformité, ce qui ferait évoluer les clauses d'achat.",
     "a_verifier": [
