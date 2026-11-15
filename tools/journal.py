@@ -1271,7 +1271,7 @@ def bloc_lex(ed, M, n, longs=0):
             'th': M['h']['lex'], 'titre': ('lex',), 'wrap': False}
 
 
-def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
+def chercher(ed, M, cible=PAGES, largeur=int(os.environ.get('JOURNAL_LARGEUR', 200)), lex_libre=False, complet=False):
     """Recherche en faisceau, rubrique par rubrique, des réglages qui composent le journal sans défaut : Une, puis
     chaque rubrique (corps, interligne, portions facultatives, brèves omises), lexique en appoint, corps de l'agenda."""
     une, autres = une_autres(ed)

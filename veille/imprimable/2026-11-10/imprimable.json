@@ -6,7 +6,8 @@
  "remplissage": 1.0,
  "defauts": [],
  "remarques": [
-  "« France et UE » : colonne justifiée de 5.6 mm (page 3)"
+  "« France et UE » : colonne justifiée de 5.6 mm (page 3)",
+  "première page : 0 dessin(s) au lieu d'un seul (README, § 18)"
  ],
  "glossaire_mm": 61,
  "etat": {
@@ -80,5 +81,5 @@
   "ess_pt": 11.0,
   "colo_pt": 7.0
  },
- "empreinte": "b91f57eb56ab37fd"
+ "empreinte": "7ae248ccd0651e61"
 }
