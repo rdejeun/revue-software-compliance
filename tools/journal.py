@@ -37,7 +37,7 @@ MOIS = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août
 MOISC = ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.']
 NAVY, ACC, BRIQUE = '#0f2a4a', '#c2410c', '#9a3412'
 QR_BLEU = '#4b5f77'   # modules du code QR : bleu nuit estompé (les trois repères restent orange)
-VERSION = 'journal-41'   # à changer quand la mise en page change (invalide le cache)
+VERSION = 'journal-42'   # à changer quand la mise en page change (invalide le cache)
 
 
 RENVOI = re.compile(r'\s*\((?:voir|cf\.)\s+(?:aussi\s+)?(?:le|les)\s+(?:N°|numéros?)\s*[\d\s,et]+\)', re.I)   # « (voir le N° 1) »
@@ -1044,7 +1044,8 @@ def positions_ill(plan):
 def cout_repartition(plan):
     """Répartition des dessins (README, § 18) : deux dessins d'une même page ne partagent ni la colonne ni la bande
     horizontale ; la double page 2-3 se lit comme un seul espace (huit colonnes) : ses dessins s'étagent du haut en bas ;
-    deux dessins au plus par page, trois sur la double page ; un dessin hors de son titre coûte un peu."""
+    deux dessins au plus par page, trois sur la double page, un seul sur la première page ; un dessin hors de son titre
+    coûte un peu."""
     ps = positions_ill(plan)
     c = sum(8 for x in ps if not x[3])
     for a in range(len(ps)):
@@ -1062,7 +1063,15 @@ def cout_repartition(plan):
     for x in ps: par_page[x[0]] = par_page.get(x[0], 0) + 1
     c += sum(80 * max(0, n - 2) for n in par_page.values())
     c += 100 * max(0, par_page.get(1, 0) + par_page.get(2, 0) - 3)
+    c += COUT_PAGE1 * max(0, par_page.get(0, 0) - 1)   # première page : un dessin, pas deux
     return c
+
+
+COUT_PAGE1 = float(os.environ.get('JOURNAL_COUT_PAGE1', 600))   # première page sans dessin, ou avec plus d'un dessin
+
+
+def dessins_page1(plan):
+    return sum(1 for x in positions_ill(plan) if x[0] == 0)
 
 
 def mineur(t):
@@ -1320,9 +1329,13 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
                         y += H + G_APRES_UNE
                     etats.append(Etat(0, y, cout + cout_repartition(plan), plan, (None, D) if D else None, (fs, lh), False, geo, (('une', fs, lh, pos_une, pr_une), ('ag', ag))))
     lex_fin = bool(ed.get('sigles'))   # le lexique, en dernier, enveloppe l'agenda ; sans lexique, la dernière rubrique
+    a_dessins = bool(ed.get('illustrations'))
+    def sans_dessin_p1(s_):
+        """Première page close sans aucun dessin, alors que l'édition en a : coût (README, § 18)."""
+        return COUT_PAGE1 if a_dessins and s_.p > 0 and dessins_page1(s_.plan) == 0 else 0
     def elaguer(xs, k):
         meilleurs = {}
-        rang = lambda s_: s_.cout + COUT_DEFAUT * graves(s_) + (estime(s_, k) if k < K - 1 or lex_fin else 0)
+        rang = lambda s_: s_.cout + COUT_DEFAUT * graves(s_) + sans_dessin_p1(s_) + (estime(s_, k) if k < K - 1 or lex_fin else 0)
         for s_ in sorted(xs, key=rang):
             cle = (s_.p, round(s_.y / MM))
             if len(meilleurs.setdefault(cle, [])) < 2: meilleurs[cle].append(s_)
@@ -1378,7 +1391,7 @@ def chercher(ed, M, cible=PAGES, largeur=200, lex_libre=False, complet=False):
         if os.environ.get('JOURNAL_TRACE'): print(f'  lexique : {len(nouv)} états', file=sys.stderr)
         if not nouv: return None
         etats = nouv
-    best = min(etats, key=lambda s_: s_.cout + COUT_DEFAUT * graves(s_))   # une composition sans défaut bloquant d'abord
+    best = min(etats, key=lambda s_: s_.cout + COUT_DEFAUT * graves(s_) + sans_dessin_p1(s_))   # sans défaut bloquant d'abord
     plan = liste(best.plan) + [('agenda', cible - 1), ('credit', cible - 1)]
     return best, plan
 
@@ -1575,6 +1588,7 @@ def mesure_glossaire(M, plan):
 
 
 def preparer(d):
+    for c in (_CACHE_U, _CACHE_EQ, _CACHE_LU): c.clear()   # caches propres à une édition (plusieurs éditions par processus : build_site)
     ed = lire(d)
     ed['sigles'] = sigles(''.join(x for r in ed['rubriques'] for it in r['items'] for x in morceaux(it, set(blocs(ed))))
                           + ''.join(corps(x['segs'])[0] for r in ed['rubriques'] for x in r['rappels']), texte_anterieur(d))
@@ -1626,9 +1640,9 @@ def plan_articles(ed, plan):
 
 
 def conseil_dessins(ed, plan):
-    """Articles à illustrer (README, § 18) : la Une et un autre en page 1, trois sur la double page 2-3 étagés du haut en
-    bas, un ou deux en page 4."""
-    print('Place des articles (pour choisir les dessins : Une + 1 en page 1, 3 sur la double page 2-3 étagés haut / milieu / bas, 1 ou 2 en page 4) :')
+    """Articles à illustrer (README, § 18) : la Une seule en page 1 (et un brief de secours), trois sur la double page
+    2-3 étagés du haut en bas, un ou deux en page 4."""
+    print('Place des articles (pour choisir les dessins : la Une seule en page 1, plus un brief de secours, 3 sur la double page 2-3 étagés haut / milieu / bas, 1 ou 2 en page 4) :')
     for p, bande, t in plan_articles(ed, plan): print(f'  p. {p + 1}, {bande} : {t}')
 
 
@@ -1710,6 +1724,8 @@ def produire(d, sortie=None):
     doc = rendu(h)
     tous = list(dict.fromkeys(x for lot in liste(best.defauts) for x in lot)) + verifier(doc, cible)
     defauts, remarques = [t for t in tous if not mineur(t)], [t for t in tous if mineur(t)]
+    n1 = dessins_page1(plan)
+    if ed.get('illustrations') and n1 != 1: remarques.append(f'première page : {n1} dessin(s) au lieu d\'un seul (README, § 18)')
     doc.write_pdf(a4)
     complet(h, a4)
     imposer(a4, a3)
