@@ -1067,7 +1067,7 @@ def cout_repartition(plan):
     return c
 
 
-COUT_PAGE1 = float(os.environ.get('JOURNAL_COUT_PAGE1', 600))   # première page sans dessin, ou avec plus d'un dessin
+COUT_PAGE1 = float(os.environ.get('JOURNAL_COUT_PAGE1', 300))   # première page sans dessin, ou avec plus d'un dessin (moins qu'un défaut bloquant, COUT_DEFAUT)
 
 
 def dessins_page1(plan):
