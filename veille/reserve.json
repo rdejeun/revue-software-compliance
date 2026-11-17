@@ -1,32 +1,167 @@
 [
  {
-  "sujet": "bee-js : version piégée publiée par la chaîne légitime (Socket)",
-  "mis_en_reserve": "2026-11-10",
-  "rubrique": "Chaîne d’approvisionnement",
+  "sujet": "Revue de code par IA : bilan de l’ENISA et du CERT-EU",
+  "mis_en_reserve": "2026-11-17",
+  "rubrique": "SBOM, normes et référentiels",
   "cote": [
    2,
    1,
-   2
+   3
   ],
-  "fiabilite": "C",
+  "fiabilite": "A",
   "item": [
    {
-    "t": "bee-js : le 9 novembre 2026, une version 13.3.0 piégée de cette bibliothèque npm du projet Ethersphere a été publiée par la propre chaîne de publication du projet, sans étape d’approbation ; selon Socket, la provenance ne permettait pas de la distinguer d’une version légitime ; npm l’a retirée après environ 75 minutes"
+    "t": "Revue de code par IA : selon un avis commun de l’ENISA et du CERT-EU publié le 12 novembre 2026, des modèles d’IA de pointe ont relevé 220 problèmes potentiels dans 27 bases de code des institutions de l’UE, et 95 % des 88 résultats évalués ont été confirmés ; ==l’IA ne remplace pas le jugement humain== ("
    },
    {
-    "t": " ("
+    "t": "ENISA",
+    "href": "https://www.enisa.europa.eu/publications/joint-advisory-on-the-use-of-frontier-ai-models-for-code-review"
    },
    {
-    "t": "Socket",
-    "href": "https://socket.dev/blog/bee-js-compromise",
-    "type": "editeur"
+    "t": ", "
+   },
+   {
+    "t": "rapport",
+    "href": "https://www.enisa.europa.eu/sites/default/files/2026-11/ENISA_CERTEU_JOINTREPORT_Final.pdf"
    },
    {
     "t": ")."
    }
   ],
   "attrs": {
-   "date": "2026-11-09",
+   "date": "2026-11-12",
+   "rappel": false,
+   "themes": [
+    "sca",
+    "chaine"
+   ],
+   "fiabilite": "A",
+   "cote": [
+    2,
+    1,
+    3
+   ]
+  },
+  "sum": {
+   "titre": "Revue de code par IA : le bilan de l’ENISA et du CERT-EU",
+   "statut": "Avis commun publié le 12 novembre 2026 ; recommandations non contraignantes",
+   "fonctions": "Ingénierie logicielle, PSIRT, sécurité des développements",
+   "essentiel": "L’ENISA et le CERT-EU ont évalué la capacité de modèles d’IA de pointe à appuyer la revue de sécurité de logiciels open source maintenus par les institutions, organes et agences de l’Union. Vingt-sept bases de code ont été analysées, dont deux sur le point d’être publiées en open source. Les 220 problèmes potentiels relevés ont été transmis aux propriétaires du code, qui en ont évalué 88 et confirmé 95 % comme de vrais positifs. Les auteurs recommandent de travailler dans un environnement d’essai isolé et sécurisé ; selon eux, l’IA peut appuyer la revue mais ne peut pas remplacer le jugement humain.",
+   "contexte": "Dans son rapport sur l’état de la cybersécurité dans l’Union, publié le 10 novembre 2026, l’ENISA estime que l’IA « industrialise » la découverte des vulnérabilités, ce qui demande des capacités de traitement renforcées.",
+   "impact_avere": "Le rapport donne un cadre de référence européen pour introduire la revue de code assistée par IA dans le développement sécurisé, sous contrôle humain.",
+   "impact_potentiel": "Pour du code de défense, confier les sources à un modèle hébergé poserait des questions de confidentialité et de contrôle des exportations ; l’environnement isolé recommandé y répondrait en partie.",
+   "a_verifier": [
+    "Utilisons-nous déjà l’IA pour revoir notre code, et dans quel environnement ?",
+    "Qui valide les résultats avant correction ou déclaration ?"
+   ],
+   "papier": "Les essais ont porté sur des logiciels open source maintenus par les institutions, organes et agences de l’Union, dont deux sur le point d’être publiés. Les problèmes relevés ont été transmis aux propriétaires du code.\n\nLes auteurs recommandent de travailler dans un environnement d’essai isolé et sécurisé et de faire valider les résultats par des experts. {{2|Dans son rapport sur l’état de la cybersécurité dans l’Union, publié deux jours plus tôt, l’agence estime que l’IA « industrialise » la découverte des vulnérabilités.}}\n\nLe fabricant qui envisage ces outils doit fixer qui valide les résultats avant toute correction ou déclaration. {{1|Pour du code de défense, confier les sources à un modèle hébergé poserait des questions de confidentialité et de contrôle des exportations.}}"
+  },
+  "motif": "budget de lecture et place de la version imprimable"
+ },
+ {
+  "sujet": "Grype 0.122.0 et Syft 1.57.2 : avis Docker Hardened Images et licences corrigées",
+  "mis_en_reserve": "2026-11-17",
+  "rubrique": "Outils",
+  "cote": [
+   2,
+   1,
+   3
+  ],
+  "fiabilite": "A",
+  "item": [
+   {
+    "t": "Grype",
+    "href": "https://github.com/anchore/grype",
+    "type": "projet"
+   },
+   {
+    "t": " 0.122.0 et "
+   },
+   {
+    "t": "Syft",
+    "href": "https://github.com/anchore/syft",
+    "type": "projet"
+   },
+   {
+    "t": " 1.57.2 : publiées le 16 novembre 2026 par Anchore, ces versions lisent les avis de vulnérabilités des Docker Hardened Images et corrigent la normalisation des licences, qui perdait l’exception Classpath et remplaçait un choix de licences par leur cumul pour des archives Java ("
+   },
+   {
+    "t": "Grype, version 0.122.0",
+    "href": "https://github.com/anchore/grype/releases/tag/v0.122.0"
+   },
+   {
+    "t": ", "
+   },
+   {
+    "t": "Syft, version 1.57.2",
+    "href": "https://github.com/anchore/syft/releases/tag/v1.57.2"
+   },
+   {
+    "t": ")."
+   }
+  ],
+  "attrs": {
+   "date": "2026-11-16",
+   "rappel": false,
+   "themes": [
+    "sca",
+    "licences",
+    "sbom"
+   ],
+   "fiabilite": "A",
+   "cote": [
+    2,
+    1,
+    3
+   ]
+  },
+  "sum": {
+   "titre": "Grype et Syft : avis Docker Hardened Images et licences corrigées",
+   "statut": "Versions publiées le 16 novembre 2026",
+   "fonctions": "Ingénierie logicielle, PSIRT, juridique (licences)",
+   "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — l’analyse est locale ; la base de vulnérabilités de Grype se télécharge par défaut depuis grype.anchore.io, mais peut être importée depuis un fichier local, mise à jour automatique désactivée.",
+   "licence": "Open source : Apache-2.0.",
+   "essentiel": "Grype 0.122.0 rapproche désormais les vulnérabilités des Docker Hardened Images à partir de leurs avis au format OSV, lit les scores CVSS v2 nus et privilégie la version CVSS la plus récente ; l’analyse de toutes les couches d’une image ne signalait pas les paquets retirés dans une couche ultérieure, ce qui est corrigé. Syft 1.57.2 trouve les fichiers de licence des paquets Python placés selon la PEP 639, corrige la normalisation des licences des archives Java d’Eclipse et de GlassFish et ne compte plus qu’une fois un paquet Debian listé dans deux fichiers d’état.",
+   "contexte": "Syft génère des SBOM et Grype y rapproche les vulnérabilités connues ; les deux outils open source sont développés sous l’égide d’Anchore.",
+   "impact_avere": "Un SBOM produit par une version antérieure de Syft peut porter une expression de licence fausse pour des composants Java : la conjonction AND impose deux licences, la disjonction OR laisse le choix.",
+   "impact_potentiel": "Une analyse de licences fondée sur ces SBOM pourrait conclure à des obligations qui n’existent pas, ou omettre une exception de licence.",
+   "a_verifier": [
+    "Nos SBOM de composants Java ont-ils été produits avec une version antérieure de Syft ?",
+    "Notre base de vulnérabilités hors ligne est-elle importée régulièrement ?"
+   ],
+   "papier": "Grype lit aussi les scores CVSS v2 nus et retient la version CVSS la plus récente ; l’analyse de toutes les couches d’une image signale de nouveau les paquets retirés dans une couche ultérieure. {{3|Les avis des images durcies de Docker sont lus au format OSV.}}\n\nSyft trouve les fichiers de licence des paquets Python placés selon la PEP 639 et ne compte plus qu’une fois un paquet Debian listé dans deux fichiers d’état. {{2|Hors ligne, la base de Grype peut être importée depuis un fichier local.}}\n\nLe fabricant doit régénérer les SBOM de ses composants Java produits avec une version antérieure : la conjonction impose deux licences, la disjonction laisse le choix. {{1|Une analyse de licences fondée sur un SBOM erroné pourrait conclure à des obligations inexistantes.}}"
+  },
+  "motif": "budget de lecture et place de la version imprimable"
+ },
+ {
+  "sujet": "Dropbear : restrictions de clés contournées par les sockets Unix (oss-security)",
+  "mis_en_reserve": "2026-11-17",
+  "rubrique": "Chaîne d’approvisionnement",
+  "cote": [
+   2,
+   2,
+   2
+  ],
+  "fiabilite": "C",
+  "item": [
+   {
+    "t": "Dropbear",
+    "href": "https://matt.ucc.asn.au/dropbear/dropbear.html",
+    "type": "projet"
+   },
+   {
+    "t": " : selon une divulgation publiée le 13 novembre 2026 sur la liste oss-security, ce serveur SSH conçu pour les systèmes embarqués n’applique pas aux sockets Unix les restrictions de destination fixées pour une clé ; aucun correctif n’a été relevé dans les sources consultées ("
+   },
+   {
+    "t": "oss-security",
+    "href": "https://www.openwall.com/lists/oss-security/2026/11/13/4"
+   },
+   {
+    "t": ")."
+   }
+  ],
+  "attrs": {
+   "date": "2026-11-13",
    "rappel": false,
    "themes": [
     "chaine"
@@ -34,84 +169,23 @@
    "fiabilite": "C",
    "cote": [
     2,
-    1,
+    2,
     2
    ]
   },
   "sum": {
-   "titre": "bee-js : une version piégée, publiée par la chaîne légitime",
-   "statut": "Version 13.3.0 retirée de npm environ 75 minutes après sa publication, le 9 novembre 2026",
-   "fonctions": "Ingénierie logicielle, PSIRT, achats",
-   "essentiel": "Selon l’analyse de Socket publiée le 9 novembre 2026, la chaîne de publication d’Ethersphere a produit une version piégée de la bibliothèque bee-js (13.3.0) et de l’application Swarm Desktop (0.56.2). Le flux de travail ne vérifiait pas que le commit publié appartenait à la branche protégée, et le déploiement est passé de la création au succès en 73 secondes, sans étape d’approbation. La version macOS était signée avec l’identifiant de développeur du projet et notariée par Apple. npm a retiré la version 13.3.0 environ 75 minutes après sa publication.",
-   "contexte": "La signature des versions et les attestations de provenance se généralisent dans les registres de paquets. Selon Socket, la publication de confiance (*{en}trusted publishing*) et la provenance signent fidèlement tout ce que le flux de travail construit.",
-   "impact_avere": "La provenance dit d’où vient un paquet, pas qu’il est sain : ==elle ne remplace pas== le contrôle des branches et l’approbation des publications.",
-   "impact_potentiel": "Un fabricant qui accepte automatiquement les composants signés pourrait intégrer une version piégée publiée par la chaîne légitime d’un projet.",
+   "titre": "Dropbear : des restrictions de clés contournées par les sockets Unix",
+   "statut": "Divulgation publique du 13 novembre 2026 ; aucune CVE ni aucun correctif relevés dans les sources consultées",
+   "fonctions": "PSIRT, ingénierie logicielle embarquée",
+   "essentiel": "Selon une divulgation publiée le 13 novembre 2026 sur oss-security, Dropbear applique aux transferts TCP les restrictions par destination des clés, mais pas aux transferts de sockets Unix : « la restriction nomme une adresse ; un socket Unix n’est pas une adresse, et sur ce chemin la restriction n’est jamais consultée ». L’auteur précise que l’attaque n’est pas possible sans authentification : l’attaquant détient une clé valide, que l’administrateur a délibérément limitée à une destination.",
+   "contexte": "Dropbear est un serveur et client SSH de petite taille, adapté aux systèmes Linux embarqués comme les routeurs sans fil.",
+   "impact_avere": "Dans un produit qui livre Dropbear avec des clés de maintenance restreintes, la restriction par destination ne protège pas les sockets Unix accessibles au compte.",
+   "impact_potentiel": "Si un socket sensible était accessible au compte, une clé restreinte pourrait donner des droits bien plus larges que prévu.",
    "a_verifier": [
-    "Nos règles d’intégration acceptent-elles une version au seul motif qu’elle est signée ?",
-    "Nos propres flux de publication exigent-ils une approbation humaine ?"
+    "Nos produits livrent-ils Dropbear avec des clés à destination restreinte ?",
+    "Le transfert de sockets Unix est-il compilé dans notre version ?"
    ],
-   "papier": "L’attaque a aussi touché l’application Swarm Desktop 0.56.2, dont la version macOS était signée avec l’identifiant de développeur du projet et notariée par Apple.\n\nLe défaut tenait au flux de travail : rien ne vérifiait que le commit publié appartenait à la branche protégée, et le déploiement est passé de la création au succès en 73 secondes. {{2|La publication de confiance et la provenance signent fidèlement tout ce que le flux construit.}}\n\nLe fabricant ne doit pas accepter un composant au seul motif qu’il est signé, et doit imposer une approbation dans ses propres publications. {{1|Une version piégée publiée par la chaîne légitime d’un projet pourrait sinon entrer dans un produit.}}"
-  },
-  "motif": "budget de lecture et place de la version imprimable"
- },
- {
-  "sujet": "Trivy 0.76.2 : images officielles reconstruites",
-  "mis_en_reserve": "2026-11-10",
-  "rubrique": "Outils",
-  "cote": [
-   1,
-   2,
-   3
-  ],
-  "fiabilite": "B",
-  "item": [
-   {
-    "t": "Trivy",
-    "href": "https://github.com/aquasecurity/trivy",
-    "type": "projet"
-   },
-   {
-    "t": " 0.76.2 : publiée le 5 novembre 2026, cette version corrective du scanneur d’Aqua Security reconstruit ses images officielles sur Alpine 3.24.3, qui corrige musl, et intègre une libcurl corrigée de 24 vulnérabilités"
-   },
-   {
-    "t": " ("
-   },
-   {
-    "t": "Trivy, version 0.76.2",
-    "href": "https://github.com/aquasecurity/trivy/releases/tag/v0.76.2"
-   },
-   {
-    "t": ")."
-   }
-  ],
-  "attrs": {
-   "date": "2026-11-05",
-   "rappel": false,
-   "themes": [
-    "sca"
-   ],
-   "fiabilite": "B",
-   "cote": [
-    1,
-    2,
-    3
-   ]
-  },
-  "sum": {
-   "titre": "Trivy 0.76.2 : des images officielles corrigées",
-   "statut": "Version corrective publiée le 5 novembre 2026",
-   "fonctions": "Ingénierie logicielle, PSIRT",
-   "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — Trivy demande normalement une connexion ; ses bases peuvent être hébergées dans un registre interne et l’option --offline-scan évite les accès au réseau.",
-   "licence": "Open source : Apache-2.0.",
-   "essentiel": "La version 0.76.2 de Trivy, publiée le 5 novembre 2026, reconstruit les images de conteneurs officielles de l’outil sur Alpine 3.24.3, qui corrige les paquets musl et musl-utils. La compilation intègre une libcurl corrigée de 24 vulnérabilités, dont une de gravité haute. La version met aussi à jour la bibliothèque réseau golang.org/x/net.",
-   "contexte": "Trivy est le scanneur open source de vulnérabilités, de configurations et de SBOM d’Aqua Security. Selon sa documentation, il demande normalement une connexion à Internet, mais ses bases peuvent être hébergées dans un registre interne pour un environnement isolé.",
-   "impact_avere": "Une chaîne qui exécute Trivy depuis ses images officielles doit les mettre à jour pour ne pas embarquer les versions vulnérables de musl et de libcurl.",
-   "impact_potentiel": "Un outil d’analyse lui-même vulnérable pourrait devenir un point d’entrée dans la chaîne de construction.",
-   "a_verifier": [
-    "Exécutons-nous Trivy depuis ses images officielles ou depuis un binaire ?",
-    "Nos miroirs internes de bases de vulnérabilités sont-ils à jour ?"
-   ],
-   "papier": "La compilation intègre une libcurl corrigée, dont une vulnérabilité de gravité haute. {{3|La bibliothèque réseau du langage Go est aussi mise à jour.}}\n\nSelon sa documentation, l’outil demande normalement une connexion à Internet, mais ses bases peuvent être hébergées dans un registre interne pour un environnement isolé.\n\nUne chaîne qui exécute l’outil depuis ses images officielles doit les mettre à jour. {{1|Un outil d’analyse vulnérable pourrait devenir un point d’entrée dans la chaîne de construction.}}"
+   "papier": "Les restrictions par destination s’appliquent aux transferts TCP, pas aux transferts de sockets Unix. Selon l’auteur, « la restriction nomme une adresse ; un socket Unix n’est pas une adresse ».\n\nL’attaque exige une clé valide, que l’administrateur a délibérément limitée à une destination : elle n’est pas possible sans authentification. {{2|Dropbear, de petite taille, vise notamment les routeurs sans fil.}}\n\nLe fabricant qui livre Dropbear avec des clés de maintenance restreintes doit vérifier si le transfert de sockets Unix est compilé et accessible. {{1|Un socket sensible accessible au compte pourrait donner des droits bien plus larges que prévu.}}"
   },
   "motif": "budget de lecture et place de la version imprimable"
  }

@@ -1,0 +1,1948 @@
+[
+ {
+  "k": "h1",
+  "i": [
+   {
+    "t": "Revue de presse Software Compliance — N° 7 — 17 novembre 2026"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": " · "
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "Une faille de la pile TCP du noyau Linux permet de faire tomber à distance, dans presque toutes les distributions, un système Linux qui écoute sur un port TCP ; le BIS soumet à licence les puces d’IA avancées vers cinq pays, dont Singapour et le Brésil ; la Commission repousse de trois mois une partie des normes harmonisées du CRA ; des comptes GitHub détournés ont injecté un voleur de secrets dans des milliers de dépôts."
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "À la une : NoisyTCP, le noyau Linux attaquable à distance"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "Une faille de la pile TCP du noyau Linux, présente depuis 2015, permet, dans certaines configurations, de provoquer à distance l’arrêt d’un système qui écoute sur un port TCP ; les correctifs n’arrivent pas sur toutes les branches maintenues."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "NoisyTCP : décrite le 15 novembre 2026 sur la liste oss-security, une faille de la pile TCP du noyau Linux, introduite en 2015, permet à un attaquant non authentifié de provoquer à distance une panique du noyau ; l’enregistrement CVE donne des correctifs pour les branches 6.12, 6.18 et 7.3, ==pas pour les branches 5.10, 5.15, 6.1 et 6.6== ("
+    },
+    {
+     "t": "oss-security",
+     "href": "https://www.openwall.com/lists/oss-security/2026/11/15/2"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "CVE",
+     "href": "https://www.cve.org/CVERecord?id=CVE-2026-99288"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Debian",
+     "href": "https://security-tracker.debian.org/tracker/CVE-2026-99288"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "OpenSSH",
+     "href": "https://www.openssh.com/",
+     "type": "projet"
+    },
+    {
+     "t": " sur musl : depuis le 9 novembre 2026, cette faille d’authentification des systèmes sans PAM figure au catalogue des vulnérabilités exploitées ("
+    },
+    {
+     "t": "CISA",
+     "href": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Plateforme unique du CRA : passée en version 1.3 le 4 novembre 2026, elle reçoit depuis le 11 septembre les déclarations des fabricants ("
+    },
+    {
+     "t": "ENISA",
+     "href": "https://www.enisa.europa.eu/topics/product-security-and-certification/single-reporting-platform-srp"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-15",
+    "rappel": false,
+    "themes": [
+     "chaine",
+     "sca"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     3,
+     3,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "rappel": true,
+    "themes": [
+     "chaine",
+     "cra"
+    ]
+   },
+   {
+    "date": "2026-11-04",
+    "rappel": true,
+    "themes": [
+     "cra"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "NoisyTCP : la pile TCP du noyau Linux attaquable à distance",
+    "statut": "Faille publiée (CVE du 10 novembre 2026, avis détaillé du 15 novembre) ; correctifs dans les versions 6.12.117, 6.18.63 et 7.3.4 ; absente du catalogue KEV de la CISA au 17 novembre",
+    "fonctions": "PSIRT, ingénierie logicielle et système, soutien et maintien en condition opérationnelle",
+    "essentiel": "Selon le chercheur Hyunwoo Kim, qui a décrit la faille sur la liste oss-security le 15 novembre 2026, une condition de course dans la recherche des connexions TCP établies peut conduire à un déréférencement de pointeur nul, donc à une panique du noyau. Elle peut être déclenchée avant toute authentification et à distance, contre des serveurs Nginx, Apache ou SSH dans leur configuration par défaut. Il faut au moins deux files de réception, ou une répartition RPS sur plusieurs processeurs : sur un serveur physique peu chargé, le déclenchement a pris environ 14 heures. Latente depuis environ onze ans, elle touche presque toutes les distributions Linux ; Debian l’a corrigée dans ses noyaux 6.1 et 6.12.",
+    "contexte": "Le noyau Linux équipe une grande partie des équipements embarqués, souvent dans une branche maintenue à long terme fournie avec le paquet de support de la carte (BSP) du fondeur. L’enregistrement CVE a été publié le 10 novembre.",
+    "impact_avere": "Le fabricant doit relever, produit par produit, la branche du noyau livrée et vérifier si son fournisseur de BSP a reporté le correctif ; ==le contournement a un coût== : désactiver les SYN cookies réduit la résistance aux inondations de requêtes de connexion.",
+    "impact_potentiel": "Si la faille était activement exploitée, sa déclaration au titre du CRA s’imposerait pour les produits concernés ; les produits à file de réception unique, sans RPS ni RFS, seraient moins exposés.",
+    "a_verifier": [
+     "Quelles branches du noyau nos produits livrés utilisent-ils ?",
+     "Nos fournisseurs de BSP ont-ils reporté le correctif ?",
+     "Nos produits exposent-ils un port TCP sur un réseau non maîtrisé ?"
+    ],
+    "papier": "Le défaut tient à une condition de course dans la recherche des connexions établies : elle peut aboutir à un pointeur nul, donc à l’arrêt brutal du système. Selon le chercheur Hyunwoo Kim, elle se déclenche avant toute authentification contre des serveurs Nginx, Apache ou SSH dans leur configuration par défaut. {{3|Il faut au moins deux files de réception, ou une répartition RPS sur plusieurs processeurs ; sur un serveur physique peu chargé, l’attaque a pris environ 14 heures.}}\n\nLe chercheur estime qu’elle touche presque toutes les distributions Linux. Debian a reporté le correctif dans son noyau 6.1.\n\nLe fabricant doit relever, produit par produit, la branche du noyau livrée et demander à son fournisseur de BSP si le correctif est reporté. Le contournement proposé, désactiver les SYN cookies, réduit la résistance aux inondations de requêtes de connexion. {{1|Si la faille était activement exploitée, sa déclaration au titre du CRA s’imposerait pour les produits concernés.}}"
+   },
+   {
+    "titre": "OpenSSH sur musl : une faille d’authentification activement exploitée",
+    "statut": "Vulnérabilité inscrite au catalogue KEV de la CISA le 9 novembre 2026",
+    "fonctions": "PSIRT, ingénierie logicielle embarquée, juridique (déclaration CRA)",
+    "essentiel": "La CISA a inscrit le 9 novembre 2026 dans son catalogue une faille d’OpenSSH sur Linux qui peut permettre de contourner l’authentification. Elle touche les systèmes qui utilisent la bibliothèque C musl sans PAM, configuration courante des images embarquées. Selon Alpine Linux, un attaquant qui atteint le port SSH peut ouvrir une session sans connaître le mot de passe, en une seule connexion.",
+    "contexte": "Le 16 novembre, sur la liste oss-security, Solar Designer a indiqué que musl adopterait probablement les jetons d’échec « *0 » et « *1 » de libxcrypt.",
+    "impact_avere": "Une vulnérabilité activement exploitée dans un produit soumis au CRA doit être déclarée sur la plateforme unique de l’ENISA.",
+    "impact_potentiel": "Les produits qui autorisent l’authentification SSH par mot de passe sur musl resteraient exposés tant qu’ils ne sont pas mis à jour.",
+    "a_verifier": [
+     "Nos images embarquées utilisent-elles musl et l’authentification par mot de passe ?",
+     "Avons-nous déclaré les produits concernés ?"
+    ]
+   },
+   {
+    "titre": "CRA : la plateforme unique de déclaration en version 1.3",
+    "statut": "En service depuis le 11 septembre 2026 ; version 1.3 depuis le 4 novembre 2026",
+    "fonctions": "PSIRT et ingénierie produit, juridique",
+    "essentiel": "La plateforme unique de déclaration de l’ENISA reçoit les déclarations des fabricants au titre du CRA : vulnérabilités activement exploitées et incidents graves ayant une incidence sur la sécurité de leurs produits. Selon l’ENISA, elle est passée en version 1.3 le 4 novembre 2026.",
+    "contexte": "L’obligation de déclaration s’applique depuis le 11 septembre 2026, avant l’application complète du règlement le 11 décembre 2027.",
+    "impact_avere": "Le fabricant d’un produit soumis au CRA doit savoir déclarer sur la plateforme dans les délais prévus.",
+    "impact_potentiel": "Les évolutions de la plateforme pourraient modifier les informations demandées lors d’une déclaration.",
+    "a_verifier": [
+     "Nos équipes PSIRT ont-elles accès à la plateforme ?",
+     "Notre procédure de déclaration a-t-elle été testée ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "SBOM, normes et référentiels"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "La Commission repousse de trois mois une partie des normes harmonisées du CRA ; CycloneDX 2.0 et les normes verticales de l’ETSI restent attendues."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "Normes harmonisées du CRA : le 10 novembre 2026, la Commission a modifié la demande de normalisation M/606, qui porte sur 41 normes, pour repousser de trois mois la livraison de toutes les normes verticales et d’une partie des normes horizontales ; ==les dates d’application du CRA ne changent pas== ("
+    },
+    {
+     "t": "Commission",
+     "href": "https://digital-strategy.ec.europa.eu/en/policies/cra-standardisation"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Commission, CRA",
+     "href": "https://digital-strategy.ec.europa.eu/en/policies/cyber-resilience-act"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "CycloneDX 2.0 : la ratification par Ecma reste annoncée pour décembre 2026 ; au 17 novembre, la dernière version publiée de la spécification est la 1.7.2"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "CycloneDX",
+     "href": "https://cyclonedx.org/news/cyclonedx-v2.0-coming-soon"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "CycloneDX, versions",
+     "href": "https://github.com/CycloneDX/specification/releases"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Normes verticales du CRA : l’approbation de 17 projets de l’ETSI devait s’achever entre mi-septembre et mi-novembre 2026 ; aucun résultat n’a été relevé"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "ETSI",
+     "href": "https://www.etsi.org/newsroom/press-releases/etsi-launches-approval-process-for-17-european-standards-supporting-the-cyber-resilience-act/"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "cra",
+     "sbom"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     3,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-08-05",
+    "rappel": true,
+    "themes": [
+     "sbom"
+    ]
+   },
+   {
+    "date": "2026-08-13",
+    "rappel": true,
+    "themes": [
+     "cra"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "Normes du CRA : trois mois de plus pour les organismes de normalisation",
+    "statut": "Demande de normalisation M/606 modifiée le 10 novembre 2026 ; nouvelles dates et référence de la décision non publiées sur la page de la Commission au 17 novembre",
+    "fonctions": "Qualité et certification, ingénierie produit, juridique",
+    "essentiel": "Selon la page de la Commission consacrée à la normalisation du CRA, mise à jour le 12 novembre 2026, la demande de normalisation M/606 a été modifiée le 10 novembre pour repousser de trois mois la livraison de toutes les normes verticales et de certaines normes horizontales. La demande M/606 comprend 41 normes à l’appui du CRA. La page ne précise ni les nouvelles dates ni la référence de la décision modificative. Les obligations principales du CRA s’appliqueront toujours à partir du 11 décembre 2027, et la déclaration des vulnérabilités s’applique depuis le 11 septembre 2026.",
+    "contexte": "Les normes horizontales portent sur les exigences communes aux produits, les normes verticales sur des catégories de produits. À l’ETSI, la procédure d’approbation de 17 projets de normes verticales devait se terminer, selon les produits, entre mi-septembre et mi-novembre 2026.",
+    "impact_avere": "Tant qu’aucune norme n’est citée au Journal officiel, aucune présomption de conformité n’est disponible : la documentation technique doit démontrer directement le respect des exigences essentielles.",
+    "impact_potentiel": "Le délai entre la citation des normes et l’application complète du CRA se réduirait d’autant, et laisserait moins de temps pour adapter les produits aux normes définitives.",
+    "a_verifier": [
+     "Sur quels projets de normes fondons-nous notre documentation technique ?",
+     "Lesquels de nos produits relèvent de normes verticales ?"
+    ],
+    "papier": "La Commission ne donne ni les nouvelles dates ni la référence de la décision modificative.\n\nLes normes horizontales portent sur les exigences communes aux produits, les normes verticales sur des catégories de produits. {{2|À l’ETSI, la procédure d’approbation de 17 projets de normes verticales devait se terminer, selon les produits, entre mi-septembre et mi-novembre.}}\n\nLa déclaration des vulnérabilités s’applique déjà, et les obligations principales s’appliqueront le 11 décembre 2027. Faute de norme citée au Journal officiel, le fabricant doit démontrer directement, dans sa documentation technique, le respect des exigences essentielles. {{1|Le temps laissé pour adapter les produits aux normes définitives se réduirait d’autant.}}"
+   },
+   {
+    "titre": "CycloneDX 2.0 : version annoncée pour l'automne 2026",
+    "statut": "Annonce du projet, version attendue à l'automne 2026, ratification par Ecma prévue en décembre",
+    "fonctions": "Ingénierie logicielle, qualité, PSIRT, achats",
+    "essentiel": "Le projet CycloneDX annonce une version 2.0 attendue à l'automne 2026, avec une ratification par Ecma en décembre. Le format s'étendrait aux modèles de menaces, aux registres de risques, aux inventaires de contrôles et à la provenance des composants physiques.",
+    "contexte": "CycloneDX est un format de nomenclature logicielle (SBOM, *{en}Software Bill of Materials*) utilisé pour inventorier les composants d'un produit. Ecma est un organisme de normalisation, qui ratifierait la spécification.",
+    "impact_avere": "À ce stade, il s'agit d'une annonce du projet. La version 2.0 n'est pas publiée et aucune obligation n'en découle pour l'industriel.",
+    "impact_potentiel": "Si le format s'élargit comme annoncé, il pourrait servir à documenter plus que la liste des composants, par exemple les risques et les contrôles associés. Les outils de génération de SBOM pourraient devoir évoluer, et des clients ou autorités pourraient demander ce format. Le calendrier pourrait aussi se décaler.",
+    "a_verifier": [
+     "Quelle version de CycloneDX les outils de l'entreprise produisent-ils aujourd'hui ?",
+     "Des clients ou partenaires imposent-ils un format de SBOM précis ?",
+     "Les données de provenance envisagées sont-elles disponibles auprès des fournisseurs ?"
+    ]
+   },
+   {
+    "titre": "Normes verticales du CRA : projets européens de l'ETSI en enquête publique",
+    "statut": "Procédure d’approbation ouverte le 13 août 2026, close entre mi-septembre et mi-novembre 2026 selon le projet ; projets destinés à devenir des normes harmonisées",
+    "fonctions": "Ingénierie logicielle, qualité, juridique, achats",
+    "essentiel": "Le 13 août 2026, l'ETSI, institut européen de normalisation des télécommunications, a lancé l'approbation de 17 projets de normes européennes verticales (série EN 304, numéros 617 à 627 et 631 à 636). Elles précisent les exigences du CRA par type de produit. La procédure se termine entre mi-septembre et mi-novembre 2026 selon le projet.",
+    "contexte": "Le règlement sur la cyber-résilience (CRA) renvoie à des normes harmonisées pour présumer la conformité. Selon l'ETSI, ces projets visent à devenir des normes harmonisées.",
+    "impact_avere": "Les projets sont publiés et consultables pendant l'enquête publique. Un industriel dont les produits relèvent du CRA peut déjà y lire la déclinaison des exigences par catégorie de produit.",
+    "impact_potentiel": "Ces projets, s'ils étaient adoptés puis cités au Journal officiel, pourraient fournir une présomption de conformité pour les produits concernés. Les équipements de défense étant exclus du CRA (article 2), leur intérêt dépendrait des versions civiles, du double usage ou de clauses contractuelles.",
+    "a_verifier": [
+     "Quelles catégories de produits de l'entreprise correspondent aux projets en consultation ?",
+     "Quelle est l'échéance de contribution pour chaque projet ?",
+     "Les cahiers des charges clients citent-ils ces normes ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "Outils et services de conformité"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "cdxgen publie une version de sécurité ; Zarf sort sa version 1.0 définitive ; GitHub va suspendre les alertes Dependabot des dépôts inactifs ; FOSSology reconstruit son image Docker."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "cdxgen",
+     "href": "https://github.com/CycloneDX/cdxgen",
+     "type": "projet"
+    },
+    {
+     "t": " 13.8.0 et 12.9.2 : publiées respectivement les 14 et 13 novembre 2026, ces versions de sécurité du générateur de SBOM corrigent de nombreuses failles, dont deux critiques ; l’une permet à une archive Electron piégée d’écrire des fichiers hors du répertoire d’extraction ("
+    },
+    {
+     "t": "cdxgen, version 13.8.0",
+     "href": "https://github.com/CycloneDX/cdxgen/releases/tag/v13.8.0"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "version 12.9.2",
+     "href": "https://github.com/CycloneDX/cdxgen/releases/tag/v12.9.2"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "avis",
+     "href": "https://github.com/CycloneDX/cdxgen/security/advisories/GHSA-72jc-54pr-qq5w"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Dependabot",
+     "href": "https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts",
+     "type": "projet"
+    },
+    {
+     "t": " : à partir du 8 décembre 2026, GitHub désactivera les alertes de vulnérabilités sur la plupart des dépôts sans activité depuis un an, ==sauf configuration de sécurité imposée== ; les alertes existantes seront archivées, non supprimées ("
+    },
+    {
+     "t": "GitHub",
+     "href": "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Mise à jour, "
+    },
+    {
+     "t": "Zarf",
+     "href": "https://github.com/zarf-dev/zarf",
+     "type": "projet"
+    },
+    {
+     "t": " 1.0.0 : la version définitive de l’outil de livraison de logiciels en milieu isolé est parue le 10 novembre 2026 ; elle fait du schéma v1beta1 le format par défaut du paquet d’initialisation, retire des commandes obsolètes et supprime le visualiseur de SBOM ("
+    },
+    {
+     "t": "Zarf, version 1.0.0",
+     "href": "https://github.com/zarf-dev/zarf/releases/tag/v1.0.0"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "versions",
+     "href": "https://github.com/zarf-dev/zarf/releases"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "FOSSology",
+     "href": "https://github.com/fossology/fossology",
+     "type": "projet"
+    },
+    {
+     "t": " 4.7.3 : datée du 12 novembre 2026 dans ses notes de version, cette version de maintenance de l’outil d’analyse des licences fournit une image Docker reconstruite contre les failles PHP2Shell et corrige l’identification des archives CPIO, prises pour du texte ("
+    },
+    {
+     "t": "FOSSology, version 4.7.3",
+     "href": "https://github.com/fossology/fossology/releases/tag/4.7.3"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "OSV-Scanner",
+     "href": "https://github.com/google/osv-scanner",
+     "type": "projet"
+    },
+    {
+     "t": " 2.7.1 : depuis le 9 novembre 2026, le scanneur de Google poursuit l’analyse hors ligne quand la base locale d’un écosystème échoue ("
+    },
+    {
+     "t": "OSV-Scanner, versions",
+     "href": "https://github.com/google/osv-scanner/releases"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Dependency-Track",
+     "href": "https://github.com/DependencyTrack/dependency-track",
+     "type": "projet"
+    },
+    {
+     "t": " 5.2.1 : depuis le 25 octobre 2026, cette version corrige un contrôle d’accès inopérant de la plateforme d’analyse de SBOM"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "Dependency-Track, version 5.2.1",
+     "href": "https://github.com/DependencyTrack/dependency-track/releases/tag/5.2.1"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-14",
+    "rappel": false,
+    "themes": [
+     "sca",
+     "sbom",
+     "chaine"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     3,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "sca",
+     "chaine"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     3,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "sca",
+     "chaine",
+     "sbom"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-12",
+    "rappel": false,
+    "themes": [
+     "sca",
+     "licences"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     2
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "rappel": true,
+    "themes": [
+     "sca",
+     "licences"
+    ]
+   },
+   {
+    "date": "2026-10-25",
+    "rappel": true,
+    "themes": [
+     "sca",
+     "sbom"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "cdxgen : une version de sécurité avant tout",
+    "statut": "Versions 12.9.2 (13 novembre 2026) et 13.8.0 (14 novembre 2026) publiées",
+    "fonctions": "Ingénierie logicielle, PSIRT, intégration continue",
+    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — l’analyse peut porter sur un système de fichiers reconstitué localement ; la recherche des licences auprès des registres publics, désactivée par défaut, exige une connexion.",
+    "licence": "Open source : Apache-2.0.",
+    "essentiel": "Les notes de la version 13.8.0 la présentent comme « une version de sécurité avant tout ». La faille critique de l’extraction des archives Electron ASAR (GHSA-72jc-54pr-qq5w) permet de créer ou d’écraser des fichiers hors du répertoire d’extraction. Une autre, de gravité élevée, permet une injection de commande par l’analyseur atom quand l’outil génère des preuves sur un dépôt non fiable. Sous Windows, cdxgen n’exécute plus les programmes du dépôt analysé qui se font passer pour git, go, node ou dotnet. La version 12.9.2 reporte dans la branche 12.x les correctifs de deux avis critiques. La spécification par défaut reste CycloneDX 1.7.",
+    "contexte": "cdxgen, issu du projet CycloneDX, analyse souvent du code tiers dans les chaînes d’intégration continue. La version 13.7.0, du 7 novembre, produisait déjà des documents CycloneDX 2.0 en préversion.",
+    "impact_avere": "Un générateur de SBOM qui analyse du code tiers est lui-même exposé : ==les deux branches doivent être mises à jour== dans les chaînes d’intégration qui l’utilisent.",
+    "impact_potentiel": "Avec une version antérieure, des identifiants présents dans les fichiers du projet analysé pourraient se retrouver dans un SBOM transmis à un client.",
+    "a_verifier": [
+     "Quelle version de cdxgen nos chaînes d’intégration utilisent-elles ?",
+     "Nos SBOM déjà livrés peuvent-ils contenir des identifiants ?"
+    ],
+    "papier": "Une autre faille, de gravité élevée, permet d’injecter une commande par l’analyseur atom quand l’outil génère des preuves sur un dépôt non fiable. {{3|Sous Windows, cdxgen n’exécute plus les programmes du dépôt analysé qui se font passer pour git, go, node ou dotnet.}}\n\nD’autres avis décrivent des identifiants du projet analysé recopiés tels quels dans le SBOM. {{2|Le format par défaut reste CycloneDX 1.7, et une génération en échec ne produit plus de fichier vide en 2.0.}}\n\nUn générateur de SBOM qui lit du code tiers est lui-même exposé : le fabricant doit mettre à jour ses chaînes d’intégration et vérifier que ses SBOM déjà livrés ne contiennent pas d’identifiants. {{1|Une archive piégée pourrait sinon modifier des fichiers du poste de construction.}}"
+   },
+   {
+    "titre": "Dependabot : les alertes suspendues sur les dépôts inactifs",
+    "statut": "Annoncé le 10 novembre 2026 ; application à partir du 8 décembre 2026",
+    "fonctions": "PSIRT, ingénierie logicielle, soutien et maintien en condition opérationnelle",
+    "reseau": "Connecté : services hébergés aux États-Unis par défaut (GitHub.com), avec résidence des données possible dans l’UE, en Australie, aux États-Unis ou au Japon (GitHub Enterprise Cloud, régions Azure de Microsoft) ; sur un serveur installé sur site, les alertes exigent GitHub Connect.",
+    "licence": "Commercial : fonction de la plateforme GitHub ; l’assignation des alertes exige une licence GitHub Code Security ou GitHub Advanced Security, y compris pour les dépôts publics.",
+    "essentiel": "Selon le journal des modifications de GitHub du 10 novembre 2026, les alertes Dependabot seront désactivées à partir du 8 décembre sur la plupart des dépôts sans activité au cours de l’année écoulée. Les alertes existantes seront archivées et pourront être restaurées à tout moment. GitHub ne désactivera pas les alertes des dépôts soumis à une configuration de sécurité imposée qui les active. Le 16 novembre, GitHub a aussi annoncé que les demandes de rejet d’alerte déléguées restent ouvertes un an au lieu d’une semaine.",
+    "contexte": "Dependabot signale les dépendances d’un dépôt touchées par une vulnérabilité connue, à partir de la base d’avis de GitHub. Sur GitHub Enterprise Server, les données de vulnérabilité sont synchronisées toutes les heures depuis cette base.",
+    "impact_avere": "Les dépôts d’un produit en phase de maintien en condition opérationnelle, souvent peu modifiés, perdront leurs alertes s’ils ne relèvent ni d’une configuration de sécurité imposée, ni d’une politique d’entreprise qui verrouille les alertes.",
+    "impact_potentiel": "Une vulnérabilité découverte dans un composant d’un produit ancien pourrait alors passer inaperçue jusqu’à la prochaine modification du dépôt.",
+    "a_verifier": [
+     "Quels dépôts de nos produits livrés n’ont pas été modifiés depuis un an ?",
+     "Avons-nous une configuration de sécurité imposée au niveau de l’organisation ?"
+    ],
+    "papier": "Les alertes archivées pourront être restaurées à tout moment.\n\nDependabot signale les dépendances d’un dépôt touchées par une vulnérabilité connue, à partir de la base d’avis de GitHub. {{2|Sur GitHub Enterprise Server, installé sur site, les données de vulnérabilité sont synchronisées toutes les heures depuis cette base.}}\n\nLe fabricant doit recenser les dépôts de ses produits en maintien en condition opérationnelle, souvent peu modifiés, et leur appliquer une configuration de sécurité imposée avant l’échéance. {{1|Sinon, une faille d’un composant ancien pourrait passer inaperçue jusqu’à la prochaine modification du dépôt.}}"
+   },
+   {
+    "titre": "Zarf 1.0 : la version définitive",
+    "statut": "Version 1.0.0 publiée le 10 novembre 2026, version corrective 1.0.1 le 11 novembre",
+    "fonctions": "Ingénierie logicielle, déploiement et soutien, PSIRT",
+    "reseau": "Déconnecté (air-gapped) : fonctionnement complet sans Internet pour le déploiement ; les paquets se préparent sur un poste connecté, puis se transfèrent dans l’environnement isolé.",
+    "licence": "Open source : Apache-2.0.",
+    "essentiel": "La version 1.0.0 de Zarf, publiée le 10 novembre 2026 après une version candidate, fait du schéma v1beta1 le format par défaut du paquet d’initialisation, retire les commandes et options obsolètes et supprime le visualiseur de SBOM. Les paquets d’initialisation de cette version sont signés avec Sigstore, sans clé. La documentation indique toujours que Zarf s’appuie sur Syft pour fournir les SBOM des images de conteneurs. La version 1.0.1, du 11 novembre, corrige le traitement de la politique de mutation de l’agent.",
+    "contexte": "Zarf permet de créer et de distribuer des logiciels dans des environnements isolés ou contraints. L’OpenSSF avait annoncé la version 1.0 le 9 novembre (voir le N° 6), quand le dépôt ne portait qu’une version candidate.",
+    "impact_avere": "Les procédures de livraison qui s’appuient sur les commandes retirées ou sur le visualiseur de SBOM doivent être revues avant le passage à la 1.0.",
+    "impact_potentiel": "La signature sans clé des paquets d’initialisation pourrait faciliter la vérification de leur origine avant leur transfert en milieu isolé.",
+    "a_verifier": [
+     "Nos procédures de livraison utilisent-elles des commandes retirées de la 1.0 ?",
+     "Comment consultons-nous le SBOM d’un paquet sans le visualiseur ?"
+    ],
+    "papier": "Le schéma v1beta1 devient le format par défaut du paquet d’initialisation, et les options obsolètes disparaissent avec les commandes. {{3|Une version candidate avait précédé la version définitive.}}\n\nLes paquets d’initialisation sont désormais signés avec Sigstore, sans clé. La documentation indique toujours que l’outil s’appuie sur Syft pour fournir les SBOM des images de conteneurs. {{2|La version 1.0.1, parue le lendemain, corrige le traitement de la politique de mutation de l’agent.}}\n\nAvant de passer à la 1.0, le fabricant doit revoir ses procédures de livraison et convertir ses paquets au nouveau schéma. {{1|La signature sans clé pourrait faciliter la vérification de l’origine des paquets avant leur transfert en milieu isolé.}}"
+   },
+   {
+    "titre": "FOSSology 4.7.3 : image Docker reconstruite",
+    "statut": "Version de maintenance datée du 12 novembre 2026 dans ses notes de version",
+    "fonctions": "Juridique (licences), contrôle des exportations, ingénierie logicielle",
+    "reseau": "Non documenté dans les sources consultées : serveur installé sur site ; le dépôt ne décrit pas de fonctionnement hors ligne.",
+    "licence": "Open source : GPL-2.0-only, à l’exception des bibliothèques libfossdb et libfossrepo, sous LGPL-2.1.",
+    "essentiel": "FOSSology 4.7.3 repose sur la version 4.7.2 et n’ajoute qu’un correctif choisi, accompagné d’une nouvelle image Docker. Construite avec des dépendances à jour, celle-ci répond aux vulnérabilités PHP2Shell. Le correctif porte sur la bibliothèque libmagic, qui identifiait à tort des fichiers CPIO comme des fichiers texte. Selon son dépôt, FOSSology permet de lancer en ligne de commande des analyses de licences, de mentions de droit d’auteur et de contrôle des exportations.",
+    "contexte": "FOSSology est un projet open source d’analyse de la conformité des licences des logiciels, installé sur un serveur de l’entreprise.",
+    "impact_avere": "Les installations fondées sur l’image Docker officielle doivent être redéployées avec la nouvelle image.",
+    "impact_potentiel": "Le contenu d’une archive CPIO prise pour du texte pourrait avoir échappé à l’analyse des licences dans les versions précédentes.",
+    "a_verifier": [
+     "Notre instance de FOSSology utilise-t-elle l’image Docker officielle ?",
+     "Nos analyses passées ont-elles porté sur des archives CPIO ?"
+    ],
+    "papier": "Selon son dépôt, l’outil permet aussi de lancer en ligne de commande des analyses de mentions de droit d’auteur et de contrôle des exportations. {{3|Son code est sous GPL-2.0, sauf deux bibliothèques sous LGPL-2.1.}}\n\nCette version repose sur la 4.7.2 et n’ajoute qu’un correctif choisi : la bibliothèque libmagic identifiait à tort ces archives comme des fichiers texte. {{2|L’image Docker est construite avec des dépendances à jour.}}\n\nLe fabricant qui utilise l’image Docker officielle doit la redéployer. {{1|Le contenu d’archives CPIO pourrait avoir échappé aux analyses de licences précédentes.}}"
+   },
+   {
+    "titre": "OSV-Scanner 2.7.1 : un mode hors ligne plus robuste",
+    "statut": "Version corrective publiée le 9 novembre 2026",
+    "fonctions": "Ingénierie logicielle, PSIRT, juridique (licences)",
+    "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — en mode hors ligne, le projet est comparé à une base locale téléchargée au préalable ; l’analyse au niveau du commit n’y est pas prise en charge et le contrôle des licences, qui interroge l’API deps.dev, demande une connexion.",
+    "licence": "Open source : Apache-2.0.",
+    "essentiel": "La version 2.7.1 d’OSV-Scanner, publiée le 9 novembre 2026, continue de rapprocher les paquets des autres écosystèmes quand la base hors ligne de l’un d’eux échoue. Le serveur de rapports HTML lancé par l’option --serve n’écoute plus, par défaut, que l’interface locale (127.0.0.1). Les violations de licence sont désormais affichées pour les sources du système d’exploitation sans vulnérabilité. L’outil ne développe plus les variables d’environnement lues dans des fichiers .npmrc non fiables.",
+    "contexte": "OSV-Scanner confronte les inventaires de dépendances à la base OSV. L’analyse hors ligne est une fonction officielle : elle compare le projet à une base locale au lieu d’appeler l’API d’OSV.dev.",
+    "impact_avere": "Une analyse hors ligne ne s’interrompt plus pour tous les écosystèmes quand la base de l’un d’eux fait défaut ; ==le résultat reste à contrôler== pour l’écosystème en échec.",
+    "impact_potentiel": "Un serveur de rapports lancé avec une version antérieure pourrait avoir été accessible depuis le réseau local.",
+    "a_verifier": [
+     "Utilisons-nous le mode hors ligne d’OSV-Scanner dans un environnement isolé ?",
+     "Le contrôle des licences de l’outil est-il activé dans notre chaîne ?"
+    ]
+   },
+   {
+    "titre": "Dependency-Track 5.2.1 et 4.14.6 : correctifs de validation, d’audit et d’accès",
+    "statut": "Versions correctives publiées le 25 octobre 2026",
+    "fonctions": "PSIRT, ingénierie logicielle, qualité",
+    "reseau": "Non documenté : aucune page officielle consultée ne décrit un mode déconnecté ; la plateforme tient son propre miroir de la base NVD, qu’elle peut aussi servir à d’autres outils.",
+    "licence": "Open source : Apache-2.0.",
+    "essentiel": "Le 25 octobre 2026, le projet Dependency-Track a publié deux versions correctives. La 4.14.6 corrige l’échec de la validation des SBOM XML qui contiennent des sections CDATA, enregistre désormais dans la piste d’audit la suppression d’un constat lors d’une nouvelle analyse de violation, et retire l’autorité de certification racine d’eMudhra du magasin de certificats de l’image conteneur. La 5.2.1 reprend la correction de validation et le retrait de l’autorité eMudhra, corrige un contrôle d’accès inopérant sur l’interface d’analyse des constats d’un projet et met à jour une trentaine de dépendances. Le projet demande de lire les notes de mise à niveau avant d’installer la version 5.",
+    "contexte": "Dependency-Track, projet de l’OWASP, analyse en continu les SBOM importés pour suivre les vulnérabilités et les licences des composants. Le retrait de l’autorité eMudhra suit la compromission de clés de huit de ses autorités intermédiaires.",
+    "impact_avere": "Les instances de la branche 5 doivent être mises à jour pour fermer le contrôle d’accès défaillant ; la piste d’audit de la branche 4 n’enregistrait pas certaines suppressions de constats.",
+    "impact_potentiel": "Un historique d’audit incomplet pourrait compliquer la justification, devant un client ou une autorité, des décisions prises sur des vulnérabilités.",
+    "a_verifier": [
+     "Quelle version de Dependency-Track exploitons-nous ?",
+     "Nos décisions de suppression de constats sont-elles tracées ailleurs ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "Sécurité de la chaîne d’approvisionnement"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "Des comptes GitHub détournés ont injecté un voleur de secrets dans des milliers de dépôts ; Zephyr publie une série d’avis ; OpenSSL réserve au support payant les correctifs de ses anciennes branches ; Git corrige six failles."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "Campagne wfx : à partir du 10 novembre 2026, des comptes GitHub détournés ont poussé dans des milliers de dépôts un code qui vole les secrets des chaînes d’intégration GitHub Actions ; selon Aikido, au moins 1 835 dépôts l’ont exécuté, et la charge s’est propagée à des paquets Go et Packagist ("
+    },
+    {
+     "t": "Aikido",
+     "href": "https://www.aikido.dev/blog/compromised-github-accounts-push-ci-secret-stealer-to-tens-of-thousands-of-repositories",
+     "type": "editeur"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "SafeDep",
+     "href": "https://safedep.io/blog/github-actions-wfx-credential-stealer",
+     "type": "editeur"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Zephyr",
+     "href": "https://github.com/zephyrproject-rtos/zephyr",
+     "type": "projet"
+    },
+    {
+     "t": " : du 10 au 16 novembre 2026, le projet de système d’exploitation temps réel a publié plusieurs avis de sécurité, dont une lecture de la mémoire de la pile, à distance et sans authentification, par les options IPv4 ; les correctifs figurent dans les versions 4.5.0 et 4.3.2 ("
+    },
+    {
+     "t": "Zephyr, avis",
+     "href": "https://github.com/zephyrproject-rtos/zephyr/security/advisories"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "CVE",
+     "href": "https://www.cve.org/CVERecord?id=CVE-2026-126957"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "versions",
+     "href": "https://github.com/zephyrproject-rtos/zephyr/releases"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "OpenSSL",
+     "href": "https://openssl-library.org/",
+     "type": "projet"
+    },
+    {
+     "t": " : selon son avis du 10 novembre 2026, le projet a corrigé dans son dépôt cinq failles, avec des versions prévues le 1er décembre ; pour les branches 3.0, 1.1.1 et 1.0.2, ==les correctifs sont réservés au support premium== ("
+    },
+    {
+     "t": "oss-security",
+     "href": "https://www.openwall.com/lists/oss-security/2026/11/10/12"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "CERT-FR",
+     "href": "https://www.cert.ssi.gouv.fr/avis/CERTFR-2026-AVI-1496/"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Git",
+     "href": "https://git-scm.com/",
+     "type": "projet"
+    },
+    {
+     "t": " : le 10 novembre 2026, le projet a publié des versions qui corrigent six failles touchant toutes les versions depuis la 2.27.0, dont une exécution de code lors du clonage récursif d’un dépôt malveillant ("
+    },
+    {
+     "t": "oss-security",
+     "href": "https://www.openwall.com/lists/oss-security/2026/11/11/10"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Brotli",
+     "href": "https://github.com/google/brotli",
+     "type": "projet"
+    },
+    {
+     "t": " : depuis le 27 octobre 2026, une faille critique du décodeur de cette bibliothèque de compression figure au catalogue des vulnérabilités exploitées de la CISA"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "CISA",
+     "href": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Noyau Linux : depuis le 28 octobre 2026, l’élévation de privilèges « Fragnesia » figure au catalogue des vulnérabilités exploitées de la CISA"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "CISA",
+     "href": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "chaine"
+    ],
+    "fiabilite": "C",
+    "cote": [
+     3,
+     3,
+     2
+    ]
+   },
+   {
+    "date": "2026-11-16",
+    "rappel": false,
+    "themes": [
+     "chaine",
+     "sca"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "chaine",
+     "sca"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "chaine"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-10-27",
+    "rappel": true,
+    "themes": [
+     "chaine",
+     "cra"
+    ]
+   },
+   {
+    "date": "2026-10-28",
+    "rappel": true,
+    "themes": [
+     "chaine"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "wfx : un voleur de secrets injecté par des comptes GitHub détournés",
+    "statut": "Campagne commencée le 10 novembre 2026, encore active le 12 novembre selon SafeDep ; aucune communication de GitHub relevée dans les sources consultées",
+    "fonctions": "Ingénierie logicielle, intégration continue, PSIRT, sécurité des développements",
+    "essentiel": "Selon Aikido, 4 837 comptes compromis ont ouvert des demandes de fusion de sondage dans 61 764 dépôts ; au moins 1 835 dépôts ont exécuté la charge et se sont fait voler leurs identifiants, et au moins 50 comptes compromis publient des paquets. SafeDep compte 8 093 dépôts qui ont reçu des commits malveillants entre le 10 novembre à 12 h 46 UTC et le 12 novembre à 4 h 36 UTC. Les commits portent le nom de vrais utilisateurs des dépôts, sans signature, ce qui désigne des jetons volés. La charge vole les secrets de GitHub Actions et des identifiants d’accès au cloud.",
+    "contexte": "Selon SafeDep, le décompte ne couvre que la branche par défaut des dépôts publics : le total réel est plus élevé. Trois paquets publiés sur Packagist et sur le proxy des modules Go contiennent la charge.",
+    "impact_avere": "Un fabricant qui construit ses logiciels avec GitHub Actions doit vérifier l’historique de ses dépôts, faire tourner les secrets exposés et contrôler les paquets Go et PHP qu’il intègre.",
+    "impact_potentiel": "Des identifiants volés pourraient permettre de piéger, plus tard, des composants ou des artefacts publiés par les chaînes d’intégration touchées.",
+    "a_verifier": [
+     "Nos dépôts ont-ils reçu des commits non signés inattendus depuis le 10 novembre ?",
+     "Les secrets de nos chaînes d’intégration ont-ils été renouvelés ?"
+    ],
+    "papier": "Les commits portent le nom de vrais utilisateurs des dépôts, sans signature, ce qui désigne des jetons volés.\n\nSafeDep compte 8 093 dépôts touchés en moins de deux jours, alors que son décompte ne couvre que la branche par défaut des dépôts publics. {{2|Au moins 50 comptes compromis publient des paquets, notamment pour npm, PyPI ou crates.}}\n\nLe fabricant doit vérifier l’historique de ses dépôts, faire tourner les secrets de ses chaînes d’intégration et contrôler les paquets Go et PHP qu’il intègre. {{1|Les identifiants volés pourraient servir plus tard à piéger des composants publiés.}}"
+   },
+   {
+    "titre": "Zephyr : une série d’avis de sécurité",
+    "statut": "Avis publiés du 10 au 16 novembre 2026 ; correctifs dans les versions 4.5.0 et 4.3.2",
+    "fonctions": "PSIRT, ingénierie logicielle embarquée",
+    "essentiel": "La faille CVE-2026-126957, publiée le 12 novembre 2026, vient d’un dépassement d’entier dans le traitement des options IPv4 : un attaquant distant non authentifié peut lire la mémoire de la pile ; elle touche Zephyr jusqu’à la version 4.4.0. D’autres avis portent sur la pile Bluetooth : le serveur SDP de Bluetooth Classic peut bloquer indéfiniment la file de travail Bluetooth quand son réservoir de tampons est vide, et la recherche des requêtes ATT peut déréférencer un pointeur nul. Plusieurs failles corrigées dans la 4.5.0 touchent aussi des versions plus anciennes.",
+    "contexte": "Zephyr est un système d’exploitation temps réel open source pour microcontrôleurs et systèmes embarqués. Les versions 4.5.0 et 4.3.2 sont parues fin octobre.",
+    "impact_avere": "Un produit construit sur Zephyr doit rapprocher sa configuration des avis : une fonction non compilée, comme Bluetooth Classic, n’expose pas le produit.",
+    "impact_potentiel": "Les produits restés sur une branche plus ancienne pourraient devoir reporter eux-mêmes les correctifs si le projet ne les publie pas pour cette branche.",
+    "a_verifier": [
+     "Quels produits utilisent Zephyr, et dans quelle version ?",
+     "Nos SBOM indiquent-ils les options compilées, comme la pile Bluetooth ?"
+    ],
+    "papier": "La faille de la pile réseau vient d’un dépassement d’entier dans le traitement des options et touche les versions jusqu’à la 4.4.0. {{3|Elle a été publiée le 12 novembre.}}\n\nD’autres avis portent sur la pile Bluetooth : le serveur SDP de Bluetooth Classic peut bloquer indéfiniment la file de travail Bluetooth, et la recherche des requêtes ATT peut déréférencer un pointeur nul. {{2|Plusieurs de ces failles touchent aussi des versions bien plus anciennes du système.}}\n\nLe fabricant doit rapprocher la configuration de chaque produit des avis : une fonction non compilée n’expose pas le produit. {{1|Un SBOM qui décrit les options compilées faciliterait ce tri.}}"
+   },
+   {
+    "titre": "OpenSSL : cinq failles corrigées, les anciennes branches réservées au support premium",
+    "statut": "Avis du 10 novembre 2026 ; versions 4.1.1, 4.0.4 et 3.5.10 prévues le 1er décembre 2026",
+    "fonctions": "PSIRT, ingénierie logicielle, achats",
+    "essentiel": "L’avis du 10 novembre 2026 annonce cinq vulnérabilités corrigées dans le dépôt public du projet sur GitHub, qui touchent notamment QUIC, AES-GCM-SIV et CMS ; les versions qui les contiennent sont prévues le 1er décembre 2026. Les utilisateurs des branches 4.1, 4.0 et 3.5 passeront aux versions 4.1.1, 4.0.4 et 3.5.10. Pour les branches 3.0, 1.1.1 et 1.0.2, les versions 3.0.24, 1.1.1zk et 1.0.2zt sont réservées aux clients du support premium. Les branches 3.1, 3.2, 3.3, 3.4 et 3.6, hors support, n’ont pas été analysées.",
+    "contexte": "OpenSSL est une bibliothèque cryptographique open source intégrée à de nombreux systèmes et produits. Le CERT-FR a repris l’avis dans son bulletin.",
+    "impact_avere": "Un produit qui embarque OpenSSL 3.0, 1.1.1 ou 1.0.2 n’a plus de correctif public : le fabricant doit migrer vers une branche maintenue ou souscrire le support premium.",
+    "impact_potentiel": "Un composant cryptographique sans correctif public pourrait peser dans l’appréciation de la gestion des vulnérabilités exigée par le CRA.",
+    "a_verifier": [
+     "Quels produits livrés embarquent OpenSSL 3.0, 1.1.1 ou 1.0.2 ?",
+     "Le changement de branche impose-t-il une nouvelle évaluation du chiffrement ?"
+    ],
+    "papier": "Les failles touchent notamment QUIC, AES-GCM-SIV et CMS. Les utilisateurs des branches maintenues passeront aux versions 4.1.1, 4.0.4 et 3.5.10.\n\nPour les anciennes branches, les versions 3.0.24, 1.1.1zk et 1.0.2zt ne sont accessibles qu’aux clients du support payant. {{2|Le CERT-FR a repris l’avis dans son bulletin.}}\n\nUn produit qui embarque une branche sans correctif public oblige le fabricant à migrer vers une branche maintenue ou à souscrire le support. {{1|Un changement de bibliothèque cryptographique pourrait aussi relancer une évaluation du chiffrement, y compris pour le contrôle des exportations.}}"
+   },
+   {
+    "titre": "Git : six failles corrigées, dont une exécution de code au clonage",
+    "statut": "Versions correctives publiées le 10 novembre 2026",
+    "fonctions": "Ingénierie logicielle, intégration continue, sécurité des développements",
+    "essentiel": "Le projet Git a publié le 10 novembre 2026 de nouvelles versions qui corrigent six vulnérabilités ; selon l’annonce, toutes les plateformes prises en charge sont touchées d’une façon ou d’une autre, ainsi que toutes les versions depuis la 2.27.0. Les versions corrigées vont de la 2.50.2 à la 2.56.1. La faille CVE-2026-111760 permet d’exécuter du code lors d’un clonage récursif, avec ses sous-modules, d’un dépôt malveillant ; un fichier .gitmodules d’apparence anodine qui pointe vers ce dépôt suffit, si bien que les utilisateurs en aval ne sont pas protégés.",
+    "contexte": "Git est l’outil de gestion de versions de la plupart des chaînes de développement ; les sous-modules permettent d’intégrer d’autres dépôts dans un projet.",
+    "impact_avere": "Les postes de développement et les serveurs de construction qui récupèrent des sous-modules tiers doivent passer à une version corrigée de Git.",
+    "impact_potentiel": "Un dépôt tiers compromis pourrait exécuter du code sur une machine de construction et altérer les logiciels livrés.",
+    "a_verifier": [
+     "Quelle version de Git utilisent nos serveurs de construction ?",
+     "Nos constructions récupèrent-elles des sous-modules de dépôts externes ?"
+    ],
+    "papier": "Selon l’annonce, toutes les plateformes prises en charge sont touchées d’une façon ou d’une autre. Les versions corrigées vont de la 2.50.2 à la 2.56.1. {{3|L’annonce a été relayée le lendemain sur la liste oss-security.}}\n\nLa faille la plus grave, CVE-2026-111760, se déclenche lors d’un clonage avec les sous-modules : un fichier .gitmodules d’apparence anodine qui pointe vers le dépôt malveillant suffit, si bien que les utilisateurs en aval ne sont pas protégés. {{2|Les sous-modules permettent d’intégrer d’autres dépôts dans un projet.}}\n\nLe fabricant doit mettre à jour Git sur ses postes de développement et ses serveurs de construction. {{1|Un dépôt tiers compromis pourrait sinon exécuter du code sur une machine de construction et altérer les logiciels livrés.}}"
+   },
+   {
+    "titre": "Brotli : une faille critique du décodeur, activement exploitée",
+    "statut": "Vulnérabilité inscrite au catalogue KEV de la CISA le 27 octobre 2026 ; correctifs disponibles dans les versions 1.0.10, 1.1.1 et 1.2.1",
+    "fonctions": "PSIRT, ingénierie logicielle, juridique (déclaration CRA), achats",
+    "essentiel": "La faille CVE-2026-111497 touche le décodeur de Brotli, bibliothèque de compression de Google. Selon la CISA, un attaquant distant non authentifié peut, avec un flux compressé malveillant, corrompre la mémoire du décodeur, lire des données sensibles, provoquer un déni de service ou exécuter du code. La CISA l’a inscrite le 27 octobre 2026 dans son catalogue des vulnérabilités activement exploitées. Les versions 1.0.3 à 1.2.0 sont concernées ; la NVD invite à passer en 1.0.10, 1.1.1 ou 1.2.1. Le CERT-FR la signale dans son bulletin du 2 novembre 2026.",
+    "contexte": "La faille a été rendue publique le 21 octobre 2026 par l’avis de sécurité de Node.js, qui intègre Brotli. Selon JFrog, la bibliothèque arrive souvent par des dépendances transitives ou intégrée dans des binaires natifs, si bien que des versions publiées peuvent rester vulnérables même après la correction du code source.",
+    "impact_avere": "Depuis le 11 septembre 2026, le CRA impose aux fabricants de déclarer les vulnérabilités activement exploitées de leurs produits dont ils ont connaissance. Une copie de Brotli intégrée au code n’apparaît pas forcément dans un SBOM fondé sur les paquets : ==la recherche doit porter sur les binaires==.",
+    "impact_potentiel": "Un produit qui décompresse des données reçues du réseau avec une version vulnérable pourrait être exposé à distance ; sa correction pourrait exiger une nouvelle version du logiciel livré aux clients.",
+    "a_verifier": [
+     "Nos produits embarquent-ils Brotli, directement ou par Node.js, .NET ou un autre environnement ?",
+     "Nos outils d’analyse détectent-ils les copies intégrées dans les binaires ?",
+     "Faut-il déclarer cette vulnérabilité sur la plateforme de l’ENISA pour un produit relevant du CRA ?"
+    ]
+   },
+   {
+    "titre": "Noyau Linux : la faille « Fragnesia » activement exploitée",
+    "statut": "Vulnérabilité inscrite au catalogue KEV de la CISA le 28 octobre 2026 ; divulguée le 13 mai 2026",
+    "fonctions": "PSIRT, ingénierie logicielle, juridique (déclaration CRA)",
+    "essentiel": "La CISA a inscrit le 28 octobre 2026 la faille CVE-2026-46300 du noyau Linux dans son catalogue des vulnérabilités activement exploitées. Il s’agit d’une élévation de privilèges locale, liée au traitement des paquets chiffrés ESP transportés sur TCP. Selon la CISA, elle peut être enchaînée avec les failles de PHP CVE-2026-109618 et CVE-2026-109619 pour implanter des portes dérobées web et exécuter des commandes en administrateur. La CISA précise qu’elle touche un composant open source susceptible d’être utilisé par différents produits. Divulguée le 13 mai 2026 sur la liste oss-security, elle appartient à la famille de failles « *{en}Dirty Frag* ».",
+    "contexte": "Le noyau Linux équipe une grande partie des produits embarqués. Les deux failles de PHP ont fait l’objet, le 21 octobre 2026, d’un appel à corriger des autorités européennes.",
+    "impact_avere": "Une faille activement exploitée dans un composant embarqué relève de l’obligation de déclaration du CRA pour un produit concerné, lorsque le fabricant en a connaissance ; les noyaux livrés doivent être comparés aux correctifs disponibles.",
+    "impact_potentiel": "Un équipement qui expose une interface web en PHP sur un noyau vulnérable pourrait être pris en main à distance par l’enchaînement des failles.",
+    "a_verifier": [
+     "Quelles versions du noyau Linux livrons-nous, y compris dans les paquets de support des fournisseurs de cartes ?",
+     "Nos produits combinent-ils PHP et un noyau Linux non corrigé ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "Commerce international : exportations et sanctions"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "Le BIS soumet à licence les puces d’IA avancées vers cinq pays, dont Singapour et le Brésil, et supprime le contrôle des poids de modèles ; le Royaume-Uni confirme ses nouvelles listes au 1er décembre ; l’UE sanctionne un groupe de pirates pro-russe."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "Puces d’IA, accès à distance : selon une règle intérimaire du BIS annoncée le 16 novembre 2026, en vigueur à sa publication au Federal Register, l’exportation de puces avancées vers l’Indonésie, la Malaisie, Singapour, la Thaïlande et le Brésil ==exige une licence== ; la règle supprime aussi l’ECCN 4E091, qui contrôlait les poids des modèles d’IA ("
+    },
+    {
+     "t": "BIS",
+     "href": "https://www.bis.gov/press-release/bis-issues-rule-addressing-remote-access-american-super-intelligence-technology"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "règle",
+     "href": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Mise à jour, Royaume-Uni, listes de contrôle : selon l’avis aux exportateurs 2026/24, mis à jour le 11 novembre 2026, le texte réglementaire SI 2026/1150, déposé au Parlement le 3 novembre, doit entrer en vigueur le 1er décembre ; il exclut de l’entrée 5A004.b les débogueurs, les hyperviseurs et l’extraction de données par JTAG, et crée un contrôle des bibliothèques logicielles liées au 5A001.h ("
+    },
+    {
+     "t": "GOV.UK",
+     "href": "https://www.gov.uk/government/publications/notice-to-exporters-202624-proposed-amendments-to-uk-strategic-export-controls/notice-to-exporters-202624-proposed-amendments-to-uk-strategic-export-controls"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "legislation.gov.uk",
+     "href": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Sanctions cyber de l’UE : le 16 novembre 2026, le Conseil a inscrit au régime de sanctions contre les cyberattaques le groupe pro-russe NoName057(16), qui mène des attaques par déni de service avec l’outil DDoSia, et a ajouté 30 personnes et une entité au régime visant les activités déstabilisatrices de la Russie ("
+    },
+    {
+     "t": "règlement d’exécution 2026/2550",
+     "href": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "règlement d’exécution 2026/2558",
+     "href": "https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Règle des affiliés du BIS : une règle publiée au Federal Register le 9 novembre 2026 prolonge sa suspension jusqu’au 10 janvier 2027"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "Federal Register",
+     "href": "https://www.federalregister.gov/documents/2026/11/09/2026-22793/extension-of-the-suspension-of-expansion-of-end-user-controls-for-affiliates-of-certain-listed"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "govinfo",
+     "href": "https://www.govinfo.gov/content/pkg/FR-2026-11-09/html/2026-22793.htm"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Baker McKenzie",
+     "href": "https://sanctionsnews.bakermckenzie.com/bis-extends-suspension-of-the-affiliates-rule-through-january-10-2027/"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Nixon Peabody",
+     "href": "https://www.nixonpeabody.com/insights/alerts/2026/11/06/bis-formally-suspends-the-affiliates-rule-until-january-10-2027"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "ITAR : le département d’État propose de retirer certains articles de la liste des munitions des États-Unis, de réviser des définitions et d’ajouter une exemption ; commentaires jusqu’au 30 novembre 2026 ("
+    },
+    {
+     "t": "Federal Register",
+     "href": "https://www.federalregister.gov/documents/2026/10/01/2026-20079/international-traffic-in-arms-regulations-itar-review-of-the-us-munitions-list-and-related"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Singapour : le Strategic Goods (Control) Order 2026, qui met à jour la liste des biens et technologies stratégiques, s’applique le 1er décembre 2026"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "douanes de Singapour",
+     "href": "https://www.customs.gov.sg/permits-and-licences/trade-controls-and-prohibitions/strategic-goods-control/strategic-goods-control-overview/"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "CMMC : la suspension de la phase 2, décidée le 13 juillet 2026, reste sans date de reprise ; NIST SP 800-171 et DFARS 252.204-7012 restent applicables ("
+    },
+    {
+     "t": "Serabrynn",
+     "href": "https://serabrynn.com/resources/cmmc-phase-2-suspension-class-deviation-revision-3/"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Wolf Theiss",
+     "href": "https://www.wolftheiss.com/insights/cmmc-phase-ii-suspended-what-changes-and-what-does-not-for-european-suppliers-to-the-us-defence-industrial-base/"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-16",
+    "rappel": false,
+    "themes": [
+     "export-us"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     3,
+     3,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-11",
+    "rappel": false,
+    "themes": [
+     "export-ue"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     2,
+     3,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-16",
+    "rappel": false,
+    "themes": [
+     "sanctions"
+    ],
+    "fiabilite": "A",
+    "cote": [
+     1,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-11-09",
+    "rappel": true,
+    "themes": [
+     "export-us"
+    ]
+   },
+   {
+    "date": "2026-10-01",
+    "rappel": true,
+    "themes": [
+     "export-us"
+    ]
+   },
+   {
+    "date": "2026-10-01",
+    "rappel": true,
+    "themes": [
+     "export-ue"
+    ]
+   },
+   {
+    "date": "2026-09-03",
+    "rappel": true,
+    "themes": [
+     "cmmc"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "BIS : l’accès à distance aux puces d’IA sous contrôle",
+    "statut": "Règle finale intérimaire annoncée le 16 novembre 2026 ; en vigueur à sa publication au Federal Register, prévue le 19 novembre ; commentaires pendant 60 jours",
+    "fonctions": "Contrôle des exportations, juridique, achats, ingénierie système",
+    "essentiel": "Selon le communiqué du BIS du 16 novembre 2026, la règle vise à empêcher que les restrictions sur la technologie américaine soient contournées par du calcul à distance dans des centres de données de pays tiers. Elle soumet à licence les exportations vers les centres de données étrangers qui fournissent à distance des volumes importants de calcul à des entreprises dont le siège est dans le groupe de pays D:5 ou à Macao ; les centres qui servent déjà ces clients ont 90 jours pour obtenir une licence. Elle exige une licence pour les puces avancées vers cinq pays et abroge formellement la règle de diffusion de l’IA de l’administration Biden.",
+    "contexte": "Selon le BIS, la règle a été rédigée par le Trésor et le Conseil de sécurité nationale, et à leur demande. En application d’un décret présidentiel, elle emploie « Super Intelligence » à la place d’« intelligence artificielle ».",
+    "impact_avere": "La suppression de l’ECCN 4E091 lève le contrôle américain propre aux poids des modèles d’IA, tandis que le contrôle des puces et des centres de données se renforce.",
+    "impact_potentiel": "Un système qui intègre des puces américaines avancées et qui serait livré à Singapour, en Indonésie ou au Brésil pourrait nécessiter une licence de réexportation, selon la classification des puces et les règles de minimis.",
+    "a_verifier": [
+     "Nos produits livrés dans ces cinq pays intègrent-ils des puces américaines avancées ?",
+     "Nos contrats d’hébergement ou de calcul servent-ils des clients liés au groupe D:5 ?",
+     "Avons-nous encore des classifications fondées sur l’ECCN 4E091 ?"
+    ],
+    "papier": "La règle vise le contournement des restrictions par du calcul à distance dans des centres de données de pays tiers. Les exportations vers ces centres exigent une licence quand ils fournissent des volumes importants de calcul à des entreprises dont le siège est dans le groupe de pays D:5 ou à Macao. {{3|Les centres qui servent déjà ces clients ont 90 jours pour obtenir une licence.}}\n\nLe BIS abroge aussi formellement la règle de diffusion de l’IA de l’administration Biden, qui n’a jamais été appliquée. {{2|Le texte emploie « Super Intelligence » à la place d’« intelligence artificielle », en application d’un décret présidentiel.}}\n\nLe fabricant doit recenser les produits livrés dans les cinq pays qui intègrent des puces américaines avancées et vérifier s’ils exigent une licence de réexportation ; les commentaires restent ouverts pendant 60 jours. {{1|Des contrats de calcul ou d’hébergement qui serviraient des clients liés au groupe D:5 pourraient aussi être concernés.}}"
+   },
+   {
+    "titre": "Royaume-Uni : les nouvelles listes de contrôle au 1er décembre",
+    "statut": "Export Control (Amendment) Regulations 2026 (SI 2026/1150), pris le 29 octobre et déposés le 3 novembre ; entrée en vigueur prévue le 1er décembre 2026, sous réserve de la procédure parlementaire",
+    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle",
+    "essentiel": "Le texte met à jour les contrôles britanniques sur les biens, logiciels et technologies militaires et à double usage pour refléter les révisions 2025 des régimes multilatéraux, dont l’Arrangement de Wassenaar et le Groupe d’Australie. Une nouvelle note exclut de 5A004.b les débogueurs et hyperviseurs, les outils limités à l’extraction logique de données, l’extraction par chip-off ou JTAG et les outils limités au jailbreak ou au rooting. L’entrée 5E501.f vise les bibliothèques spécialement conçues pour qu’un équipement remplisse les fonctions du 5A001.h. Les exportateurs enregistrés pour l’autorisation générale GEA001 au 1er décembre pourront l’utiliser jusqu’au 1er avril 2027.",
+    "contexte": "L’avis 2026/24 avait été publié le 23 octobre (voir le N° 4) ; sa mise à jour tient compte du dépôt du texte au Parlement. La licence générale ouverte d’exportation de biens à double usage vers les États membres de l’UE sera révoquée.",
+    "impact_avere": "Les entités britanniques d’un groupe français doivent revoir avant le 1er décembre la classification de leurs logiciels et outils de sécurité au regard des entrées 5A004 et 5E501.",
+    "impact_potentiel": "Des outils d’analyse ou de test, jusque-là contrôlés au titre du 5A004.b, pourraient sortir du contrôle ; à l’inverse, des bibliothèques logicielles pourraient y entrer.",
+    "a_verifier": [
+     "Nos entités britanniques utilisent-elles GEA001 ou la licence générale vers l’UE ?",
+     "Nos bibliothèques logicielles relèvent-elles de la nouvelle entrée 5E501.f ?"
+    ],
+    "papier": "Le texte reflète les révisions 2025 des régimes multilatéraux, dont l’Arrangement de Wassenaar et le Groupe d’Australie, et des contrôles sur des technologies avancées et émergentes, dont le calcul avancé. {{3|Il a été pris le 29 octobre.}}\n\nLa note sur 5A004.b écarte aussi les outils limités à l’extraction logique de données et ceux qui servent seulement au jailbreak ou au rooting. {{2|L’annexe 4 élargit les contrôles visant Haïti et les restreint pour la République centrafricaine, au regard des embargos sur les armes.}}\n\nLes exportateurs enregistrés pour l’autorisation générale GEA001 pourront l’utiliser jusqu’au 1er avril 2027 ; la licence générale vers les États membres de l’UE sera révoquée. Les entités britanniques d’un groupe français doivent revoir la classification de leurs logiciels avant l’échéance. {{1|Des outils de test pourraient sortir du contrôle, et des bibliothèques y entrer.}}"
+   },
+   {
+    "titre": "Sanctions cyber de l’UE : un groupe de pirates pro-russe inscrit",
+    "statut": "Règlements d’exécution (UE) 2026/2550 et 2026/2558 du 16 novembre 2026, en vigueur",
+    "fonctions": "Contrôle des exportations, juridique, achats",
+    "essentiel": "Par le règlement d’exécution (UE) 2026/2550, le Conseil inscrit NoName057(16) au régime de sanctions contre les cyberattaques. Selon le texte, ce groupe de pirates pro-russe, apparu en mars 2022, revendique des cyberattaques contre des organismes publics, des infrastructures critiques et des entreprises d’Ukraine, des États-Unis et des États membres. Par le règlement d’exécution (UE) 2026/2558, le Conseil ajoute 30 personnes et une entité à la liste du régime visant les activités déstabilisatrices de la Russie. Le même jour, le règlement d’exécution (UE) 2026/2574 ajoute 12 personnes et 101 entités au titre des sanctions contre la Russie.",
+    "contexte": "Selon le règlement, NoName057(16) mène ses attaques par déni de service en multipliant les requêtes réseau vers les sites visés. Aucune entreprise du logiciel n’a été relevée parmi les inscriptions du régime cyber dans les sources consultées.",
+    "impact_avere": "Les listes de criblage des clients, fournisseurs et partenaires doivent intégrer les nouvelles inscriptions ; le gel des avoirs interdit de mettre des fonds ou des ressources économiques à leur disposition.",
+    "impact_potentiel": "Le règlement Russie du même jour, qui vise de nombreuses entités, pourrait concerner des intermédiaires commerciaux d’un exportateur.",
+    "a_verifier": [
+     "Nos outils de criblage intègrent-ils les listes du 16 novembre ?",
+     "Nos partenaires étrangers figurent-ils parmi les entités inscrites ?"
+    ],
+    "papier": "Selon le règlement, NoName057(16), apparu en mars 2022, revendique des cyberattaques contre des organismes publics, des infrastructures critiques et des entreprises d’Ukraine, des États-Unis et des États membres. {{3|Ses attaques consistent à multiplier les requêtes réseau vers les sites visés.}}\n\nLe même jour, un autre règlement d’exécution ajoute 12 personnes et 101 entités au titre des sanctions contre la Russie. {{2|Il cite notamment un actionnaire de Yandex, présenté comme la plus grande entreprise informatique de Russie.}}\n\nAucune entreprise du logiciel n’a été relevée parmi les inscriptions du régime cyber. Le fabricant doit néanmoins mettre à jour ses listes de criblage : le gel des avoirs interdit de mettre des fonds ou des ressources économiques à la disposition des personnes inscrites. {{1|Le règlement Russie pourrait concerner des intermédiaires commerciaux.}}"
+   },
+   {
+    "titre": "EAR : la suspension de la règle des affiliés prolongée jusqu’au 10 janvier 2027",
+    "statut": "Règle finale en vigueur le 9 novembre 2026 ; suspension prolongée jusqu’au 10 janvier 2027",
+    "fonctions": "Contrôle des exportations, juridique, administration des ventes",
+    "essentiel": "La règle finale du BIS, publiée au Federal Register le 9 novembre 2026 et en vigueur le même jour, prolonge la suspension des modifications de l’EAR introduites par la « règle des affiliés » de septembre 2025. La suspension d’un an devait prendre fin le 9 novembre 2026 ; elle court désormais jusqu’au 10 janvier 2027. La règle ne donne pas de motif et n’a pas tenu compte des commentaires reçus sur la règle des affiliés, qui seront examinés dans des règles ultérieures. Selon Baker McKenzie et Nixon Peabody, la prolongation applique celle de la trêve commerciale entre les États-Unis et la Chine.",
+    "contexte": "La règle des affiliés étend les restrictions de l’Entity List à toute société étrangère détenue à 50 % ou plus, directement ou indirectement, par des entités inscrites. Le N° 5 relevait qu’aucune prolongation n’était encore publiée à une semaine de l’échéance.",
+    "impact_avere": "Jusqu’au 10 janvier 2027, les filiales non inscrites des entités de l’Entity List échappent à cette extension ; le délai sert à ==préparer le filtrage fondé sur la détention==.",
+    "impact_potentiel": "Sans nouvelle prolongation, la règle pourrait s’appliquer le 10 janvier 2027 aux livraisons, mises à jour logicielles et assistance technique relevant de l’EAR destinées à ces filiales.",
+    "a_verifier": [
+     "Nos outils de filtrage intègrent-ils les données de détention à 50 % ?",
+     "Quelles livraisons relevant de l’EAR sont prévues début 2027 ?"
+    ]
+   },
+   {
+    "titre": "ITAR : révision proposée de la liste des munitions des États-Unis",
+    "statut": "Projet de règle publié le 1er octobre 2026 ; commentaires jusqu’au 30 novembre 2026",
+    "fonctions": "Contrôle des exportations, juridique",
+    "essentiel": "Le département d’État propose de modifier l’ITAR pour concentrer les contrôles de la liste USML sur les technologies les plus sensibles : retrait de certains articles de la liste, mise à jour de définitions et ajout d’une nouvelle exemption de licence. Il sollicite des commentaires du public.",
+    "contexte": "La liste des munitions des États-Unis (USML, *{en}United States Munitions List*) fixe les articles et services de défense, données techniques et logiciels compris, soumis à l’ITAR. Le projet a été publié au Federal Register le 1er octobre 2026.",
+    "impact_avere": "Le texte n’est qu’un projet : la liste en vigueur reste applicable, et les licences ITAR restent exigées pour les articles qui y figurent.",
+    "impact_potentiel": "Un article retiré de la liste pourrait ne plus imposer de licence ITAR, ce qui modifierait les analyses de contenu américain et les démarches ITAR-free.",
+    "a_verifier": [
+     "Quels composants américains de nos produits relèvent de l’ITAR ?",
+     "Souhaitons-nous commenter le projet avant le 30 novembre ?"
+    ]
+   },
+   {
+    "titre": "Singapour : une nouvelle liste des biens stratégiques au 1er décembre 2026",
+    "statut": "Ordonnance publiée le 1er octobre 2026 ; en vigueur le 1er décembre 2026",
+    "fonctions": "Contrôle des exportations, juridique, logistique",
+    "essentiel": "Selon les douanes de Singapour, le Strategic Goods (Control) Order 2026, publié le 1er octobre 2026, met à jour la liste des biens stratégiques et des technologies de biens stratégiques à compter du 1er décembre 2026. Singapour prend pour base les listes de contrôle 2025 des quatre régimes multilatéraux de contrôle des exportations. La transmission électronique d’une technologie contrôlée à Singapour, par courriel par exemple, ou sa mise à disposition sur un ordinateur situé à Singapour, est un transfert soumis au contrôle.",
+    "contexte": "Les douanes indiquent que leurs avis passés de classement peuvent devenir caducs et conseillent de reclasser les biens et technologies concernés. Les avis de classement sont donc à revoir avant l’entrée en vigueur.",
+    "impact_avere": "Un industriel qui fait transiter, héberge ou transmet depuis Singapour des logiciels ou des technologies contrôlés doit revoir leur classement selon la nouvelle liste avant le 1er décembre.",
+    "impact_potentiel": "Des classements obtenus auprès des douanes de Singapour pourraient ne plus valoir après cette date.",
+    "a_verifier": [
+     "Transmettons-nous des données techniques contrôlées vers ou depuis Singapour ?",
+     "Nos classements singapouriens s’appuient-ils sur d’anciens avis des douanes ?"
+    ]
+   },
+   {
+    "titre": "CMMC : phase 2 suspendue sans date de reprise",
+    "statut": "Suspension depuis le 13 juillet 2026, reprise dans la *{en}class deviation* révision 3 du 3 septembre 2026 ; aucune date de reprise",
+    "fonctions": "Achats, juridique, contrôle des exportations, qualité, ingénierie logicielle",
+    "essentiel": "La phase 2 du CMMC (Cybersecurity Maturity Model Certification, dispositif du ministère américain de la Défense), prévue le 10 novembre 2026, est suspendue depuis le 13 juillet 2026. La *{en}class deviation* révision 3, publiée le 3 septembre 2026, demande aux acheteurs de retirer ou de réviser les exigences CMMC des appels d'offres et contrats, sans fixer de date de reprise.",
+    "contexte": "Restent applicables : la base NIST SP 800-171 révision 2 au titre de DFARS 252.204-7012, la déclaration des incidents sous 72 heures, la notation SPRS et les contrôles de la DCMA. Selon Wolf Theiss, la phase 1 (auto-évaluation) reste en place et les primes répercutent ces exigences sur leurs fournisseurs.",
+    "impact_avere": "Un industriel français fournisseur, direct ou indirect, d'une prime américaine reste soumis aux exigences de DFARS 252.204-7012 si des informations contrôlées transitent par ses systèmes. La suspension retire une étape d'évaluation, ==pas les exigences de sécurité==.",
+    "impact_potentiel": "La phase 2 pourrait être reprise, modifiée ou abandonnée selon les conclusions de la revue engagée par le ministère ; les primes pourraient aussi durcir leurs clauses sans attendre.",
+    "a_verifier": [
+     "Quels contrats imposent DFARS 252.204-7012 ?",
+     "La note SPRS déclarée est-elle étayée ?",
+     "Le périmètre informatique concerné est-il identifié ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "France et UE : NIS2, défense, IA"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "L’Assemblée nationale a achevé l’examen de la loi Résilience, qui transpose NIS2 ; la directive sur les transferts intra-UE de produits de défense entre en vigueur le 23 novembre."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "Mise à jour, loi Résilience : l’Assemblée nationale a achevé le 10 novembre 2026 l’examen en première lecture du projet de loi qui transpose notamment NIS2 ; selon Leto, citant ZDNet, les députés ont écarté l’intégration de tous les éditeurs de logiciels parmi les entités essentielles ; le vote solennel est prévu le 17 novembre ("
+    },
+    {
+     "t": "Assemblée nationale",
+     "href": "https://www.assemblee-nationale.fr/dyn/actualites-accueil-hub/examen-du-projet-de-loi-relatif-a-la-resilience-des-infrastructures-critiques-et-au-renforcement-de-la-cybersecurite"
+    },
+    {
+     "t": ", "
+    },
+    {
+     "t": "Leto",
+     "href": "https://www.leto.legal/news/nis-2-loi-resilience-assemblee-article-16-bis-supprime-vote-17-novembre-2026",
+     "type": "editeur"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Transferts intra-UE de produits de défense : la directive (UE) 2026/2383, qui couvre aussi les transferts immatériels de logiciels, entre en vigueur le 23 novembre 2026 ("
+    },
+    {
+     "t": "EUR-Lex",
+     "href": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Responsabilité du fait des produits : la directive (UE) 2024/2853, qui couvre le logiciel, doit être transposée au plus tard le 9 décembre 2026"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "Wolf Theiss",
+     "href": "https://www.wolftheiss.com/insights/software-digital-products-and-ai-stricter-safety-requirements-on-the-horizon/"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Liste *{en}dual-use* de l’UE : adopté le 14 septembre 2026, le règlement délégué qui remplace l’annexe I du règlement (UE) 2021/821 n’était pas publié au Journal officiel le 17 novembre ("
+    },
+    {
+     "t": "Commission",
+     "href": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "AI Act, normes harmonisées : selon un compte rendu publié par le CEN-CENELEC, la demande de normalisation révisée fixe leur échéance à février 2027"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "CEN-CENELEC",
+     "href": "https://www.cencenelec.eu/news-events/news/2026/newsletter/ots-77-etuc/"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-10",
+    "rappel": false,
+    "themes": [
+     "nis2"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     3,
+     2,
+     2
+    ]
+   },
+   {
+    "date": "2026-11-03",
+    "rappel": true,
+    "themes": [
+     "export-ue",
+     "financement"
+    ]
+   },
+   {
+    "date": "2024-11",
+    "rappel": true,
+    "themes": [
+     "pld"
+    ]
+   },
+   {
+    "date": "2026-09-14",
+    "rappel": true,
+    "themes": [
+     "export-ue"
+    ]
+   },
+   {
+    "date": "2026-10-28",
+    "rappel": true,
+    "themes": [
+     "ai-act"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "Loi Résilience : fin de l’examen à l’Assemblée nationale",
+    "statut": "Projet de loi examiné en première lecture les 9 et 10 novembre 2026 ; vote solennel prévu le 17 novembre, puis commission mixte paritaire",
+    "fonctions": "Juridique, sécurité des systèmes d’information, PSIRT, achats",
+    "essentiel": "Selon l’Assemblée nationale, le projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité a été examiné en première lecture du lundi 9 au mardi 10 novembre 2026, et le vote solennel aura lieu le 17 novembre après les questions au Gouvernement. Selon Leto, plus de 150 amendements ont été adoptés en séance. Le 10 novembre, les députés ont supprimé l’article 16 bis, introduit au Sénat, qui interdisait d’imposer aux fournisseurs de services de chiffrement des dispositifs visant à affaiblir volontairement la sécurité. Une commission mixte paritaire devra ensuite accorder les versions des deux chambres.",
+    "contexte": "Le Sénat avait adopté le texte le 12 mars 2025, en procédure accélérée. Selon la ministre chargée du numérique, citée par ZDNet, les nouvelles obligations viseront 18 000 à 20 000 organisations, et l’ANSSI vise une mise en conformité d’ici la fin de 2028.",
+    "impact_avere": "Le texte n’est pas définitivement adopté : les obligations de NIS2 ne s’appliquent pas encore en droit français aux entités concernées.",
+    "impact_potentiel": "Un industriel classé entité essentielle ou importante devrait appliquer les mesures de sécurité de la chaîne d’approvisionnement prévues par NIS2, que ses clients pourraient aussi lui imposer par contrat.",
+    "a_verifier": [
+     "Notre entreprise serait-elle entité essentielle ou importante ?",
+     "Nos contrats prévoient-ils déjà des exigences de sécurité de la chaîne d’approvisionnement ?"
+    ],
+    "papier": "Plus de 150 amendements ont été adoptés en séance. Les députés ont notamment supprimé l’article 16 bis, introduit au Sénat, qui interdisait d’imposer aux fournisseurs de services de chiffrement des dispositifs visant à affaiblir volontairement la sécurité, comme des clés de déchiffrement maîtresses. {{3|L’intégration de tous les éditeurs de logiciels a été jugée comme une surtransposition.}}\n\nSelon la ministre chargée du numérique, citée par ZDNet, les nouvelles obligations viseront 18 000 à 20 000 organisations ; l’ANSSI vise une mise en conformité des entités d’ici la fin de 2028, avec des stratégies de contrôle progressives. {{2|Le Sénat avait adopté le texte en mars 2025, en procédure accélérée.}}\n\nUne commission mixte paritaire devra ensuite accorder les versions des deux chambres. Le fabricant doit préparer sa classification comme entité essentielle ou importante. {{1|Ses clients pourraient aussi lui imposer par contrat des mesures de sécurité de la chaîne d’approvisionnement.}}"
+   },
+   {
+    "titre": "Omnibus défense : la directive sur les transferts intra-UE entre en vigueur",
+    "statut": "Directive (UE) 2026/2383 publiée au JO le 3 novembre 2026 ; entrée en vigueur le 23 novembre 2026 ; transposition au plus tard le 24 novembre 2027, application le 24 février 2028",
+    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle",
+    "essentiel": "La directive (UE) 2026/2383 entre en vigueur le vingtième jour suivant sa publication au Journal officiel du 3 novembre 2026. Les licences générales prévues pour les partenariats industriels structurés s’appliquent aussi aux transferts immatériels de logiciels et de technologies, et les États membres doivent veiller à la proportionnalité des obligations de déclaration pour ces transferts. Les États membres transposent au plus tard le 24 novembre 2027 et appliquent les mesures à partir du 24 février 2028.",
+    "contexte": "La directive modifie le régime des transferts de produits liés à la défense dans l’Union, dans le cadre de l’Omnibus défense.",
+    "impact_avere": "Les transferts restent régis par le droit national actuel jusqu’à la transposition française.",
+    "impact_potentiel": "Les transferts de logiciels entre partenaires industriels européens pourraient être simplifiés par des licences générales après la transposition.",
+    "a_verifier": [
+     "Nos transferts de logiciels vers des partenaires européens relèveraient-ils d’un partenariat industriel structuré ?",
+     "Qui suit la transposition dans le code de la défense ?"
+    ]
+   },
+   {
+    "titre": "Directive européenne sur la responsabilité du fait des produits : logiciel inclus",
+    "statut": "Directive (UE) 2024/2853 ; transposition au plus tard le 9 décembre 2026 ; application aux produits mis sur le marché après le 9 décembre 2026.",
+    "fonctions": "Juridique, qualité, ingénierie logicielle, achats",
+    "essentiel": "La directive (UE) 2024/2853 inclut expressément le logiciel (autonome, embarqué ou IA) dans un régime de responsabilité sans faute. La transposition est prévue au plus tard le 9 décembre 2026, avec application aux produits mis sur le marché après cette date. Les logiciels libres développés hors cadre commercial sont exclus.",
+    "contexte": "Le texte actualise le régime européen de responsabilité du fait des produits défectueux. Wolf Theiss relève que le logiciel, y compris embarqué, entre dans la notion de produit.",
+    "impact_avere": "Les développeurs de logiciels sont responsables ==comme fabricants de composants==, à côté du fabricant du produit. La date du 9 décembre 2026 conditionne l'application aux produits mis sur le marché après cette date.",
+    "impact_potentiel": "Les régimes nationaux de transposition pourraient prévoir des spécificités, notamment pour les équipements militaires, que les sources lues ne précisent pas. Les contrats avec les fournisseurs de composants pourraient devoir répartir davantage les risques, et les polices d'assurance pourraient être revues.",
+    "a_verifier": [
+     "Les produits de défense sont-ils exclus par la transposition française ?",
+     "Les clauses de garantie des fournisseurs de logiciels sont-elles adaptées ?",
+     "Quelles versions civiles seraient concernées ?"
+    ]
+   },
+   {
+    "titre": "Liste *{en}dual-use* 2026 : publication au JO attendue",
+    "statut": "Règlement délégué C(2026) 6323 adopté le 14 septembre 2026 ; non publié au Journal officiel au 17 novembre 2026",
+    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
+    "essentiel": "La Commission a adopté le 14 septembre 2026 un règlement délégué qui remplace l’annexe I du règlement (UE) 2021/821, la liste européenne des biens à double usage. Le texte entre en vigueur après sa publication au Journal officiel, à l’issue de la période d’examen du Parlement européen et du Conseil. Une recherche dans EUR-Lex le 17 novembre ne l’a pas trouvé.",
+    "contexte": "La mise à jour annuelle reprend les décisions des régimes multilatéraux de contrôle des exportations.",
+    "impact_avere": "Tant qu’elle n’est pas publiée, la nouvelle annexe n’est pas applicable : les classifications actuelles restent valables.",
+    "impact_potentiel": "À la publication, des produits, logiciels ou technologies pourraient changer de classification et exiger une licence.",
+    "a_verifier": [
+     "Avons-nous recensé les entrées modifiées qui touchent nos produits ?",
+     "Nos systèmes de classification sont-ils prêts pour la nouvelle annexe ?"
+    ]
+   },
+   {
+    "titre": "AI Act : les normes harmonisées attendues pour février 2027",
+    "statut": "Demande de normalisation révisée ; échéance des normes harmonisées fixée à février 2027, selon un compte rendu publié le 28 octobre 2026",
+    "fonctions": "Ingénierie logicielle, qualité, juridique",
+    "essentiel": "Un article de la Confédération européenne des syndicats, publié le 28 octobre 2026 dans la lettre d’information du CEN-CENELEC, rend compte de la 15e réunion plénière du comité technique JTC 21 sur l’intelligence artificielle, tenue du 6 au 9 octobre à Winterthur. Il indique que la demande de normalisation de la Commission a été révisée pour s’aligner sur les nouveaux calendriers et fixe à février 2027 l’échéance des normes harmonisées. Plusieurs normes seraient en voie d’achèvement à cette date ; la Commission a rappelé le besoin de normes de qualité.",
+    "contexte": "Le règlement (UE) 2026/1744, en vigueur depuis le 27 juillet 2026, a reporté au 2 décembre 2027 les règles sur les systèmes d’IA à haut risque de l’annexe III. Une première norme harmonisée, l’EN 18286 sur le système de management de la qualité, a été publiée en octobre.",
+    "impact_avere": "Hors l’EN 18286, publiée le 14 octobre 2026, aucune norme harmonisée ne donne encore de présomption de conformité pour les autres exigences de l’IA à haut risque.",
+    "impact_potentiel": "Des normes publiées en février 2027 laisseraient environ dix mois avant l’application des règles sur l’IA à haut risque, pour les produits civils ou à double usage concernés.",
+    "a_verifier": [
+     "Nos produits civils ou à double usage intègrent-ils une IA à haut risque ?",
+     "Participons-nous aux travaux du JTC 21 par l’Afnor ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "Licences open source et logiciels embarqués"
+   }
+  ]
+ },
+ {
+  "k": "p",
+  "i": [
+   {
+    "t": "Access Advance réduit, pour les signataires de 2027, la remise de son accord commun aux brevets HEVC et VVC ; le contentieux Vizio reste ouvert."
+   }
+  ]
+ },
+ {
+  "k": "ul",
+  "items": [
+   [
+    {
+     "t": "Access Advance, HEVC et VVC : selon un communiqué du 11 novembre 2026, la remise de l’accord multi-codecs (MCBA), jusqu’à 50 % pour une signature d’ici le 31 décembre 2026, tombera à 40 % au premier semestre 2027, puis à 25 % à partir du 1er juillet 2027 ; ==les signataires actuels gardent leurs taux== ("
+    },
+    {
+     "t": "Access Advance",
+     "href": "https://accessadvance.com/2026/11/11/access-advance-announces-new-effective-discount-rates-for-its-multi-codec-bridging-agreement-starting-on-january-1-2027/"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "Oracle JDK 21 : depuis la version 21.0.13 du 20 octobre 2026, les mises à jour sont proposées sous licence OTN, qui ne permet pas la redistribution"
+    },
+    {
+     "t": " ("
+    },
+    {
+     "t": "Oracle, FAQ",
+     "href": "https://www.oracle.com/java/technologies/javase/jdk-faqs.html"
+    },
+    {
+     "t": ")."
+    }
+   ],
+   [
+    {
+     "t": "GPL, SFC contre Vizio : le procès est indiqué par la SFC pour fin 2026 ; aucun verdict n’a été relevé dans les sources consultées ("
+    },
+    {
+     "t": "SFC",
+     "href": "https://sfconservancy.org/vizio/"
+    },
+    {
+     "t": ")."
+    }
+   ]
+  ],
+  "attrs": [
+   {
+    "date": "2026-11-11",
+    "rappel": false,
+    "themes": [
+     "licences"
+    ],
+    "fiabilite": "B",
+    "cote": [
+     2,
+     2,
+     3
+    ]
+   },
+   {
+    "date": "2026-10-20",
+    "rappel": true,
+    "themes": [
+     "licences"
+    ]
+   },
+   {
+    "date": "2026-05-27",
+    "rappel": true,
+    "themes": [
+     "licences"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "Brevets HEVC et VVC : la remise de l’accord multi-codecs réduite en 2027",
+    "statut": "Nouveaux taux pour les accords signés à partir du 1er janvier 2027 ; taux actuels jusqu’au 31 décembre 2026",
+    "fonctions": "Juridique, achats, propriété intellectuelle, ingénierie vidéo",
+    "essentiel": "Selon le communiqué d’Access Advance du 11 novembre 2026, les concédants des pools de brevets HEVC Advance et VVC Advance ont approuvé une réduction en deux temps de la remise du Multi-Codec Bridging Agreement (MCBA), accordée aux licenciés qui rejoignent les deux pools. La remise effective atteint jusqu’à 50 % pour une signature au plus tard le 31 décembre 2026, jusqu’à 40 % du 1er janvier au 30 juin 2027, puis jusqu’à 25 %. Pour un téléphone mobile en région 1, la redevance passe ainsi de 0,50 à 0,60, puis à 0,75 dollar. Le MCBA est un accord administratif, pas une licence distincte.",
+    "contexte": "HEVC et VVC sont des normes de compression vidéo dont les brevets essentiels sont en partie regroupés dans des pools ; Access Advance administre ceux de HEVC Advance et de VVC Advance.",
+    "impact_avere": "Un fabricant dont les produits encodent ou décodent de la vidéo HEVC et VVC, et qui n’a pas signé le MCBA, paiera des redevances plus élevées s’il signe après le 31 décembre 2026.",
+    "impact_potentiel": "Vérifier ce que couvrent déjà les licences des fournisseurs de puces ou de logiciels vidéo pourrait éviter de payer deux fois.",
+    "a_verifier": [
+     "Nos produits intègrent-ils des codecs HEVC ou VVC, matériels ou logiciels ?",
+     "Qui, du fournisseur ou de nous, détient la licence de brevets ?"
+    ],
+    "papier": "Les concédants des pools HEVC Advance et VVC Advance ont approuvé cette réduction en deux temps. La remise s’applique aux licenciés qui rejoignent les deux pools. {{3|Le MCBA est un accord administratif, pas une licence distincte.}}\n\nPour un téléphone mobile en région 1, la redevance par unité passe ainsi de 0,50 dollar à 0,60, puis à 0,75 dollar selon la date de signature. {{2|HEVC et VVC sont des normes de compression vidéo dont les brevets essentiels sont en partie regroupés dans des pools.}}\n\nLe fabricant dont les produits encodent ou décodent de la vidéo dans ces formats doit décider avant la fin de l’année s’il rejoint les deux pools. {{1|Vérifier ce que couvrent déjà les licences des fournisseurs de puces ou de logiciels vidéo pourrait éviter de payer deux fois.}}"
+   },
+   {
+    "titre": "Oracle JDK 21.0.13 : première mise à jour sous licence OTN",
+    "statut": "Version publiée le 20 octobre 2026 sous licence OTN for Java SE ; versions 21.0.13 et suivantes concernées",
+    "fonctions": "Ingénierie logicielle, achats, juridique",
+    "essentiel": "Selon ses notes de version, JDK 21.0.13, publié le 20 octobre 2026, est la première mise à jour de JDK 21 proposée sous l’*{en}Oracle Technology Network License Agreement for Oracle Java SE* (OTN). La foire aux questions d’Oracle range les versions d’Oracle JDK 21 publiées après septembre 2026, 21.0.13 et suivantes, sous cette licence, réservée aux usages personnels, de développement et assimilés, ou au support d’Oracle pour ses clients. Elle précise que cette licence ne permet pas la redistribution. Un changement de licence comparable s’applique aux mises à jour de JavaFX 21 publiées après septembre 2026.",
+    "contexte": "Jusqu’ici, JDK 21 était proposé sous la licence gratuite NFTC, qui autorisait l’usage en production et la redistribution. JDK 25 reste sous NFTC (voir le N° 3).",
+    "impact_avere": "Un équipement livré avec Oracle JDK 21.0.13 ou une version ultérieure ==sort des conditions de la licence OTN==, qui ne permet pas la redistribution ; il faut un contrat avec Oracle ou un autre environnement Java.",
+    "impact_potentiel": "Les fournisseurs de sous-ensembles qui livrent Oracle JDK 21 pourraient appliquer la nouvelle version sans mesurer l’effet de la licence sur le produit final.",
+    "a_verifier": [
+     "Nos produits ou ceux de nos fournisseurs embarquent-ils Oracle JDK 21.0.13 ou une version ultérieure ?",
+     "Nos interfaces utilisent-elles JavaFX 21 ?"
+    ]
+   },
+   {
+    "titre": "GPL : procédure SFC contre Vizio",
+    "statut": "Procès indiqué pour fin 2026 par la SFC ; aucun verdict relevé",
+    "fonctions": "Juridique, ingénierie logicielle, achats, qualité",
+    "essentiel": "Software Freedom Conservancy (SFC) poursuit Vizio, fabricant de téléviseurs, devant la Cour supérieure de Californie (comté d'Orange). La page du dossier de la SFC indique une date de procès à la fin de 2026. La question centrale : un consommateur peut-il faire respecter les licences GPL et LGPL en tant que bénéficiaire, et obtenir le code source correspondant complet ?",
+    "contexte": "Aucun tribunal américain n'a encore tranché la question du bénéficiaire. La page du dossier de SFC n'a pas été mise à jour depuis février 2026.",
+    "impact_avere": "Un industriel qui livre des équipements embarquant des composants sous GPL reste tenu de fournir le code source correspondant complet, scripts de compilation compris, ==quelle que soit l'issue de l'affaire==.",
+    "impact_potentiel": "Une décision favorable à SFC pourrait permettre aux utilisateurs finaux d'exiger eux-mêmes le code source, et inciter les fabricants à revoir leurs procédures de publication.",
+    "a_verifier": [
+     "Le code source livré se compile-t-il réellement ?",
+     "Quels produits embarquent des composants sous GPL ou LGPL ?"
+    ]
+   }
+  ]
+ },
+ {
+  "k": "h2",
+  "i": [
+   {
+    "t": "Agenda : dates à surveiller"
+   }
+  ]
+ },
+ {
+  "k": "table",
+  "rows": [
+   [
+    [
+     {
+      "t": "Date"
+     }
+    ],
+    [
+     {
+      "t": "Échéance"
+     }
+    ],
+    [
+     {
+      "t": "Thème"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "Novembre 2026"
+     }
+    ],
+    [
+     {
+      "t": "Publication au JO attendue de la liste *{en}dual-use* mise à jour"
+     }
+    ],
+    [
+     {
+      "t": "Export UE"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "23 novembre 2026"
+     }
+    ],
+    [
+     {
+      "t": "Entrée en vigueur de la directive sur les transferts intra-UE de produits de défense"
+     }
+    ],
+    [
+     {
+      "t": "Export UE"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "30 novembre 2026"
+     }
+    ],
+    [
+     {
+      "t": "Fin des commentaires sur la révision de la liste USML proposée par le département d’État"
+     }
+    ],
+    [
+     {
+      "t": "Export États-Unis"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "Décembre 2026"
+     }
+    ],
+    [
+     {
+      "t": "Entrée en vigueur prévue, le 1er décembre, des listes de contrôle britanniques mises à jour"
+     }
+    ],
+    [
+     {
+      "t": "Export Royaume-Uni"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "8 décembre 2026"
+     }
+    ],
+    [
+     {
+      "t": "Suspension des alertes Dependabot sur les dépôts inactifs depuis un an"
+     }
+    ],
+    [
+     {
+      "t": "SCA"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "9 décembre 2026"
+     }
+    ],
+    [
+     {
+      "t": "Transposition de la directive sur la responsabilité du fait des produits"
+     }
+    ],
+    [
+     {
+      "t": "Responsabilité produit"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "10 janvier 2027"
+     }
+    ],
+    [
+     {
+      "t": "Fin de la suspension de la règle des affiliés du BIS, sauf nouvelle prolongation"
+     }
+    ],
+    [
+     {
+      "t": "Export États-Unis"
+     }
+    ]
+   ],
+   [
+    [
+     {
+      "t": "11 décembre 2027"
+     }
+    ],
+    [
+     {
+      "t": "Application complète du CRA"
+     }
+    ],
+    [
+     {
+      "t": "CRA"
+     }
+    ]
+   ]
+  ],
+  "attrs": [
+   {
+    "themes": [
+     "export-ue"
+    ]
+   },
+   {
+    "themes": [
+     "export-ue",
+     "financement"
+    ]
+   },
+   {
+    "themes": [
+     "export-us"
+    ]
+   },
+   {
+    "themes": [
+     "export-ue"
+    ]
+   },
+   {
+    "themes": [
+     "sca"
+    ]
+   },
+   {
+    "themes": [
+     "pld"
+    ]
+   },
+   {
+    "themes": [
+     "export-us"
+    ]
+   },
+   {
+    "themes": [
+     "cra"
+    ]
+   }
+  ],
+  "sum": [
+   {
+    "titre": "Liste *{en}dual-use* 2026 : fin de l'examen et publication au JO",
+    "statut": "Règlement délégué adopté le 14 septembre 2026 ; publication au JO attendue, sauf objection du Parlement européen ou du Conseil",
+    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle, achats",
+    "essentiel": "La Commission a adopté le 14 septembre 2026 un règlement délégué qui remplace l’annexe I du règlement *{en}dual-use* de l’UE. Selon Baker McKenzie, le texte est publié au Journal officiel sauf objection pendant les deux mois de contrôle du Conseil et du Parlement européen ; selon la Commission, il entre en vigueur le lendemain de sa publication.",
+    "contexte": "Selon Baker McKenzie, la mise à jour porte sur les semi-conducteurs, le calcul avancé, des équipements de fabrication et la technologie des turbines à gaz, dont les données de conception et l'assistance technique à distance.",
+    "impact_avere": "Cette annexe, non encore publiée, n'est pas applicable. Les classifications actuelles restent valables jusqu'à l'entrée en vigueur. Les technologies et logiciels associés aux biens listés relèvent déjà du contrôle des exportations.",
+    "impact_potentiel": "À la publication, des produits, logiciels ou technologies pourraient changer de classification et nécessiter une licence. L'assistance technique à distance pourrait aussi être concernée. Des transferts intra-UE relevant de l'annexe IV pourraient également être touchés.",
+    "a_verifier": [
+     "Quels produits et logiciels de l'entreprise relèvent des rubriques modifiées ?",
+     "Les classifications seront-elles réexaminées avant la publication ?",
+     "Des licences en cours seraient-elles concernées ?"
+    ]
+   },
+   {
+    "titre": "Directive (UE) 2026/2383 : entrée en vigueur",
+    "statut": "Publiée au JO le 3 novembre 2026 ; entrée en vigueur le 23 novembre 2026 ; transposition au plus tard le 24 novembre 2027",
+    "fonctions": "Contrôle des exportations, juridique",
+    "essentiel": "La directive (UE) 2026/2383, qui simplifie les transferts intra-UE de produits liés à la défense, entre en vigueur le vingtième jour suivant sa publication au Journal officiel du 3 novembre 2026, soit le 23 novembre 2026. Les licences générales prévues pour les partenariats industriels structurés intra-UE s’appliquent aussi aux transferts immatériels de logiciels et de technologie.",
+    "contexte": "L’entrée en vigueur ne change pas encore les règles applicables aux entreprises : les États membres ont jusqu’au 24 novembre 2027 pour transposer la directive et doivent appliquer leurs mesures le 24 février 2028. La directive modifie les directives 2009/43/CE, sur les transferts de produits liés à la défense, et 2009/81/CE, sur les marchés publics de défense ; une nouvelle licence générale couvre les transferts entre entreprises certifiées.",
+    "impact_avere": "Le régime français actuel des transferts intra-UE reste applicable jusqu’à la transposition.",
+    "impact_potentiel": "La transposition française pourrait créer de nouvelles licences générales utiles aux transferts de logiciels et de données techniques entre partenaires européens.",
+    "a_verifier": [
+     "Quels transferts intra-UE de logiciels effectuons-nous sous licence individuelle ?",
+     "Qui suit la transposition française ?"
+    ]
+   },
+   {
+    "titre": "ITAR : fin des commentaires sur la révision de la liste USML",
+    "statut": "Projet de règle publié le 1er octobre 2026 ; commentaires jusqu’au 30 novembre 2026",
+    "fonctions": "Contrôle des exportations, juridique",
+    "essentiel": "Le département d’État propose de modifier l’ITAR pour concentrer les contrôles de la liste USML sur les technologies les plus sensibles. Le projet retirerait certains articles de la liste, mettrait à jour des définitions et ajouterait une nouvelle exemption aux obligations de licence. Les commentaires sont reçus jusqu’au 30 novembre 2026.",
+    "contexte": "La liste USML (*{en}United States Munitions List*) fixe les articles et services de défense, données techniques et logiciels compris, soumis à l’ITAR. Le projet a été publié au Federal Register le 1er octobre 2026 ; le département d’État y sollicite des commentaires pour affiner encore les contrôles.",
+    "impact_avere": "La liste en vigueur reste applicable tant que la règle n’est pas adoptée.",
+    "impact_potentiel": "Le retrait d’articles de la liste pourrait réduire le nombre de composants américains soumis à licence ITAR dans les produits.",
+    "a_verifier": [
+     "Des composants de nos produits figurent-ils parmi les articles dont le retrait est proposé ?",
+     "Souhaitons-nous commenter le projet, directement ou par une fédération ?"
+    ]
+   },
+   {
+    "titre": "Royaume-Uni : entrée en vigueur des listes de contrôle mises à jour",
+    "statut": "SI 2026/1150 déposé au Parlement le 3 novembre 2026 ; entrée en vigueur prévue le 1er décembre 2026, sous réserve de la procédure parlementaire",
+    "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle",
+    "essentiel": "Selon l’avis aux exportateurs 2026/24, mis à jour le 11 novembre 2026, les Export Control (Amendment) Regulations 2026 doivent entrer en vigueur le 1er décembre 2026. Ils mettent à jour les listes militaire et à double usage, dont des entrées qui portent sur le logiciel et la technologie (5A004.b, 5E501.f). Les exportateurs enregistrés pour GEA001 au 1er décembre pourront l’utiliser jusqu’au 1er avril 2027.",
+    "contexte": "Le texte reflète les révisions 2025 des régimes multilatéraux de contrôle des exportations.",
+    "impact_avere": "Les entités britanniques d’un groupe français doivent avoir revu leurs classifications à cette date.",
+    "impact_potentiel": "Des licences pourraient devenir nécessaires pour des articles nouvellement contrôlés.",
+    "a_verifier": [
+     "Nos classifications britanniques sont-elles à jour ?",
+     "Nos flux vers l’UE reposent-ils sur la licence générale révoquée ?"
+    ]
+   },
+   {
+    "titre": "Dependabot : suspension des alertes sur les dépôts inactifs",
+    "statut": "Annoncé par GitHub le 10 novembre 2026 ; application à partir du 8 décembre 2026",
+    "fonctions": "PSIRT, ingénierie logicielle, maintien en condition opérationnelle",
+    "essentiel": "À partir du 8 décembre 2026, GitHub désactivera les alertes Dependabot sur la plupart des dépôts sans activité au cours de l’année écoulée. Les alertes existantes seront archivées, non supprimées, et pourront être restaurées. Les dépôts soumis à une configuration de sécurité imposée qui active les alertes ne sont pas concernés.",
+    "contexte": "Dependabot signale les dépendances touchées par une vulnérabilité connue.",
+    "impact_avere": "Les dépôts peu modifiés des produits en service doivent relever d’une configuration imposée pour garder leurs alertes.",
+    "impact_potentiel": "Une faille d’un composant ancien pourrait passer inaperçue.",
+    "a_verifier": [
+     "Quels dépôts sont inactifs depuis un an ?",
+     "Une configuration de sécurité imposée existe-t-elle ?"
+    ]
+   },
+   {
+    "titre": "Directive sur la responsabilité du fait des produits : transposition",
+    "statut": "Transposition de la directive (UE) 2024/2853 attendue le 9 décembre 2026",
+    "fonctions": "Juridique, qualité, assurance, ingénierie logicielle, achats",
+    "essentiel": "La directive (UE) 2024/2853 sur la responsabilité du fait des produits doit être transposée le 9 décembre 2026. Elle inclut le logiciel dans la notion de produit et s'applique aux produits mis sur le marché après cette date.",
+    "contexte": "Cette directive modernise le régime européen de responsabilité du fait des produits défectueux. Le cabinet Wolf Theiss la range parmi les exigences de sécurité plus strictes annoncées pour les logiciels, produits numériques et l'IA.",
+    "impact_avere": "Les produits mis sur le marché jusqu’au 9 décembre 2026 ne sont pas concernés. Les produits mis sur le marché après cette date, logiciels compris, entrent dans le champ du régime.",
+    "impact_potentiel": "Un défaut logiciel, y compris dans un composant tiers, pourrait engager la responsabilité du fabricant du produit final. Les mises à jour de sécurité et la documentation des composants pourraient devenir des éléments de défense. Les modalités nationales de transposition pourraient préciser le périmètre, notamment pour les équipements de défense.",
+    "a_verifier": [
+     "Comment la France a-t-elle transposé la directive ?",
+     "Les contrats avec les fournisseurs de composants prévoient-ils un recours en cas de défaut logiciel ?",
+     "Les polices d'assurance couvrent-elles les défauts logiciels ?"
+    ]
+   },
+   {
+    "titre": "EAR : fin de la suspension de la règle des affiliés",
+    "statut": "Suspension prolongée jusqu’au 10 janvier 2027 par la règle du 9 novembre 2026",
+    "fonctions": "Contrôle des exportations, juridique, administration des ventes",
+    "essentiel": "La règle finale du BIS publiée le 9 novembre 2026 prolonge jusqu’au 10 janvier 2027 la suspension de la règle des affiliés, qui étend les restrictions de l’Entity List aux sociétés détenues à 50 % ou plus par des entités inscrites. Selon les cabinets Baker McKenzie et Nixon Peabody, cette date est celle de la fin de la trêve commerciale entre les États-Unis et la Chine.",
+    "contexte": "La suspension d’un an, décidée en novembre 2025, devait prendre fin le 9 novembre 2026. La règle de prolongation ne donne pas de motif ; les commentaires reçus sur la règle des affiliés seront examinés dans des règles ultérieures. Baker McKenzie recommande de poursuivre la préparation des procédures de filtrage et de diligence fondées sur la détention.",
+    "impact_avere": "Le filtrage des clients et partenaires doit pouvoir intégrer la chaîne de détention avant cette date.",
+    "impact_potentiel": "Sans nouvelle prolongation, des livraisons et mises à jour logicielles relevant de l’EAR pourraient exiger une licence à partir de cette date.",
+    "a_verifier": [
+     "Nos outils de filtrage intègrent-ils les données de détention ?",
+     "Quelles livraisons sont prévues après cette date ?"
+    ]
+   },
+   {
+    "titre": "Application complète du CRA",
+    "statut": "Date fixée par le règlement : 11 décembre 2027",
+    "fonctions": "Ingénierie produit, qualité et certification, juridique, achats",
+    "essentiel": "Le 11 décembre 2027, toutes les exigences du CRA deviennent applicables : exigences essentielles de cybersécurité, gestion des vulnérabilités, documentation technique, évaluation de la conformité et marquage CE. Les *{en}stewards* open source deviennent aussi soumis à l'obligation de déclaration.",
+    "contexte": "Le règlement habilite la Commission à adopter des actes délégués et d'exécution. Selon l'ENISA, 79 % des organisations comptent être prêtes sur les SBOM avant l'échéance.",
+    "impact_avere": "Les produits civils ou à double usage mis sur le marché à partir de cette date doivent être ==conformes dès leur conception==, ce qui concerne les développements en cours.",
+    "impact_potentiel": "Les fournisseurs de composants logiciels pourraient devoir prouver leur propre conformité, ce qui ferait évoluer les clauses d'achat.",
+    "a_verifier": [
+     "Quels produits en développement seront mis sur le marché après le 11 décembre 2027 ?",
+     "La période de support annoncée est-elle compatible avec le maintien en condition opérationnelle ?",
+     "Nos fournisseurs de composants logiciels ont-ils un plan de conformité ?"
+    ]
+   }
+  ],
+  "detail": [
+   "Règlement délégué adopté le 14 septembre 2026 ; publication au JO sauf objection du Parlement européen ou du Conseil ; entrée en vigueur le lendemain",
+   "Vingtième jour après la publication au JO du 3 novembre 2026 ; transposition au plus tard le 24 novembre 2027",
+   "Projet publié le 1er octobre 2026 : retrait de certains articles de la liste, définitions révisées, nouvelle exemption de licence",
+   "Export Control (Amendment) Regulations 2026, déposés au Parlement le 3 novembre ; autorisation générale actuelle utilisable jusqu’au 1er avril 2027.",
+   "Sauf configuration de sécurité imposée qui active les alertes ; les alertes existantes sont archivées et peuvent être restaurées.",
+   "Transposition de la directive (UE) 2024/2853, qui inclut le logiciel ; elle s'applique aux produits mis sur le marché après cette date",
+   "Suspension prolongée par la règle finale du BIS publiée au Federal Register le 9 novembre 2026",
+   "Application complète du CRA ; selon l'ENISA, les gestionnaires de logiciels open source sont soumis à la déclaration à la même date"
+  ]
+ }
+]
