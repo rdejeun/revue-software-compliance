@@ -1,0 +1,89 @@
+{
+ "duree_s": 427,
+ "octets": 3554037,
+ "mots": 1270,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-11-17T03:43:42Z",
+ "sha_script": "375b35ecc3d7bda438f7f06cd9f127932bc5a5f5e1c32e96f3724b4bba6ff7d5",
+ "extrait": false,
+ "repliques": 46,
+ "prononciation": "dictionnaire ElevenLabs BBEVMvnyEK23D3XP2X88",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "9.8 → 1.0 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 66 → 26 ms, B 23 → 22 ms",
+  "Durée": "415.3 s (blocs : 415.7 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "12.6 % de mots différents sur 1322"
+ },
+ "requetes": 7,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "NoisyTCP : le noyau Linux à distance",
+   "court": "NoisyTCP",
+   "debut_s": 28.4,
+   "long": "NoisyTCP : noyau Linux"
+  },
+  {
+   "titre": "Export : les puces d’IA sous licence",
+   "court": "Puces d’IA",
+   "debut_s": 127.9,
+   "long": "Export : puces d’IA"
+  },
+  {
+   "titre": "CRA : les normes en retard",
+   "court": "Normes CRA",
+   "debut_s": 197.8,
+   "long": "Cyber Resilience Act : normes"
+  },
+  {
+   "titre": "wfx : des comptes GitHub détournés",
+   "court": "GitHub",
+   "debut_s": 252.7,
+   "long": "GitHub : comptes détournés"
+  },
+  {
+   "titre": "Dependabot : des alertes en pause",
+   "court": "Dependabot",
+   "debut_s": 303.4,
+   "long": "Dependabot : alertes en pause"
+  },
+  {
+   "titre": "Licences : brevets vidéo",
+   "court": "Brevets vidéo",
+   "debut_s": 345.9,
+   "long": "Licences : brevets HEVC et VVC"
+  },
+  {
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 399.0,
+   "long": "Date à retenir"
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 415.2
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "f945853ddf64"
+}
