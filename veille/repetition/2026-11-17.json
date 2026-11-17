@@ -1,7 +1,7 @@
 {
  "date": "2026-11-17",
- "commit": "44964ea33b56c45491b40d64e292e8ea4fa85009",
- "le": "2026-11-17T02:34:08Z",
+ "commit": "f945853ddf64fac9edc37d020deac91efa83e846",
+ "le": "2026-11-17T03:34:20Z",
  "verdict": "verte",
  "motifs": [],
  "script": "aa64ed812e58535a47407505ed2c88984e3b960aff0cbe13a8807950afb7761f",
@@ -231,5 +231,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 1277
+ "duree_s": 214
 }
