@@ -1,0 +1,256 @@
+{
+ "titre": "Revue Software Compliance, numéro 7 : NoisyTCP et le noyau Linux, les puces d’IA sous licence, les normes du CRA en retard et des comptes GitHub détournés",
+ "description": "Numéro sept : une faille du noyau Linux qu’on peut déclencher à distance, la règle américaine qui soumet à licence les puces d’IA vers cinq pays, le report des normes harmonisées du CRA, une campagne de vol de secrets sur GitHub et la pause des alertes Dependabot sur les dépôts inactifs.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi dix-sept novembre deux mille vingt-six, et voici le numéro sept."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Au programme : une faille du noyau Linux qu’on peut déclencher à distance, de nouvelles règles américaines sur les puces d’intelligence artificielle, des normes du CRA qui prennent du retard, et des comptes GitHub détournés pour voler des secrets."
+  },
+  {
+   "sujet": "NoisyTCP : le noyau Linux à distance",
+   "court": "NoisyTCP",
+   "long": "NoisyTCP : noyau Linux",
+   "elements": [
+    "NoisyTCP : décrite le 15 novembre 2026 s"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On commence par une faille au nom un peu étrange : NoisyTCP. De quoi s’agit-il ?"
+  },
+  {
+   "v": "B",
+   "t": "C’est une faille dans la partie du noyau Linux qui gère les connexions réseau TCP. Elle a été décrite le quinze novembre par le chercheur Hyunwoo Kim. Un attaquant, sans aucun mot de passe, peut provoquer à distance ce qu’on appelle une panique du noyau : le système s’arrête net."
+  },
+  {
+   "v": "A",
+   "t": "Et ça concerne beaucoup de systèmes ?"
+  },
+  {
+   "v": "B",
+   "t": "Presque toutes les distributions Linux, selon le chercheur. Le défaut est là depuis deux mille quinze, soit environ onze ans. Il suffit que l’équipement attende des connexions sur un port TCP, comme un serveur web ou un accès SSH dans sa configuration par défaut."
+  },
+  {
+   "v": "A",
+   "t": "[curious] Il y a quand même des conditions, j’imagine ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Il faut au moins deux files de réception réseau, ou une répartition sur plusieurs processeurs, et ce n’est pas instantané : sur un serveur physique peu chargé, le déclenchement a pris environ quatorze heures. Mais ce n’est pas une raison pour attendre."
+  },
+  {
+   "sujet": "NoisyTCP : et pour nous ?",
+   "suite": true
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Le problème, c’est le calendrier des correctifs. L’enregistrement officiel de la faille donne des corrections pour les branches six point douze, six point dix-huit et sept point trois du noyau, pas pour les branches cinq point dix, cinq point quinze, six point un et six point six. Or ces branches anciennes sont très présentes dans l’embarqué, souvent livrées par le fondeur de la carte avec ce qu’on appelle le BSP, le paquet de support de la carte."
+  },
+  {
+   "v": "A",
+   "t": "Donc il faut aller voir chaque produit."
+  },
+  {
+   "v": "B",
+   "t": "Exactement. Il faut relever, produit par produit, la branche du noyau livrée, puis demander au fournisseur du BSP s’il a reporté le correctif. Debian, par exemple, l’a corrigée dans son noyau six point un. Il existe un contournement, désactiver les SYN cookies, mais il a un coût : le système résiste moins bien aux inondations de demandes de connexion."
+  },
+  {
+   "sujet": "Export : les puces d’IA sous licence",
+   "court": "Puces d’IA",
+   "long": "Export : puces d’IA",
+   "elements": [
+    "Puces d’IA, accès à distance : selon une"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Passons aux exportations. Le BIS, le bureau américain qui contrôle les exportations, a annoncé une nouvelle règle le seize novembre. Qu’est-ce qui change ?"
+  },
+  {
+   "v": "B",
+   "t": "La règle vise un contournement : utiliser à distance la puissance de calcul de centres de données situés dans des pays tiers, pour accéder malgré tout à la technologie américaine. Désormais, exporter vers un centre de données étranger qui fournit beaucoup de calcul à des entreprises liées au groupe de pays D cinq, ou à Macao, demande une licence."
+  },
+  {
+   "v": "A",
+   "t": "Et il y a aussi une liste de pays ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, et c’est le point qui nous touche le plus. L’exportation de puces avancées vers l’Indonésie, la Malaisie, Singapour, la Thaïlande et le Brésil exige maintenant une licence."
+  },
+  {
+   "v": "A",
+   "t": "Et pour un industriel français, alors ?"
+  },
+  {
+   "v": "B",
+   "t": "Un système qui intègre des puces américaines avancées et qui serait livré à Singapour, en Indonésie ou au Brésil pourrait nécessiter une licence de réexportation, selon la classification des puces. Il faut donc recenser les produits concernés. En sens inverse, la règle supprime le contrôle américain propre aux poids des modèles d’intelligence artificielle, l’ECCN quatre E zéro quatre-vingt-onze. Elle entre en vigueur à sa publication au Federal Register, et les commentaires restent ouverts soixante jours."
+  },
+  {
+   "sujet": "CRA : les normes en retard",
+   "court": "Normes CRA",
+   "long": "Cyber Resilience Act : normes",
+   "elements": [
+    "Normes harmonisées du CRA : le 10 novemb"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Côté européen maintenant, le CRA, le règlement sur la cyber-résilience des produits. Les normes prennent du retard ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Le dix novembre, la Commission a modifié sa demande de normalisation, qui porte sur quarante et une normes. La livraison de toutes les normes dites verticales, celles des catégories de produits, et d’une partie des normes horizontales, celles qui valent pour tous les produits, est repoussée de trois mois."
+  },
+  {
+   "v": "A",
+   "t": "Et les échéances du règlement, elles bougent aussi ?"
+  },
+  {
+   "v": "B",
+   "t": "Non, c’est tout le problème. La déclaration des vulnérabilités s’applique déjà depuis le onze septembre deux mille vingt-six, et les obligations principales s’appliqueront le onze décembre deux mille vingt-sept. Les normes, c’est un peu le mode d’emploi qui permet de prouver qu’on est conforme. Sans norme publiée, le fabricant doit démontrer directement, dans sa documentation technique, qu’il respecte les exigences essentielles."
+  },
+  {
+   "v": "A",
+   "t": "Donc moins de temps pour s’adapter aux normes définitives."
+  },
+  {
+   "v": "B",
+   "t": "C’est ça : le délai entre leur publication et l’application complète se réduirait d’autant."
+  },
+  {
+   "sujet": "wfx : des comptes GitHub détournés",
+   "court": "GitHub",
+   "long": "GitHub : comptes détournés",
+   "elements": [
+    "Campagne wfx : à partir du 10 novembre 2"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On parle maintenant d’une attaque de la chaîne d’approvisionnement. Que s’est-il passé sur GitHub ?"
+  },
+  {
+   "v": "B",
+   "t": "À partir du dix novembre, des comptes GitHub détournés ont poussé dans des milliers de dépôts un code qui vole les secrets des chaînes d’intégration, ces automatismes qui construisent et publient les logiciels. Selon l’éditeur Aikido, au moins mille huit cent trente-cinq dépôts ont exécuté ce code et se sont fait voler leurs identifiants."
+  },
+  {
+   "v": "A",
+   "t": "Comment est-ce possible ?"
+  },
+  {
+   "v": "B",
+   "t": "Les modifications portent le nom de vrais utilisateurs des dépôts, mais sans signature, ce qui désigne des jetons d’accès volés. Et le code s’est propagé à des paquets publiés pour les langages Go et PHP."
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Un fabricant qui construit ses logiciels avec GitHub Actions doit vérifier l’historique de ses dépôts, renouveler les secrets exposés et contrôler les paquets Go et PHP qu’il intègre. Sinon, des identifiants volés pourraient servir plus tard à piéger des composants publiés."
+  },
+  {
+   "sujet": "Dependabot : des alertes en pause",
+   "court": "Dependabot",
+   "long": "Dependabot : alertes en pause",
+   "elements": [
+    "Dependabot : à partir du 8 décembre 2026"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Toujours chez GitHub, il y a un changement qui pourrait passer inaperçu."
+  },
+  {
+   "v": "B",
+   "t": "Oui, sur Dependabot, l’outil qui signale les dépendances touchées par une vulnérabilité connue. À partir du huit décembre, GitHub désactivera ses alertes sur la plupart des dépôts sans activité depuis un an. Les alertes existantes seront archivées, pas supprimées."
+  },
+  {
+   "v": "A",
+   "t": "Pourquoi ça nous concerne particulièrement ?"
+  },
+  {
+   "v": "B",
+   "t": "Parce qu’un produit en maintien en condition opérationnelle a souvent des dépôts peu modifiés. Sans configuration de sécurité imposée, ces dépôts perdront leurs alertes, et une faille d’un composant ancien pourrait passer inaperçue jusqu’à la prochaine modification."
+  },
+  {
+   "v": "A",
+   "t": "Il faut donc faire l’inventaire avant le huit décembre."
+  },
+  {
+   "v": "B",
+   "t": "Exactement : recenser les dépôts concernés et leur appliquer une configuration de sécurité imposée."
+  },
+  {
+   "sujet": "Licences : brevets vidéo",
+   "court": "Brevets vidéo",
+   "long": "Licences : brevets HEVC et VVC",
+   "elements": [
+    "Access Advance, HEVC et VVC : selon un c"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Un mot sur les licences, avec les brevets de la vidéo. Qu’annonce Access Advance ?"
+  },
+  {
+   "v": "B",
+   "t": "Access Advance administre deux pools de brevets, pour les normes de compression vidéo HEVC et VVC. Son accord multi-codecs accorde une remise à ceux qui rejoignent les deux pools. Cette remise, qui va jusqu’à cinquante pour cent pour une signature d’ici le trente et un décembre deux mille vingt-six, tombera à quarante pour cent au premier semestre deux mille vingt-sept, puis à vingt-cinq pour cent."
+  },
+  {
+   "v": "A",
+   "t": "Ça représente combien, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Pour un téléphone mobile, l’exemple donné par le communiqué, la redevance passe de cinquante centimes de dollar à soixante, puis à soixante-quinze centimes selon la date de signature. Ceux qui ont déjà signé gardent leurs taux."
+  },
+  {
+   "v": "A",
+   "t": "Et pour un industriel qui fait de la vidéo embarquée ?"
+  },
+  {
+   "v": "B",
+   "t": "S’il encode ou décode de la vidéo dans ces formats et n’a pas encore signé, il doit décider avant la fin de l’année. Et vérifier ce que couvrent déjà les licences de ses fournisseurs de puces ou de logiciels vidéo, pour éviter de payer deux fois."
+  },
+  {
+   "sujet": "Date à retenir",
+   "court": "Agenda",
+   "long": "Date à retenir",
+   "elements": [
+    "Décembre 2026 Entrée en vigueur prévue, "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu’une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Le premier décembre, avec l’entrée en vigueur prévue des listes de contrôle britanniques mises à jour. Les filiales britanniques doivent avoir revu d’ici là la classification de leurs logiciels, car certaines entrées changent, notamment sur les outils de sécurité et les bibliothèques logicielles."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "C’est la fin de ce numéro sept. Toutes les sources sont dans la revue écrite."
+  },
+  {
+   "v": "B",
+   "t": "Merci de nous avoir écoutés, et à mardi prochain."
+  }
+ ]
+}

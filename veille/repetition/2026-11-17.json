@@ -1,0 +1,235 @@
+{
+ "date": "2026-11-17",
+ "commit": "f945853ddf64fac9edc37d020deac91efa83e846",
+ "le": "2026-11-17T03:34:20Z",
+ "verdict": "verte",
+ "motifs": [],
+ "script": "aa64ed812e58535a47407505ed2c88984e3b960aff0cbe13a8807950afb7761f",
+ "sources": "2f663c86cd0070d4e14acaf8d5309027cfeffc6b7c0ccfcfeda692726dcac50b",
+ "controle": {
+  "code": 0,
+  "erreurs": [],
+  "avertissements": [
+   "bloc 5 (ul), puce 3 (À la une) : synthèse de 107 mots (170 à 245 visés)",
+   "bloc 20 (ul), puce 4 (France et UE) : synthèse de 128 mots (170 à 245 visés)",
+   "agenda, ligne 4 : synthèse de 120 mots (170 à 245 visés)",
+   "agenda, ligne 5 : synthèse de 98 mots (170 à 245 visés)",
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 2, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 190, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 191, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 195, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 196, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 197, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 200, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 202, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 203, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 204, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 206, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 207, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 210, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 211, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 212, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 243, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 244, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 246, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 279, https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 280, https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 281, https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 283, https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 315, https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 317, https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 333, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 354, https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 368, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 369, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 370, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 371, https://www.bis.gov/media/documents/rin-0694-ak50.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 386, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-11-17",
+  "echecs": 0,
+  "extraits_retrouves": 355,
+  "illisibles": [
+   {
+    "affirmation": 2,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 190,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 191,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 195,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 196,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 197,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 200,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 202,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 203,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 204,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 206,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 207,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 210,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 211,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 212,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 243,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 244,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 246,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 279,
+    "raison": "PDF",
+    "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+   },
+   {
+    "affirmation": 280,
+    "raison": "PDF",
+    "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+   },
+   {
+    "affirmation": 281,
+    "raison": "PDF",
+    "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+   },
+   {
+    "affirmation": 283,
+    "raison": "PDF",
+    "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+   },
+   {
+    "affirmation": 315,
+    "raison": "PDF",
+    "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+   },
+   {
+    "affirmation": 317,
+    "raison": "PDF",
+    "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6323_0/090166e53368b0e4"
+   },
+   {
+    "affirmation": 333,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 354,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf"
+   },
+   {
+    "affirmation": 368,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 369,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 370,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 371,
+    "raison": "PDF",
+    "url": "https://www.bis.gov/media/documents/rin-0694-ak50.pdf"
+   },
+   {
+    "affirmation": 386,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   }
+  ],
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-11-17 : 46 répliques, 1270 mots (≈ 8 min)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-11-17 : 46 répliques, 1270 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (1379 caractères) : Ouverture, NoisyTCP : le noyau Linux à distance\n  requête 2/7 (871 caractères) : NoisyTCP : et pour nous ?\n  requête 3/7 (1264 caractères) : Export : les puces d’IA sous licence\n  requête 4/7 (1060 caractères) : CRA : les normes en retard\n  requête 5/7 (970 caractères) : wfx : des comptes GitHub détournés\n  requête 6/7 (800 caractères) : Dependabot : des alertes en pause\n  requête 7/7 (1510 caractères) : Licences : brevets vidéo, Date à retenir, Clôture\n2026-11-17 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-17/out/episode.m4a (9.2 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-17/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-11-17",
+  "besoin": 9426,
+  "reste": 42154,
+  "raz": "04/12/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 214
+}

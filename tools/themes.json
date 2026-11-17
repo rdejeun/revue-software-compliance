@@ -59,6 +59,11 @@
     "poids": 1
    },
    {
+    "date": "2026-11-10",
+    "texte": "La Commission repousse de trois mois l’échéance de la demande de normalisation M/606 pour toutes les normes verticales et une partie des normes horizontales",
+    "poids": 2
+   },
+   {
     "date": "2026-12",
     "libelle": "T4 2026",
     "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC",
@@ -123,6 +128,16 @@
     "date": "2026-10-31",
     "texte": "cdxgen 13.6.0 détecte les décodeurs Brotli intégrés aux binaires",
     "poids": 1
+   },
+   {
+    "date": "2026-11-14",
+    "texte": "cdxgen 13.8.0, version de sécurité ; la 12.9.2 reporte les correctifs de deux avis critiques",
+    "poids": 1
+   },
+   {
+    "date": "2026-12-08",
+    "texte": "GitHub désactive les alertes Dependabot sur la plupart des dépôts inactifs depuis un an",
+    "poids": 1
    }
   ]
  },
@@ -155,6 +170,16 @@
    {
     "date": "2026-11-09",
     "texte": "La CISA inscrit au catalogue KEV une faille d’OpenSSH propre aux systèmes Linux musl sans PAM",
+    "poids": 2
+   },
+   {
+    "date": "2026-11-10",
+    "texte": "Campagne wfx : des comptes GitHub détournés injectent un voleur de secrets dans des milliers de dépôts",
+    "poids": 1
+   },
+   {
+    "date": "2026-11-15",
+    "texte": "NoisyTCP : une faille de la pile TCP du noyau Linux, déclenchable à distance, est décrite publiquement",
     "poids": 2
    }
   ]
@@ -212,9 +237,8 @@
     "poids": 3
    },
    {
-    "date": "2026-12",
-    "libelle": "Début décembre 2026",
-    "texte": "Royaume-Uni : entrée en vigueur prévue des listes de contrôle mises à jour",
+    "date": "2026-12-01",
+    "texte": "Royaume-Uni : entrée en vigueur prévue du SI 2026/1150 (listes de contrôle mises à jour)",
     "poids": 3
    },
    {
@@ -238,6 +262,11 @@
    {
     "date": "2026-11-09",
     "texte": "Le BIS prolonge jusqu’au 10 janvier 2027 la suspension de la règle des affiliés (règle finale publiée au Federal Register)",
+    "poids": 3
+   },
+   {
+    "date": "2026-11-16",
+    "texte": "Règle intérimaire du BIS sur l’accès à distance aux puces avancées : licence vers cinq pays, suppression de l’ECCN 4E091",
     "poids": 3
    },
    {
@@ -292,6 +321,11 @@
     "date": "2026-10-28",
     "texte": "OFAC : dix personnes et une entité sanctionnées pour les réseaux de faux informaticiens nord-coréens",
     "poids": 2
+   },
+   {
+    "date": "2026-11-16",
+    "texte": "Règlements d’exécution (UE) 2026/2550 et 2026/2558 : NoName057(16) inscrit au régime cyber, 30 personnes et une entité au régime des activités déstabilisatrices",
+    "poids": 2
    }
   ]
  },
@@ -330,9 +364,14 @@
     "date": "2026-11-09",
     "texte": "Début de l’examen en séance publique de la loi Résilience à l’Assemblée nationale (jusqu’au 13 novembre)",
     "poids": 2
+   },
+   {
+    "date": "2026-11-10",
+    "texte": "Fin de l’examen en première lecture de la loi Résilience à l’Assemblée nationale ; vote solennel prévu le 17 novembre",
+    "poids": 2
    }
   ],
-  "statut": "Projet de loi de transposition adopté par le Sénat le 12 mars 2025 ; en séance publique à l’Assemblée nationale depuis le 9 novembre 2026"
+  "statut": "Projet de loi de transposition adopté par le Sénat le 12 mars 2025 ; examiné en première lecture à l’Assemblée nationale les 9 et 10 novembre 2026, vote solennel prévu le 17 novembre"
  },
  "ai-act": {
   "nom": "AI Act",
@@ -409,6 +448,11 @@
    {
     "date": "2026-10-30",
     "texte": "REUSE 6.3.0 rétablit le téléchargement des textes de licence",
+    "poids": 1
+   },
+   {
+    "date": "2026-11-11",
+    "texte": "Access Advance réduit en deux temps, à partir du 1er janvier 2027, la remise de son accord multi-codecs HEVC et VVC",
     "poids": 1
    }
   ]
