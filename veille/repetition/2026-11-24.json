@@ -1,0 +1,258 @@
+{
+ "date": "2026-11-24",
+ "commit": "da2bf6f51d0a55405f953ddefc4861d3d778b98e",
+ "le": "2026-11-24T02:32:23Z",
+ "verdict": "rouge",
+ "motifs": [
+  "contrôle bloquant en échec (1 erreur(s))"
+ ],
+ "script": "b385426151c75fcc235611ad55271f3557fc85691b79e41aeb9ac1eb6688477a",
+ "sources": "5f4e1afa440567457ae8725abbce0789f4145a8cf84660479fff86c877521c7e",
+ "controle": {
+  "code": 1,
+  "erreurs": [
+   "Lien mort (404) : https://github.com/microsoft/agent-framework"
+  ],
+  "avertissements": [
+   "bloc 14 (ul), puce 7 (Sécurité de la chaîne d’approvisionnement) : synthèse de 138 mots (170 à 245 visés)",
+   "agenda, ligne 3 : synthèse de 98 mots (170 à 245 visés)",
+   "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 10, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 14, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 15, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 16, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 19, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 20, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 21, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 24, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 28, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 29, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 30, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 31, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 38, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 39, https://assets.egazette.gov.sg/2026/Legislative%20Supplements/Subsidiary%20Legislation%20Supplement/26sls741.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 40, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 42, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 43, https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 292, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 293, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 294, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 295, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 296, https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 297, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 298, https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 299, https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 300, https://eur-lex.europa.eu/eli/reg_impl/2026/2574/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 301, https://eur-lex.europa.eu/eli/reg_impl/2026/2574/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 302, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 303, https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 304, https://eur-lex.europa.eu/eli/reg/2019/796/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 323, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 324, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 325, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 327, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 328, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 329, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 330, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 331, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 332, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 333, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 334, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 335, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 336, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 337, https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 338, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 340, https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 341, https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 343, https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 348, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 349, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 350, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 351, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 352, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 353, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 354, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 355, https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 369, https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 370, https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 371, https://eur-lex.europa.eu/eli/dec_impl/2026/2274/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 372, https://eur-lex.europa.eu/eli/dec_impl/2026/2274/oj/eng",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 417, https://sfconservancy.org/static/docs/software-freedom-conservancy-v-vizio-complaint-2021-10-19.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 429, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 430, https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 441, https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 442, https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 443, https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 471, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 473, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+   "Citation non vérifiable automatiquement (PDF) : affirmation 474, https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 475, https://eur-lex.europa.eu/eli/reg/2021/821/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 476, https://eur-lex.europa.eu/eli/reg/2021/821/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 477, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 478, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 479, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 480, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 481, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 482, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 509, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
+  ]
+ },
+ "ecarter": {
+  "date": "2026-11-24",
+  "echecs": 0,
+  "extraits_retrouves": 497,
+  "illisibles": [
+   {
+    "affirmation": 1,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 5,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 9,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 10,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 13,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 14,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 15,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 16,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 19,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 20,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 21,
+    "raison": "PDF",
+    "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 24,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 28,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 29,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 30,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 31,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 38,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 39,
+    "raison": "PDF",
+    "url": "https://assets.egazette.gov.sg/2026/Legislative%20Supplements/Subsidiary%20Legislation%20Supplement/26sls741.pdf"
+   },
+   {
+    "affirmation": 40,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 42,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 43,
+    "raison": "PDF",
+    "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
+   },
+   {
+    "affirmation": 417,
+    "raison": "PDF",
+    "url": "https://sfconservancy.org/static/docs/software-freedom-conservancy-v-vizio-complaint-2021-10-19.pdf"
+   },
+   {
+    "affirmation": 429,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 430,
+    "raison": "PDF",
+    "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
+   },
+   {
+    "affirmation": 474,
+    "raison": "PDF",
+    "url": "https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf"
+   }
+  ],
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
+ },
+ "podcast": {
+  "code": 0,
+  "sortie": "2026-11-24 : 46 répliques, 1203 mots (≈ 8 min)"
+ },
+ "essai_audio": {
+  "code": 0,
+  "controle": "en écart",
+  "sortie": "2026-11-24 : 46 répliques, 1203 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (397 caractères) : Ouverture\n  requête 2/7 (1412 caractères) : Export : la liste dual-use change\n  requête 3/7 (1488 caractères) : java4shell : une faille de Java\n  requête 4/7 (946 caractères) : NoisyTCP : le correctif arrive\n  requête 5/7 (825 caractères) : Royaume-Uni : licences de chiffrement\n  requête 6/7 (1043 caractères) : CRA : les premières normes\n  requête 7/7 (1371 caractères) : Licences : LLVM simplifie, Date à retenir, Clôture\n2026-11-24 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/out/episode.m4a (8.8 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/qc_report.md. Aucun fichier écrit dans content/."
+ },
+ "solde": {
+  "date": "2026-11-24",
+  "besoin": 8985,
+  "reste": 39012,
+  "raz": "04/12/2026",
+  "suffisant": true,
+  "raison": ""
+ },
+ "duree_s": 1253
+}
