@@ -64,6 +64,16 @@
     "poids": 2
    },
    {
+    "date": "2026-11-17",
+    "texte": "Publication au JO du guide d’application du CRA (C/2026/6013)",
+    "poids": 2
+   },
+   {
+    "date": "2026-11-18",
+    "texte": "Publication des normes européennes EN 40000-1-1 et EN 40000-1-2",
+    "poids": 2
+   },
+   {
     "date": "2026-12",
     "libelle": "T4 2026",
     "texte": "Actes d’exécution et délégués attendus, dont un acte sur la présomption de conformité EUCC",
@@ -181,6 +191,16 @@
     "date": "2026-11-15",
     "texte": "NoisyTCP : une faille de la pile TCP du noyau Linux, déclenchable à distance, est décrite publiquement",
     "poids": 2
+   },
+   {
+    "date": "2026-11-17",
+    "texte": "Faille « java4shell » d’OpenJDK corrigée par Oracle et OpenJDK",
+    "poids": 2
+   },
+   {
+    "date": "2026-11-23",
+    "texte": "Correctif de NoisyTCP dans les branches 5.10, 5.15, 6.1 et 6.6 du noyau Linux",
+    "poids": 2
    }
   ]
  },
@@ -232,6 +252,16 @@
     "poids": 3
    },
    {
+    "date": "2026-11-19",
+    "texte": "Publication au JO du règlement délégué (UE) 2026/2288, qui remplace l’annexe I du règlement dual-use ; en vigueur le 20 novembre",
+    "poids": 3
+   },
+   {
+    "date": "2026-11-19",
+    "texte": "Royaume-Uni : l’avis aux exportateurs 2026/25 met fin aux OIEL cryptographiques au 1er décembre",
+    "poids": 2
+   },
+   {
     "date": "2026-11-23",
     "texte": "Entrée en vigueur de la directive (UE) 2026/2383 (transferts intra-UE)",
     "poids": 3
@@ -270,14 +300,29 @@
     "poids": 3
    },
    {
+    "date": "2026-11-19",
+    "texte": "Publication au Federal Register de la règle intérimaire du BIS sur l’accès à distance aux puces d’IA ; poids de modèles retirés de la liste de contrôle",
+    "poids": 3
+   },
+   {
     "date": "2026-11-30",
     "texte": "Fin des commentaires sur la révision de la liste USML proposée par le département d’État (ITAR)",
     "poids": 2
    },
    {
+    "date": "2026-12-15",
+    "texte": "Réunion publique du DTAG, comité consultatif de l’ITAR",
+    "poids": 1
+   },
+   {
     "date": "2027-01-10",
     "texte": "Fin de la suspension de la règle des affiliés du BIS, sauf nouvelle prolongation",
     "poids": 3
+   },
+   {
+    "date": "2027-01-19",
+    "texte": "Fin des commentaires sur la règle du BIS relative à l’accès à distance aux puces d’IA",
+    "poids": 2
    }
   ]
  },
@@ -369,9 +414,14 @@
     "date": "2026-11-10",
     "texte": "Fin de l’examen en première lecture de la loi Résilience à l’Assemblée nationale ; vote solennel prévu le 17 novembre",
     "poids": 2
+   },
+   {
+    "date": "2026-11-17",
+    "texte": "Adoption de la loi Résilience en première lecture par l’Assemblée nationale (464 voix contre 64)",
+    "poids": 2
    }
   ],
-  "statut": "Projet de loi de transposition adopté par le Sénat le 12 mars 2025 ; examiné en première lecture à l’Assemblée nationale les 9 et 10 novembre 2026, vote solennel prévu le 17 novembre"
+  "statut": "Projet de loi de transposition adopté par le Sénat le 12 mars 2025, puis, avec modifications, par l’Assemblée nationale le 17 novembre 2026 ; commission mixte paritaire possible (procédure accélérée)"
  },
  "ai-act": {
   "nom": "AI Act",
@@ -454,6 +504,16 @@
     "date": "2026-11-11",
     "texte": "Access Advance réduit en deux temps, à partir du 1er janvier 2027, la remise de son accord multi-codecs HEVC et VVC",
     "poids": 1
+   },
+   {
+    "date": "2026-11-17",
+    "texte": "Oracle JDK 21.0.13.1, deuxième mise à jour de JDK 21 sous licence OTN",
+    "poids": 1
+   },
+   {
+    "date": "2026-11-19",
+    "texte": "LLVM déclare achevé son relicenciement sous Apache-2.0 avec l’exception LLVM",
+    "poids": 2
    }
   ]
  },

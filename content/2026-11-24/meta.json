@@ -1,0 +1,28 @@
+{
+ "n": 8,
+ "date_iso": "2026-11-24",
+ "date_long": "Mardi 24 novembre 2026",
+ "date": "24 novembre 2026",
+ "site": "https://revue.dejeun.es/",
+ "toc": [
+  "À la une",
+  "SBOM et normes",
+  "Outils",
+  "Chaîne d’approvisionnement",
+  "Commerce international",
+  "France et UE",
+  "Licences",
+  "Agenda"
+ ],
+ "redaction": "Anthropic Claude Opus 5.5",
+ "agenda_refs": [
+  "https://www.govinfo.gov/content/pkg/FR-2026-10-01/html/2026-20079.htm",
+  "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+  "https://github.blog/changelog/2026-11-10-dependabot-alerts-will-pause-on-inactive-repositories",
+  "https://www.wolftheiss.com/insights/software-digital-products-and-ai-stricter-safety-requirements-on-the-horizon/",
+  "https://www.govinfo.gov/content/pkg/FR-2026-11-23/html/2026-23775.htm",
+  "https://www.govinfo.gov/content/pkg/FR-2026-11-09/html/2026-22793.htm",
+  "https://www.govinfo.gov/content/pkg/FR-2026-11-19/html/2026-23529.htm",
+  "https://eur-lex.europa.eu/eli/reg/2024/2847/oj"
+ ]
+}
