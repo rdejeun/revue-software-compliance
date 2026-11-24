@@ -1,0 +1,253 @@
+{
+ "titre": "Revue Software Compliance, numéro 8 : la nouvelle liste dual-use, la faille java4shell, la fin des licences britanniques de chiffrement et les premières normes du CRA",
+ "description": "Numéro huit : la liste européenne des biens à double usage remplacée et applicable dès le lendemain, la faille java4shell d’OpenJDK, la fin des licences ouvertes de chiffrement au Royaume-Uni, les deux premières normes du CRA et la fin du relicenciement de LLVM.",
+ "repliques": [
+  {
+   "sujet": "Ouverture"
+  },
+  {
+   "v": "A",
+   "t": "Bonjour et bienvenue dans la revue de presse Software Compliance. Nous sommes le mardi vingt-quatre novembre deux mille vingt-six, et voici le numéro huit."
+  },
+  {
+   "v": "B",
+   "t": "Bonjour. Au programme : la nouvelle liste européenne des biens à double usage, une faille de Java baptisée java4shell, la fin d’une licence britannique pour le chiffrement, les premières normes du CRA, et le grand ménage des licences de LLVM."
+  },
+  {
+   "sujet": "Export : la liste dual-use change",
+   "court": "Dual-use",
+   "long": "Export : liste dual-use",
+   "elements": [
+    "Liste *{en}dual-use* de l’UE : publié au"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On commence par l’export. L’Europe a changé sa liste des biens à double usage. Qu’est-ce que c’est, exactement ?"
+  },
+  {
+   "v": "B",
+   "t": "C’est la liste des produits, des logiciels et des technologies qui ont un usage civil mais aussi un usage militaire possible. Pour les exporter hors de l’Union, il faut une autorisation. Cette liste, c’est l’annexe un du règlement européen sur le double usage."
+  },
+  {
+   "v": "A",
+   "t": "Et qu’est-ce qui s’est passé cette semaine ?"
+  },
+  {
+   "v": "B",
+   "t": "Le dix-neuf novembre, un règlement de la Commission est paru au Journal officiel. Il remplace l’annexe entière, pas seulement quelques lignes. Et surtout, il est entré en vigueur dès le lendemain, le vingt novembre."
+  },
+  {
+   "v": "A",
+   "t": "[curious] Dès le lendemain ? Pas de délai pour s’adapter ?"
+  },
+  {
+   "v": "B",
+   "t": "Non. Le texte l’explique : il faut respecter au plus vite les engagements internationaux. La liste reprend en effet les décisions prises en deux mille vingt-cinq par les régimes internationaux de contrôle, comme l’Arrangement de Wassenaar, et des engagements notifiés par les États membres en avril deux mille vingt-six."
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Il faut revoir dès maintenant le classement de ce qu’on exporte, logiciels et technologies compris, au regard de la nouvelle liste. Les rubriques du chiffrement y figurent toujours. Et si un produit change de rubrique, il pourrait avoir besoin d’une autorisation qu’il n’avait pas avant. Il faut aussi vérifier que les outils de classement utilisent bien la nouvelle version."
+  },
+  {
+   "sujet": "java4shell : une faille de Java",
+   "court": "java4shell",
+   "long": "java4shell : faille d’OpenJDK",
+   "elements": [
+    "OpenJDK, « java4shell » : publiée le 17 ",
+    "Mise à jour, Oracle JDK 21 : publiée le "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Passons à la sécurité. Une faille dans Java fait beaucoup parler d’elle : java4shell. De quoi s’agit-il ?"
+  },
+  {
+   "v": "B",
+   "t": "C’est une faille dans OpenJDK, la base de la plupart des machines Java. Elle touche le décodeur Base64, un petit morceau de code qui transforme du texte en données. Sur certains processeurs récents, ceux qui ont des instructions spéciales appelées AVX-512 VBMI, elle peut permettre d’exécuter du code à distance, sans authentification."
+  },
+  {
+   "v": "A",
+   "t": "Des processeurs récents, c’est-à-dire ?"
+  },
+  {
+   "v": "B",
+   "t": "Les processeurs Xeon d’Intel depuis la génération Ice Lake, et les AMD à partir de Zen 4. La société qui l’a découverte, Calif.io, dit avoir obtenu une exécution de code avant authentification sur des logiciels très connus comme Jenkins, Jira ou Keycloak. Oracle et le projet OpenJDK ont publié les correctifs le dix-sept novembre."
+  },
+  {
+   "v": "A",
+   "t": "Et pour un industriel, qu’est-ce qu’il faut faire ?"
+  },
+  {
+   "v": "B",
+   "t": "Relever les machines Java embarquées dans ses produits et dans ses outils, vérifier si les processeurs cibles ont ces instructions, puis appliquer le correctif de son fournisseur. En attendant, une option de démarrage de la machine Java désactiverait le chemin vulnérable."
+  },
+  {
+   "v": "A",
+   "t": "Il y a aussi une question de licence, je crois ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Chez Oracle, la mise à jour de novembre de Java vingt et un est distribuée sous licence OTN, qui ne permet pas la redistribution. Un fabricant qui redistribue Oracle JDK dans ses produits doit donc vérifier que sa licence couvre ce correctif. Sinon, une autre distribution d’OpenJDK pourrait s’imposer."
+  },
+  {
+   "sujet": "NoisyTCP : le correctif arrive",
+   "court": "NoisyTCP",
+   "long": "NoisyTCP : noyau Linux",
+   "elements": [
+    "Mise à jour, NoisyTCP : le 23 novembre 2"
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Toujours côté sécurité, on avait parlé la semaine dernière de NoisyTCP, la faille du noyau Linux. Il y a du nouveau ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui, et c’est une bonne nouvelle. Pour rappel, cette faille permet de provoquer à distance, sans mot de passe, l’arrêt brutal d’un système Linux qui attend des connexions réseau. La semaine dernière, le correctif n’existait pas pour plusieurs branches anciennes du noyau, encore très présentes dans les équipements."
+  },
+  {
+   "v": "A",
+   "t": "Et maintenant ?"
+  },
+  {
+   "v": "B",
+   "t": "Le vingt-trois novembre, les branches à long terme cinq point dix, cinq point quinze, six point un et six point six ont reçu le correctif. Toutes les branches maintenues sont donc corrigées."
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Le fabricant doit demander à son fournisseur de paquet de support de carte, ce qu’on appelle le BSP, de reporter ce correctif dans la version du noyau qu’il livre, puis le déployer. Un produit resté sur une branche qui n’est plus maintenue, lui, n’aurait pas de correctif officiel."
+  },
+  {
+   "sujet": "Royaume-Uni : licences de chiffrement",
+   "court": "Chiffrement UK",
+   "long": "Royaume-Uni : chiffrement",
+   "elements": [
+    "Royaume-Uni, chiffrement : selon l’avis "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "On repart à l’export, côté britannique. Il y a du changement pour le chiffrement ?"
+  },
+  {
+   "v": "B",
+   "t": "Oui. Au Royaume-Uni, on pouvait obtenir une licence ouverte spéciale pour exporter des produits de chiffrement, sur plusieurs expéditions. L’autorité britannique, l’ECJU, a annoncé le dix-neuf novembre qu’elle y mettait fin à partir du premier décembre."
+  },
+  {
+   "v": "A",
+   "t": "Et qu’est-ce qui la remplace ?"
+  },
+  {
+   "v": "B",
+   "t": "Il faudra demander une licence ouverte militaire ou une licence ouverte à double usage, selon le cas. Et les dossiers seront plus détaillés : au lieu d’une liste d’articles ligne par ligne, il faudra décrire des catégories d’articles, avec une explication."
+  },
+  {
+   "v": "A",
+   "t": "Donc si on a une filiale au Royaume-Uni qui exporte du chiffrement…"
+  },
+  {
+   "v": "B",
+   "t": "Elle doit préparer ses nouvelles demandes dès maintenant. Des dossiers plus détaillés pourraient aussi allonger les délais d’instruction."
+  },
+  {
+   "sujet": "CRA : les premières normes",
+   "court": "Normes CRA",
+   "long": "Cyber Resilience Act : normes",
+   "elements": [
+    "Normes du CRA : le 18 novembre 2026 ont "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Le CRA maintenant, le règlement européen sur la cybersécurité des produits. On attendait ses normes. Elles arrivent ?"
+  },
+  {
+   "v": "B",
+   "t": "Les premières, oui. Le dix-huit novembre, deux normes européennes ont été publiées. La première fixe le vocabulaire. La seconde porte sur les principes de cybersécurité, la gestion des risques du produit et son cycle de vie, de la conception jusqu’à la production."
+  },
+  {
+   "v": "A",
+   "t": "Une norme, c’est obligatoire ?"
+  },
+  {
+   "v": "B",
+   "t": "[thoughtful] Pas en soi. C’est un mode d’emploi commun. Mais une fois citées au Journal officiel, ces normes donneraient une présomption de conformité : si on les suit, on est présumé respecter les exigences qu’elles couvrent. Plus de trente normes sont en préparation."
+  },
+  {
+   "v": "A",
+   "t": "Et pour nous, concrètement ?"
+  },
+  {
+   "v": "B",
+   "t": "Il faut comparer dès maintenant sa gestion des risques et son cycle de développement à cette norme de principes, avant l’application complète du règlement. Les normes s’obtiennent auprès des organismes nationaux de normalisation. Et d’autres suivront bientôt, dont les premières normes verticales, propres à des catégories de produits."
+  },
+  {
+   "sujet": "Licences : LLVM simplifie",
+   "court": "LLVM",
+   "long": "Licences : LLVM",
+   "elements": [
+    "LLVM : le 19 novembre 2026, le projet a "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Pour finir, une bonne nouvelle côté licences, avec LLVM. C’est quoi, LLVM ?"
+  },
+  {
+   "v": "B",
+   "t": "C’est une infrastructure de compilation open source : elle transforme le code écrit par les développeurs en programmes. Le compilateur Clang en fait partie. Depuis deux mille dix-neuf, le projet changeait de licence pour passer sous Apache deux point zéro, avec une exception propre à LLVM."
+  },
+  {
+   "v": "A",
+   "t": "Et c’est terminé ?"
+  },
+  {
+   "v": "B",
+   "t": "Le dix-neuf novembre, le projet l’a déclaré achevé. Plus de quatre-vingt-dix-neuf virgule cinq pour cent des lignes de code jamais contribuées sont couvertes, trop courtes pour être protégées, ou retirées. Selon le projet, les nomenclatures logicielles, les SBOM, deviennent plus simples pour tout paquet qui inclut LLVM."
+  },
+  {
+   "v": "A",
+   "t": "Plus simples, mais pas tout à fait sans effort, j’imagine ?"
+  },
+  {
+   "v": "B",
+   "t": "Non. Le code tiers inclus garde sa propre licence, il faut continuer à l’inventorier. Et les fichiers de licence ne changeront qu’avec LLVM vingt-cinq."
+  },
+  {
+   "sujet": "Date à retenir",
+   "court": "Agenda",
+   "long": "Date à retenir",
+   "elements": [
+    "1 décembre 2026 Royaume-Uni : nouvelles "
+   ]
+  },
+  {
+   "v": "A",
+   "t": "Et si on ne devait retenir qu’une date ?"
+  },
+  {
+   "v": "B",
+   "t": "Le premier décembre. Ce jour-là, le Royaume-Uni met à jour ses listes de contrôle des exportations et met fin aux licences ouvertes de chiffrement. Pour une entité britannique qui exporte des logiciels, c’est donc à la fois de nouvelles rubriques et de nouvelles licences."
+  },
+  {
+   "sujet": "Clôture"
+  },
+  {
+   "v": "A",
+   "t": "C’est la fin de ce numéro huit. Retrouvez toutes les sources et les synthèses sur le site de la revue."
+  },
+  {
+   "v": "B",
+   "t": "Merci de votre écoute, et à mardi prochain."
+  }
+ ]
+}

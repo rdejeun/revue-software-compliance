@@ -1,192 +1,169 @@
 [
  {
-  "sujet": "Revue de code par IA : bilan de l’ENISA et du CERT-EU",
-  "mis_en_reserve": "2026-11-17",
+  "sujet": "PyPI : les attestations de provenance rendues visibles",
+  "mis_en_reserve": "2026-11-24",
   "rubrique": "SBOM, normes et référentiels",
   "cote": [
-   2,
+   1,
    1,
    3
   ],
-  "fiabilite": "A",
+  "fiabilite": "B",
   "item": [
    {
-    "t": "Revue de code par IA : selon un avis commun de l’ENISA et du CERT-EU publié le 12 novembre 2026, des modèles d’IA de pointe ont relevé 220 problèmes potentiels dans 27 bases de code des institutions de l’UE, et 95 % des 88 résultats évalués ont été confirmés ; ==l’IA ne remplace pas le jugement humain== ("
+    "t": "PyPI",
+    "href": "https://pypi.org/",
+    "type": "projet"
    },
    {
-    "t": "ENISA",
-    "href": "https://www.enisa.europa.eu/publications/joint-advisory-on-the-use-of-frontier-ai-models-for-code-review"
+    "t": " : selon un billet de l’OpenSSF du 17 novembre 2026, les pages des projets du registre Python comportent désormais un onglet de sécurité qui affiche les attestations de provenance des fichiers et signale leur absence ("
    },
    {
-    "t": ", "
-   },
-   {
-    "t": "rapport",
-    "href": "https://www.enisa.europa.eu/sites/default/files/2026-11/ENISA_CERTEU_JOINTREPORT_Final.pdf"
+    "t": "OpenSSF",
+    "href": "https://openssf.org/blog/2026/11/17/clearer-security-signals-making-attestations-comprehensible-for-pypi-users/"
    },
    {
     "t": ")."
    }
   ],
   "attrs": {
-   "date": "2026-11-12",
+   "date": "2026-11-17",
    "rappel": false,
    "themes": [
-    "sca",
-    "chaine"
+    "chaine",
+    "sbom"
    ],
-   "fiabilite": "A",
+   "fiabilite": "B",
    "cote": [
-    2,
+    1,
     1,
     3
    ]
   },
   "sum": {
-   "titre": "Revue de code par IA : le bilan de l’ENISA et du CERT-EU",
-   "statut": "Avis commun publié le 12 novembre 2026 ; recommandations non contraignantes",
-   "fonctions": "Ingénierie logicielle, PSIRT, sécurité des développements",
-   "essentiel": "L’ENISA et le CERT-EU ont évalué la capacité de modèles d’IA de pointe à appuyer la revue de sécurité de logiciels open source maintenus par les institutions, organes et agences de l’Union. Vingt-sept bases de code ont été analysées, dont deux sur le point d’être publiées en open source. Les 220 problèmes potentiels relevés ont été transmis aux propriétaires du code, qui en ont évalué 88 et confirmé 95 % comme de vrais positifs. Les auteurs recommandent de travailler dans un environnement d’essai isolé et sécurisé ; selon eux, l’IA peut appuyer la revue mais ne peut pas remplacer le jugement humain.",
-   "contexte": "Dans son rapport sur l’état de la cybersécurité dans l’Union, publié le 10 novembre 2026, l’ENISA estime que l’IA « industrialise » la découverte des vulnérabilités, ce qui demande des capacités de traitement renforcées.",
-   "impact_avere": "Le rapport donne un cadre de référence européen pour introduire la revue de code assistée par IA dans le développement sécurisé, sous contrôle humain.",
-   "impact_potentiel": "Pour du code de défense, confier les sources à un modèle hébergé poserait des questions de confidentialité et de contrôle des exportations ; l’environnement isolé recommandé y répondrait en partie.",
+   "titre": "PyPI : les attestations de provenance rendues visibles",
+   "statut": "Fonction en service, présentée le 17 novembre 2026",
+   "fonctions": "Ingénierie logicielle, achats (évaluation des composants), PSIRT",
+   "essentiel": "Selon Nicole Harris et Dustin Ingram, les pages des projets de PyPI comportent désormais un onglet de sécurité dédié, conforme aux recommandations d’un guide de style. Des couleurs et des icônes distinguent les types d’attestations, et des avertissements de provenance apparaissent en haut des pages des projets. Les attestations fournissent un enregistrement vérifiable de la provenance d’un artefact logiciel  ; une version qui n’en porte pas est signalée comme telle.",
+   "contexte": "PyPI, registre public des paquets Python, est régulièrement visé par des attaques de la chaîne d’approvisionnement, dont celle du paquet agent-framework le 17 novembre (rubrique Chaîne d’approvisionnement).",
+   "impact_avere": "L’équipe qui sélectionne des composants Python peut voir, sur la page du projet, si une version porte une attestation de provenance.",
+   "impact_potentiel": "La présence d’une attestation pourrait devenir un critère d’acceptation des composants dans la politique d’achat logiciel.",
    "a_verifier": [
-    "Utilisons-nous déjà l’IA pour revoir notre code, et dans quel environnement ?",
-    "Qui valide les résultats avant correction ou déclaration ?"
+    "Nos critères de sélection des composants tiennent-ils compte de la provenance ?",
+    "Les paquets que nous publions portent-ils des attestations ?"
    ],
-   "papier": "Les essais ont porté sur des logiciels open source maintenus par les institutions, organes et agences de l’Union, dont deux sur le point d’être publiés. Les problèmes relevés ont été transmis aux propriétaires du code.\n\nLes auteurs recommandent de travailler dans un environnement d’essai isolé et sécurisé et de faire valider les résultats par des experts. {{2|Dans son rapport sur l’état de la cybersécurité dans l’Union, publié deux jours plus tôt, l’agence estime que l’IA « industrialise » la découverte des vulnérabilités.}}\n\nLe fabricant qui envisage ces outils doit fixer qui valide les résultats avant toute correction ou déclaration. {{1|Pour du code de défense, confier les sources à un modèle hébergé poserait des questions de confidentialité et de contrôle des exportations.}}"
+   "papier": "Des couleurs et des icônes distinguent les types d’attestations, et des avertissements de provenance s’affichent en haut des pages des projets. {{3|L’onglet suit les recommandations d’un guide de style, expliquent Nicole Harris et Dustin Ingram.}}\n\nUne attestation fournit un enregistrement vérifiable de la provenance d’un artefact logiciel.\n\nL’équipe qui sélectionne des composants Python peut vérifier, sur la page du projet, si la version retenue en porte une. {{1|La présence d’une attestation pourrait devenir un critère d’acceptation dans la politique d’achat logiciel.}}"
   },
-  "motif": "budget de lecture et place de la version imprimable"
+  "motif": "place de la version imprimable et budget de lecture"
  },
  {
-  "sujet": "Grype 0.122.0 et Syft 1.57.2 : avis Docker Hardened Images et licences corrigées",
-  "mis_en_reserve": "2026-11-17",
-  "rubrique": "Outils",
+  "sujet": "MediaTek se déclare conforme à ISO/IEC 5230",
+  "mis_en_reserve": "2026-11-24",
+  "rubrique": "SBOM, normes et référentiels",
   "cote": [
-   2,
+   1,
    1,
    3
   ],
-  "fiabilite": "A",
+  "fiabilite": "B",
   "item": [
    {
-    "t": "Grype",
-    "href": "https://github.com/anchore/grype",
-    "type": "projet"
+    "t": "MediaTek, ISO/IEC 5230 : le 18 novembre 2026, ce concepteur de semi-conducteurs, qui équipe près de 2 milliards d’appareils connectés par an, a annoncé sa conformité à la norme OpenChain de conformité des licences open source ("
    },
    {
-    "t": " 0.122.0 et "
-   },
-   {
-    "t": "Syft",
-    "href": "https://github.com/anchore/syft",
-    "type": "projet"
-   },
-   {
-    "t": " 1.57.2 : publiées le 16 novembre 2026 par Anchore, ces versions lisent les avis de vulnérabilités des Docker Hardened Images et corrigent la normalisation des licences, qui perdait l’exception Classpath et remplaçait un choix de licences par leur cumul pour des archives Java ("
-   },
-   {
-    "t": "Grype, version 0.122.0",
-    "href": "https://github.com/anchore/grype/releases/tag/v0.122.0"
-   },
-   {
-    "t": ", "
-   },
-   {
-    "t": "Syft, version 1.57.2",
-    "href": "https://github.com/anchore/syft/releases/tag/v1.57.2"
+    "t": "OpenChain",
+    "href": "https://openchainproject.org/news/2026/11/18/mediatek-announces-openchain-iso-iec-5230-conformance"
    },
    {
     "t": ")."
    }
   ],
   "attrs": {
-   "date": "2026-11-16",
+   "date": "2026-11-18",
    "rappel": false,
    "themes": [
-    "sca",
     "licences",
     "sbom"
    ],
-   "fiabilite": "A",
+   "fiabilite": "B",
    "cote": [
-    2,
+    1,
     1,
     3
    ]
   },
   "sum": {
-   "titre": "Grype et Syft : avis Docker Hardened Images et licences corrigées",
-   "statut": "Versions publiées le 16 novembre 2026",
-   "fonctions": "Ingénierie logicielle, PSIRT, juridique (licences)",
-   "reseau": "Déconnecté (air-gapped) : fonctionnement partiel — l’analyse est locale ; la base de vulnérabilités de Grype se télécharge par défaut depuis grype.anchore.io, mais peut être importée depuis un fichier local, mise à jour automatique désactivée.",
-   "licence": "Open source : Apache-2.0.",
-   "essentiel": "Grype 0.122.0 rapproche désormais les vulnérabilités des Docker Hardened Images à partir de leurs avis au format OSV, lit les scores CVSS v2 nus et privilégie la version CVSS la plus récente ; l’analyse de toutes les couches d’une image ne signalait pas les paquets retirés dans une couche ultérieure, ce qui est corrigé. Syft 1.57.2 trouve les fichiers de licence des paquets Python placés selon la PEP 639, corrige la normalisation des licences des archives Java d’Eclipse et de GlassFish et ne compte plus qu’une fois un paquet Debian listé dans deux fichiers d’état.",
-   "contexte": "Syft génère des SBOM et Grype y rapproche les vulnérabilités connues ; les deux outils open source sont développés sous l’égide d’Anchore.",
-   "impact_avere": "Un SBOM produit par une version antérieure de Syft peut porter une expression de licence fausse pour des composants Java : la conjonction AND impose deux licences, la disjonction OR laisse le choix.",
-   "impact_potentiel": "Une analyse de licences fondée sur ces SBOM pourrait conclure à des obligations qui n’existent pas, ou omettre une exception de licence.",
+   "titre": "MediaTek se déclare conforme à ISO/IEC 5230",
+   "statut": "Conformité annoncée le 18 novembre 2026",
+   "fonctions": "Achats, juridique (licences), ingénierie électronique et logicielle",
+   "essentiel": "MediaTek, entreprise de semi-conducteurs sans usine, annonce sa conformité à OpenChain ISO/IEC 5230:2020, norme internationale de conformité des licences open source. Selon l’annonce, le logiciel open source est au cœur des écosystèmes de ses technologies, ce qui rend une conformité homogène essentielle pour l’entreprise et ses clients. La norme fournit un cadre commun de gestion des obligations de licence : responsabilités claires, processus définis et pratiques de conformité continues.",
+   "contexte": "ISO/IEC 5230 est issue de la spécification du projet OpenChain de la Linux Foundation ; elle est complétée par ISO/IEC 18974 pour la sécurité des composants open source.",
+   "impact_avere": "Un industriel qui intègre des puces MediaTek peut demander à ce fournisseur les éléments de conformité des licences du logiciel livré avec elles.",
+   "impact_potentiel": "La conformité à ISO/IEC 5230 pourrait devenir une exigence courante des contrats d’achat de composants électroniques.",
    "a_verifier": [
-    "Nos SBOM de composants Java ont-ils été produits avec une version antérieure de Syft ?",
-    "Notre base de vulnérabilités hors ligne est-elle importée régulièrement ?"
+    "Nos fournisseurs de composants électroniques se déclarent-ils conformes à ISO/IEC 5230 ?",
+    "Nos contrats exigent-ils la liste des licences du logiciel livré ?"
    ],
-   "papier": "Grype lit aussi les scores CVSS v2 nus et retient la version CVSS la plus récente ; l’analyse de toutes les couches d’une image signale de nouveau les paquets retirés dans une couche ultérieure. {{3|Les avis des images durcies de Docker sont lus au format OSV.}}\n\nSyft trouve les fichiers de licence des paquets Python placés selon la PEP 639 et ne compte plus qu’une fois un paquet Debian listé dans deux fichiers d’état. {{2|Hors ligne, la base de Grype peut être importée depuis un fichier local.}}\n\nLe fabricant doit régénérer les SBOM de ses composants Java produits avec une version antérieure : la conjonction impose deux licences, la disjonction laisse le choix. {{1|Une analyse de licences fondée sur un SBOM erroné pourrait conclure à des obligations inexistantes.}}"
+   "papier": "Selon l’annonce, le logiciel open source est au cœur des écosystèmes de ses technologies, ce qui rend une conformité homogène essentielle pour l’entreprise et ses clients.\n\nLa norme fournit un cadre commun de gestion des obligations de licence : responsabilités claires, processus définis, pratiques de conformité continues. {{3|La conformité « reflète notre engagement envers une gestion responsable de l’open source », déclare Tiger Hsu, qui dirige le bureau open source de l’entreprise.}}\n\nL’industriel qui intègre ces puces peut demander à son fournisseur les éléments de conformité des licences du logiciel livré. {{1|La norme pourrait devenir une exigence courante des contrats d’achat de composants.}}"
   },
-  "motif": "budget de lecture et place de la version imprimable"
+  "motif": "place de la version imprimable et budget de lecture"
  },
  {
-  "sujet": "Dropbear : restrictions de clés contournées par les sockets Unix (oss-security)",
-  "mis_en_reserve": "2026-11-17",
-  "rubrique": "Chaîne d’approvisionnement",
+  "sujet": "ITAR : le DTAG se réunit le 15 décembre",
+  "mis_en_reserve": "2026-11-24",
+  "rubrique": "Commerce international",
   "cote": [
-   2,
-   2,
-   2
+   1,
+   1,
+   3
   ],
-  "fiabilite": "C",
+  "fiabilite": "A",
   "item": [
    {
-    "t": "Dropbear",
-    "href": "https://matt.ucc.asn.au/dropbear/dropbear.html",
-    "type": "projet"
+    "t": "ITAR, DTAG : selon un avis publié au Federal Register le 23 novembre 2026, le comité consultatif du département d’État se réunira en ligne le 15 décembre, notamment sur une liste de technologies de défense exportables vers des alliés sans licence par transaction ("
    },
    {
-    "t": " : selon une divulgation publiée le 13 novembre 2026 sur la liste oss-security, ce serveur SSH conçu pour les systèmes embarqués n’applique pas aux sockets Unix les restrictions de destination fixées pour une clé ; aucun correctif n’a été relevé dans les sources consultées ("
+    "t": "Federal Register",
+    "href": "https://www.federalregister.gov/documents/2026/11/23/2026-23775/defense-trade-advisory-group-notice-of-open-meeting"
    },
    {
-    "t": "oss-security",
-    "href": "https://www.openwall.com/lists/oss-security/2026/11/13/4"
+    "t": ", "
+   },
+   {
+    "t": "govinfo",
+    "href": "https://www.govinfo.gov/content/pkg/FR-2026-11-23/html/2026-23775.htm"
    },
    {
     "t": ")."
    }
   ],
   "attrs": {
-   "date": "2026-11-13",
+   "date": "2026-11-23",
    "rappel": false,
    "themes": [
-    "chaine"
+    "export-us"
    ],
-   "fiabilite": "C",
+   "fiabilite": "A",
    "cote": [
-    2,
-    2,
-    2
+    1,
+    1,
+    3
    ]
   },
   "sum": {
-   "titre": "Dropbear : des restrictions de clés contournées par les sockets Unix",
-   "statut": "Divulgation publique du 13 novembre 2026 ; aucune CVE ni aucun correctif relevés dans les sources consultées",
-   "fonctions": "PSIRT, ingénierie logicielle embarquée",
-   "essentiel": "Selon une divulgation publiée le 13 novembre 2026 sur oss-security, Dropbear applique aux transferts TCP les restrictions par destination des clés, mais pas aux transferts de sockets Unix : « la restriction nomme une adresse ; un socket Unix n’est pas une adresse, et sur ce chemin la restriction n’est jamais consultée ». L’auteur précise que l’attaque n’est pas possible sans authentification : l’attaquant détient une clé valide, que l’administrateur a délibérément limitée à une destination.",
-   "contexte": "Dropbear est un serveur et client SSH de petite taille, adapté aux systèmes Linux embarqués comme les routeurs sans fil.",
-   "impact_avere": "Dans un produit qui livre Dropbear avec des clés de maintenance restreintes, la restriction par destination ne protège pas les sockets Unix accessibles au compte.",
-   "impact_potentiel": "Si un socket sensible était accessible au compte, une clé restreinte pourrait donner des droits bien plus larges que prévu.",
+   "titre": "ITAR : le DTAG se réunit le 15 décembre",
+   "statut": "Avis de réunion publié le 23 novembre 2026 ; réunion en ligne le 15 décembre 2026, inscription jusqu’au 11 décembre",
+   "fonctions": "Contrôle des exportations, juridique, direction commerciale",
+   "essentiel": "Le *{en}Defense Trade Advisory Group* tiendra une réunion ouverte en ligne le mardi 15 décembre 2026, de 10 h à 13 h. Quatre sujets sont annoncés : accroître l’usage de l’exemption de la section 126.4 de l’ITAR, pour les opérations menées par ou pour le gouvernement américain ; structurer une liste commune de technologies et capacités de défense exportables sans licence par transaction vers des alliés désignés, par exemple de l’OTAN ; réformer la procédure de transfert à des tiers pour supprimer des demandes redondantes des clients des ventes militaires à l’étranger ; recueillir des avis sur les critères et la liste des ventes réservées aux accords d’État à État.",
+   "contexte": "Le département d’État a aussi proposé, le 1er octobre 2026, de réviser la liste des munitions des États-Unis ; les commentaires sont reçus jusqu’au 30 novembre.",
+   "impact_avere": "La réunion est consultative : elle ne modifie pas les obligations de l’ITAR.",
+   "impact_potentiel": "Une liste de technologies exportables sans licence par transaction vers des alliés pourrait, si elle était adoptée, alléger les autorisations de réexportation de composants américains.",
    "a_verifier": [
-    "Nos produits livrent-ils Dropbear avec des clés à destination restreinte ?",
-    "Le transfert de sockets Unix est-il compilé dans notre version ?"
+    "Nos produits intègrent-ils des articles soumis à l’ITAR ?",
+    "Suivons-nous les travaux sur les transferts à des tiers ?"
    ],
-   "papier": "Les restrictions par destination s’appliquent aux transferts TCP, pas aux transferts de sockets Unix. Selon l’auteur, « la restriction nomme une adresse ; un socket Unix n’est pas une adresse ».\n\nL’attaque exige une clé valide, que l’administrateur a délibérément limitée à une destination : elle n’est pas possible sans authentification. {{2|Dropbear, de petite taille, vise notamment les routeurs sans fil.}}\n\nLe fabricant qui livre Dropbear avec des clés de maintenance restreintes doit vérifier si le transfert de sockets Unix est compilé et accessible. {{1|Un socket sensible accessible au compte pourrait donner des droits bien plus larges que prévu.}}"
+   "papier": "La réunion, ouverte et en ligne, se tiendra de 10 h à 13 h ; l’inscription est ouverte jusqu’au 11 décembre.\n\nQuatre sujets sont annoncés : l’usage de l’exemption de la section 126.4, pour les opérations menées par ou pour le gouvernement américain ; une liste commune de technologies exportables vers des alliés désignés, par exemple de l’OTAN ; la réforme des transferts à des tiers, pour supprimer des demandes redondantes des clients des ventes militaires à l’étranger ; les critères des ventes réservées aux accords d’État à État.\n\nLa réunion est consultative et ne modifie pas l’ITAR. {{1|Une liste de technologies exportables sans licence par transaction pourrait alléger les autorisations de réexportation.}}"
   },
-  "motif": "budget de lecture et place de la version imprimable"
+  "motif": "place de la version imprimable et budget de lecture"
  }
 ]
