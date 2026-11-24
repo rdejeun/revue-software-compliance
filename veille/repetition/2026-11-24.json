@@ -1,18 +1,14 @@
 {
  "date": "2026-11-24",
- "commit": "f46b69847f3a370472f8a95e0bfe28f2d48d136c",
- "le": "2026-11-24T06:01:45Z",
- "verdict": "rouge",
- "motifs": [
-  "contrôle bloquant en échec (1 erreur(s))"
- ],
+ "commit": "7c76097499bc07b521a3adeebd90f7f4f612f21f",
+ "le": "2026-11-24T06:07:51Z",
+ "verdict": "verte",
+ "motifs": [],
  "script": "b385426151c75fcc235611ad55271f3557fc85691b79e41aeb9ac1eb6688477a",
  "sources": "5f4e1afa440567457ae8725abbce0789f4145a8cf84660479fff86c877521c7e",
  "controle": {
-  "code": 1,
-  "erreurs": [
-   "Lien mort (404) : https://github.com/microsoft/agent-framework"
-  ],
+  "code": 0,
+  "erreurs": [],
   "avertissements": [
    "bloc 14 (ul), puce 7 (Sécurité de la chaîne d’approvisionnement) : synthèse de 138 mots (170 à 245 visés)",
    "agenda, ligne 3 : synthèse de 98 mots (170 à 245 visés)",
@@ -539,5 +535,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 253
+ "duree_s": 1338
 }
