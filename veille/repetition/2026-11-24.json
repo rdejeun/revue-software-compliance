@@ -1,7 +1,7 @@
 {
  "date": "2026-11-24",
- "commit": "da2bf6f51d0a55405f953ddefc4861d3d778b98e",
- "le": "2026-11-24T02:32:23Z",
+ "commit": "f46b69847f3a370472f8a95e0bfe28f2d48d136c",
+ "le": "2026-11-24T06:01:45Z",
  "verdict": "rouge",
  "motifs": [
   "contrôle bloquant en échec (1 erreur(s))"
@@ -104,7 +104,7 @@
  "ecarter": {
   "date": "2026-11-24",
   "echecs": 0,
-  "extraits_retrouves": 497,
+  "extraits_retrouves": 440,
   "illisibles": [
    {
     "affirmation": 1,
@@ -212,6 +212,221 @@
     "url": "https://isomer-user-content.by.gov.sg/174/34fb4a7d-1087-474f-add9-a6ad01b59b5a/Frequently%20Asked%20Questions.pdf"
    },
    {
+    "affirmation": 292,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 293,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 294,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 295,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 296,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng"
+   },
+   {
+    "affirmation": 297,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 298,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng"
+   },
+   {
+    "affirmation": 299,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2558/oj/eng"
+   },
+   {
+    "affirmation": 300,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2574/oj/eng"
+   },
+   {
+    "affirmation": 301,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2574/oj/eng"
+   },
+   {
+    "affirmation": 302,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 303,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_impl/2026/2550/oj/eng"
+   },
+   {
+    "affirmation": 304,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2019/796/oj/eng"
+   },
+   {
+    "affirmation": 323,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 324,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 325,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 327,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 328,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 329,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 330,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 331,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 332,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 333,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 334,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 335,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 336,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 337,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/C/2026/6013/oj/eng"
+   },
+   {
+    "affirmation": 338,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
+   },
+   {
+    "affirmation": 340,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng"
+   },
+   {
+    "affirmation": 341,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng"
+   },
+   {
+    "affirmation": 343,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng"
+   },
+   {
+    "affirmation": 348,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 349,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 350,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 351,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 352,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 353,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 354,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 355,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2026/2383/oj/eng"
+   },
+   {
+    "affirmation": 369,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng"
+   },
+   {
+    "affirmation": 370,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng"
+   },
+   {
+    "affirmation": 371,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dec_impl/2026/2274/oj/eng"
+   },
+   {
+    "affirmation": 372,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dec_impl/2026/2274/oj/eng"
+   },
+   {
     "affirmation": 417,
     "raison": "PDF",
     "url": "https://sfconservancy.org/static/docs/software-freedom-conservancy-v-vizio-complaint-2021-10-19.pdf"
@@ -227,9 +442,79 @@
     "url": "https://www.legislation.gov.uk/uksi/2026/1150/pdfs/uksi_20261150_en.pdf"
    },
    {
+    "affirmation": 441,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng"
+   },
+   {
+    "affirmation": 442,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng"
+   },
+   {
+    "affirmation": 443,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/dir/2024/2853/oj/eng"
+   },
+   {
+    "affirmation": 471,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
+   },
+   {
+    "affirmation": 473,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
+   },
+   {
     "affirmation": 474,
     "raison": "PDF",
     "url": "https://www.enisa.europa.eu/sites/default/files/2026-06/SBOM%20Adoption%20State%20of%20Play%202026.pdf"
+   },
+   {
+    "affirmation": 475,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2021/821/oj/eng"
+   },
+   {
+    "affirmation": 476,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2021/821/oj/eng"
+   },
+   {
+    "affirmation": 477,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng"
+   },
+   {
+    "affirmation": 478,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng"
+   },
+   {
+    "affirmation": 479,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng"
+   },
+   {
+    "affirmation": 480,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng"
+   },
+   {
+    "affirmation": 481,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng"
+   },
+   {
+    "affirmation": 482,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng"
+   },
+   {
+    "affirmation": 509,
+    "raison": "page vide ou protégée",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
    }
   ],
   "elements": [],
@@ -254,5 +539,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 1253
+ "duree_s": 253
 }
