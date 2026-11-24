@@ -207,5 +207,5 @@ G = [
 (r"BSP", "BSP", "Board Support Package : ensemble logiciel (noyau, pilotes, chargeur d'amorçage) fourni pour une carte électronique par son fondeur ou son fabricant.", None),
 (r"SCTP", "SCTP", "Stream Control Transmission Protocol : protocole de transport du noyau Linux, utilisé surtout dans les télécommunications.", None),
 (r"FreeMarker", "FreeMarker", "Moteur de gabarits open source pour Java, projet de la fondation Apache.", "https://freemarker.apache.org/"),
-(r"agent-framework", "agent-framework", "Paquet Python de Microsoft pour construire des agents d'intelligence artificielle.", "https://github.com/microsoft/agent-framework"),
+(r"agent-framework", "agent-framework", "Paquet Python de Microsoft pour construire des agents d'intelligence artificielle.", "https://pypi.org/project/agent-framework/"),
 ]
