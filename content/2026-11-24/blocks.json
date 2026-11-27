@@ -19,7 +19,7 @@
   "k": "p",
   "i": [
    {
-    "t": "L’UE remplace sa liste des biens à double usage, applicable dès le lendemain de sa publication ; une faille d’OpenJDK, « java4shell », peut permettre l’exécution de code à distance sur des processeurs récents ; le Royaume-Uni supprime au 1er décembre ses licences ouvertes d’exportation de chiffrement ; les premières normes européennes du CRA sont publiées."
+    "t": "L’UE remplace sa liste des biens à double usage, applicable dès le lendemain de sa publication ; une faille d’OpenJDK, « java4shell », peut permettre l’exécution de code à distance sur des processeurs récents ; le Royaume-Uni cesse au 1er décembre de délivrer de nouvelles licences ouvertes d’exportation de chiffrement ; les premières normes européennes du CRA sont publiées."
    }
   ]
  },
@@ -1033,7 +1033,7 @@
   "k": "p",
   "i": [
    {
-    "t": "Le Royaume-Uni supprime au 1er décembre ses licences ouvertes d’exportation de chiffrement ; la règle du BIS sur l’accès à distance aux puces d’IA est publiée et retire les poids de modèles de la liste de contrôle."
+    "t": "Le Royaume-Uni cesse au 1er décembre de délivrer de nouvelles licences ouvertes d’exportation de chiffrement ; la règle du BIS sur l’accès à distance aux puces d’IA est publiée et retire les poids de modèles de la liste de contrôle."
    }
   ]
  },
@@ -1042,7 +1042,7 @@
   "items": [
    [
     {
-     "t": "Royaume-Uni, chiffrement : selon l’avis aux exportateurs 2026/25 du 19 novembre 2026, l’ECJU met fin aux licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre ; ==il faudra demander une OIEL militaire ou à double usage== ("
+     "t": "Royaume-Uni, chiffrement : selon l’avis aux exportateurs 2026/25 mis à jour le 24 novembre 2026, l’ECJU ne délivrera plus de nouvelles licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre ; ==il faudra demander une OIEL militaire ou à double usage== ("
     },
     {
      "t": "GOV.UK",
@@ -1213,18 +1213,18 @@
   ],
   "sum": [
    {
-    "titre": "Royaume-Uni : fin des licences ouvertes de chiffrement",
-    "statut": "Avis aux exportateurs 2026/25 du 19 novembre 2026 ; effet le 1er décembre 2026",
+    "titre": "Royaume-Uni : plus de nouvelles licences ouvertes de chiffrement",
+    "statut": "Avis aux exportateurs 2026/25, mis à jour le 24 novembre 2026 ; effet le 1er décembre 2026",
     "fonctions": "Contrôle des exportations, juridique, ingénierie produit",
-    "essentiel": "Après un examen détaillé de certains types de licences, l’ECJU a décidé de cesser d’utiliser les licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre 2026. Les exportateurs de biens ou de technologies intégrant des fonctions cryptographiques devront demander une OIEL militaire ou à double usage, selon le cas. Les demandeurs dont une demande d’OIEL cryptographique est en cours ont été informés directement des dispositions transitoires. L’ECJU exigera davantage d’informations dans les futures demandes : au lieu de lignes d’articles, une catégorie d’articles accompagnée d’une explication.",
-    "contexte": "Le même jour, le Royaume-Uni met à jour ses listes de contrôle (SI 2026/1150). L’avis traite des demandes en cours, sans préciser le sort des licences cryptographiques déjà délivrées.",
-    "impact_avere": "Une filiale ou un partenaire britannique qui exporte des produits ou logiciels de chiffrement doit préparer ses demandes d’OIEL militaire ou à double usage, décrites par catégories d’articles.",
+    "essentiel": "Après un examen détaillé de certains types de licences, l’ECJU a décidé de supprimer progressivement les licences individuelles ouvertes d’exportation (OIEL) cryptographiques : elle n’en délivrera plus de nouvelles à partir du 1er décembre 2026. Les licences déjà délivrées ne sont pas concernées : elles restent valables et peuvent continuer d’être utilisées. Les exportateurs de biens ou de technologies intégrant des fonctions cryptographiques devront demander une OIEL militaire ou à double usage, selon le cas. Les demandeurs dont une demande d’OIEL cryptographique est en cours, non encore finalisée, ont été informés directement des dispositions transitoires. L’ECJU exigera davantage d’informations dans les futures demandes : au lieu de lignes d’articles, une catégorie d’articles accompagnée d’une explication.",
+    "contexte": "Le même jour, le Royaume-Uni met à jour ses listes de contrôle (SI 2026/1150). La version de l’avis mise à jour le 24 novembre précise que les licences cryptographiques déjà délivrées restent valables.",
+    "impact_avere": "Une filiale ou un partenaire britannique peut continuer d’utiliser son OIEL cryptographique en cours de validité ; ses nouvelles demandes passeront par une OIEL militaire ou à double usage, décrite par catégories d’articles.",
     "impact_potentiel": "Des demandes plus détaillées pourraient allonger l’instruction des licences.",
     "a_verifier": [
      "Exportons-nous depuis le Royaume-Uni sous une OIEL cryptographique ?",
      "Nos descriptions d’articles peuvent-elles être regroupées par catégories ?"
     ],
-    "papier": "La mesure suit un examen détaillé de certains types de licences. Les demandeurs dont un dossier cryptographique est en cours ont été informés directement des dispositions transitoires.\n\nL’ECJU exigera davantage d’informations : au lieu de lignes d’articles, une catégorie d’articles accompagnée d’une explication. {{2|L’avis donne en exemple les équipements spécialement conçus pour la sécurité de l’information et qui emploient la cryptographie numérique, hors cryptanalyse.}} {{3|Le même jour, les listes de contrôle britanniques doivent être mises à jour.}}\n\nL’exportateur établi au Royaume-Uni doit préparer ses nouvelles demandes, décrites par catégories d’articles. {{1|Des dossiers plus détaillés pourraient allonger l’instruction.}}"
+    "papier": "{{2|La mesure suit un examen détaillé de certains types de licences.}} Les licences déjà délivrées restent valables ; les demandeurs dont un dossier est en cours ont été informés directement des dispositions transitoires.\n\nL’ECJU exigera davantage d’informations : au lieu de lignes d’articles, une catégorie d’articles accompagnée d’une explication. {{2|L’avis donne en exemple les équipements spécialement conçus pour la sécurité de l’information et qui emploient la cryptographie numérique, hors cryptanalyse.}} {{3|Le même jour, les listes de contrôle britanniques doivent être mises à jour.}}\n\nL’exportateur établi au Royaume-Uni doit préparer ses nouvelles demandes, décrites par catégories d’articles. {{1|Des dossiers plus détaillés pourraient allonger l’instruction.}}"
    },
    {
     "titre": "BIS : la règle sur l’accès à distance aux puces d’IA publiée",
@@ -1468,7 +1468,7 @@
   "sum": [
    {
     "titre": "Loi Résilience : adoptée par l’Assemblée nationale",
-    "statut": "Projet de loi modifié par l’Assemblée nationale le 17 novembre 2026 (texte adopté n° 366), après son adoption par le Sénat le 12 mars 2025 ; procédure accélérée",
+    "statut": "Projet de loi adopté en première lecture par l’Assemblée nationale le 17 novembre 2026, après son adoption par le Sénat le 12 mars 2025 ; procédure accélérée",
     "fonctions": "Juridique, conformité, PSIRT",
     "essentiel": "Le scrutin public n° 9916 sur l’ensemble du projet de loi relatif à la résilience des infrastructures critiques et au renforcement de la cybersécurité a recueilli 464 voix pour, 64 contre et 16 abstentions. Selon Next, l’article 16 bis, introduit par le Sénat pour protéger le chiffrement, a été supprimé, le gouvernement promettant qu’aucune mesure visant à affaiblir le chiffrement ne serait réintroduite ; reste à savoir si le Premier ministre réunira une commission mixte paritaire. Selon le JDN, les éditeurs de logiciels ne sont plus classés entités essentielles sans condition de taille.",
     "contexte": "Adopté par le Sénat le 12 mars 2025, le projet de loi a été examiné en séance publique à l’Assemblée nationale, qui en a achevé l’examen le 10 novembre 2026 (voir le N° 7).",
@@ -1819,7 +1819,7 @@
     ],
     [
      {
-      "t": "Royaume-Uni : nouvelles listes de contrôle et fin des licences ouvertes de chiffrement"
+      "t": "Royaume-Uni : nouvelles listes de contrôle et plus de nouvelles licences ouvertes de chiffrement"
      }
     ],
     [
@@ -1988,10 +1988,10 @@
     ]
    },
    {
-    "titre": "Royaume-Uni : listes de contrôle mises à jour et fin des OIEL cryptographiques",
+    "titre": "Royaume-Uni : listes de contrôle mises à jour et plus de nouvelles OIEL cryptographiques",
     "statut": "SI 2026/1150 déposé au Parlement le 3 novembre 2026 ; entrée en vigueur prévue le 1er décembre 2026, sous réserve de la procédure parlementaire",
     "fonctions": "Contrôle des exportations, juridique, ingénierie logicielle",
-    "essentiel": "Selon l’avis aux exportateurs 2026/24, mis à jour le 11 novembre 2026, les Export Control (Amendment) Regulations 2026 doivent entrer en vigueur le 1er décembre 2026. Ils mettent à jour les listes militaire et à double usage, dont des entrées qui portent sur le logiciel et la technologie (5A004.b, 5E501.f). Les exportateurs enregistrés pour GEA001 au 1er décembre pourront l’utiliser jusqu’au 1er avril 2027. À la même date, l’ECJU cesse d’utiliser les licences individuelles ouvertes d’exportation (OIEL) cryptographiques, selon l’avis aux exportateurs 2026/25 du 19 novembre ; les exportateurs de biens ou de technologies intégrant des fonctions cryptographiques devront demander une OIEL militaire ou à double usage, décrite par catégories d’articles.",
+    "essentiel": "Selon l’avis aux exportateurs 2026/24, mis à jour le 11 novembre 2026, les Export Control (Amendment) Regulations 2026 doivent entrer en vigueur le 1er décembre 2026. Ils mettent à jour les listes militaire et à double usage, dont des entrées qui portent sur le logiciel et la technologie (5A004.b, 5E501.f). Les exportateurs enregistrés pour GEA001 au 1er décembre pourront l’utiliser jusqu’au 1er avril 2027. À la même date, l’ECJU cesse de délivrer de nouvelles licences individuelles ouvertes d’exportation (OIEL) cryptographiques, selon l’avis aux exportateurs 2026/25 mis à jour le 24 novembre ; les licences déjà délivrées restent valables, et les nouvelles demandes portant sur des biens ou technologies intégrant des fonctions cryptographiques passent par une OIEL militaire ou à double usage, décrite par catégories d’articles.",
     "contexte": "Le texte reflète les révisions 2025 des régimes multilatéraux de contrôle des exportations.",
     "impact_avere": "Les entités britanniques d’un groupe français doivent avoir revu leurs classifications à cette date.",
     "impact_potentiel": "Des licences pourraient devenir nécessaires pour des articles nouvellement contrôlés.",
@@ -2084,7 +2084,7 @@
   ],
   "detail": [
    "Projet publié le 1er octobre 2026 : retrait de certains articles de la liste, définitions révisées, nouvelle exemption de licence",
-   "SI 2026/1150 en vigueur sous réserve de la procédure parlementaire ; demandes de chiffrement à déposer en OIEL militaire ou à double usage",
+   "SI 2026/1150 en vigueur sous réserve de la procédure parlementaire ; nouvelles demandes de chiffrement en OIEL militaire ou à double usage",
    "Sauf configuration de sécurité imposée qui active les alertes ; les alertes existantes sont archivées et peuvent être restaurées.",
    "Transposition de la directive (UE) 2024/2853, qui inclut le logiciel ; elle s'applique aux produits mis sur le marché après cette date",
    "Réunion ouverte en ligne ; inscription jusqu’au 11 décembre ; liste de technologies exportables sans licence par transaction vers des alliés",

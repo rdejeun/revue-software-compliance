@@ -14,11 +14,15 @@ import argparse, hashlib, json, os, re, sys, time, urllib.request
 HERE = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(HERE)
 API = 'https://external.api.recraft.ai/v1/images/generations'
 NAVY, ACC = (15, 42, 74), (194, 65, 12)   # charte : bleu nuit, orange brique (journal.py)
-PRIX = {'recraftv4_styles_vector': .05, 'recraftv4_1_vector': .08, 'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .08, 'recraftv4_styles_vector': .05, 'recraftv2_vector': .044}
+VECTORISER = 'https://external.api.recraft.ai/v1/images/vectorize'
+# prix par candidat ; les modèles V4 Styles paient en plus 0,005 $ par requête pour les dessins de référence ; V4.1 Flash
+# (bitmap, sans référence de style) est suivi d'une vectorisation à 0,01 $
+PRIX = {'recraftv4_1_flash': .017, 'recraftv4_styles_vector': .055, 'recraftv4_1_vector': .08, 'recraftv3_vector': .08, 'recraftv3_raster': .04, 'recraftv4_vector': .08, 'recraftv2_vector': .044}
 STYLE = ('Editorial press cartoon, clean confident ink line drawing, flat, no shading, no gradients. Exactly two spot colors: '
          'dark navy blue lines and fills, with a few orange accents, on a plain white background. Any logo, emblem or public figure '
          'named in the scene is redrawn in the same simple line style and two colors, instantly recognizable. '
-         'Bold thick outlines (line width about one hundredth of the image width), few large simple shapes, no small details, '
+         'Bold thick outlines (line width about one hundredth of the image width), shapes mostly left white inside (navy for the outlines '
+         'and only small filled areas such as hair or shoes, no large solid navy fills), few large simple shapes, no small details, '
          'no fine patterns or hatching, no tiny objects. It tells a simple story: a plausible everyday situation in which the '
          'characters, with fully drawn faces (eyes, eyebrows, nose, mouth) whose expressions match the situation, act naturally and the two or three elements interact as they would in real life (no symbolic juxtaposition '
          'of unrelated objects). The scene spreads across the whole width of the frame, characters large, no empty margins, '
@@ -50,6 +54,26 @@ def demander_v4(cle, prompt, modele, n, refs, taille='1024x1024'):
     req = urllib.request.Request(API, data=json.dumps(corps).encode(), method='POST',
                                  headers={'Authorization': f'Bearer {cle}', 'Content-Type': 'application/json'})
     with urllib.request.urlopen(req, timeout=300) as r: return json.loads(r.read())
+
+
+def demander_flash(cle, prompt, n, taille='1:1'):
+    """Recraft V4.1 Flash : bitmap à 0,007 $, sans style ni dessin de référence ; le style tient au seul prompt (STYLE)
+    et aux couleurs imposées. Le dessin est ensuite vectorisé (vectoriser) pour suivre la même chaîne que les autres."""
+    corps = {'prompt': prompt, 'model': 'recraftv4_1_flash', 'n': n, 'size': taille, 'response_format': 'url', 'image_format': 'png',
+             'controls': {'colors': [{'rgb': list(NAVY)}, {'rgb': list(ACC)}], 'background_color': {'rgb': [255, 255, 255]}}}
+    req = urllib.request.Request(API, data=json.dumps(corps).encode(), method='POST',
+                                 headers={'Authorization': f'Bearer {cle}', 'Content-Type': 'application/json'})
+    with urllib.request.urlopen(req, timeout=180) as r: return json.loads(r.read())
+
+
+def vectoriser(cle, png):
+    """Bitmap → SVG (Recraft, 0,01 $)."""
+    import base64
+    corps = {'image_url': 'data:image/png;base64,' + base64.b64encode(png).decode(), 'response_format': 'url'}
+    req = urllib.request.Request(VECTORISER, data=json.dumps(corps).encode(), method='POST',
+                                 headers={'Authorization': f'Bearer {cle}', 'Content-Type': 'application/json'})
+    with urllib.request.urlopen(req, timeout=180) as r: rep = json.loads(r.read())
+    return telecharger(rep['image']['url'])
 
 
 def demander(cle, prompt, modele, style, n, graine=None, taille='1024x1024', texte=False):
@@ -328,6 +352,7 @@ def main():
     nb = lambda b: max(a.candidats, int(b.get('candidats', 1)))   # candidats par brief (champ « candidats » du brief, sinon --candidats)
     briefs = [b for b in briefs if sum(1 for f in fiche if f['id'] == b['id'] and f.get('brief') == emp(b)) < nb(b)]   # ce brief déjà servi : rien à redemander
     total = sum(nb(b) * PRIX.get(b.get('modele') or a.modele, .08) for b in briefs)
+    echecs = []
     if total > a.budget: sys.exit(f'au-delà du budget de {a.budget:.2f} $ : rien demandé')
     print(f'{len(briefs)} brief(s) à servir : {total:.2f} $', file=sys.stderr)
     if a.simuler: print('  ' + ', '.join(f"{b['id']} × {nb(b)}" for b in briefs), file=sys.stderr); return
@@ -337,18 +362,29 @@ def main():
         prompt = STYLE + b['brief'] + ('' if texte else SANS_TEXTE)   # message, repère et action sont dans le brief (README, § 18)
         modele = b.get('modele') or a.modele
         refs = b.get('references') or (REFERENCES if modele.startswith('recraftv4_styles') else None)
+        flash = modele.startswith('recraftv4_1_flash')
         try:
-            if refs and modele.startswith('recraftv4'): rep = demander_v4(cle, prompt, modele, nb(b), refs, b.get('format', '1:1'))   # V4 : taille en rapport
+            if flash: rep = demander_flash(cle, prompt, nb(b), b.get('format', '1:1'))
+            elif refs and modele.startswith('recraftv4'): rep = demander_v4(cle, prompt, modele, nb(b), refs, b.get('format', '1:1'))   # V4 : taille en rapport
             else: rep = demander(cle, prompt, modele, a.style, nb(b), b.get('graine'), TAILLES.get(b.get('format', '1:1'), '1024x1024'), texte)
         except Exception as e:   # noqa
             corps_err = e.read().decode('utf-8', 'replace')[:500] if hasattr(e, 'read') else ''
-            print(f'{b["id"]} : échec {e} {corps_err}', file=sys.stderr); continue
+            print(f'{b["id"]} : échec {e} {corps_err}', file=sys.stderr); echecs.append(b['id'])
+            if 'not_enough_credits' in corps_err:   # inutile d'insister : rien ne passera
+                print('CRÉDIT RECRAFT ÉPUISÉ : rechargez le compte (recraft.ai, profil, API) ; aucun dessin pour cette édition.', file=sys.stderr)
+                break
+            continue
         k0 = sum(1 for f in fiche if f['id'] == b['id'])
         for k, img in enumerate(rep.get('data', []), k0 + 1):
-            ext = 'svg' if 'vector' in a.modele else 'png'
+            ext = 'svg' if ('vector' in modele or flash) else 'png'
             nom = f'{b["id"]}-{k}.{ext}'
             while nom in deja: k += 1; nom = f'{b["id"]}-{k}.{ext}'
             data = telecharger(img['url'])
+            if flash:   # bitmap gardé à côté, puis vectorisé
+                open(os.path.join(sortie, nom[:-4] + '-bitmap.png'), 'wb').write(data)
+                try: data = vectoriser(cle, data)
+                except Exception as e:   # noqa
+                    print(f'{b["id"]} : vectorisation en échec {e}', file=sys.stderr); echecs.append(b['id']); continue
             open(os.path.join(sortie, nom), 'wb').write(data)
             if ext == 'svg':
                 open(os.path.join(sortie, nom.replace('.svg', '-charte.svg')), 'w', encoding='utf-8').write(charte(data.decode('utf-8', 'replace')))
@@ -359,6 +395,8 @@ def main():
             print(f'{b["id"]} : {nom}', file=sys.stderr)
         time.sleep(1)
     json.dump(fiche, open(fiche_p, 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    if echecs:   # le workflow passe au rouge (les candidats obtenus sont tout de même versés) : la routine B le voit et prévient
+        sys.exit(f'ÉCHEC : {len(set(echecs))} brief(s) sans dessin ({", ".join(sorted(set(echecs)))}) ; voir ci-dessus')
 
 
 if __name__ == '__main__':

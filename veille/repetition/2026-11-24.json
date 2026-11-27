@@ -1,22 +1,28 @@
 {
  "date": "2026-11-24",
- "commit": "7c76097499bc07b521a3adeebd90f7f4f612f21f",
- "le": "2026-11-24T06:07:51Z",
+ "commit": "dd4a116e5b1e4562f78055d6ba4522471c115b2f",
+ "le": "2026-11-27T15:35:18Z",
  "verdict": "verte",
  "motifs": [],
- "script": "b385426151c75fcc235611ad55271f3557fc85691b79e41aeb9ac1eb6688477a",
- "sources": "5f4e1afa440567457ae8725abbce0789f4145a8cf84660479fff86c877521c7e",
+ "script": "4126c2e1b7b9c86e6a68f2c3bc623074b99ce552810783d1315737181b611047",
+ "sources": "589d596b25dfe620e9f049fd6b96b8f18417fd8852de6fc7440226e22c8a7971",
  "controle": {
   "code": 0,
   "erreurs": [],
   "avertissements": [
    "bloc 14 (ul), puce 7 (Sécurité de la chaîne d’approvisionnement) : synthèse de 138 mots (170 à 245 visés)",
+   "agenda, ligne 2 : résumé de 128 mots (120 au plus)",
    "agenda, ligne 3 : synthèse de 98 mots (170 à 245 visés)",
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 6, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 7, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 8, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 10, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 11, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 12, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 14, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 15, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
@@ -100,7 +106,7 @@
  "ecarter": {
   "date": "2026-11-24",
   "echecs": 0,
-  "extraits_retrouves": 440,
+  "extraits_retrouves": 437,
   "illisibles": [
    {
     "affirmation": 1,
@@ -113,6 +119,21 @@
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
    },
    {
+    "affirmation": 6,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 7,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 8,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
     "affirmation": 9,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
@@ -121,6 +142,16 @@
     "affirmation": 10,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 11,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 12,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
    },
    {
     "affirmation": 13,
@@ -520,20 +551,20 @@
  },
  "podcast": {
   "code": 0,
-  "sortie": "2026-11-24 : 46 répliques, 1203 mots (≈ 8 min)"
+  "sortie": "2026-11-24 : 46 répliques, 1225 mots (≈ 8 min)"
  },
  "essai_audio": {
   "code": 0,
   "controle": "en écart",
-  "sortie": "2026-11-24 : 46 répliques, 1203 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (397 caractères) : Ouverture\n  requête 2/7 (1412 caractères) : Export : la liste dual-use change\n  requête 3/7 (1488 caractères) : java4shell : une faille de Java\n  requête 4/7 (946 caractères) : NoisyTCP : le correctif arrive\n  requête 5/7 (825 caractères) : Royaume-Uni : licences de chiffrement\n  requête 6/7 (1043 caractères) : CRA : les premières normes\n  requête 7/7 (1371 caractères) : Licences : LLVM simplifie, Date à retenir, Clôture\n2026-11-24 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/out/episode.m4a (8.8 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/qc_report.md. Aucun fichier écrit dans content/."
+  "sortie": "2026-11-24 : 46 répliques, 1225 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (435 caractères) : Ouverture\n  requête 2/7 (1412 caractères) : Export : la liste dual-use change\n  requête 3/7 (1488 caractères) : java4shell : une faille de Java\n  requête 4/7 (946 caractères) : NoisyTCP : le correctif arrive\n  requête 5/7 (912 caractères) : Royaume-Uni : licences de chiffrement\n  requête 6/7 (1043 caractères) : CRA : les premières normes\n  requête 7/7 (1390 caractères) : Licences : LLVM simplifie, Date à retenir, Clôture\n2026-11-24 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/out/episode.m4a (9.0 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/qc_report.md. Aucun fichier écrit dans content/."
  },
  "solde": {
   "date": "2026-11-24",
-  "besoin": 8985,
+  "besoin": 9158,
   "reste": 39012,
   "raz": "04/12/2026",
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 1338
+ "duree_s": 149
 }

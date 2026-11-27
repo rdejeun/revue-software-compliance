@@ -373,6 +373,11 @@ def norme(t):
     return re.sub(r'\s+', ' ', t).strip().lower()
 
 
+COMPACTS = {}   # pages sans blancs (extrait_present)
+PAGES_LUES = {}
+LUES = {}   # url -> (titre de la page lue, longueur du texte) : pour diagnostiquer un extrait introuvable
+
+
 def lire_pages(urls):
     """Texte (balises retirées) de chaque page : {url: (texte, '')} ou {url: (None, raison)} (PDF, page illisible)."""
     def lire(u):
@@ -383,6 +388,7 @@ def lire_pages(urls):
                 txt = r.read(4_000_000).decode(r.headers.get_content_charset() or 'utf-8', 'replace')
             txt = re.sub(r'(?is)<(script|style|noscript)\b.*?</\1>', ' ', txt)
             t = norme(re.sub(r'<[^>]+>', ' ', txt))
+            m = re.search(r'(?is)<title[^>]*>(.*?)</title>', txt); LUES[u] = (norme(m.group(1))[:90] if m else '', len(t))
             if len(t) < 800 or any(m in t[:3000] for m in ('just a moment', 'enable javascript and cookies', 'access denied', 'verify you are human', 'captcha')):
                 return None, 'page vide ou protégée'   # page d'interception d'un robot : ne prouve rien
             return t, ''
@@ -391,10 +397,22 @@ def lire_pages(urls):
     with concurrent.futures.ThreadPoolExecutor(6) as ex: return dict(zip(urls, ex.map(lire, urls)))
 
 
+INVISIBLES = re.compile('[\u00ad\u200b\u200c\u200d\u2060\ufeff]')
+
+
+def compact(t):
+    """Texte sans aucun blanc ni caractère invisible : une balise au milieu d'un mot (<abbr>OIEL</abbr>s, 24/11/2026 → 27/11)
+    ou un trait d'union conditionnel ne doivent pas faire manquer un extrait."""
+    return re.sub(r'\s+', '', INVISIBLES.sub('', t))
+
+
 def extrait_present(extrait, txt):
-    """L'extrait figure dans la page ; la ponctuation finale (« …sufficient. » devant « …sufficient to… ») ne compte pas."""
+    """L'extrait figure dans la page ; la ponctuation finale (« …sufficient. » devant « …sufficient to… ») ne compte pas ;
+    à défaut, l'extrait sans blancs figure dans la page sans blancs."""
     e = norme(extrait or '').rstrip(' .;:,…')
-    return bool(e) and e in txt
+    if not e: return False
+    if e in txt: return True
+    return compact(e) in (COMPACTS[txt] if txt in COMPACTS else COMPACTS.setdefault(txt, compact(txt)))
 
 
 def analyser_citations(claims):
@@ -402,6 +420,7 @@ def analyser_citations(claims):
     Un extrait absent est relu une seconde fois (autre lecture de la page) avant d'être déclaré absent."""
     urls = {c['url'] for c in claims if c.get('url', '').startswith('http')}
     pages = lire_pages(urls)
+    PAGES_LUES.update({u: v[0] for u, v in pages.items() if v[0]})
     def evaluer(pages):
         ok, absents, illisibles = 0, [], []
         for i, c in enumerate(claims, 1):
@@ -423,9 +442,14 @@ def check_citations(claims, d=''):
     """Chaque extrait de claims.json doit figurer dans la page source. Extrait absent d'une page lue, ou page illisible :
     avertissements, jamais une erreur : l'information concernée est écartée de l'édition (tools/ecarter.py), la revue part."""
     ok, absents, illisibles = analyser_citations(claims)
+    if os.environ.get('VALIDATE_DIAG'):   # diagnostic à la demande : texte lu des pages où un extrait manque
+        for u in sorted({claims[i - 1].get('url') for i, _ in absents}):
+            t = PAGES_LUES.get(u) or ''
+            WARN.append(f'Diagnostic, texte lu ({len(t)} car.) : {u} : « {t[:6000]} »')
     for i, why in illisibles: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {claims[i - 1].get("url")}')
     for i, _ in absents:
-        c = claims[i - 1]; WARN.append(f'Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
+        c = claims[i - 1]; ti, n = LUES.get(c.get('url'), ('', 0))
+        WARN.append(f'Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")} ; page lue : « {ti} », {n} caractères)')
     return ok
 
 

@@ -16,12 +16,12 @@
   "raison": "Alerte CERT-FR CERTFR-2026-ALE-016."
  },
  {
-  "affirmation": "Chapô : le Royaume-Uni supprime au 1er décembre ses licences ouvertes d'exportation de chiffrement.",
+  "affirmation": "Chapô : le Royaume-Uni cesse au 1er décembre de délivrer de nouvelles licences ouvertes d'exportation de chiffrement.",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "ECJU has decided to discontinue the use of cryptographic OIELs from 1 December 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "article",
   "verifie": "confirmé",
-  "raison": "Avis aux exportateurs 2026/25 : il s'agit des licences individuelles ouvertes (OIEL) cryptographiques."
+  "raison": "Avis aux exportateurs 2026/25 : il s'agit des licences individuelles ouvertes (OIEL) cryptographiques. Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026)."
  },
  {
   "affirmation": "Chapô : les premières normes européennes du CRA sont publiées.",
@@ -2027,30 +2027,30 @@
   "ref": "Campagne wfx : selon Aikido, 4 837 compt"
  },
  {
-  "affirmation": "Chapô : le Royaume-Uni supprime au 1er décembre ses licences ouvertes d’exportation de chiffrement",
+  "affirmation": "Chapô de rubrique : le Royaume-Uni cesse au 1er décembre de délivrer de nouvelles licences ouvertes d’exportation de chiffrement",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "ECJU has decided to discontinue the use of cryptographic OIELs from 1 December 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "article",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
-  "affirmation": "Avis aux exportateurs 2026/25 publié le 19 novembre 2026",
+  "affirmation": "Avis aux exportateurs 2026/25, mis à jour le 24 novembre 2026",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "Notice to exporters 2026/25: Cryptographic OIELs will be discontinued Published 19 November 2026",
+  "extrait": "Updated 24 November 2026",
   "ou": "article",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
-  "affirmation": "L’ECJU met fin aux licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre 2026",
+  "affirmation": "L’ECJU ne délivrera plus de nouvelles licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre 2026",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "Following a detailed review of some of our licence types, ECJU has decided to discontinue the use of cryptographic OIELs from 1 December 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "article",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
@@ -2063,12 +2063,12 @@
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
-  "affirmation": "Statut : avis 2026/25 du 19 novembre 2026 ; effet le 1er décembre 2026",
+  "affirmation": "Statut : avis 2026/25 mis à jour le 24 novembre 2026 ; effet le 1er décembre 2026",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "Published 19 November 2026",
+  "extrait": "Updated 24 November 2026",
   "ou": "synthese",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
@@ -2090,12 +2090,12 @@
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
-  "affirmation": "Les demandeurs dont une demande d’OIEL cryptographique est en cours ont été informés directement des dispositions transitoires (aussi papier)",
+  "affirmation": "Les demandeurs dont une demande d’OIEL cryptographique est en cours, non encore finalisée, ont été informés directement des dispositions transitoires (aussi papier)",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "Applicants who have a live cryptographic OIEL application have been notified directly about the transitional arrangements",
+  "extrait": "applicants who have a live cryptographic OIEL application in SPIRE which has not yet been finalised have been notified directly about the transitional arrangements",
   "ou": "article",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
@@ -2135,12 +2135,12 @@
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
-  "affirmation": "Contexte : l’avis traite des demandes en cours, sans préciser le sort des licences cryptographiques déjà délivrées",
+  "affirmation": "Contexte : la version mise à jour le 24 novembre précise que les licences cryptographiques déjà délivrées restent valables",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "Applicants who have a live cryptographic OIEL application have been notified directly about the transitional arrangements",
+  "extrait": "existing extant cryptographic OIEL licences which have already been issued are not impacted by this change, remain valid and may continue to be used",
   "ou": "synthese",
   "verifie": "confirmé",
-  "raison": "Constat d’absence : la page de l’avis ne mentionne que les demandes en cours (« live application »), rien sur les licences déjà délivrées ; conforme.",
+  "raison": "Constat d’absence : la page de l’avis ne mentionne que les demandes en cours (« live application »), rien sur les licences déjà délivrées ; conforme. Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis "
  },
  {
@@ -2801,12 +2801,12 @@
   "ref": "Mise à jour, loi Résilience : le 17 nove"
  },
  {
-  "affirmation": "Texte adopté n° 366 de l’Assemblée nationale le 17 novembre 2026",
-  "url": "https://www.senat.fr/dossier-legislatif/pjl24-033.html",
-  "extrait": "Texte n° 366 adopté par l'Assemblée nationale le 17 novembre 2026",
+  "affirmation": "Projet de loi adopté en première lecture par l’Assemblée nationale le 17 novembre 2026 (statut)",
+  "url": "https://www.assemblee-nationale.fr/dyn/17/scrutins/9916",
+  "extrait": "Première séance du mardi 17 novembre 2026",
   "ou": "synthese",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Scrutin public n° 9916 sur l'ensemble du projet de loi (première lecture) ; le numéro du texte adopté n'apparaît plus sous la même forme dans le dossier du Sénat (27/11/2026).",
   "ref": "Mise à jour, loi Résilience : le 17 nove"
  },
  {
@@ -3863,12 +3863,12 @@
   "ref": "1 décembre 2026 Royaume-Uni : nouvelles "
  },
  {
-  "affirmation": "À la même date, l’ECJU cesse d’utiliser les OIEL cryptographiques (avis 2026/25 du 19 novembre)",
+  "affirmation": "À la même date, l’ECJU cesse de délivrer de nouvelles OIEL cryptographiques (avis 2026/25 mis à jour le 24 novembre)",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "ECJU has decided to discontinue the use of cryptographic OIELs from 1 December 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "agenda",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "1 décembre 2026 Royaume-Uni : nouvelles "
  },
  {
@@ -4520,22 +4520,22 @@
   "sujet": "Royaume-Uni : licences de chiffrement"
  },
  {
-  "affirmation": "L’ECJU a annoncé le 19 novembre qu’elle y mettait fin à partir du 1er décembre",
+  "affirmation": "L’ECJU a annoncé qu’elle ne délivrera plus de nouvelles licences ouvertes de chiffrement à partir du 1er décembre",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "Published 19 November 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "podcast",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis ",
   "sujet": "Royaume-Uni : licences de chiffrement"
  },
  {
-  "affirmation": "Fin des OIEL cryptographiques au 1er décembre",
+  "affirmation": "Plus de nouvelles OIEL cryptographiques au 1er décembre",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "ECJU has decided to discontinue the use of cryptographic OIELs from 1 December 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "podcast",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "Royaume-Uni, chiffrement : selon l’avis ",
   "sujet": "Royaume-Uni : licences de chiffrement"
  },
@@ -4710,12 +4710,12 @@
   "sujet": "Date à retenir"
  },
  {
-  "affirmation": "Le 1er décembre, le Royaume-Uni met fin aux licences ouvertes de chiffrement",
+  "affirmation": "Le 1er décembre, le Royaume-Uni cesse de délivrer de nouvelles licences ouvertes de chiffrement",
   "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-  "extrait": "discontinue the use of cryptographic OIELs from 1 December 2026",
+  "extrait": "ECJU has decided to phase out the cryptographic OIEL and will stop issuing any new cryptographic OIELs from 1 December 2026",
   "ou": "podcast",
   "verifie": "confirmé",
-  "raison": "",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
   "ref": "1 décembre 2026 Royaume-Uni : nouvelles ",
   "sujet": "Date à retenir"
  },
@@ -4728,5 +4728,23 @@
   "raison": "",
   "ref": "1 décembre 2026 Royaume-Uni : nouvelles ",
   "sujet": "Date à retenir"
+ },
+ {
+  "affirmation": "Les licences cryptographiques déjà délivrées restent valables et peuvent continuer d’être utilisées (essentiel, papier, article)",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+  "extrait": "existing extant cryptographic OIEL licences which have already been issued are not impacted by this change, remain valid and may continue to be used",
+  "ou": "article",
+  "verifie": "confirmé",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
+  "ref": "Royaume-Uni, chiffrement : selon l’avis "
+ },
+ {
+  "affirmation": "Celles qui ont déjà été accordées restent valables",
+  "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+  "extrait": "existing extant cryptographic OIEL licences which have already been issued are not impacted by this change, remain valid and may continue to be used",
+  "ou": "podcast",
+  "verifie": "confirmé",
+  "raison": "Avis mis à jour le 24 novembre 2026 (relu le 27/11/2026).",
+  "ref": "Royaume-Uni, chiffrement : selon l’avis "
  }
 ]

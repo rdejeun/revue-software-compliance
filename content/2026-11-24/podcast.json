@@ -1,6 +1,6 @@
 {
- "titre": "Revue Software Compliance, numéro 8 : la nouvelle liste dual-use, la faille java4shell, la fin des licences britanniques de chiffrement et les premières normes du CRA",
- "description": "Numéro huit : la liste européenne des biens à double usage remplacée et applicable dès le lendemain, la faille java4shell d’OpenJDK, la fin des licences ouvertes de chiffrement au Royaume-Uni, les deux premières normes du CRA et la fin du relicenciement de LLVM.",
+ "titre": "Revue Software Compliance, numéro 8 : la nouvelle liste dual-use, la faille java4shell, la fin des nouvelles licences britanniques de chiffrement et les premières normes du CRA",
+ "description": "Numéro huit : la liste européenne des biens à double usage remplacée et applicable dès le lendemain, la faille java4shell d’OpenJDK, l’arrêt des nouvelles licences ouvertes de chiffrement au Royaume-Uni, les deux premières normes du CRA et la fin du relicenciement de LLVM.",
  "repliques": [
   {
    "sujet": "Ouverture"
@@ -11,7 +11,7 @@
   },
   {
    "v": "B",
-   "t": "Bonjour. Au programme : la nouvelle liste européenne des biens à double usage, une faille de Java baptisée java4shell, la fin d’une licence britannique pour le chiffrement, les premières normes du CRA, et le grand ménage des licences de LLVM."
+   "t": "Bonjour. Au programme : la nouvelle liste européenne des biens à double usage, une faille de Java baptisée java4shell, la fin d’une licence britannique pour le chiffrement, du moins pour les nouvelles demandes, les premières normes du CRA, et le grand ménage des licences de LLVM."
   },
   {
    "sujet": "Export : la liste dual-use change",
@@ -140,7 +140,7 @@
   },
   {
    "v": "B",
-   "t": "Oui. Au Royaume-Uni, on pouvait obtenir une licence ouverte spéciale pour exporter des produits de chiffrement, sur plusieurs expéditions. L’autorité britannique, l’ECJU, a annoncé le dix-neuf novembre qu’elle y mettait fin à partir du premier décembre."
+   "t": "Oui. Au Royaume-Uni, on pouvait obtenir une licence ouverte spéciale pour exporter des produits de chiffrement, sur plusieurs expéditions. L’autorité britannique, l’ECJU, a annoncé qu’elle n’en délivrera plus de nouvelles à partir du premier décembre. Celles qui ont déjà été accordées restent valables."
   },
   {
    "v": "A",
@@ -156,7 +156,7 @@
   },
   {
    "v": "B",
-   "t": "Elle doit préparer ses nouvelles demandes dès maintenant. Des dossiers plus détaillés pourraient aussi allonger les délais d’instruction."
+   "t": "Elle garde sa licence en cours, mais elle doit préparer ses nouvelles demandes dès maintenant. Des dossiers plus détaillés pourraient aussi allonger les délais d’instruction."
   },
   {
    "sujet": "CRA : les premières normes",
@@ -236,7 +236,7 @@
   },
   {
    "v": "B",
-   "t": "Le premier décembre. Ce jour-là, le Royaume-Uni met à jour ses listes de contrôle des exportations et met fin aux licences ouvertes de chiffrement. Pour une entité britannique qui exporte des logiciels, c’est donc à la fois de nouvelles rubriques et de nouvelles licences."
+   "t": "Le premier décembre. Ce jour-là, le Royaume-Uni met à jour ses listes de contrôle des exportations et cesse de délivrer de nouvelles licences ouvertes de chiffrement. Pour une entité britannique qui exporte des logiciels, c’est donc à la fois de nouvelles rubriques et de nouvelles licences."
   },
   {
    "sujet": "Clôture"
