@@ -374,6 +374,7 @@ def norme(t):
 
 
 COMPACTS = {}   # pages sans blancs (extrait_present)
+PAGES_LUES = {}
 LUES = {}   # url -> (titre de la page lue, longueur du texte) : pour diagnostiquer un extrait introuvable
 
 
@@ -419,6 +420,7 @@ def analyser_citations(claims):
     Un extrait absent est relu une seconde fois (autre lecture de la page) avant d'être déclaré absent."""
     urls = {c['url'] for c in claims if c.get('url', '').startswith('http')}
     pages = lire_pages(urls)
+    PAGES_LUES.update({u: v[0] for u, v in pages.items() if v[0]})
     def evaluer(pages):
         ok, absents, illisibles = 0, [], []
         for i, c in enumerate(claims, 1):
@@ -440,6 +442,10 @@ def check_citations(claims, d=''):
     """Chaque extrait de claims.json doit figurer dans la page source. Extrait absent d'une page lue, ou page illisible :
     avertissements, jamais une erreur : l'information concernée est écartée de l'édition (tools/ecarter.py), la revue part."""
     ok, absents, illisibles = analyser_citations(claims)
+    if os.environ.get('VALIDATE_DIAG') or os.environ.get('GITHUB_ACTIONS'):   # diagnostic : texte lu des pages où un extrait manque
+        for u in sorted({claims[i - 1].get('url') for i, _ in absents}):
+            t = PAGES_LUES.get(u) or ''
+            print(f'::group::Texte lu ({len(t)} car.) : {u}'); print(t[:4000]); print('::endgroup::')
     for i, why in illisibles: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {claims[i - 1].get("url")}')
     for i, _ in absents:
         c = claims[i - 1]; ti, n = LUES.get(c.get('url'), ('', 0))
