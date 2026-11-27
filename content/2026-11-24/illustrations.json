@@ -1,123 +1,123 @@
 [
-  {
-    "id": "e5.0",
-    "article": "Liste dual-use : la nouvelle annexe I en vigueur",
-    "message": "La liste européenne des biens à double usage a changé du jour au lendemain : l’exportateur doit revoir ses classements tout de suite.",
-    "repere": "la couronne d’étoiles de l’UE en haut d’un grand panneau d’affichage officiel",
-    "action": "un fonctionnaire colle une nouvelle liste par-dessus l’ancienne, sous le regard surpris d’un exportateur qui tient son carton",
-    "brief": "Simple wide scene, thick bold outlines, only three huge shapes, no background. Center: a big official notice board topped by one large ring of stars; a calm clerk in a suit, face fully drawn, is pasting one large blank white sheet over an older sheet whose corner still sticks out. Right: an exporter holding a big cardboard parcel with a blank white tag, face fully drawn, eyebrows raised in surprise, leaning forward to read the new sheet. Orange only on the ring of stars and the parcel tag.",
-    "alt": "Sous la couronne d’étoiles de l’UE, un fonctionnaire colle une nouvelle liste sur le panneau, devant un exportateur surpris qui tient son colis.",
-    "format": "3:2",
-    "texte": false,
-    "legendes": [
-      {
-        "texte": "Annexe I",
-        "point": [
-          0.5,
-          0.5
-        ],
-        "couleur": "navy"
-      }
+ {
+  "id": "e5.0",
+  "article": "Liste dual-use : la nouvelle annexe I en vigueur",
+  "message": "La liste européenne des biens à double usage a changé du jour au lendemain : l’exportateur doit revoir ses classements tout de suite.",
+  "repere": "la couronne d’étoiles de l’UE en haut d’un grand panneau d’affichage officiel",
+  "action": "un fonctionnaire colle une nouvelle liste par-dessus l’ancienne, sous le regard surpris d’un exportateur qui tient son carton",
+  "brief": "Simple wide scene, thick bold outlines, two characters and one sign, no background. Right: a French customs officer in a peaked cap (képi) raises one hand to say stop and with the other hand points at a large freshly pasted poster on a signpost; the poster has a ring of twelve stars at the top and a wide blank area below. Left: an exporter in a suit pushing a hand truck loaded with a big wooden crate, stopped mid-step, scratching his head, puzzled. Faces fully drawn: officer firm, exporter puzzled.",
+  "alt": "Sous la couronne d’étoiles de l’UE, un fonctionnaire colle une nouvelle liste sur le panneau, devant un exportateur surpris qui tient son colis.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "Annexe I",
+    "point": [
+     0.72,
+     0.45
     ],
-    "candidats": 2,
-    "modele": "recraftv4_1_flash"
-  },
-  {
-    "id": "e8.0",
-    "secours": true,
-    "article": "CRA : les normes EN 40000-1-1 et EN 40000-1-2 publiées",
-    "message": "Les premières normes du CRA sont arrivées : le fabricant peut s’y aligner dès maintenant.",
-    "repere": "deux gros classeurs de normes frappés de la couronne d’étoiles de l’UE",
-    "action": "un facteur dépose les deux classeurs dans les bras d’une ingénieure soulagée",
-    "brief": "Simple scene, thick bold outlines, only three huge shapes, no background. Left: a postman in a cap, face fully drawn and smiling, handing over two very thick binders. Right: an engineer in a work coat, face fully drawn with a relieved smile, receiving them with both arms. The front binder has one large blank white label and a big ring of stars. Orange on the ring of stars and the postman's bag.",
-    "alt": "Un facteur remet deux épais classeurs de normes européennes à une ingénieure soulagée.",
-    "format": "4:3",
-    "texte": false,
-    "legendes": [
-      {
-        "texte": "EN 40000",
-        "point": [
-          0.55,
-          0.5
-        ],
-        "couleur": "navy"
-      }
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
+ },
+ {
+  "id": "e8.0",
+  "secours": true,
+  "article": "CRA : les normes EN 40000-1-1 et EN 40000-1-2 publiées",
+  "message": "Les premières normes du CRA sont arrivées : le fabricant peut s’y aligner dès maintenant.",
+  "repere": "deux gros classeurs de normes frappés de la couronne d’étoiles de l’UE",
+  "action": "un facteur dépose les deux classeurs dans les bras d’une ingénieure soulagée",
+  "brief": "Simple scene, thick bold outlines, two characters, no background. Left: a smiling postman in a cap hands over a big thick ring binder whose cover shows a ring of twelve stars and a wide blank label. Right: a happy engineer in work overalls and safety glasses takes the binder with one hand, holding a small smart gadget (a connected speaker) under the other arm. Faces fully drawn and pleased.",
+  "alt": "Un facteur remet deux épais classeurs de normes européennes à une ingénieure soulagée.",
+  "format": "4:3",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "EN 40000",
+    "point": [
+     0.5,
+     0.55
     ],
-    "candidats": 1,
-    "modele": "recraftv4_1_flash"
-  },
-  {
-    "id": "e14.5",
-    "article": "agent-framework : deux versions piégées sur PyPI",
-    "message": "Un paquet Python bien connu a été piégé pour voler les secrets des développeurs qui l’installent.",
-    "repere": "le serpent de Python, mascotte du langage, redessiné dans notre style",
-    "action": "le serpent offre un colis cadeau à un développeur, et une main gantée sort du colis pour lui chiper son trousseau de clés",
-    "brief": "Simple wide scene, thick bold outlines, only three huge shapes, no background. Left: a big friendly snake, face fully drawn and smiling innocently, offering a large gift box with a bow. Right: a developer sitting at a laptop, face fully drawn and happy, reaching for the gift. From the half-open lid of the box, a gloved hand sneaks out and grabs a big key ring hanging from the developer's belt. Orange on the snake and on the key ring.",
-    "alt": "Un serpent souriant offre un colis à un développeur ; une main gantée en sort et lui vole ses clés.",
-    "format": "3:2",
-    "texte": false,
-    "legendes": [],
-    "candidats": 2,
-    "modele": "recraftv4_1_flash"
-  },
-  {
-    "id": "e14.0",
-    "article": "« java4shell » : une faille d’OpenJDK exploitable à distance",
-    "message": "Une faille de Java permet d’entrer dans les serveurs équipés de certains processeurs récents ; il faut appliquer le correctif.",
-    "repere": "la tasse de café fumante de Java, redessinée dans notre style",
-    "action": "un cambrioleur masqué sort de la tasse posée sur une grosse puce et enjambe le bord, tandis qu’un technicien accourt avec un gros pansement",
-    "brief": "Simple wide scene, thick bold outlines, only three huge shapes, no background. Center: a giant steaming coffee cup standing on a big square computer chip. A small masked burglar, face fully drawn with a sly grin, climbs out of the cup over its rim. Right: a technician running in, face fully drawn and determined, holding a huge adhesive bandage in both hands to patch the cup. Orange on the steam and on the bandage.",
-    "alt": "Un cambrioleur sort d’une tasse de café posée sur une puce ; un technicien accourt avec un pansement.",
-    "format": "3:2",
-    "texte": false,
-    "legendes": [],
-    "candidats": 2,
-    "modele": "recraftv4_1_flash"
-  },
-  {
-    "id": "e20.0",
-    "article": "Loi Résilience : adoptée par l’Assemblée nationale",
-    "message": "Les députés ont adopté la loi qui transpose NIS2, mais le texte peut encore changer avant d’être définitif.",
-    "repere": "une députée ceinte de l’écharpe tricolore",
-    "action": "elle glisse un épais dossier dans une urne transparente, puis tend déjà la main vers une gomme géante posée à côté",
-    "brief": "Simple scene, thick bold outlines, only three huge shapes, no background. Center: a big transparent ballot box. Left: a member of parliament wearing a sash across her chest, face fully drawn with a satisfied smile, dropping a thick document with a large blank white cover into the box. Right: a giant pencil eraser standing on the floor, as tall as the box. Orange on the sash and on the eraser.",
-    "alt": "Une députée en écharpe glisse un épais dossier dans l’urne ; une gomme géante attend à côté.",
-    "format": "4:3",
-    "texte": false,
-    "legendes": [
-      {
-        "texte": "NIS2",
-        "point": [
-          0.38,
-          0.45
-        ],
-        "couleur": "navy"
-      }
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
+ },
+ {
+  "id": "e14.5",
+  "article": "agent-framework : deux versions piégées sur PyPI",
+  "message": "Un paquet Python bien connu a été piégé pour voler les secrets des développeurs qui l’installent.",
+  "repere": "le serpent de Python, mascotte du langage, redessiné dans notre style",
+  "action": "le serpent offre un colis cadeau à un développeur, et une main gantée sort du colis pour lui chiper son trousseau de clés",
+  "brief": "Simple wide scene, thick bold outlines, only three huge shapes, no background. Left: a big friendly snake, face fully drawn and smiling innocently, offering a large gift box with a bow. Right: a developer sitting at a laptop, face fully drawn and happy, reaching for the gift. From the half-open lid of the box, a gloved hand sneaks out and grabs a big key ring hanging from the developer's belt. Orange on the snake and on the key ring.",
+  "alt": "Un serpent souriant offre un colis à un développeur ; une main gantée en sort et lui vole ses clés.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [],
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
+ },
+ {
+  "id": "e14.0",
+  "article": "« java4shell » : une faille d’OpenJDK exploitable à distance",
+  "message": "Une faille de Java permet d’entrer dans les serveurs équipés de certains processeurs récents ; il faut appliquer le correctif.",
+  "repere": "la tasse de café fumante de Java, redessinée dans notre style",
+  "action": "un cambrioleur masqué sort de la tasse posée sur une grosse puce et enjambe le bord, tandis qu’un technicien accourt avec un gros pansement",
+  "brief": "Simple wide scene, thick bold outlines, only three elements, no background. Center: a big coffee cup with flame-shaped orange steam (the Java logo), with a visible crack on its side. Left: a sneaky burglar with an eye mask and a striped shirt climbs a short ladder to slip into the cup through the crack. Right: a technician in light overalls with a tool belt runs toward the cup holding up a large adhesive bandage (a plaster with a square pad in the middle) to stick over the crack. Faces fully drawn: burglar sneaky grin, technician determined.",
+  "alt": "Un cambrioleur sort d’une tasse de café posée sur une puce ; un technicien accourt avec un pansement.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [],
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
+ },
+ {
+  "id": "e20.0",
+  "article": "Loi Résilience : adoptée par l’Assemblée nationale",
+  "message": "Les députés ont adopté la loi qui transpose NIS2, mais le texte peut encore changer avant d’être définitif.",
+  "repere": "une députée ceinte de l’écharpe tricolore",
+  "action": "elle glisse un épais dossier dans une urne transparente, puis tend déjà la main vers une gomme géante posée à côté",
+  "brief": "Simple scene, thick bold outlines, two characters, no background. A member of the French parliament wearing a sash across his chest stands behind a wooden lectern and slams a huge rubber stamp onto a thick file lying on the lectern; the file has a wide blank label. Behind him, a second member of parliament applauds. Faces fully drawn: both satisfied.",
+  "alt": "Une députée en écharpe glisse un épais dossier dans l’urne ; une gomme géante attend à côté.",
+  "format": "4:3",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "NIS2",
+    "point": [
+     0.5,
+     0.6
     ],
-    "candidats": 2,
-    "modele": "recraftv4_1_flash"
-  },
-  {
-    "id": "e23.0",
-    "article": "LLVM : fin du relicenciement après huit ans",
-    "message": "LLVM a fini de changer de licence : presque tout le code porte désormais la même étiquette.",
-    "repere": "le dragon de LLVM, redessiné dans notre style",
-    "action": "le dragon colle d’un coup de tampon la même étiquette sur une pile de caisses, sauf une toute petite qui garde l’ancienne",
-    "brief": "Simple wide scene, thick bold outlines, only three huge shapes, no background. Left: a big friendly dragon, face fully drawn and proud, stamping a huge rubber stamp. Right: a tall stack of three big wooden crates, each with the same large blank white label. At the foot of the stack, one tiny crate with an old crossed label. Orange on the dragon's wings and on the stamp.",
-    "alt": "Le dragon de LLVM tamponne la même étiquette sur une pile de caisses ; une toute petite caisse garde l’ancienne.",
-    "format": "3:2",
-    "texte": false,
-    "legendes": [
-      {
-        "texte": "Apache-2.0",
-        "point": [
-          0.72,
-          0.3
-        ],
-        "couleur": "navy"
-      }
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
+ },
+ {
+  "id": "e23.0",
+  "article": "LLVM : fin du relicenciement après huit ans",
+  "message": "LLVM a fini de changer de licence : presque tout le code porte désormais la même étiquette.",
+  "repere": "le dragon de LLVM, redessiné dans notre style",
+  "action": "le dragon colle d’un coup de tampon la même étiquette sur une pile de caisses, sauf une toute petite qui garde l’ancienne",
+  "brief": "Simple wide scene, thick bold outlines, two elements, no background. Right: a tall stack of identical cardboard boxes, each with the same blank white label. Left: a friendly dragon (the LLVM wyvern) on tiptoe sticks one last big blank label on the top box, wiping its forehead with the other hand, relieved, eyes closed with a big sigh. Face fully drawn.",
+  "alt": "Le dragon de LLVM tamponne la même étiquette sur une pile de caisses ; une toute petite caisse garde l’ancienne.",
+  "format": "3:2",
+  "texte": false,
+  "legendes": [
+   {
+    "texte": "Apache-2.0",
+    "point": [
+     0.72,
+     0.2
     ],
-    "candidats": 2,
-    "modele": "recraftv4_1_flash"
-  }
+    "couleur": "navy"
+   }
+  ],
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
+ }
 ]
