@@ -373,6 +373,7 @@ def norme(t):
     return re.sub(r'\s+', ' ', t).strip().lower()
 
 
+COMPACTS = {}   # pages sans blancs (extrait_present)
 LUES = {}   # url -> (titre de la page lue, longueur du texte) : pour diagnostiquer un extrait introuvable
 
 
@@ -395,10 +396,22 @@ def lire_pages(urls):
     with concurrent.futures.ThreadPoolExecutor(6) as ex: return dict(zip(urls, ex.map(lire, urls)))
 
 
+INVISIBLES = re.compile('[\u00ad\u200b\u200c\u200d\u2060\ufeff]')
+
+
+def compact(t):
+    """Texte sans aucun blanc ni caractère invisible : une balise au milieu d'un mot (<abbr>OIEL</abbr>s, 24/11/2026 → 27/11)
+    ou un trait d'union conditionnel ne doivent pas faire manquer un extrait."""
+    return re.sub(r'\s+', '', INVISIBLES.sub('', t))
+
+
 def extrait_present(extrait, txt):
-    """L'extrait figure dans la page ; la ponctuation finale (« …sufficient. » devant « …sufficient to… ») ne compte pas."""
+    """L'extrait figure dans la page ; la ponctuation finale (« …sufficient. » devant « …sufficient to… ») ne compte pas ;
+    à défaut, l'extrait sans blancs figure dans la page sans blancs."""
     e = norme(extrait or '').rstrip(' .;:,…')
-    return bool(e) and e in txt
+    if not e: return False
+    if e in txt: return True
+    return compact(e) in (COMPACTS[txt] if txt in COMPACTS else COMPACTS.setdefault(txt, compact(txt)))
 
 
 def analyser_citations(claims):
