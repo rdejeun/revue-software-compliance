@@ -442,10 +442,10 @@ def check_citations(claims, d=''):
     """Chaque extrait de claims.json doit figurer dans la page source. Extrait absent d'une page lue, ou page illisible :
     avertissements, jamais une erreur : l'information concernée est écartée de l'édition (tools/ecarter.py), la revue part."""
     ok, absents, illisibles = analyser_citations(claims)
-    if os.environ.get('VALIDATE_DIAG') or os.environ.get('GITHUB_ACTIONS'):   # diagnostic : texte lu des pages où un extrait manque
+    if os.environ.get('VALIDATE_DIAG'):   # diagnostic à la demande : texte lu des pages où un extrait manque
         for u in sorted({claims[i - 1].get('url') for i, _ in absents}):
             t = PAGES_LUES.get(u) or ''
-            WARN.append(f'Diagnostic, texte lu ({len(t)} car.) : {u} : « {t[800:6500]} »')
+            WARN.append(f'Diagnostic, texte lu ({len(t)} car.) : {u} : « {t[:6000]} »')
     for i, why in illisibles: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {claims[i - 1].get("url")}')
     for i, _ in absents:
         c = claims[i - 1]; ti, n = LUES.get(c.get('url'), ('', 0))
