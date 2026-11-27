@@ -1,0 +1,89 @@
+{
+ "duree_s": 422,
+ "octets": 3507704,
+ "mots": 1225,
+ "modele": "eleven_v4",
+ "seed": 20261004,
+ "voix": {
+  "A": {
+   "nom": "Julie",
+   "voice": "d3AXX0BlgJHYFCuH9X88"
+  },
+  "B": {
+   "nom": "Guillaume",
+   "voice": "cTNP6ZM2mLTKj2BFhxEh"
+  }
+ },
+ "genere_le": "2026-11-27T15:44:00Z",
+ "sha_script": "d2074d2b4c1d0e5fccb82c43628f486c4771e2a56edfbdb608b7c7e096703cc6",
+ "extrait": false,
+ "repliques": 46,
+ "prononciation": "dictionnaire ElevenLabs It4DKweajq3zZVHgzDG6",
+ "qc": {
+  "Loudness intégré du master": "-19.0 LUFS",
+  "True peak": "-1.0 dBTP",
+  "Écart de loudness A/B": "0.00 LU",
+  "Écart de timbre A/B (150 Hz–8 kHz)": "8.9 → 0.9 dB",
+  "Réverbération propre à une voix (fins de mots −20 → −45 dB)": "A 71 → 30 ms, B 23 → 22 ms",
+  "Durée": "409.9 s (blocs : 410.4 s)",
+  "Clics": "0 saut(s) anormal(aux)",
+  "Fidélité au script (faster-whisper)": "8.7 % de mots différents sur 1291"
+ },
+ "requetes": 7,
+ "chapitres": [
+  {
+   "titre": "Ouverture",
+   "court": "Ouverture",
+   "debut_s": 0.0
+  },
+  {
+   "titre": "Export : la liste dual-use change",
+   "court": "Dual-use",
+   "debut_s": 31.5,
+   "long": "Export : liste dual-use"
+  },
+  {
+   "titre": "java4shell : une faille de Java",
+   "court": "java4shell",
+   "debut_s": 103.4,
+   "long": "java4shell : faille d’OpenJDK"
+  },
+  {
+   "titre": "NoisyTCP : le correctif arrive",
+   "court": "NoisyTCP",
+   "debut_s": 189.3,
+   "long": "NoisyTCP : noyau Linux"
+  },
+  {
+   "titre": "Royaume-Uni : licences de chiffrement",
+   "court": "Chiffrement UK",
+   "debut_s": 238.1,
+   "long": "Royaume-Uni : chiffrement"
+  },
+  {
+   "titre": "CRA : les premières normes",
+   "court": "Normes CRA",
+   "debut_s": 286.0,
+   "long": "Cyber Resilience Act : normes"
+  },
+  {
+   "titre": "Licences : LLVM simplifie",
+   "court": "LLVM",
+   "debut_s": 341.1,
+   "long": "Licences : LLVM"
+  },
+  {
+   "titre": "Date à retenir",
+   "court": "Agenda",
+   "debut_s": 392.4,
+   "long": "Date à retenir"
+  },
+  {
+   "titre": "Clôture",
+   "court": "Clôture",
+   "debut_s": 409.2
+  }
+ ],
+ "fichier": "episode.m4a",
+ "figeage": "dd4a116e5b1e"
+}
