@@ -88,9 +88,35 @@ jobs:
         with:
           path: _site
 
+      # La mise en ligne lit l'archive déposée juste avant ; il arrive que le service d'archives de GitHub ne la voie pas
+      # encore (« No artifacts named github-pages were found », 24/11/2026) : deux nouvelles tentatives, après 1 puis 3 min.
       - name: Mettre en ligne
-        id: deploiement
+        id: deploiement1
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+
+      - name: Attendre avant la 2e tentative de mise en ligne
+        if: steps.deploiement1.outcome == 'failure'
+        run: sleep 60
+
+      - name: Mettre en ligne (2e tentative)
+        id: deploiement2
+        if: steps.deploiement1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+
+      - name: Attendre avant la 3e tentative de mise en ligne
+        if: steps.deploiement2.outcome == 'failure'
+        run: sleep 180
+
+      - name: Mettre en ligne (3e tentative)
+        id: deploiement3
+        if: steps.deploiement2.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+
+      - name: Adresse de la mise en ligne
+        id: deploiement
+        run: echo "page_url=${{ steps.deploiement1.outputs.page_url || steps.deploiement2.outputs.page_url || steps.deploiement3.outputs.page_url }}" >> "$GITHUB_OUTPUT"
 
       - name: Choisir le mode d’envoi
         id: mode

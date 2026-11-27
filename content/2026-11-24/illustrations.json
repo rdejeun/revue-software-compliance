@@ -19,7 +19,8 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
  },
  {
   "id": "e8.0",
@@ -42,7 +43,8 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 1
+  "candidats": 1,
+  "modele": "recraftv4_1_flash"
  },
  {
   "id": "e14.5",
@@ -55,7 +57,8 @@
   "format": "3:2",
   "texte": false,
   "legendes": [],
-  "candidats": 2
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
  },
  {
   "id": "e14.0",
@@ -68,7 +71,8 @@
   "format": "3:2",
   "texte": false,
   "legendes": [],
-  "candidats": 2
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
  },
  {
   "id": "e20.0",
@@ -90,7 +94,8 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
  },
  {
   "id": "e23.0",
@@ -112,6 +117,7 @@
     "couleur": "navy"
    }
   ],
-  "candidats": 2
+  "candidats": 2,
+  "modele": "recraftv4_1_flash"
  }
 ]
