@@ -5,3 +5,15 @@ e14.5 : échec HTTP Error 400: Bad Request {"code":"not_enough_credits","message
 e14.0 : échec HTTP Error 400: Bad Request {"code":"not_enough_credits","message":""}
 e20.0 : échec HTTP Error 400: Bad Request {"code":"not_enough_credits","message":""}
 e23.0 : échec HTTP Error 400: Bad Request {"code":"not_enough_credits","message":""}
+6 brief(s) à servir : 0.19 $
+e5.0 : e5.0-1.svg
+e5.0 : e5.0-2.svg
+e8.0 : e8.0-1.svg
+e14.5 : e14.5-1.svg
+e14.5 : e14.5-2.svg
+e14.0 : e14.0-1.svg
+e14.0 : e14.0-2.svg
+e20.0 : e20.0-1.svg
+e20.0 : e20.0-2.svg
+e23.0 : e23.0-1.svg
+e23.0 : e23.0-2.svg
