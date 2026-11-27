@@ -1,10 +1,10 @@
 {
  "date": "2026-11-24",
- "commit": "2a06cdff84561be85d4adcbf4c1c4b7fb487e19a",
- "le": "2026-11-27T14:37:37Z",
+ "commit": "e7e2767b3f0e046f99981133716ba616d974b2c5",
+ "le": "2026-11-27T14:47:28Z",
  "verdict": "rouge",
  "motifs": [
-  "12 affirmation(s) en échec (extrait introuvable ou non confirmée) : 3 élément(s) seraient écartés"
+  "11 affirmation(s) en échec (extrait introuvable ou non confirmée) : 2 élément(s) seraient écartés"
  ],
  "script": "b385426151c75fcc235611ad55271f3557fc85691b79e41aeb9ac1eb6688477a",
  "sources": "5f4e1afa440567457ae8725abbce0789f4145a8cf84660479fff86c877521c7e",
@@ -104,7 +104,6 @@
    "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 232 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
    "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 235 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
    "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 240 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 314 « Texte n° 366 adopté par l'Assemblée nationale le 17 novembre 2026… » (https://www.senat.fr/dossier-legislatif/pjl24-033.html ; page lue : « résilience des infrastructures critiques et renforcement de la cybersécurité - sénat », 10013 caractères)",
    "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 432 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
    "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 502 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
    "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 503 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
@@ -113,8 +112,8 @@
  },
  "ecarter": {
   "date": "2026-11-24",
-  "echecs": 12,
-  "extraits_retrouves": 428,
+  "echecs": 11,
+  "extraits_retrouves": 429,
   "illisibles": [
    {
     "affirmation": 1,
@@ -584,19 +583,6 @@
     ]
    },
    {
-    "kind": "ul",
-    "texte": "mise à jour, loi résilience : le 17 novembre 2026, l'assemblée nationale a adopté en première lecture, par 464 voix contre 64, le projet de loi qui transpose no",
-    "affirmations": [
-     {
-      "n": 314,
-      "raison": "extrait introuvable",
-      "affirmation": "Texte adopté n° 366 de l’Assemblée nationale le 17 novembre 2026",
-      "url": "https://www.senat.fr/dossier-legislatif/pjl24-033.html",
-      "ou": "synthese"
-     }
-    ]
-   },
-   {
     "kind": "agenda",
     "texte": "1 décembre 2026 royaume-uni : nouvelles listes de contrôle et fin des licences ouvertes de chiffrement",
     "affirmations": [
@@ -662,5 +648,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 178
+ "duree_s": 153
 }
