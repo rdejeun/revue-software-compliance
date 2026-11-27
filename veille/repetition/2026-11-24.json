@@ -1,9 +1,11 @@
 {
  "date": "2026-11-24",
- "commit": "7c76097499bc07b521a3adeebd90f7f4f612f21f",
- "le": "2026-11-24T06:07:51Z",
- "verdict": "verte",
- "motifs": [],
+ "commit": "179a396e9e23222ac8ab9c24b1702d554b0e6a94",
+ "le": "2026-11-27T13:42:02Z",
+ "verdict": "rouge",
+ "motifs": [
+  "12 affirmation(s) en échec (extrait introuvable ou non confirmée) : 3 élément(s) seraient écartés"
+ ],
  "script": "b385426151c75fcc235611ad55271f3557fc85691b79e41aeb9ac1eb6688477a",
  "sources": "5f4e1afa440567457ae8725abbce0789f4145a8cf84660479fff86c877521c7e",
  "controle": {
@@ -15,8 +17,13 @@
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 6, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 7, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 8, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 10, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 11, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 12, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 14, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 15, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
@@ -94,13 +101,25 @@
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 480, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 481, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 482, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 509, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 509, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 3 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 228 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 229 « Notice to exporters 2026/25: Cryptographic OIELs will be discontinued … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 230 « Following a detailed review of some of our licence types, ECJU has dec… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 232 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 235 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 240 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 314 « Texte n° 366 adopté par l'Assemblée nationale le 17 novembre 2026… » (https://www.senat.fr/dossier-legislatif/pjl24-033.html)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 432 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 502 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 503 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 521 « discontinue the use of cryptographic OIELs from 1 December 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)"
   ]
  },
  "ecarter": {
   "date": "2026-11-24",
-  "echecs": 0,
-  "extraits_retrouves": 440,
+  "echecs": 12,
+  "extraits_retrouves": 423,
   "illisibles": [
    {
     "affirmation": 1,
@@ -113,6 +132,21 @@
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
    },
    {
+    "affirmation": 6,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 7,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 8,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
     "affirmation": 9,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
@@ -121,6 +155,16 @@
     "affirmation": 10,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 11,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 12,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
    },
    {
     "affirmation": 13,
@@ -513,10 +557,123 @@
     "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
    }
   ],
-  "elements": [],
-  "sans_element": [],
-  "podcast_affirmations": [],
-  "sujets_podcast": []
+  "elements": [
+   {
+    "kind": "ul",
+    "texte": "royaume-uni, chiffrement : selon l'avis aux exportateurs 2026/25 du 19 novembre 2026, l'ecju met fin aux licences individuelles ouvertes d'exportation (oiel) cr",
+    "affirmations": [
+     {
+      "n": 3,
+      "raison": "extrait introuvable",
+      "affirmation": "Chapô : le Royaume-Uni supprime au 1er décembre ses licences ouvertes d'exportation de chiffrement.",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "article"
+     },
+     {
+      "n": 228,
+      "raison": "extrait introuvable",
+      "affirmation": "Chapô : le Royaume-Uni supprime au 1er décembre ses licences ouvertes d’exportation de chiffrement",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "article"
+     },
+     {
+      "n": 229,
+      "raison": "extrait introuvable",
+      "affirmation": "Avis aux exportateurs 2026/25 publié le 19 novembre 2026",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "article"
+     },
+     {
+      "n": 230,
+      "raison": "extrait introuvable",
+      "affirmation": "L’ECJU met fin aux licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre 2026",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "article"
+     },
+     {
+      "n": 232,
+      "raison": "extrait introuvable",
+      "affirmation": "Statut : avis 2026/25 du 19 novembre 2026 ; effet le 1er décembre 2026",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "synthese"
+     },
+     {
+      "n": 235,
+      "raison": "extrait introuvable",
+      "affirmation": "Les demandeurs dont une demande d’OIEL cryptographique est en cours ont été informés directement des dispositions transitoires (aussi papier)",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "article"
+     },
+     {
+      "n": 240,
+      "raison": "extrait introuvable",
+      "affirmation": "Contexte : l’avis traite des demandes en cours, sans préciser le sort des licences cryptographiques déjà délivrées",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "synthese"
+     }
+    ]
+   },
+   {
+    "kind": "ul",
+    "texte": "mise à jour, loi résilience : le 17 novembre 2026, l'assemblée nationale a adopté en première lecture, par 464 voix contre 64, le projet de loi qui transpose no",
+    "affirmations": [
+     {
+      "n": 314,
+      "raison": "extrait introuvable",
+      "affirmation": "Texte adopté n° 366 de l’Assemblée nationale le 17 novembre 2026",
+      "url": "https://www.senat.fr/dossier-legislatif/pjl24-033.html",
+      "ou": "synthese"
+     }
+    ]
+   },
+   {
+    "kind": "agenda",
+    "texte": "1 décembre 2026 royaume-uni : nouvelles listes de contrôle et fin des licences ouvertes de chiffrement",
+    "affirmations": [
+     {
+      "n": 432,
+      "raison": "extrait introuvable",
+      "affirmation": "À la même date, l’ECJU cesse d’utiliser les OIEL cryptographiques (avis 2026/25 du 19 novembre)",
+      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+      "ou": "agenda"
+     }
+    ]
+   }
+  ],
+  "sans_element": [
+   {
+    "n": 502,
+    "raison": "extrait introuvable",
+    "affirmation": "L’ECJU a annoncé le 19 novembre qu’elle y mettait fin à partir du 1er décembre",
+    "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+    "ou": "podcast"
+   },
+   {
+    "n": 503,
+    "raison": "extrait introuvable",
+    "affirmation": "Fin des OIEL cryptographiques au 1er décembre",
+    "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+    "ou": "podcast"
+   },
+   {
+    "n": 521,
+    "raison": "extrait introuvable",
+    "affirmation": "Le 1er décembre, le Royaume-Uni met fin aux licences ouvertes de chiffrement",
+    "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
+    "ou": "podcast"
+   }
+  ],
+  "podcast_affirmations": [
+   502,
+   503,
+   504,
+   505,
+   521
+  ],
+  "sujets_podcast": [
+   "Royaume-Uni : licences de chiffrement",
+   "Date à retenir"
+  ]
  },
  "podcast": {
   "code": 0,
@@ -535,5 +692,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 1338
+ "duree_s": 258
 }
