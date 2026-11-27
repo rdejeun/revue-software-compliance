@@ -1,7 +1,7 @@
 {
  "date": "2026-11-24",
- "commit": "30d1cb5cd9d2dbcf2d2b208a094073e45f3fb378",
- "le": "2026-11-27T15:13:18Z",
+ "commit": "dd4a116e5b1e4562f78055d6ba4522471c115b2f",
+ "le": "2026-11-27T15:35:18Z",
  "verdict": "verte",
  "motifs": [],
  "script": "4126c2e1b7b9c86e6a68f2c3bc623074b99ce552810783d1315737181b611047",
@@ -16,8 +16,13 @@
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 6, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 7, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 8, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 10, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 11, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 12, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 14, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 15, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
@@ -101,7 +106,7 @@
  "ecarter": {
   "date": "2026-11-24",
   "echecs": 0,
-  "extraits_retrouves": 443,
+  "extraits_retrouves": 437,
   "illisibles": [
    {
     "affirmation": 1,
@@ -114,6 +119,21 @@
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
    },
    {
+    "affirmation": 6,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 7,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 8,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
     "affirmation": 9,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
@@ -122,6 +142,16 @@
     "affirmation": 10,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
+   },
+   {
+    "affirmation": 11,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
+   },
+   {
+    "affirmation": 12,
+    "raison": "page vide ou protégée",
+    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
    },
    {
     "affirmation": 13,
@@ -536,5 +566,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 484
+ "duree_s": 149
 }
