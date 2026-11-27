@@ -445,7 +445,8 @@ def check_citations(claims, d=''):
     if os.environ.get('VALIDATE_DIAG') or os.environ.get('GITHUB_ACTIONS'):   # diagnostic : texte lu des pages où un extrait manque
         for u in sorted({claims[i - 1].get('url') for i, _ in absents}):
             t = PAGES_LUES.get(u) or ''
-            print(f'::group::Texte lu ({len(t)} car.) : {u}'); print(t[:4000]); print('::endgroup::')
+            k = max(t.find('discontinu'), t.find('published'), 0)
+            WARN.append(f'Diagnostic, texte lu ({len(t)} car.) : {u} : « …{t[max(0, k - 300):k + 500]}… »')
     for i, why in illisibles: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {claims[i - 1].get("url")}')
     for i, _ in absents:
         c = claims[i - 1]; ti, n = LUES.get(c.get('url'), ('', 0))
