@@ -1,21 +1,19 @@
 {
  "date": "2026-11-24",
- "commit": "42d5855fe2762bc153901b51ad81a1d252e42f4c",
- "le": "2026-11-27T15:01:57Z",
- "verdict": "rouge",
- "motifs": [
-  "11 affirmation(s) en échec (extrait introuvable ou non confirmée) : 2 élément(s) seraient écartés"
- ],
- "script": "b385426151c75fcc235611ad55271f3557fc85691b79e41aeb9ac1eb6688477a",
- "sources": "5f4e1afa440567457ae8725abbce0789f4145a8cf84660479fff86c877521c7e",
+ "commit": "30d1cb5cd9d2dbcf2d2b208a094073e45f3fb378",
+ "le": "2026-11-27T15:13:18Z",
+ "verdict": "verte",
+ "motifs": [],
+ "script": "4126c2e1b7b9c86e6a68f2c3bc623074b99ce552810783d1315737181b611047",
+ "sources": "589d596b25dfe620e9f049fd6b96b8f18417fd8852de6fc7440226e22c8a7971",
  "controle": {
   "code": 0,
   "erreurs": [],
   "avertissements": [
    "bloc 14 (ul), puce 7 (Sécurité de la chaîne d’approvisionnement) : synthèse de 138 mots (170 à 245 visés)",
+   "agenda, ligne 2 : résumé de 128 mots (120 au plus)",
    "agenda, ligne 3 : synthèse de 98 mots (170 à 245 visés)",
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
-   "Diagnostic, texte lu (6193 car.) : https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued : « itizenship and living in the uk crime, justice and the law disabled people driving and transport education and learning employing people environment and countryside housing and local services money and tax passports, travel and living abroad visas and immigration working, jobs and pensions government activity departments departments, agencies and public bodies news news stories, speeches, letters and notices guidance and regulation detailed guidance, regulations and rules research and statistics reports, analysis and official statistics policy papers and consultations consultations and strategy transparency data, freedom of information releases and corporate reports search gov.uk × search gov.uk search search gov.uk search home business and industry trade and investment exporting export controls and licensing notice to exporters 2026/25: cryptographic oiels will be discontinued department for business, innovation, science and trade export control joint unit notice notice to exporters 2026/25: cryptographic oiels will be discontinued updated 24 november 2026 contents 1. cryptographic open individual export licences (oiels) will be discontinued 2. information to include in future oiel applications 3. further information 4. subscribe to notices to exporters print this page © crown copyright 2026 this publication is licensed under the terms of the open government licence v3.0 except where otherwise stated. to view this licence, visit nationalarchives.gov.uk/doc/open-government-licence/version/3 or write to the information policy team, the national archives, kew, london tw9 4du, or email: psi@nationalarchives.gov.uk . where we have identified any third party copyright information you will need to obtain permission from the copyright holders concerned. this publication is available at https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued 1. cryptographic open individual export licences (oiels) will be discontinued following a detailed review of some of our licence types, ecju has decided to phase out the cryptographic oiel and will stop issuing any new cryptographic oiels from 1 december 2026. exporters wishing to export goods or technology incorporating cryptographic functions will instead need to apply for a military or dual-use oiel, as appropriate. applicants who have a live cryptographic oiel application in spire which has not yet been finalised have been notified directly about the transitional arrangements. existing extant cryptographic oiel licences which have already been issued are not impacted by this change, remain valid and may continue to be used. 2. information to include in future oiel applications ecju requires more information on future military and dual-use oiel applications to allow advisers to fully assess each application. when applying for a military or dual-use oiel, rather than providing individual line items, applicants will need to provide a category of items together with an explanation. 2.1 example an example of the level of information that may be required is: equipment specially designed for information security and designed or modified to use cryptography employing digital techniques to perform cryptographic functions, excluding cryptanalysis, as follows: access point/bridges adaptive security appliances limited to security devices that protect a network by controlling traffic, stopping attacks, and enabling secure remote access appliance sensors application and content networking systems network modules routers 3. further information contact export control joint unit (ecju) general queries about strategic export licensing: export control joint unit department for business and trade old admiralty building admiralty place london sw1a 2dy email exportcontrol.help@businessandtrade.gov.uk telephone 020 7215 4594 4. subscribe to notices to exporters sign up to receive email alerts to notices to exporters . back to top is this page useful? maybe yes this page is useful no this page is not useful thank you for your feedback report a problem with this page help us improve gov.uk do not include personal or financial information like your national insurance number or credit card details. this field is for robots only. please leave blank what were you doing? what went wrong? send cancel help us improve gov.uk to help us improve gov.uk, we'd like to know more about your visit today. please fill in this survey (opens in a new tab ) . cancel services and information benefits births, death, marriages and care business and self-employed childcare and parenting citizenship and living in the uk crime, justice and the law disabled people driving and transport education and learning employing people environment and countryside housing and local services money and tax passports, travel and living abroad visas and immigration working, jobs and pensions government activity departments news guidance and regulation research and statistics policy papers and consultations transparency how government works get involved support links help privacy cookies accessibility statement contact terms and conditions rhestr o wasanaethau cymraeg government digital service all content is available under the open government licence v3.0 , except where otherwise stated © crown copyright »",
    "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
@@ -97,24 +95,13 @@
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 480, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 481, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 482, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 509, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 3 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 228 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 229 « Notice to exporters 2026/25: Cryptographic OIELs will be discontinued … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 230 « Following a detailed review of some of our licence types, ECJU has dec… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 232 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 235 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 240 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 432 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 502 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 503 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 521 « discontinue the use of cryptographic OIELs from 1 December 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)"
+   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 509, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
   ]
  },
  "ecarter": {
   "date": "2026-11-24",
-  "echecs": 11,
-  "extraits_retrouves": 429,
+  "echecs": 0,
+  "extraits_retrouves": 443,
   "illisibles": [
    {
     "affirmation": 1,
@@ -527,127 +514,27 @@
     "url": "https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng"
    }
   ],
-  "elements": [
-   {
-    "kind": "ul",
-    "texte": "royaume-uni, chiffrement : selon l'avis aux exportateurs 2026/25 du 19 novembre 2026, l'ecju met fin aux licences individuelles ouvertes d'exportation (oiel) cr",
-    "affirmations": [
-     {
-      "n": 3,
-      "raison": "extrait introuvable",
-      "affirmation": "Chapô : le Royaume-Uni supprime au 1er décembre ses licences ouvertes d'exportation de chiffrement.",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "article"
-     },
-     {
-      "n": 228,
-      "raison": "extrait introuvable",
-      "affirmation": "Chapô : le Royaume-Uni supprime au 1er décembre ses licences ouvertes d’exportation de chiffrement",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "article"
-     },
-     {
-      "n": 229,
-      "raison": "extrait introuvable",
-      "affirmation": "Avis aux exportateurs 2026/25 publié le 19 novembre 2026",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "article"
-     },
-     {
-      "n": 230,
-      "raison": "extrait introuvable",
-      "affirmation": "L’ECJU met fin aux licences individuelles ouvertes d’exportation (OIEL) cryptographiques à partir du 1er décembre 2026",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "article"
-     },
-     {
-      "n": 232,
-      "raison": "extrait introuvable",
-      "affirmation": "Statut : avis 2026/25 du 19 novembre 2026 ; effet le 1er décembre 2026",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "synthese"
-     },
-     {
-      "n": 235,
-      "raison": "extrait introuvable",
-      "affirmation": "Les demandeurs dont une demande d’OIEL cryptographique est en cours ont été informés directement des dispositions transitoires (aussi papier)",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "article"
-     },
-     {
-      "n": 240,
-      "raison": "extrait introuvable",
-      "affirmation": "Contexte : l’avis traite des demandes en cours, sans préciser le sort des licences cryptographiques déjà délivrées",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "synthese"
-     }
-    ]
-   },
-   {
-    "kind": "agenda",
-    "texte": "1 décembre 2026 royaume-uni : nouvelles listes de contrôle et fin des licences ouvertes de chiffrement",
-    "affirmations": [
-     {
-      "n": 432,
-      "raison": "extrait introuvable",
-      "affirmation": "À la même date, l’ECJU cesse d’utiliser les OIEL cryptographiques (avis 2026/25 du 19 novembre)",
-      "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-      "ou": "agenda"
-     }
-    ]
-   }
-  ],
-  "sans_element": [
-   {
-    "n": 502,
-    "raison": "extrait introuvable",
-    "affirmation": "L’ECJU a annoncé le 19 novembre qu’elle y mettait fin à partir du 1er décembre",
-    "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-    "ou": "podcast"
-   },
-   {
-    "n": 503,
-    "raison": "extrait introuvable",
-    "affirmation": "Fin des OIEL cryptographiques au 1er décembre",
-    "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-    "ou": "podcast"
-   },
-   {
-    "n": 521,
-    "raison": "extrait introuvable",
-    "affirmation": "Le 1er décembre, le Royaume-Uni met fin aux licences ouvertes de chiffrement",
-    "url": "https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued",
-    "ou": "podcast"
-   }
-  ],
-  "podcast_affirmations": [
-   502,
-   503,
-   504,
-   505,
-   521
-  ],
-  "sujets_podcast": [
-   "Royaume-Uni : licences de chiffrement",
-   "Date à retenir"
-  ]
+  "elements": [],
+  "sans_element": [],
+  "podcast_affirmations": [],
+  "sujets_podcast": []
  },
  "podcast": {
   "code": 0,
-  "sortie": "2026-11-24 : 46 répliques, 1203 mots (≈ 8 min)"
+  "sortie": "2026-11-24 : 46 répliques, 1225 mots (≈ 8 min)"
  },
  "essai_audio": {
   "code": 0,
   "controle": "en écart",
-  "sortie": "2026-11-24 : 46 répliques, 1203 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (397 caractères) : Ouverture\n  requête 2/7 (1412 caractères) : Export : la liste dual-use change\n  requête 3/7 (1488 caractères) : java4shell : une faille de Java\n  requête 4/7 (946 caractères) : NoisyTCP : le correctif arrive\n  requête 5/7 (825 caractères) : Royaume-Uni : licences de chiffrement\n  requête 6/7 (1043 caractères) : CRA : les premières normes\n  requête 7/7 (1371 caractères) : Licences : LLVM simplifie, Date à retenir, Clôture\n2026-11-24 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/out/episode.m4a (8.8 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/qc_report.md. Aucun fichier écrit dans content/."
+  "sortie": "2026-11-24 : 46 répliques, 1225 mots, 7 requête(s) (essai à blanc)\n  requête 1/7 (435 caractères) : Ouverture\n  requête 2/7 (1412 caractères) : Export : la liste dual-use change\n  requête 3/7 (1488 caractères) : java4shell : une faille de Java\n  requête 4/7 (946 caractères) : NoisyTCP : le correctif arrive\n  requête 5/7 (912 caractères) : Royaume-Uni : licences de chiffrement\n  requête 6/7 (1043 caractères) : CRA : les premières normes\n  requête 7/7 (1390 caractères) : Licences : LLVM simplifie, Date à retenir, Clôture\n2026-11-24 : essai à blanc terminé : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/out/episode.m4a (9.0 min), contrôle en écart ; rapport : /home/runner/work/revue-software-compliance/revue-software-compliance/build/podcast/2026-11-24/qc_report.md. Aucun fichier écrit dans content/."
  },
  "solde": {
   "date": "2026-11-24",
-  "besoin": 8985,
+  "besoin": 9158,
   "reste": 39012,
   "raz": "04/12/2026",
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 195
+ "duree_s": 484
 }
