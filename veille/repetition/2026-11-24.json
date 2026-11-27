@@ -1,7 +1,7 @@
 {
  "date": "2026-11-24",
- "commit": "5183847ab223d0e8940e03ccee5d2b329867807b",
- "le": "2026-11-27T14:05:23Z",
+ "commit": "2a06cdff84561be85d4adcbf4c1c4b7fb487e19a",
+ "le": "2026-11-27T14:37:37Z",
  "verdict": "rouge",
  "motifs": [
   "12 affirmation(s) en échec (extrait introuvable ou non confirmée) : 3 élément(s) seraient écartés"
@@ -17,13 +17,8 @@
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 6, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 7, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 8, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 10, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 11, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
-   "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 12, https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/",
    "Citation non vérifiable automatiquement (PDF) : affirmation 13, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 14, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 15, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
@@ -102,24 +97,24 @@
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 481, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 482, https://eur-lex.europa.eu/eli/reg_del/2026/2288/oj/eng",
    "Citation non vérifiable automatiquement (page vide ou protégée) : affirmation 509, https://eur-lex.europa.eu/eli/reg/2024/2847/oj/eng",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 3 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 228 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 229 « Notice to exporters 2026/25: Cryptographic OIELs will be discontinued … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 230 « Following a detailed review of some of our licence types, ECJU has dec… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 232 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 235 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 240 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 314 « Texte n° 366 adopté par l'Assemblée nationale le 17 novembre 2026… » (https://www.senat.fr/dossier-legislatif/pjl24-033.html)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 432 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 502 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 503 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)",
-   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 521 « discontinue the use of cryptographic OIELs from 1 December 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued)"
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 3 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 228 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 229 « Notice to exporters 2026/25: Cryptographic OIELs will be discontinued … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 230 « Following a detailed review of some of our licence types, ECJU has dec… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 232 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 235 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 240 « Applicants who have a live cryptographic OIEL application have been no… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 314 « Texte n° 366 adopté par l'Assemblée nationale le 17 novembre 2026… » (https://www.senat.fr/dossier-legislatif/pjl24-033.html ; page lue : « résilience des infrastructures critiques et renforcement de la cybersécurité - sénat », 10013 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 432 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 502 « Published 19 November 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 503 « ECJU has decided to discontinue the use of cryptographic OIELs from 1 … » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)",
+   "Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation 521 « discontinue the use of cryptographic OIELs from 1 December 2026… » (https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued ; page lue : « notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk », 6193 caractères)"
   ]
  },
  "ecarter": {
   "date": "2026-11-24",
   "echecs": 12,
-  "extraits_retrouves": 423,
+  "extraits_retrouves": 428,
   "illisibles": [
    {
     "affirmation": 1,
@@ -132,21 +127,6 @@
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
    },
    {
-    "affirmation": 6,
-    "raison": "page vide ou protégée",
-    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
-   },
-   {
-    "affirmation": 7,
-    "raison": "page vide ou protégée",
-    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
-   },
-   {
-    "affirmation": 8,
-    "raison": "page vide ou protégée",
-    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
-   },
-   {
     "affirmation": 9,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
@@ -155,16 +135,6 @@
     "affirmation": 10,
     "raison": "PDF",
     "url": "https://www.boe.es/doue/2026/2288/L00001-00254.pdf"
-   },
-   {
-    "affirmation": 11,
-    "raison": "page vide ou protégée",
-    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
-   },
-   {
-    "affirmation": 12,
-    "raison": "page vide ou protégée",
-    "url": "https://eulawlive.com/oj-commission-delegated-regulation-amending-regulation-regarding-list-of-dual-use-items-subject-to-controls-on-export/"
    },
    {
     "affirmation": 13,
@@ -692,5 +662,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 1151
+ "duree_s": 178
 }
