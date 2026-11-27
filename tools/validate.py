@@ -373,6 +373,9 @@ def norme(t):
     return re.sub(r'\s+', ' ', t).strip().lower()
 
 
+LUES = {}   # url -> (titre de la page lue, longueur du texte) : pour diagnostiquer un extrait introuvable
+
+
 def lire_pages(urls):
     """Texte (balises retirées) de chaque page : {url: (texte, '')} ou {url: (None, raison)} (PDF, page illisible)."""
     def lire(u):
@@ -383,6 +386,7 @@ def lire_pages(urls):
                 txt = r.read(4_000_000).decode(r.headers.get_content_charset() or 'utf-8', 'replace')
             txt = re.sub(r'(?is)<(script|style|noscript)\b.*?</\1>', ' ', txt)
             t = norme(re.sub(r'<[^>]+>', ' ', txt))
+            m = re.search(r'(?is)<title[^>]*>(.*?)</title>', txt); LUES[u] = (norme(m.group(1))[:90] if m else '', len(t))
             if len(t) < 800 or any(m in t[:3000] for m in ('just a moment', 'enable javascript and cookies', 'access denied', 'verify you are human', 'captcha')):
                 return None, 'page vide ou protégée'   # page d'interception d'un robot : ne prouve rien
             return t, ''
@@ -425,7 +429,8 @@ def check_citations(claims, d=''):
     ok, absents, illisibles = analyser_citations(claims)
     for i, why in illisibles: WARN.append(f'Citation non vérifiable automatiquement ({why}) : affirmation {i}, {claims[i - 1].get("url")}')
     for i, _ in absents:
-        c = claims[i - 1]; WARN.append(f'Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")})')
+        c = claims[i - 1]; ti, n = LUES.get(c.get('url'), ('', 0))
+        WARN.append(f'Extrait introuvable dans la source (information à écarter : tools/ecarter.py) : affirmation {i} « {str(c.get("extrait"))[:70]}… » ({c.get("url")} ; page lue : « {ti} », {n} caractères)')
     return ok
 
 
