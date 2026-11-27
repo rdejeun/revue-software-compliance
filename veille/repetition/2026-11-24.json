@@ -1,7 +1,7 @@
 {
  "date": "2026-11-24",
- "commit": "179a396e9e23222ac8ab9c24b1702d554b0e6a94",
- "le": "2026-11-27T13:42:02Z",
+ "commit": "5183847ab223d0e8940e03ccee5d2b329867807b",
+ "le": "2026-11-27T14:05:23Z",
  "verdict": "rouge",
  "motifs": [
   "12 affirmation(s) en échec (extrait introuvable ou non confirmée) : 3 élément(s) seraient écartés"
@@ -692,5 +692,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 258
+ "duree_s": 1151
 }
