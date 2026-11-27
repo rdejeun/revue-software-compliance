@@ -6,6 +6,10 @@
  "remplissage": 1.0,
  "defauts": [],
  "remarques": [
+  "la Une : colonne justifiée de 4.1 mm (page 1)",
+  "« SBOM, normes et référentiels » : colonne justifiée de 1.6 mm (page 1)",
+  "« SBOM, normes et référentiels » : colonne justifiée de 5.9 mm (page 1)",
+  "« SBOM, normes et référentiels » : colonne justifiée de 4.3 mm (page 2)",
   "« Licences open source et logiciels embarqués » : colonne justifiée de 3.9 mm (page 4)",
   "première page : 2 dessin(s) au lieu d'un seul (README, § 18)"
  ],
@@ -14,10 +18,10 @@
   "choix": [
    [
     "une",
-    "8.8",
+    "8.5",
     "1.3",
     "0",
-    "1"
+    "0"
    ],
    [
     "ag",
@@ -25,23 +29,23 @@
    ],
    [
     "0",
-    "8.6",
-    "1.3",
-    "1",
-    "(1,)",
-    "()"
-   ],
-   [
-    "1",
     "8.8",
-    "1.3",
+    "1.38",
     "0",
     "()",
     "()"
    ],
    [
+    "1",
+    "8.8",
+    "1.34",
+    "1",
+    "()",
+    "()"
+   ],
+   [
     "2",
-    "8.7",
+    "8.5",
     "1.3",
     "0",
     "()",
@@ -77,9 +81,9 @@
     "4"
    ]
   ],
-  "cout": 1325.8,
+  "cout": 1491.1,
   "ess_pt": 11.75,
   "colo_pt": 7.0
  },
- "empreinte": "3f1ffa1cc91d8e9e"
+ "empreinte": "c6e0967d86e445e7"
 }
