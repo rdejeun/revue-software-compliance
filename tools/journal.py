@@ -1080,7 +1080,7 @@ def mineur(t):
     return bool(m and float(m[1]) <= 6) or t.startswith('agenda : interligne')
 
 
-COUT_DEFAUT = float(os.environ.get('JOURNAL_COUT_DEFAUT', 400))   # par défaut bloquant : la page ne proposerait pas le PDF
+COUT_DEFAUT = float(os.environ.get('JOURNAL_COUT_DEFAUT', 2000))   # au-dessus d'une brève omise (COUT_BREVE)   # par défaut bloquant : la page ne proposerait pas le PDF
 
 
 def graves(st):
@@ -1213,7 +1213,7 @@ def placer(ed, M, st, bloc, cible):
         titre_fait, pos, p, y = True, pos2, p + 1, 0.0
 
 
-COUT_BREVE = float(os.environ.get('JOURNAL_COUT_BREVE', '400'))   # coût d'une brève omise (hors doublons de l'agenda)
+COUT_BREVE = float(os.environ.get('JOURNAL_COUT_BREVE', '1000'))   # coût d'une brève omise (hors doublons de l'agenda)
 COUT_ILL = float(os.environ.get('JOURNAL_COUT_ILL', '150'))   # coût d'un dessin écarté
 COUT_PORTION = float(os.environ.get('JOURNAL_COUT_PORTION', '8'))   # coût d'un niveau de portions facultatives retiré, par article
 AIR_MAX = 6 * MM   # blanc ajouté au plus au-dessus d'un titre (justification verticale d'une page)
@@ -1271,7 +1271,7 @@ def bloc_lex(ed, M, n, longs=0):
             'th': M['h']['lex'], 'titre': ('lex',), 'wrap': False}
 
 
-def chercher(ed, M, cible=PAGES, largeur=int(os.environ.get('JOURNAL_LARGEUR', 200)), lex_libre=False, complet=False):
+def chercher(ed, M, cible=PAGES, largeur=int(os.environ.get('JOURNAL_LARGEUR', 500)), lex_libre=False, complet=False):
     """Recherche en faisceau, rubrique par rubrique, des réglages qui composent le journal sans défaut : Une, puis
     chaque rubrique (corps, interligne, portions facultatives, brèves omises), lexique en appoint, corps de l'agenda."""
     une, autres = une_autres(ed)
