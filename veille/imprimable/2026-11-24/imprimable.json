@@ -6,11 +6,12 @@
  "remplissage": 1.0,
  "defauts": [],
  "remarques": [
+  "agenda : interligne augmenté de 0.14 mm dans une colonne pour l'égaler à l'autre",
   "« SBOM, normes et référentiels » : colonne justifiée de 1.4 mm (page 1)",
   "« SBOM, normes et référentiels » : colonne justifiée de 5.7 mm (page 1)",
-  "Lexique : colonne justifiée de 4.9 mm (page 4)"
+  "« France et UE » : colonne justifiée de 4.0 mm (page 3)"
  ],
- "glossaire_mm": 91,
+ "glossaire_mm": 48,
  "etat": {
   "choix": [
    [
@@ -22,7 +23,7 @@
    ],
    [
     "ag",
-    "8.5"
+    "8.0"
    ],
    [
     "0",
@@ -35,14 +36,14 @@
    [
     "1",
     "8.5",
-    "1.3",
-    "2",
-    "(1,)",
+    "1.32",
+    "0",
+    "()",
     "()"
    ],
    [
     "2",
-    "8.5",
+    "8.6",
     "1.32",
     "3",
     "()",
@@ -50,37 +51,37 @@
    ],
    [
     "3",
-    "8.5",
+    "8.7",
     "1.32",
-    "3",
-    "(0, 1)",
+    "2",
+    "()",
     "()"
    ],
    [
     "4",
-    "8.5",
+    "8.7",
     "1.3",
     "1",
-    "(0,)",
-    "('e20.0',)"
+    "(0, 3)",
+    "()"
    ],
    [
     "5",
     "8.5",
-    "1.32",
+    "1.3",
     "1",
     "()",
     "()"
    ],
    [
     "glossaire",
-    "38",
-    "1"
+    "12",
+    "4"
    ]
   ],
-  "cout": 1167.9,
-  "ess_pt": 11.75,
+  "cout": 1984.1,
+  "ess_pt": 11.0,
   "colo_pt": 7.0
  },
- "empreinte": "d0b642d227dd9488"
+ "empreinte": "3f93828e02f38bf7"
 }
