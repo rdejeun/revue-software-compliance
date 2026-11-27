@@ -1,7 +1,7 @@
 {
  "date": "2026-11-24",
- "commit": "a7ae686da0b90a10021babe083e00c2b584dc077",
- "le": "2026-11-27T14:52:20Z",
+ "commit": "ec6ade06747c56c52c407fd65fe9e4107d90be76",
+ "le": "2026-11-27T14:57:33Z",
  "verdict": "rouge",
  "motifs": [
   "11 affirmation(s) en échec (extrait introuvable ou non confirmée) : 2 élément(s) seraient écartés"
@@ -15,6 +15,7 @@
    "bloc 14 (ul), puce 7 (Sécurité de la chaîne d’approvisionnement) : synthèse de 138 mots (170 à 245 visés)",
    "agenda, ligne 3 : synthèse de 98 mots (170 à 245 visés)",
    "Lien non vérifiable (403) : https://dodcio.defense.gov/CMMC/",
+   "Diagnostic, texte lu (6193 car.) : https://www.gov.uk/government/publications/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued/notice-to-exporters-202625-cryptographic-oiels-will-be-discontinued : « …notice to exporters 2026/25: cryptographic oiels will be discontinued - gov.uk cookies on gov.uk we use some essential cookies to make this website work. we'd like to set additional cookies to understand how you use gov.uk, remember your settings and improve government services. we also use cookies set by other sites to help us deliver content from their services. you have accepted additional cookies. you can change your cookie settings at any time. you have rejected additional cookies. you can change your cookie settings at any time. accept additiona… »",
    "Citation non vérifiable automatiquement (PDF) : affirmation 1, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 5, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
    "Citation non vérifiable automatiquement (PDF) : affirmation 9, https://www.boe.es/doue/2026/2288/L00001-00254.pdf",
@@ -648,5 +649,5 @@
   "suffisant": true,
   "raison": ""
  },
- "duree_s": 183
+ "duree_s": 166
 }
