@@ -58,7 +58,9 @@
   "texte": false,
   "legendes": [],
   "candidats": 2,
-  "modele": "recraftv4_1_flash"
+  "modele": "recraftv4_1_flash",
+  "fichier": "illustrations/e14.5.svg",
+  "source": "e14.5-1.svg"
  },
  {
   "id": "e14.0",
